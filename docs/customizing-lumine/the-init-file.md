@@ -38,5 +38,4 @@ Changes to the init file take effect after you reload the window
 (`window:reload`) or restart Lumine.
 
 > The full editor API — every class and method reachable through `atom` — is
-> documented in the [Pulsar API reference](https://docs.pulsar-edit.dev/api/pulsar/latest/),
-> which Lumine's API follows.
+> documented in the [Lumine API reference](https://lumine-code.github.io/api/).
