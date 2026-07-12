@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.132.1-dev",
-  "generatedAt": "2026-07-12T10:48:28.177Z",
+  "generatedAt": "2026-07-12T13:17:02.174Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -18,7 +18,7 @@
           "static": false,
           "async": false,
           "signature": "::onWillDestroy(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke the given callback when the environment is destroying, as\nhappens during window close or reload.\n\n* `callback` {Function} to be called when the environment starts destroying\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
           "line": 469
@@ -502,7 +502,7 @@
           "static": false,
           "async": false,
           "signature": "new BufferedNodeProcess({ command, args, options = {}, stdout, stderr, exit })",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Runs the given Node script by spawning a new child process.\n\n* `options` An {Object} with the following keys:\n  * `command` The {String} path to the JavaScript script to execute.\n  * `args` The {Array} of arguments to pass to the script (optional).\n  * `options` The options {Object} to pass to Node's `ChildProcess.spawn`\n              method (optional).\n  * `stdout` The callback {Function} that receives a single argument which\n             contains the standard output from the command. The callback is\n             called as data is received but it's buffered to ensure only\n             complete lines are passed until the source stream closes. After\n             the source stream has closed all remaining data is sent in a\n             final call (optional).\n  * `stderr` The callback {Function} that receives a single argument which\n             contains the standard error output from the command. The\n             callback is called as data is received but it's buffered to\n             ensure only complete lines are passed until the source stream\n             closes. After the source stream has closed all remaining data\n             is sent in a final call (optional).\n  * `exit` The callback {Function} which receives a single argument\n           containing the exit status (optional).",
           "line": 35
@@ -568,7 +568,7 @@
           "static": false,
           "async": false,
           "signature": "::write(text, metadata)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Write the given text to the clipboard.\n\nThe metadata associated with the text is available by calling\n{::readWithMetadata}.\n\n* `text` The {String} to store.\n* `metadata` (optional) The additional info to associate with the text.",
           "line": 57
@@ -579,7 +579,7 @@
           "static": false,
           "async": false,
           "signature": "::read()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the clipboard.\n\nReturns a {String}.",
           "line": 68
@@ -590,7 +590,7 @@
           "static": false,
           "async": false,
           "signature": "::writeFindText(text)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Write the given text to the macOS find pasteboard",
           "line": 73
@@ -601,7 +601,7 @@
           "static": false,
           "async": false,
           "signature": "::readFindText()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the macOS find pasteboard.\n\nReturns a {String}.",
           "line": 80
@@ -612,7 +612,7 @@
           "static": false,
           "async": false,
           "signature": "::readWithMetadata()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the clipboard and return both the text and the\nassociated metadata.\n\nReturns an {Object} with the following keys:\n* `text` The {String} clipboard text.\n* `metadata` The metadata stored by an earlier call to {::write}.",
           "line": 90
@@ -634,7 +634,7 @@
           "static": true,
           "async": false,
           "signature": ".parse(value)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Parse a {String} or {Object} into a {Color}.\n\n* `value` A {String} such as `'white'`, `#ff00ff`, or\n  `'rgba(255, 15, 60, .75)'` or an {Object} with `red`, `green`, `blue`,\n  and `alpha` properties.\n\nReturns a {Color} or `null` if it cannot be parsed.",
           "line": 13
@@ -645,7 +645,7 @@
           "static": false,
           "async": false,
           "signature": "::toHexString()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Returns a {String} in the form `'#abcdef'`.",
           "line": 85
@@ -656,7 +656,7 @@
           "static": false,
           "async": false,
           "signature": "::toRGBAString()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Returns a {String} in the form `'rgba(25, 50, 75, .9)'`.",
           "line": 92
@@ -678,7 +678,7 @@
           "static": false,
           "async": false,
           "signature": "::add(target, commandName, listener, throwOnInvalidSelector = true)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Add one or more command listeners associated with a selector.\n\n## Arguments: Registering One Command\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the command will be globally associated with all matching\n  elements. The `,` combinator is not currently supported. If you pass a\n  DOM element, the command will be associated with just that element.\n* `commandName` A {String} containing the name of a command you want to\n  handle such as `user:insert-date`.\n* `listener` A listener which handles the event.  Either a {Function} to\n  call when the given command is invoked on an element matching the\n  selector, or an {Object} with a `didDispatch` property which is such a\n  function.\n\n  The function (`listener` itself if it is a function, or the `didDispatch`\n  method if `listener` is an object) will be called with `this` referencing\n  the matching DOM node and the following argument:\n    * `event`: A standard DOM event instance. Call `stopPropagation` or\n      `stopImmediatePropagation` to terminate bubbling early.\n\n  Additionally, `listener` may have additional properties which are returned\n  to those who query using `atom.commands.findCommands`, as well as several\n  meaningful metadata properties:\n    * `displayName`: Overrides any generated `displayName` that would\n      otherwise be generated from the event name.\n    * `description`: Used by consumers to display detailed information about\n      the command.\n    * `hiddenInCommandPalette`: If `true`, this command will not appear in\n      the bundled command palette by default, but can still be shown with.\n      the `Command Palette: Show Hidden Commands` command. This is a good\n      option when you need to register large numbers of commands that don't\n      make sense to be executed from the command palette. Please use this\n      option conservatively, as it could reduce the discoverability of your\n      package's commands.\n\n## Arguments: Registering Multiple Commands\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the commands will be globally associated with all\n  matching elements. The `,` combinator is not currently supported.\n  If you pass a DOM element, the command will be associated with just that\n  element.\n* `commands` An {Object} mapping command names like `user:insert-date` to\n  listener {Function}s.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded command handler(s).",
           "line": 126
@@ -689,7 +689,7 @@
           "static": false,
           "async": false,
           "signature": "::findCommands({ target })",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Find all registered commands matching a query.\n\n* `params` An {Object} containing one or more of the following keys:\n  * `target` A DOM node that is the hypothetical target of a given command.\n\nReturns an {Array} of `CommandDescriptor` {Object}s containing the following keys:\n * `name` The name of the command. For example, `user:insert-date`.\n * `displayName` The display name of the command. For example,\n   `User: Insert Date`.\nAdditional metadata may also be present in the returned descriptor:\n * `description` a {String} describing the function of the command in more\n   detail than the title\n * `tags` an {Array} of {String}s that describe keywords related to the\n   command\n Any additional nonstandard metadata provided when the command was `add`ed\n may also be present in the returned descriptor.",
           "line": 221
@@ -700,7 +700,7 @@
           "static": false,
           "async": false,
           "signature": "::dispatch(target, commandName, detail)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Simulate the dispatch of a command on a DOM node.\n\nThis is useful for passing arguments to a command, as keymaps currently do not\nsupport arguments; for example, add a new command with no arguments that\ndispatches another command with arguments, and map the new command to a key binding.\n\nThis can be useful for testing when you want to simulate the invocation of a\ncommand on a detached DOM node. Otherwise, the DOM node in question needs to\nbe attached to the document so the event bubbles up to the root node to be\nprocessed.\n\n* `target` The DOM node at which to start bubbling the command event.\n* `commandName` {String} indicating the name of the command to dispatch.\n* `detail` Any value that will be assigned to the event's `.detail` property. Pass an object with multiple properties if you need multiple command arguments.",
           "line": 271
@@ -711,7 +711,7 @@
           "static": false,
           "async": false,
           "signature": "::onWillDispatch(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Invoke the given callback before dispatching a command event.\n\n* `callback` {Function} to be called before dispatching each command\n  * `event` The Event that will be dispatched",
           "line": 281
@@ -722,7 +722,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidDispatch(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Invoke the given callback after dispatching a command event.\n\n* `callback` {Function} to be called after dispatching each command\n  * `event` The Event that was dispatched",
           "line": 289
@@ -854,7 +854,7 @@
           "static": false,
           "async": false,
           "signature": "::add(itemsBySelector, throwOnInvalidSelector = true)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\natom.contextMenu.add({\n  'atom-workspace': [{label: 'Help', command: 'application:open-documentation'}]\n  'atom-text-editor': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'}\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments\n\n* `itemsBySelector` An {Object} whose keys are CSS selectors and whose\n  values are {Array}s of item {Object}s containing the following keys:\n  * `label` (optional) A {String} containing the menu item's label.\n  * `command` (optional) A {String} containing the command to invoke on the\n    target of the right click that invoked the context menu.\n  * `enabled` (optional) A {Boolean} indicating whether the menu item\n    should be clickable. Disabled menu items typically appear grayed out.\n    Defaults to `true`.\n  * `submenu` (optional) An {Array} of additional items.\n  * `type` (optional) If you want to create a separator, provide an item\n     with `type: 'separator'` and no other keys.\n  * `visible` (optional) A {Boolean} indicating whether the menu item\n    should appear in the menu. Defaults to `true`.\n  * `created` (optional) A {Function} that is called on the item each time a\n    context menu is created via a right click. You can assign properties to\n   `this` to dynamically compute the command, label, etc. This method is\n   actually called on a clone of the original item template to prevent state\n   from leaking across context menu deployments. Called with the following\n   argument:\n    * `event` The click event that deployed the context menu.\n  * `shouldDisplay` (optional) A {Function} that is called to determine\n    whether to display this item on a given context menu deployment. Called\n    with the following argument:\n    * `event` The click event that deployed the context menu.\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
           "line": 130
@@ -1602,7 +1602,7 @@
           "static": false,
           "async": false,
           "signature": "::add(...deserializers)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Register the given class(es) as deserializers.\n\n* `deserializers` One or more deserializers to register. A deserializer can\n  be any object with a `.name` property and a `.deserialize()` method. A\n  common approach is to register a *constructor* as the deserializer for its\n  instances by adding a `.deserialize()` class method. When your method is\n  called, it will be passed serialized state as the first argument and the\n  {AtomEnvironment} object as the second argument, which is useful if you\n  wish to avoid referencing the `atom` global.",
           "line": 37
@@ -1613,7 +1613,7 @@
           "static": false,
           "async": false,
           "signature": "::deserialize(state)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Deserialize the state and params.\n\n* `state` The state {Object} to deserialize.",
           "line": 58
@@ -2174,7 +2174,7 @@
           "static": false,
           "async": false,
           "signature": "::activate()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Show the dock and focus its active {Pane}.",
           "line": 116
@@ -2185,7 +2185,7 @@
           "static": false,
           "async": false,
           "signature": "::show()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Show the dock without focusing it.",
           "line": 121
@@ -2196,7 +2196,7 @@
           "static": false,
           "async": false,
           "signature": "::hide()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Hide the dock and activate the {WorkspaceCenter} if the dock was\nwas previously focused.",
           "line": 127
@@ -2207,7 +2207,7 @@
           "static": false,
           "async": false,
           "signature": "::toggle()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Toggle the dock's visibility without changing the {Workspace}'s\nactive pane container.",
           "line": 133
@@ -2218,7 +2218,7 @@
           "static": false,
           "async": false,
           "signature": "::isVisible()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Check if the dock is visible.\n\nReturns a {Boolean}.",
           "line": 142
@@ -2856,7 +2856,7 @@
           "static": false,
           "async": false,
           "signature": "::maintainLanguageMode(buffer)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "set a {TextBuffer}'s language mode based on its path and content,\nand continue to update its language mode as grammars are added or updated, or\nthe buffer's file path changes.\n\n* `buffer` The {TextBuffer} whose language mode will be maintained.\n\nReturns a {Disposable} that can be used to stop updating the buffer's\nlanguage mode.",
           "line": 86
@@ -2867,7 +2867,7 @@
           "static": false,
           "async": false,
           "signature": "::assignLanguageMode(buffer, languageId)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Force a {TextBuffer} to use a different grammar than the\none that would otherwise be selected for it.\n\n* `buffer` The {TextBuffer} whose grammar will be set.\n* `languageId` The {String} id of the desired language.\n\nReturns a {Boolean} that indicates whether the language was successfully\nfound.",
           "line": 130
@@ -2878,7 +2878,7 @@
           "static": false,
           "async": false,
           "signature": "::assignGrammar(buffer, grammar)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Force a {TextBuffer} to use a different grammar than the\none that would otherwise be selected for it.\n\n* `buffer` The {TextBuffer} whose grammar will be set.\n* `grammar` The desired {Grammar}.\n\nReturns a {Boolean} that indicates whether the assignment was successful",
           "line": 158
@@ -2889,7 +2889,7 @@
           "static": false,
           "async": false,
           "signature": "::getAssignedLanguageId(buffer)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Get the `languageId` that has been explicitly assigned to\nthe given buffer, if any.\n\nReturns a {String} id of the language",
           "line": 173
@@ -2900,7 +2900,7 @@
           "static": false,
           "async": false,
           "signature": "::autoAssignLanguageMode(buffer)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Remove any language mode override that has been set for the\ngiven {TextBuffer}. This will assign to the buffer the best language\nmode available.\n\n* `buffer` The {TextBuffer}.",
           "line": 182
@@ -2911,7 +2911,7 @@
           "static": false,
           "async": false,
           "signature": "::selectGrammar(filePath, fileContents)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Select a grammar for the given file path and file contents.\n\nThis picks the best match by checking the file path and contents against\neach grammar.\n\n* `filePath` A {String} file path.\n* `fileContents` A {String} of text for the file path.\n\nReturns a {Grammar}, never null.",
           "line": 216
@@ -2922,7 +2922,7 @@
           "static": false,
           "async": false,
           "signature": "::getGrammarScore(grammar, filePath, contents)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Evaluates a grammar's fitness for use for a certain file.\n\nBy analyzing the file's extension and contents — plus other criteria, like\nthe user's configuration — Lumine will assign a score to this grammar that\nrepresents how suitable it is for the given file.\n\nUltimately, whichever grammar scores highest for this file will be used\nto highlight it.\n\n* `grammar`: A given {Grammar}.\n* `filePath`: A {String} path to the file.\n* `contents`: The {String} contents of the file.\n\nReturns a {Number}.",
           "line": 259
@@ -2933,7 +2933,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidAddGrammar(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke the given callback when a grammar is added to the registry.\n\n* `callback` {Function} to call when a grammar is added.\n  * `grammar` {Grammar} that was added.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
           "line": 484
@@ -2944,7 +2944,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidUpdateGrammar(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke the given callback when a grammar is updated due to a grammar\nit depends on being added or removed from the registry.\n\n* `callback` {Function} to call when a grammar is updated.\n  * `grammar` {Grammar} that was updated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
           "line": 500
@@ -2955,7 +2955,7 @@
           "static": false,
           "async": false,
           "signature": "::addInjectionPoint(grammarId, injectionPoint)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Specify a type of syntax node that may embed other languages.\n\n* `grammarId` The {String} id of the parent language\n* `injectionPoint` An {Object} with the following keys:\n  * `type` The {String} type of syntax node that may embed other languages\n  * `language` A {Function} that is called with syntax nodes of the specified `type` and\n    returns a {String} that will be tested against other grammars' `injectionRegex` in\n    order to determine what language should be embedded.\n  * `content` A {Function} that is called with syntax nodes of the specified `type` and\n    returns another syntax node or array of syntax nodes that contain the embedded source\n    code. Depending on the settings below, the content node(s) will be converted into a\n    series of buffer ranges; when this injection is parsed, anything not inside those\n    ranges will be invisible to the parser.\n  * `includeChildren` A {Boolean} that indicates whether the children (and, in fact, all\n    descendants) of the nodes returned by `content` should be included in the injection's\n    buffer range(s). Defaults to `false`.\n  * `newlinesBetween` A {Boolean} that indicates whether each node returned from `content`\n    should be separated by at least one newline character so that the parser understands\n    them to be logically separated. Embedded languages like ERB and EJS need this. Defaults\n    to {false}.\n  * `languageScope` A {String} or {Function} that returns the desired scope name to apply\n    to each of the injection's buffer ranges. Defaults to the injected grammar's own language\n    scope — e.g., `source.js` for the JavaScript grammar. Set to `null` if the language scope\n    should be omitted. If a {Function}, will be called with the grammar instance as an\n    argument, and should return either a {String} or `null`.\n  * `coverShallowerScopes` A {Boolean} that indicates whether this injection should prevent\n    shallower layers (including the layer that created this injection) from adding scopes\n    within any of this injection's buffer ranges. Useful for injecting languages into\n    themselves — for instance, injecting Rust into Rust macro definitions.\n  * `includeAdjacentWhitespace` A {Boolean} that indicates whether the injection's buffer\n    range(s) should include whitespace that occurs between two adjacent ranges. Defaults to\n    `false`. When `true`, if two consecutive injection buffer ranges are separated _only_ by\n    whitespace, those ranges will be consolidated into one range along with that whitespace.",
           "line": 543
@@ -2966,7 +2966,7 @@
           "static": false,
           "async": false,
           "signature": "::loadGrammar(grammarPath, callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously and add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when loaded with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.",
           "line": 624
@@ -2977,7 +2977,7 @@
           "static": false,
           "async": false,
           "signature": "::loadGrammarSync(grammarPath)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously and add it to this registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
           "line": 637
@@ -2988,7 +2988,7 @@
           "static": false,
           "async": false,
           "signature": "::readGrammar(grammarPath, callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when read with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.\n\nReturns undefined.",
           "line": 651
@@ -2999,7 +2999,7 @@
           "static": false,
           "async": false,
           "signature": "::readGrammarSync(grammarPath)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
           "line": 668
@@ -3010,7 +3010,7 @@
           "static": false,
           "async": false,
           "signature": "::getGrammars(params)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Get all the grammars in this registry.\n\n* `params` (optional) {Object}\n  * `includeTreeSitter` (optional) {Boolean} Set to include\n    [Tree-sitter](https://github.blog/2018-10-31-atoms-new-parsing-system/) grammars\n\nReturns a non-empty {Array} of {Grammar} instances.",
           "line": 690
@@ -3120,7 +3120,7 @@
           "static": false,
           "async": false,
           "signature": "::getProjects()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Obtain a list of previously opened projects.\n\nReturns an {Array} of {HistoryProject} objects, most recent first.",
           "line": 31
@@ -3131,7 +3131,7 @@
           "static": false,
           "async": true,
           "signature": "::clearProjects()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Clear all projects from the history.\n\nNote: This is not a privacy function - other traces will still exist,\ne.g. window state.\n\nReturn a {Promise} that resolves when the history has been successfully\ncleared.",
           "line": 42
@@ -3142,7 +3142,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidChangeProjects(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Invoke the given callback when the list of projects changes.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
           "line": 53
@@ -3164,7 +3164,7 @@
           "static": false,
           "async": false,
           "signature": "::destroy()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Destroys the decoration.",
           "line": 21
@@ -3175,7 +3175,7 @@
           "static": false,
           "async": false,
           "signature": "::isDestroyed()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Determine whether this decoration is destroyed.\n\nReturns a {Boolean}.",
           "line": 34
@@ -3186,7 +3186,7 @@
           "static": false,
           "async": false,
           "signature": "::getProperties()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Get this decoration's properties.\n\nReturns an {Object}.",
           "line": 49
@@ -3197,7 +3197,7 @@
           "static": false,
           "async": false,
           "signature": "::setProperties(newProperties)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Set this decoration's properties.\n\n* `newProperties` See {TextEditor::decorateMarker} for more information on\n  the properties. The `type` of `gutter` and `overlay` are not supported on\n  layer decorations.",
           "line": 58
@@ -3208,7 +3208,7 @@
           "static": false,
           "async": false,
           "signature": "::setPropertiesForMarker(marker, properties)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Override the decoration properties for a specific marker.\n\n* `marker` The {DisplayMarker} or {Marker} for which to override\n  properties.\n* `properties` An {Object} containing properties to apply to this marker.\n  Pass `null` to clear the override.",
           "line": 72
@@ -3395,7 +3395,7 @@
           "static": false,
           "async": false,
           "signature": "::add(items)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Adds the given items to the application menu.\n\n## Examples\n```javascript\n  atom.menu.add([\n    {\n      label: 'Hello'\n      submenu : [{label: 'World!', id: 'World!', command: 'hello:world'}]\n    }\n  ]);\n```\n\n* `items` An {Array} of menu item {Object}s containing the keys:\n  * `label` The {String} menu label.\n  * `submenu` An optional {Array} of sub menu items.\n  * `command` An optional {String} command to trigger when the item is\n    clicked.\n\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
           "line": 103
@@ -3406,7 +3406,7 @@
           "static": false,
           "async": false,
           "signature": "::update()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Refreshes the currently visible menu.",
           "line": 174
@@ -4638,7 +4638,7 @@
           "static": false,
           "async": false,
           "signature": "::getStartPromise()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Return a {Promise} that will resolve when the underlying native\nwatcher is ready to begin sending events. When testing filesystem\nwatchers, it's important to await this promise before making filesystem\nchanges that you intend to assert about because there will be a delay\nbetween the instantiation of the watcher and the activation of the\nunderlying OS resources that feed its events.\n\nPathWatchers acquired through `watchPath` are already started.\n\n```js\nconst {watchPath} = require('atom')\nconst ROOT = path.join(__dirname, 'fixtures')\nconst FILE = path.join(ROOT, 'filename.txt')\n\ndescribe('something', function () {\n  it(\"doesn't miss events\", async function () {\n    const watcher = watchPath(ROOT, {}, events => {})\n    await watcher.getStartPromise()\n    fs.writeFile(FILE, 'contents\\n', err => {\n      // The watcher is listening and the event should be\n      // received asynchronously\n    }\n  })\n})\n```",
           "line": 525
@@ -4649,7 +4649,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidError(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke a {Function} when any errors related to this watcher are\nreported.\n\n* `callback` {Function} to be called when an error occurs.\n  * `err` An {Error} describing the failure condition.\n\nReturns a {Disposable}.",
           "line": 564
@@ -4660,7 +4660,7 @@
           "static": false,
           "async": false,
           "signature": "::dispose()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Unsubscribe all subscribers from filesystem events. Native\nresources will be released asynchronously, but this watcher will stop\nbroadcasting events immediately.",
           "line": 715
@@ -4682,7 +4682,7 @@
           "static": true,
           "async": false,
           "signature": ".fromObject(object, copy)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Convert any point-compatible object to a {Point}.\n\n* `object` This can be an object that's already a {Point}, in which case\n  it's simply returned; or an array containing two {Number}s representing\n  the row and column.\n* `copy` An optional boolean indicating whether to force the copying of\n  objects that are already points.\n\nReturns: A {Point} based on the given object.",
           "line": 32
@@ -6233,7 +6233,7 @@
           "static": true,
           "async": false,
           "signature": ".once(taskPath, ...args)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "A helper method to easily launch and run a task once.\n\n* `taskPath` The {String} path to the CoffeeScript/JavaScript file which\n  exports a single {Function} to execute.\n* `args` The arguments to pass to the exported function.\nReturns the created {Task}.",
           "line": 50
@@ -6244,7 +6244,7 @@
           "static": false,
           "async": false,
           "signature": "new Task(taskPath)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Creates a task. You should probably use {.once}\n\n* `taskPath` The {String} path to the CoffeeScript/JavaScript file that\n  exports a single {Function} to execute.",
           "line": 69
@@ -6255,7 +6255,7 @@
           "static": false,
           "async": false,
           "signature": "::start(...args)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Starts the task.\n\nThrows an error if this task has already been terminated or if sending a\nmessage to the child process fails.\n\n* `args` The arguments to pass to the function exported by this task's script.\n* `callback` (optional) A {Function} to call when the task completes.",
           "line": 129
@@ -6266,7 +6266,7 @@
           "static": false,
           "async": false,
           "signature": "::send(message)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Send message to the task.\n\nThrows an error if this task has already been terminated or if sending a\nmessage to the child process fails.\n\n* `message` The message to send to the task.",
           "line": 152
@@ -6277,7 +6277,7 @@
           "static": false,
           "async": false,
           "signature": "::on(eventName, callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Call a function when an event is emitted by the child process\n\n* `eventName` The {String} name of the event to handle.\n* `callback` The {Function} to call when the event is emitted.\n\nReturns a {Disposable} that can be used to stop listening for the event.",
           "line": 167
@@ -6288,7 +6288,7 @@
           "static": false,
           "async": false,
           "signature": "::terminate()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Forcefully stop the running task.\n\nNo more events are emitted once this method is called.\n\nReturns a {Boolean} indicating whether the task was terminated.",
           "line": 183
@@ -6299,7 +6299,7 @@
           "static": false,
           "async": false,
           "signature": "::cancel()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Public",
           "description": "Cancel the running task and emit an event if it was canceled.\n\nReturns a {Boolean} indicating whether the task was terminated.",
           "line": 198
@@ -10368,7 +10368,7 @@
           "static": false,
           "async": false,
           "signature": "::add(target, options)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Add a tooltip to the given element.\n\n* `target` An `HTMLElement`\n* `options` An object with one or more of the following options:\n  * `title` A {String} or {Function} to use for the text in the tip. If\n    a function is passed, `this` will be set to the `target` element. This\n    option is mutually exclusive with the `item` option.\n  * `html` A {Boolean} affecting the interpretation of the `title` option.\n    If `true` (the default), the `title` string will be interpreted as HTML.\n    Otherwise it will be interpreted as plain text.\n  * `item` A view (object with an `.element` property) or a DOM element\n    containing custom content for the tooltip. This option is mutually\n    exclusive with the `title` option.\n  * `class` A {String} with a class to apply to the tooltip element to\n    enable custom styling.\n  * `placement` A {String} or {Function} returning a string to indicate\n    the position of the tooltip relative to `element`. Can be `'top'`,\n    `'bottom'`, `'left'`, `'right'`, or `'auto'`. When `'auto'` is\n    specified, it will dynamically reorient the tooltip. For example, if\n    placement is `'auto left'`, the tooltip will display to the left when\n    possible, otherwise it will display right.\n    When a function is used to determine the placement, it is called with\n    the tooltip DOM node as its first argument and the triggering element\n    DOM node as its second. The `this` context is set to the tooltip\n    instance.\n  * `trigger` A {String} indicating how the tooltip should be displayed.\n    Choose from one of the following options:\n      * `'hover'` Show the tooltip when the mouse hovers over the element.\n        This is the default.\n      * `'click'` Show the tooltip when the element is clicked. The tooltip\n        will be hidden after clicking the element again or anywhere else\n        outside of the tooltip itself.\n      * `'focus'` Show the tooltip when the element is focused.\n      * `'manual'` Show the tooltip immediately and only hide it when the\n        returned disposable is disposed.\n  * `delay` An object specifying the show and hide delay in milliseconds.\n    Defaults to `{show: 1000, hide: 100}` if the `trigger` is `hover` and\n    otherwise defaults to `0` for both values.\n  * `keyBindingCommand` A {String} containing a command name. If you specify\n    this option and a key binding exists that matches the command, it will\n    be appended to the title or rendered alone if no title is specified.\n  * `keyBindingTarget` An `HTMLElement` on which to look up the key binding.\n    If this option is not supplied, the first of all matching key bindings\n    for the given command will be rendered.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\ntooltip.",
           "line": 113
@@ -10379,7 +10379,7 @@
           "static": false,
           "async": false,
           "signature": "::findTooltips(target)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Find the tooltips that have been applied to the given element.\n\n* `target` The `HTMLElement` to find tooltips on.\n\nReturns an {Array} of `Tooltip` objects that match the `target`.",
           "line": 189
@@ -10401,7 +10401,7 @@
           "static": false,
           "async": false,
           "signature": "::addViewProvider(modelConstructor, createView)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Add a provider that will be used to construct views in the\nworkspace's view layer based on model objects in its model layer.\n\n## Examples\n\nText editors are divided into a model and a view layer, so when you interact\nwith methods like `atom.workspace.getActiveTextEditor()` you're only going\nto get the model object. We display text editors on screen by teaching the\nworkspace what view constructor it should use to represent them:\n\n```coffee\natom.views.addViewProvider TextEditor, (textEditor) ->\n  textEditorElement = new TextEditorElement\n  textEditorElement.initialize(textEditor)\n  textEditorElement\n```\n\n* `modelConstructor` (optional) Constructor {Function} for your model. If\n  a constructor is given, the `createView` function will only be used\n  for model objects inheriting from that constructor. Otherwise, it will\n  will be called for any object.\n* `createView` Factory {Function} that is passed an instance of your model\n  and must return a subclass of `HTMLElement` or `undefined`. If it returns\n  `undefined`, then the registry will continue to search for other view\n  providers.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded provider.",
           "line": 68
@@ -10412,7 +10412,7 @@
           "static": false,
           "async": false,
           "signature": "::getView(object)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Essential",
           "description": "Get the view associated with an object in the workspace.\n\nIf you're just *using* the workspace, you shouldn't need to access the view\nlayer, but view layer access may be necessary if you want to perform DOM\nmanipulation that isn't supported via the model API.\n\n## View Resolution Algorithm\n\nThe view associated with the object is resolved using the following\nsequence\n\n 1. Is the object an instance of `HTMLElement`? If true, return the object.\n 2. Does the object have a method named `getElement` that returns an\n    instance of `HTMLElement`? If true, return that value.\n 3. Does the object have a property named `element` with a value which is\n    an instance of `HTMLElement`? If true, return the property value.\n 4. Is the object a jQuery object, indicated by the presence of a `jquery`\n    property? If true, return the root DOM element (i.e. `object[0]`).\n 5. Has a view provider been registered for the object? If true, use the\n    provider to create a view associated with the object, and return the\n    view.\n\nIf no associated view is returned by the sequence an error is thrown.\n\nReturns a DOM element.",
           "line": 126
@@ -10434,7 +10434,7 @@
           "static": false,
           "async": false,
           "signature": "::getCommentDelimiters()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Retrieve all known comment delimiters for this grammar.\n\nSome grammars may have different delimiters for different parts of a file\n(such as JSX within JavaScript). In these cases, you might want to call\n{TextEditor::getCommentDelimitersForBufferPosition} with a `{Point}` in the\nbuffer.\n\nReturns an {Object} with the following properties:\n\n* `line`: If present, a {String} representing a line comment delimiter.\n  (If `undefined`, there is no known line comment delimiter for the given\n  buffer position.)\n* `block`: If present, a two-item {Array} containing {String}s\n  representing the starting and ending block comment delimiters. (If\n  `undefined`, there are no known block comment delimiters for the given\n  buffer position.)",
           "line": 176
@@ -10445,7 +10445,7 @@
           "static": false,
           "async": false,
           "signature": "::getLanguageSync()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Retrieves the Tree-sitter `Language` instance associated with\nthis grammar _if_ it has already been loaded.\n\nLanguage instances cannot be retrieved synchronously, so this will return\n`undefined` if the instance has not yet been loaded. In that case, going\nasync will be unavoidable, and you’ll need to call {::getLanguage}.",
           "line": 210
@@ -10456,7 +10456,7 @@
           "static": false,
           "async": true,
           "signature": "::getLanguage()",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Retrieves the Tree-sitter language instance associated with this\ngrammar.\n\nReturns a {Promise} that will resolve with a Tree-sitter `Language`\ninstance. Once it resolves, the grammar is ready to perform parsing and to\nexecute query captures.",
           "line": 220
@@ -10467,7 +10467,7 @@
           "static": false,
           "async": false,
           "signature": "::getQuery(queryType)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Given a kind of query, retrieves a Tree-sitter `Query` object\nin async fashion.\n\n* `queryType` A {String} describing the query type: typically one of\n    `highlightsQuery`, `foldsQuery`, `tagsQuery`, or `indentsQuery`,\n    but could be any other custom type.\n\nReturns a {Promise} that resolves to a Tree-sitter `Query` object.",
           "line": 349
@@ -10478,7 +10478,7 @@
           "static": false,
           "async": true,
           "signature": "::createQuery(queryContents)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Creates an arbitrary query from this grammar. Package authors\nand end users can use queries for whatever purposes they like.\n\n* `queryContents` A {String} representing the entire contents of a query\n    file. Can contain any number of queries.\n\nReturns a {Promise} that will resolve to a Tree-sitter `Query` object.",
           "line": 395
@@ -10489,7 +10489,7 @@
           "static": false,
           "async": false,
           "signature": "::createQuerySync(queryContents)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Creates an arbitrary query from this grammar. Package authors\nand end users can use queries for whatever purposes they like.\n\nSynchronous; use only when you can be certain that the tree-sitter\nlanguage has already loaded.\n\n* `queryContents` A {String} representing the entire contents of a query\n    file. Can contain any number of queries.\n\nReturns a Tree-sitter `Query` object.",
           "line": 410
@@ -10500,7 +10500,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidChangeQuery(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when any of this grammar's queries change.\n\nA grammar's queries typically will not change after initial load. When\nthey do, it may mean:\n\n- The user is editing query files in dev mode; Lumine will automatically\n  reload queries in dev mode after changes.\n- A community package is altering a query file via an API like\n  {::setQueryForTest}.\n\n* `callback` {Function}\n  * `data` {Object}\n    * `filePath` {String} The path to the query file on disk.\n    * `queryType` {String} The type of query file, as denoted by its\n        configuration key in the grammar file. Usually one of\n        `highlightsQuery`, `indentsQuery`, `foldsQuery`, or `tagsQuery`.",
           "line": 473
@@ -10511,7 +10511,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidChangeQueryFile(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when any of this grammar's queries change.\n\nAlias of {::onDidChangeQuery}.",
           "line": 480
@@ -10522,7 +10522,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidLoadQueryFiles(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when this grammar first loads its query files.\n\nSince a grammar may not load immediately on startup, this method makes it\neasier to hook into the query life cycle in order to modify or augment a\ngrammar's default queries.\n\n* callback A function with the following argument:\n  * grammar The {WASMTreeSitterGrammar} whose queries have loaded.",
           "line": 492
@@ -10533,7 +10533,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidAddInjectionPoint(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when an injection point is added to this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point added to the grammar. See\n    {WASMTreeSitterGrammar::addInjectionPoint}.",
           "line": 502
@@ -10544,7 +10544,7 @@
           "static": false,
           "async": false,
           "signature": "::onDidRemoveInjectionPoint(callback)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when an injection point is removed from this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point removed from this grammar. See\n    {WASMTreeSitterGrammar::addInjectionPoint}.",
           "line": 512
@@ -10555,7 +10555,7 @@
           "static": false,
           "async": false,
           "signature": "::addInjectionPoint(injectionPoint)",
-          "category": "API documentation",
+          "category": "Methods",
           "visibility": "Extended",
           "description": "Define a set of rules for when this grammar should delegate to a\ndifferent grammar for certain regions of a buffer. Examples:\n\n* embedding one language inside another (e.g., JavaScript in HTML)\n* tokenizing certain structures with greater detail (e.g., regular\n  expressions in most languages)\n* highlighting non-standard augmentations to a language (e.g., JSDoc\n  comments in JavaScript)\n\nThis differs from TextMate-style injections, which operate at the scope\nlevel and are currently incompatible with Tree-sitter grammars.\n\nYou should typically not call this method directly; instead, call\n{GrammarRegistry::addInjectionPoint} and pass a given grammar’s root\nlanguage scope as the first argument.\n\nNOTE: Packages will call {::addInjectionPoint} with a given scope name,\nand that call will be delegated to any Tree-sitter grammars that match\nthat scope name, whether they're legacy Tree-sitter or modern Tree-sitter.\nBut modern Tree-sitter grammars cannot be injected into legacy Tree-sitter\ngrammars, and vice versa.\n\n* `injectionPoint` The options for the injection point:\n  * `type` A {String} describing the type of node to inject into.\n  * `language` A {Function} that should return a string describing the\n    language that should be injected into this area. The string should be a\n    short, unambiguous description of the language; it will be tested\n    against other grammars’ `injectionRegex` properties. Receives one\n    parameter:\n    * `node` A Tree-sitter node.\n  * `content` A {Function} that should return the node (or nodes) that\n    will actually be injected into. Usually this will be the same node\n    that was given, but could also be a specific child or descendant of\n    that node.\n  * `includeChildren` (optional) {Boolean} controlling whether the\n    injection range should include the ranges of the content node’s\n    children. Defaults to `false`, meaning that the range of each of this\n    node's children will be \"subtracted\" from the injection range, and the\n    remainder will be parsed as if those ranges of the buffer do not\n    exist.\n  * `includeAdjacentWhitespace` (optional) {Boolean} controlling whether\n    the injection range should include whitespace that occurs between\n    content nodes. Defaults to `false`. When `true`, if two injection\n    ranges are separated from one another by only whitespace, that\n    whitespace will be added to the injection range, and the ranges will\n    be consolidated.\n  * `newlinesBetween` (optional) {Boolean} controlling whether the\n    injection range should include any newline characters that may exist\n    in between injection ranges. Defaults to `false`. Grammars like ERB\n    and EJS need this so that they do not interpret two different\n    embedded code sections on different lines as occurring on the same\n    line.\n  * `coverShallowerScopes` (optional) {Boolean} controlling whether the\n    injection should prevent the parent grammar (and any of its\n    ancestors) from applying scope boundaries within its injection\n    range(s). Defaults to `false`.\n  * `languageScope` (optional) A value that determines what scope, if\n    any, is added to the injection as its “base” scope name. Can be a\n    {String}, {null}, or a {Function} that returns either of these values.\n    The base language scope that should be used by this injection.\n    Defaults to the grammar's own `scopeName` property. Set this to a\n    string to override the default scope name, or `null` to omit a base\n    scope name altogether. Set this to a function if the scope name to be\n    applied varies based on the grammar; the function will be called with\n    a grammar instance as its only argument.",
           "line": 599

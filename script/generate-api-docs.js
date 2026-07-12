@@ -6,13 +6,24 @@ const parser = require("@babel/parser");
 const MarkdownIt = require("markdown-it");
 
 const siteRoot = path.resolve(__dirname, "..");
-const sourceManifestPath = path.resolve(process.argv[2] || path.join(siteRoot, "api-sources.json"));
+const sourceManifestPath = path.resolve(
+  process.argv[2] || path.join(siteRoot, "api-sources.json"),
+);
 const outputRoot = path.resolve(process.argv[3] || path.join(siteRoot, "api"));
 const sourceManifest = require(sourceManifestPath);
-const lumineSource = sourceManifest.sources.find(({ packageMetadata }) => packageMetadata);
-if (!lumineSource) throw new Error("One API source must provide a packageMetadata path.");
-const packageMetadata = require(path.resolve(siteRoot, lumineSource.packageMetadata));
-const markdown = new MarkdownIt({ html: true, linkify: true, typographer: true });
+const lumineSource = sourceManifest.sources.find(
+  ({ packageMetadata }) => packageMetadata,
+);
+if (!lumineSource)
+  throw new Error("One API source must provide a packageMetadata path.");
+const packageMetadata = require(
+  path.resolve(siteRoot, lumineSource.packageMetadata),
+);
+const markdown = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+});
 
 function walk(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -27,13 +38,19 @@ function visit(node, ancestors, callback) {
   callback(node, ancestors.at(-1), ancestors);
   for (const [key, value] of Object.entries(node)) {
     if (
-      ["loc", "start", "end", "leadingComments", "trailingComments", "innerComments"].includes(
-        key,
-      )
+      [
+        "loc",
+        "start",
+        "end",
+        "leadingComments",
+        "trailingComments",
+        "innerComments",
+      ].includes(key)
     ) {
       continue;
     }
-    if (Array.isArray(value)) value.forEach((child) => visit(child, [...ancestors, node], callback));
+    if (Array.isArray(value))
+      value.forEach((child) => visit(child, [...ancestors, node], callback));
     else visit(value, [...ancestors, node], callback);
   }
 }
@@ -68,7 +85,11 @@ function commentsFor(node, ancestors = []) {
 }
 
 function legacyDoc(raw) {
-  const matches = [...raw.matchAll(/(?:^|\n)(Essential|Extended|Public|Private|Experimental):\s*/g)];
+  const matches = [
+    ...raw.matchAll(
+      /(?:^|\n)(Essential|Extended|Public|Private|Experimental):\s*/g,
+    ),
+  ];
   if (!matches.length) return null;
   const match = matches[matches.length - 1];
   const visibility = match[1];
@@ -85,13 +106,24 @@ function jsdocTag(raw, tag) {
 }
 
 function jsdocDescription(raw) {
-  const explicit = raw.match(/(?:^|\n)@(classdesc|desc)\s+([\s\S]*?)(?=\n@\w+|$)/);
+  const explicit = raw.match(
+    /(?:^|\n)@(classdesc|desc)\s+([\s\S]*?)(?=\n@\w+|$)/,
+  );
   if (explicit) return explicit[2].trim();
-  return raw.slice(0, raw.search(/(?:^|\n)@\w+/) < 0 ? raw.length : raw.search(/(?:^|\n)@\w+/)).trim();
+  return raw
+    .slice(
+      0,
+      raw.search(/(?:^|\n)@\w+/) < 0 ? raw.length : raw.search(/(?:^|\n)@\w+/),
+    )
+    .trim();
 }
 
 function jsdocDoc(raw) {
-  if (!/(?:^|\n)@(?:class|classdesc|desc|param|returns?|category|function|public)\b/.test(raw)) {
+  if (
+    !/(?:^|\n)@(?:class|classdesc|desc|param|returns?|category|function|public)\b/.test(
+      raw,
+    )
+  ) {
     return null;
   }
   if (/(?:^|\n)@private\b/.test(raw)) return null;
@@ -100,17 +132,27 @@ function jsdocDoc(raw) {
   const description = jsdocDescription(raw);
   if (description) parts.push(description);
 
-  const params = [...raw.matchAll(/(?:^|\n)@param\s+(?:\{([^}]+)\}\s*)?([^\s-]+)\s*(?:-\s*)?([^\n]*)/g)];
+  const params = [
+    ...raw.matchAll(
+      /(?:^|\n)@param\s+(?:\{([^}]+)\}\s*)?([^\s-]+)\s*(?:-\s*)?([^\n]*)/g,
+    ),
+  ];
   if (params.length) {
     parts.push(
       params
-        .map((match) => `* \`${match[2]}\`${match[1] ? ` {${match[1]}}` : ""} ${match[3]}`)
+        .map(
+          (match) =>
+            `* \`${match[2]}\`${match[1] ? ` {${match[1]}}` : ""} ${match[3]}`,
+        )
         .join("\n"),
     );
   }
 
   const returns = raw.match(/(?:^|\n)@returns?\s+(?:\{([^}]+)\}\s*)?([^\n]*)/);
-  if (returns) parts.push(`Returns${returns[1] ? ` {${returns[1]}}` : ""}${returns[2] ? ` ${returns[2]}` : ""}.`);
+  if (returns)
+    parts.push(
+      `Returns${returns[1] ? ` {${returns[1]}}` : ""}${returns[2] ? ` ${returns[2]}` : ""}.`,
+    );
 
   return {
     visibility: "Public",
@@ -125,14 +167,17 @@ function parseDoc(comments) {
   const doc = legacyDoc(raw) || jsdocDoc(raw);
   if (!doc) return null;
   const sections = [...raw.matchAll(/(?:^|\n)Section:\s*([^\n]+)/g)];
-  if (!doc.category && sections.length) doc.category = sections[sections.length - 1][1].trim();
+  if (!doc.category && sections.length)
+    doc.category = sections[sections.length - 1][1].trim();
   return doc;
 }
 
 function propertyName(node) {
   if (!node) return "unknown";
-  if (node.type === "Identifier" || node.type === "PrivateName") return node.name || node.id?.name;
-  if (node.type === "StringLiteral" || node.type === "NumericLiteral") return String(node.value);
+  if (node.type === "Identifier" || node.type === "PrivateName")
+    return node.name || node.id?.name;
+  if (node.type === "StringLiteral" || node.type === "NumericLiteral")
+    return String(node.value);
   return "computed";
 }
 
@@ -145,7 +190,9 @@ function classNameFromFile(filePath) {
 }
 
 function signatureFor(node, source, className) {
-  const params = (node.params || []).map((param) => source.slice(param.start, param.end)).join(", ");
+  const params = (node.params || [])
+    .map((param) => source.slice(param.start, param.end))
+    .join(", ");
   if (node.kind === "constructor") return `new ${className}(${params})`;
   const name = propertyName(node.key);
   const prefix = node.static ? "." : "::";
@@ -161,7 +208,12 @@ function parseFile(filePath, sourceInput) {
     ast = parser.parse(source, {
       sourceType: "unambiguous",
       errorRecovery: true,
-      plugins: ["classProperties", "classPrivateProperties", "classPrivateMethods", "jsx"],
+      plugins: [
+        "classProperties",
+        "classPrivateProperties",
+        "classPrivateMethods",
+        "jsx",
+      ],
     });
   } catch (error) {
     throw new Error(`Unable to parse ${filePath}: ${error.message}`, {
@@ -177,10 +229,11 @@ function parseFile(filePath, sourceInput) {
       if (!doc) return;
       const name = node.id?.name || classNameFromFile(filePath);
       const members = [];
-      let category = "API documentation";
+      let category = "Methods";
 
       for (const member of node.body.body) {
-        if (!["ClassMethod", "ClassPrivateMethod"].includes(member.type)) continue;
+        if (!["ClassMethod", "ClassPrivateMethod"].includes(member.type))
+          continue;
         const rawComments = member.leadingComments || [];
         const raw = commentText(rawComments);
         const sections = [...raw.matchAll(/(?:^|\n)Section:\s*([^\n]+)/g)];
@@ -188,7 +241,10 @@ function parseFile(filePath, sourceInput) {
         const memberDoc = parseDoc(rawComments);
         if (!memberDoc) continue;
         if (memberDoc.category) category = memberDoc.category;
-        const memberName = member.kind === "constructor" ? "constructor" : propertyName(member.key);
+        const memberName =
+          member.kind === "constructor"
+            ? "constructor"
+            : propertyName(member.key);
         members.push({
           name: memberName,
           kind: member.kind,
@@ -217,7 +273,9 @@ function parseFile(filePath, sourceInput) {
     if (node.type === "FunctionDeclaration" && parent?.type === "Program") {
       const doc = parseDoc(node.leadingComments || []);
       if (!doc) return;
-      const params = node.params.map((param) => source.slice(param.start, param.end)).join(", ");
+      const params = node.params
+        .map((param) => source.slice(param.start, param.end))
+        .join(", ");
       functions.push({
         name: node.id.name,
         signature: `${node.id.name}(${params})`,
@@ -255,12 +313,15 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
       const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
       return memberAnchors.has(id) ? `[${label}](#${id})` : `\`${label}\``;
     }
-    if (classNames.has(normalized)) return `[${label}](#class-${slug(normalized)})`;
+    if (classNames.has(normalized))
+      return `[${label}](#class-${slug(normalized)})`;
     return `\`${label}\``;
   };
 
   return text
-    .replace(/\[([^\]]+)\]\{([^}]+)\}/g, (_all, label, target) => linkFor(target, label))
+    .replace(/\[([^\]]+)\]\{([^}]+)\}/g, (_all, label, target) =>
+      linkFor(target, label),
+    )
     .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_all, target, label) =>
       linkFor(target, label || target),
     )
@@ -268,7 +329,9 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
 }
 
 function renderDoc(text, classNames, memberAnchors, currentClass) {
-  return markdown.render(linkReferences(text, classNames, memberAnchors, currentClass));
+  return markdown.render(
+    linkReferences(text, classNames, memberAnchors, currentClass),
+  );
 }
 
 function escapeHtml(value) {
@@ -282,7 +345,9 @@ function escapeHtml(value) {
 function renderHtml(api) {
   const classNames = new Set(api.classes.map(({ name }) => name));
   const memberAnchors = new Set(
-    api.classes.flatMap((item) => item.members.map((member) => memberId(item.name, member))),
+    api.classes.flatMap((item) =>
+      item.members.map((member) => memberId(item.name, member)),
+    ),
   );
   const classNavigation = api.classes
     .map(
@@ -311,13 +376,10 @@ function renderHtml(api) {
                   (member) => `
                     <article class="api-member" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
                       <div class="api-member-heading">
-                        <h4><code>${escapeHtml(member.signature)}</code></h4>
-                        <span>${escapeHtml(member.visibility)}</span>
+                        <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a><code>${escapeHtml(member.signature)}</code></h4>
+                        <div class="api-badges">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge">${escapeHtml(member.visibility)}</span></div>
                       </div>
-                      <details class="api-description">
-                        <summary>Description</summary>
-                        <div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>
-                      </details>
+                      ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : '<p class="api-empty">No description.</p>'}
                       <a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}">${escapeHtml(item.source)}:${member.line}</a>
                     </article>`,
                 )
@@ -329,10 +391,7 @@ function renderHtml(api) {
         <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}">
           <p class="eyebrow">${escapeHtml(item.visibility)} API</p>
           <h2>${escapeHtml(item.name)}</h2>
-          <details class="api-description api-class-description">
-            <summary>Description</summary>
-            <div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>
-          </details>
+          ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}
           <a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a>
           ${members || '<p class="api-empty">No documented public members.</p>'}
         </section>`;
@@ -342,7 +401,8 @@ function renderHtml(api) {
   const functions = api.functions.length
     ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
         .map(
-          (item) => `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><h4><code>${escapeHtml(item.signature)}</code></h4><details class="api-description"><summary>Description</summary><div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div></details><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></article>`,
+          (item) =>
+            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></article>`,
         )
         .join("\n")}</section>`
     : "";
@@ -374,19 +434,29 @@ function renderHtml(api) {
       .api-nav-functions { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
       .api-class { margin-bottom: 76px; scroll-margin-top: 92px; }
       .api-class > h2 { margin: 5px 0 16px; font-size: 2.35rem; }
-      .api-description { font-size: 1.04rem; }
-      .api-description > summary { width: fit-content; margin: 6px 0 12px; color: var(--gold-strong); font-size: .82rem; font-weight: 700; letter-spacing: .04em; cursor: pointer; user-select: none; }
-      .api-description > summary:hover { color: var(--text); }
-      .api-description-body { padding: 2px 0 4px 16px; border-left: 2px solid var(--border); }
-      .api-class-description { margin-bottom: 6px; }
+      .api-description-body { margin: 10px 0 6px; font-size: 1rem; }
+      .api-description-body > :first-child { margin-top: 0; }
+      .api-description-body > :last-child { margin-bottom: 0; }
+      .api-description-body code { padding: 1px 5px; border-radius: 5px; background: rgba(255, 255, 255, .05); font-size: .88em; }
+      .api-description-body pre { padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+      .api-description-body pre code { padding: 0; background: none; }
+      .api-description-body a { color: var(--gold-strong); }
+      .api-class-description { max-width: 760px; margin: 12px 0 4px; font-size: 1.05rem; }
       .api-source { display: inline-block; margin: 8px 0 20px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .76rem; }
       .api-group { margin-top: 36px; }
       .api-group > h3 { padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-      .api-member { padding: 24px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 92px; }
+      .api-member { padding: 22px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 92px; }
+      .api-member:last-child { border-bottom: 0; }
       .api-member-heading { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; }
-      .api-member h4 { margin: 0 0 14px; font-size: 1rem; overflow-wrap: anywhere; }
-      .api-member-heading span { color: var(--muted); font-size: .72rem; text-transform: uppercase; }
-      .api-member p, .api-member li, .api-description p { color: var(--muted); line-height: 1.72; }
+      .api-member h4 { display: flex; align-items: baseline; gap: 8px; min-width: 0; margin: 0; font-size: 1.02rem; overflow-wrap: anywhere; }
+      .api-member h4 code { color: var(--gold-strong); }
+      .api-anchor { flex: none; color: var(--border); font-weight: 400; text-decoration: none; opacity: 0; transition: opacity .15s ease, color .15s ease; }
+      .api-member:hover .api-anchor, .api-anchor:focus { opacity: 1; }
+      .api-anchor:hover { color: var(--gold-strong); }
+      .api-badges { display: flex; flex: none; gap: 6px; }
+      .api-badge { padding: 2px 9px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .66rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+      .api-badge-async { color: var(--cyan); border-color: rgba(98, 213, 208, .4); }
+      .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--muted); line-height: 1.72; }
       .api-member pre, .api-description pre { overflow: auto; }
       .api-empty { color: var(--muted); font-style: italic; }
       [hidden] { display: none !important; }
@@ -479,11 +549,17 @@ const parsed = sourceInputs.flatMap((sourceInput) =>
 );
 const classes = parsed
   .flatMap(({ classes: items }) => items)
-  .filter((item, index, all) => all.findIndex(({ name }) => name === item.name) === index)
+  .filter(
+    (item, index, all) =>
+      all.findIndex(({ name }) => name === item.name) === index,
+  )
   .sort((left, right) => left.name.localeCompare(right.name));
 const functions = parsed
   .flatMap(({ functions: items }) => items)
-  .filter((item, index, all) => all.findIndex(({ name }) => name === item.name) === index)
+  .filter(
+    (item, index, all) =>
+      all.findIndex(({ name }) => name === item.name) === index,
+  )
   .sort((left, right) => left.name.localeCompare(right.name));
 const api = {
   name: packageMetadata.productName || packageMetadata.name,
@@ -491,11 +567,16 @@ const api = {
   generatedAt: new Date().toISOString(),
   classes,
   functions,
-  memberCount: classes.reduce((count, item) => count + item.members.length, 0) + functions.length,
+  memberCount:
+    classes.reduce((count, item) => count + item.members.length, 0) +
+    functions.length,
 };
 
 fs.mkdirSync(outputRoot, { recursive: true });
-fs.writeFileSync(path.join(outputRoot, "api.json"), `${JSON.stringify(api, null, 2)}\n`);
+fs.writeFileSync(
+  path.join(outputRoot, "api.json"),
+  `${JSON.stringify(api, null, 2)}\n`,
+);
 fs.writeFileSync(path.join(outputRoot, "index.html"), renderHtml(api));
 console.log(
   `Generated ${api.classes.length} classes and ${api.memberCount} documented members in ${outputRoot}`,
