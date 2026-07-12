@@ -350,10 +350,17 @@ function renderHtml(api) {
     ),
   );
   const classNavigation = api.classes
-    .map(
-      ({ name }) =>
-        `<a class="api-nav-link" href="#class-${slug(name)}" data-api-nav>${escapeHtml(name)}</a>`,
-    )
+    .map((item) => {
+      const memberNav = item.members
+        .map((member) => {
+          const short = member.signature.includes("(")
+            ? `${member.signature.slice(0, member.signature.indexOf("("))}()`
+            : member.signature;
+          return `<a class="api-nav-member" href="#${memberId(item.name, member)}" data-api-nav-member="${memberId(item.name, member)}">${escapeHtml(short)}</a>`;
+        })
+        .join("");
+      return `<div class="api-nav-group" data-nav-group="class-${slug(item.name)}"><a class="api-nav-link" href="#class-${slug(item.name)}" data-api-nav>${escapeHtml(item.name)}</a><div class="api-nav-members">${memberNav}</div></div>`;
+    })
     .join("\n");
   const functionNavigation = api.functions.length
     ? '<a class="api-nav-link api-nav-functions" href="#functions" data-api-nav>Functions</a>'
@@ -431,6 +438,13 @@ function renderHtml(api) {
       .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
+      .api-nav-members { display: none; margin: 1px 0 6px; }
+      .api-nav-group.open .api-nav-members { display: block; }
+      .api-nav-member { display: block; padding: 3px 0 3px 24px; border-left: 2px solid transparent; margin-left: -2px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .api-nav-member:hover { color: var(--gold-strong); }
+      .api-nav-member.active { border-left-color: var(--border); color: var(--text); }
+      .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
+      .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
       .api-nav-functions { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
       .api-class { margin-bottom: 76px; scroll-margin-top: 92px; }
       .api-class > h2 { margin: 5px 0 16px; font-size: 2.35rem; }
@@ -473,16 +487,21 @@ function renderHtml(api) {
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p><input class="api-search" type="search" placeholder="Filter classes and methods&hellip;" aria-label="Filter API reference" data-api-search /></header>
       <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p>${navigation}</aside><article>${classes}${functions}<p class="api-empty" data-api-empty hidden>No API entries match this filter.</p></article></div>
     </main>
+    <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
     <script>
       const search = document.querySelector('[data-api-search]');
       const entries = [...document.querySelectorAll('[data-api-entry]')];
       const classes = [...document.querySelectorAll('.api-class')];
       const navLinks = [...document.querySelectorAll('[data-api-nav]')];
+      const navGroups = [...document.querySelectorAll('.api-nav-group')];
+      const memberNav = [...document.querySelectorAll('[data-api-nav-member]')];
       const sidebar = document.querySelector('[data-api-sidebar]');
       const empty = document.querySelector('[data-api-empty]');
-      const trackedSections = navLinks.map(link => ({ link, section: document.querySelector(link.hash) }));
-      let trackingFrame;
+      const toast = document.querySelector('[data-api-toast]');
+      const trackedSections = navLinks.map(link => ({ link, section: document.querySelector(link.hash), group: link.closest('.api-nav-group') }));
+      const trackedMembers = memberNav.map(link => ({ link, section: document.getElementById(link.dataset.apiNavMember), group: link.closest('.api-nav-group') }));
+      let trackingFrame, toastTimer, searching = false;
 
       const syncNavigation = () => {
         trackingFrame = null;
@@ -501,8 +520,21 @@ function renderHtml(api) {
           if (isActive) candidate.link.setAttribute('aria-current', 'location');
           else candidate.link.removeAttribute('aria-current');
         }
-        const top = active.link.offsetTop;
-        const bottom = top + active.link.offsetHeight;
+        // While not searching, expand only the in-view class (accordion).
+        if (!searching) {
+          for (const group of navGroups) group.classList.toggle('open', group === active.group);
+        }
+        // Highlight the in-view member within the open class.
+        let activeMember = null;
+        for (const member of trackedMembers) {
+          if (member.group !== active.group || !member.section || member.section.hidden) continue;
+          if (member.section.getBoundingClientRect().top <= 160) activeMember = member;
+        }
+        for (const member of trackedMembers) member.link.classList.toggle('active', member === activeMember);
+
+        const focus = activeMember ? activeMember.link : active.link;
+        const top = focus.offsetTop;
+        const bottom = top + focus.offsetHeight;
         if (top < sidebar.scrollTop) sidebar.scrollTo({ top, behavior: 'smooth' });
         else if (bottom > sidebar.scrollTop + sidebar.clientHeight) {
           sidebar.scrollTo({ top: bottom - sidebar.clientHeight, behavior: 'smooth' });
@@ -515,6 +547,7 @@ function renderHtml(api) {
 
       search.addEventListener('input', () => {
         const query = search.value.trim().toLowerCase();
+        searching = query.length > 0;
         entries.forEach(entry => { entry.hidden = query && !entry.dataset.apiEntry.includes(query); });
         classes.forEach(section => {
           const ownMatch = section.dataset.apiEntry?.includes(query);
@@ -522,10 +555,31 @@ function renderHtml(api) {
           section.hidden = query && !ownMatch && !memberMatch;
           if (ownMatch) section.querySelectorAll('.api-member').forEach(member => { member.hidden = false; });
         });
-        document.querySelectorAll('[data-api-nav]').forEach(link => { link.hidden = document.querySelector(link.hash)?.hidden; });
+        navLinks.forEach(link => { link.hidden = document.querySelector(link.hash)?.hidden; });
+        memberNav.forEach(link => { link.hidden = document.getElementById(link.dataset.apiNavMember)?.hidden; });
+        // When searching, open every class that still has a visible entry so its
+        // matching members show; otherwise let the scroll accordion take over.
+        if (searching) {
+          navGroups.forEach(group => group.classList.toggle('open', !group.querySelector('.api-nav-link').hidden));
+        }
         empty.hidden = classes.some(section => !section.hidden);
         requestNavigationSync();
       });
+
+      // Clicking the # anchor copies a deep link (and still navigates).
+      document.addEventListener('click', (event) => {
+        const anchor = event.target.closest('.api-anchor');
+        if (!anchor || !navigator.clipboard) return;
+        navigator.clipboard
+          .writeText(location.origin + location.pathname + anchor.getAttribute('href'))
+          .then(() => {
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+          })
+          .catch(() => {});
+      });
+
       window.addEventListener('scroll', requestNavigationSync, { passive: true });
       window.addEventListener('resize', requestNavigationSync);
       window.addEventListener('hashchange', requestNavigationSync);
