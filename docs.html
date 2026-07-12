@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumine Documentation</title>
+    <meta
+      name="description"
+      content="The Lumine manual: getting started, using the editor, packages and themes, customization, developing for Lumine, and troubleshooting."
+    />
+
+    <meta property="og:title" content="Lumine Documentation" />
+    <meta property="og:description" content="The Lumine manual." />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="assets/lumine.png" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/lumine.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="index.html" aria-label="Lumine home">
+        <img src="assets/lumine.svg" alt="" width="34" height="34" />
+        <span>Lumine</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#status">Status</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#build">Build</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://docs.pulsar-edit.dev/api/pulsar/latest/">API</a>
+        <a href="https://github.com/lumine-code/lumine">GitHub</a>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="index.html#build"
+        >Build from source</a
+      >
+    </header>
+
+    <main id="top" class="doc-main doc-manual">
+      <aside class="doc-sidebar" aria-label="Documentation navigation">
+        <nav data-nav></nav>
+      </aside>
+
+      <div class="doc-content">
+        <article class="prose" data-doc>
+          <p class="doc-status">Loading documentation&hellip;</p>
+          <noscript>
+            <p>
+              This manual renders Markdown with JavaScript. You can read the
+              source directly on
+              <a
+                href="https://github.com/lumine-code/lumine-code.github.io/tree/main/docs"
+                >GitHub</a
+              >.
+            </p>
+          </noscript>
+        </article>
+        <nav class="doc-pager" data-pager></nav>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <a class="footer-brand" href="index.html">
+        <img src="assets/lumine.svg" alt="" width="28" height="28" />
+        <span>Lumine</span>
+      </a>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="docs.html">Docs</a>
+        <a href="https://github.com/lumine-code/lumine">GitHub</a>
+        <a href="https://github.com/lumine-code/lumine/issues">Issues</a>
+        <a href="https://github.com/orgs/lumine-code/discussions"
+          >Discussions</a
+        >
+        <a href="https://github.com/lumine-code/lumine/releases">Releases</a>
+      </nav>
+      <p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+    <script>
+      // A small Markdown-driven manual: the structure lives in docs/manifest.json
+      // and every page is a Markdown file under docs/<category>/<page>.md. This
+      // shell renders the sidebar, routes by URL hash (#category/page), and
+      // renders the selected page — so the docs are authored purely in Markdown.
+      (async () => {
+        const article = document.querySelector("[data-doc]");
+        const navEl = document.querySelector("[data-nav]");
+        const pagerEl = document.querySelector("[data-pager]");
+
+        const fail = (message) => {
+          article.innerHTML =
+            '<p class="doc-status">' +
+            message +
+            ' Read the source on <a href="https://github.com/lumine-code/lumine-code.github.io/tree/main/docs">GitHub</a>.</p>';
+        };
+
+        let manifest;
+        try {
+          if (!window.marked) throw new Error("renderer");
+          manifest = await (await fetch("docs/manifest.json")).json();
+        } catch (error) {
+          console.error(error);
+          return fail("Could not load the documentation.");
+        }
+
+        // Flatten the page list so we can resolve routes and prev/next links.
+        const flat = [];
+        for (const category of manifest.categories) {
+          for (const page of category.pages) {
+            flat.push({
+              category: category.slug,
+              categoryTitle: category.title,
+              slug: page.slug,
+              title: page.title,
+              route: category.slug + "/" + page.slug,
+              file: "docs/" + category.slug + "/" + page.slug + ".md",
+            });
+          }
+        }
+        const byRoute = new Map(flat.map((p) => [p.route, p]));
+
+        // Build the sidebar: a collapsible group per category, a link per page.
+        for (const category of manifest.categories) {
+          const group = document.createElement("div");
+          group.className = "nav-group";
+          group.dataset.category = category.slug;
+          const heading = document.createElement("button");
+          heading.type = "button";
+          heading.className = "nav-group-title";
+          heading.textContent = category.title;
+          const list = document.createElement("ul");
+          list.className = "nav-pages";
+          for (const page of category.pages) {
+            const li = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = "#" + category.slug + "/" + page.slug;
+            link.textContent = page.title;
+            link.dataset.route = category.slug + "/" + page.slug;
+            li.appendChild(link);
+            list.appendChild(li);
+          }
+          heading.addEventListener("click", () =>
+            group.classList.toggle("open"),
+          );
+          group.appendChild(heading);
+          group.appendChild(list);
+          navEl.appendChild(group);
+        }
+
+        const currentRoute = () =>
+          location.hash.replace(/^#\/?/, "").split("#")[0];
+
+        const pager = (page) => {
+          const index = flat.indexOf(page);
+          pagerEl.innerHTML = "";
+          const link = (target, rel, label) => {
+            const a = document.createElement("a");
+            a.className = "doc-pager-link doc-pager-" + rel;
+            a.href = "#" + target.route;
+            a.innerHTML =
+              '<span class="doc-pager-rel">' +
+              (rel === "prev" ? "Previous" : "Next") +
+              '</span><span class="doc-pager-title">' +
+              label +
+              "</span>";
+            pagerEl.appendChild(a);
+          };
+          if (index > 0) link(flat[index - 1], "prev", flat[index - 1].title);
+          if (index > -1 && index < flat.length - 1)
+            link(flat[index + 1], "next", flat[index + 1].title);
+        };
+
+        const render = async () => {
+          const route = currentRoute();
+          const page = byRoute.get(route) || flat[0];
+          if (!byRoute.get(route)) {
+            location.replace("#" + flat[0].route);
+          }
+
+          article.innerHTML = '<p class="doc-status">Loading&hellip;</p>';
+          let markdown;
+          try {
+            const response = await fetch(page.file);
+            if (!response.ok)
+              throw new Error(page.file + " (" + response.status + ")");
+            markdown = await response.text();
+          } catch (error) {
+            console.error(error);
+            return fail("Could not load this page.");
+          }
+
+          article.innerHTML = window.marked.parse(markdown, { gfm: true });
+
+          // Rewrite in-manual Markdown links (e.g. "../using-lumine/basics.md")
+          // to hash routes so navigation stays inside the single-page shell.
+          article.querySelectorAll("a[href]").forEach((link) => {
+            const href = link.getAttribute("href");
+            const match = href.match(/(?:^|\/)([\w-]+)\/([\w-]+)\.md(#.+)?$/);
+            if (match) {
+              link.setAttribute(
+                "href",
+                "#" + match[1] + "/" + match[2] + (match[3] || ""),
+              );
+              return;
+            }
+            const same = href.match(/^([\w-]+)\.md(#.+)?$/);
+            if (same)
+              link.setAttribute(
+                "href",
+                "#" + page.category + "/" + same[1] + (same[2] || ""),
+              );
+          });
+
+          // Highlight the active page and open its category.
+          navEl.querySelectorAll("a[data-route]").forEach((link) => {
+            const on = link.dataset.route === page.route;
+            link.classList.toggle("active", on);
+            if (on) link.closest(".nav-group").classList.add("open");
+          });
+
+          pager(page);
+          document.title = page.title + " — Lumine Documentation";
+          window.scrollTo(0, 0);
+        };
+
+        window.addEventListener("hashchange", render);
+        await render();
+      })();
+    </script>
+  </body>
+</html>

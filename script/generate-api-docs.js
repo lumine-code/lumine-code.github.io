@@ -1,0 +1,502 @@
+"use strict";
+
+const fs = require("fs");
+const path = require("path");
+const parser = require("@babel/parser");
+const MarkdownIt = require("markdown-it");
+
+const siteRoot = path.resolve(__dirname, "..");
+const sourceManifestPath = path.resolve(process.argv[2] || path.join(siteRoot, "api-sources.json"));
+const outputRoot = path.resolve(process.argv[3] || path.join(siteRoot, "api"));
+const sourceManifest = require(sourceManifestPath);
+const lumineSource = sourceManifest.sources.find(({ packageMetadata }) => packageMetadata);
+if (!lumineSource) throw new Error("One API source must provide a packageMetadata path.");
+const packageMetadata = require(path.resolve(siteRoot, lumineSource.packageMetadata));
+const markdown = new MarkdownIt({ html: true, linkify: true, typographer: true });
+
+function walk(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) return walk(fullPath);
+    return entry.isFile() && entry.name.endsWith(".js") ? [fullPath] : [];
+  });
+}
+
+function visit(node, ancestors, callback) {
+  if (!node || typeof node !== "object") return;
+  callback(node, ancestors.at(-1), ancestors);
+  for (const [key, value] of Object.entries(node)) {
+    if (
+      ["loc", "start", "end", "leadingComments", "trailingComments", "innerComments"].includes(
+        key,
+      )
+    ) {
+      continue;
+    }
+    if (Array.isArray(value)) value.forEach((child) => visit(child, [...ancestors, node], callback));
+    else visit(value, [...ancestors, node], callback);
+  }
+}
+
+function cleanBlockComment(value) {
+  return value
+    .replace(/^\*+/, "")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*\* ?/, ""))
+    .join("\n")
+    .trim();
+}
+
+function commentText(comments = []) {
+  return comments
+    .map((comment) =>
+      comment.type === "CommentBlock"
+        ? cleanBlockComment(comment.value)
+        : comment.value.startsWith(" ")
+          ? comment.value.slice(1)
+          : comment.value,
+    )
+    .join("\n")
+    .trim();
+}
+
+function commentsFor(node, ancestors = []) {
+  for (const candidate of [node, ...ancestors.toReversed()]) {
+    if (candidate?.leadingComments?.length) return candidate.leadingComments;
+  }
+  return [];
+}
+
+function legacyDoc(raw) {
+  const matches = [...raw.matchAll(/(?:^|\n)(Essential|Extended|Public|Private|Experimental):\s*/g)];
+  if (!matches.length) return null;
+  const match = matches[matches.length - 1];
+  const visibility = match[1];
+  if (visibility === "Private") return null;
+  return {
+    visibility,
+    markdown: raw.slice(match.index + match[0].length).trim(),
+  };
+}
+
+function jsdocTag(raw, tag) {
+  const match = raw.match(new RegExp(`(?:^|\\n)@${tag}(?:\\s+([^\\n]*))?`));
+  return match?.[1]?.trim() || "";
+}
+
+function jsdocDescription(raw) {
+  const explicit = raw.match(/(?:^|\n)@(classdesc|desc)\s+([\s\S]*?)(?=\n@\w+|$)/);
+  if (explicit) return explicit[2].trim();
+  return raw.slice(0, raw.search(/(?:^|\n)@\w+/) < 0 ? raw.length : raw.search(/(?:^|\n)@\w+/)).trim();
+}
+
+function jsdocDoc(raw) {
+  if (!/(?:^|\n)@(?:class|classdesc|desc|param|returns?|category|function|public)\b/.test(raw)) {
+    return null;
+  }
+  if (/(?:^|\n)@private\b/.test(raw)) return null;
+
+  const parts = [];
+  const description = jsdocDescription(raw);
+  if (description) parts.push(description);
+
+  const params = [...raw.matchAll(/(?:^|\n)@param\s+(?:\{([^}]+)\}\s*)?([^\s-]+)\s*(?:-\s*)?([^\n]*)/g)];
+  if (params.length) {
+    parts.push(
+      params
+        .map((match) => `* \`${match[2]}\`${match[1] ? ` {${match[1]}}` : ""} ${match[3]}`)
+        .join("\n"),
+    );
+  }
+
+  const returns = raw.match(/(?:^|\n)@returns?\s+(?:\{([^}]+)\}\s*)?([^\n]*)/);
+  if (returns) parts.push(`Returns${returns[1] ? ` {${returns[1]}}` : ""}${returns[2] ? ` ${returns[2]}` : ""}.`);
+
+  return {
+    visibility: "Public",
+    markdown: parts.join("\n\n").trim(),
+    category: jsdocTag(raw, "category"),
+  };
+}
+
+function parseDoc(comments) {
+  const raw = commentText(comments);
+  if (!raw) return null;
+  const doc = legacyDoc(raw) || jsdocDoc(raw);
+  if (!doc) return null;
+  const sections = [...raw.matchAll(/(?:^|\n)Section:\s*([^\n]+)/g)];
+  if (!doc.category && sections.length) doc.category = sections[sections.length - 1][1].trim();
+  return doc;
+}
+
+function propertyName(node) {
+  if (!node) return "unknown";
+  if (node.type === "Identifier" || node.type === "PrivateName") return node.name || node.id?.name;
+  if (node.type === "StringLiteral" || node.type === "NumericLiteral") return String(node.value);
+  return "computed";
+}
+
+function classNameFromFile(filePath) {
+  return path
+    .basename(filePath, ".js")
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
+}
+
+function signatureFor(node, source, className) {
+  const params = (node.params || []).map((param) => source.slice(param.start, param.end)).join(", ");
+  if (node.kind === "constructor") return `new ${className}(${params})`;
+  const name = propertyName(node.key);
+  const prefix = node.static ? "." : "::";
+  if (node.kind === "get") return `${prefix}${name}`;
+  if (node.kind === "set") return `${prefix}${name} = value`;
+  return `${prefix}${name}(${params})`;
+}
+
+function parseFile(filePath, sourceInput) {
+  const source = fs.readFileSync(filePath, "utf8");
+  let ast;
+  try {
+    ast = parser.parse(source, {
+      sourceType: "unambiguous",
+      errorRecovery: true,
+      plugins: ["classProperties", "classPrivateProperties", "classPrivateMethods", "jsx"],
+    });
+  } catch (error) {
+    throw new Error(`Unable to parse ${filePath}: ${error.message}`, {
+      cause: error,
+    });
+  }
+
+  const classes = [];
+  const functions = [];
+  visit(ast, [], (node, parent, ancestors) => {
+    if (node.type === "ClassDeclaration" || node.type === "ClassExpression") {
+      const doc = parseDoc(commentsFor(node, ancestors));
+      if (!doc) return;
+      const name = node.id?.name || classNameFromFile(filePath);
+      const members = [];
+      let category = "API documentation";
+
+      for (const member of node.body.body) {
+        if (!["ClassMethod", "ClassPrivateMethod"].includes(member.type)) continue;
+        const rawComments = member.leadingComments || [];
+        const raw = commentText(rawComments);
+        const sections = [...raw.matchAll(/(?:^|\n)Section:\s*([^\n]+)/g)];
+        if (sections.length) category = sections[sections.length - 1][1].trim();
+        const memberDoc = parseDoc(rawComments);
+        if (!memberDoc) continue;
+        if (memberDoc.category) category = memberDoc.category;
+        const memberName = member.kind === "constructor" ? "constructor" : propertyName(member.key);
+        members.push({
+          name: memberName,
+          kind: member.kind,
+          static: Boolean(member.static),
+          async: Boolean(member.async),
+          signature: signatureFor(member, source, name),
+          category,
+          visibility: memberDoc.visibility,
+          description: memberDoc.markdown,
+          line: member.loc.start.line,
+        });
+      }
+
+      classes.push({
+        name,
+        visibility: doc.visibility,
+        description: doc.markdown,
+        source: `${sourceInput.label}/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
+        sourcePath: `src/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
+        repository: sourceInput.repository,
+        line: node.loc.start.line,
+        members,
+      });
+    }
+
+    if (node.type === "FunctionDeclaration" && parent?.type === "Program") {
+      const doc = parseDoc(node.leadingComments || []);
+      if (!doc) return;
+      const params = node.params.map((param) => source.slice(param.start, param.end)).join(", ");
+      functions.push({
+        name: node.id.name,
+        signature: `${node.id.name}(${params})`,
+        visibility: doc.visibility,
+        description: doc.markdown,
+        source: `${sourceInput.label}/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
+        sourcePath: `src/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
+        repository: sourceInput.repository,
+        line: node.loc.start.line,
+      });
+    }
+  });
+
+  return { classes, functions };
+}
+
+function slug(value) {
+  return value
+    .toLowerCase()
+    .replace(/::/g, "-")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function memberId(className, member) {
+  return `${slug(className)}-${member.static ? "static" : "instance"}-${slug(member.name)}`;
+}
+
+function linkReferences(text, classNames, memberAnchors, currentClass) {
+  if (!text) return "";
+  const linkFor = (target, label = target) => {
+    const normalized = target.replace(/^::/, `${currentClass || ""}::`);
+    const match = normalized.match(/^([^:.]+)(::|\.)(.+)$/);
+    if (match && classNames.has(match[1])) {
+      const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
+      return memberAnchors.has(id) ? `[${label}](#${id})` : `\`${label}\``;
+    }
+    if (classNames.has(normalized)) return `[${label}](#class-${slug(normalized)})`;
+    return `\`${label}\``;
+  };
+
+  return text
+    .replace(/\[([^\]]+)\]\{([^}]+)\}/g, (_all, label, target) => linkFor(target, label))
+    .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_all, target, label) =>
+      linkFor(target, label || target),
+    )
+    .replace(/\{([^{}]+)\}/g, (_all, target) => linkFor(target));
+}
+
+function renderDoc(text, classNames, memberAnchors, currentClass) {
+  return markdown.render(linkReferences(text, classNames, memberAnchors, currentClass));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function renderHtml(api) {
+  const classNames = new Set(api.classes.map(({ name }) => name));
+  const memberAnchors = new Set(
+    api.classes.flatMap((item) => item.members.map((member) => memberId(item.name, member))),
+  );
+  const classNavigation = api.classes
+    .map(
+      ({ name }) =>
+        `<a class="api-nav-link" href="#class-${slug(name)}" data-api-nav>${escapeHtml(name)}</a>`,
+    )
+    .join("\n");
+  const functionNavigation = api.functions.length
+    ? '<a class="api-nav-link api-nav-functions" href="#functions" data-api-nav>Functions</a>'
+    : "";
+  const navigation = `${classNavigation}${functionNavigation}`;
+  const classes = api.classes
+    .map((item) => {
+      const groups = new Map();
+      for (const member of item.members) {
+        if (!groups.has(member.category)) groups.set(member.category, []);
+        groups.get(member.category).push(member);
+      }
+      const members = [...groups]
+        .map(
+          ([category, entries]) => `
+            <section class="api-group">
+              <h3>${escapeHtml(category)}</h3>
+              ${entries
+                .map(
+                  (member) => `
+                    <article class="api-member" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
+                      <div class="api-member-heading">
+                        <h4><code>${escapeHtml(member.signature)}</code></h4>
+                        <span>${escapeHtml(member.visibility)}</span>
+                      </div>
+                      <details class="api-description">
+                        <summary>Description</summary>
+                        <div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>
+                      </details>
+                      <a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}">${escapeHtml(item.source)}:${member.line}</a>
+                    </article>`,
+                )
+                .join("\n")}
+            </section>`,
+        )
+        .join("\n");
+      return `
+        <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}">
+          <p class="eyebrow">${escapeHtml(item.visibility)} API</p>
+          <h2>${escapeHtml(item.name)}</h2>
+          <details class="api-description api-class-description">
+            <summary>Description</summary>
+            <div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>
+          </details>
+          <a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a>
+          ${members || '<p class="api-empty">No documented public members.</p>'}
+        </section>`;
+    })
+    .join("\n");
+
+  const functions = api.functions.length
+    ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
+        .map(
+          (item) => `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><h4><code>${escapeHtml(item.signature)}</code></h4><details class="api-description"><summary>Description</summary><div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div></details><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></article>`,
+        )
+        .join("\n")}</section>`
+    : "";
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumine API reference</title>
+    <meta name="description" content="Generated API reference for Lumine ${escapeHtml(api.version)}." />
+    <link rel="icon" type="image/svg+xml" href="../assets/lumine.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .api-main { width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 72px 0 96px; }
+      .api-header { max-width: 780px; margin-bottom: 40px; }
+      .api-header h1 { margin: 8px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); }
+      .api-meta { color: var(--muted); }
+      .api-search { width: min(100%, 620px); margin-top: 24px; padding: 13px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; }
+      .api-layout { display: grid; grid-template-columns: 230px minmax(0, 900px); gap: 56px; align-items: start; }
+      .api-sidebar { position: sticky; top: 88px; max-height: calc(100vh - 112px); overflow: auto; }
+      .api-sidebar p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; transition: border-color .15s ease, color .15s ease; }
+      .api-nav-link:hover { color: var(--gold-strong); }
+      .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
+      .api-nav-functions { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+      .api-class { margin-bottom: 76px; scroll-margin-top: 92px; }
+      .api-class > h2 { margin: 5px 0 16px; font-size: 2.35rem; }
+      .api-description { font-size: 1.04rem; }
+      .api-description > summary { width: fit-content; margin: 6px 0 12px; color: var(--gold-strong); font-size: .82rem; font-weight: 700; letter-spacing: .04em; cursor: pointer; user-select: none; }
+      .api-description > summary:hover { color: var(--text); }
+      .api-description-body { padding: 2px 0 4px 16px; border-left: 2px solid var(--border); }
+      .api-class-description { margin-bottom: 6px; }
+      .api-source { display: inline-block; margin: 8px 0 20px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .76rem; }
+      .api-group { margin-top: 36px; }
+      .api-group > h3 { padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+      .api-member { padding: 24px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 92px; }
+      .api-member-heading { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; }
+      .api-member h4 { margin: 0 0 14px; font-size: 1rem; overflow-wrap: anywhere; }
+      .api-member-heading span { color: var(--muted); font-size: .72rem; text-transform: uppercase; }
+      .api-member p, .api-member li, .api-description p { color: var(--muted); line-height: 1.72; }
+      .api-member pre, .api-description pre { overflow: auto; }
+      .api-empty { color: var(--muted); font-style: italic; }
+      [hidden] { display: none !important; }
+      @media (max-width: 820px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { position: static; max-height: 260px; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="../index.html" aria-label="Lumine home"><img src="../assets/lumine.svg" alt="" width="34" height="34" /><span>Lumine</span></a>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="../index.html#status">Status</a><a href="../index.html#features">Features</a><a href="../index.html#build">Build</a><a href="../docs.html">Docs</a><a href="./">API</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav>
+      <a class="btn btn-primary nav-cta" href="../index.html#build">Build from source</a>
+    </header>
+    <main class="api-main">
+      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p><input class="api-search" type="search" placeholder="Filter classes and methods&hellip;" aria-label="Filter API reference" data-api-search /></header>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p>${navigation}</aside><article>${classes}${functions}<p class="api-empty" data-api-empty hidden>No API entries match this filter.</p></article></div>
+    </main>
+    <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
+    <script>
+      const search = document.querySelector('[data-api-search]');
+      const entries = [...document.querySelectorAll('[data-api-entry]')];
+      const classes = [...document.querySelectorAll('.api-class')];
+      const navLinks = [...document.querySelectorAll('[data-api-nav]')];
+      const sidebar = document.querySelector('[data-api-sidebar]');
+      const empty = document.querySelector('[data-api-empty]');
+      const trackedSections = navLinks.map(link => ({ link, section: document.querySelector(link.hash) }));
+      let trackingFrame;
+
+      const syncNavigation = () => {
+        trackingFrame = null;
+        const visible = trackedSections.filter(({ section }) => section && !section.hidden);
+        if (!visible.length) return;
+        let active = visible[0];
+        for (const candidate of visible) {
+          if (candidate.section.getBoundingClientRect().top <= 150) active = candidate;
+        }
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+          active = visible.at(-1);
+        }
+        for (const candidate of trackedSections) {
+          const isActive = candidate === active;
+          candidate.link.classList.toggle('active', isActive);
+          if (isActive) candidate.link.setAttribute('aria-current', 'location');
+          else candidate.link.removeAttribute('aria-current');
+        }
+        const top = active.link.offsetTop;
+        const bottom = top + active.link.offsetHeight;
+        if (top < sidebar.scrollTop) sidebar.scrollTo({ top, behavior: 'smooth' });
+        else if (bottom > sidebar.scrollTop + sidebar.clientHeight) {
+          sidebar.scrollTo({ top: bottom - sidebar.clientHeight, behavior: 'smooth' });
+        }
+      };
+
+      const requestNavigationSync = () => {
+        if (!trackingFrame) trackingFrame = requestAnimationFrame(syncNavigation);
+      };
+
+      search.addEventListener('input', () => {
+        const query = search.value.trim().toLowerCase();
+        entries.forEach(entry => { entry.hidden = query && !entry.dataset.apiEntry.includes(query); });
+        classes.forEach(section => {
+          const ownMatch = section.dataset.apiEntry?.includes(query);
+          const memberMatch = [...section.querySelectorAll('.api-member')].some(member => !member.hidden);
+          section.hidden = query && !ownMatch && !memberMatch;
+          if (ownMatch) section.querySelectorAll('.api-member').forEach(member => { member.hidden = false; });
+        });
+        document.querySelectorAll('[data-api-nav]').forEach(link => { link.hidden = document.querySelector(link.hash)?.hidden; });
+        empty.hidden = classes.some(section => !section.hidden);
+        requestNavigationSync();
+      });
+      window.addEventListener('scroll', requestNavigationSync, { passive: true });
+      window.addEventListener('resize', requestNavigationSync);
+      window.addEventListener('hashchange', requestNavigationSync);
+      syncNavigation();
+    </script>
+  </body>
+</html>`;
+}
+
+const sourceInputs = sourceManifest.sources.map((source) => ({
+  ...source,
+  root: path.resolve(siteRoot, source.path),
+}));
+for (const source of sourceInputs) {
+  if (!fs.existsSync(source.root)) {
+    throw new Error(`API source does not exist: ${source.root}`);
+  }
+}
+const parsed = sourceInputs.flatMap((sourceInput) =>
+  walk(sourceInput.root).map((filePath) => parseFile(filePath, sourceInput)),
+);
+const classes = parsed
+  .flatMap(({ classes: items }) => items)
+  .filter((item, index, all) => all.findIndex(({ name }) => name === item.name) === index)
+  .sort((left, right) => left.name.localeCompare(right.name));
+const functions = parsed
+  .flatMap(({ functions: items }) => items)
+  .filter((item, index, all) => all.findIndex(({ name }) => name === item.name) === index)
+  .sort((left, right) => left.name.localeCompare(right.name));
+const api = {
+  name: packageMetadata.productName || packageMetadata.name,
+  version: packageMetadata.version,
+  generatedAt: new Date().toISOString(),
+  classes,
+  functions,
+  memberCount: classes.reduce((count, item) => count + item.members.length, 0) + functions.length,
+};
+
+fs.mkdirSync(outputRoot, { recursive: true });
+fs.writeFileSync(path.join(outputRoot, "api.json"), `${JSON.stringify(api, null, 2)}\n`);
+fs.writeFileSync(path.join(outputRoot, "index.html"), renderHtml(api));
+console.log(
+  `Generated ${api.classes.length} classes and ${api.memberCount} documented members in ${outputRoot}`,
+);
