@@ -29,13 +29,14 @@ and status bar reflect which files are new or modified — using the editor's
 built-in repository support and the bundled `language-git` grammar for Git files
 (commit messages, rebase todo lists, and so on).
 
-## Opening on github.com
+## Opening on your Git host
 
-The bundled **`open-on-github`** package opens the current file or repository on
-github.com. It can open the file (`open-on-github:file`), its blame or history,
-the repository, its issues or pull requests, the branch compare page, and can
-copy a github.com URL for the current file and selected lines
-(`open-on-github:copy-url`).
+The bundled **`open-repository`** package opens the current file or repository on
+its Git host's website. It supports GitHub, GitLab, and Bitbucket (and falls back
+to GitHub-style URLs for other hosts). It can open the file
+(`open-repository:file`), its blame or history, the repository, its issues or
+pull/merge requests, the branch compare page, and can copy a URL for the current
+file and selected lines (`open-repository:copy-url`).
 
 ## Going further
 
