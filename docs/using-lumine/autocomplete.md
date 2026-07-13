@@ -24,7 +24,7 @@ smarter as you install providers. Lumine bundles several:
 - **`autocomplete-html`** — HTML tags and attributes.
 - **`autocomplete-snippets`** — your [snippets](../customizing-lumine/snippets.md),
   offered as completions.
-- **`autocomplete-atom-api`** — the editor API, for package and init-script
+- **`autocomplete-lumine`** — the editor API, for package and init-script
   development.
 
 Community packages can add more providers (for a language server, a framework, a

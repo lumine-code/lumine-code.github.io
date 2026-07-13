@@ -67,7 +67,7 @@ tooling, and let you reload quickly with `window:reload`. When you are done,
 Everything you can do is reachable through the global `atom` object. Its classes
 and methods are documented in the
 [Lumine API reference](https://lumine-code.github.io/api/), generated from
-Lumine's own source. The bundled `autocomplete-atom-api` package completes this
+Lumine's own source. The bundled `autocomplete-lumine` package completes this
 API as you type.
 
 ## Next
