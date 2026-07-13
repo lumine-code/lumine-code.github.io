@@ -1,6 +1,6 @@
 # Autocomplete
 
-The bundled **`autocomplete-plus`** package shows a list of possible completions
+The bundled **`autocomplete`** package shows a list of possible completions
 as you type.
 
 ## How it works
@@ -8,16 +8,16 @@ as you type.
 A suggestion list appears while you type, after a configurable activation delay.
 Out of the box, a built-in provider completes words from the current buffer (or
 from all open buffers, configurable). You can also open the list on demand with
-`autocomplete-plus:activate`, confirm a suggestion with
-`autocomplete-plus:confirm`, and dismiss it with `autocomplete-plus:cancel`.
+`autocomplete:activate`, confirm a suggestion with
+`autocomplete:confirm`, and dismiss it with `autocomplete:cancel`.
 
 Behavior — the activation delay, whether to auto-confirm a single suggestion,
 minimum word length, and more — is configured in the package's settings in
-**Settings → Packages → autocomplete-plus**.
+**Settings → Packages → autocomplete**.
 
 ## Providers
 
-`autocomplete-plus` consumes suggestions from other packages, so completions get
+`autocomplete` consumes suggestions from other packages, so completions get
 smarter as you install providers. Lumine bundles several:
 
 - **`autocomplete-css`** — CSS properties and values.
