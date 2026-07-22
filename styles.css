@@ -46,6 +46,9 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 body::before {
@@ -111,10 +114,21 @@ code {
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 24px;
   margin-left: auto;
   color: var(--muted);
   font-size: 0.94rem;
+}
+
+.nav-github {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-github svg {
+  width: 20px;
+  height: 20px;
 }
 
 .nav-links a:hover,
@@ -436,7 +450,7 @@ pre code {
   align-items: center;
   gap: 24px;
   width: min(var(--maxw), calc(100% - 36px));
-  margin: 0 auto;
+  margin: auto auto 0;
   padding: 32px 0 46px;
   border-top: 1px solid var(--border);
 }
