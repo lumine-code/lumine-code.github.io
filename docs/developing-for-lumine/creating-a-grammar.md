@@ -13,7 +13,7 @@ When both are present, Lumine prefers the Tree-sitter grammar and falls back to 
 
 ## Anatomy
 
-A grammar is a `.cson` (or `.json`) file under `grammars/`. Every grammar declares a **`scopeName`** (for example `source.js`) — the root scope that themes, snippets, and scoped settings target — plus the rules that assign scopes.
+A grammar is a `.json` file under `grammars/` (the older `.cson` format is still supported). Every grammar declares a **`scopeName`** (for example `source.js`) — the root scope that themes, snippets, and scoped settings target — plus the rules that assign scopes.
 
 The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'modern-tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
 
