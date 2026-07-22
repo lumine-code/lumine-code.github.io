@@ -431,9 +431,9 @@ function renderHtml(api) {
       .api-header { max-width: 780px; margin-bottom: 40px; }
       .api-header h1 { margin: 8px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); }
       .api-meta { color: var(--muted); }
-      .api-search { width: min(100%, 620px); margin-top: 24px; padding: 13px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; }
+      .api-search { position: sticky; top: 0; z-index: 2; box-sizing: border-box; width: 100%; margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; }
       .api-layout { display: grid; grid-template-columns: 230px minmax(0, 900px); gap: 56px; align-items: start; }
-      .api-sidebar { position: sticky; top: 88px; max-height: calc(100vh - 112px); overflow: auto; }
+      .api-sidebar { position: sticky; top: 88px; max-height: calc(100vh - 112px); overflow: auto; scroll-padding-top: 52px; }
       .api-sidebar p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
       .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
@@ -484,8 +484,8 @@ function renderHtml(api) {
       <a class="btn btn-primary nav-cta" href="../index.html#build">Build from source</a>
     </header>
     <main class="api-main">
-      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p><input class="api-search" type="search" placeholder="Filter classes and methods&hellip;" aria-label="Filter API reference" data-api-search /></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p>${navigation}</aside><article>${classes}${functions}<p class="api-empty" data-api-empty hidden>No API entries match this filter.</p></article></div>
+      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><input class="api-search" type="search" placeholder="Filter classes and methods&hellip;" aria-label="Filter API reference" data-api-search /><p>Classes</p>${navigation}</aside><article>${classes}${functions}<p class="api-empty" data-api-empty hidden>No API entries match this filter.</p></article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
