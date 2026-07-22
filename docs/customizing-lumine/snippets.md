@@ -4,14 +4,20 @@ Snippets expand a short prefix into a larger piece of text with tab stops you ca
 
 ## Your snippets file
 
-Personal snippets live in **`snippets.cson`**, opened with `application:open-your-snippets`. Entries are grouped by the **scope** they apply to, so a snippet can be global or limited to one language:
+Personal snippets live in **`snippets.json`**, opened with `application:open-your-snippets`. Entries are grouped by the **scope** they apply to, so a snippet can be global or limited to one language:
 
-```cson
-".source.js":
-  "Log to console":
-    prefix: "log"
-    body: "console.log(${1:value});$2"
+```json
+{
+  ".source.js": {
+    "Log to console": {
+      "prefix": "log",
+      "body": "console.log(${1:value});$2"
+    }
+  }
+}
 ```
+
+A legacy `snippets.cson` is still read if you already have one, but new snippet files are created as JSON.
 
 - The top-level key is a **scope selector** (`.source.js`, `.text.html`, `"*"` for everywhere).
 - Each snippet has a human-readable name, a **`prefix`** that triggers it, and a **`body`**.

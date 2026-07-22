@@ -10,17 +10,22 @@ Each installed language grammar appears here, identified by its scope name (for 
 
 ## How scoping works
 
-Language settings are **scoped**: they apply only to editors whose grammar matches. In [`config.cson`](configuration.md) a scoped block is keyed by the language's scope selector rather than by `"*"`:
+Language settings are **scoped**: they apply only to editors whose grammar matches. In [`config.json`](configuration.md) a scoped block is keyed by the language's scope selector rather than by `"*"`:
 
-```cson
-"*":
-  editor:
-    tabLength: 2
-
-".source.makefile":
-  editor:
-    tabLength: 4
-    # Makefiles require real tabs
+```json
+{
+  "*": {
+    "editor": {
+      "tabLength": 2
+    }
+  },
+  ".source.makefile": {
+    "editor": {
+      // Makefiles require real tabs
+      "tabLength": 4
+    }
+  }
+}
 ```
 
 Here every file uses two-space indentation except Makefiles, which use a four-wide real tab. The Languages tab writes these scoped blocks for you.

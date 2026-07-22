@@ -6,19 +6,21 @@ All of your personal customization lives in one **configuration directory**: `~/
 
 | Path            | What it holds                                                                 |
 | --------------- | ----------------------------------------------------------------------------- |
-| `config.cson`   | All settings (see [Configuration](configuration.md)).                         |
-| `keymap.cson`   | Your personal keybindings (see [Keybindings](keybindings.md)).                |
-| `snippets.cson` | Your snippets (see [Snippets](snippets.md)).                                  |
-| `styles.less`   | Your UI/style tweaks (see [Style tweaks](style-tweaks.md)).                   |
+| `config.json`   | All settings (see [Configuration](configuration.md)).                         |
+| `keymap.json`   | Your personal keybindings (see [Keybindings](keybindings.md)).                |
+| `snippets.json` | Your snippets (see [Snippets](snippets.md)).                                  |
+| `styles.css`    | Your UI/style tweaks (see [Style tweaks](style-tweaks.md)).                   |
 | `init.js`       | Startup script run when Lumine loads (see [The init file](the-init-file.md)). |
 | `packages/`     | Installed community packages, one directory per package.                      |
 | `dev/packages/` | Packages loaded only in development mode.                                     |
+
+These are the default formats. Lumine still reads the legacy `config.cson`, `keymap.cson`, `snippets.cson`, and `styles.less` files if you already have them, but new files are created in the JSON/CSS formats above.
 
 Each of the personal files has an "open your…" command (`application:open-your-config`, `application:open-your-keymap`, `application:open-your-snippets`, `application:open-your-stylesheet`, `application:open-your-init-script`), which creates the file if it does not exist yet.
 
 ## Using a different location
 
-You can point Lumine at a different configuration directory by setting the `ATOM_HOME` environment variable before launching. This is useful for keeping an isolated setup — for example, a clean profile for testing, or a portable configuration on a removable drive.
+You can point Lumine at a different configuration directory by setting the `LUMINE_HOME` environment variable before launching. This is useful for keeping an isolated setup — for example, a clean profile for testing, or a portable configuration on a removable drive.
 
 ## Resetting
 

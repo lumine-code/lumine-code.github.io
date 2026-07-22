@@ -4,15 +4,15 @@ Because Lumine's interface is HTML and CSS, you can restyle any part of it yours
 
 ## Your stylesheet
 
-Personal styles live in **`styles.less`**, opened with `application:open-your-stylesheet`. It is written in [Less](https://lesscss.org/) (plain CSS also works, since CSS is valid Less), and its rules are applied on top of your active theme.
+Personal styles live in **`styles.css`**, opened with `application:open-your-stylesheet`. It is plain CSS, and its rules are applied on top of your active theme. A legacy `styles.less` ([Less](https://lesscss.org/)) file is still read if you already have one, but new stylesheets are created as CSS.
 
-```less
-// Make the tree view text a little larger.
+```css
+/* Make the tree view text a little larger. */
 .tree-view {
   font-size: 15px;
 }
 
-// Add breathing room around the active editor.
+/* Add breathing room around the active editor. */
 atom-text-editor {
   padding-top: 4px;
 }
@@ -28,7 +28,7 @@ To find what to target, open the developer tools (`window:toggle-dev-tools`) and
 
 Rather than hardcoding colors, reference the active theme's **CSS custom properties** so your tweaks adapt to light and dark themes automatically:
 
-```less
+```css
 .my-highlight {
   color: var(--text-color);
   background: var(--background-color);

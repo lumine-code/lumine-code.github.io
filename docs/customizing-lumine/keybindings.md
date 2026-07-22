@@ -8,27 +8,34 @@ Open **Settings → Keybindings** to browse every active binding and search by c
 
 ## Your keymap file
 
-Personal bindings live in **`keymap.cson`**, opened with `application:open-your-keymap`. It is grouped by selector:
+Personal bindings live in **`keymap.json`**, opened with `application:open-your-keymap`. It is grouped by selector:
 
-```cson
-"atom-text-editor":
-  "ctrl-alt-r": "editor:duplicate-lines"
-
-"atom-workspace":
-  "ctrl-shift-p": "command-palette:toggle"
+```json
+{
+  "atom-text-editor": {
+    "ctrl-alt-r": "editor:duplicate-lines"
+  },
+  "atom-workspace": {
+    "ctrl-shift-p": "command-palette:toggle"
+  }
+}
 ```
 
 - The **selector** (`atom-text-editor`, `atom-workspace`, a package's root class, and so on) decides where the binding is active.
 - The **keystroke** is on the left; the **command** it runs is on the right.
-- Later bindings win over earlier ones, and your `keymap.cson` is loaded last — so it overrides package and core bindings.
+- Later bindings win over earlier ones, and your `keymap.json` is loaded last — so it overrides package and core bindings.
+- A legacy `keymap.cson` is still read if you already have one, but new keymaps are created as JSON.
 
 ## Cross-platform bindings
 
 Use the special **`cmdorctrl`** modifier to bind the natural key for each platform in one line — it resolves to <kbd>Cmd</kbd> on macOS and <kbd>Ctrl</kbd> everywhere else:
 
-```cson
-"atom-workspace":
-  "cmdorctrl-p": "fuzzy-files:toggle"
+```json
+{
+  "atom-workspace": {
+    "cmdorctrl-p": "fuzzy-files:toggle"
+  }
+}
 ```
 
 Lumine's own bundled bindings use this convention: shared bindings live in a base keymap and only genuinely platform-specific keys are split out.
