@@ -1,6 +1,6 @@
 # What is Lumine
 
-Lumine is a community-led, hyper-hackable text editor. It is easy to use out of the box and just as easy to shape to your needs — from a few settings tweaks to new commands, keybindings, themes, and packages that change how the editor behaves.
+Lumine is a modern, extensible text editor built on the Pulsar and Atom legacy. It is easy to use out of the box and just as easy to shape to your needs — from a few settings tweaks to new commands, keybindings, themes, and packages that change how the editor behaves.
 
 ## Built on web technology
 

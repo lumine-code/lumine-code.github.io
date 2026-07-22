@@ -1,6 +1,6 @@
 # lumine-code.github.io
 
-The landing page for **[Lumine](https://github.com/lumine-code/lumine)**, a community-led, hyper-hackable text editor.
+The landing page for **[Lumine](https://github.com/lumine-code/lumine)**, a modern, extensible text editor built on the Pulsar and Atom legacy.
 
 Served via GitHub Pages at **https://lumine-code.github.io**.
 
