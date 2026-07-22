@@ -28,4 +28,4 @@ Toggle the feature under **Shell Integration** in the package's settings.
 
 ## Appearance
 
-The terminal derives its colors from the active syntax theme by default, and draws with a WebGL renderer that falls back to canvas. Override any color by redefining its CSS custom property (for example `--terminal-color-red`) in your `styles.less`. Coding-font ligatures such as `==` and `>=` can be enabled in settings.
+The terminal derives its colors from the active syntax theme by default, and draws with a WebGL renderer that falls back to canvas. Override any color by redefining its CSS custom property (for example `--terminal-color-red`) in your `styles.css`. Coding-font ligatures such as `==` and `>=` can be enabled in settings.

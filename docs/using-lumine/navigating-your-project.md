@@ -12,7 +12,7 @@ Lumine splits fuzzy finding into focused packages:
 
 - **`fuzzy-files`** (`fuzzy-files:toggle`) — find and open a file anywhere in the open projects, ranked by match quality and proximity to the active file. It supports `file.js:42` line syntax to jump straight to a line, and can copy, insert, or reveal a path, open files externally, or reveal them in the tree view.
 - **`fuzzy-workspace`** (`fuzzy-workspace:toggle`) — jump to any _already open_ item across the workspace center and the left, right, and bottom docks; confirming reveals its dock and focuses it.
-- **`fuzzy-explorer`** (`fuzzy-explorer:toggle`) — fuzzy-search files across your own list of directories, defined in an `explorer.cson` config file (open it with `fuzzy-explorer:edit`).
+- **`fuzzy-explorer`** (`fuzzy-explorer:toggle`) — fuzzy-search files across your own list of directories, defined in an `explorer.json` config file (open it with `fuzzy-explorer:edit`; a legacy `explorer.cson` is also read).
 
 ## Symbols
 
