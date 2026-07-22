@@ -13,6 +13,12 @@ line. For how packages are found and where they come from, see
 - Disabling a package is the safe way to turn a feature off without removing it;
   the disabled list is stored under `core.disabledPackages` in your
   configuration.
+- A community package can **override** a bundled package of the same name. When
+  it does, the Packages tab shows a manageable community card plus an
+  informational card for the shadowed bundled package. Uninstalling the community
+  package restores the bundled one; any `core.disabledPackages` entry for that
+  name is kept. See
+  [Slots: Install, Update, Replace, Override](package-system.md#slots-install-update-replace-override).
 
 ## Choosing a theme
 

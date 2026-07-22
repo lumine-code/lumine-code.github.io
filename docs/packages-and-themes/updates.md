@@ -10,20 +10,35 @@ There are two independent kinds of updates in Lumine:
 ## Package updates
 
 A package is _updatable_ when it is installed and a newer version is available
-from the same origin it was installed from. "Same origin" matters: a newer
+from the **same origin** it was installed from. "Same origin" matters: a newer
 version published by a _different_ repository that merely shares the name is not
-treated as an update.
+treated as an update. Updates are driven entirely by the package's install
+**receipt** (its recorded origin, ref, update policy, and SHA) and do not depend
+on any catalog.
+
+### What "a newer version" means
+
+How Lumine looks for a newer version depends on the update policy recorded when
+you installed, which follows the ref you chose:
+
+- **Latest stable** re-picks the highest stable SemVer tag.
+- A **branch** (or the **default branch**) resolves to the branch's new HEAD
+  commit.
+- A **concrete tag** or **commit** is _pinned_ and does not move. If an already
+  installed tag is later re-pointed to a different commit upstream, Lumine flags
+  it as **suspicious** rather than silently updating to the new SHA.
+
+Both version-tracked updates (a newer tag, shown as `0.4.0 -> 0.5.0`) and
+ref-tracked updates (a moved branch, shown as short commit hashes) are supported.
 
 ### The Updates filter
 
 The Install tab's filter row includes an **Updates** view that lists installed
 packages with a newer version available. Each card offers **Update to X**, which
-re-installs the package at the new version. Updating shows a "Restart Lumine to
+re-installs the package from the same origin at the new SHA — fetching that exact
+commit and re-validating the manifest before installing, using the same
+transactional swap as a fresh install. Updating shows a "Restart Lumine to
 complete the update" notification.
-
-Both version-tracked updates (a newer tag, shown as `0.4.0 -> 0.5.0`) and
-ref-tracked updates (a moved branch/commit, shown as short commit hashes) are
-supported.
 
 ### Check for Updates
 
@@ -44,10 +59,17 @@ only in the Pulsar registry surface updates.
 > for editor auto-update. Lumine does not use it (see below), but the icon marks
 > the update action.
 
-### How a version is chosen
+### Legacy installs
 
-- A fresh install pins the exact version you browsed, while still recording a
-  policy that tracks new releases — so an update can be offered right afterward.
+An older install whose receipt has a missing or mismatched origin stays active,
+but is shown with a warning. Because every update re-validates the fetched
+manifest with strict origin matching, updating such a package requires a new,
+valid manifest whose `repository` resolves to the same origin.
+
+### Notes on version selection
+
+- A fresh install pins the exact SHA you browsed, while still recording a policy
+  that tracks new releases — so an update can be offered right afterward.
 - An explicit selector you typed (for example `owner/repo@0.4.0`) installs and
   keeps that version; it is not auto-upgraded. Check for Updates will still show
   that a newer tag exists, because you pinned an older version rather than
