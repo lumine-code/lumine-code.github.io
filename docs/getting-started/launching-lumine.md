@@ -1,8 +1,6 @@
 # Launching Lumine
 
-You can start Lumine from your applications launcher, or from a terminal with the
-`lumine` command (available once Lumine is installed on your `PATH`). Running from
-a terminal lets you open files and folders and pass options.
+You can start Lumine from your applications launcher, or from a terminal with the `lumine` command (available once Lumine is installed on your `PATH`). Running from a terminal lets you open files and folders and pass options.
 
 ## Opening files and folders
 
@@ -31,23 +29,16 @@ These are the options accepted by the `lumine` command:
 | `-v`, `--version`           | Print version information.                                                  |
 | `-h`, `--help`              | Print the usage message.                                                    |
 
-Lumine can also install and manage community packages from the command line
-(`--install`, `--uninstall`, `--list`, `--link`, `--unlink`); those are covered in
-[Managing packages and themes](../packages-and-themes/managing.md).
+Lumine can also install and manage community packages from the command line (`--install`, `--uninstall`, `--list`, `--link`, `--unlink`); those are covered in [Managing packages and themes](../packages-and-themes/managing.md).
 
 ## Development mode
 
-`--safe` and `--dev` are the two options you will reach for most while
-troubleshooting or building extensions:
+`--safe` and `--dev` are the two options you will reach for most while troubleshooting or building extensions:
 
-- **`--safe`** starts the editor without loading your installed or development
-  packages — the quickest way to tell whether a problem comes from a package.
-- **`--dev`** opens a window in development mode, which loads packages from
-  `~/.lumine/dev/packages` and enables extra developer tooling. See
-  [Developing a package](../developing-for-lumine/developing-a-package.md).
+- **`--safe`** starts the editor without loading your installed or development packages — the quickest way to tell whether a problem comes from a package.
+- **`--dev`** opens a window in development mode, which loads packages from `~/.lumine/dev/packages` and enables extra developer tooling. See [Developing a package](../developing-for-lumine/developing-a-package.md).
 
-To run a source checkout against an already-installed Lumine, point it at the
-checkout and launch in dev mode:
+To run a source checkout against an already-installed Lumine, point it at the checkout and launch in dev mode:
 
 ```sh
 # PowerShell
