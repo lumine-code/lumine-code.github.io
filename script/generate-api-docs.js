@@ -479,8 +479,8 @@ function renderHtml(api) {
   <body>
     <header class="nav">
       <a class="brand" href="../index.html" aria-label="Lumine home"><img src="../assets/lumine.svg" alt="" width="34" height="34" /><span>Lumine</span></a>
-      <nav class="nav-links" aria-label="Primary navigation"><a href="../index.html#status">Status</a><a href="../index.html#features">Features</a><a href="../index.html#build">Build</a><a href="../docs.html">Docs</a><a href="./">API</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav>
-      <a class="btn btn-primary nav-cta" href="../index.html#build">Build from source</a>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./">API</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav>
+      <a class="btn btn-primary nav-cta" href="../docs.html#getting-started/installing-lumine">Build from source</a>
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
