@@ -24,8 +24,6 @@
       <span>Lumine</span>
     </a>
     <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#status">Status</a>
-      <a href="#features">Features</a>
       <a href="#build">Build</a>
       <a href="docs.html">Docs</a>
       <a href="api/">API</a>
@@ -49,48 +47,6 @@
       </div>
     </section>
 
-    <section id="status" class="status-band" aria-labelledby="status-title">
-      <div class="status-copy">
-        <p class="eyebrow">Current status</p>
-        <h2 id="status-title">Source-first and under active development.</h2>
-      </div>
-      <p>
-        Lumine is evolving quickly. Downloads, documentation, and platform packages are still settling,
-        so the most reliable path today is to build and run the editor from source.
-      </p>
-      <a class="text-link" href="https://github.com/lumine-code/lumine/issues">Track issues</a>
-    </section>
-
-    <section id="features" class="section" aria-labelledby="features-title">
-      <div class="section-heading">
-        <p class="eyebrow">Why Lumine</p>
-        <h2 id="features-title">A familiar foundation with the important parts left open.</h2>
-      </div>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <span class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 3l1.4 5.1L18 6l-2.1 4.6L21 12l-5.1 1.4L18 18l-4.6-2.1L12 21l-1.4-5.1L6 18l2.1-4.6L3 12l5.1-1.4L6 6l4.6 2.1L12 3z"/></svg>
-          </span>
-          <h3>Hackable by design</h3>
-          <p>Shape the editor with packages, keymaps, commands, themes, and direct web-platform tools.</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 5h16v4H4V5zm0 6h7v8H4v-8zm9 0h7v8h-7v-8z"/></svg>
-          </span>
-          <h3>Package-driven</h3>
-          <p>Core features live beside community packages, keeping the editor extensible instead of sealed.</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4V6zm2 2v8h12V8H6zm2 2h4v2H8v-2zm0 3h8v1.5H8V13z"/></svg>
-          </span>
-          <h3>Modern runtime</h3>
-          <p>Built on Electron 43, Node 24, and modern syntax tooling while preserving the Atom/Pulsar lineage.</p>
-        </article>
-      </div>
-    </section>
-
     <section class="section heritage" aria-labelledby="heritage-title">
       <div class="section-heading">
         <p class="eyebrow">Lineage</p>
@@ -107,8 +63,9 @@
         <p class="eyebrow">Build</p>
         <h2 id="build-title">Build from source</h2>
         <p>
-          Lumine follows the Pulsar-style source workflow: clone the repo, use the Node version from
-          <code>.nvmrc</code>, let Corepack provide Yarn, then build and start the app.
+          Lumine runs from source: clone the repo, use the Node version from
+          <code>.nvmrc</code>, then install and start. npm ships with Node, so there is
+          nothing else to set up.
         </p>
       </div>
 
@@ -125,32 +82,25 @@ cd lumine
 <span class="tok-comment"># Use the project Node version from .nvmrc</span>
 nvm install
 
-<span class="tok-comment"># Enable Yarn through Corepack once for this Node version</span>
-corepack enable
-
 <span class="tok-comment"># Install, rebuild native modules, and launch</span>
-yarn install
-yarn build
-yarn start
+npm install
+npm run build
+npm start
 
 <span class="tok-comment"># Optional: produce platform binaries in binaries/</span>
-yarn dist</code></pre>
+npm run dist</code></pre>
         </article>
 
         <aside class="build-notes" aria-label="Build notes">
           <div class="note">
-            <h3>Corepack</h3>
-            <p><code>corepack enable</code> is the preferred way to make Yarn available. Run it once per Node version if <code>yarn</code> is not already present.</p>
-          </div>
-          <div class="note">
             <h3>Dev resource path</h3>
             <p>If Lumine is already installed, point the installed app at this source checkout and launch it in dev mode.</p>
             <pre><code><span class="tok-comment"># PowerShell</span>
-$env:ATOM_DEV_RESOURCE_PATH = (Get-Location).Path
+$env:LUMINE_RESOURCE_PATH = (Get-Location).Path
 lumine --dev .
 
 <span class="tok-comment"># macOS/Linux</span>
-ATOM_DEV_RESOURCE_PATH="$PWD" lumine --dev .</code></pre>
+LUMINE_RESOURCE_PATH="$PWD" lumine --dev .</code></pre>
           </div>
         </aside>
       </div>
