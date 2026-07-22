@@ -133,29 +133,31 @@ Notes:
   Sources that come from a catalog are held to a stricter safety allowlist (see
   [Catalog safety](#catalog-safety)).
 
-### Choosing a ref on the card
+### Choosing a version on the card
 
-Each browse card carries a ref selector. Opening it fetches the repository's
-default branch and **all tags** (annotated tags resolve to their commit SHA);
-the full branch list is fetched lazily the first time you open the selector and
-then cached. The selector offers, in order:
+The card's **version** is a dropdown. It lists every **tag** (SemVer-descending,
+then prereleases, then non-version text tags) plus the repository's **default
+branch**. Annotated tags resolve to their commit SHA. Catalog cards already have
+this list; on the **Packages**/**Themes** tabs an installed package fetches its
+tags the first time you open the dropdown.
 
-- **Latest stable — `<tag>`** — a virtual entry that tracks the highest stable
-  SemVer tag as new releases appear;
-- **Default branch — `<name>`**;
-- every concrete **tag**, sorted SemVer-descending, then prereleases, then
-  non-version text tags;
-- every **branch**, default first;
-- a **commit** you type in by hand.
+- Selecting a **tag** _pins_ that exact release.
+- Selecting the **default branch** _tracks_ it — updates follow the new branch
+  HEAD.
 
-**Latest stable**, the **default branch**, and a **concrete branch** are
-_tracked_ (updates follow new releases / the new branch HEAD). A **concrete tag**
-or **commit** is _pinned_. Changing the ref re-fetches the manifest for the new
-SHA and re-validates it; **Install** stays disabled until validation completes.
+On a browse (not-installed) card, changing the version re-fetches the manifest
+for the new commit and re-validates it; **Install** stays disabled until
+validation completes. On an installed card, choosing a different version turns
+the action into **Update to X** targeting that exact commit (choosing the
+installed version again clears the pending update).
+
+The repository reference beside the version is a link to the repo; **hover over
+it** to see the origin, resolved commit, selected ref, catalog provenance, and
+validation status.
 
 ## Catalog sources
 
-A **catalog** is a `sources.json` file: a plain JSON array of Git source
+A **catalog** is an `index.json` file: a plain JSON array of Git source
 strings, in the same syntax as an install source (a bare repo, `@tag`,
 `~branch`, `#commit`, or a full URL with an explicit selector). It carries no
 package metadata — Lumine fetches that itself.
@@ -164,22 +166,22 @@ package metadata — Lumine fetches that itself.
 ["owner/repo", "owner/another@2.0.0", "https://git.example.com/team/pkg.git#branch:main"]
 ```
 
-> The old `index.json` format (a `schemaVersion` object with a `packages` array
-> of pre-baked metadata) is **no longer supported**. Pointing a catalog at an
-> `index.json` fails with a readable error; convert it to a `sources.json`
-> array.
+> `index.json` is the array-of-sources format above. The **old metadata catalog
+> format** (a `schemaVersion` object with a `packages` array of pre-baked names,
+> versions, and descriptions) is **no longer supported** and fails with a
+> readable error; convert it to a plain array of Git sources.
 
 Catalog sources are configured in **Settings → Install → Catalog Sources**, or
 via the `settings-view.communityPackageCatalogs` setting (an ordered array). A
 source can be:
 
-- a GitHub shorthand `owner/repo` (resolves to that repo's `sources.json` on the
+- a GitHub shorthand `owner/repo` (resolves to that repo's `index.json` on the
   `main` branch),
-- a public HTTP(S) URL to a repository or directly to a `sources.json`, or
-- a local absolute path (or `file://` URL) to a directory or `sources.json`.
+- a public HTTP(S) URL to a repository or directly to an `index.json`, or
+- a local absolute path (or `file://` URL) to a directory or `index.json`.
 
 The default source is Lumine's own catalog:
-`https://raw.githubusercontent.com/lumine-code/packages/main/sources.json`.
+`https://raw.githubusercontent.com/lumine-code/packages/main/index.json`.
 
 When the same origin appears in more than one catalog, the entries are
 **merged** into a single card: the first catalog sets the initial ref selector,
