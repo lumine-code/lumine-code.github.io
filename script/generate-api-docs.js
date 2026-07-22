@@ -447,13 +447,17 @@ function renderHtml(api) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <style>
+      html { scroll-behavior: auto; }
       .api-main { width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 72px 0 96px; }
       .api-header { max-width: 780px; margin-bottom: 40px; }
       .api-header h1 { margin: 8px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); }
       .api-meta { color: var(--muted); }
-      .api-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr) 224px; gap: 40px; align-items: start; }
-      .api-sidebar, .api-toc { position: sticky; top: 88px; max-height: calc(100vh - 112px); overflow: auto; }
-      .api-sidebar p, .api-toc p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .api-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; align-items: start; }
+      .api-sidebar { position: sticky; top: 88px; height: calc(100vh - 112px); display: flex; flex-direction: column; }
+      .api-sidebar p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .api-members-label { margin: 16px 0 10px; padding-top: 14px; border-top: 1px solid var(--border); }
+      .api-classlist { flex: 1.3 1 0; min-height: 0; overflow: auto; }
+      .api-memberlist { flex: 1 1 0; min-height: 0; overflow: auto; }
       .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
@@ -494,8 +498,7 @@ function renderHtml(api) {
       .api-member pre, .api-description pre { overflow: auto; }
       .api-empty { color: var(--muted); font-style: italic; }
       [hidden] { display: none !important; }
-      @media (max-width: 1080px) { .api-layout { grid-template-columns: 200px minmax(0, 1fr); } .api-toc { display: none; } }
-      @media (max-width: 820px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { position: static; max-height: 260px; } }
+      @media (max-width: 820px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { position: static; height: auto; display: block; } .api-classlist, .api-memberlist { max-height: 240px; } }
     </style>
   </head>
   <body>
@@ -506,7 +509,7 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p>${classList}</aside><article>${classes}${functions}</article><aside class="api-toc" data-api-toc><p>On this page</p>${tocList}</aside></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p><div class="api-classlist" data-api-classlist>${classList}</div><p class="api-members-label">Members</p><div class="api-memberlist" data-api-memberlist>${tocList}</div></aside><article>${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
@@ -514,59 +517,71 @@ function renderHtml(api) {
       const navLinks = [...document.querySelectorAll('[data-api-nav]')];
       const tocGroups = [...document.querySelectorAll('.api-toc-group')];
       const memberNav = [...document.querySelectorAll('[data-api-nav-member]')];
-      const sidebar = document.querySelector('[data-api-sidebar]');
-      const toc = document.querySelector('[data-api-toc]');
+      const sections = [...document.querySelectorAll('.api-class')];
+      const classlist = document.querySelector('[data-api-classlist]');
+      const memberlist = document.querySelector('[data-api-memberlist]');
       const toast = document.querySelector('[data-api-toast]');
-      const trackedSections = navLinks.map(link => ({ link, section: document.querySelector(link.hash), key: link.hash.slice(1) }));
-      const trackedMembers = memberNav.map(link => ({ link, section: document.getElementById(link.dataset.apiNavMember), group: link.closest('.api-toc-group') }));
+      const sectionIds = new Set(sections.map(section => section.id));
       let trackingFrame, toastTimer;
 
-      // Scroll a rail so the given entry stays visible as you read.
+      // Scroll a rail so the given entry stays visible (instant).
       const keepInView = (container, el) => {
         const top = el.offsetTop;
         const bottom = top + el.offsetHeight;
-        if (top < container.scrollTop) container.scrollTo({ top, behavior: 'smooth' });
+        if (top < container.scrollTop) container.scrollTop = top;
         else if (bottom > container.scrollTop + container.clientHeight) {
-          container.scrollTo({ top: bottom - container.clientHeight, behavior: 'smooth' });
+          container.scrollTop = bottom - container.clientHeight;
         }
       };
 
-      const syncNavigation = () => {
+      // The class selected by the hash: a class id, or the parent class of a
+      // member id. Falls back to the first class.
+      const currentKey = () => {
+        const hash = location.hash.slice(1);
+        if (sectionIds.has(hash)) return hash;
+        const el = hash && document.getElementById(hash);
+        const parent = el && el.closest('.api-class');
+        return parent ? parent.id : (sections[0] && sections[0].id);
+      };
+
+      // Highlight the member you are reading within the shown class.
+      const syncMember = () => {
         trackingFrame = null;
-        const visible = trackedSections.filter(({ section }) => section);
-        if (!visible.length) return;
-        let active = visible[0];
-        for (const candidate of visible) {
-          if (candidate.section.getBoundingClientRect().top <= 150) active = candidate;
+        const group = tocGroups.find(g => g.dataset.tocGroup === currentKey());
+        let current = null;
+        for (const link of memberNav) {
+          if (!group || link.closest('.api-toc-group') !== group) continue;
+          const section = document.getElementById(link.dataset.apiNavMember);
+          if (section && section.getBoundingClientRect().top <= 160) current = link;
         }
-        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
-          active = visible.at(-1);
-        }
-        // Left rail: highlight the class you are reading.
-        for (const candidate of trackedSections) {
-          const isActive = candidate === active;
-          candidate.link.classList.toggle('active', isActive);
-          if (isActive) candidate.link.setAttribute('aria-current', 'location');
-          else candidate.link.removeAttribute('aria-current');
-        }
-        // Right rail: show only the active class's members.
-        for (const group of tocGroups) {
-          group.classList.toggle('active', group.dataset.tocGroup === active.key);
-        }
-        // Highlight the in-view member within the active group.
-        let activeMember = null;
-        for (const member of trackedMembers) {
-          if (!member.section || member.group.dataset.tocGroup !== active.key) continue;
-          if (member.section.getBoundingClientRect().top <= 160) activeMember = member;
-        }
-        for (const member of trackedMembers) member.link.classList.toggle('active', member === activeMember);
-
-        keepInView(sidebar, active.link);
-        if (activeMember) keepInView(toc, activeMember.link);
+        for (const link of memberNav) link.classList.toggle('active', link === current);
+        if (current) keepInView(memberlist, current);
+      };
+      const requestMemberSync = () => {
+        if (!trackingFrame) trackingFrame = requestAnimationFrame(syncMember);
       };
 
-      const requestNavigationSync = () => {
-        if (!trackingFrame) trackingFrame = requestAnimationFrame(syncNavigation);
+      // Split-pane router: show one class at a time, driven by the hash.
+      const showClass = () => {
+        const key = currentKey();
+        for (const section of sections) section.hidden = section.id !== key;
+        for (const link of navLinks) {
+          const on = link.hash.slice(1) === key;
+          link.classList.toggle('active', on);
+          if (on) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        }
+        for (const group of tocGroups) group.classList.toggle('active', group.dataset.tocGroup === key);
+        const activeLink = navLinks.find(link => link.hash.slice(1) === key);
+        if (activeLink) keepInView(classlist, activeLink);
+        const hash = location.hash.slice(1);
+        if (hash && !sectionIds.has(hash)) {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'auto' });
+        } else {
+          window.scrollTo(0, 0);
+        }
+        syncMember();
       };
 
       // Clicking the # anchor copies a deep link (and still navigates).
@@ -583,10 +598,9 @@ function renderHtml(api) {
           .catch(() => {});
       });
 
-      window.addEventListener('scroll', requestNavigationSync, { passive: true });
-      window.addEventListener('resize', requestNavigationSync);
-      window.addEventListener('hashchange', requestNavigationSync);
-      syncNavigation();
+      window.addEventListener('hashchange', showClass);
+      window.addEventListener('scroll', requestMemberSync, { passive: true });
+      showClass();
     </script>
   </body>
 </html>`;
