@@ -500,35 +500,32 @@ pre code {
   overflow-y: auto;
 }
 
-/* Custom scrollbar for the scrollable sidebars (docs nav and API class list),
-   replacing the heavy native one. Firefox uses scrollbar-width/color; WebKit
-   and Chromium use the ::-webkit-scrollbar pseudo-elements. */
-.doc-sidebar,
-.api-sidebar {
+/* Custom scrollbars across the whole site, replacing the heavy native ones.
+   Firefox uses scrollbar-width/color; WebKit and Chromium use the
+   ::-webkit-scrollbar pseudo-elements. Applies to the page and every scroll
+   container (sidebars, code blocks, etc.). */
+* {
   scrollbar-width: thin;
   scrollbar-color: var(--surface-3) transparent;
 }
 
-.doc-sidebar::-webkit-scrollbar,
-.api-sidebar::-webkit-scrollbar {
-  width: 10px;
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
 }
 
-.doc-sidebar::-webkit-scrollbar-track,
-.api-sidebar::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.doc-sidebar::-webkit-scrollbar-thumb,
-.api-sidebar::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: var(--surface-3);
   border-radius: 999px;
   border: 3px solid transparent;
   background-clip: padding-box;
 }
 
-.doc-sidebar::-webkit-scrollbar-thumb:hover,
-.api-sidebar::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
   background-clip: padding-box;
 }
