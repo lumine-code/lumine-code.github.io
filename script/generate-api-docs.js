@@ -349,23 +349,43 @@ function renderHtml(api) {
       item.members.map((member) => memberId(item.name, member)),
     ),
   );
-  const classNavigation = api.classes
-    .map((item) => {
-      const memberNav = item.members
-        .map((member) => {
-          const short = member.signature.includes("(")
-            ? `${member.signature.slice(0, member.signature.indexOf("("))}()`
-            : member.signature;
-          return `<a class="api-nav-member" href="#${memberId(item.name, member)}" data-api-nav-member="${memberId(item.name, member)}">${escapeHtml(short)}</a>`;
-        })
-        .join("");
-      return `<div class="api-nav-group" data-nav-group="class-${slug(item.name)}"><a class="api-nav-link" href="#class-${slug(item.name)}" data-api-nav>${escapeHtml(item.name)}</a><div class="api-nav-members">${memberNav}</div></div>`;
-    })
+  const memberShort = (member) =>
+    member.signature.includes("(")
+      ? `${member.signature.slice(0, member.signature.indexOf("("))}()`
+      : member.signature;
+  // Left rail: a flat list of class links.
+  const classNav = api.classes
+    .map(
+      (item) =>
+        `<a class="api-nav-link" href="#class-${slug(item.name)}" data-api-nav>${escapeHtml(item.name)}</a>`,
+    )
     .join("\n");
-  const functionNavigation = api.functions.length
+  const functionNav = api.functions.length
     ? '<a class="api-nav-link api-nav-functions" href="#functions" data-api-nav>Functions</a>'
     : "";
-  const navigation = `${classNavigation}${functionNavigation}`;
+  const classList = `${classNav}${functionNav}`;
+  // Right rail: one "On this page" group of members per class; only the group
+  // for the class you are reading is shown (toggled by the scroll spy).
+  const memberToc = api.classes
+    .map((item) => {
+      const memberNav = item.members
+        .map(
+          (member) =>
+            `<a class="api-nav-member" href="#${memberId(item.name, member)}" data-api-nav-member="${memberId(item.name, member)}">${escapeHtml(memberShort(member))}</a>`,
+        )
+        .join("");
+      return `<div class="api-toc-group" data-toc-group="class-${slug(item.name)}">${memberNav || '<p class="api-toc-empty">No members.</p>'}</div>`;
+    })
+    .join("\n");
+  const functionToc = api.functions.length
+    ? `<div class="api-toc-group" data-toc-group="functions">${api.functions
+        .map(
+          (item) =>
+            `<a class="api-nav-member" href="#function-${slug(item.name)}" data-api-nav-member="function-${slug(item.name)}">${escapeHtml(item.name)}()</a>`,
+        )
+        .join("")}</div>`
+    : "";
+  const tocList = `${memberToc}${functionToc}`;
   const classes = api.classes
     .map((item) => {
       const groups = new Map();
@@ -431,17 +451,18 @@ function renderHtml(api) {
       .api-header { max-width: 780px; margin-bottom: 40px; }
       .api-header h1 { margin: 8px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); }
       .api-meta { color: var(--muted); }
-      .api-layout { display: grid; grid-template-columns: 230px minmax(0, 900px); gap: 56px; align-items: start; }
-      .api-sidebar { position: sticky; top: 88px; max-height: calc(100vh - 112px); overflow: auto; }
-      .api-sidebar p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .api-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr) 224px; gap: 40px; align-items: start; }
+      .api-sidebar, .api-toc { position: sticky; top: 88px; max-height: calc(100vh - 112px); overflow: auto; }
+      .api-sidebar p, .api-toc p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
       .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
-      .api-nav-members { display: none; margin: 1px 0 6px; }
-      .api-nav-group.open .api-nav-members { display: block; }
-      .api-nav-member { display: block; padding: 3px 0 3px 24px; border-left: 2px solid transparent; margin-left: -2px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .api-toc-group { display: none; }
+      .api-toc-group.active { display: block; }
+      .api-toc-empty { margin: 0; color: var(--muted); font-style: italic; font-size: .8rem; }
+      .api-nav-member { display: block; padding: 4px 0 4px 10px; border-left: 2px solid transparent; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
       .api-nav-member:hover { color: var(--gold-strong); }
-      .api-nav-member.active { border-left-color: var(--border); color: var(--text); }
+      .api-nav-member.active { border-left-color: var(--gold-strong); color: var(--text); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
       .api-nav-functions { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
@@ -473,6 +494,7 @@ function renderHtml(api) {
       .api-member pre, .api-description pre { overflow: auto; }
       .api-empty { color: var(--muted); font-style: italic; }
       [hidden] { display: none !important; }
+      @media (max-width: 1080px) { .api-layout { grid-template-columns: 200px minmax(0, 1fr); } .api-toc { display: none; } }
       @media (max-width: 820px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { position: static; max-height: 260px; } }
     </style>
   </head>
@@ -484,23 +506,34 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p>${navigation}</aside><article>${classes}${functions}</article></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p>${classList}</aside><article>${classes}${functions}</article><aside class="api-toc" data-api-toc><p>On this page</p>${tocList}</aside></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
     <script>
       const navLinks = [...document.querySelectorAll('[data-api-nav]')];
-      const navGroups = [...document.querySelectorAll('.api-nav-group')];
+      const tocGroups = [...document.querySelectorAll('.api-toc-group')];
       const memberNav = [...document.querySelectorAll('[data-api-nav-member]')];
       const sidebar = document.querySelector('[data-api-sidebar]');
+      const toc = document.querySelector('[data-api-toc]');
       const toast = document.querySelector('[data-api-toast]');
-      const trackedSections = navLinks.map(link => ({ link, section: document.querySelector(link.hash), group: link.closest('.api-nav-group') }));
-      const trackedMembers = memberNav.map(link => ({ link, section: document.getElementById(link.dataset.apiNavMember), group: link.closest('.api-nav-group') }));
+      const trackedSections = navLinks.map(link => ({ link, section: document.querySelector(link.hash), key: link.hash.slice(1) }));
+      const trackedMembers = memberNav.map(link => ({ link, section: document.getElementById(link.dataset.apiNavMember), group: link.closest('.api-toc-group') }));
       let trackingFrame, toastTimer;
+
+      // Scroll a rail so the given entry stays visible as you read.
+      const keepInView = (container, el) => {
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        if (top < container.scrollTop) container.scrollTo({ top, behavior: 'smooth' });
+        else if (bottom > container.scrollTop + container.clientHeight) {
+          container.scrollTo({ top: bottom - container.clientHeight, behavior: 'smooth' });
+        }
+      };
 
       const syncNavigation = () => {
         trackingFrame = null;
-        const visible = trackedSections.filter(({ section }) => section && !section.hidden);
+        const visible = trackedSections.filter(({ section }) => section);
         if (!visible.length) return;
         let active = visible[0];
         for (const candidate of visible) {
@@ -509,29 +542,27 @@ function renderHtml(api) {
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
           active = visible.at(-1);
         }
+        // Left rail: highlight the class you are reading.
         for (const candidate of trackedSections) {
           const isActive = candidate === active;
           candidate.link.classList.toggle('active', isActive);
           if (isActive) candidate.link.setAttribute('aria-current', 'location');
           else candidate.link.removeAttribute('aria-current');
         }
-        // Expand only the in-view class (accordion).
-        for (const group of navGroups) group.classList.toggle('open', group === active.group);
-        // Highlight the in-view member within the open class.
+        // Right rail: show only the active class's members.
+        for (const group of tocGroups) {
+          group.classList.toggle('active', group.dataset.tocGroup === active.key);
+        }
+        // Highlight the in-view member within the active group.
         let activeMember = null;
         for (const member of trackedMembers) {
-          if (member.group !== active.group || !member.section || member.section.hidden) continue;
+          if (!member.section || member.group.dataset.tocGroup !== active.key) continue;
           if (member.section.getBoundingClientRect().top <= 160) activeMember = member;
         }
         for (const member of trackedMembers) member.link.classList.toggle('active', member === activeMember);
 
-        const focus = activeMember ? activeMember.link : active.link;
-        const top = focus.offsetTop;
-        const bottom = top + focus.offsetHeight;
-        if (top < sidebar.scrollTop) sidebar.scrollTo({ top, behavior: 'smooth' });
-        else if (bottom > sidebar.scrollTop + sidebar.clientHeight) {
-          sidebar.scrollTo({ top: bottom - sidebar.clientHeight, behavior: 'smooth' });
-        }
+        keepInView(sidebar, active.link);
+        if (activeMember) keepInView(toc, activeMember.link);
       };
 
       const requestNavigationSync = () => {
