@@ -4,12 +4,14 @@
 // pages load Markdown/JSON with `fetch()`, so they must be served over HTTP
 // rather than opened from `file://`. Uses only Node built-ins — no dependency.
 
+const { spawn } = require("child_process");
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
 
 const siteRoot = path.resolve(__dirname, "..");
-const port = Number(process.argv[2] || process.env.PORT || 8000);
+const startPort = Number(process.argv[2] || process.env.PORT || 8000);
+const maxPortAttempts = 20;
 const host = "127.0.0.1";
 
 const mimeTypes = {
@@ -61,20 +63,54 @@ const server = http.createServer((request, response) => {
   });
 });
 
-server.on("error", (error) => {
-  if (error.code === "EADDRINUSE") {
-    console.error(`Port ${port} is already in use. Pass a different port, e.g. \`npm start -- 8080\`.`);
-  } else {
-    console.error(error.message);
-  }
-  process.exit(1);
-});
+// Open a URL in the platform's default browser.
+function openBrowser(url) {
+  const opener =
+    process.platform === "win32"
+      ? { command: "cmd", args: ["/c", "start", "", url] }
+      : process.platform === "darwin"
+        ? { command: "open", args: [url] }
+        : { command: "xdg-open", args: [url] };
+  spawn(opener.command, opener.args, { stdio: "ignore", detached: true }).unref();
+}
 
-server.listen(port, host, () => {
-  const base = `http://${host}:${port}`;
+// Try `port`; if it is taken, walk upward until a free one is found. Each
+// attempt gets its own one-time error handler; the shared `listening` handler
+// below fires once, for whichever port actually binds.
+function listen(port, attemptsLeft) {
+  server.once("error", (error) => {
+    if (error.code === "EADDRINUSE" && attemptsLeft > 0) {
+      console.log(`Port ${port} is in use, trying ${port + 1}...`);
+      listen(port + 1, attemptsLeft - 1);
+    } else if (error.code === "EADDRINUSE") {
+      console.error(`No free port found in ${startPort}-${startPort + maxPortAttempts}.`);
+      process.exit(1);
+    } else {
+      console.error(error.message);
+      process.exit(1);
+    }
+  });
+
+  server.listen(port, host);
+}
+
+server.once("listening", () => {
+  // Drop the pending retry error handler and log runtime errors plainly.
+  server.removeAllListeners("error");
+  server.on("error", (error) => console.error(error.message));
+
+  const base = `http://${host}:${server.address().port}`;
   console.log(`Serving ${siteRoot}`);
   console.log(`  Landing page   ${base}/`);
   console.log(`  Docs           ${base}/docs.html`);
   console.log(`  API reference  ${base}/api/`);
-  console.log("Press Ctrl+C to stop.");
+  console.log("Press Enter to open in your browser, Ctrl+C to stop.");
+
+  // Enter (a blank line on stdin) opens the landing page in the browser.
+  if (process.stdin.isTTY) {
+    process.stdin.setEncoding("utf8");
+    process.stdin.on("data", () => openBrowser(base + "/"));
+  }
 });
+
+listen(startPort, maxPortAttempts);
