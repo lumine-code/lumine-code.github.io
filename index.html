@@ -24,12 +24,11 @@
       <span>Lumine</span>
     </a>
     <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#build">Build</a>
       <a href="docs.html">Docs</a>
       <a href="api/">API</a>
       <a href="https://github.com/lumine-code/lumine">GitHub</a>
     </nav>
-    <a class="btn btn-primary nav-cta" href="#build">Build from source</a>
+    <a class="btn btn-primary nav-cta" href="docs.html#getting-started/installing-lumine">Build from source</a>
   </header>
 
   <main id="top">
@@ -41,7 +40,7 @@
         <p class="eyebrow">Community-led editor</p>
         <p class="hero-tagline">A hyper-hackable text editor for people who want the whole system within reach.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#build">Build Lumine</a>
+          <a class="btn btn-primary" href="docs.html#getting-started/installing-lumine">Build Lumine</a>
           <a class="btn btn-secondary" href="https://github.com/lumine-code/lumine">View source</a>
         </div>
       </div>
@@ -56,54 +55,6 @@
         Lumine continues the idea of an editor you can take apart and rebuild around your workflow,
         with the project stewarded by the community that uses it.
       </p>
-    </section>
-
-    <section id="build" class="section build-section" aria-labelledby="build-title">
-      <div class="section-heading">
-        <p class="eyebrow">Build</p>
-        <h2 id="build-title">Build from source</h2>
-        <p>
-          Lumine runs from source: clone the repo, use the Node version from
-          <code>.nvmrc</code>, then install and start. npm ships with Node, so there is
-          nothing else to set up.
-        </p>
-      </div>
-
-      <div class="build-layout">
-        <article class="build-card build-card-main">
-          <div class="card-heading">
-            <h3>Recommended local flow</h3>
-            <span>Runs the app from source</span>
-          </div>
-          <pre><code><span class="tok-comment"># Clone the source</span>
-git clone https://github.com/lumine-code/lumine.git
-cd lumine
-
-<span class="tok-comment"># Use the project Node version from .nvmrc</span>
-nvm install
-
-<span class="tok-comment"># Install, rebuild native modules, and launch</span>
-npm install
-npm run build
-npm start
-
-<span class="tok-comment"># Optional: produce platform binaries in binaries/</span>
-npm run dist</code></pre>
-        </article>
-
-        <aside class="build-notes" aria-label="Build notes">
-          <div class="note">
-            <h3>Dev resource path</h3>
-            <p>If Lumine is already installed, point the installed app at this source checkout and launch it in dev mode.</p>
-            <pre><code><span class="tok-comment"># PowerShell</span>
-$env:LUMINE_RESOURCE_PATH = (Get-Location).Path
-lumine --dev .
-
-<span class="tok-comment"># macOS/Linux</span>
-LUMINE_RESOURCE_PATH="$PWD" lumine --dev .</code></pre>
-          </div>
-        </aside>
-      </div>
     </section>
   </main>
 
