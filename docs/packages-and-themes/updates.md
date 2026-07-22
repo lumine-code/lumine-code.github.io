@@ -45,7 +45,7 @@ Commands available in `atom-workspace`:
 
 ## Editor updates
 
-Lumine itself is **not** auto-updated. Atom/Pulsar upstream used Electron's `autoUpdater` (Squirrel on Windows/macOS); Lumine removes that in favor of a notify-only model implemented by the bundled `lumine-updater` package.
+Lumine itself is **not** auto-updated. Rather than bundling Electron's `autoUpdater` (Squirrel on Windows/macOS), Lumine uses a notify-only model implemented by the bundled `lumine-updater` package.
 
 On launch, `lumine-updater`:
 

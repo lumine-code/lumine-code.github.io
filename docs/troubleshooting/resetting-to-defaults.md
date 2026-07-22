@@ -20,13 +20,13 @@ This resets the remembered environment without touching your settings, keymap, o
 
 Each customization is a single file, so you can reset just one:
 
-- Empty or delete `config.cson` to restore default settings.
-- Empty `keymap.cson`, `snippets.cson`, or `styles.less` to drop your keybindings, snippets, or style tweaks.
+- Empty or delete `config.json` to restore default settings.
+- Empty `keymap.json`, `snippets.json`, or `styles.css` to drop your keybindings, snippets, or style tweaks.
 
-Use the `application:open-your-*` commands to open each one.
+Use the `application:open-your-*` commands to open each one. If you upgraded from an older setup you may instead have legacy `config.cson`, `keymap.cson`, `snippets.cson`, or `styles.less` files — reset those the same way.
 
 ## Reset everything
 
 For a completely fresh start, move the whole configuration directory aside (rename `~/.lumine` to `~/.lumine.bak`) and start Lumine — it recreates a default directory. Your old setup is preserved in the backup if you need anything from it.
 
-You can also keep an isolated configuration without disturbing your main one by pointing the `ATOM_HOME` environment variable at a different directory before launching.
+You can also keep an isolated configuration without disturbing your main one by pointing the `LUMINE_HOME` environment variable at a different directory before launching.
