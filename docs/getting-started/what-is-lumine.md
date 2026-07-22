@@ -14,6 +14,6 @@ Almost everything in Lumine is a **package** — many core features are packages
 - **Themes** change the look of the interface and syntax. See [Developing a theme](../developing-for-lumine/developing-a-theme.md).
 - **Keymaps, snippets, styles, and an init script** let you customize the editor without writing a package. See [Configuration](../customizing-lumine/configuration.md).
 
-## Community-led and source-first
+## Open source and source-first
 
 Lumine is stewarded by the community that uses it, under the `lumine-code` organization on GitHub. The project is evolving quickly and is currently **source-first**: the most reliable way to run it today is to build it from source. See [Installing Lumine](installing-lumine.md).
