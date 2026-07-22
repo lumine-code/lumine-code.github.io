@@ -40,6 +40,19 @@ file and selected lines (`open-repository:copy-url`).
 
 ## Going further
 
-For richer workflows (staging, committing, branch management), install a
-community Git package — see
-[The package system](../packages-and-themes/package-system.md).
+For richer workflows, install these `lumine-code` packages from the Install
+tab (see [The package system](../packages-and-themes/package-system.md)):
+
+- **[git-panel](https://github.com/lumine-code/git-panel)**: a full Git panel —
+  stage, unstage, and discard changes per file, hunk, or line; compose commits
+  and manage branches; fetch, pull, push, and force-push; view diffs with
+  hunk/line/word-level highlighting; resolve merge conflicts in the editor;
+  and initialize or clone repositories.
+- **[github-panel](https://github.com/lumine-code/github-panel)**: adds
+  GitHub-specific features on top of `git-panel` — browse and review pull
+  requests (with Overview, Build Status, Commits, and Files Changed tabs),
+  see review comments as inline decorations, open issues or pull requests by
+  URL, and create or publish GitHub repositories.
+
+Type `lumine-code/git-panel` or `lumine-code/github-panel` directly into the
+Install tab's search box to find them.
