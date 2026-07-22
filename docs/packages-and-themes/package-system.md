@@ -4,8 +4,6 @@ Lumine installs packages and themes directly from Git repositories. There is no 
 
 A catalog does **not** provide names, versions, descriptions, compatibility, or READMEs. It is only a list of Git sources. Lumine resolves each source to an exact commit, reads that commit's `package.json`, and validates it before anything is installed.
 
-> V1 installs a single package located at the **root** of a repository. Installing an individual package out of a monorepo subdirectory is out of scope.
-
 ## Where packages live
 
 Every package is identified by its **name** — the `name` field of its `package.json`. That name is the install directory (`~/.lumine/packages/<name>`), the prefix for its commands (`<name>:command`), its configuration namespace (`<name>.*`), and how it is required and activated. Because the name is the install directory, **only one package with a given name can be installed at a time**, even if two different repositories publish a package by that name.

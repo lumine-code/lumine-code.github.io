@@ -29,17 +29,19 @@ manifest entry when another Lumine repository exposes documented public APIs.
 
 ## Local preview
 
-Open `index.html` directly in a browser, or serve the folder:
+Serve the folder over HTTP and open the printed URL:
 
 ```sh
-python -m http.server
-# then visit http://localhost:8000
+npm start
+# serves http://127.0.0.1:8000 (pass a port with `npm start -- 8080`)
 ```
+
+The docs and API pages load Markdown and JSON with `fetch()`, so they must be served over HTTP — opening the HTML files directly from `file://` will not work.
 
 ## Deploying
 
 This repo is named `lumine-code.github.io`, so GitHub Pages serves it at the org root automatically. In the repo's **Settings -> Pages**, set the source to the `main` branch root folder.
 
-## License
+## Contributing
 
-MIT. See the [Lumine repository](https://github.com/lumine-code/lumine) for details.
+Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!
