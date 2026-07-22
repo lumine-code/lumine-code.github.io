@@ -10,7 +10,7 @@ Installed packages and themes are managed from **Settings** or from the command 
 
 ## Choosing a theme
 
-Lumine bundles the **`one-theme`** package, which provides a light variant (**one-day**) and a dark variant (**one-night**) for both the interface and syntax. Pick your UI theme and syntax theme in **Settings → Themes**. Install more themes the same way you install packages — see [The package system](package-system.md) — or build your own, described in [Developing a theme](../developing-for-lumine/developing-a-theme.md).
+Lumine bundles the **`one-theme`** package, which provides light and dark variants for both the interface and syntax: the **one-day-ui** / **one-night-ui** interface themes and the **one-day-syntax** / **one-night-syntax** syntax themes. Pick your UI theme and syntax theme in **Settings → Themes**. Install more themes the same way you install packages — see [The package system](package-system.md) — or build your own, described in [Developing a theme](../developing-for-lumine/developing-a-theme.md).
 
 ## From the command line
 
