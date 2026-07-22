@@ -18,7 +18,7 @@ These are the options accepted by the `lumine` command:
 | --------------------------- | --------------------------------------------------------------------------- |
 | `-d`, `--dev`               | Run in development mode.                                                    |
 | `-n`, `--new-window`        | Open a new window.                                                          |
-| `-a`, `--add`               | Open the given path as a project in the last used window.                   |
+| `-a`, `--add`               | Open the given path as a new project in the last used window.               |
 | `-w`, `--wait`              | Wait for the window to close before returning (useful as a `$EDITOR`).      |
 | `--safe`                    | Do not load packages from `~/.lumine/packages` or `~/.lumine/dev/packages`. |
 | `-r <path>`                 | Set the path to the Lumine source directory and enable dev mode.            |
@@ -42,9 +42,9 @@ To run a source checkout against an already-installed Lumine, point it at the ch
 
 ```sh
 # PowerShell
-$env:ATOM_DEV_RESOURCE_PATH = (Get-Location).Path
+$env:LUMINE_RESOURCE_PATH = (Get-Location).Path
 lumine --dev .
 
 # macOS / Linux
-ATOM_DEV_RESOURCE_PATH="$PWD" lumine --dev .
+LUMINE_RESOURCE_PATH="$PWD" lumine --dev .
 ```

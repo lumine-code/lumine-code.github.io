@@ -5,8 +5,7 @@ Lumine is currently **source-first**: downloads and platform packages are still 
 ## Prerequisites
 
 - **Git** — to clone the repository.
-- **Node.js** — the exact version is pinned in the repository's `.nvmrc` (currently Node 24). Using [nvm](https://github.com/nvm-sh/nvm) is the easiest way to match it.
-- **Yarn** — provided through Corepack (bundled with modern Node), so you do not install it separately.
+- **Node.js** — the exact version is pinned in the repository's `.nvmrc` (currently Node 24). Using [nvm](https://github.com/nvm-sh/nvm) is the easiest way to match it. npm ships with Node, so there is nothing else to install for the package manager.
 - **A C/C++ build toolchain** — some native modules are compiled during install. On Windows this means the Visual Studio Build Tools; on macOS the Xcode command-line tools; on Linux the usual `build-essential`/Python toolchain.
 
 ## Build from source
@@ -19,23 +18,20 @@ cd lumine
 # Use the project Node version from .nvmrc
 nvm install
 
-# Enable Yarn through Corepack once for this Node version
-corepack enable
-
 # Install dependencies, rebuild native modules, and launch
-yarn install
-yarn build
-yarn start
+npm install
+npm run build
+npm start
 ```
 
-`yarn start` runs the editor you just built.
+`npm install` installs dependencies, `npm run build` rebuilds the native modules against Lumine's Electron runtime, and `npm start` runs the editor you just built.
 
 ## Building installable binaries
 
 To produce platform binaries instead of running from source:
 
 ```sh
-yarn dist
+npm run dist
 ```
 
 The output is written to the `binaries/` directory.
