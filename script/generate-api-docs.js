@@ -452,13 +452,12 @@ function renderHtml(api) {
       .api-header { max-width: 780px; margin-bottom: 40px; }
       .api-header h1 { margin: 8px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); }
       .api-meta { color: var(--muted); }
-      .api-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; align-items: start; }
-      .api-sidebar { position: sticky; top: 88px; height: calc(100vh - 112px); display: flex; flex-direction: column; }
+      .api-layout { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 48px; align-items: start; }
+      .api-sidebar { position: sticky; top: 88px; height: calc(100vh - 112px); display: flex; gap: 24px; }
       .api-sidebar p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-      .api-members-label { margin: 16px 0 10px; padding-top: 14px; border-top: 1px solid var(--border); }
-      .api-classlist { flex: 1.3 1 0; min-height: 0; overflow: auto; }
-      .api-memberlist { flex: 1 1 0; min-height: 0; overflow: auto; }
-      .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; transition: border-color .15s ease, color .15s ease; }
+      .api-tree { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+      .api-tree-scroll { flex: 1 1 0; min-height: 0; overflow: auto; position: relative; }
+      .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
       .api-toc-group { display: none; }
@@ -498,7 +497,7 @@ function renderHtml(api) {
       .api-member pre, .api-description pre { overflow: auto; }
       .api-empty { color: var(--muted); font-style: italic; }
       [hidden] { display: none !important; }
-      @media (max-width: 820px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { position: static; height: auto; display: block; } .api-classlist, .api-memberlist { max-height: 240px; } }
+      @media (max-width: 820px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { position: static; height: auto; display: block; } .api-tree-scroll { max-height: 240px; } }
     </style>
   </head>
   <body>
@@ -509,7 +508,7 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><p>Classes</p><div class="api-classlist" data-api-classlist>${classList}</div><p class="api-members-label">Members</p><div class="api-memberlist" data-api-memberlist>${tocList}</div></aside><article>${classes}${functions}</article></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p>Classes</p><div class="api-tree-scroll" data-api-classlist>${classList}</div></div><div class="api-tree"><p>Members</p><div class="api-tree-scroll" data-api-memberlist>${tocList}</div></div></aside><article>${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
