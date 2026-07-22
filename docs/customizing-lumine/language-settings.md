@@ -12,7 +12,7 @@ Each installed language grammar appears here, identified by its scope name (for 
 
 Language settings are **scoped**: they apply only to editors whose grammar matches. In [`config.json`](configuration.md) a scoped block is keyed by the language's scope selector rather than by `"*"`:
 
-```json
+```jsonc
 {
   "*": {
     "editor": {
