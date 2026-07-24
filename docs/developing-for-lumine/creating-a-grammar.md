@@ -6,7 +6,7 @@ A grammar teaches Lumine to understand a language: it assigns **scopes** to piec
 
 Lumine supports two kinds of grammar, and a language package can ship both:
 
-- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: 'modern-tree-sitter'` (or the older `type: 'tree-sitter'`).
+- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: 'modern-tree-sitter'` (or the older `type: 'tree-sitter'`). See [Tree-sitter grammars](tree-sitter-grammars.md) for how their parsers, queries, and build tooling work.
 - **TextMate grammars** match text with regular expressions. They are simpler and widely available. A TextMate grammar file has a `scopeName` and no `type` field.
 
 When both are present, Lumine prefers the Tree-sitter grammar and falls back to TextMate.
