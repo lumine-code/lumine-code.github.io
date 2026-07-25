@@ -34,13 +34,13 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 
 ## Jupyter
 
-- **jove-repl** — run code against Jupyter kernels from any editor.
-- **jove-view** — open and edit Jupyter notebooks.
+- **jupyter-repl** — run code against Jupyter kernels from any editor.
+- **jupyter-view** — open and edit Jupyter notebooks.
 
 ## Scrollbar markers
 
 - **scrollmap** — the scrollbar-marker hub; satellites feed it markers:
-  **scrollmap-cursors**, **scrollmap-brackets**, **scrollmap-highlight**, **scrollmap-git-diff**, **scrollmap-diff-view**, **scrollmap-linter**, **scrollmap-navigation**, **scrollmap-search-panel**, **scrollmap-jove-repl**.
+  **scrollmap-cursors**, **scrollmap-brackets**, **scrollmap-highlight**, **scrollmap-git-diff**, **scrollmap-diff-view**, **scrollmap-linter**, **scrollmap-navigation**, **scrollmap-search-panel**, **scrollmap-jupyter-repl**.
 
 ## Desktop integration
 

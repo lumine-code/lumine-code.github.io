@@ -1,0 +1,15 @@
+# Jupyter notebooks
+
+Lumine's **`jupyter-view`** package opens and edits Jupyter notebooks (`.ipynb`) in a cell-based editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/jupyter-view`. Open a notebook from the tree view with `jupyter-view:open-notebook`, start a new one with `jupyter-view:new-notebook`, or switch the active file between its notebook and text views with `jupyter-view:toggle`.
+
+## Cells
+
+Like classic Jupyter, the editor has a command mode and an edit mode (`jupyter-view:enter-command-mode` / `jupyter-view:enter-edit-mode`). Cell editors offer autocomplete while you type — kernel completions when a kernel is live, word completions from open buffers otherwise. Python cells use the bundled IPython grammar, so magics (`%m`, `%%m`), shell escapes (`!cmd`), and help requests (`?obj`, `obj?`) highlight as valid syntax rather than as errors. Move between cells with `jupyter-view:focus-next-cell` / `jupyter-view:focus-previous-cell`, and extend a multi-cell selection with `jupyter-view:select-next-cell` / `jupyter-view:select-previous-cell`. Insert, delete, move, duplicate, cut, copy, paste, and merge cells with the matching `jupyter-view:*-cell` commands, or reorder them by drag and drop. Change a cell's type with `jupyter-view:change-cell-to-code` / `-markdown` / `-raw`, and hide input or output with `jupyter-view:toggle-cell-input` / `jupyter-view:toggle-cell-output`. Edits are undoable with `jupyter-view:undo-cell-operation` / `jupyter-view:redo-cell-operation`.
+
+## Running cells
+
+When the [jupyter-repl](jupyter-repl.md) package is installed, cells run on its Jupyter kernels through the `jupyter.adapter` service — each cell has a run button and live execution status, and stored outputs (text, images, SVG, HTML, LaTeX, markdown, and ANSI-colored streams) render inline. Clear outputs with `jupyter-view:clear-output` or `jupyter-view:clear-all-outputs`.
+
+## Source, search, and export
+
+`jupyter-view:open-source` opens the notebook as plain `.ipynb` JSON. With the search-panel package, the buffer find panel searches and replaces across cell source, entering edit mode on the matching cell. `jupyter-view:export-to-python` and `jupyter-view:export-to-html` save the notebook as a script or a web page. When the linter, navigation-panel, and scrollmap packages are present, cell diagnostics, markdown-heading outlines, and scrollbar markers stay in sync with the notebook.
