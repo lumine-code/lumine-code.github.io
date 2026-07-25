@@ -19,6 +19,8 @@ The editor can revert an uncommitted change back to what is committed: `editor:c
 
 Git status flows into other parts of the interface — for example the tree view and status bar reflect which files are new or modified — using the editor's built-in repository support and the bundled `language-git` grammar for Git files (commit messages, rebase todo lists, and so on).
 
+File names in the tree view and on tabs are colored by their Git status (green for added, orange for modified, faded for ignored, and so on). The `git:colorize-toggle` command switches this coloring off or back on for the current window only — handy when you want a calmer view without changing any settings or affecting other windows.
+
 ## Opening on your Git host
 
 The bundled **`open-repository`** package opens the current file or repository on its Git host's website. It supports GitHub, GitLab, and Bitbucket (and falls back to GitHub-style URLs for other hosts). It can open the file (`open-repository:file`), its blame or history, the repository, its issues or pull/merge requests, the branch compare page, and can copy a URL for the current file and selected lines (`open-repository:copy-url`).
