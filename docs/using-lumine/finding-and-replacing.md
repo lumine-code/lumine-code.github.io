@@ -17,7 +17,7 @@ While the panel is open you can toggle:
 - **Whole word** — `search-panel:toggle-whole-word-option`
 - **Within selection** — `search-panel:toggle-selection-option`
 
-You can also seed the fields from the editor: `search-panel:use-selection-as-find-pattern` and `search-panel:use-selection-as-replace-pattern`.
+You can also seed the fields from the editor: `search-panel:use-selection-as-find-pattern` and `search-panel:use-selection-as-replace-pattern`. With the **Autocomplete search** setting enabled, the find field offers word completions from your open buffers as you type.
 
 ## Selecting matches to edit them together
 

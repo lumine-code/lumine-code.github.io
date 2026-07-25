@@ -16,7 +16,7 @@ Without a selection, `jove-repl:run` detects what to execute from the cursor pos
 
 ## Inspecting results
 
-`jove-repl:inspect-under-cursor` shows documentation for the symbol under the cursor without moving focus, and `jove-repl:open-data-explorer` loads a dataframe, array, or nested object into a searchable grid with charts, drill-down, and breadcrumbs. Watch expressions (`jove-repl:add-watch`, `jove-repl:toggle-watches`) re-run on every execution; `jove-repl:toggle-variable-explorer` browses the kernel namespace; and `jove-repl:toggle-kernel-monitor-focus` lists and controls running kernels. Click an inline result to copy it, or Ctrl+Click (Cmd+Click on macOS) to open it in an editor.
+`jove-repl:inspect-under-cursor` shows documentation for the symbol under the cursor without moving focus, and `jove-repl:open-data-explorer` loads a dataframe, array, or nested object into a searchable grid with charts, drill-down, and breadcrumbs. Watch expressions (`jove-repl:add-watch`, `jove-repl:toggle-watches`) re-run on every execution; `jove-repl:toggle-variable-explorer` browses the kernel namespace; and `jove-repl:toggle-kernel-monitor-focus` lists and controls running kernels. The watch, inspector, and data-explorer expression editors offer autocomplete — kernel completions plus words from your open buffers. Click an inline result to copy it, or Ctrl+Click (Cmd+Click on macOS) to open it in an editor.
 
 ## Notebooks and console
 
