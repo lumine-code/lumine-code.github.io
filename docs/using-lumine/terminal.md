@@ -1,6 +1,6 @@
 # Terminal
 
-Lumine bundles the **`terminal`** package: a terminal emulator built into the workspace, so you can run a real shell without leaving the editor.
+Lumine's **`terminal`** package is a terminal emulator built into the workspace, so you can run a real shell without leaving the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/terminal`.
 
 ## Opening a terminal
 

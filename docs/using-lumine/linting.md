@@ -1,6 +1,6 @@
 # Linting
 
-Lumine's **`linter`** package surfaces diagnostics — errors, warnings, and info — from linter providers directly in the editor. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and shows them inline, in a panel, and in the status bar.
+Lumine's **`linter`** package surfaces diagnostics — errors, warnings, and info — from linter providers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and shows them inline, in a panel, and in the status bar.
 
 ## The linter panel
 
@@ -20,7 +20,7 @@ The status-bar item shows the error, warning, and info counts. Left-click toggle
 
 ## Controlling what gets linted
 
-`linter:toggle-current-file` stops (or resumes) linting for the active file. `linter:toggle-linter` opens a picker to enable or disable individual providers, remembered in the **Disabled providers** setting. Files matching the **Ignore Glob** (by default minified `*.min.js` / `*.min.css`) are never linted, and VCS-ignored files are skipped when **Exclude VCS Ignored Paths** is on.
+`linter:toggle-current-file` stops (or resumes) linting for the active file. `linter:toggle-linter` opens a picker to enable or disable individual providers, remembered in the **Disabled providers** setting. Files matching the **Ignore files matching this Glob** setting (by default minified `*.min.js` / `*.min.css`) are never linted, and VCS-ignored files are skipped while the core **Exclude VCS Ignored Paths** setting is on.
 
 By default files are linted when opened (**Lint on Open**) and as you type (**Lint on Change**, throttled by **Lint on Change Interval**); disable either to lint only on save. `linter:lint` lints the current file on demand, and `linter:debug` reports which providers apply to it.
 
