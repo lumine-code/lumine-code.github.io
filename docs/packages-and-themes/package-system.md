@@ -87,7 +87,7 @@ On a browse (not-installed) card, changing the version re-fetches the manifest f
 
 The repository reference is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to the version the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
 
-A **status dot** next to the card's buttons flags anything unusual — red when the package could not be loaded from its catalog, yellow when the newest fetch failed and the card shows the last good data, and an informational dot for Pulsar-registry listings; the details are in its hover tooltip. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
+A **status dot** next to the card's buttons flags anything unusual — red when the package could not be loaded from its catalog, yellow when the newest fetch failed and the card shows the last good data, and an informational dot for Pulsar-registry listings or for a package **installed as a symlink** (a development install; the tooltip names the link's target). The details are in each dot's hover tooltip. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
 
 ## Catalog sources
 
