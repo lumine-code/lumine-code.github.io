@@ -85,7 +85,7 @@ The default selection is the highest compatible stable tag (or the default branc
 
 On a browse (not-installed) card, changing the version re-fetches the manifest for the new commit and re-validates it; **Install** stays disabled until validation completes. On an installed card, choosing a different version turns the action into **Update to X** targeting that exact commit (choosing the installed version again clears the pending update); its **details** then show only the README fetched for the previewed commit, since the package's active settings, keybindings, and grammars still belong to the installed version.
 
-The repository reference beside the version is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to it the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
+The repository reference is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to the version the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
 
 ## Catalog sources
 
