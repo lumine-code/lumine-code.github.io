@@ -29,3 +29,5 @@ Toggle the feature under **Shell Integration** in the package's settings.
 ## Appearance
 
 The terminal derives its colors from the active syntax theme by default, and draws with a WebGL renderer that falls back to canvas. Override any color by redefining its CSS custom property (for example `--terminal-color-red`) in your `styles.css`. Coding-font ligatures such as `==` and `>=` can be enabled in settings.
+
+The cursor mirrors the editor's: it takes the shape and thickness your syntax theme gives `atom-text-editor .cursor`, blinks, and hides itself while the terminal is unfocused. Turn off **Use Editor Cursor** to pick a fixed block, bar, or underline instead. Programs running inside the terminal, such as `vim`, may still change the cursor's shape while they are in the foreground.
