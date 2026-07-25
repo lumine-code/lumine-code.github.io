@@ -34,6 +34,22 @@ Lumine's theming is built on **CSS custom properties**. Define your palette as p
 
 The bundled **`one-theme`** package is the reference implementation: a single package that ships light and dark variants for both UI and syntax (**one-day-ui** / **one-night-ui** and **one-day-syntax** / **one-night-syntax**). Reading it is the best way to see how a complete theme is structured.
 
+## Restyling without switching themes
+
+A theme may repaint the window without the active themes changing — offering a variant as a setting, for example, and keying its stylesheets off an attribute on the document root. Switching themes cross-fades the window and tells packages that cache resolved colors to re-read them; a bare `setAttribute` does neither, so the new palette snaps in and anything painting to a canvas (the terminal, the minimap) keeps the old colors until something unrelated makes it redraw.
+
+Apply those changes through `atom.themes.updateAppearance` instead, and they behave like a theme switch:
+
+```js
+atom.config.onDidChange("my-theme.variant", ({ newValue }) => {
+  atom.themes.updateAppearance(() => {
+    document.documentElement.setAttribute("ui-variant", newValue.toLowerCase());
+  });
+});
+```
+
+Only for changes that alter the palette. Settings that rearrange the window rather than recolor it are plain attribute writes.
+
 ## Developing live
 
 Themes reload as you edit, especially with the bundled `dev-live-reload` package active in a development window. Link and run your theme the same way as any package:
