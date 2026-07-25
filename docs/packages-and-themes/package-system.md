@@ -87,7 +87,7 @@ On a browse (not-installed) card, changing the version re-fetches the manifest f
 
 The repository reference is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to the version the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
 
-**Status dots** at the right edge of the card's name row flag anything unusual, each with its details in a hover tooltip: red when the package could not be loaded from its catalog; yellow when the newest fetch failed (showing the last good data), when catalogs disagree about which version to track, when an installed package's recorded origin does not match its manifest, or when a community package overrides a bundled one; grey while a manifest is being validated; and an informational dot for Pulsar-registry results or for a package **installed as a symlink** (a development install; the tooltip names the link's target). Several dots can show at once. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
+**Status dots** at the right edge of the card's name row flag anything unusual, each with its details in a hover tooltip: red when the package could not be loaded from its catalog; yellow when the newest fetch failed (showing the last good data), when catalogs disagree about which version to track, when an installed package's recorded origin does not match its manifest, or when a community package overrides a bundled one; grey while a manifest is being validated; purple for a Pulsar-registry result; and an informational dot for a package **installed as a symlink** (a development install; the tooltip names the link's target). Several dots can show at once. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
 
 ## Catalog sources
 
@@ -133,7 +133,7 @@ Opening a package's **details** shows everything it has in one scrolling list â€
 The Install tab can additionally live-search the Pulsar package registry (`api.pulsar-edit.dev`). Enable **Include results from the Pulsar package registry** (the checkbox next to Restore Defaults, or the `settings-view.includePulsarPackageResults` setting; off by default).
 
 - Pulsar results are used **only as repository links**. Their registry metadata is ignored â€” Lumine re-hydrates each result from its repository like any other source. Results are fetched per search, appended after catalog results, and de-duplicated by origin (catalog wins).
-- Pulsar results are visibly marked: their **Install button is purple** and the card carries the Pulsar status dot. Installation itself works exactly like any other Git source.
+- Pulsar results are visibly marked with a **purple status dot** on the card. Installation itself works exactly like any other Git source.
 - The toggle affects **search only**. The [Updates](updates.md) tab never consults the Pulsar registry; it checks each installed package against its own recorded origin.
 
 ## Slots: Install, Update, Replace, Override
