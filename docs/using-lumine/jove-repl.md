@@ -1,6 +1,6 @@
 # Jupyter REPL
 
-Lumine's **`jove-repl`** package runs code interactively with Jupyter kernels, showing results inline in the editor — plots, images, HTML, LaTeX, and interactive Plotly and Vega charts, with one kernel per language shared across files. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/jove-repl`. It needs Jupyter kernels installed on your system (`pip install ipykernel` registers Python; the package README covers R, JavaScript, and Julia).
+Lumine's **`jove-repl`** package runs code interactively with Jupyter kernels, showing results inline in the editor — plots, images, HTML, LaTeX, and interactive Plotly and Vega charts, with one kernel per language shared across files. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/jove-repl`. It needs Jupyter kernels installed on your system (`pip install ipykernel` registers Python; the package README covers R, JavaScript, and Julia). IPython scripts (`.ipy`) get a dedicated bundled grammar that parses IPython-only statements — magics (`%m`, `%%m`), shell escapes (`!cmd`), and help requests (`?obj`, `obj?`) — as valid syntax, and they run on regular python kernels.
 
 ## Running code
 
