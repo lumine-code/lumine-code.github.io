@@ -83,9 +83,9 @@ The card's **version** is a dropdown. It lists every **tag** (SemVer-descending,
 
 The default selection is the highest compatible stable tag (or the default branch when there are no tags). If the selected version's `engines.atom` does not match your Lumine version, the card is **not** dropped from the list: it stays with a **disabled Install** (the reason shown on hover) and is **not** offered as an update, but you can still switch the dropdown to another tag, since a different release may declare a compatible range.
 
-On a browse (not-installed) card, changing the version re-fetches the manifest for the new commit and re-validates it; **Install** stays disabled until validation completes. On an installed card, choosing a different version turns the action into **Update to X** targeting that exact commit (choosing the installed version again clears the pending update); its **details** then show only the README and License fetched for the previewed commit, since the package's active settings, keybindings, and grammars still belong to the installed version.
+On a browse (not-installed) card, changing the version re-fetches the manifest for the new commit and re-validates it; **Install** stays disabled until validation completes. On an installed card, choosing a different version turns the action into **Update to X** targeting that exact commit (choosing the installed version again clears the pending update); its **details** then show only the README fetched for the previewed commit, since the package's active settings, keybindings, and grammars still belong to the installed version.
 
-The repository reference beside the version is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status.
+The repository reference beside the version is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to it the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
 
 ## Catalog sources
 
@@ -123,6 +123,8 @@ The Install tab is built to handle roughly **1000** unique origins; a hard safet
 All hydrated records participate in search, but the DOM renders **50 cards per page**. Changing the filter returns to the first page. While the first index is still building, search results are marked as incomplete.
 
 A package's README is fetched only when you open its details for the selected SHA. The content is sanitized, and external images are not loaded automatically.
+
+Opening a package's **details** shows everything it has in one scrolling list — its settings, keybindings, grammars, snippets, and README, in that order. The sidebar holds a **table of contents** for that list: one entry per section, with the README's own headers nested underneath. Sections a package has nothing for are left out. The buttons above the list lead to the repository, the issue tracker, the CHANGELOG, and the **LICENSE** file on GitHub.
 
 ## The Pulsar package registry
 
