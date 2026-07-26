@@ -285,7 +285,7 @@ Each name links to its contract: what the object looks like, which fields are re
 <br>Provided by a package outside this workspace. Used by `src/project.js:663`.
 
 **[`repositories.operations-provider`](../services/repositories.operations-provider.md)** (`1.0.0`) — Supplies the _write_ half of version control: commit, stage, branch, clone, and raw Git transport, on top of the read-only repository model.
-<br>Provided by a package outside this workspace. Used by `src/repository-registry.js:82`.
+<br>Provided by a package outside this workspace. Used by `src/repository-registry.js:92`.
 
 **[`workspace.search-provider`](../services/workspace.search-provider.md)** (`1.0.0`) — Replaces the built-in project search for directories a package understands better than ripgrep can.
 <br>Provided by a package outside this workspace. Used by `src/workspace.js:525`.
