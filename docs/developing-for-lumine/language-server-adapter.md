@@ -4,20 +4,20 @@ An adapter package teaches the bundled `ide-client` package how to launch and co
 
 ## Registering
 
-Consume the `lumine.languageServer` service (version `1.0.0`) and register an adapter:
+Consume the `ide-client` service (version `1.0.0`) and register an adapter:
 
 ```json
 "consumedServices": {
-  "lumine.languageServer": {
-    "versions": { "1.0.0": "consumeLanguageServer" }
+  "ide-client": {
+    "versions": { "^1.0.0": "consumeIdeClient" }
   }
 }
 ```
 
 ```js
 module.exports = {
-  consumeLanguageServer(languageServer) {
-    return languageServer.registerAdapter({
+  consumeIdeClient(ideClient) {
+    return ideClient.registerAdapter({
       id: "ide-example",
       displayName: "Example Language Server",
       grammarScopes: ["source.example"],

@@ -26,4 +26,4 @@ By default files are linted when opened (**Lint on Open**) and as you type (**Li
 
 ## Providers
 
-The `linter` package does not analyze code itself — it consumes the `linter` service. Install one or more provider packages for the languages you work in, and their diagnostics appear automatically. Packages can also push messages directly through the `linter-indie` service, and non-text items such as Jupyter notebooks integrate through the `linter-adapter` service.
+The `linter` package does not analyze code itself — it consumes the `linter.provider` service. Install one or more provider packages for the languages you work in, and their diagnostics appear automatically. Packages can also push messages directly through the `linter.registry` service, and non-text items such as Jupyter notebooks integrate through the `linter.adapter` service.
