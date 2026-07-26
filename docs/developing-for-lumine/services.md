@@ -78,7 +78,7 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Editor chrome
 
 **[`status-bar`](../services/status-bar.md)** (`1.0.0`) — The status bar's tile collection: a package adds an element to the left or right panel and receives a handle that removes it again.
-<br>From `status-bar`. Used by `column-selection`, `deprecation-cop`, `editor-status`, `encoding-selector`, `git-switcher`, `grammar-selector`, `incompatible-packages`, `line-ending-selector`, `overtype-mode`, `settings-view`, `busy-signal`, `cursor-leader`, `git-panel`, `github-panel`, `image-editor`, `invert-colors`, `jupyter-repl`, `latex-tools`, `linter`, `prettier`, `tasklist-tools`, `typst-tools`.
+<br>From `status-bar`. Used by `column-selection`, `deprecation-cop`, `editor-status`, `encoding-selector`, `git-center`, `grammar-selector`, `incompatible-packages`, `line-ending-selector`, `overtype-mode`, `settings-view`, `busy-signal`, `cursor-leader`, `git-panel`, `github-panel`, `image-editor`, `invert-colors`, `jupyter-repl`, `latex-tools`, `linter`, `prettier`, `tasklist-tools`, `typst-tools`.
 
 **[`title-bar`](../services/title-bar.md)** (`1.0.0`) — The title bar's control tile collection: a package inserts an element beside the window buttons and receives a handle that removes it.
 <br>From `title-bar`. Used by `quick-layout`.
