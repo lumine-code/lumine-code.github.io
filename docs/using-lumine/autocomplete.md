@@ -25,6 +25,16 @@ Typing narrows the list by subsequence, not just by prefix: `sfn` finds `setFont
 
 Ordering puts what you typed first. Entries whose text begins with the typed characters rank above those that merely contain them in order, and a provider's own preference — a language server's relevance ranking, for instance — decides only between entries that answer your typing equally well. A server can never push an unrelated entry above a literal match.
 
+A provider can also nominate which entry the list opens on, and can match an entry on something other than its visible label — useful where the label is decorated but the name you type is not.
+
+## Accepting an entry
+
+Tab and Enter accept the highlighted entry, as configured by **Keymap For Confirming A Suggestion**.
+
+A provider may additionally nominate characters that accept an entry as you type them — typing `(` after a function name accepts it and then inserts the bracket. This is off by default; turn on **Commit Characters** to enable it. Only characters the provider nominates commit, so ordinary typing is unaffected.
+
+A provider can also declare characters that open the list, such as `.` after an object. These work even with auto-activation turned off, so you can keep the list quiet while still getting member completions where they matter.
+
 ## Documentation and detail
 
 An entry can carry documentation, shown in a pane below the list and rendered as markdown when the provider supplies it — headings, emphasis, links, and syntax-highlighted code blocks. Language servers usually do.
