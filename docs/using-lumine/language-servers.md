@@ -4,7 +4,7 @@ Lumine's bundled **`ide-client`** package runs Language Server Protocol servers 
 
 Servers start lazily: the first time you open a file whose grammar matches a registered server, that server is launched for the file's project root and kept alive in the background. Each project root gets its own session, so diagnostics and navigation stay scoped to the project you are working in.
 
-More than one server can serve the same file, which is how these tools are normally combined: a type checker and a linter each cover Python, and both run. Answers that add up are merged — completions, code actions, references, and hover documentation from every server. For the features where several answers make no sense, such as formatting or rename, the request goes to the server that supports it.
+More than one server can serve the same file, which is how these tools are normally combined: a type checker and a linter each cover Python, and both run. Answers that add up are merged — completions, code actions, references, and hover documentation from every server. Where they repeat each other, the repetition is dropped: two servers opening a tooltip with the same signature line produce one signature line, followed by whatever each of them alone had to say. For the features where several answers make no sense, such as formatting or rename, the request goes to the server that supports it.
 
 ## Adapter packages
 
