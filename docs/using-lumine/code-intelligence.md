@@ -63,3 +63,21 @@ The `code-format` package runs whatever formatter a provider offers: `code-forma
 ```
 
 A formatter that stalls never holds up a save for more than half a second, and a format always lands as one undo step. Enable at most one on-save formatter per language: the `prettier` package has its own opt-in list, so do not point both at the same files.
+
+## Annotations in the text
+
+Three more features render inside the editor itself, so they need no package — they are settings of `ide-client`. Each is read per language, so a scoped block can enable one for a single grammar:
+
+```json
+".source.ts": {
+  "ide-client": {
+    "semanticTokens": { "enabled": true }
+  }
+}
+```
+
+**Inlay hints** are on by default. They print what the code leaves implicit — inferred types, parameter names at call sites — as small labels between the characters, for the part of the file you are looking at. They are labels, not text: the buffer is untouched, and clicking one puts the cursor where it is anchored. Long labels are truncated at **Maximum Label Length**.
+
+**Code lens** is off by default. It renders a server's actionable links — run this test, show these implementations — on their own line above the symbol they describe, and clicking one runs the command. It is off because those lines shift the text down; turn it on per language where the server offers something worth the space.
+
+**Semantic tokens** are off by default too. A language server classifies identifiers more precisely than a grammar can — telling a parameter from a local, a namespace from a class — and this setting layers that classification over the Tree-sitter highlighting your theme already provides. Tree-sitter highlighting is good on its own, so treat this as a refinement to enable per language. Very large files fall back to highlighting only the visible region, or skip it when the server cannot serve one.
