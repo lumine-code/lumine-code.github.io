@@ -18,6 +18,17 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **git-panel** — stage, commit, and manage your repository.
 - **github-panel** — pull requests, issues, and reviews.
 
+## Code intelligence
+
+Language-server backends for the bundled `ide-client` package, and the user interfaces for what they report (see [Code intelligence](../using-lumine/code-intelligence.md)):
+
+- **ide-typescript**, **ide-pyright**, **ide-texlab**, **ide-tinymist** — language-server adapters for TypeScript and JavaScript, Python, LaTeX, and Typst.
+- **hover** — documentation tooltips and signature help at the cursor.
+- **outline-view** — a hierarchical symbol outline of the active editor.
+- **intentions** — code actions and quick fixes at the cursor.
+- **refactor** — rename symbols across the project.
+- **code-format** — format on demand or on save through registered providers.
+
 ## Linting and formatting
 
 - **linter** — the message hub consumed by all linter providers.
