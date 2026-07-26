@@ -19,7 +19,8 @@ Lumine bundles several diagnostic packages, each with a `:view` command:
 - **`incompatible-packages:view`** — lists installed packages whose native modules do not match the current Lumine version (common after an upgrade). See [Build tools](build-tools.md).
 - **`deprecation-cop:view`** — lists deprecated API calls made by Lumine or your packages; useful when a package misbehaves after an update.
 - **`timecop:view`** — shows where time goes during startup. See [Performance](performance.md).
-- **`dalek`** — warns when a core package has been shadowed by a community package of the same name installed in `~/.lumine/packages`.
+
+If a bundled package behaves unexpectedly, check whether a community package of the same name is overriding it: the **Packages** tab marks the shadowed bundled card as **Overridden**. See [Managing packages](../packages-and-themes/managing.md).
 
 ## Look at the console
 
