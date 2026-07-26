@@ -8,8 +8,8 @@ A provider declares what it offers in its `package.json`:
 
 ```json
 "providedServices": {
-  "icons.class": {
-    "versions": { "1.0.0": "provideIconsClass" }
+  "status-bar": {
+    "versions": { "1.0.0": "provideStatusBar" }
   }
 }
 ```
@@ -18,8 +18,8 @@ A consumer declares what it wants, with a semver range:
 
 ```json
 "consumedServices": {
-  "icons.class": {
-    "versions": { "^1.0.0": "consumeIconsClass" }
+  "status-bar": {
+    "versions": { "^1.0.0": "consumeStatusBar" }
   }
 }
 ```
@@ -28,17 +28,17 @@ Both then export the named method. The provider's returns the service object; th
 
 ```js
 module.exports = {
-  provideIconsClass() {
-    return { iconClassForPath, onDidChange };
+  provideStatusBar() {
+    return { addLeftTile, addRightTile };
   },
 };
 ```
 
 ```js
 module.exports = {
-  consumeIconsClass(service) {
-    this.icons = service;
-    return new Disposable(() => (this.icons = null));
+  consumeStatusBar(service) {
+    this.statusBar = service;
+    return new Disposable(() => (this.statusBar = null));
   },
 };
 ```
@@ -63,9 +63,9 @@ A name is either bare or `namespace.capability`, both kebab-case:
 
 - **Bare, your package's name**, when your package offers exactly one contract and that contract is it handing out its own thing — `status-bar`, `terminal`, `pdf-view`.
 - **`namespace.capability`** when your package offers two or more contracts, or when a bare name would not say what crosses the boundary. The usual case is a hub collecting plugins: the namespace belongs to the hub even though the hub is the _consumer_, so `linter-eslint` provides `linter.provider`. The tell is who declares `providedServices` — if that is you and you are handing out your own API, go bare.
-- The namespace is a **general domain rather than a package name** when more than one package could reasonably implement the contract. `icons.class` has two providers and belongs to neither; `symbol.provider` has three. Drop a `-view`/`-panel` suffix when a real domain word remains, keep it when none does — hence `outline.provider` but `tree-view.selection`.
+- The namespace is a **general domain rather than a package name** when more than one package could reasonably implement the contract. `icons.provider` has two providers and belongs to neither; `symbol.provider` has three. Drop a `-view`/`-panel` suffix when a real domain word remains, keep it when none does — hence `outline.provider` but `tree-view.selection`.
 
-The method is `provide`/`consume` plus the PascalCased name, dropping a trailing `provider` segment because the verb already says it: `linter.provider` → `provideLinter`, `icons.class` → `consumeIconsClass`.
+The method is `provide`/`consume` plus the PascalCased name, dropping a trailing `provider` segment because the verb already says it: `linter.provider` → `provideLinter`, `icons.provider` → `provideIcons`.
 
 ## Catalog
 
@@ -97,14 +97,6 @@ Each name links to its contract: what the object looks like, which fields are re
 
 **[`open-external`](../services/open-external.md)** (`1.0.0`) — Opens a path in the system's default application or reveals it in the file manager, and lets a package take over either operation.
 <br>From `open-external`. Used by `fuzzy-explorer`, `fuzzy-files`, `project-list`, `recent-list`, `tree-view`, `folder-sync`, `latex-tools`, `open-in-totalcmd`, `sofistik-tools`.
-
-### File icons
-
-**[`icons.class`](../services/icons.class.md)** (`1.0.0`) — An icon source that answers with CSS class names, so any view showing a file path can style its own icon element.
-<br>From `more-icons`, `native-icons`. Used by `bib-finder`.
-
-**[`icons.element`](../services/icons.element.md)** (`1.0.0`) — An icon source that decorates a DOM element directly, for icons a CSS class cannot express — a native shell icon, an embedded image, a per-file thumbnail.
-<br>From `native-icons`. No consumer yet.
 
 ### Completion and grammars
 
@@ -290,7 +282,7 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Core extension points
 
 **[`icons.provider`](../services/icons.provider.md)** (`1.0.0`) — Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.
-<br>Provided by a package outside this workspace. Used by `src/icon-registry.js:285`.
+<br>From `more-icons`, `native-icons`. Used by `src/icon-registry.js:285`.
 
 **[`project.directory-provider`](../services/project.directory-provider.md)** (`1.0.0`) — Supplies a custom `Directory` for a project path, so a project folder can be backed by something other than the local filesystem.
 <br>Provided by a package outside this workspace. Used by `src/project.js:656`.

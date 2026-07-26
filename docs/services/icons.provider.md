@@ -2,14 +2,14 @@
 
 Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.
 
-|             |                                                 |
-| ----------- | ----------------------------------------------- |
-| Version     | `1.0.0`                                         |
-| Provided by | `provideIconsProvider()` returning one provider |
-| Consumed by | core, in `src/icon-registry.js`                 |
-| Owner       | the editor itself                               |
+|             |                                         |
+| ----------- | --------------------------------------- |
+| Version     | `1.0.0`                                 |
+| Provided by | `provideIcons()` returning one provider |
+| Consumed by | core, in `src/icon-registry.js`         |
+| Owner       | the editor itself                       |
 
-This is core's own icon extension point, consumed by `IconRegistry` and used by every view that shows an icon. It is not the same contract as the package-to-package [`icons.class`](https://lumine-code.github.io/docs.html#services/icons.class) and [`icons.element`](https://lumine-code.github.io/docs.html#services/icons.element) services, which answer only for file paths and only with CSS classes.
+This is core's own icon extension point, consumed by `IconRegistry` and used by every view that shows an icon. It replaces the package-to-package `icons.class` and `icons.element` services, which answered only for file paths, only with CSS classes, and could not compose: whoever won the element service took every icon, so two icon packages could not divide the work between them.
 
 ## Registration
 
@@ -19,7 +19,7 @@ In your `package.json`:
 {
   "providedServices": {
     "icons.provider": {
-      "versions": { "1.0.0": "provideIconsProvider" }
+      "versions": { "1.0.0": "provideIcons" }
     }
   }
 }
@@ -34,7 +34,7 @@ type IconsProvider = {
   iconFor(target: Target): Descriptor | string | string[] | null;
   priority?: number;
   id?: string;
-  handles?: Array<"path" | "name" | "kind" | "none">;
+  handles?: Array<"path" | "name" | "kind">;
   async?: boolean;
   onDidChange?(callback: (scope?: Scope) => void): Disposable;
 };
@@ -57,7 +57,7 @@ type Target = {
 };
 ```
 
-`iconFor` is the only required member; anything else throws a `TypeError` at registration.
+`iconFor` is the only required member. Registering without it, or with a `priority` that is not a finite number, throws a `TypeError`.
 
 | Member                  | Description                                                                                                                           |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,7 +78,7 @@ Build the return value with the `Icon` factories rather than by hand: `Icon.clas
 const { Emitter } = require("atom");
 
 module.exports = {
-  provideIconsProvider() {
+  provideIcons() {
     const emitter = new Emitter();
     return {
       id: "my-icons",

@@ -50,7 +50,6 @@ const DOMAINS = [
       "open-external",
     ],
   },
-  { title: "File icons", services: ["icons.class", "icons.element"] },
   {
     title: "Completion and grammars",
     services: [

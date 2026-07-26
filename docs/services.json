@@ -17,13 +17,6 @@
       ]
     },
     {
-      "title": "File icons",
-      "services": [
-        "icons.class",
-        "icons.element"
-      ]
-    },
-    {
       "title": "Completion and grammars",
       "services": [
         "autocomplete.provider",
@@ -787,22 +780,6 @@
         "sofistik-tools"
       ]
     },
-    "icons.class": {
-      "name": "icons.class",
-      "group": "File icons",
-      "summary": "An icon source that answers with CSS class names, so any view showing a file path can style its own icon element.",
-      "version": "1.0.0",
-      "owner": "native-icons",
-      "src": "https://raw.githubusercontent.com/lumine-code/native-icons/master/docs/icons.class.md",
-      "source": "https://github.com/lumine-code/native-icons/blob/master/docs/icons.class.md",
-      "providers": [
-        "more-icons",
-        "native-icons"
-      ],
-      "consumers": [
-        "bib-finder"
-      ]
-    },
     "busy-signal.reporter": {
       "name": "busy-signal.reporter",
       "group": "Linting and progress",
@@ -1136,18 +1113,21 @@
       ],
       "consumers": []
     },
-    "icons.element": {
-      "name": "icons.element",
-      "group": "File icons",
-      "summary": "An icon source that decorates a DOM element directly, for icons a CSS class cannot express — a native shell icon, an embedded image, a per-file thumbnail.",
+    "icons.provider": {
+      "name": "icons.provider",
+      "group": "Core extension points",
+      "summary": "Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.",
       "version": "1.0.0",
-      "owner": "native-icons",
-      "src": "https://raw.githubusercontent.com/lumine-code/native-icons/master/docs/icons.element.md",
-      "source": "https://github.com/lumine-code/native-icons/blob/master/docs/icons.element.md",
+      "owner": "core",
+      "src": "docs/services/icons.provider.md",
+      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/icons.provider.md",
       "providers": [
+        "more-icons",
         "native-icons"
       ],
-      "consumers": []
+      "consumers": [
+        "src/icon-registry.js:285"
+      ]
     },
     "navigation.headers": {
       "name": "navigation.headers",
@@ -1201,19 +1181,6 @@
       ],
       "consumers": [
         "scrollmap"
-      ]
-    },
-    "icons.provider": {
-      "name": "icons.provider",
-      "group": "Core extension points",
-      "summary": "Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.",
-      "version": "1.0.0",
-      "owner": "core",
-      "src": "docs/services/icons.provider.md",
-      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/icons.provider.md",
-      "providers": [],
-      "consumers": [
-        "src/icon-registry.js:285"
       ]
     },
     "project.directory-provider": {
