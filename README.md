@@ -42,7 +42,7 @@ The docs and API pages load Markdown and JSON with `fetch()`, so they must be se
 
 ## Deploying
 
-This repo is named `lumine-code.github.io`, so GitHub Pages serves it at the org root automatically. In the repo's **Settings -> Pages**, set the source to the `main` branch root folder.
+This repo is named `lumine-code.github.io`, so GitHub Pages serves it at the org root automatically. In the repo's **Settings -> Pages**, set the source to the `master` branch root folder.
 
 ## Contributing
 
