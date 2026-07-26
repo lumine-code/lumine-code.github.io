@@ -55,9 +55,15 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 - **scrollmap** — the scrollbar-marker hub; satellites feed it markers:
   **scrollmap-cursors**, **scrollmap-brackets**, **scrollmap-highlight**, **scrollmap-git-diff**, **scrollmap-diff-view**, **scrollmap-linter**, **scrollmap-navigation**, **scrollmap-search-panel**, **scrollmap-jupyter-repl**, **scrollmap-references**.
 
+## File icons
+
+The tree view, tabs, search results, and fuzzy finders show a generic icon per file until an icon package supplies a better one. Only one package can be the icon source at a time.
+
+- **file-icon-themes** — around 900 glyphs from the `file-icons` set, or the Seti set Visual Studio Code uses; also loads any Visual Studio Code file-icon-theme manifest.
+- **native-icons** — file icons from the operating system shell. Its default `support` mode overlays whichever package is providing the icons, so the two can run together.
+
 ## Desktop integration
 
-- **native-icons** — file icons from the operating system shell.
 - **windows-clip** — Explorer-compatible file cut/copy/paste in the tree view.
 - **open-in-totalcmd** — reveal paths in Total Commander.
 - **terminal-spawn** — launch external terminals in project folders.
