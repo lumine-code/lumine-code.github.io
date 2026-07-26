@@ -655,6 +655,11 @@ pre code {
   color: var(--muted);
 }
 
+/* Clear the sticky header when an in-page anchor scrolls a heading into view. */
+.prose :is(h1, h2, h3, h4) {
+  scroll-margin-top: 92px;
+}
+
 .prose h1 {
   margin: 56px 0 0;
   padding-top: 26px;

@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "start": "node script/serve.js",
-    "docs:api": "node script/generate-api-docs.js"
+    "docs:api": "node script/generate-api-docs.js",
+    "docs:services": "node script/generate-services.js",
+    "docs": "npm run docs:api && npm run docs:services"
   },
   "devDependencies": {
     "@babel/parser": "^7.28.4",

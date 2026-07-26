@@ -71,214 +71,237 @@ The method is `provide`/`consume` plus the PascalCased name, dropping a trailing
 
 Bundled packages ship with Lumine; the rest install from the Install pane. A service with no consumer yet is a deliberate extension point, not dead code.
 
+Each name links to its contract: what the object looks like, which fields are required, and a working example. Those documents live in the repository of the package that owns the service, so they are reviewed alongside the code they describe.
+
+<!-- generated: catalog -->
+
 ### Editor chrome
 
-**`status-bar`** (`1.0.0`) — provided to host indicator tiles at the bottom of the workspace, with a left and right side other packages can add to.
+**[`status-bar`](../services/status-bar.md)** (`1.0.0`) — The status bar's tile collection: a package adds an element to the left or right panel and receives a handle that removes it again.
 <br>From `status-bar`. Used by `column-selection`, `deprecation-cop`, `editor-status`, `encoding-selector`, `git-switcher`, `grammar-selector`, `incompatible-packages`, `line-ending-selector`, `overtype-mode`, `settings-view`, `busy-signal`, `cursor-leader`, `git-panel`, `github-panel`, `image-editor`, `invert-colors`, `jupyter-repl`, `latex-tools`, `linter`, `prettier`, `tasklist-tools`, `typst-tools`.
 
-**`title-bar`** (`1.0.0`) — provided to let other packages add control tiles to the title bar near the window buttons.
+**[`title-bar`](../services/title-bar.md)** (`1.0.0`) — The title bar's control tile collection: a package inserts an element beside the window buttons and receives a handle that removes it.
 <br>From `title-bar`. Used by `quick-layout`.
 
-**`tree-view.selection`** (`1.0.0`) — provided to add reveal and navigation support on top of the base tree view API.
+**[`tree-view.selection`](../services/tree-view.selection.md)** (`1.0.0`) — Read what is selected in the tree, find the element for a path, and scroll a path into view.
 <br>From `tree-view`. Used by `fuzzy-files`, `image-paste`, `open-external`, `fast-publish`, `folder-sync`, `image-editor`, `jupyter-view`, `linter-eslint`, `linter-ruff`, `linter-todo`, `prettier`, `sofistik-tools`, `tree-view-favourites`, `windows-clip`.
 
-**`tree-view.roots`** (`1.0.0`) — provided to let external packages register virtual root sections above the project folders.
+**[`tree-view.roots`](../services/tree-view.roots.md)** (`1.0.0`) — Registers a virtual root section above the project folders — a list of paths the tree shows and navigates like a project, but that no project folder backs.
 <br>From `tree-view`. Used by `tree-view-favourites`.
 
-**`project-list`** (`1.0.0`) — provided to expose the project list manager — used by tree-view's empty project view to show a "List projects" button, and by window-title to resolve the current project title via `getCurrentProject()` / `onDidChangeCurrentProject()`.
+**[`project-list`](../services/project-list.md)** (`1.0.0`) — Exposes the project list manager: which project the window currently has open, and when that changes.
 <br>From `project-list`. Used by `tree-view`, `window-title`.
 
-**`recent-list`** (`1.0.0`) — provided to expose the recent projects list manager so other packages can open the list without depending on the toggle command.
+**[`recent-list`](../services/recent-list.md)** (`1.0.0`) — Opens the recent-projects list, so a package can offer it as an action without depending on the command.
 <br>From `recent-list`. Used by `tree-view`.
 
-**`open-external`** (`1.0.0`) — provided to open or reveal paths and register custom handlers for those operations.
+**[`open-external`](../services/open-external.md)** (`1.0.0`) — Opens a path in the system's default application or reveals it in the file manager, and lets a package take over either operation.
 <br>From `open-external`. Used by `fuzzy-explorer`, `fuzzy-files`, `project-list`, `recent-list`, `tree-view`, `folder-sync`, `latex-tools`, `open-in-totalcmd`, `sofistik-tools`.
 
 ### File icons
 
-**`icons.class`** (`1.0.0`) — provided to icon consumers (tree view, tabs, search panel, fuzzy finders, archive view); exposes `iconClassForPath(filePath)` returning an array of CSS class names, and `onDidChange(callback)` which fires when the set or the interface theme changes.
-<br>From `more-icons`, `native-icons`. Used by `archive-view`, `fuzzy-explorer`, `fuzzy-files`, `search-panel`, `tabs`, `tree-view`, `bib-finder`.
+**[`icons.class`](../services/icons.class.md)** (`1.0.0`) — An icon source that answers with CSS class names, so any view showing a file path can style its own icon element.
+<br>From `more-icons`, `native-icons`. Used by `bib-finder`.
 
-**`icons.element`** (`1.0.0`) — provided to packages that iconize their own DOM elements in service mode; exposes `addIconToElement(element, filePath, options)` which attaches a native icon and returns a `Disposable` that removes it.
-<br>From `native-icons`. Used by `archive-view`, `search-panel`, `tabs`, `tree-view`.
+**[`icons.element`](../services/icons.element.md)** (`1.0.0`) — An icon source that decorates a DOM element directly, for icons a CSS class cannot express — a native shell icon, an embedded image, a per-file thumbnail.
+<br>From `native-icons`. No consumer yet.
 
 ### Completion and grammars
 
-**`autocomplete.provider`** (`1.0.0`) — provided to supply CSS property and value suggestions to autocomplete.
+**[`autocomplete.provider`](../services/autocomplete.provider.md)** (`1.0.0`) — A source of completion suggestions for the autocomplete popup: which scopes it applies to, and a `getSuggestions` function returning the candidates at a buffer position.
 <br>From `autocomplete-css`, `autocomplete-html`, `autocomplete-lumine`, `autocomplete-snippets`, `ide-client`, `autocomplete-jedi`, `autocomplete-sofistik`, `jupyter-repl`. Used by `autocomplete`.
 
-**`autocomplete.watch-editor`** (`1.0.0`) — provided to let other packages register an editor to be watched for autocompletion along with the set of providers to use for it.
+**[`autocomplete.watch-editor`](../services/autocomplete.watch-editor.md)** (`1.0.0`) — A function that turns autocompletion on for an editor autocomplete would otherwise ignore — one inside a panel, a dock, or any pane item that is not a workspace-center tab.
 <br>From `autocomplete`. Used by `search-panel`, `jupyter-repl`, `jupyter-view`.
 
-**`snippets`** (`1.0.0`) — provided to expose the loaded snippets so other packages can query and expand them.
+**[`snippets`](../services/snippets.md)** (`1.0.0`) — Query the loaded snippets and expand one into an editor.
 <br>From `snippets`. Used by `autocomplete`, `autocomplete-snippets`, `settings-view`.
 
-**`hyperlink.injection`** (`1.0.0`) — provided to let other language packages highlight URLs inside their strings and comments as clickable links.
+**[`hyperlink.injection`](../services/hyperlink.injection.md)** (`1.0.0`) — Lets a language grammar highlight URLs inside its own strings and comments, by injecting the hyperlink grammar at nodes it nominates.
 <br>From `language-hyperlink`. Used by `language-c`, `language-css`, `language-gfm`, `language-go`, `language-html`, `language-java`, `language-javascript`, `language-json`, `language-php`, `language-python`, `language-ruby`, `language-rust`, `language-sass`, `language-shellscript`, `language-toml`, `language-typescript`, `language-yaml`, `language-latex`, `language-typst`.
 
-**`todo.injection`** (`1.0.0`) — provided to highlight `TODO`-style markers inside other languages' comments.
+**[`todo.injection`](../services/todo.injection.md)** (`1.0.0`) — Lets a language grammar highlight `TODO`-style markers inside its own comments, by injecting the todo grammar at nodes it nominates.
 <br>From `language-todo`. Used by `language-c`, `language-css`, `language-go`, `language-html`, `language-java`, `language-javascript`, `language-json`, `language-php`, `language-python`, `language-ruby`, `language-rust`, `language-sass`, `language-shellscript`, `language-toml`, `language-typescript`, `language-yaml`, `language-latex`, `language-typst`.
 
-**`sofistik.keywords`** (`1.0.0`) — provided to expose SOFiSTiK keyword data — modules, commands, parameters and enum values — resolved per version and language. Consumers call `service.provider.withContext(editor)` to get a context-bound provider with methods such as `getKeywords()`, `getModuleNames()`, `getModuleCommands()`, `searchKeyword()` and `validateKeyword()`.
+**[`sofistik.keywords`](../services/sofistik.keywords.md)** (`1.0.0`) — Exposes the SOFiSTiK keyword database — modules, commands, parameters, and enum values — resolved for the version and language of a given file.
 <br>From `language-sofistik`. Used by `autocomplete-sofistik`, `linter-sofistik`, `sofistik-tools`.
 
 ### Language servers and code intelligence
 
-**`ide-client`** (`1.0.0`) — provided to adapter packages to register language servers and reach sessions.
+**[`ide-client`](../services/ide-client.md)** (`1.0.0`) — Registers a language server with the editor. The adapter says how to launch it and which grammars it serves; `ide-client` does the rest of LSP.
 <br>From `ide-client`. Used by `call-hierarchy`, `ide-pyright`, `ide-ruff`, `ide-texlab`, `ide-tinymist`, `ide-typescript`.
 
-**`symbol.provider`** (`1.0.0`) — provided to symbols-view to serve document and project symbols.
+**[`symbol.provider`](../services/symbol.provider.md)** (`1.0.0`) — A source of symbols — classes, functions, definitions — for one file, for the project, or for a go-to-definition lookup.
 <br>From `ide-client`, `symbol-provider-ctags`, `symbol-provider-tree-sitter`. Used by `symbols-view`, `outline-view`.
 
-**`hover.provider`** (`1.0.0`) — provided to hover UIs to serve documentation at a buffer position.
+**[`hover.provider`](../services/hover.provider.md)** (`1.0.0`) — Supplies the documentation shown when the pointer rests on a symbol.
 <br>From `ide-client`. Used by `hover`.
 
-**`hover.signature-provider`** (`1.0.0`) — provided to signature-help UIs to serve call signatures while typing.
+**[`hover.signature-provider`](../services/hover.signature-provider.md)** (`1.0.0`) — Supplies the call signature shown while the user types arguments.
 <br>From `ide-client`. Used by `hover`.
 
-**`outline.provider`** (`1.0.0`) — provided to outline UIs to serve the hierarchical document outline.
+**[`outline.provider`](../services/outline.provider.md)** (`1.0.0`) — Supplies the hierarchical outline of a document — the tree of classes, functions, and sections shown in the outline panel.
 <br>From `ide-client`. Used by `outline-view`.
 
-**`refactor.provider`** (`1.0.0`) — provided to rename UIs; resolves to a path-to-edits map, with prepare support.
+**[`refactor.provider`](../services/refactor.provider.md)** (`1.0.0`) — Renames a symbol across the project, and optionally validates the rename before the user types the new name.
 <br>From `ide-client`. Used by `refactor`.
 
-**`find-references.provider`** (`1.0.0`) — provided to reference UIs to list occurrences of the symbol at a position.
+**[`find-references.provider`](../services/find-references.provider.md)** (`1.0.0`) — Lists every occurrence of the symbol at a position.
 <br>From `ide-client`. Used by `find-references`.
 
-**`find-references.markers`** (`1.0.0`) — provided to report the reference occurrence markers currently highlighted in each editor, e.g. to the scrollmap-references layer.
+**[`find-references.markers`](../services/find-references.markers.md)** (`1.0.0`) — Reports which reference occurrences are currently highlighted in each editor.
 <br>From `find-references`. Used by `scrollmap-references`.
 
-**`hyperclick.provider`** (`1.0.0`) — provided to let you follow a symbol to its declaration with a click.
+**[`hyperclick.provider`](../services/hyperclick.provider.md)** (`1.0.0`) — Turns a word in the editor into something clickable: the provider is asked about a range, and answers with a callback to run if the user follows it.
 <br>From `symbols-view`, `autocomplete-jedi`. No consumer yet.
 
-**`code-format.range`** (`1.0.0`) — provided to formatting orchestrators; resolves a selected range to text edits from the server.
+**[`code-format.range`](../services/code-format.range.md)** (`1.0.0`) — Formats a selected range and returns the edits.
 <br>From `ide-client`. Used by `code-format`.
 
-**`code-format.file`** (`1.0.0`) — provided to formatting orchestrators; resolves a whole file to text edits from the server.
+**[`code-format.file`](../services/code-format.file.md)** (`1.0.0`) — Formats a whole buffer and returns the edits.
 <br>From `ide-client`. Used by `code-format`.
 
-**`code-format.on-type`** (`1.0.0`) — provided to formatting orchestrators; resolves text edits as the user types a trigger character.
+**[`code-format.on-type`](../services/code-format.on-type.md)** (`1.0.0`) — Reformats as the user types, when a trigger character lands.
 <br>From `ide-client`. Used by `code-format`.
 
-**`code-format.on-save`** (`1.0.0`) — provided to formatting orchestrators; resolves text edits on save.
+**[`code-format.on-save`](../services/code-format.on-save.md)** (`1.0.0`) — Reformats a buffer as it is saved.
 <br>From `ide-client`. Used by `code-format`.
 
 ### Linting and progress
 
-**`linter.provider`** (`1.0.0`) — provided to the linter package; exposes the ESLint file linter with its name, grammar scopes and `lint` function.
+**[`linter.provider`](../services/linter.provider.md)** (`1.0.0`) — A linter definition: which grammars it applies to, when it runs, and a `lint` function returning diagnostics for one file.
 <br>From `linter-eslint`, `linter-ruff`, `linter-sofistik`, `linter-todo`. Used by `linter`.
 
-**`linter.registry`** (`1.0.0`) — provided to let packages push messages directly without implementing a full linter provider.
+**[`linter.registry`](../services/linter.registry.md)** (`1.0.0`) — A function that registers an "indie" linter: a package pushes messages into the linter panel whenever it likes, instead of waiting to be asked.
 <br>From `linter`. Used by `ide-client`, `latex-tools`, `linter-eslint`, `linter-ruff`, `linter-sofistik`, `linter-todo`, `prettier`, `typst-tools`.
 
-**`linter.ui`** (`1.0.0`) — provided to receive linter message updates so notebook scrollmap markers stay in sync with diagnostics.
+**[`linter.ui`](../services/linter.ui.md)** (`1.0.0`) — A second place to display diagnostics. The linter hands every message change to each registered UI, alongside its own panel.
 <br>From `jupyter-view`, `scrollmap-linter`. Used by `linter`.
 
-**`linter.adapter`** (`1.0.0`) — provided to map linter diagnostics from the backing editor onto the visible notebook cells.
+**[`linter.adapter`](../services/linter.adapter.md)** (`1.0.0`) — Teaches the linter about a pane item that is not a `TextEditor`, so a notebook or a custom editor can be linted and navigated like a file.
 <br>From `jupyter-view`. Used by `linter`.
 
-**`intentions.list`** (`1.0.0`) — provided to the intentions UI to serve code actions and quick fixes at the cursor.
+**[`intentions.list`](../services/intentions.list.md)** (`1.0.0`) — Supplies the code actions and quick fixes offered at the cursor.
 <br>From `ide-client`, `linter`. Used by `intentions`.
 
-**`busy-signal.registry`** (`1.0.0`) — provided to let other packages show busy messages through a low-level provider registry with `add`/`remove`/`clear` control.
+**[`busy-signal.registry`](../services/busy-signal.registry.md)** (`1.0.0`) — The low-level busy indicator: create a provider, then add, rename, remove, and clear titles on it directly.
 <br>From `busy-signal`. Used by `ide-client`.
 
-**`busy-signal.background-registry`** (`1.0.0`) — provided to let other packages register long-running background processes through a provider registry with `set`/`remove`/`clear` control.
+**[`busy-signal.background-registry`](../services/busy-signal.background-registry.md)** (`1.0.0`) — Registers long-running background work — an indexer, a language server starting, a watch build — as an entry the user can look at rather than a spinner that flashes past.
 <br>From `busy-signal`. Used by `ide-client`.
 
-**`busy-signal.reporter`** (`1.0.0`) — provided to let other packages report busy states with an async-friendly `reportBusy`/`reportBusyWhile` API.
+**[`busy-signal.reporter`](../services/busy-signal.reporter.md)** (`1.0.0`) — Reports that something is happening, in the shape most callers actually want: wrap a promise, or take a handle and dispose it when done.
 <br>From `busy-signal`. Used by `linter-eslint`, `linter-ruff`, `linter-todo`, `prettier`.
 
 ### Scrollbar overview
 
-**`scrollmap.layer`** (`1.0.0`) — provided to render matching bracket markers as a layer on the editor scrollbar.
+**[`scrollmap.layer`](../services/scrollmap.layer.md)** (`1.0.0`) — A package registers a named layer of markers that scrollmap draws on the vertical scrollbar of every text editor.
 <br>From `scrollmap-brackets`, `scrollmap-cursors`, `scrollmap-diff-view`, `scrollmap-git-diff`, `scrollmap-highlight`, `scrollmap-jupyter-repl`, `scrollmap-linter`, `scrollmap-navigation`, `scrollmap-references`, `scrollmap-search-panel`. Used by `scrollmap`.
 
-**`scrollmap.widget`** (`1.0.0`) — provided to expose a standalone scrollbar-marker widget class for non-editor panes.
+**[`scrollmap.widget`](../services/scrollmap.widget.md)** (`1.0.0`) — The `Simplemap` class, so a package can draw scrollbar markers beside a pane that is not a text editor.
 <br>From `scrollmap`. Used by `jupyter-view`, `pdf-view`.
 
 ### Panels
 
-**`search.control`** (`1.0.0`) — provided to expose find options, panel visibility controls, and programmatic search triggers.
+**[`search.control`](../services/search.control.md)** (`1.0.0`) — Drives the find and replace panels from another package: read the options, show or hide the panels, trigger a search, and follow the results.
 <br>From `search-panel`. Used by `scrollmap-search-panel`.
 
-**`search.adapter`** (`1.0.0`) — provided to let the search-panel package search the active Data Explorer grid.
+**[`search.adapter`](../services/search.adapter.md)** (`1.0.0`) — Makes a pane item that is not a `TextEditor` searchable with the ordinary find panel — a notebook, a data grid, a rendered preview.
 <br>From `jupyter-repl`, `jupyter-view`. Used by `search-panel`.
 
-**`navigation.headers`** (`1.0.0`) — provided to let other packages read the current outline — exposes `getEditor()`, `getFlattenHeaders()`, `onDidUpdateHeaders(callback)`, and `observeHeaders(callback)`.
+**[`navigation.headers`](../services/navigation.headers.md)** (`1.0.0`) — Reads the outline the navigation panel currently shows: which editor it belongs to, the flattened header list, and when it changes.
 <br>From `navigation-panel`. Used by `scrollmap-navigation`.
 
-**`navigation.adapter`** (`1.0.0`) — provided to [navigation-panel](https://github.com/lumine-code/navigation-panel) to list all images of the current folder; clicking an entry loads that image in the same editor.
+**[`navigation.adapter`](../services/navigation.adapter.md)** (`1.0.0`) — Supplies the navigation panel's outline for a pane item that is not a text document — a PDF's bookmarks, a notebook's cells, the images in a folder.
 <br>From `image-editor`, `jupyter-view`, `pdf-view`. Used by `navigation-panel`.
 
 ### Editors and viewers
 
-**`pdf-view`** (`1.0.0`) — provided to let other packages manage PDF viewers programmatically — observe viewer instances, open PDFs in a split, look them up by path or tag, scroll to named destinations, and swap a viewer's file.
+**[`pdf-view`](../services/pdf-view.md)** (`1.0.0`) — Drives PDF viewers from another package: observe them, open one, look one up, scroll it to a named destination, or swap its file.
 <br>From `pdf-view`. Used by `invert-colors`, `sofistik-tools`.
 
-**`image-editor`** (`1.0.0`) — provided to let other packages open images from data URLs without saving to disk — exposes `openFromDataUrl(dataUrl, title)`.
+**[`image-editor`](../services/image-editor.md)** (`1.0.0`) — Opens an image from a data URL, without writing it to disk first.
 <br>From `image-editor`. Used by `jupyter-repl`.
 
-**`diff-view`** (`1.0.0`) — provided to scrollbar-marker consumers — exposes `getDiffView()` with the current diff chunks and editors, plus an `onDidUpdate(callback)` subscription.
+**[`diff-view`](../services/diff-view.md)** (`1.0.0`) — Reports the current diff: its chunks, the two editors being compared, and which side is coloured as added.
 <br>From `diff-view`. Used by `scrollmap-diff-view`.
 
-**`minimap`** (`1.0.0`) — provided to expose the minimap API — other packages can observe minimaps, decorate markers, and register minimap plugins.
+**[`minimap`](../services/minimap.md)** (`1.0.0`) — The minimap's full API: observe minimaps as editors open, decorate them, and register plugins.
 <br>From `minimap`. No consumer yet.
 
-**`bookmarks`** (`1.0.0`) — provided to expose the list of bookmarks to any package that wants to know about them.
+**[`bookmarks`](../services/bookmarks.md)** (`1.0.0`) — Reads the bookmarks set in an editor, as live markers.
 <br>From `bookmarks`. No consumer yet.
 
-**`bracket-matcher`** (`1.0.0`) — provided to expose the current match — `getMatchRanges(editor)` returns the highlighted bracket pair's buffer ranges, and `observe(callback)` reports every match change, enabling consumers such as scrollbar maps to display bracket positions.
+**[`bracket-matcher`](../services/bracket-matcher.md)** (`1.0.0`) — Reports which bracket pair is currently highlighted, and when that changes.
 <br>From `bracket-matcher`. Used by `scrollmap-brackets`.
 
-**`highlight-selected`** (`1.0.0`) — provided to expose the selection manager — other packages can observe marker events via `onDidFinishAddingMarkers` / `onDidRemoveAllMarkers` and read the per-editor marker layers.
+**[`highlight-selected`](../services/highlight-selected.md)** (`1.0.0`) — Reports which occurrences of the current selection are highlighted, and when that set changes.
 <br>From `highlight-selected`. Used by `scrollmap-highlight`.
 
 ### Jupyter
 
-**`jupyter.kernel`** (`1.0.0`) — provided to let other packages execute code, request completions and introspection, and follow kernel state.
+**[`jupyter.kernel`](../services/jupyter.kernel.md)** (`1.0.0`) — Reads the running Jupyter kernel: which one is active, when that changes, and the range of the cell at the cursor.
 <br>From `jupyter-repl`. No consumer yet.
 
-**`jupyter.breakpoints`** (`1.0.0`) — provided to expose breakpoint state to integrations that inspect or render breakpoints.
+**[`jupyter.breakpoints`](../services/jupyter.breakpoints.md)** (`1.0.0`) — Reports where the cell boundaries are in an editor, so another package can draw or reason about them.
 <br>From `jupyter-repl`. Used by `scrollmap-jupyter-repl`.
 
-**`jupyter.adapter`** (`1.0.0`) — provided to let [jupyter-repl](https://github.com/lumine-code/jupyter-repl) execute notebook cells with its normal run commands, routing kernel output, execution counts, focus, and navigation back into the notebook.
+**[`jupyter.adapter`](../services/jupyter.adapter.md)** (`1.0.0`) — Lets the REPL run cells in something that is not a text editor, by describing that item's cells as run targets.
 <br>From `jupyter-view`. Used by `jupyter-repl`.
 
-**`jupyter.notebook`** (`1.0.0`) — provided to expose notebook documents and the active notebook item to packages that need notebook-aware behavior.
+**[`jupyter.notebook`](../services/jupyter.notebook.md)** (`1.0.0`) — Exposes the open notebook documents and the active one, for packages that need notebook-aware behavior.
 <br>From `jupyter-view`. No consumer yet.
 
 ### Tools and integrations
 
-**`terminal`** (`1.0.0`) — provided to let other packages open terminals and run commands in them.
+**[`terminal`](../services/terminal.md)** (`1.0.0`) — Opens a terminal, or runs commands in one.
 <br>From `terminal`. Used by `jupyter-repl`.
 
-**`terminal-spawn`** (`1.0.0`) — provided to packages that need an external terminal; exposes `open(dirpath, command)` which spawns the user-configured terminal at `dirpath`. If `command` is given, the terminal opens with that command pre-executed (using the `Terminal command with arguments` template). If `dirpath` is falsy, falls back to the active project root; if it points to a file, its parent directory is used.
+**[`terminal-spawn`](../services/terminal-spawn.md)** (`1.0.0`) — Opens the user's external terminal application at a directory, optionally with a command already run.
 <br>From `terminal-spawn`. Used by `jupyter-repl`.
 
-**`latex-tools`** (`1.0.0`) — provided to let other packages drive LaTeX compilation — subscribe to build events (`onDidStartBuild`, `onDidFinishBuild`, `onDidFailBuild`, `onDidChangeBuildStatus`), query status (`getStatus`, `isBuilding`), control builds (`compile`, `interrupt`, `interruptAll`), and resolve SyncTeX positions (`syncToPdf`, `syncToSource`).
+**[`latex-tools`](../services/latex-tools.md)** (`1.0.0`) — Drives LaTeX compilation from another package: start and interrupt builds, read their status, follow build events, and resolve SyncTeX positions.
 <br>From `latex-tools`. Used by `pdf-view`.
 
-**`typst-tools`** (`1.0.0`) — provided to let other packages drive Typst compilation — subscribe to build events (`onDidStartBuild`, `onDidFinishBuild`, `onDidFailBuild`, `onDidChangeBuildStatus`), query status (`getStatus`, `isBuilding`), and control builds (`compile`, `interrupt`, `interruptAll`, `toggleCompileOnSave`).
+**[`typst-tools`](../services/typst-tools.md)** (`1.0.0`) — Drives Typst compilation from another package: start and interrupt builds, read their status, and follow build events.
 <br>From `typst-tools`. Used by `pdf-view`.
 
-**`windows-clip`** (`1.0.0`) — provided to expose native Windows clipboard access — `readFilePaths()`, `readDropEffect()`, `writeFilePaths(paths, dropEffect)`, `clear()`, and the `DROP_EFFECT_*` constants.
+**[`windows-clip`](../services/windows-clip.md)** (`1.0.0`) — Native Windows clipboard access for file paths, including the copy/cut distinction that Explorer uses.
 <br>From `windows-clip`. Used by `fuzzy-files`.
 
-**`autosave`** (`1.0.0`) — provided to expose a `dontSaveIf` callback so other packages can exclude specific pane items from being autosaved.
+**[`autosave`](../services/autosave.md)** (`1.0.0`) — Registers a veto: a predicate that stops autosave from writing a particular pane item.
 <br>From `autosave`. No consumer yet.
 
-**`git-panel`** (`1.0.0`) — provided to give forge packages access to the repository model, its diffs, and its remotes.
+**[`git-panel`](../services/git-panel.md)** (`1.0.0`) — Gives a forge package access to the repository model, the diff pipeline, and the Git panel's active-repository context.
 <br>From `git-panel`. Used by `github-panel`.
 
-**`mcp.bridge`** (`1.0.0`) — provided to other packages to read the MCP bridge state: port, running status, and server script path.
+**[`mcp.bridge`](../services/mcp.bridge.md)** (`1.0.0`) — Reports the MCP bridge's state: whether it is running, on which port, and where its server script lives.
 <br>From `lumine-mcp`. No consumer yet.
 
-**`mcp.tools`** (`1.0.0`) — provided to expose `GetLinterMessages`, a read-only diagnostics tool, to a connected MCP host.
+**[`mcp.tools`](../services/mcp.tools.md)** (`1.0.0`) — Publishes tools to a connected MCP host, so an assistant can query or act on what a package knows.
 <br>From `linter`. Used by `lumine-mcp`.
 
-**`fuzzy-files.score-modifier`** (`1.0.0`) — provided to let other packages register functions that boost or penalize the score of search results.
+**[`fuzzy-files.score-modifier`](../services/fuzzy-files.score-modifier.md)** (`1.0.0`) — Adjusts how the file finder ranks its results, so a package can push the files it knows are relevant to the top.
 <br>From `fuzzy-files`. No consumer yet.
 
-**`claude-chat`** (`^1.0.0`) — provided to attach a file, image, or code selection to a chat conversation.
-<br>From a package outside this catalog. Used by `fuzzy-explorer`, `fuzzy-files`, `image-editor`, `jupyter-repl`.
+**[`claude-chat`](../services/claude-chat.md)** (`1.0.0`) — _Not documented yet._
+<br>Provided by a package outside this workspace. Used by `fuzzy-explorer`, `fuzzy-files`, `image-editor`, `jupyter-repl`.
+
+### Core extension points
+
+**[`icons.provider`](../services/icons.provider.md)** (`1.0.0`) — Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.
+<br>Provided by a package outside this workspace. Used by `src/icon-registry.js:285`.
+
+**[`project.directory-provider`](../services/project.directory-provider.md)** (`1.0.0`) — Supplies a custom `Directory` for a project path, so a project folder can be backed by something other than the local filesystem.
+<br>Provided by a package outside this workspace. Used by `src/project.js:656`.
+
+**[`project.repository-provider`](../services/project.repository-provider.md)** (`1.0.0`) — Supplies a `Repository` for a project directory, so a version-control system other than Git can drive the editor's VCS features.
+<br>Provided by a package outside this workspace. Used by `src/project.js:663`.
+
+**[`repositories.operations-provider`](../services/repositories.operations-provider.md)** (`1.0.0`) — Supplies the _write_ half of version control: commit, stage, branch, clone, and raw Git transport, on top of the read-only repository model.
+<br>Provided by a package outside this workspace. Used by `src/repository-registry.js:82`.
+
+**[`workspace.search-provider`](../services/workspace.search-provider.md)** (`1.0.0`) — Replaces the built-in project search for directories a package understands better than ripgrep can.
+<br>Provided by a package outside this workspace. Used by `src/workspace.js:525`.
+
+<!-- /generated: catalog -->

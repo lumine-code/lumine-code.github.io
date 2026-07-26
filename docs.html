@@ -52,7 +52,7 @@
               This manual renders Markdown with JavaScript. You can read the
               source directly on
               <a
-                href="https://github.com/lumine-code/lumine-code.github.io/tree/main/docs"
+                href="https://github.com/lumine-code/lumine-code.github.io/tree/master/docs"
                 >GitHub</a
               >.
             </p>
@@ -94,10 +94,11 @@
           article.innerHTML =
             '<p class="doc-status">' +
             message +
-            ' Read the source on <a href="https://github.com/lumine-code/lumine-code.github.io/tree/main/docs">GitHub</a>.</p>';
+            ' Read the source on <a href="https://github.com/lumine-code/lumine-code.github.io/tree/master/docs">GitHub</a>.</p>';
         };
 
         let manifest;
+        let serviceIndex = null;
         try {
           if (!window.marked) throw new Error("renderer");
           manifest = await (await fetch("docs/manifest.json")).json();
@@ -106,17 +107,55 @@
           return fail("Could not load the documentation.");
         }
 
+        // Contracts are fetched from the repository that owns them, so the
+        // published site always shows what is on `master`. Under `npm start`
+        // that would hide work in progress, so point the dev server at the
+        // sibling checkouts instead (see script/serve.js).
+        const isLocal = /^(127\.0\.0\.1|localhost|\[::1\])$/.test(
+          location.hostname,
+        );
+        const localPreview = (src) => {
+          if (!src) return src;
+          if (!isLocal) return src;
+          const match = src.match(
+            /^https:\/\/raw\.githubusercontent\.com\/lumine-code\/([\w.-]+)\/\w+\/(.+)$/,
+          );
+          return match ? "/@repo/" + match[1] + "/" + match[2] : src;
+        };
+
+        // The service reference is generated: docs/services.json is written by
+        // `npm run docs:services` from the whole workspace, and each contract is
+        // fetched from the repository of the package that owns it. A stale or
+        // missing index only costs the reference section, so it fails soft.
+        try {
+          serviceIndex = await (await fetch("docs/services.json")).json();
+          manifest.categories.push({
+            title: serviceIndex.category.title,
+            slug: serviceIndex.category.slug,
+            pages: serviceIndex.groups.flatMap((group) =>
+              group.services.map((name) => ({ title: name, slug: name })),
+            ),
+          });
+        } catch (error) {
+          console.error(error);
+        }
+
         // Flatten the page list so we can resolve routes and prev/next links.
         const flat = [];
         for (const category of manifest.categories) {
           for (const page of category.pages) {
+            const service =
+              category.slug === "services" ? serviceIndex.services[page.slug] : null;
             flat.push({
               category: category.slug,
               categoryTitle: category.title,
               slug: page.slug,
               title: page.title,
               route: category.slug + "/" + page.slug,
-              file: "docs/" + category.slug + "/" + page.slug + ".md",
+              file: service
+                ? localPreview(service.src)
+                : "docs/" + category.slug + "/" + page.slug + ".md",
+              service,
             });
           }
         }
@@ -150,8 +189,39 @@
           navEl.appendChild(group);
         }
 
-        const currentRoute = () =>
-          location.hash.replace(/^#\/?/, "").split("#")[0];
+        // The hash carries both the route and an optional in-page fragment:
+        // #category/page#heading-id.
+        const currentHash = () => location.hash.replace(/^#\/?/, "");
+        const currentRoute = () => currentHash().split("#")[0];
+        const currentFragment = () => currentHash().split("#")[1] || "";
+
+        // Mirror github-slugger so a fragment written against the Markdown as
+        // GitHub renders it resolves here too: lowercase, drop everything but
+        // word characters, spaces and hyphens, spaces to hyphens, then
+        // de-duplicate with a numeric suffix.
+        const slugger = () => {
+          const seen = new Map();
+          return (text) => {
+            const base =
+              text
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\- ]+/g, "")
+                .replace(/\s+/g, "-")
+                .replace(/^-+|-+$/g, "") || "section";
+            const n = seen.get(base) ?? 0;
+            seen.set(base, n + 1);
+            return n ? base + "-" + n : base;
+          };
+        };
+
+        const scrollToFragment = () => {
+          const fragment = currentFragment();
+          const target =
+            fragment && article.querySelector("#" + CSS.escape(fragment));
+          if (target) target.scrollIntoView();
+          else window.scrollTo(0, 0);
+        };
 
         const pager = (page) => {
           const index = flat.indexOf(page);
@@ -173,6 +243,38 @@
             link(flat[index + 1], "next", flat[index + 1].title);
         };
 
+        // The graph half of a service page. The owning package writes the
+        // contract; who implements it is derived from every manifest in the
+        // workspace, so it is appended here rather than kept in 28 repos.
+        const packageLink = (name) =>
+          "[`" + name + "`](https://github.com/lumine-code/" + name + ")";
+        const serviceGraphSection = (service) => {
+          const lines = ["", "## Implementers", ""];
+          lines.push(
+            service.providers.length
+              ? "Provided by " + service.providers.map(packageLink).join(", ") + "."
+              : "Provided by a package outside this workspace.",
+          );
+          lines.push(
+            service.consumers.length
+              ? "Consumed by " + service.consumers.map(packageLink).join(", ") + "."
+              : "No consumer yet — this is a deliberate extension point.",
+          );
+          if (service.source) {
+            lines.push("", "[Edit this page](" + service.source + ")");
+          }
+          return lines.join("\n");
+        };
+        const serviceStub = (service) =>
+          "# " +
+          service.name +
+          "\n\nThis contract is not documented yet. Its wiring is below; for the shape of " +
+          "the object itself, read the source of " +
+          (service.providers[0]
+            ? "`" + service.providers[0] + "`"
+            : "the package that provides it") +
+          ".\n";
+
         const cache = new Map();
         const render = async () => {
           const route = currentRoute();
@@ -181,7 +283,8 @@
             location.replace("#" + flat[0].route);
           }
 
-          let markdown = cache.get(page.file);
+          const cacheKey = page.file || page.route;
+          let markdown = cache.get(cacheKey);
           if (markdown === undefined) {
             // Keep the current page visible and only show a loader if the fetch
             // is slow, so fast or cached page switches do not flash.
@@ -189,26 +292,54 @@
               article.innerHTML = '<p class="doc-status">Loading&hellip;</p>';
             }, 150);
             try {
-              const response = await fetch(page.file);
-              if (!response.ok)
-                throw new Error(page.file + " (" + response.status + ")");
-              markdown = await response.text();
-              cache.set(page.file, markdown);
+              if (page.file) {
+                const response = await fetch(page.file);
+                if (!response.ok)
+                  throw new Error(page.file + " (" + response.status + ")");
+                markdown = await response.text();
+              } else {
+                markdown = serviceStub(page.service);
+              }
             } catch (error) {
-              clearTimeout(loader);
               console.error(error);
-              return fail("Could not load this page.");
+              // A contract that has not been written yet still has wiring worth
+              // showing; only a genuine manual page is a hard failure.
+              if (!page.service) {
+                clearTimeout(loader);
+                return fail("Could not load this page.");
+              }
+              markdown = serviceStub(page.service);
             }
+            if (page.service) markdown += serviceGraphSection(page.service);
+            cache.set(cacheKey, markdown);
             clearTimeout(loader);
           }
 
           article.innerHTML = window.marked.parse(markdown, { gfm: true });
 
+          // marked does not emit heading ids, so anchors have nothing to land
+          // on. Stamp them here with the same slugs GitHub would produce.
+          const slug = slugger();
+          article.querySelectorAll("h1, h2, h3, h4").forEach((heading) => {
+            if (!heading.id) heading.id = slug(heading.textContent);
+          });
+
+          // Service contract docs are table-heavy and .prose is narrower than
+          // some of those tables, so give each one its own scroll container.
+          article.querySelectorAll("table").forEach((table) => {
+            const wrap = document.createElement("div");
+            wrap.className = "doc-table-wrap";
+            table.replaceWith(wrap);
+            wrap.appendChild(table);
+          });
+
           // Rewrite in-manual Markdown links (e.g. "../using-lumine/basics.md")
           // to hash routes so navigation stays inside the single-page shell.
+          // Dots are allowed in a slug because service pages are named after
+          // the service, e.g. "linter.provider.md".
           article.querySelectorAll("a[href]").forEach((link) => {
             const href = link.getAttribute("href");
-            const match = href.match(/(?:^|\/)([\w-]+)\/([\w-]+)\.md(#.+)?$/);
+            const match = href.match(/(?:^|\/)([\w-]+)\/([\w.-]+)\.md(#.+)?$/);
             if (match) {
               link.setAttribute(
                 "href",
@@ -216,12 +347,21 @@
               );
               return;
             }
-            const same = href.match(/^([\w-]+)\.md(#.+)?$/);
-            if (same)
+            const same = href.match(/^([\w.-]+)\.md(#.+)?$/);
+            if (same) {
               link.setAttribute(
                 "href",
                 "#" + page.category + "/" + same[1] + (same[2] || ""),
               );
+              return;
+            }
+            // A contract in one repository links to one in another by absolute
+            // URL, since a relative path cannot cross a repository boundary on
+            // GitHub. Keep those inside the shell rather than reloading it.
+            const site = href.match(
+              /^https:\/\/lumine-code\.github\.io\/docs\.html(#.+)$/,
+            );
+            if (site) link.setAttribute("href", site[1]);
           });
 
           // Highlight the active page and open its category.
@@ -233,10 +373,17 @@
 
           pager(page);
           document.title = page.title + " — Lumine Documentation";
-          window.scrollTo(0, 0);
+          lastRoute = page.route;
+          scrollToFragment();
         };
 
-        window.addEventListener("hashchange", render);
+        // An in-page anchor changes the hash without changing the page, so
+        // only re-render when the route itself moved.
+        let lastRoute = null;
+        window.addEventListener("hashchange", () => {
+          if (currentRoute() === lastRoute) scrollToFragment();
+          else render();
+        });
         await render();
       })();
     </script>

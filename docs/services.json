@@ -1,0 +1,1272 @@
+{
+  "category": {
+    "title": "Service reference",
+    "slug": "services"
+  },
+  "groups": [
+    {
+      "title": "Editor chrome",
+      "services": [
+        "status-bar",
+        "title-bar",
+        "tree-view.selection",
+        "tree-view.roots",
+        "project-list",
+        "recent-list",
+        "open-external"
+      ]
+    },
+    {
+      "title": "File icons",
+      "services": [
+        "icons.class",
+        "icons.element"
+      ]
+    },
+    {
+      "title": "Completion and grammars",
+      "services": [
+        "autocomplete.provider",
+        "autocomplete.watch-editor",
+        "snippets",
+        "hyperlink.injection",
+        "todo.injection",
+        "sofistik.keywords"
+      ]
+    },
+    {
+      "title": "Language servers and code intelligence",
+      "services": [
+        "ide-client",
+        "symbol.provider",
+        "hover.provider",
+        "hover.signature-provider",
+        "outline.provider",
+        "refactor.provider",
+        "find-references.provider",
+        "find-references.markers",
+        "hyperclick.provider",
+        "code-format.range",
+        "code-format.file",
+        "code-format.on-type",
+        "code-format.on-save"
+      ]
+    },
+    {
+      "title": "Linting and progress",
+      "services": [
+        "linter.provider",
+        "linter.registry",
+        "linter.ui",
+        "linter.adapter",
+        "intentions.list",
+        "busy-signal.registry",
+        "busy-signal.background-registry",
+        "busy-signal.reporter"
+      ]
+    },
+    {
+      "title": "Scrollbar overview",
+      "services": [
+        "scrollmap.layer",
+        "scrollmap.widget"
+      ]
+    },
+    {
+      "title": "Panels",
+      "services": [
+        "search.control",
+        "search.adapter",
+        "navigation.headers",
+        "navigation.adapter"
+      ]
+    },
+    {
+      "title": "Editors and viewers",
+      "services": [
+        "pdf-view",
+        "image-editor",
+        "diff-view",
+        "minimap",
+        "bookmarks",
+        "bracket-matcher",
+        "highlight-selected"
+      ]
+    },
+    {
+      "title": "Jupyter",
+      "services": [
+        "jupyter.kernel",
+        "jupyter.breakpoints",
+        "jupyter.adapter",
+        "jupyter.notebook"
+      ]
+    },
+    {
+      "title": "Tools and integrations",
+      "services": [
+        "terminal",
+        "terminal-spawn",
+        "latex-tools",
+        "typst-tools",
+        "windows-clip",
+        "autosave",
+        "git-panel",
+        "mcp.bridge",
+        "mcp.tools",
+        "fuzzy-files.score-modifier",
+        "claude-chat"
+      ]
+    },
+    {
+      "title": "Core extension points",
+      "services": [
+        "icons.provider",
+        "project.directory-provider",
+        "project.repository-provider",
+        "repositories.operations-provider",
+        "workspace.search-provider"
+      ]
+    }
+  ],
+  "services": {
+    "autocomplete.watch-editor": {
+      "name": "autocomplete.watch-editor",
+      "group": "Completion and grammars",
+      "summary": "A function that turns autocompletion on for an editor autocomplete would otherwise ignore — one inside a panel, a dock, or any pane item that is not a workspace-center tab.",
+      "version": "1.0.0",
+      "owner": "autocomplete",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/autocomplete/docs/autocomplete.watch-editor.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/autocomplete/docs/autocomplete.watch-editor.md",
+      "providers": [
+        "autocomplete"
+      ],
+      "consumers": [
+        "search-panel",
+        "jupyter-repl",
+        "jupyter-view"
+      ]
+    },
+    "autocomplete.provider": {
+      "name": "autocomplete.provider",
+      "group": "Completion and grammars",
+      "summary": "A source of completion suggestions for the autocomplete popup: which scopes it applies to, and a `getSuggestions` function returning the candidates at a buffer position.",
+      "version": "1.0.0",
+      "owner": "autocomplete",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/autocomplete/docs/autocomplete.provider.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/autocomplete/docs/autocomplete.provider.md",
+      "providers": [
+        "autocomplete-css",
+        "autocomplete-html",
+        "autocomplete-lumine",
+        "autocomplete-snippets",
+        "ide-client",
+        "autocomplete-jedi",
+        "autocomplete-sofistik",
+        "jupyter-repl"
+      ],
+      "consumers": [
+        "autocomplete"
+      ]
+    },
+    "snippets": {
+      "name": "snippets",
+      "group": "Completion and grammars",
+      "summary": "Query the loaded snippets and expand one into an editor.",
+      "version": "1.0.0",
+      "owner": "snippets",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/snippets/docs/snippets.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/snippets/docs/snippets.md",
+      "providers": [
+        "snippets"
+      ],
+      "consumers": [
+        "autocomplete",
+        "autocomplete-snippets",
+        "settings-view"
+      ]
+    },
+    "autosave": {
+      "name": "autosave",
+      "group": "Tools and integrations",
+      "summary": "Registers a veto: a predicate that stops autosave from writing a particular pane item.",
+      "version": "1.0.0",
+      "owner": "autosave",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/autosave/docs/autosave.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/autosave/docs/autosave.md",
+      "providers": [
+        "autosave"
+      ],
+      "consumers": []
+    },
+    "bookmarks": {
+      "name": "bookmarks",
+      "group": "Editors and viewers",
+      "summary": "Reads the bookmarks set in an editor, as live markers.",
+      "version": "1.0.0",
+      "owner": "bookmarks",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/bookmarks/docs/bookmarks.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/bookmarks/docs/bookmarks.md",
+      "providers": [
+        "bookmarks"
+      ],
+      "consumers": []
+    },
+    "bracket-matcher": {
+      "name": "bracket-matcher",
+      "group": "Editors and viewers",
+      "summary": "Reports which bracket pair is currently highlighted, and when that changes.",
+      "version": "1.0.0",
+      "owner": "bracket-matcher",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/bracket-matcher/docs/bracket-matcher.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/bracket-matcher/docs/bracket-matcher.md",
+      "providers": [
+        "bracket-matcher"
+      ],
+      "consumers": [
+        "scrollmap-brackets"
+      ]
+    },
+    "status-bar": {
+      "name": "status-bar",
+      "group": "Editor chrome",
+      "summary": "The status bar's tile collection: a package adds an element to the left or right panel and receives a handle that removes it again.",
+      "version": "1.0.0",
+      "owner": "status-bar",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/status-bar/docs/status-bar.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/status-bar/docs/status-bar.md",
+      "providers": [
+        "status-bar"
+      ],
+      "consumers": [
+        "column-selection",
+        "deprecation-cop",
+        "editor-status",
+        "encoding-selector",
+        "git-switcher",
+        "grammar-selector",
+        "incompatible-packages",
+        "line-ending-selector",
+        "overtype-mode",
+        "settings-view",
+        "busy-signal",
+        "cursor-leader",
+        "git-panel",
+        "github-panel",
+        "image-editor",
+        "invert-colors",
+        "jupyter-repl",
+        "latex-tools",
+        "linter",
+        "prettier",
+        "tasklist-tools",
+        "typst-tools"
+      ]
+    },
+    "open-external": {
+      "name": "open-external",
+      "group": "Editor chrome",
+      "summary": "Opens a path in the system's default application or reveals it in the file manager, and lets a package take over either operation.",
+      "version": "1.0.0",
+      "owner": "open-external",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/open-external/docs/open-external.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/open-external/docs/open-external.md",
+      "providers": [
+        "open-external"
+      ],
+      "consumers": [
+        "fuzzy-explorer",
+        "fuzzy-files",
+        "project-list",
+        "recent-list",
+        "tree-view",
+        "folder-sync",
+        "latex-tools",
+        "open-in-totalcmd",
+        "sofistik-tools"
+      ]
+    },
+    "claude-chat": {
+      "name": "claude-chat",
+      "group": "Tools and integrations",
+      "summary": null,
+      "version": "1.0.0",
+      "owner": null,
+      "src": null,
+      "source": null,
+      "providers": [],
+      "consumers": [
+        "fuzzy-explorer",
+        "fuzzy-files",
+        "image-editor",
+        "jupyter-repl"
+      ]
+    },
+    "fuzzy-files.score-modifier": {
+      "name": "fuzzy-files.score-modifier",
+      "group": "Tools and integrations",
+      "summary": "Adjusts how the file finder ranks its results, so a package can push the files it knows are relevant to the top.",
+      "version": "1.0.0",
+      "owner": "fuzzy-files",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/fuzzy-files/docs/fuzzy-files.score-modifier.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/fuzzy-files/docs/fuzzy-files.score-modifier.md",
+      "providers": [
+        "fuzzy-files"
+      ],
+      "consumers": []
+    },
+    "windows-clip": {
+      "name": "windows-clip",
+      "group": "Tools and integrations",
+      "summary": "Native Windows clipboard access for file paths, including the copy/cut distinction that Explorer uses.",
+      "version": "1.0.0",
+      "owner": "windows-clip",
+      "src": "https://raw.githubusercontent.com/lumine-code/windows-clip/master/docs/windows-clip.md",
+      "source": "https://github.com/lumine-code/windows-clip/blob/master/docs/windows-clip.md",
+      "providers": [
+        "windows-clip"
+      ],
+      "consumers": [
+        "fuzzy-files"
+      ]
+    },
+    "tree-view.selection": {
+      "name": "tree-view.selection",
+      "group": "Editor chrome",
+      "summary": "Read what is selected in the tree, find the element for a path, and scroll a path into view.",
+      "version": "1.0.0",
+      "owner": "tree-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/tree-view/docs/tree-view.selection.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/tree-view/docs/tree-view.selection.md",
+      "providers": [
+        "tree-view"
+      ],
+      "consumers": [
+        "fuzzy-files",
+        "image-paste",
+        "open-external",
+        "fast-publish",
+        "folder-sync",
+        "image-editor",
+        "jupyter-view",
+        "linter-eslint",
+        "linter-ruff",
+        "linter-todo",
+        "prettier",
+        "sofistik-tools",
+        "tree-view-favourites",
+        "windows-clip"
+      ]
+    },
+    "ide-client": {
+      "name": "ide-client",
+      "group": "Language servers and code intelligence",
+      "summary": "Registers a language server with the editor. The adapter says how to launch it and which grammars it serves; `ide-client` does the rest of LSP.",
+      "version": "1.0.0",
+      "owner": "ide-client",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/ide-client/docs/ide-client.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/ide-client/docs/ide-client.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "call-hierarchy",
+        "ide-pyright",
+        "ide-ruff",
+        "ide-texlab",
+        "ide-tinymist",
+        "ide-typescript"
+      ]
+    },
+    "symbol.provider": {
+      "name": "symbol.provider",
+      "group": "Language servers and code intelligence",
+      "summary": "A source of symbols — classes, functions, definitions — for one file, for the project, or for a go-to-definition lookup.",
+      "version": "1.0.0",
+      "owner": "symbols-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/symbols-view/docs/symbol.provider.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/symbols-view/docs/symbol.provider.md",
+      "providers": [
+        "ide-client",
+        "symbol-provider-ctags",
+        "symbol-provider-tree-sitter"
+      ],
+      "consumers": [
+        "symbols-view",
+        "outline-view"
+      ]
+    },
+    "hover.provider": {
+      "name": "hover.provider",
+      "group": "Language servers and code intelligence",
+      "summary": "Supplies the documentation shown when the pointer rests on a symbol.",
+      "version": "1.0.0",
+      "owner": "hover",
+      "src": "https://raw.githubusercontent.com/lumine-code/hover/master/docs/hover.provider.md",
+      "source": "https://github.com/lumine-code/hover/blob/master/docs/hover.provider.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "hover"
+      ]
+    },
+    "hover.signature-provider": {
+      "name": "hover.signature-provider",
+      "group": "Language servers and code intelligence",
+      "summary": "Supplies the call signature shown while the user types arguments.",
+      "version": "1.0.0",
+      "owner": "hover",
+      "src": "https://raw.githubusercontent.com/lumine-code/hover/master/docs/hover.signature-provider.md",
+      "source": "https://github.com/lumine-code/hover/blob/master/docs/hover.signature-provider.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "hover"
+      ]
+    },
+    "outline.provider": {
+      "name": "outline.provider",
+      "group": "Language servers and code intelligence",
+      "summary": "Supplies the hierarchical outline of a document — the tree of classes, functions, and sections shown in the outline panel.",
+      "version": "1.0.0",
+      "owner": "outline-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/outline-view/master/docs/outline.provider.md",
+      "source": "https://github.com/lumine-code/outline-view/blob/master/docs/outline.provider.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "outline-view"
+      ]
+    },
+    "code-format.range": {
+      "name": "code-format.range",
+      "group": "Language servers and code intelligence",
+      "summary": "Formats a selected range and returns the edits.",
+      "version": "1.0.0",
+      "owner": "code-format",
+      "src": "https://raw.githubusercontent.com/lumine-code/code-format/master/docs/code-format.range.md",
+      "source": "https://github.com/lumine-code/code-format/blob/master/docs/code-format.range.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "code-format"
+      ]
+    },
+    "code-format.file": {
+      "name": "code-format.file",
+      "group": "Language servers and code intelligence",
+      "summary": "Formats a whole buffer and returns the edits.",
+      "version": "1.0.0",
+      "owner": "code-format",
+      "src": "https://raw.githubusercontent.com/lumine-code/code-format/master/docs/code-format.file.md",
+      "source": "https://github.com/lumine-code/code-format/blob/master/docs/code-format.file.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "code-format"
+      ]
+    },
+    "code-format.on-type": {
+      "name": "code-format.on-type",
+      "group": "Language servers and code intelligence",
+      "summary": "Reformats as the user types, when a trigger character lands.",
+      "version": "1.0.0",
+      "owner": "code-format",
+      "src": "https://raw.githubusercontent.com/lumine-code/code-format/master/docs/code-format.on-type.md",
+      "source": "https://github.com/lumine-code/code-format/blob/master/docs/code-format.on-type.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "code-format"
+      ]
+    },
+    "code-format.on-save": {
+      "name": "code-format.on-save",
+      "group": "Language servers and code intelligence",
+      "summary": "Reformats a buffer as it is saved.",
+      "version": "1.0.0",
+      "owner": "code-format",
+      "src": "https://raw.githubusercontent.com/lumine-code/code-format/master/docs/code-format.on-save.md",
+      "source": "https://github.com/lumine-code/code-format/blob/master/docs/code-format.on-save.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "code-format"
+      ]
+    },
+    "find-references.provider": {
+      "name": "find-references.provider",
+      "group": "Language servers and code intelligence",
+      "summary": "Lists every occurrence of the symbol at a position.",
+      "version": "1.0.0",
+      "owner": "find-references",
+      "src": "https://raw.githubusercontent.com/lumine-code/find-references/master/docs/find-references.provider.md",
+      "source": "https://github.com/lumine-code/find-references/blob/master/docs/find-references.provider.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "find-references"
+      ]
+    },
+    "refactor.provider": {
+      "name": "refactor.provider",
+      "group": "Language servers and code intelligence",
+      "summary": "Renames a symbol across the project, and optionally validates the rename before the user types the new name.",
+      "version": "1.0.0",
+      "owner": "refactor",
+      "src": "https://raw.githubusercontent.com/lumine-code/refactor/master/docs/refactor.provider.md",
+      "source": "https://github.com/lumine-code/refactor/blob/master/docs/refactor.provider.md",
+      "providers": [
+        "ide-client"
+      ],
+      "consumers": [
+        "refactor"
+      ]
+    },
+    "intentions.list": {
+      "name": "intentions.list",
+      "group": "Linting and progress",
+      "summary": "Supplies the code actions and quick fixes offered at the cursor.",
+      "version": "1.0.0",
+      "owner": "intentions",
+      "src": "https://raw.githubusercontent.com/lumine-code/intentions/master/docs/intentions.list.md",
+      "source": "https://github.com/lumine-code/intentions/blob/master/docs/intentions.list.md",
+      "providers": [
+        "ide-client",
+        "linter"
+      ],
+      "consumers": [
+        "intentions"
+      ]
+    },
+    "linter.registry": {
+      "name": "linter.registry",
+      "group": "Linting and progress",
+      "summary": "A function that registers an \"indie\" linter: a package pushes messages into the linter panel whenever it likes, instead of waiting to be asked.",
+      "version": "1.0.0",
+      "owner": "linter",
+      "src": "https://raw.githubusercontent.com/lumine-code/linter/master/docs/linter.registry.md",
+      "source": "https://github.com/lumine-code/linter/blob/master/docs/linter.registry.md",
+      "providers": [
+        "linter"
+      ],
+      "consumers": [
+        "ide-client",
+        "latex-tools",
+        "linter-eslint",
+        "linter-ruff",
+        "linter-sofistik",
+        "linter-todo",
+        "prettier",
+        "typst-tools"
+      ]
+    },
+    "busy-signal.registry": {
+      "name": "busy-signal.registry",
+      "group": "Linting and progress",
+      "summary": "The low-level busy indicator: create a provider, then add, rename, remove, and clear titles on it directly.",
+      "version": "1.0.0",
+      "owner": "busy-signal",
+      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.registry.md",
+      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.registry.md",
+      "providers": [
+        "busy-signal"
+      ],
+      "consumers": [
+        "ide-client"
+      ]
+    },
+    "busy-signal.background-registry": {
+      "name": "busy-signal.background-registry",
+      "group": "Linting and progress",
+      "summary": "Registers long-running background work — an indexer, a language server starting, a watch build — as an entry the user can look at rather than a spinner that flashes past.",
+      "version": "1.0.0",
+      "owner": "busy-signal",
+      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.background-registry.md",
+      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.background-registry.md",
+      "providers": [
+        "busy-signal"
+      ],
+      "consumers": [
+        "ide-client"
+      ]
+    },
+    "hyperlink.injection": {
+      "name": "hyperlink.injection",
+      "group": "Completion and grammars",
+      "summary": "Lets a language grammar highlight URLs inside its own strings and comments, by injecting the hyperlink grammar at nodes it nominates.",
+      "version": "1.0.0",
+      "owner": "language-hyperlink",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/language-hyperlink/docs/hyperlink.injection.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/language-hyperlink/docs/hyperlink.injection.md",
+      "providers": [
+        "language-hyperlink"
+      ],
+      "consumers": [
+        "language-c",
+        "language-css",
+        "language-gfm",
+        "language-go",
+        "language-html",
+        "language-java",
+        "language-javascript",
+        "language-json",
+        "language-php",
+        "language-python",
+        "language-ruby",
+        "language-rust",
+        "language-sass",
+        "language-shellscript",
+        "language-toml",
+        "language-typescript",
+        "language-yaml",
+        "language-latex",
+        "language-typst"
+      ]
+    },
+    "todo.injection": {
+      "name": "todo.injection",
+      "group": "Completion and grammars",
+      "summary": "Lets a language grammar highlight `TODO`-style markers inside its own comments, by injecting the todo grammar at nodes it nominates.",
+      "version": "1.0.0",
+      "owner": "language-todo",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/language-todo/docs/todo.injection.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/language-todo/docs/todo.injection.md",
+      "providers": [
+        "language-todo"
+      ],
+      "consumers": [
+        "language-c",
+        "language-css",
+        "language-go",
+        "language-html",
+        "language-java",
+        "language-javascript",
+        "language-json",
+        "language-php",
+        "language-python",
+        "language-ruby",
+        "language-rust",
+        "language-sass",
+        "language-shellscript",
+        "language-toml",
+        "language-typescript",
+        "language-yaml",
+        "language-latex",
+        "language-typst"
+      ]
+    },
+    "project-list": {
+      "name": "project-list",
+      "group": "Editor chrome",
+      "summary": "Exposes the project list manager: which project the window currently has open, and when that changes.",
+      "version": "1.0.0",
+      "owner": "project-list",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/project-list/docs/project-list.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/project-list/docs/project-list.md",
+      "providers": [
+        "project-list"
+      ],
+      "consumers": [
+        "tree-view",
+        "window-title"
+      ]
+    },
+    "recent-list": {
+      "name": "recent-list",
+      "group": "Editor chrome",
+      "summary": "Opens the recent-projects list, so a package can offer it as an action without depending on the command.",
+      "version": "1.0.0",
+      "owner": "recent-list",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/recent-list/docs/recent-list.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/recent-list/docs/recent-list.md",
+      "providers": [
+        "recent-list"
+      ],
+      "consumers": [
+        "tree-view"
+      ]
+    },
+    "search.control": {
+      "name": "search.control",
+      "group": "Panels",
+      "summary": "Drives the find and replace panels from another package: read the options, show or hide the panels, trigger a search, and follow the results.",
+      "version": "1.0.0",
+      "owner": "search-panel",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/search-panel/docs/search.control.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/search-panel/docs/search.control.md",
+      "providers": [
+        "search-panel"
+      ],
+      "consumers": [
+        "scrollmap-search-panel"
+      ]
+    },
+    "search.adapter": {
+      "name": "search.adapter",
+      "group": "Panels",
+      "summary": "Makes a pane item that is not a `TextEditor` searchable with the ordinary find panel — a notebook, a data grid, a rendered preview.",
+      "version": "1.0.0",
+      "owner": "search-panel",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/search-panel/docs/search.adapter.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/search-panel/docs/search.adapter.md",
+      "providers": [
+        "jupyter-repl",
+        "jupyter-view"
+      ],
+      "consumers": [
+        "search-panel"
+      ]
+    },
+    "hyperclick.provider": {
+      "name": "hyperclick.provider",
+      "group": "Language servers and code intelligence",
+      "summary": "Turns a word in the editor into something clickable: the provider is asked about a range, and answers with a callback to run if the user follows it.",
+      "version": "1.0.0",
+      "owner": "symbols-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/symbols-view/docs/hyperclick.provider.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/symbols-view/docs/hyperclick.provider.md",
+      "providers": [
+        "symbols-view",
+        "autocomplete-jedi"
+      ],
+      "consumers": []
+    },
+    "title-bar": {
+      "name": "title-bar",
+      "group": "Editor chrome",
+      "summary": "The title bar's control tile collection: a package inserts an element beside the window buttons and receives a handle that removes it.",
+      "version": "1.0.0",
+      "owner": "title-bar",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/title-bar/docs/title-bar.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/title-bar/docs/title-bar.md",
+      "providers": [
+        "title-bar"
+      ],
+      "consumers": [
+        "quick-layout"
+      ]
+    },
+    "tree-view.roots": {
+      "name": "tree-view.roots",
+      "group": "Editor chrome",
+      "summary": "Registers a virtual root section above the project folders — a list of paths the tree shows and navigates like a project, but that no project folder backs.",
+      "version": "1.0.0",
+      "owner": "tree-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine/master/packages/tree-view/docs/tree-view.roots.md",
+      "source": "https://github.com/lumine-code/lumine/blob/master/packages/tree-view/docs/tree-view.roots.md",
+      "providers": [
+        "tree-view"
+      ],
+      "consumers": [
+        "tree-view-favourites"
+      ]
+    },
+    "sofistik.keywords": {
+      "name": "sofistik.keywords",
+      "group": "Completion and grammars",
+      "summary": "Exposes the SOFiSTiK keyword database — modules, commands, parameters, and enum values — resolved for the version and language of a given file.",
+      "version": "1.0.0",
+      "owner": "language-sofistik",
+      "src": "https://raw.githubusercontent.com/lumine-code/language-sofistik/master/docs/sofistik.keywords.md",
+      "source": "https://github.com/lumine-code/language-sofistik/blob/master/docs/sofistik.keywords.md",
+      "providers": [
+        "language-sofistik"
+      ],
+      "consumers": [
+        "autocomplete-sofistik",
+        "linter-sofistik",
+        "sofistik-tools"
+      ]
+    },
+    "icons.class": {
+      "name": "icons.class",
+      "group": "File icons",
+      "summary": "An icon source that answers with CSS class names, so any view showing a file path can style its own icon element.",
+      "version": "1.0.0",
+      "owner": "native-icons",
+      "src": "https://raw.githubusercontent.com/lumine-code/native-icons/master/docs/icons.class.md",
+      "source": "https://github.com/lumine-code/native-icons/blob/master/docs/icons.class.md",
+      "providers": [
+        "more-icons",
+        "native-icons"
+      ],
+      "consumers": [
+        "bib-finder"
+      ]
+    },
+    "busy-signal.reporter": {
+      "name": "busy-signal.reporter",
+      "group": "Linting and progress",
+      "summary": "Reports that something is happening, in the shape most callers actually want: wrap a promise, or take a handle and dispose it when done.",
+      "version": "1.0.0",
+      "owner": "busy-signal",
+      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.reporter.md",
+      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.reporter.md",
+      "providers": [
+        "busy-signal"
+      ],
+      "consumers": [
+        "linter-eslint",
+        "linter-ruff",
+        "linter-todo",
+        "prettier"
+      ]
+    },
+    "diff-view": {
+      "name": "diff-view",
+      "group": "Editors and viewers",
+      "summary": "Reports the current diff: its chunks, the two editors being compared, and which side is coloured as added.",
+      "version": "1.0.0",
+      "owner": "diff-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/diff-view/master/docs/diff-view.md",
+      "source": "https://github.com/lumine-code/diff-view/blob/master/docs/diff-view.md",
+      "providers": [
+        "diff-view"
+      ],
+      "consumers": [
+        "scrollmap-diff-view"
+      ]
+    },
+    "find-references.markers": {
+      "name": "find-references.markers",
+      "group": "Language servers and code intelligence",
+      "summary": "Reports which reference occurrences are currently highlighted in each editor.",
+      "version": "1.0.0",
+      "owner": "find-references",
+      "src": "https://raw.githubusercontent.com/lumine-code/find-references/master/docs/find-references.markers.md",
+      "source": "https://github.com/lumine-code/find-references/blob/master/docs/find-references.markers.md",
+      "providers": [
+        "find-references"
+      ],
+      "consumers": [
+        "scrollmap-references"
+      ]
+    },
+    "git-panel": {
+      "name": "git-panel",
+      "group": "Tools and integrations",
+      "summary": "Gives a forge package access to the repository model, the diff pipeline, and the Git panel's active-repository context.",
+      "version": "1.0.0",
+      "owner": "git-panel",
+      "src": "https://raw.githubusercontent.com/lumine-code/git-panel/master/docs/git-panel.md",
+      "source": "https://github.com/lumine-code/git-panel/blob/master/docs/git-panel.md",
+      "providers": [
+        "git-panel"
+      ],
+      "consumers": [
+        "github-panel"
+      ]
+    },
+    "highlight-selected": {
+      "name": "highlight-selected",
+      "group": "Editors and viewers",
+      "summary": "Reports which occurrences of the current selection are highlighted, and when that set changes.",
+      "version": "1.0.0",
+      "owner": "highlight-selected",
+      "src": "https://raw.githubusercontent.com/lumine-code/highlight-selected/master/docs/highlight-selected.md",
+      "source": "https://github.com/lumine-code/highlight-selected/blob/master/docs/highlight-selected.md",
+      "providers": [
+        "highlight-selected"
+      ],
+      "consumers": [
+        "scrollmap-highlight"
+      ]
+    },
+    "image-editor": {
+      "name": "image-editor",
+      "group": "Editors and viewers",
+      "summary": "Opens an image from a data URL, without writing it to disk first.",
+      "version": "1.0.0",
+      "owner": "image-editor",
+      "src": "https://raw.githubusercontent.com/lumine-code/image-editor/master/docs/image-editor.md",
+      "source": "https://github.com/lumine-code/image-editor/blob/master/docs/image-editor.md",
+      "providers": [
+        "image-editor"
+      ],
+      "consumers": [
+        "jupyter-repl"
+      ]
+    },
+    "navigation.adapter": {
+      "name": "navigation.adapter",
+      "group": "Panels",
+      "summary": "Supplies the navigation panel's outline for a pane item that is not a text document — a PDF's bookmarks, a notebook's cells, the images in a folder.",
+      "version": "1.0.0",
+      "owner": "navigation-panel",
+      "src": "https://raw.githubusercontent.com/lumine-code/navigation-panel/master/docs/navigation.adapter.md",
+      "source": "https://github.com/lumine-code/navigation-panel/blob/master/docs/navigation.adapter.md",
+      "providers": [
+        "image-editor",
+        "jupyter-view",
+        "pdf-view"
+      ],
+      "consumers": [
+        "navigation-panel"
+      ]
+    },
+    "pdf-view": {
+      "name": "pdf-view",
+      "group": "Editors and viewers",
+      "summary": "Drives PDF viewers from another package: observe them, open one, look one up, scroll it to a named destination, or swap its file.",
+      "version": "1.0.0",
+      "owner": "pdf-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/pdf-view/master/docs/pdf-view.md",
+      "source": "https://github.com/lumine-code/pdf-view/blob/master/docs/pdf-view.md",
+      "providers": [
+        "pdf-view"
+      ],
+      "consumers": [
+        "invert-colors",
+        "sofistik-tools"
+      ]
+    },
+    "jupyter.kernel": {
+      "name": "jupyter.kernel",
+      "group": "Jupyter",
+      "summary": "Reads the running Jupyter kernel: which one is active, when that changes, and the range of the cell at the cursor.",
+      "version": "1.0.0",
+      "owner": "jupyter-repl",
+      "src": "https://raw.githubusercontent.com/lumine-code/jupyter-repl/master/docs/jupyter.kernel.md",
+      "source": "https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.kernel.md",
+      "providers": [
+        "jupyter-repl"
+      ],
+      "consumers": []
+    },
+    "jupyter.breakpoints": {
+      "name": "jupyter.breakpoints",
+      "group": "Jupyter",
+      "summary": "Reports where the cell boundaries are in an editor, so another package can draw or reason about them.",
+      "version": "1.0.0",
+      "owner": "jupyter-repl",
+      "src": "https://raw.githubusercontent.com/lumine-code/jupyter-repl/master/docs/jupyter.breakpoints.md",
+      "source": "https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.breakpoints.md",
+      "providers": [
+        "jupyter-repl"
+      ],
+      "consumers": [
+        "scrollmap-jupyter-repl"
+      ]
+    },
+    "jupyter.adapter": {
+      "name": "jupyter.adapter",
+      "group": "Jupyter",
+      "summary": "Lets the REPL run cells in something that is not a text editor, by describing that item's cells as run targets.",
+      "version": "1.0.0",
+      "owner": "jupyter-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/jupyter-view/master/docs/jupyter.adapter.md",
+      "source": "https://github.com/lumine-code/jupyter-view/blob/master/docs/jupyter.adapter.md",
+      "providers": [
+        "jupyter-view"
+      ],
+      "consumers": [
+        "jupyter-repl"
+      ]
+    },
+    "terminal": {
+      "name": "terminal",
+      "group": "Tools and integrations",
+      "summary": "Opens a terminal, or runs commands in one.",
+      "version": "1.0.0",
+      "owner": "terminal",
+      "src": "https://raw.githubusercontent.com/lumine-code/terminal/master/docs/terminal.md",
+      "source": "https://github.com/lumine-code/terminal/blob/master/docs/terminal.md",
+      "providers": [
+        "terminal"
+      ],
+      "consumers": [
+        "jupyter-repl"
+      ]
+    },
+    "terminal-spawn": {
+      "name": "terminal-spawn",
+      "group": "Tools and integrations",
+      "summary": "Opens the user's external terminal application at a directory, optionally with a command already run.",
+      "version": "1.0.0",
+      "owner": "terminal-spawn",
+      "src": "https://raw.githubusercontent.com/lumine-code/terminal-spawn/master/docs/terminal-spawn.md",
+      "source": "https://github.com/lumine-code/terminal-spawn/blob/master/docs/terminal-spawn.md",
+      "providers": [
+        "terminal-spawn"
+      ],
+      "consumers": [
+        "jupyter-repl"
+      ]
+    },
+    "jupyter.notebook": {
+      "name": "jupyter.notebook",
+      "group": "Jupyter",
+      "summary": "Exposes the open notebook documents and the active one, for packages that need notebook-aware behavior.",
+      "version": "1.0.0",
+      "owner": "jupyter-view",
+      "src": "https://raw.githubusercontent.com/lumine-code/jupyter-view/master/docs/jupyter.notebook.md",
+      "source": "https://github.com/lumine-code/jupyter-view/blob/master/docs/jupyter.notebook.md",
+      "providers": [
+        "jupyter-view"
+      ],
+      "consumers": []
+    },
+    "linter.adapter": {
+      "name": "linter.adapter",
+      "group": "Linting and progress",
+      "summary": "Teaches the linter about a pane item that is not a `TextEditor`, so a notebook or a custom editor can be linted and navigated like a file.",
+      "version": "1.0.0",
+      "owner": "linter",
+      "src": "https://raw.githubusercontent.com/lumine-code/linter/master/docs/linter.adapter.md",
+      "source": "https://github.com/lumine-code/linter/blob/master/docs/linter.adapter.md",
+      "providers": [
+        "jupyter-view"
+      ],
+      "consumers": [
+        "linter"
+      ]
+    },
+    "linter.ui": {
+      "name": "linter.ui",
+      "group": "Linting and progress",
+      "summary": "A second place to display diagnostics. The linter hands every message change to each registered UI, alongside its own panel.",
+      "version": "1.0.0",
+      "owner": "linter",
+      "src": "https://raw.githubusercontent.com/lumine-code/linter/master/docs/linter.ui.md",
+      "source": "https://github.com/lumine-code/linter/blob/master/docs/linter.ui.md",
+      "providers": [
+        "jupyter-view",
+        "scrollmap-linter"
+      ],
+      "consumers": [
+        "linter"
+      ]
+    },
+    "scrollmap.widget": {
+      "name": "scrollmap.widget",
+      "group": "Scrollbar overview",
+      "summary": "The `Simplemap` class, so a package can draw scrollbar markers beside a pane that is not a text editor.",
+      "version": "1.0.0",
+      "owner": "scrollmap",
+      "src": "https://raw.githubusercontent.com/lumine-code/scrollmap/master/docs/scrollmap.widget.md",
+      "source": "https://github.com/lumine-code/scrollmap/blob/master/docs/scrollmap.widget.md",
+      "providers": [
+        "scrollmap"
+      ],
+      "consumers": [
+        "jupyter-view",
+        "pdf-view"
+      ]
+    },
+    "latex-tools": {
+      "name": "latex-tools",
+      "group": "Tools and integrations",
+      "summary": "Drives LaTeX compilation from another package: start and interrupt builds, read their status, follow build events, and resolve SyncTeX positions.",
+      "version": "1.0.0",
+      "owner": "latex-tools",
+      "src": "https://raw.githubusercontent.com/lumine-code/latex-tools/master/docs/latex-tools.md",
+      "source": "https://github.com/lumine-code/latex-tools/blob/master/docs/latex-tools.md",
+      "providers": [
+        "latex-tools"
+      ],
+      "consumers": [
+        "pdf-view"
+      ]
+    },
+    "mcp.tools": {
+      "name": "mcp.tools",
+      "group": "Tools and integrations",
+      "summary": "Publishes tools to a connected MCP host, so an assistant can query or act on what a package knows.",
+      "version": "1.0.0",
+      "owner": "lumine-mcp",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine-mcp/master/docs/mcp.tools.md",
+      "source": "https://github.com/lumine-code/lumine-mcp/blob/master/docs/mcp.tools.md",
+      "providers": [
+        "linter"
+      ],
+      "consumers": [
+        "lumine-mcp"
+      ]
+    },
+    "linter.provider": {
+      "name": "linter.provider",
+      "group": "Linting and progress",
+      "summary": "A linter definition: which grammars it applies to, when it runs, and a `lint` function returning diagnostics for one file.",
+      "version": "1.0.0",
+      "owner": "linter",
+      "src": "https://raw.githubusercontent.com/lumine-code/linter/master/docs/linter.provider.md",
+      "source": "https://github.com/lumine-code/linter/blob/master/docs/linter.provider.md",
+      "providers": [
+        "linter-eslint",
+        "linter-ruff",
+        "linter-sofistik",
+        "linter-todo"
+      ],
+      "consumers": [
+        "linter"
+      ]
+    },
+    "mcp.bridge": {
+      "name": "mcp.bridge",
+      "group": "Tools and integrations",
+      "summary": "Reports the MCP bridge's state: whether it is running, on which port, and where its server script lives.",
+      "version": "1.0.0",
+      "owner": "lumine-mcp",
+      "src": "https://raw.githubusercontent.com/lumine-code/lumine-mcp/master/docs/mcp.bridge.md",
+      "source": "https://github.com/lumine-code/lumine-mcp/blob/master/docs/mcp.bridge.md",
+      "providers": [
+        "lumine-mcp"
+      ],
+      "consumers": []
+    },
+    "minimap": {
+      "name": "minimap",
+      "group": "Editors and viewers",
+      "summary": "The minimap's full API: observe minimaps as editors open, decorate them, and register plugins.",
+      "version": "1.0.0",
+      "owner": "minimap",
+      "src": "https://raw.githubusercontent.com/lumine-code/minimap/master/docs/minimap.md",
+      "source": "https://github.com/lumine-code/minimap/blob/master/docs/minimap.md",
+      "providers": [
+        "minimap"
+      ],
+      "consumers": []
+    },
+    "icons.element": {
+      "name": "icons.element",
+      "group": "File icons",
+      "summary": "An icon source that decorates a DOM element directly, for icons a CSS class cannot express — a native shell icon, an embedded image, a per-file thumbnail.",
+      "version": "1.0.0",
+      "owner": "native-icons",
+      "src": "https://raw.githubusercontent.com/lumine-code/native-icons/master/docs/icons.element.md",
+      "source": "https://github.com/lumine-code/native-icons/blob/master/docs/icons.element.md",
+      "providers": [
+        "native-icons"
+      ],
+      "consumers": []
+    },
+    "navigation.headers": {
+      "name": "navigation.headers",
+      "group": "Panels",
+      "summary": "Reads the outline the navigation panel currently shows: which editor it belongs to, the flattened header list, and when it changes.",
+      "version": "1.0.0",
+      "owner": "navigation-panel",
+      "src": "https://raw.githubusercontent.com/lumine-code/navigation-panel/master/docs/navigation.headers.md",
+      "source": "https://github.com/lumine-code/navigation-panel/blob/master/docs/navigation.headers.md",
+      "providers": [
+        "navigation-panel"
+      ],
+      "consumers": [
+        "scrollmap-navigation"
+      ]
+    },
+    "typst-tools": {
+      "name": "typst-tools",
+      "group": "Tools and integrations",
+      "summary": "Drives Typst compilation from another package: start and interrupt builds, read their status, and follow build events.",
+      "version": "1.0.0",
+      "owner": "typst-tools",
+      "src": "https://raw.githubusercontent.com/lumine-code/typst-tools/master/docs/typst-tools.md",
+      "source": "https://github.com/lumine-code/typst-tools/blob/master/docs/typst-tools.md",
+      "providers": [
+        "typst-tools"
+      ],
+      "consumers": [
+        "pdf-view"
+      ]
+    },
+    "scrollmap.layer": {
+      "name": "scrollmap.layer",
+      "group": "Scrollbar overview",
+      "summary": "A package registers a named layer of markers that scrollmap draws on the vertical scrollbar of every text editor.",
+      "version": "1.0.0",
+      "owner": "scrollmap",
+      "src": "https://raw.githubusercontent.com/lumine-code/scrollmap/master/docs/scrollmap.layer.md",
+      "source": "https://github.com/lumine-code/scrollmap/blob/master/docs/scrollmap.layer.md",
+      "providers": [
+        "scrollmap-brackets",
+        "scrollmap-cursors",
+        "scrollmap-diff-view",
+        "scrollmap-git-diff",
+        "scrollmap-highlight",
+        "scrollmap-jupyter-repl",
+        "scrollmap-linter",
+        "scrollmap-navigation",
+        "scrollmap-references",
+        "scrollmap-search-panel"
+      ],
+      "consumers": [
+        "scrollmap"
+      ]
+    },
+    "icons.provider": {
+      "name": "icons.provider",
+      "group": "Core extension points",
+      "summary": "Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.",
+      "version": "1.0.0",
+      "owner": "core",
+      "src": "docs/services/icons.provider.md",
+      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/icons.provider.md",
+      "providers": [],
+      "consumers": [
+        "src/icon-registry.js:285"
+      ]
+    },
+    "project.directory-provider": {
+      "name": "project.directory-provider",
+      "group": "Core extension points",
+      "summary": "Supplies a custom `Directory` for a project path, so a project folder can be backed by something other than the local filesystem.",
+      "version": "1.0.0",
+      "owner": "core",
+      "src": "docs/services/project.directory-provider.md",
+      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/project.directory-provider.md",
+      "providers": [],
+      "consumers": [
+        "src/project.js:656"
+      ]
+    },
+    "project.repository-provider": {
+      "name": "project.repository-provider",
+      "group": "Core extension points",
+      "summary": "Supplies a `Repository` for a project directory, so a version-control system other than Git can drive the editor's VCS features.",
+      "version": "1.0.0",
+      "owner": "core",
+      "src": "docs/services/project.repository-provider.md",
+      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/project.repository-provider.md",
+      "providers": [],
+      "consumers": [
+        "src/project.js:663"
+      ]
+    },
+    "repositories.operations-provider": {
+      "name": "repositories.operations-provider",
+      "group": "Core extension points",
+      "summary": "Supplies the _write_ half of version control: commit, stage, branch, clone, and raw Git transport, on top of the read-only repository model.",
+      "version": "1.0.0",
+      "owner": "core",
+      "src": "docs/services/repositories.operations-provider.md",
+      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/repositories.operations-provider.md",
+      "providers": [],
+      "consumers": [
+        "src/repository-registry.js:82"
+      ]
+    },
+    "workspace.search-provider": {
+      "name": "workspace.search-provider",
+      "group": "Core extension points",
+      "summary": "Replaces the built-in project search for directories a package understands better than ripgrep can.",
+      "version": "1.0.0",
+      "owner": "core",
+      "src": "docs/services/workspace.search-provider.md",
+      "source": "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/services/workspace.search-provider.md",
+      "providers": [],
+      "consumers": [
+        "src/workspace.js:525"
+      ]
+    }
+  }
+}
