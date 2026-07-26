@@ -1,6 +1,6 @@
 # Writing a language-server adapter
 
-An adapter package teaches the bundled `language-client` package how to launch and configure a language server. The adapter stays small: it resolves the server binary and describes its settings, while `language-client` owns the protocol, document synchronization, and every editor integration.
+An adapter package teaches the bundled `ide-client` package how to launch and configure a language server. The adapter stays small: it resolves the server binary and describes its settings, while `ide-client` owns the protocol, document synchronization, and every editor integration.
 
 ## Registering
 
@@ -18,7 +18,7 @@ Consume the `lumine.languageServer` service (version `1.0.0`) and register an ad
 module.exports = {
   consumeLanguageServer(languageServer) {
     return languageServer.registerAdapter({
-      id: "lsp-example",
+      id: "ide-example",
       displayName: "Example Language Server",
       grammarScopes: ["source.example"],
       async resolveServer({ rootPath }) {
@@ -43,11 +43,11 @@ Returning the registration disposable from the consumer method unregisters the a
 - `getWorkspaceConfiguration(section, scopeUri)` — optional answers for `workspace/configuration` requests; defaults to `atom.config.get(section)`.
 - `transformServerCapabilities(capabilities)` — optional hook to correct a server's advertised capabilities.
 
-The complete shapes are documented in `language-client`'s `lib/main.d.ts`.
+The complete shapes are documented in `ide-client`'s `lib/main.d.ts`.
 
 ## Resolving the server binary
 
-Follow the convention of the `lsp-*` packages, in priority order: a `serverPath` setting always wins when set; otherwise use a server distributed as an npm dependency of the adapter (launch Node-based servers with `process.execPath` and `env: { ELECTRON_RUN_AS_NODE: "1" }`); otherwise look the binary up on `PATH` and raise one actionable notification when it is missing.
+Follow the convention of the `ide-*` adapter packages, in priority order: a `serverPath` setting always wins when set; otherwise use a server distributed as an npm dependency of the adapter (launch Node-based servers with `process.execPath` and `env: { ELECTRON_RUN_AS_NODE: "1" }`); otherwise look the binary up on `PATH` and raise one actionable notification when it is missing.
 
 ## Specs
 
