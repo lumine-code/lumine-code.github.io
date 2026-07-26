@@ -2,7 +2,7 @@
 
 Once a [language server](language-servers.md) is running, the bundled **`ide-client`** package turns everything it knows about your code into editor services. Some of those services feed features you already have — completions appear in the autocomplete popup, diagnostics in the [linter](linting.md), symbols in the symbols view. The rest need a UI package to show them, and each one is a small optional package you install only if you want that feature.
 
-All of them work the same way: `ide-client` provides the data, the UI package renders it. None of them is specific to language servers — any package can provide the same services — but a language server is what makes them all light up at once.
+All of them work the same way: `ide-client` provides the data, the UI package renders it. None of them is specific to language servers — any package can provide the same services — but a language server is what makes them all light up at once. When several servers cover a file, their answers are combined: one list of completions, one set of code actions, one tooltip.
 
 | Feature | Package |
 | --- | --- |
