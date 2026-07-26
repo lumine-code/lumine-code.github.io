@@ -28,6 +28,8 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 - **intentions** — code actions and quick fixes at the cursor.
 - **refactor** — rename symbols across the project.
 - **code-format** — format on demand or on save through registered providers.
+- **find-references** — highlight and list references to the symbol under the cursor.
+- **call-hierarchy** — explore incoming and outgoing calls for a symbol.
 
 ## Linting and formatting
 
@@ -51,7 +53,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 ## Scrollbar markers
 
 - **scrollmap** — the scrollbar-marker hub; satellites feed it markers:
-  **scrollmap-cursors**, **scrollmap-brackets**, **scrollmap-highlight**, **scrollmap-git-diff**, **scrollmap-diff-view**, **scrollmap-linter**, **scrollmap-navigation**, **scrollmap-search-panel**, **scrollmap-jupyter-repl**.
+  **scrollmap-cursors**, **scrollmap-brackets**, **scrollmap-highlight**, **scrollmap-git-diff**, **scrollmap-diff-view**, **scrollmap-linter**, **scrollmap-navigation**, **scrollmap-search-panel**, **scrollmap-jupyter-repl**, **scrollmap-references**.
 
 ## Desktop integration
 
