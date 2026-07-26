@@ -59,7 +59,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 
 The tree view, tabs, search results, and fuzzy finders show a generic icon per file until an icon package supplies a better one. Icon packages form a chain rather than competing: each is asked in turn and any of them may decline, so more than one can be installed and each answers for the files it knows.
 
-- **more-icons** — around 900 glyphs from the `file-icons` set, or the Seti set Visual Studio Code uses; also loads any Visual Studio Code file-icon-theme manifest.
+- **more-icons** — around 900 glyphs from the `file-icons` set, or the Seti set Visual Studio Code uses. On the Seti set it will also load an external Visual Studio Code file-icon-theme manifest, as long as that theme draws its icons with a font rather than SVG.
 - **native-icons** — file icons from the operating system shell. It claims nothing until its greenlist names the files you want it for, so it layers cleanly on top of a glyph set: greenlist `*.exe, *.lnk` for the binaries a font cannot draw, or `*` to use system icons throughout.
 
 ## Desktop integration

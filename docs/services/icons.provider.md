@@ -35,8 +35,31 @@ type IconsProvider = {
   priority?: number;
   id?: string;
   handles?: Array<"path" | "name" | "kind">;
+  usesContext?: boolean;
   async?: boolean;
   onDidChange?(callback: (scope?: Scope) => void): Disposable;
+};
+
+type Descriptor =
+  | { render: "classes"; classes: string[]; color?: string; title?: string }
+  | { render: "image"; source: string; title?: string }
+  | {
+      render: "svg";
+      svg: string;
+      viewBox?: string;
+      color?: string;
+      title?: string;
+    }
+  | { render: "letter"; letter: string; color?: string; title?: string }
+  | { render: "none" };
+
+// Every key is optional; each names part of the cache to drop. No key at all,
+// or no scope, means everything.
+type Scope = {
+  types?: Array<"path" | "name" | "kind">;
+  paths?: string[];
+  names?: string[];
+  kinds?: string[];
 };
 
 type Target = {
@@ -65,17 +88,24 @@ type Target = {
 | `priority`              | Higher is consulted first. Must be finite. Core's own providers sit at `-100` and `-90`, so any default-`0` provider outranks them.   |
 | `id`                    | Names the provider in error messages. Defaults to a generated one.                                                                    |
 | `handles`               | Restricts you to certain target types, so you are not called for the rest.                                                            |
+| `usesContext`           | Declare `true` if your answer depends on `target.context`. See below — reading it is not enough.                                      |
 | `async`                 | Declare `true` if answers resolve later. **Meaningless without `onDidChange`** — core warns and later answers never reach the screen. |
-| `onDidChange(callback)` | Invoke the callback when previous answers have changed. Pass a scope (`{ paths }`, `{ types }`) to invalidate only part of the cache. |
+| `onDidChange(callback)` | Invoke the callback when previous answers have changed. Pass a `Scope` to drop only part of the cache; pass nothing to drop it all.   |
 
-Build the return value with the `Icon` factories rather than by hand: `Icon.classes(names)`, `Icon.image(url)`, `Icon.svg(markup)`, `Icon.letter(char)`, and `Icon.none()`. A bare string or array of strings is coerced to `Icon.classes`.
+Build the return value with the `Icon` factories rather than by hand — `require("atom")` exports them:
+
+```js
+const { Icon } = require("atom");
+```
+
+`Icon.classes(names)`, `Icon.image(url)`, `Icon.svg(markup)`, `Icon.letter(char)`, and `Icon.none()`. A bare string or array of strings is coerced to `Icon.classes`.
 
 **`null` and `Icon.none()` are different.** `null` means "not mine, ask the next provider"; `Icon.none()` means "the answer is: no icon", and stops the chain.
 
 ## Minimal example
 
 ```js
-const { Emitter } = require("atom");
+const { Emitter, Icon } = require("atom");
 
 module.exports = {
   provideIcons() {
@@ -101,17 +131,17 @@ Providers are consulted highest `priority` first, and equal priorities keep regi
 
 **A provider that throws costs only its own icon.** Core catches it, logs once per provider id, and moves to the next one, so one broken provider cannot blank every icon in the window.
 
-Answers are cached per target, with paths in a bounded LRU and names and kinds in plain maps. Core already invalidates on config change, grammar add or update, and project file renames and deletions. Anything else that changes your answers is yours to report through `onDidChange`.
+Answers are cached per target, with paths in a bounded LRU and names and kinds in plain maps. Core invalidates on exactly four things: the `core.customFileTypes` setting, a grammar being added or updated, a project file being renamed or deleted, and the active theme changing — that last one so a set with a light and a dark palette does not have to watch for it. Anything else that changes your answers is yours to report through `onDidChange`.
 
-`target.hints` carries what the _caller_ knows and the path alone does not say — that an entry is a directory, a symlink, a submodule, a repository root, expanded, or virtual. Use them rather than touching the filesystem: `iconFor` runs once per row of a tree or a completion list.
+`target.hints` carries what the _caller_ knows and the path alone does not say — that an entry is a directory, a symlink, a submodule, a repository root, expanded, or virtual. Prefer them to the filesystem: an answer is cached per distinct target, but a tree still asks about every row it draws. Core's own path provider stats only when the `directory` hint is absent, which is what a hint is for. Note that no consumer sets `expanded` today, so an open-versus-closed folder icon has nothing to branch on yet.
 
-`target.context` names the call site, and reading it makes the registry context-sensitive: the cache key then includes the context, so the same path can resolve differently in the tree and in tabs, at the cost of more cache entries. Ignore it unless you need that.
+`target.context` names the call site — `"tree-view"`, `"tabs"`, `"search-panel"` and so on. To answer differently per call site you must declare `usesContext: true`; reading `target.context` without declaring it will not work, because the cache key omits the context until some provider opts in, so whichever call site asked first wins for every other. Declaring it multiplies cache entries by call site, so leave it alone unless you need it.
 
 Resetting the window clears every package-supplied provider and re-subscribes, so a provider is re-registered rather than surviving in name only.
 
 ## Teardown
 
-Core returns a `Disposable` that removes the provider, disposes your `onDidChange` subscription, and drops the cached answers that came from you. A provider needs no `dispose` of its own; anything else it allocated — a stylesheet, a worker — it removes on deactivate.
+Core returns a `Disposable` that removes the provider, disposes your `onDidChange` subscription, and clears every cache — not just the answers that came from you, since removing a link changes what the chain returns for targets you never answered. Every icon on screen is then repainted. A provider needs no `dispose` of its own; anything else it allocated — a stylesheet, a worker — it removes on deactivate.
 
 ## Versioning
 
