@@ -176,14 +176,8 @@ Each name links to its contract: what the object looks like, which fields are re
 **[`intentions.list`](../services/intentions.list.md)** (`1.0.0`) — Supplies the code actions and quick fixes offered at the cursor.
 <br>From `ide-client`, `linter`. Used by `intentions`.
 
-**[`busy-signal.registry`](../services/busy-signal.registry.md)** (`1.0.0`) — The low-level busy indicator: create a provider, then add, rename, remove, and clear titles on it directly.
-<br>From `busy-signal`. Used by `ide-client`.
-
-**[`busy-signal.background-registry`](../services/busy-signal.background-registry.md)** (`1.0.0`) — Registers long-running background work — an indexer, a language server starting, a watch build — as an entry the user can look at rather than a spinner that flashes past.
-<br>From `busy-signal`. Used by `ide-client`.
-
-**[`busy-signal.reporter`](../services/busy-signal.reporter.md)** (`1.0.0`) — Reports that something is happening, in the shape most callers actually want: wrap a promise, or take a handle and dispose it when done.
-<br>From `busy-signal`. Used by `linter-eslint`, `linter-ruff`, `linter-todo`, `prettier`.
+**[`busy-signal`](../services/busy-signal.md)** (`1.0.0`) — Report work in progress in the status bar: short-lived tasks on the busy indicator, long-running processes in their own zone.
+<br>From `busy-signal`. Used by `ide-client`, `linter-eslint`, `linter-ruff`, `linter-todo`, `prettier`.
 
 ### Scrollbar overview
 
@@ -282,7 +276,7 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Core extension points
 
 **[`icons.provider`](../services/icons.provider.md)** (`1.0.0`) — Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.
-<br>From `more-icons`, `native-icons`. Used by `src/icon-registry.js:285`.
+<br>From `more-icons`, `native-icons`. Used by `src/icon-registry.js:288`.
 
 **[`project.directory-provider`](../services/project.directory-provider.md)** (`1.0.0`) — Supplies a custom `Directory` for a project path, so a project folder can be backed by something other than the local filesystem.
 <br>Provided by a package outside this workspace. Used by `src/project.js:656`.

@@ -53,9 +53,7 @@
         "linter.ui",
         "linter.adapter",
         "intentions.list",
-        "busy-signal.registry",
-        "busy-signal.background-registry",
-        "busy-signal.reporter"
+        "busy-signal"
       ]
     },
     {
@@ -562,34 +560,23 @@
         "typst-tools"
       ]
     },
-    "busy-signal.registry": {
-      "name": "busy-signal.registry",
+    "busy-signal": {
+      "name": "busy-signal",
       "group": "Linting and progress",
-      "summary": "The low-level busy indicator: create a provider, then add, rename, remove, and clear titles on it directly.",
+      "summary": "Report work in progress in the status bar: short-lived tasks on the busy indicator, long-running processes in their own zone.",
       "version": "1.0.0",
       "owner": "busy-signal",
-      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.registry.md",
-      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.registry.md",
+      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.md",
+      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.md",
       "providers": [
         "busy-signal"
       ],
       "consumers": [
-        "ide-client"
-      ]
-    },
-    "busy-signal.background-registry": {
-      "name": "busy-signal.background-registry",
-      "group": "Linting and progress",
-      "summary": "Registers long-running background work — an indexer, a language server starting, a watch build — as an entry the user can look at rather than a spinner that flashes past.",
-      "version": "1.0.0",
-      "owner": "busy-signal",
-      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.background-registry.md",
-      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.background-registry.md",
-      "providers": [
-        "busy-signal"
-      ],
-      "consumers": [
-        "ide-client"
+        "ide-client",
+        "linter-eslint",
+        "linter-ruff",
+        "linter-todo",
+        "prettier"
       ]
     },
     "hyperlink.injection": {
@@ -778,24 +765,6 @@
         "autocomplete-sofistik",
         "linter-sofistik",
         "sofistik-tools"
-      ]
-    },
-    "busy-signal.reporter": {
-      "name": "busy-signal.reporter",
-      "group": "Linting and progress",
-      "summary": "Reports that something is happening, in the shape most callers actually want: wrap a promise, or take a handle and dispose it when done.",
-      "version": "1.0.0",
-      "owner": "busy-signal",
-      "src": "https://raw.githubusercontent.com/lumine-code/busy-signal/master/docs/busy-signal.reporter.md",
-      "source": "https://github.com/lumine-code/busy-signal/blob/master/docs/busy-signal.reporter.md",
-      "providers": [
-        "busy-signal"
-      ],
-      "consumers": [
-        "linter-eslint",
-        "linter-ruff",
-        "linter-todo",
-        "prettier"
       ]
     },
     "diff-view": {
@@ -1126,7 +1095,7 @@
         "native-icons"
       ],
       "consumers": [
-        "src/icon-registry.js:285"
+        "src/icon-registry.js:288"
       ]
     },
     "navigation.headers": {

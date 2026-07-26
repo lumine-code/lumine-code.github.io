@@ -87,9 +87,7 @@ const DOMAINS = [
       "linter.ui",
       "linter.adapter",
       "intentions.list",
-      "busy-signal.registry",
-      "busy-signal.background-registry",
-      "busy-signal.reporter",
+      "busy-signal",
     ],
   },
   {
