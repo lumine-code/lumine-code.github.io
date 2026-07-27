@@ -60,6 +60,7 @@
       "title": "Overview maps",
       "services": [
         "marker.layer",
+        "marker.registry",
         "scrollmap.widget"
       ]
     },
@@ -1069,14 +1070,30 @@
       ],
       "consumers": []
     },
+    "marker.registry": {
+      "name": "marker.registry",
+      "group": "Overview maps",
+      "summary": "The marker hub hands a renderer every editor's computed layers and the toolkit to draw them.",
+      "version": "1.0.0",
+      "owner": "marker",
+      "src": "https://raw.githubusercontent.com/lumine-code/marker/master/docs/marker.registry.md",
+      "source": "https://github.com/lumine-code/marker/blob/master/docs/marker.registry.md",
+      "providers": [
+        "marker"
+      ],
+      "consumers": [
+        "minimap",
+        "scrollmap"
+      ]
+    },
     "marker.layer": {
       "name": "marker.layer",
       "group": "Overview maps",
       "summary": "A package registers a named layer of markers that the editor's overview maps draw.",
       "version": "1.0.0",
-      "owner": "scrollmap",
-      "src": "https://raw.githubusercontent.com/lumine-code/scrollmap/master/docs/marker.layer.md",
-      "source": "https://github.com/lumine-code/scrollmap/blob/master/docs/marker.layer.md",
+      "owner": "marker",
+      "src": "https://raw.githubusercontent.com/lumine-code/marker/master/docs/marker.layer.md",
+      "source": "https://github.com/lumine-code/marker/blob/master/docs/marker.layer.md",
       "providers": [
         "marker-brackets",
         "marker-cursors",
@@ -1090,8 +1107,7 @@
         "marker-search-panel"
       ],
       "consumers": [
-        "minimap",
-        "scrollmap"
+        "marker"
       ]
     },
     "navigation.headers": {

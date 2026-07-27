@@ -182,7 +182,10 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Overview maps
 
 **[`marker.layer`](../services/marker.layer.md)** (`1.0.0`) — A package registers a named layer of markers that the editor's overview maps draw.
-<br>From `marker-brackets`, `marker-cursors`, `marker-diff-view`, `marker-git-diff`, `marker-highlight`, `marker-jupyter-repl`, `marker-linter`, `marker-navigation`, `marker-references`, `marker-search-panel`. Used by `minimap`, `scrollmap`.
+<br>From `marker-brackets`, `marker-cursors`, `marker-diff-view`, `marker-git-diff`, `marker-highlight`, `marker-jupyter-repl`, `marker-linter`, `marker-navigation`, `marker-references`, `marker-search-panel`. Used by `marker`.
+
+**[`marker.registry`](../services/marker.registry.md)** (`1.0.0`) — The marker hub hands a renderer every editor's computed layers and the toolkit to draw them.
+<br>From `marker`. Used by `minimap`, `scrollmap`.
 
 **[`scrollmap.widget`](../services/scrollmap.widget.md)** (`1.0.0`) — The `Simplemap` class, so a package can draw scrollbar markers beside a pane that is not a text editor.
 <br>From `scrollmap`. Used by `jupyter-view`, `pdf-view`.

@@ -92,7 +92,7 @@ const DOMAINS = [
   },
   {
     title: "Overview maps",
-    services: ["marker.layer", "scrollmap.widget"],
+    services: ["marker.layer", "marker.registry", "scrollmap.widget"],
   },
   {
     title: "Panels",
