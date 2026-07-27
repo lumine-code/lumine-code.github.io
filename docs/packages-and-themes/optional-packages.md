@@ -8,6 +8,7 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **pdf-view** — view PDF files, with LaTeX/Typst SyncTeX integration.
 - **image-editor** — open and inspect images, with zoom and background modes.
 - **diff-view** — a split-pane diff of two editors.
+- **log-filter** — hide the lines of a log that do not match a query or a severity.
 - **navigation-panel** — a document outline with click-to-navigate headers.
 - **minimap** — a canvas overview of the whole buffer beside the scrollbar.
 - **highlight-selected** — highlight other occurrences of the selected word.
