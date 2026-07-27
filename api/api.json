@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.132.1-dev",
-  "generatedAt": "2026-07-26T21:02:33.539Z",
+  "generatedAt": "2026-07-27T12:21:59.058Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -439,7 +439,7 @@
           "category": "Messaging the User",
           "visibility": "Public",
           "description": "Visually trigger a beep.",
-          "line": 1257
+          "line": 1262
         },
         {
           "name": "confirm",
@@ -450,7 +450,7 @@
           "category": "Messaging the User",
           "visibility": "Essential",
           "description": "A flexible way to open a dialog akin to an alert dialog.\n\nWhile both async and sync versions are provided, it is recommended to use the async version\nsuch that the renderer process is not blocked while the dialog box is open.\n\nThe async version accepts the same options as Electron's `dialog.showMessageBox`.\nFor convenience, it sets `type` to `'info'` and `normalizeAccessKeys` to `true` by default.\n\nIf the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button\nthe first button will be clicked unless a \"Cancel\" or \"No\" button is provided.\n\n## Examples\n\n```js\n// Async version (recommended)\natom.confirm({\n  message: 'How you feeling?',\n  detail: 'Be honest.',\n  buttons: ['Good', 'Bad']\n}, response => {\n  if (response === 0) {\n    window.alert('good to hear')\n  } else {\n    window.alert('bummer')\n  }\n})\n```\n\n```js\n// Legacy sync version\nconst chosen = atom.confirm({\n  message: 'How you feeling?',\n  detailedMessage: 'Be honest.',\n  buttons: {\n    Good: () => window.alert('good to hear'),\n    Bad: () => window.alert('bummer')\n  }\n})\n```\n\n* `options` An {Object} of options. If the callback argument is also supplied, see the documentation at\nhttps://electronjs.org/docs/api/dialog#dialogshowmessageboxbrowserwindow-options-callback for the list of\navailable options. Otherwise, only the following keys are accepted:\n  * `message` The {String} message to display.\n  * `detailedMessage` (optional) The {String} detailed message to display.\n  * `buttons` (optional) Either an {Array} of {String}s or an {Object} where keys are\n    button names and the values are callback {Function}s to invoke when clicked.\n* `callback` (optional) A {Function} that will be called with the index of the chosen option.\n  If a callback is supplied, the dialog will be non-blocking. This argument is recommended.\n\nReturns the chosen button index {Number} if the buttons option is an array\nor the return value of the callback if the buttons option is an object.\nIf a callback function is supplied, returns `undefined`.",
-          "line": 1314
+          "line": 1319
         },
         {
           "name": "openDevTools",
@@ -461,7 +461,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Open the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened.",
-          "line": 1330
+          "line": 1335
         },
         {
           "name": "toggleDevTools",
@@ -472,7 +472,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Toggle the visibility of the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened or\nclosed.",
-          "line": 1338
+          "line": 1343
         },
         {
           "name": "executeJavaScriptInDevTools",
@@ -483,7 +483,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Execute code in dev tools.",
-          "line": 1343
+          "line": 1348
         }
       ]
     },
@@ -3090,7 +3090,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Force a {TextBuffer} to use a different grammar than the\none that would otherwise be selected for it.\n\n* `buffer` The {TextBuffer} whose grammar will be set.\n* `languageId` The {String} id of the desired language.\n\nReturns a {Boolean} that indicates whether the language was successfully\nfound.",
-          "line": 133
+          "line": 142
         },
         {
           "name": "assignGrammar",
@@ -3101,7 +3101,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Force a {TextBuffer} to use a different grammar than the\none that would otherwise be selected for it.\n\n* `buffer` The {TextBuffer} whose grammar will be set.\n* `grammar` The desired {Grammar}.\n\nReturns a {Boolean} that indicates whether the assignment was successful",
-          "line": 162
+          "line": 171
         },
         {
           "name": "getAssignedLanguageId",
@@ -3112,7 +3112,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Get the `languageId` that has been explicitly assigned to\nthe given buffer, if any.\n\nReturns a {String} id of the language",
-          "line": 197
+          "line": 206
         },
         {
           "name": "autoAssignLanguageMode",
@@ -3123,7 +3123,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Remove any language mode override that has been set for the\ngiven {TextBuffer}. This will assign to the buffer the best language\nmode available.\n\n* `buffer` The {TextBuffer}.",
-          "line": 206
+          "line": 215
         },
         {
           "name": "selectGrammar",
@@ -3134,7 +3134,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Select a grammar for the given file path and file contents.\n\nThis picks the best match by checking the file path and contents against\neach grammar.\n\n* `filePath` A {String} file path.\n* `fileContents` A {String} of text for the file path.\n\nReturns a {Grammar}, never null.",
-          "line": 240
+          "line": 249
         },
         {
           "name": "getGrammarScore",
@@ -3145,7 +3145,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Evaluates a grammar's fitness for use for a certain file.\n\nBy analyzing the file's extension and contents — plus other criteria, like\nthe user's configuration — Lumine will assign a score to this grammar that\nrepresents how suitable it is for the given file.\n\nUltimately, whichever grammar scores highest for this file will be used\nto highlight it.\n\n* `grammar`: A given {Grammar}.\n* `filePath`: A {String} path to the file.\n* `contents`: The {String} contents of the file.\n\nReturns a {Number}.",
-          "line": 283
+          "line": 292
         },
         {
           "name": "onDidAddGrammar",
@@ -3156,7 +3156,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke the given callback when a grammar is added to the registry.\n\n* `callback` {Function} to call when a grammar is added.\n  * `grammar` {Grammar} that was added.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 511
+          "line": 520
         },
         {
           "name": "onDidUpdateGrammar",
@@ -3167,7 +3167,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke the given callback when a grammar is updated due to a grammar\nit depends on being added or removed from the registry.\n\n* `callback` {Function} to call when a grammar is updated.\n  * `grammar` {Grammar} that was updated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 527
+          "line": 536
         },
         {
           "name": "addInjectionPoint",
@@ -3178,7 +3178,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Specify a type of syntax node that may embed other languages.\n\n* `grammarId` The {String} id of the parent language\n* `injectionPoint` An {Object} with the following keys:\n  * `type` The {String} type of syntax node that may embed other languages\n  * `language` A {Function} that is called with syntax nodes of the specified `type` and\n    returns a {String} that will be tested against other grammars' `injectionRegex` in\n    order to determine what language should be embedded.\n  * `content` A {Function} that is called with syntax nodes of the specified `type` and\n    returns another syntax node or array of syntax nodes that contain the embedded source\n    code. Depending on the settings below, the content node(s) will be converted into a\n    series of buffer ranges; when this injection is parsed, anything not inside those\n    ranges will be invisible to the parser.\n  * `includeChildren` A {Boolean} that indicates whether the children (and, in fact, all\n    descendants) of the nodes returned by `content` should be included in the injection's\n    buffer range(s). Defaults to `false`.\n  * `newlinesBetween` A {Boolean} that indicates whether each node returned from `content`\n    should be separated by at least one newline character so that the parser understands\n    them to be logically separated. Embedded languages like ERB and EJS need this. Defaults\n    to {false}.\n  * `languageScope` A {String} or {Function} that returns the desired scope name to apply\n    to each of the injection's buffer ranges. Defaults to the injected grammar's own language\n    scope — e.g., `source.js` for the JavaScript grammar. Set to `null` if the language scope\n    should be omitted. If a {Function}, will be called with the grammar instance as an\n    argument, and should return either a {String} or `null`.\n  * `coverShallowerScopes` A {Boolean} that indicates whether this injection should prevent\n    shallower layers (including the layer that created this injection) from adding scopes\n    within any of this injection's buffer ranges. Useful for injecting languages into\n    themselves — for instance, injecting Rust into Rust macro definitions.\n  * `includeAdjacentWhitespace` A {Boolean} that indicates whether the injection's buffer\n    range(s) should include whitespace that occurs between two adjacent ranges. Defaults to\n    `false`. When `true`, if two consecutive injection buffer ranges are separated _only_ by\n    whitespace, those ranges will be consolidated into one range along with that whitespace.",
-          "line": 570
+          "line": 579
         },
         {
           "name": "loadGrammar",
@@ -3189,7 +3189,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously and add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when loaded with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.",
-          "line": 651
+          "line": 660
         },
         {
           "name": "loadGrammarSync",
@@ -3200,7 +3200,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously and add it to this registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
-          "line": 664
+          "line": 673
         },
         {
           "name": "readGrammar",
@@ -3211,7 +3211,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when read with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.\n\nReturns undefined.",
-          "line": 678
+          "line": 687
         },
         {
           "name": "readGrammarSync",
@@ -3222,7 +3222,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
-          "line": 695
+          "line": 704
         },
         {
           "name": "getGrammars",
@@ -3233,7 +3233,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Get all the grammars in this registry.\n\n* `params` (optional) {Object}\n  * `includeTreeSitter` (optional) {Boolean} Set to include\n    [Tree-sitter](https://github.blog/2018-10-31-atoms-new-parsing-system/) grammars\n\nReturns a non-empty {Array} of {Grammar} instances.",
-          "line": 717
+          "line": 726
         }
       ]
     },
@@ -3376,7 +3376,7 @@
       "source": "src/icon-registry.js",
       "sourcePath": "src/icon-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 207,
+      "line": 206,
       "members": [
         {
           "name": "addProvider",
@@ -3387,7 +3387,7 @@
           "category": "Methods",
           "visibility": "Essential",
           "description": "Register an icon provider. Returns a {Disposable}.\n\nProviders are consulted highest `priority` first, and equal priorities keep\nregistration order. `iconFor(target)` returns an icon descriptor, a class\nstring or array, or `null` to defer to the next provider.",
-          "line": 300
+          "line": 299
         },
         {
           "name": "iconFor",
@@ -3398,7 +3398,7 @@
           "category": "Methods",
           "visibility": "Essential",
           "description": "Resolve `target` to an icon descriptor. Never returns null — a\ntarget nothing answers for resolves to `Icon.none()`.\n\n`target` is an object: `{path}`, `{name}`, `{kind}`, or `{item}` for a pane\nitem. It may also carry a `context` string naming the caller and a `hints`\nobject describing what the caller already knows about the path — see\n`src/icon-target.js`.",
-          "line": 356
+          "line": 355
         },
         {
           "name": "applyTo",
@@ -3409,7 +3409,7 @@
           "category": "Methods",
           "visibility": "Essential",
           "description": "Render `target`'s icon into `element` and keep it current.\nReturns a {Disposable} that removes everything the call added.\n\n* `classes` extra class names to add regardless of the icon, e.g. `[\"name\"]`.\n* `name` an explicit `data-name`, when the basename is not what belongs there.\n* `setData` set to `false` when the caller owns `data-name`/`data-path` itself.\n* `live` set to `false` to skip re-rendering when the icon changes.\n* `render` set to `false` to apply classes only, touching no children or styles.\n* `skipFallback` render nothing unless a provider above the built-in answered.",
-          "line": 419
+          "line": 418
         },
         {
           "name": "invalidate",
@@ -3420,7 +3420,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Drop cached answers and repaint what they were rendered into.\n\n`scope` is undefined or null for everything, or an object narrowing it to\n`{types}`, `{paths}`, `{names}`, or `{kinds}`. Narrowing matters: a\nprovider that resolves one file extension asynchronously should repaint the\nrows showing that extension, not every row in the tree.",
-          "line": 478
+          "line": 477
         },
         {
           "name": "defineNames",
@@ -3431,7 +3431,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Override the icon for one or more semantic names. Returns a\n{Disposable} that restores the previous mapping. A `null` value means the\nname renders no icon.",
-          "line": 556
+          "line": 550
         },
         {
           "name": "defineKinds",
@@ -3442,7 +3442,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Override the icon for one or more kinds. Returns a {Disposable}.",
-          "line": 561
+          "line": 555
         },
         {
           "name": "onDidChange",
@@ -3453,7 +3453,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke `callback` when any icon may have changed.",
-          "line": 586
+          "line": 580
         }
       ]
     },
@@ -4135,7 +4135,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1135
+          "line": 1141
         },
         {
           "name": "rebuild",
@@ -4146,7 +4146,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1155
+          "line": 1161
         },
         {
           "name": "getBuildFailureOutput",
@@ -4157,7 +4157,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1172
+          "line": 1178
         }
       ]
     },
@@ -5587,6 +5587,17 @@
           "visibility": "Public",
           "description": "Determines whether the given path (real or symbolic) is inside the\nproject's directory.\n\nThis method does not actually check if the path exists, it just checks their\nlocations relative to each other.\n\n## Examples\n\nBasic operation\n\n```coffee\n# Project's root directory is /foo/bar\nproject.contains('/foo/bar/baz')        # => true\nproject.contains('/usr/lib/baz')        # => false\n```\n\nExistence of the path is not required\n\n```coffee\n# Project's root directory is /foo/bar\nfs.existsSync('/foo/bar/baz')           # => false\nproject.contains('/foo/bar/baz')        # => true\n```\n\n* `pathToCheck` {String} path\n\nReturns whether the path is inside the project's root directory.",
           "line": 647
+        },
+        {
+          "name": "crawl",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::crawl(options = {})",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Lists the files under the project's directories.\n\nThe crawl runs in a separate process (the bundled ripgrep binary), honors\n`.gitignore` unless told otherwise, and streams results as it finds them\nrather than resolving with one large array. Prefer it over walking the\nfilesystem yourself: `core.ignoredNames` and `core.excludeVcsIgnoredPaths`\nare respected here in one place.\n\n```js\nconst crawl = atom.project.crawl({\n  didFindPaths: (paths) => results.push(...paths),\n});\nawait crawl;\n```\n\n* `options` (optional) {Object}\n  * `didFindPaths` {Function} called with an {Array} of absolute paths as\n    they are found. Called several times over the life of one crawl.\n  * `directoryPaths` an {Array} of {String} paths to crawl. Defaults to the\n    project's root directories.\n  * `inclusion` {String} glob scoping the crawl. `**` means \"everything\".\n  * `ignoredNames` an {Array} of {String} globs to exclude. Defaults to\n    `core.ignoredNames`.\n  * `followSymlinks` {Boolean} whether to descend into symlinked\n    directories. Defaults to `core.followSymlinks`.\n  * `excludeVcsIgnoredPaths` {Boolean} whether to honor VCS ignore files.\n    Defaults to `core.excludeVcsIgnoredPaths`. Only takes effect inside a\n    repository — a directory with no `.git` above it lists everything.\n  * `sort` {Boolean} whether to return paths in a stable order. Costs\n    ripgrep its parallel walk, so only ask when the order is observable.\n\nReturns a {Promise} with a `cancel()` method that resolves the crawl early.",
+          "line": 687
         }
       ]
     },
@@ -6785,7 +6796,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Call a function when an event is emitted by the child process\n\n* `eventName` The {String} name of the event to handle.\n* `callback` The {Function} to call when the event is emitted.\n\nReturns a {Disposable} that can be used to stop listening for the event.",
-          "line": 176
+          "line": 184
         },
         {
           "name": "terminate",
@@ -6796,7 +6807,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Forcefully stop the running task.\n\nNo more events are emitted once this method is called.\n\nReturns a {Boolean} indicating whether the task was terminated.",
-          "line": 192
+          "line": 200
         },
         {
           "name": "cancel",
@@ -6807,7 +6818,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Cancel the running task and emit an event if it was canceled.\n\nReturns a {Boolean} indicating whether the task was terminated.",
-          "line": 207
+          "line": 215
         }
       ]
     },
@@ -11118,7 +11129,7 @@
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 317,
+      "line": 322,
       "members": [
         {
           "name": "observeTextEditors",
@@ -11129,7 +11140,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future text\neditors in the workspace.\n\n* `callback` {Function} to be called with current and future text editors.\n  * `editor` A {TextEditor} that is present in {::getTextEditors} at the time\n    of subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 818
+          "line": 823
         },
         {
           "name": "observePaneItems",
@@ -11140,7 +11151,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future panes items\nin the workspace.\n\n* `callback` {Function} to be called with current and future pane items.\n  * `item` An item that is present in {::getPaneItems} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 833
+          "line": 838
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -11151,7 +11162,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item changes.\n\nBecause observers are invoked synchronously, it's important not to perform\nany expensive operations via this method. Consider\n{::onDidStopChangingActivePaneItem} to delay operations until after changes\nstop occurring.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 850
+          "line": 855
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -11162,7 +11173,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item stops\nchanging.\n\nObservers are called asynchronously 100ms after the last active pane item\nchange. Handling changes here rather than in the synchronous\n{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly\nchanging or closing tabs and ensures critical UI feedback, like changing the\nhighlighted tab, gets priority over work that can be done asynchronously.\n\n* `callback` {Function} to be called when the active pane item stops\n  changing.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 868
+          "line": 873
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -11173,7 +11184,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when a text editor becomes the active\ntext editor and when there is no longer an active text editor.\n\n* `callback` {Function} to be called when the active text editor changes.\n  * `editor` The active {TextEditor} or undefined if there is no longer an\n     active text editor.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 880
+          "line": 885
         },
         {
           "name": "observeActivePaneItem",
@@ -11184,7 +11195,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active pane item and\nwith all future active pane items in the workspace.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The current active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 891
+          "line": 896
         },
         {
           "name": "observeActiveTextEditor",
@@ -11195,7 +11206,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active text editor\n(if any), with all future active text editors, and when there is no longer\nan active text editor.\n\n* `callback` {Function} to be called when the active text editor changes.\n  * `editor` The active {TextEditor} or undefined if there is not an\n     active text editor.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 905
+          "line": 910
         },
         {
           "name": "onDidOpen",
@@ -11206,7 +11217,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback whenever an item is opened. Unlike\n{::onDidAddPaneItem}, observers will be notified for items that are already\npresent in the workspace when they are reopened.\n\n* `callback` {Function} to be called whenever an item is opened.\n  * `event` {Object} with the following keys:\n    * `uri` {String} representing the opened URI. Could be `undefined`.\n    * `item` The opened item.\n    * `pane` The pane in which the item was opened.\n    * `index` The index of the opened item on its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 923
+          "line": 928
         },
         {
           "name": "onDidAddPane",
@@ -11217,7 +11228,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is added to the workspace.\n\n* `callback` {Function} to be called when panes are added.\n  * `event` {Object} with the following keys:\n    * `pane` The added pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 934
+          "line": 939
         },
         {
           "name": "onWillDestroyPane",
@@ -11228,7 +11239,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback before a pane is destroyed in the\nworkspace.\n\n* `callback` {Function} to be called before panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The pane to be destroyed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 948
+          "line": 953
         },
         {
           "name": "onDidDestroyPane",
@@ -11239,7 +11250,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is destroyed in the\nworkspace.\n\n* `callback` {Function} to be called when panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The destroyed pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 962
+          "line": 967
         },
         {
           "name": "observePanes",
@@ -11250,7 +11261,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with all current and future panes in the\nworkspace.\n\n* `callback` {Function} to be called with current and future panes.\n  * `pane` A {Pane} that is present in {::getPanes} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 976
+          "line": 981
         },
         {
           "name": "onDidChangeActivePane",
@@ -11261,7 +11272,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the active pane changes.\n\n* `callback` {Function} to be called when the active pane changes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 988
+          "line": 993
         },
         {
           "name": "observeActivePane",
@@ -11272,7 +11283,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with the current active pane and when\nthe active pane changes.\n\n* `callback` {Function} to be called with the current and future active\n  panes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1000
+          "line": 1005
         },
         {
           "name": "onDidAddPaneItem",
@@ -11283,7 +11294,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is added to the\nworkspace.\n\n* `callback` {Function} to be called when pane items are added.\n  * `event` {Object} with the following keys:\n    * `item` The added pane item.\n    * `pane` {Pane} containing the added item.\n    * `index` {Number} indicating the index of the added item in its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1015
+          "line": 1020
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -11294,7 +11305,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is about to be\ndestroyed, before the user is prompted to save it.\n\n* `callback` {Function} to be called before pane items are destroyed. If this function returns\n  a {Promise}, then the item will not be destroyed until the promise resolves.\n  * `event` {Object} with the following keys:\n    * `item` The item to be destroyed.\n    * `pane` {Pane} containing the item to be destroyed.\n    * `index` {Number} indicating the index of the item to be destroyed in\n      its pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 1033
+          "line": 1038
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -11305,7 +11316,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is destroyed.\n\n* `callback` {Function} to be called when pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The destroyed item.\n    * `pane` {Pane} containing the destroyed item.\n    * `index` {Number} indicating the index of the destroyed item in its\n      pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 1049
+          "line": 1054
         },
         {
           "name": "onDidAddTextEditor",
@@ -11316,7 +11327,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a text editor is added to the\nworkspace.\n\n* `callback` {Function} to be called when text editors are added.\n  * `event` {Object} with the following keys:\n    * `textEditor` {TextEditor} that was added.\n    * `pane` {Pane} containing the added text editor.\n    * `index` {Number} indicating the index of the added text editor in its\n       pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1066
+          "line": 1071
         },
         {
           "name": "open",
@@ -11327,7 +11338,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Opens the given URI in Lumine asynchronously.\nIf the URI is already open, the existing item for that URI will be\nactivated. If no URI is given, or no registered opener can open\nthe URI, a new empty {TextEditor} will be created.\n\n* `itemOrURI` (optional) An item to open or a {String} containing a URI.\n* `options` (optional) {Object}\n  * `initialLine` A {Number} indicating which row to move the cursor to\n    initially. Defaults to `0`.\n  * `initialColumn` A {Number} indicating which column to move the cursor to\n    initially. Defaults to `0`.\n  * `split` Either 'left', 'right', 'up' or 'down'.\n    If 'left', the item will be opened in leftmost pane of the current active pane's row.\n    If 'right', the item will be opened in the rightmost pane of the current active pane's row. If only one pane exists in the row, a new pane will be created.\n    If 'up', the item will be opened in topmost pane of the current active pane's column.\n    If 'down', the item will be opened in the bottommost pane of the current active pane's column. If only one pane exists in the column, a new pane will be created.\n  * `activatePane` A {Boolean} indicating whether to call {Pane::activate} on\n    containing pane. Defaults to `true`.\n  * `activateItem` A {Boolean} indicating whether to call {Pane::activateItem}\n    on containing pane. Defaults to `true`.\n  * `pending` A {Boolean} indicating whether or not the item should be opened\n    in a pending state. Existing pending items in a pane are replaced with\n    new pending items when they are opened.\n  * `searchAllPanes` A {Boolean}. If `true`, the workspace will attempt to\n    activate an existing item for the given URI on any pane.\n    If `false`, only the active pane will be searched for\n    an existing item for the same URI. Defaults to `false`.\n  * `location` (optional) A {String} containing the name of the location\n    in which this item should be opened (one of \"left\", \"right\", \"bottom\",\n    or \"center\"). If omitted, Lumine will fall back to the last location in\n    which a user has placed an item with the same URI or, if this is a new\n    URI, the default location specified by the item. NOTE: This option\n    should almost always be omitted to honor user preference.\n\nReturns a {Promise} that resolves to the {TextEditor} for the file URI.",
-          "line": 1109
+          "line": 1114
         },
         {
           "name": "hide",
@@ -11338,7 +11349,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Search the workspace for items matching the given URI and hide them.\n\n* `itemOrURI` The item to hide or a {String} containing the URI\n  of the item to hide.\n\nReturns a {Boolean} indicating whether any items were found (and hidden).",
-          "line": 1322
+          "line": 1327
         },
         {
           "name": "toggle",
@@ -11349,7 +11360,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Search the workspace for items matching the given URI. If any are found, hide them.\nOtherwise, open the URL.\n\n* `itemOrURI` (optional) The item to toggle or a {String} containing the URI\n  of the item to toggle.\n\nReturns a Promise that resolves when the item is shown or hidden.",
-          "line": 1358
+          "line": 1363
         },
         {
           "name": "createItemForURI",
@@ -11360,7 +11371,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Creates a new item that corresponds to the provided URI.\n\nIf no URI is given, or no registered opener can open the URI, a new empty\n{TextEditor} will be created.\n\n* `uri` A {String} containing a URI.\n\nReturns a {Promise} that resolves to the {TextEditor} (or other item) for the given URI.",
-          "line": 1429
+          "line": 1434
         },
         {
           "name": "isTextEditor",
@@ -11371,7 +11382,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if `object` is a `TextEditor`.\n\n* `object` An {Object} you want to perform the check against.",
-          "line": 1522
+          "line": 1527
         },
         {
           "name": "buildTextEditor",
@@ -11382,7 +11393,7 @@
           "category": "Opening",
           "visibility": "Extended",
           "description": "Create a new text editor.\n\nReturns a {TextEditor}.",
-          "line": 1529
+          "line": 1534
         },
         {
           "name": "reopenItem",
@@ -11393,7 +11404,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Asynchronously reopens the last-closed item's URI if it hasn't already been\nreopened.\n\nReturns a {Promise} that is resolved when the item is opened",
-          "line": 1540
+          "line": 1545
         },
         {
           "name": "addOpener",
@@ -11404,7 +11415,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Register an opener for a uri.\n\nWhen a URI is opened via {Workspace::open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {ViewRegistry}.\nA {TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```coffee\natom.workspace.addOpener (uri) ->\n  if path.extname(uri) is '.toml'\n    return new TomlEditor(uri)\n```\n\n* `opener` A {Function} to be called when a path is being opened.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nopener.\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{Workspace::open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json` containing an array of URL\nstrings.",
-          "line": 1582
+          "line": 1587
         },
         {
           "name": "getPaneItems",
@@ -11415,7 +11426,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all pane items in the workspace.\n\nReturns an {Array} of items.",
-          "line": 1600
+          "line": 1605
         },
         {
           "name": "getActivePaneItem",
@@ -11426,7 +11437,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the active {Pane}'s active item.\n\nReturns a pane item {Object}.",
-          "line": 1607
+          "line": 1612
         },
         {
           "name": "getTextEditors",
@@ -11437,7 +11448,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all text editors in the workspace, if they are pane items.\n\nReturns an {Array} of {TextEditor}s.",
-          "line": 1614
+          "line": 1619
         },
         {
           "name": "getActiveTextEditor",
@@ -11448,7 +11459,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the workspace center's active item if it is a {TextEditor}.\n\nReturns a {TextEditor} or `undefined` if the workspace center's current\nactive item is not a {TextEditor}.",
-          "line": 1622
+          "line": 1627
         },
         {
           "name": "getActivePaneContainer",
@@ -11459,7 +11470,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the most recently focused pane container.\n\nReturns a {Dock} or the {WorkspaceCenter}.",
-          "line": 1674
+          "line": 1679
         },
         {
           "name": "getPanes",
@@ -11470,7 +11481,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get all panes in the workspace.\n\nReturns an {Array} of {Pane}s.",
-          "line": 1681
+          "line": 1686
         },
         {
           "name": "getActivePane",
@@ -11481,7 +11492,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the active {Pane}.\n\nReturns a {Pane}.",
-          "line": 1692
+          "line": 1697
         },
         {
           "name": "activateNextPane",
@@ -11492,7 +11503,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the next pane active.",
-          "line": 1697
+          "line": 1702
         },
         {
           "name": "activatePreviousPane",
@@ -11503,7 +11514,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the previous pane active.",
-          "line": 1702
+          "line": 1707
         },
         {
           "name": "paneContainerForURI",
@@ -11514,7 +11525,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains an item with the given\nURI.\n\n* `uri` {String} uri\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no item exists\nwith the given URI.",
-          "line": 1713
+          "line": 1718
         },
         {
           "name": "paneContainerForItem",
@@ -11525,7 +11536,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains the given item.\n\n* `item` the Item that the returned pane container must contain.\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no pane container\ncontains the given item.",
-          "line": 1723
+          "line": 1728
         },
         {
           "name": "paneForURI",
@@ -11536,7 +11547,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first {Pane} that contains an item with the given URI.\n\n* `uri` {String} uri\n\nReturns a {Pane} or `undefined` if no item exists with the given URI.",
-          "line": 1732
+          "line": 1737
         },
         {
           "name": "paneForItem",
@@ -11547,7 +11558,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the {Pane} containing the given item.\n\n* `item` the Item that the returned pane must contain.\n\nReturns a {Pane} or `undefined` if no pane exists for the given item.",
-          "line": 1746
+          "line": 1751
         },
         {
           "name": "getCenter",
@@ -11558,7 +11569,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {WorkspaceCenter} at the center of the editor window.",
-          "line": 1839
+          "line": 1844
         },
         {
           "name": "getLeftDock",
@@ -11569,7 +11580,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the left of the editor window.",
-          "line": 1844
+          "line": 1849
         },
         {
           "name": "getRightDock",
@@ -11580,7 +11591,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the right of the editor window.",
-          "line": 1849
+          "line": 1854
         },
         {
           "name": "getBottomDock",
@@ -11591,7 +11602,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} below the editor window.",
-          "line": 1854
+          "line": 1859
         },
         {
           "name": "getBottomPanels",
@@ -11602,7 +11613,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the bottom of the editor window.",
-          "line": 1889
+          "line": 1894
         },
         {
           "name": "addBottomPanel",
@@ -11613,7 +11624,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the bottom of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1905
+          "line": 1910
         },
         {
           "name": "getLeftPanels",
@@ -11624,7 +11635,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the left of the editor window.",
-          "line": 1910
+          "line": 1915
         },
         {
           "name": "addLeftPanel",
@@ -11635,7 +11646,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the left of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1926
+          "line": 1931
         },
         {
           "name": "getRightPanels",
@@ -11646,7 +11657,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the right of the editor window.",
-          "line": 1931
+          "line": 1936
         },
         {
           "name": "addRightPanel",
@@ -11657,7 +11668,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the right of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1947
+          "line": 1952
         },
         {
           "name": "getTopPanels",
@@ -11668,7 +11679,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the top of the editor window.",
-          "line": 1952
+          "line": 1957
         },
         {
           "name": "addTopPanel",
@@ -11679,7 +11690,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the top of the editor window above the tabs.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1968
+          "line": 1973
         },
         {
           "name": "getHeaderPanels",
@@ -11690,7 +11701,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the header.",
-          "line": 1973
+          "line": 1978
         },
         {
           "name": "addHeaderPanel",
@@ -11701,7 +11712,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the header.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1989
+          "line": 1994
         },
         {
           "name": "getFooterPanels",
@@ -11712,7 +11723,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the footer.",
-          "line": 1994
+          "line": 1999
         },
         {
           "name": "addFooterPanel",
@@ -11723,7 +11734,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the footer.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2010
+          "line": 2015
         },
         {
           "name": "getModalPanels",
@@ -11734,7 +11745,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the modal panel items",
-          "line": 2015
+          "line": 2020
         },
         {
           "name": "addModalPanel",
@@ -11745,7 +11756,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item as a modal dialog.\n\n* `options` {Object}\n  * `item` Your panel content. It can be a DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    model option. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n  * `autoFocus` (optional) {Boolean|Element} true if you want modal focus managed for you by Lumine.\n    Lumine will automatically focus on this element or your modal panel's first tabbable element when the modal\n    opens and will restore the previously selected element when the modal closes. Lumine will\n    also automatically restrict user tab focus within your modal while it is open.\n    (default: false)\n  * `restoreFocus` (optional) {Boolean} false if you want to manage focus restoration\n    yourself. By default, when a modal panel is hidden, focus returns to the element\n    that was focused before the modal opened — or, for chained modals, before the\n    first modal in the chain opened. (default: true)\n\nReturns a {Panel}",
-          "line": 2040
+          "line": 2045
         },
         {
           "name": "panelForItem",
@@ -11756,7 +11767,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Returns the {Panel} associated with the given item. Returns\n`null` when the item has no panel.\n\n* `item` Item the panel contains",
-          "line": 2048
+          "line": 2053
         },
         {
           "name": "scan",
@@ -11767,7 +11778,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a search across all files in the workspace.\n\n* `regex` {RegExp} to search with.\n* `options` (optional) {Object}\n  * `paths` An {Array} of glob patterns to search within. (See note below for multi-root projects.)\n  * `onPathsSearched` (optional) {Function} to be periodically called\n    with number of paths searched.\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` {Function} callback on each file found.\n\nReturns a {Promise} with a `cancel()` method that will cancel all\nof the underlying searches that were started as part of this scan.\n\n#### Caveats\n\nWhen a project has multiple roots, the patterns in `options.paths` may opt\ninto or out of specific roots.\n\nFor instance: when only one root is present, `'foo/bar.js'` is construed\nas a glob meant to match `<root>/foo/bar.js`; when multiple roots are\npresent and at least one project root has a base directory name of `foo`,\nthen `foo/bar.js` is construed as a glob meant only for root `foo` and\nmeant to match `bar.js`.",
-          "line": 2100
+          "line": 2105
         },
         {
           "name": "replace",
@@ -11778,7 +11789,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a replace across all the specified files in the project.\n\n* `regex` A {RegExp} to search with.\n* `replacementText` {String} to replace all matches of regex with.\n* `filePaths` An {Array} of file path strings to run the replace on.\n* `iterator` A {Function} callback on each file with replacements:\n  * `options` {Object} with keys `filePath` and `replacements`.\n\nReturns a {Promise}.",
-          "line": 2415
+          "line": 2420
         },
         {
           "name": "filePathMatchesPatterns",
@@ -11789,7 +11800,7 @@
           "category": "Searching and Replacing",
           "visibility": "Experimental",
           "description": "Tests the path of a file in the project against a set of\nglobs (using the same semantics as {::scan}) and reports whether the file\nsatisfies the patterns.\n\nInternally, this method is used to decide if a search result should be\nadded to a list of project-wide search results.\n\n* `filePath` {String} representing the absolute path to a file in the\n  project. (Any external path will automatically return `false`.)\n* `rawPatterns` {Array} of strings that describe glob patterns. Identical to\n  (and uses the same glob semantics as) the `options.paths` argument of\n  {::scan}.\n\nReturns a boolean indicating whether the given file path would be included\nin a project-wide search if the given path patterns were specified.",
-          "line": 2486
+          "line": 2491
         }
       ]
     },
@@ -12140,5 +12151,5 @@
       "line": 1000
     }
   ],
-  "memberCount": 1057
+  "memberCount": 1058
 }
