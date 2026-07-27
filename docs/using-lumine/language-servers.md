@@ -31,9 +31,15 @@ Any other language server can be wired up without a package. `ide-client:open-cu
 
 ## Seeing what is running
 
-`ide-client:servers` lists every language server the window has started, with its project root and state — the servers for the active editor first. Choosing one offers to restart it, stop it, open its log, or jump to the problems panel.
+`ide-client:servers` lists every language server the window has started — the servers for the active editor first. Each entry names what that server covers, so a shared process is not mistaken for one of many:
 
-The same list sits in the status bar: an item counting the running servers, with an alert badge when one has failed, that opens the list on click and hides itself while nothing is running. Turn it off with the **Status Bar** setting. With the `busy-signal` package installed, work a server reports while it runs — indexing, analysis — spins the busy indicator instead, so long-lived servers do not churn alongside short tasks.
+- **Root** — one project folder, with its path. **Roots (2)** when one server took on several.
+- **Workspace** — the whole window, listing the project folders it answers for.
+- **File** — a file opened outside every project folder, named by the file rather than by the directory the server happens to be rooted at.
+
+Choosing one offers to restart it, stop it, open its log, or jump to the problems panel.
+
+The same list sits in the status bar: an item counting the running servers, with an alert badge when one has failed, that opens the list on click. It stays in place while nothing is running and reports zero, so its neighbours do not shift as servers come and go. Turn it off with the **Status Bar** setting. With the `busy-signal` package installed, work a server reports while it runs — indexing, analysis — spins the busy indicator instead, so long-lived servers do not churn alongside short tasks.
 
 ## Commands
 
