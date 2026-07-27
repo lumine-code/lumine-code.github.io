@@ -1,6 +1,6 @@
 # Linting
 
-Lumine's **`linter`** package surfaces diagnostics — errors, warnings, and info — from linter providers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and shows them inline, in a panel, and in the status bar.
+Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and shows them inline, in a panel, and in the status bar.
 
 ## The linter panel
 
@@ -10,13 +10,13 @@ The panel has two view modes: **file** shows only the active editor's messages, 
 
 ## Inline messages
 
-Problem ranges are underlined in the editor and marked with a dot in the gutter. `linter:inspect` shows a bubble with the message at the cursor, and `linter:next` / `linter:previous` (bound to `alt-'` and `alt-;`) step through the messages in the current file. Hovering over an underlined range also shows its message; turn this off with **Show Hover Tooltip**.
+Problem ranges are underlined in the editor and marked with a dot in the gutter. Hints are the quietest tier — low-priority findings such as an unused import, a piece of unreachable code, or a TODO comment. They get a dotted underline, no gutter dot, and no scrollbar marker, but they are listed in the panel like anything else. Code a language server reports as unnecessary is dimmed, and deprecated code is struck through. `linter:inspect` shows a bubble with the message at the cursor, and `linter:next` / `linter:previous` (bound to `alt-'` and `alt-;`) step through the messages in the current file. Hovering over an underlined range also shows its message; turn this off with **Show Hover Tooltip**.
 
 Inline decorations are skipped for very large files to keep editing responsive — the **Large File Line Count** and **Long Line Length** settings control the thresholds. The panel still lists every message.
 
 ## The status bar
 
-The status-bar item shows the error, warning, and info counts. Left-click toggles the panel, middle-click switches file/project mode, Ctrl+middle-click clears all messages, right-click jumps to the next message, and Ctrl+right-click to the previous. With **Status-bar item always visible** disabled, the item hides itself while there is nothing to report.
+The status-bar item shows a count per severity. The hint count appears only once there is a hint to report, and hints on their own do not keep the item visible. Left-click toggles the panel, middle-click switches file/project mode, Ctrl+middle-click clears all messages, right-click jumps to the next message, and Ctrl+right-click to the previous. With **Status-bar item always visible** disabled, the item hides itself while there is nothing to report.
 
 ## Controlling what gets linted
 
