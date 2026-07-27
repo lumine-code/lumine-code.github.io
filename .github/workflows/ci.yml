@@ -40,6 +40,15 @@ jobs:
           done < repos.txt
         env:
           GH_TOKEN: ${{ github.token }}
+      # The graph builder walks each package's main module with Babel. That is
+      # the editor's only requirement here, so install it alone rather than the
+      # whole editor dependency tree, and take the version from the editor so
+      # the two cannot drift apart.
+      - name: Install the parser the service graph uses
+        working-directory: lumine
+        run: |
+          version=$(node -p "require('./package.json').dependencies['@babel/core']")
+          npm install --no-save --ignore-scripts "@babel/core@$version"
       - name: Regenerate and compare
         working-directory: website
         run: node script/generate-services.js --check
