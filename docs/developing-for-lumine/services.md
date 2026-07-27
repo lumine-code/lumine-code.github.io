@@ -212,9 +212,6 @@ Each name links to its contract: what the object looks like, which fields are re
 **[`diff-view`](../services/diff-view.md)** (`1.0.0`) — Reports the current diff: its chunks, the two editors being compared, and which side is coloured as added.
 <br>From `diff-view`. Used by `scrollmap-diff-view`.
 
-**[`minimap`](../services/minimap.md)** (`1.0.0`) — The minimap's full API: observe minimaps as editors open, decorate them, and register plugins.
-<br>From `minimap`. No consumer yet.
-
 **[`bookmarks`](../services/bookmarks.md)** (`1.0.0`) — Reads the bookmarks set in an editor, as live markers.
 <br>From `bookmarks`. No consumer yet.
 
@@ -279,15 +276,15 @@ Each name links to its contract: what the object looks like, which fields are re
 <br>From `more-icons`, `native-icons`. Used by `src/icon-registry.js:287`.
 
 **[`project.directory-provider`](../services/project.directory-provider.md)** (`1.0.0`) — Supplies a custom `Directory` for a project path, so a project folder can be backed by something other than the local filesystem.
-<br>Provided by a package outside this workspace. Used by `src/project.js:656`.
+<br>Provided by a package outside this workspace. Used by `src/project.js:712`.
 
 **[`project.repository-provider`](../services/project.repository-provider.md)** (`1.0.0`) — Supplies a `Repository` for a project directory, so a version-control system other than Git can drive the editor's VCS features.
-<br>Provided by a package outside this workspace. Used by `src/project.js:663`.
+<br>Provided by a package outside this workspace. Used by `src/project.js:719`.
 
 **[`repositories.operations-provider`](../services/repositories.operations-provider.md)** (`1.0.0`) — Supplies the _write_ half of version control: commit, stage, branch, clone, and raw Git transport, on top of the read-only repository model.
 <br>Provided by a package outside this workspace. Used by `src/repository-registry.js:92`.
 
 **[`workspace.search-provider`](../services/workspace.search-provider.md)** (`1.0.0`) — Replaces the built-in project search for directories a package understands better than ripgrep can.
-<br>Provided by a package outside this workspace. Used by `src/workspace.js:525`.
+<br>Provided by a package outside this workspace. Used by `src/workspace.js:530`.
 
 <!-- /generated: catalog -->

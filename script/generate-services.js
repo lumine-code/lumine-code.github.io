@@ -109,7 +109,6 @@ const DOMAINS = [
       "pdf-view",
       "image-editor",
       "diff-view",
-      "minimap",
       "bookmarks",
       "bracket-matcher",
       "highlight-selected",
