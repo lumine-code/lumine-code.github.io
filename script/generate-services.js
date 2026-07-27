@@ -91,8 +91,8 @@ const DOMAINS = [
     ],
   },
   {
-    title: "Scrollbar overview",
-    services: ["scrollmap.layer", "scrollmap.widget"],
+    title: "Overview maps",
+    services: ["marker.layer", "scrollmap.widget"],
   },
   {
     title: "Panels",

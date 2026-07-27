@@ -44,7 +44,7 @@ The `refactor` package renames a symbol everywhere it is used. Put the cursor on
 
 The `find-references` package answers "where is this used?". Rest the cursor on a symbol and every reference to it is highlighted in the visible editors; `find-references:show-panel` lists them all in a dock, grouped by file with a preview of each line, and a click jumps to one. `find-references:highlight` triggers the highlight without waiting for the delay.
 
-The panel keeps up as you edit, and a new lookup reuses it unless you pin the current results. When a provider reports an implausible number of hits — a token that appears on half the lines — the highlight is skipped rather than painting the whole file. Install the companion `scrollmap-references` package (with `scrollmap`) to also mark the occurrences on the scrollbar.
+The panel keeps up as you edit, and a new lookup reuses it unless you pin the current results. When a provider reports an implausible number of hits — a token that appears on half the lines — the highlight is skipped rather than painting the whole file. Install the companion `marker-references` package to also mark the occurrences on the scrollbar or the minimap.
 
 ## Call hierarchy
 

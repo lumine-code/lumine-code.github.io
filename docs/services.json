@@ -57,9 +57,9 @@
       ]
     },
     {
-      "title": "Scrollbar overview",
+      "title": "Overview maps",
       "services": [
-        "scrollmap.layer",
+        "marker.layer",
         "scrollmap.widget"
       ]
     },
@@ -214,7 +214,7 @@
         "bracket-matcher"
       ],
       "consumers": [
-        "scrollmap-brackets"
+        "marker-brackets"
       ]
     },
     "status-bar": {
@@ -687,7 +687,7 @@
         "search-panel"
       ],
       "consumers": [
-        "scrollmap-search-panel"
+        "marker-search-panel"
       ]
     },
     "search.adapter": {
@@ -779,7 +779,7 @@
         "diff-view"
       ],
       "consumers": [
-        "scrollmap-diff-view"
+        "marker-diff-view"
       ]
     },
     "find-references.markers": {
@@ -794,7 +794,7 @@
         "find-references"
       ],
       "consumers": [
-        "scrollmap-references"
+        "marker-references"
       ]
     },
     "git-panel": {
@@ -824,7 +824,7 @@
         "highlight-selected"
       ],
       "consumers": [
-        "scrollmap-highlight"
+        "marker-highlight"
       ]
     },
     "image-editor": {
@@ -900,7 +900,7 @@
         "jupyter-repl"
       ],
       "consumers": [
-        "scrollmap-jupyter-repl"
+        "marker-jupyter-repl"
       ]
     },
     "jupyter.adapter": {
@@ -986,7 +986,7 @@
       "source": "https://github.com/lumine-code/linter/blob/master/docs/linter.ui.md",
       "providers": [
         "jupyter-view",
-        "scrollmap-linter"
+        "marker-linter"
       ],
       "consumers": [
         "linter"
@@ -994,7 +994,7 @@
     },
     "scrollmap.widget": {
       "name": "scrollmap.widget",
-      "group": "Scrollbar overview",
+      "group": "Overview maps",
       "summary": "The `Simplemap` class, so a package can draw scrollbar markers beside a pane that is not a text editor.",
       "version": "1.0.0",
       "owner": "scrollmap",
@@ -1069,6 +1069,46 @@
       ],
       "consumers": []
     },
+    "marker.layer": {
+      "name": "marker.layer",
+      "group": "Overview maps",
+      "summary": "A package registers a named layer of markers that the editor's overview maps draw.",
+      "version": "1.0.0",
+      "owner": "scrollmap",
+      "src": "https://raw.githubusercontent.com/lumine-code/scrollmap/master/docs/marker.layer.md",
+      "source": "https://github.com/lumine-code/scrollmap/blob/master/docs/marker.layer.md",
+      "providers": [
+        "marker-brackets",
+        "marker-cursors",
+        "marker-diff-view",
+        "marker-git-diff",
+        "marker-highlight",
+        "marker-jupyter-repl",
+        "marker-linter",
+        "marker-navigation",
+        "marker-references",
+        "marker-search-panel"
+      ],
+      "consumers": [
+        "minimap",
+        "scrollmap"
+      ]
+    },
+    "navigation.headers": {
+      "name": "navigation.headers",
+      "group": "Panels",
+      "summary": "Reads the outline the navigation panel currently shows: which editor it belongs to, the flattened header list, and when it changes.",
+      "version": "1.0.0",
+      "owner": "navigation-panel",
+      "src": "https://raw.githubusercontent.com/lumine-code/navigation-panel/master/docs/navigation.headers.md",
+      "source": "https://github.com/lumine-code/navigation-panel/blob/master/docs/navigation.headers.md",
+      "providers": [
+        "navigation-panel"
+      ],
+      "consumers": [
+        "marker-navigation"
+      ]
+    },
     "icons.provider": {
       "name": "icons.provider",
       "group": "Core extension points",
@@ -1085,21 +1125,6 @@
         "src/icon-registry.js:287"
       ]
     },
-    "navigation.headers": {
-      "name": "navigation.headers",
-      "group": "Panels",
-      "summary": "Reads the outline the navigation panel currently shows: which editor it belongs to, the flattened header list, and when it changes.",
-      "version": "1.0.0",
-      "owner": "navigation-panel",
-      "src": "https://raw.githubusercontent.com/lumine-code/navigation-panel/master/docs/navigation.headers.md",
-      "source": "https://github.com/lumine-code/navigation-panel/blob/master/docs/navigation.headers.md",
-      "providers": [
-        "navigation-panel"
-      ],
-      "consumers": [
-        "scrollmap-navigation"
-      ]
-    },
     "typst-tools": {
       "name": "typst-tools",
       "group": "Tools and integrations",
@@ -1113,30 +1138,6 @@
       ],
       "consumers": [
         "pdf-view"
-      ]
-    },
-    "scrollmap.layer": {
-      "name": "scrollmap.layer",
-      "group": "Scrollbar overview",
-      "summary": "A package registers a named layer of markers that scrollmap draws on the vertical scrollbar of every text editor.",
-      "version": "1.0.0",
-      "owner": "scrollmap",
-      "src": "https://raw.githubusercontent.com/lumine-code/scrollmap/master/docs/scrollmap.layer.md",
-      "source": "https://github.com/lumine-code/scrollmap/blob/master/docs/scrollmap.layer.md",
-      "providers": [
-        "scrollmap-brackets",
-        "scrollmap-cursors",
-        "scrollmap-diff-view",
-        "scrollmap-git-diff",
-        "scrollmap-highlight",
-        "scrollmap-jupyter-repl",
-        "scrollmap-linter",
-        "scrollmap-navigation",
-        "scrollmap-references",
-        "scrollmap-search-panel"
-      ],
-      "consumers": [
-        "scrollmap"
       ]
     },
     "project.directory-provider": {

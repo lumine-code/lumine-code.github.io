@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  services:
+    # The service reference is derived from the whole workspace -- the editor
+    # repository and every package repository -- so it can go stale without a
+    # single file here changing. Nothing else notices: this site has no build.
+    name: Service reference is current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: website
+      - uses: actions/checkout@v7
+        with:
+          repository: lumine-code/lumine
+          path: lumine
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Check out the package repositories
+        run: |
+          mkdir -p pkg_lumine
+          gh repo list lumine-code --limit 200 --json name --jq '.[].name' > repos.txt
+          while read -r repo; do
+            case "$repo" in
+              lumine|lumine-code.github.io|packages) continue ;;
+            esac
+            if gh api "repos/lumine-code/$repo/contents/package.json" --silent 2>/dev/null; then
+              git clone --depth 1 "https://github.com/lumine-code/$repo" "pkg_lumine/$repo" 2>/dev/null || true
+            fi
+          done < repos.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Regenerate and compare
+        working-directory: website
+        run: node script/generate-services.js --check

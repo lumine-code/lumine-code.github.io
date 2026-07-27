@@ -142,7 +142,7 @@ Each name links to its contract: what the object looks like, which fields are re
 <br>From `ide-client`. Used by `find-references`.
 
 **[`find-references.markers`](../services/find-references.markers.md)** (`1.0.0`) — Reports which reference occurrences are currently highlighted in each editor.
-<br>From `find-references`. Used by `scrollmap-references`.
+<br>From `find-references`. Used by `marker-references`.
 
 **[`hyperclick.provider`](../services/hyperclick.provider.md)** (`1.0.0`) — Turns a word in the editor into something clickable: the provider is asked about a range, and answers with a callback to run if the user follows it.
 <br>From `symbols-view`, `autocomplete-jedi`. No consumer yet.
@@ -168,7 +168,7 @@ Each name links to its contract: what the object looks like, which fields are re
 <br>From `linter`. Used by `ide-client`, `latex-tools`, `linter-eslint`, `linter-ruff`, `linter-sofistik`, `linter-todo`, `prettier`, `typst-tools`.
 
 **[`linter.ui`](../services/linter.ui.md)** (`1.0.0`) — A second place to display diagnostics. The linter hands every message change to each registered UI, alongside its own panel.
-<br>From `jupyter-view`, `scrollmap-linter`. Used by `linter`.
+<br>From `jupyter-view`, `marker-linter`. Used by `linter`.
 
 **[`linter.adapter`](../services/linter.adapter.md)** (`1.0.0`) — Teaches the linter about a pane item that is not a `TextEditor`, so a notebook or a custom editor can be linted and navigated like a file.
 <br>From `jupyter-view`. Used by `linter`.
@@ -179,10 +179,10 @@ Each name links to its contract: what the object looks like, which fields are re
 **[`busy-signal`](../services/busy-signal.md)** (`1.0.0`) — Report work in progress on the status bar's busy indicator.
 <br>From `busy-signal`. Used by `ide-client`, `linter-eslint`, `linter-ruff`, `linter-todo`, `prettier`.
 
-### Scrollbar overview
+### Overview maps
 
-**[`scrollmap.layer`](../services/scrollmap.layer.md)** (`1.0.0`) — A package registers a named layer of markers that scrollmap draws on the vertical scrollbar of every text editor.
-<br>From `scrollmap-brackets`, `scrollmap-cursors`, `scrollmap-diff-view`, `scrollmap-git-diff`, `scrollmap-highlight`, `scrollmap-jupyter-repl`, `scrollmap-linter`, `scrollmap-navigation`, `scrollmap-references`, `scrollmap-search-panel`. Used by `scrollmap`.
+**[`marker.layer`](../services/marker.layer.md)** (`1.0.0`) — A package registers a named layer of markers that the editor's overview maps draw.
+<br>From `marker-brackets`, `marker-cursors`, `marker-diff-view`, `marker-git-diff`, `marker-highlight`, `marker-jupyter-repl`, `marker-linter`, `marker-navigation`, `marker-references`, `marker-search-panel`. Used by `minimap`, `scrollmap`.
 
 **[`scrollmap.widget`](../services/scrollmap.widget.md)** (`1.0.0`) — The `Simplemap` class, so a package can draw scrollbar markers beside a pane that is not a text editor.
 <br>From `scrollmap`. Used by `jupyter-view`, `pdf-view`.
@@ -190,13 +190,13 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Panels
 
 **[`search.control`](../services/search.control.md)** (`1.0.0`) — Drives the find and replace panels from another package: read the options, show or hide the panels, trigger a search, and follow the results.
-<br>From `search-panel`. Used by `scrollmap-search-panel`.
+<br>From `search-panel`. Used by `marker-search-panel`.
 
 **[`search.adapter`](../services/search.adapter.md)** (`1.0.0`) — Makes a pane item that is not a `TextEditor` searchable with the ordinary find panel — a notebook, a data grid, a rendered preview.
 <br>From `jupyter-repl`, `jupyter-view`. Used by `search-panel`.
 
 **[`navigation.headers`](../services/navigation.headers.md)** (`1.0.0`) — Reads the outline the navigation panel currently shows: which editor it belongs to, the flattened header list, and when it changes.
-<br>From `navigation-panel`. Used by `scrollmap-navigation`.
+<br>From `navigation-panel`. Used by `marker-navigation`.
 
 **[`navigation.adapter`](../services/navigation.adapter.md)** (`1.0.0`) — Supplies the navigation panel's outline for a pane item that is not a text document — a PDF's bookmarks, a notebook's cells, the images in a folder.
 <br>From `image-editor`, `jupyter-view`, `pdf-view`. Used by `navigation-panel`.
@@ -210,16 +210,16 @@ Each name links to its contract: what the object looks like, which fields are re
 <br>From `image-editor`. Used by `jupyter-repl`.
 
 **[`diff-view`](../services/diff-view.md)** (`1.0.0`) — Reports the current diff: its chunks, the two editors being compared, and which side is coloured as added.
-<br>From `diff-view`. Used by `scrollmap-diff-view`.
+<br>From `diff-view`. Used by `marker-diff-view`.
 
 **[`bookmarks`](../services/bookmarks.md)** (`1.0.0`) — Reads the bookmarks set in an editor, as live markers.
 <br>From `bookmarks`. No consumer yet.
 
 **[`bracket-matcher`](../services/bracket-matcher.md)** (`1.0.0`) — Reports which bracket pair is currently highlighted, and when that changes.
-<br>From `bracket-matcher`. Used by `scrollmap-brackets`.
+<br>From `bracket-matcher`. Used by `marker-brackets`.
 
 **[`highlight-selected`](../services/highlight-selected.md)** (`1.0.0`) — Reports which occurrences of the current selection are highlighted, and when that set changes.
-<br>From `highlight-selected`. Used by `scrollmap-highlight`.
+<br>From `highlight-selected`. Used by `marker-highlight`.
 
 ### Jupyter
 
@@ -227,7 +227,7 @@ Each name links to its contract: what the object looks like, which fields are re
 <br>From `jupyter-repl`. No consumer yet.
 
 **[`jupyter.breakpoints`](../services/jupyter.breakpoints.md)** (`1.0.0`) — Reports where the cell boundaries are in an editor, so another package can draw or reason about them.
-<br>From `jupyter-repl`. Used by `scrollmap-jupyter-repl`.
+<br>From `jupyter-repl`. Used by `marker-jupyter-repl`.
 
 **[`jupyter.adapter`](../services/jupyter.adapter.md)** (`1.0.0`) — Lets the REPL run cells in something that is not a text editor, by describing that item's cells as run targets.
 <br>From `jupyter-view`. Used by `jupyter-repl`.
