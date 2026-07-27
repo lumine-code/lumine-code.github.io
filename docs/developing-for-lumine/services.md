@@ -78,7 +78,7 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Editor chrome
 
 **[`status-bar`](../services/status-bar.md)** (`1.0.0`) — The status bar's tile collection: a package adds an element to the left or right panel and receives a handle that removes it again.
-<br>From `status-bar`. Used by `column-selection`, `deprecation-cop`, `editor-status`, `encoding-selector`, `git-center`, `grammar-selector`, `incompatible-packages`, `line-ending-selector`, `overtype-mode`, `settings-view`, `busy-signal`, `cursor-leader`, `git-panel`, `github-panel`, `image-editor`, `invert-colors`, `jupyter-repl`, `latex-tools`, `linter`, `prettier`, `tasklist-tools`, `typst-tools`.
+<br>From `status-bar`. Used by `column-selection`, `deprecation-cop`, `editor-status`, `encoding-selector`, `git-center`, `grammar-selector`, `ide-client`, `incompatible-packages`, `line-ending-selector`, `overtype-mode`, `settings-view`, `busy-signal`, `cursor-leader`, `git-panel`, `github-panel`, `image-editor`, `invert-colors`, `jupyter-repl`, `latex-tools`, `linter`, `prettier`, `tasklist-tools`, `typst-tools`.
 
 **[`title-bar`](../services/title-bar.md)** (`1.0.0`) — The title bar's control tile collection: a package inserts an element beside the window buttons and receives a handle that removes it.
 <br>From `title-bar`. Used by `quick-layout`.
@@ -176,7 +176,7 @@ Each name links to its contract: what the object looks like, which fields are re
 **[`intentions.list`](../services/intentions.list.md)** (`1.0.0`) — Supplies the code actions and quick fixes offered at the cursor.
 <br>From `ide-client`, `linter`. Used by `intentions`.
 
-**[`busy-signal`](../services/busy-signal.md)** (`1.0.0`) — Report work in progress in the status bar: short-lived tasks on the busy indicator, long-running processes in their own zone.
+**[`busy-signal`](../services/busy-signal.md)** (`1.0.0`) — Report work in progress on the status bar's busy indicator.
 <br>From `busy-signal`. Used by `ide-client`, `linter-eslint`, `linter-ruff`, `linter-todo`, `prettier`.
 
 ### Scrollbar overview
@@ -276,7 +276,7 @@ Each name links to its contract: what the object looks like, which fields are re
 ### Core extension points
 
 **[`icons.provider`](../services/icons.provider.md)** (`1.0.0`) — Answers what icon a thing should have. The thing may be a file path, a semantic name, a symbol kind, or a pane item, and the answer may be glyph classes, an image, inline SVG, or a letter.
-<br>From `more-icons`, `native-icons`. Used by `src/icon-registry.js:288`.
+<br>From `more-icons`, `native-icons`. Used by `src/icon-registry.js:287`.
 
 **[`project.directory-provider`](../services/project.directory-provider.md)** (`1.0.0`) — Supplies a custom `Directory` for a project path, so a project folder can be backed by something other than the local filesystem.
 <br>Provided by a package outside this workspace. Used by `src/project.js:656`.

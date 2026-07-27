@@ -34,7 +34,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 ## Linting and formatting
 
 - **linter** — the message hub consumed by all linter providers.
-- **busy-signal** — progress indicator for long-running providers.
+- **busy-signal** — a status-bar dot that spins while packages report work in progress.
 - **linter-eslint**, **linter-ruff**, **linter-todo**, **linter-sofistik** — language linters.
 - **prettier** — format buffers with Prettier.
 
