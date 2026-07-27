@@ -31,6 +31,8 @@ Lumine provides async helpers (such as `waitsForPromise`) for tests that await e
   lumine --test spec           # run the whole directory
   ```
 
+  Every `lumine-code` package repository exposes the second form as `npm test`, so a fresh clone needs no further setup. The run exits with the suite's status code, and it loads the editor from the source checkout named by `LUMINE_RESOURCE_PATH` — see [Launching Lumine](../getting-started/launching-lumine.md) — or from the installed build when that variable is unset.
+
 ## Tips
 
 - Activate the package under test explicitly (`atom.packages.activatePackage`) rather than assuming it is loaded.
