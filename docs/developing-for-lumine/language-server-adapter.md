@@ -35,7 +35,7 @@ Returning the registration disposable from the consumer method unregisters the a
 
 - `id`, `displayName` — unique identifier and the name shown in the status bar and notifications.
 - `grammarScopes` — grammar scope names the server handles, such as `source.python`.
-- `sessionScope` — `"project-root"` (default) starts one server per project root; use `"workspace"` only for servers that correctly handle multi-root workspaces.
+- `sessionScope` — `"project-root"` (default) gives each project root its own server; `"workspace"` gives the window a single one. Leave it at the default unless the server has no notion of a root at all: a server that genuinely handles multi-root workspaces says so in its capabilities, and the hub then shares one process across folders without being told to (see [Language servers](../using-lumine/language-servers.md)).
 - `resolveServer(context)` — resolves the launch: `{ command, args, cwd, env, transport }`. Commands are spawned directly with `shell: false`, so `command` must be an executable and every argument belongs in `args`. `transport` is `"stdio"` (default), `"ipc"` for forked Node scripts, or `"socket"` with `host`/`port`. The context carries `rootPath`, `projectPaths`, `configDirPath`, and a per-adapter `managedStoragePath`. Return `null` to decline (for example when the binary is missing) after telling the user what to install.
 - `languageIdForScope(scopeName)` — optional per-grammar override for the LSP `languageId`; a built-in table already maps common scopes, and a blanket `languageId` remains as a last-resort fallback.
 - `getInitializationOptions(context)` — optional `initializationOptions` for the handshake.
