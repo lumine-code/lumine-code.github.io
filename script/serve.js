@@ -34,35 +34,14 @@ const mimeTypes = {
   ".map": "application/json; charset=utf-8",
 };
 
-const workspaceRoot = path.resolve(siteRoot, "..");
-
-// Service contracts live in the repository of the package that owns them, and
-// the published site fetches them from raw.githubusercontent.com on `master`.
-// That would hide unpushed work during a local preview, so `/@repo/<repo>/<path>`
-// resolves against the sibling checkouts instead. Preview only — nothing on the
-// published site uses it.
-function repoFile(requestPath) {
-  const match = requestPath.match(/^\/@repo\/([\w.-]+)\/(.+)$/);
-  if (!match) return null;
-  const [, repo, rest] = match;
-  if (repo.includes("..") || rest.includes("..")) return null;
-  const root =
-    repo === "lumine" ? path.join(workspaceRoot, "lumine") : path.join(workspaceRoot, "pkg_lumine", repo);
-  const resolved = path.resolve(root, rest);
-  return resolved.startsWith(root + path.sep) ? resolved : null;
-}
-
 const server = http.createServer((request, response) => {
   const requestPath = decodeURIComponent(request.url.split("?")[0]);
-  let filePath = repoFile(requestPath);
+  let filePath = path.join(siteRoot, requestPath);
 
-  if (filePath === null) {
-    filePath = path.join(siteRoot, requestPath);
-    // Keep every other request inside the site root.
-    if (!filePath.startsWith(siteRoot)) {
-      response.writeHead(403).end("Forbidden");
-      return;
-    }
+  // Keep every request inside the site root.
+  if (!filePath.startsWith(siteRoot)) {
+    response.writeHead(403).end("Forbidden");
+    return;
   }
 
   fs.stat(filePath, (error, stats) => {
