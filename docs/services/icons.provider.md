@@ -139,6 +139,13 @@ Answers are cached per target, with paths in a bounded LRU and names and kinds i
 
 Resetting the window clears every package-supplied provider and re-subscribes, so a provider is re-registered rather than surviving in name only.
 
+**Ship ink, not geometry.** The editor owns every icon's box — a `--component-icon-size` square, `line-height` equal to its height, `vertical-align: text-bottom` — declared once in the base stylesheet and advertised as `--icon-contract: box` on the document root. A provider that inserts its own glyph rules should emit only ink: `font-family`, `content`, color, a `font-size` (ideally as a ratio of `--component-icon-size` so a resized icon column scales the glyph), and at most a small `translate` nudge. Probe the token to keep one package working on editors from before the contract, where self-contained geometry is still needed:
+
+```js
+const contract =
+  getComputedStyle(document.documentElement).getPropertyValue("--icon-contract").trim() === "box";
+```
+
 ## Teardown
 
 Core returns a `Disposable` that removes the provider, disposes your `onDidChange` subscription, and clears every cache — not just the answers that came from you, since removing a link changes what the chain returns for targets you never answered. Every icon on screen is then repainted. A provider needs no `dispose` of its own; anything else it allocated — a stylesheet, a worker — it removes on deactivate.
