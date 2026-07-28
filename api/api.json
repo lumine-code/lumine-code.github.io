@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.132.1-dev",
-  "generatedAt": "2026-07-27T20:33:43.613Z",
+  "generatedAt": "2026-07-28T13:20:20.276Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -2188,7 +2188,7 @@
       "source": "src/dock.js",
       "sourcePath": "src/dock.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 21,
+      "line": 20,
       "members": [
         {
           "name": "activate",
@@ -2199,7 +2199,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Show the dock and focus its active {Pane}.",
-          "line": 116
+          "line": 114
         },
         {
           "name": "show",
@@ -2210,7 +2210,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Show the dock without focusing it.",
-          "line": 121
+          "line": 119
         },
         {
           "name": "hide",
@@ -2221,7 +2221,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Hide the dock and activate the {WorkspaceCenter} if the dock was\nwas previously focused.",
-          "line": 127
+          "line": 125
         },
         {
           "name": "toggle",
@@ -2232,7 +2232,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Toggle the dock's visibility without changing the {Workspace}'s\nactive pane container.",
-          "line": 133
+          "line": 131
         },
         {
           "name": "isVisible",
@@ -2243,7 +2243,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Check if the dock is visible.\n\nReturns a {Boolean}.",
-          "line": 142
+          "line": 140
         },
         {
           "name": "onDidChangeVisible",
@@ -2254,7 +2254,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the visibility of the dock changes.\n\n* `callback` {Function} to be called when the visibility changes.\n  * `visible` {Boolean} Is the dock now visible?\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 456
+          "line": 448
         },
         {
           "name": "observeVisible",
@@ -2265,7 +2265,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current and all future visibilities of the dock.\n\n* `callback` {Function} to be called when the visibility changes.\n  * `visible` {Boolean} Is the dock now visible?\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 466
+          "line": 458
         },
         {
           "name": "observePaneItems",
@@ -2276,7 +2276,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future panes items\nin the dock.\n\n* `callback` {Function} to be called with current and future pane items.\n  * `item` An item that is present in {::getPaneItems} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 479
+          "line": 471
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -2287,7 +2287,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item changes.\n\nBecause observers are invoked synchronously, it's important not to perform\nany expensive operations via this method. Consider\n{::onDidStopChangingActivePaneItem} to delay operations until after changes\nstop occurring.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 494
+          "line": 486
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -2298,7 +2298,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item stops\nchanging.\n\nObservers are called asynchronously 100ms after the last active pane item\nchange. Handling changes here rather than in the synchronous\n{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly\nchanging or closing tabs and ensures critical UI feedback, like changing the\nhighlighted tab, gets priority over work that can be done asynchronously.\n\n* `callback` {Function} to be called when the active pane item stops\n  changing.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 512
+          "line": 504
         },
         {
           "name": "observeActivePaneItem",
@@ -2309,7 +2309,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active pane item and\nwith all future active pane items in the dock.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The current active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 523
+          "line": 515
         },
         {
           "name": "onDidAddPane",
@@ -2320,7 +2320,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is added to the dock.\n\n* `callback` {Function} to be called when panes are added.\n  * `event` {Object} with the following keys:\n    * `pane` The added pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 534
+          "line": 526
         },
         {
           "name": "onWillDestroyPane",
@@ -2331,7 +2331,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback before a pane is destroyed in the\ndock.\n\n* `callback` {Function} to be called before panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The pane to be destroyed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 546
+          "line": 538
         },
         {
           "name": "onDidDestroyPane",
@@ -2342,7 +2342,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is destroyed in the dock.\n\n* `callback` {Function} to be called when panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The destroyed pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 557
+          "line": 549
         },
         {
           "name": "observePanes",
@@ -2353,7 +2353,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with all current and future panes in the\ndock.\n\n* `callback` {Function} to be called with current and future panes.\n  * `pane` A {Pane} that is present in {::getPanes} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 569
+          "line": 561
         },
         {
           "name": "onDidChangeActivePane",
@@ -2364,7 +2364,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the active pane changes.\n\n* `callback` {Function} to be called when the active pane changes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 579
+          "line": 571
         },
         {
           "name": "observeActivePane",
@@ -2375,7 +2375,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with the current active pane and when\nthe active pane changes.\n\n* `callback` {Function} to be called with the current and future active\n  panes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 591
+          "line": 583
         },
         {
           "name": "onDidAddPaneItem",
@@ -2386,7 +2386,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is added to the dock.\n\n* `callback` {Function} to be called when pane items are added.\n  * `event` {Object} with the following keys:\n    * `item` The added pane item.\n    * `pane` {Pane} containing the added item.\n    * `index` {Number} indicating the index of the added item in its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 604
+          "line": 596
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -2397,7 +2397,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is about to be\ndestroyed, before the user is prompted to save it.\n\n* `callback` {Function} to be called before pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The item to be destroyed.\n    * `pane` {Pane} containing the item to be destroyed.\n    * `index` {Number} indicating the index of the item to be destroyed in\n      its pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 619
+          "line": 611
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -2408,7 +2408,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is destroyed.\n\n* `callback` {Function} to be called when pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The destroyed item.\n    * `pane` {Pane} containing the destroyed item.\n    * `index` {Number} indicating the index of the destroyed item in its\n      pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 633
+          "line": 625
         },
         {
           "name": "onDidChangeHovered",
@@ -2419,7 +2419,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the hovered state of the dock changes.\n\n* `callback` {Function} to be called when the hovered state changes.\n  * `hovered` {Boolean} Is the dock now hovered?\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 643
+          "line": 635
         },
         {
           "name": "getPaneItems",
@@ -2430,7 +2430,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all pane items in the dock.\n\nReturns an {Array} of items.",
-          "line": 654
+          "line": 646
         },
         {
           "name": "getActivePaneItem",
@@ -2441,7 +2441,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the active {Pane}'s active item.\n\nReturns a pane item {Object}.",
-          "line": 661
+          "line": 653
         },
         {
           "name": "getPanes",
@@ -2452,7 +2452,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get all panes in the dock.\n\nReturns an {Array} of {Pane}s.",
-          "line": 696
+          "line": 688
         },
         {
           "name": "getActivePane",
@@ -2463,7 +2463,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the active {Pane}.\n\nReturns a {Pane}.",
-          "line": 703
+          "line": 695
         },
         {
           "name": "activateNextPane",
@@ -2474,7 +2474,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the next pane active.",
-          "line": 708
+          "line": 700
         },
         {
           "name": "activatePreviousPane",
@@ -2485,7 +2485,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the previous pane active.",
-          "line": 713
+          "line": 705
         }
       ]
     },
@@ -4578,39 +4578,6 @@
           "line": 351
         },
         {
-          "name": "onChooseNextMRUItem",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onChooseNextMRUItem(callback)",
-          "category": "Event Subscription",
-          "visibility": "Public",
-          "description": "Invoke the given callback when {::activateNextRecentlyUsedItem}\nhas been called, either initiating or continuing a forward MRU traversal of\npane items.\n\n* `callback` {Function} to be called when the active item changes.\n  * `nextRecentlyUsedItem` The next MRU item, now being set active\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 363
-        },
-        {
-          "name": "onChooseLastMRUItem",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onChooseLastMRUItem(callback)",
-          "category": "Event Subscription",
-          "visibility": "Public",
-          "description": "Invoke the given callback when {::activatePreviousRecentlyUsedItem}\nhas been called, either initiating or continuing a reverse MRU traversal of\npane items.\n\n* `callback` {Function} to be called when the active item changes.\n  * `previousRecentlyUsedItem` The previous MRU item, now being set active\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 375
-        },
-        {
-          "name": "onDoneChoosingMRUItem",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDoneChoosingMRUItem(callback)",
-          "category": "Event Subscription",
-          "visibility": "Public",
-          "description": "Invoke the given callback when {::moveActiveItemToTopOfStack}\nhas been called, terminating an MRU traversal of pane items and moving the\ncurrent active item to the top of the stack. Typically bound to a modifier\n(e.g. CTRL) key up event.\n\n* `callback` {Function} to be called when the MRU traversal is done.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 387
-        },
-        {
           "name": "observeActiveItem",
           "kind": "method",
           "static": false,
@@ -4619,7 +4586,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback with the current and future values of\n{::getActiveItem}.\n\n* `callback` {Function} to be called with the current and future active\n  items.\n  * `activeItem` The current active item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 399
+          "line": 363
         },
         {
           "name": "onWillDestroyItem",
@@ -4630,7 +4597,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback before items are destroyed.\n\n* `callback` {Function} to be called before items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The item that will be destroyed.\n    * `index` The location of the item.\n\nReturns a {Disposable} on which `.dispose()` can be called to\nunsubscribe.",
-          "line": 413
+          "line": 377
         },
         {
           "name": "getItems",
@@ -4641,7 +4608,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Get the items in this pane.\n\nReturns an {Array} of items.",
-          "line": 451
+          "line": 415
         },
         {
           "name": "getActiveItem",
@@ -4652,7 +4619,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Get the active pane item in this pane.\n\nReturns a pane item.",
-          "line": 458
+          "line": 422
         },
         {
           "name": "itemAtIndex",
@@ -4663,7 +4630,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Return the item at the given index.\n\n* `index` {Number}\n\nReturns an item or `null` if no item exists at the given index.",
-          "line": 506
+          "line": 470
         },
         {
           "name": "activateNextRecentlyUsedItem",
@@ -4674,7 +4641,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Makes the next item in the itemStack active.",
-          "line": 511
+          "line": 475
         },
         {
           "name": "activatePreviousRecentlyUsedItem",
@@ -4685,7 +4652,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Makes the previous item in the itemStack active.",
-          "line": 523
+          "line": 486
         },
         {
           "name": "moveActiveItemToTopOfStack",
@@ -4696,7 +4663,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Moves the active item to the end of the item stack once a modifier\nkey (typically <kbd>Ctrl</kbd>) is lifted.",
-          "line": 537
+          "line": 499
         },
         {
           "name": "activateNextItem",
@@ -4707,7 +4674,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Makes the next item active.",
-          "line": 544
+          "line": 505
         },
         {
           "name": "activatePreviousItem",
@@ -4718,7 +4685,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Makes the previous item active.",
-          "line": 554
+          "line": 515
         },
         {
           "name": "moveItemRight",
@@ -4729,7 +4696,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Move the active tab to the right.",
-          "line": 568
+          "line": 529
         },
         {
           "name": "moveItemLeft",
@@ -4740,7 +4707,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Move the active tab to the left",
-          "line": 576
+          "line": 537
         },
         {
           "name": "getActiveItemIndex",
@@ -4751,7 +4718,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Get the index of the active item.\n\nReturns a {Number}.",
-          "line": 585
+          "line": 546
         },
         {
           "name": "activateItemAtIndex",
@@ -4762,7 +4729,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Activate the item at the given index.\n\n* `index` {Number}",
-          "line": 592
+          "line": 553
         },
         {
           "name": "activateItem",
@@ -4773,7 +4740,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Make the given item *active*, causing it to be displayed by\nthe pane's view.\n\n* `item` The item to activate\n* `options` (optional) {Object}\n  * `pending` (optional) {Boolean} indicating that the item should be added\n    in a pending state if it does not yet exist in the pane. Existing pending\n    items in a pane are replaced with new pending items when they are opened.",
-          "line": 605
+          "line": 566
         },
         {
           "name": "addItem",
@@ -4784,7 +4751,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Add the given item to the pane.\n\n* `item` The item to add. It can be a model with an associated view or a\n  view.\n* `options` (optional) {Object}\n  * `index` (optional) {Number} indicating the index at which to add the item.\n    If omitted, the item is added after the current active item.\n  * `pending` (optional) {Boolean} indicating that the item should be\n    added in a pending state. Existing pending items in a pane are replaced with\n    new pending items when they are opened.\n\nReturns the added item.",
-          "line": 628
+          "line": 589
         },
         {
           "name": "togglePendingItem",
@@ -4795,7 +4762,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Toggle the pending state of the active item.\n\nClears the pending item if the active item is already pending, otherwise\nmarks the active item as pending. When marking an item pending, its\n`onDidChange` is watched so that editing it clears the pending state, the\nsame way natively-previewed items behave. This is required because\n`terminatePendingState` is one-shot: once an item has terminated it never\nemits again, so a re-pended item could not otherwise clear itself.",
-          "line": 718
+          "line": 679
         },
         {
           "name": "addItems",
@@ -4806,7 +4773,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Add the given items to the pane.\n\n* `items` An {Array} of items to add. Items can be views or models with\n  associated views. Any objects that are already present in the pane's\n  current items will not be added again.\n* `index` (optional) {Number} index at which to add the items. If omitted,\n  the item is #   added after the current active item.\n\nReturns an {Array} of added items.",
-          "line": 748
+          "line": 709
         },
         {
           "name": "moveItem",
@@ -4817,7 +4784,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Move the given item to the given index.\n\n* `item` The item to move.\n* `newIndex` {Number} indicating the index to which to move the item.",
-          "line": 803
+          "line": 764
         },
         {
           "name": "moveItemToPane",
@@ -4828,7 +4795,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Move the given item to the given index on another pane.\n\n* `item` The item to move.\n* `pane` {Pane} to which to move the item.\n* `index` {Number} indicating the index to which to move the item in the\n  given pane.",
-          "line": 816
+          "line": 777
         },
         {
           "name": "destroyActiveItem",
@@ -4839,7 +4806,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Destroy the active item and activate the next item.\n\nReturns a {Promise} that resolves when the item is destroyed.",
-          "line": 824
+          "line": 785
         },
         {
           "name": "destroyItem",
@@ -4850,7 +4817,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Destroy the given item.\n\nIf the item is active, the next item will be activated. If the item is the\nlast item, the pane will be destroyed if the `core.destroyEmptyPanes` config\nsetting is `true`.\n\nThis action can be prevented by onWillDestroyPaneItem callbacks in which\ncase nothing happens.\n\n* `item` Item to destroy\n* `force` (optional) {Boolean} Destroy the item without prompting to save\n   it, even if the item's `isPermanentDockItem` method returns true.\n\nReturns a {Promise} that resolves with a {Boolean} indicating whether or not\nthe item was destroyed.",
-          "line": 843
+          "line": 804
         },
         {
           "name": "destroyItems",
@@ -4861,7 +4828,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Destroy all items.",
-          "line": 886
+          "line": 847
         },
         {
           "name": "destroyInactiveItems",
@@ -4872,7 +4839,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Destroy all items except for the active item.",
-          "line": 891
+          "line": 852
         },
         {
           "name": "saveActiveItem",
@@ -4883,7 +4850,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Save the active item.",
-          "line": 1006
+          "line": 967
         },
         {
           "name": "saveActiveItemAs",
@@ -4894,7 +4861,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Prompt the user for a location and save the active item with the\npath they select.\n\n* `nextAction` (optional) {Function} which will be called after the item is\n  successfully saved.\n\nReturns a {Promise} that resolves when the save is complete",
-          "line": 1017
+          "line": 978
         },
         {
           "name": "saveItem",
@@ -4905,7 +4872,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Save the given item.\n\n* `item` The item to save.\n* `nextAction` (optional) {Function} which will be called with no argument\n  after the item is successfully saved, or with the error if it failed.\n  The return value will be that of `nextAction` or `undefined` if it was\n  not provided.\n\nReturns a {Promise} that resolves when the save is complete, or rejects if\nthe save could not be completed.",
-          "line": 1031
+          "line": 992
         },
         {
           "name": "saveItemAs",
@@ -4916,7 +4883,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Prompt the user for a location and save the active item with the\npath they select.\n\n* `item` The item to save.\n* `nextAction` (optional) {Function} which will be called with no argument\n  after the item is successfully saved, or with the error if it failed.\n  The return value will be that of `nextAction` or `undefined` if it was\n  not provided.",
-          "line": 1095
+          "line": 1056
         },
         {
           "name": "saveItems",
@@ -4927,7 +4894,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Save all modified items in this pane.\n\nReturns a {Promise} that resolves when all items have been saved.",
-          "line": 1140
+          "line": 1101
         },
         {
           "name": "itemForURI",
@@ -4938,7 +4905,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Return the first item that matches the given URI or undefined if\nnone exists.\n\n* `uri` {String} containing a URI.",
-          "line": 1154
+          "line": 1115
         },
         {
           "name": "activateItemForURI",
@@ -4949,7 +4916,7 @@
           "category": "Items",
           "visibility": "Public",
           "description": "Activate the first item that matches the given URI.\n\n* `uri` {String} containing a URI.\n\nReturns a {Boolean} indicating whether an item matching the URI was found.",
-          "line": 1169
+          "line": 1130
         },
         {
           "name": "isActive",
@@ -4960,7 +4927,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Determine whether the pane is active.\n\nReturns a {Boolean}.",
-          "line": 1192
+          "line": 1153
         },
         {
           "name": "activate",
@@ -4971,7 +4938,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Makes this pane the *active* pane, causing it to gain focus.",
-          "line": 1197
+          "line": 1158
         },
         {
           "name": "destroy",
@@ -4982,7 +4949,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Close the pane and destroy all its items.\n\nIf this is the last pane, all the items will be destroyed but the pane\nitself will not be destroyed.",
-          "line": 1209
+          "line": 1170
         },
         {
           "name": "isDestroyed",
@@ -4993,7 +4960,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Determine whether this pane has been destroyed.\n\nReturns a {Boolean}.",
-          "line": 1239
+          "line": 1200
         },
         {
           "name": "splitLeft",
@@ -5004,7 +4971,7 @@
           "category": "Splitting",
           "visibility": "Public",
           "description": "Create a new pane to the left of this pane.\n\n* `params` (optional) {Object} with the following keys:\n  * `items` (optional) {Array} of items to add to the new pane.\n  * `copyActiveItem` (optional) {Boolean} true will copy the active item into the new split pane\n  * `activate` (optional) {Boolean} `false` will leave the currently active pane active instead of activating the new pane. Defaults to `true`.\n\nReturns the new {Pane}.",
-          "line": 1255
+          "line": 1216
         },
         {
           "name": "splitRight",
@@ -5015,7 +4982,7 @@
           "category": "Splitting",
           "visibility": "Public",
           "description": "Create a new pane to the right of this pane.\n\n* `params` (optional) {Object} with the following keys:\n  * `items` (optional) {Array} of items to add to the new pane.\n  * `copyActiveItem` (optional) {Boolean} true will copy the active item into the new split pane\n  * `activate` (optional) {Boolean} `false` will leave the currently active pane active instead of activating the new pane. Defaults to `true`.\n\nReturns the new {Pane}.",
-          "line": 1267
+          "line": 1228
         },
         {
           "name": "splitUp",
@@ -5026,7 +4993,7 @@
           "category": "Splitting",
           "visibility": "Public",
           "description": "Creates a new pane above the receiver.\n\n* `params` (optional) {Object} with the following keys:\n  * `items` (optional) {Array} of items to add to the new pane.\n  * `copyActiveItem` (optional) {Boolean} true will copy the active item into the new split pane\n  * `activate` (optional) {Boolean} `false` will leave the currently active pane active instead of activating the new pane. Defaults to `true`.\n\nReturns the new {Pane}.",
-          "line": 1279
+          "line": 1240
         },
         {
           "name": "splitDown",
@@ -5037,7 +5004,7 @@
           "category": "Splitting",
           "visibility": "Public",
           "description": "Creates a new pane below the receiver.\n\n* `params` (optional) {Object} with the following keys:\n  * `items` (optional) {Array} of items to add to the new pane.\n  * `copyActiveItem` (optional) {Boolean} true will copy the active item into the new split pane\n  * `activate` (optional) {Boolean} `false` will leave the currently active pane active instead of activating the new pane. Defaults to `true`.\n\nReturns the new {Pane}.",
-          "line": 1291
+          "line": 1252
         }
       ]
     },
@@ -12151,5 +12118,5 @@
       "line": 1000
     }
   ],
-  "memberCount": 1058
+  "memberCount": 1055
 }
