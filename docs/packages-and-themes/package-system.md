@@ -126,7 +126,7 @@ All hydrated records participate in search, but the DOM renders **50 cards per p
 
 A package's README is fetched only when you open its details for the selected SHA. The content is sanitized, and external images are not loaded automatically.
 
-Opening a package's **details** shows everything it has in one scrolling list — its settings, keybindings, grammars, snippets, and README, in that order. The sidebar holds a **table of contents** for that list: one entry per section, with the README's own headers nested underneath. Sections a package has nothing for are left out. The buttons above the list lead to the repository, the issue tracker, the CHANGELOG, and the **LICENSE** file on GitHub.
+Opening a package's **details** shows everything it has in one scrolling list — its settings, keybindings, grammars, snippets, README, and documentation, in that order. The sidebar holds a **table of contents** for that list: one entry per section, with the README's and the documents' own headers nested underneath. Sections a package has nothing for are left out. The buttons above the list lead to the repository, the issue tracker, the CHANGELOG, and the **LICENSE** file on GitHub.
 
 ## The Pulsar package registry
 
