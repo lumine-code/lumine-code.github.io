@@ -34,6 +34,83 @@ Lumine's theming is built on **CSS custom properties**. Define your palette as p
 
 The bundled **`one-theme`** package is the reference implementation: a single package that ships light and dark variants for both UI and syntax (**one-day-ui** / **one-night-ui** and **one-day-syntax** / **one-night-syntax**). Reading it is the best way to see how a complete theme is structured.
 
+## Provide a family of themes
+
+A package can expose several independently selectable themes through a `themes` array. This is useful when light and dark UI and syntax themes belong to one family:
+
+```json
+{
+  "name": "my-theme-family",
+  "version": "0.1.0",
+  "themes": [
+    {
+      "name": "my-day-ui",
+      "theme": "ui",
+      "styles": ["styles/ui", "styles/day-ui"]
+    },
+    {
+      "name": "my-day-syntax",
+      "theme": "syntax",
+      "styles": "styles/day-syntax"
+    },
+    {
+      "name": "my-night-ui",
+      "theme": "ui",
+      "styles": ["styles/ui", "styles/night-ui"]
+    },
+    {
+      "name": "my-night-syntax",
+      "theme": "syntax",
+      "styles": "styles/night-syntax"
+    }
+  ],
+  "engines": { "atom": "*" }
+}
+```
+
+Each entry becomes its own virtual theme package. Its `name` is what users select, `theme` is either `ui` or `syntax`, and `styles` is a package-relative directory or an ordered list of directories. The containing package still owns shared JavaScript and configuration, but those are not copied into its virtual themes.
+
+## Extend another theme's styles
+
+A theme in a `themes` array can build on styles from another package with `extends`. The value is either one package-qualified glob:
+
+```json
+{
+  "name": "my-day-ui",
+  "theme": "ui",
+  "extends": "one-theme::styles/ui/*",
+  "styles": ["styles/ui-overrides", "styles/day-ui"]
+}
+```
+
+or an ordered list:
+
+```json
+{
+  "name": "my-day-ui",
+  "theme": "ui",
+  "extends": [
+    "one-theme::styles/ui/*",
+    "my-theme-foundation::styles/accessibility/**/*.css"
+  ],
+  "styles": ["styles/ui-overrides", "styles/day-ui"]
+}
+```
+
+The part before `::` is a package name. The part after it is a glob relative to that package. Scoped package names are valid because `::`, rather than `/`, separates the two parts.
+
+Lumine builds the cascade in this order:
+
+1. Process `extends` entries in their declared order.
+2. Sort the `.css` and `.less` files matched by each glob and load them.
+3. Load the theme's own `styles` directories in their declared order.
+
+Overlapping globs do not load the same file twice. There is no filename replacement: extended and local stylesheets both load, so ordinary CSS specificity and source order determine the result. Keep only real differences in the local override sheets. When the parent sets a declaration that the child does not want, reset it explicitly in the child.
+
+Referencing a package through `extends` does not activate that package's JavaScript or add its theme class. Only include reusable styles in the matched path; package-specific settings should live outside it.
+
+If the chain contains more than one `variables.css`, Lumine applies them in the same order and uses that order when generating the Less compatibility shim. Put the derived theme's palette in its final `styles` directory so its custom properties win. Development live reload also watches the extended glob roots.
+
 ## Icon geometry belongs to the editor
 
 Every icon in the interface — tree-view rows, tabs, lists, the status bar — renders in one frame, defined once by the editor's base stylesheet: a square of `--component-icon-size` whose `line-height` equals its height, aligned `vertical-align: text-bottom`. The box centers itself in any line, and each font's ink centers inside the box, so the same glyph sits at the same height in every surface without per-surface tuning.
