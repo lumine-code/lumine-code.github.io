@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.132.1-dev",
-  "generatedAt": "2026-07-28T15:24:58.087Z",
+  "generatedAt": "2026-07-29T00:20:41.448Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -702,8 +702,8 @@
           "signature": "::add(target, commandName, listener, throwOnInvalidSelector = true)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Add one or more command listeners associated with a selector.\n\n## Arguments: Registering One Command\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the command will be globally associated with all matching\n  elements. The `,` combinator is not currently supported. If you pass a\n  DOM element, the command will be associated with just that element.\n* `commandName` A {String} containing the name of a command you want to\n  handle such as `user:insert-date`.\n* `listener` A listener which handles the event.  Either a {Function} to\n  call when the given command is invoked on an element matching the\n  selector, or an {Object} with a `didDispatch` property which is such a\n  function.\n\n  The function (`listener` itself if it is a function, or the `didDispatch`\n  method if `listener` is an object) will be called with `this` referencing\n  the matching DOM node and the following argument:\n    * `event`: A standard DOM event instance. Call `stopPropagation` or\n      `stopImmediatePropagation` to terminate bubbling early.\n\n  Additionally, `listener` may have additional properties which are returned\n  to those who query using `atom.commands.findCommands`, as well as several\n  meaningful metadata properties:\n    * `displayName`: Overrides any generated `displayName` that would\n      otherwise be generated from the event name.\n    * `description`: Used by consumers to display detailed information about\n      the command.\n    * `hiddenInCommandPalette`: If `true`, this command will not appear in\n      the bundled command palette by default, but can still be shown with.\n      the `Command Palette: Show Hidden Commands` command. This is a good\n      option when you need to register large numbers of commands that don't\n      make sense to be executed from the command palette. Please use this\n      option conservatively, as it could reduce the discoverability of your\n      package's commands.\n\n## Arguments: Registering Multiple Commands\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the commands will be globally associated with all\n  matching elements. The `,` combinator is not currently supported.\n  If you pass a DOM element, the command will be associated with just that\n  element.\n* `commands` An {Object} mapping command names like `user:insert-date` to\n  listener {Function}s.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded command handler(s).",
-          "line": 126
+          "description": "Add one or more command listeners associated with a selector.\n\n## Arguments: Registering One Command\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the command will be globally associated with all matching\n  elements. The `,` combinator is not currently supported. If you pass a\n  DOM element, the command will be associated with just that element.\n* `commandName` A {String} containing the name of a command you want to\n  handle such as `user:insert-date`.\n* `listener` A listener which handles the event.  Either a {Function} to\n  call when the given command is invoked on an element matching the\n  selector, or an {Object} with a `didDispatch` property which is such a\n  function.\n\n  The function (`listener` itself if it is a function, or the `didDispatch`\n  method if `listener` is an object) will be called with `this` referencing\n  the matching DOM node and the following argument:\n    * `event`: A standard DOM event instance. Call `stopPropagation` or\n      `stopImmediatePropagation` to terminate bubbling early.\n\n  Additionally, `listener` may have additional properties which are returned\n  to those who query using `atom.commands.findCommands`, as well as several\n  meaningful metadata properties:\n    * `displayName`: Overrides any generated `displayName` that would\n      otherwise be generated from the event name.\n    * `description`: Used by consumers to display detailed information about\n      the command.\n    * `hiddenInCommandPalette`: If `true`, this command will not appear in\n      the bundled command palette by default, but can still be shown with.\n      the `Command Palette: Show Hidden Commands` command. This is a good\n      option when you need to register large numbers of commands that don't\n      make sense to be executed from the command palette. Please use this\n      option conservatively, as it could reduce the discoverability of your\n      package's commands.\n    * `modal`: Declares that dispatching this command opens a modal panel.\n      Set to `true`, or to a {String} naming the label the modal carries\n      on the breadcrumb trail. The registry does not act on it — the\n      declaration travels with the command metadata so tooling can tell\n      modal-opening commands apart.\n\n## Arguments: Registering Multiple Commands\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the commands will be globally associated with all\n  matching elements. The `,` combinator is not currently supported.\n  If you pass a DOM element, the command will be associated with just that\n  element.\n* `commands` An {Object} mapping command names like `user:insert-date` to\n  listener {Function}s.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded command handler(s).",
+          "line": 131
         },
         {
           "name": "findCommands",
@@ -714,7 +714,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Find all registered commands matching a query.\n\n* `params` An {Object} containing one or more of the following keys:\n  * `target` A DOM node that is the hypothetical target of a given command.\n\nReturns an {Array} of `CommandDescriptor` {Object}s containing the following keys:\n * `name` The name of the command. For example, `user:insert-date`.\n * `displayName` The display name of the command. For example,\n   `User: Insert Date`.\nAdditional metadata may also be present in the returned descriptor:\n * `description` a {String} describing the function of the command in more\n   detail than the title\n * `tags` an {Array} of {String}s that describe keywords related to the\n   command\n Any additional nonstandard metadata provided when the command was `add`ed\n may also be present in the returned descriptor.",
-          "line": 221
+          "line": 226
         },
         {
           "name": "dispatch",
@@ -725,7 +725,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Simulate the dispatch of a command on a DOM node.\n\nThis is useful for passing arguments to a command, as keymaps currently do not\nsupport arguments; for example, add a new command with no arguments that\ndispatches another command with arguments, and map the new command to a key binding.\n\nThis can be useful for testing when you want to simulate the invocation of a\ncommand on a detached DOM node. Otherwise, the DOM node in question needs to\nbe attached to the document so the event bubbles up to the root node to be\nprocessed.\n\n* `target` The DOM node at which to start bubbling the command event.\n* `commandName` {String} indicating the name of the command to dispatch.\n* `detail` Any value that will be assigned to the event's `.detail` property. Pass an object with multiple properties if you need multiple command arguments.",
-          "line": 271
+          "line": 276
         },
         {
           "name": "onWillDispatch",
@@ -736,7 +736,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Invoke the given callback before dispatching a command event.\n\n* `callback` {Function} to be called before dispatching each command\n  * `event` The Event that will be dispatched",
-          "line": 281
+          "line": 286
         },
         {
           "name": "onDidDispatch",
@@ -747,18 +747,18 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Invoke the given callback after dispatching a command event.\n\n* `callback` {Function} to be called after dispatching each command\n  * `event` The Event that was dispatched",
-          "line": 289
+          "line": 294
         }
       ]
     },
     {
       "name": "Config",
       "visibility": "Essential",
-      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `atom.config` global.\n\n## Getting and setting config settings.\n\n```coffee\n# Note that with no value set, ::get returns the setting's default value.\natom.config.get('my-package.myKey') # -> 'defaultValue'\n\natom.config.set('my-package.myKey', 'value')\natom.config.get('my-package.myKey') # -> 'value'\n```\n\nYou may want to watch for changes. Use {::observe} to catch changes to the setting.\n\n```coffee\natom.config.set('my-package.myKey', 'value')\natom.config.observe 'my-package.myKey', (newValue) ->\n  # `observe` calls immediately and every time the value is changed\n  console.log 'My configuration changed:', newValue\n```\n\nIf you want a notification only when the value changes, use {::onDidChange}.\n\n```coffee\natom.config.onDidChange 'my-package.myKey', ({newValue, oldValue}) ->\n  console.log 'My configuration changed:', newValue, oldValue\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```coffee\n# When no value has been set, `::get` returns the setting's default value\natom.config.get('my-package.anInt') # -> 12\n\n# The string will be coerced to the integer 123\natom.config.set('my-package.anInt', '123')\natom.config.get('my-package.anInt') # -> 123\n\n# The string will be coerced to an integer, but it must be greater than 0, so is set to 1\natom.config.set('my-package.anInt', '-20')\natom.config.get('my-package.anInt') # -> 1\n```\n\n## Defining settings for your package\n\nDefine a schema under a `config` key in your package main.\n\n```coffee\nmodule.exports =\n  # Your config schema\n  config:\n    someInt:\n      type: 'integer'\n      default: 23\n      minimum: 1\n\n  activate: (state) -> # ...\n  # ...\n```\n\nSee the [package tutorial](https://docs.pulsar-edit.dev/developing-for-pulsar/package-word-count/) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](http://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. A simple example:\n\n```coffee\n# We want to provide an `enableThing`, and a `thingVolume`\nconfig:\n  enableThing:\n    type: 'boolean'\n    default: false\n  thingVolume:\n    type: 'integer'\n    default: 5\n    minimum: 1\n    maximum: 11\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```coffee\natom.config.set('my-package.thingVolume', '10')\natom.config.get('my-package.thingVolume') # -> 10\n\n# It respects the min / max\natom.config.set('my-package.thingVolume', '400')\natom.config.get('my-package.thingVolume') # -> 11\n\n# If it cannot be coerced, the value will not be set\natom.config.set('my-package.thingVolume', 'cats')\natom.config.get('my-package.thingVolume') # -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an an array. For example\n\n```coffee\nconfig:\n  someSetting:\n    type: ['boolean', 'integer']\n    default: 5\n\n# Then\natom.config.set('my-package.someSetting', 'true')\natom.config.get('my-package.someSetting') # -> true\n\natom.config.set('my-package.someSetting', '12')\natom.config.get('my-package.someSetting') # -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'string'\n    default: 'hello'\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n  ```coffee\n  config:\n    someSetting:\n      type: 'integer'\n      default: 5\n      minimum: 1\n      maximum: 11\n  ```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'number'\n    default: 5.3\n    minimum: 1.5\n    maximum: 11.5\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'boolean'\n    default: false\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'array'\n    default: [1, 2, 3]\n    items:\n      type: 'integer'\n      minimum: 1.5\n      maximum: 11.5\n```\n\n#### color\n\nValues will be coerced into a {Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'color'\n    default: 'white'\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'object'\n    properties:\n      myChildIntOption:\n        type: 'integer'\n        minimum: 1.5\n        maximum: 11.5\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```coffee\nconfig:\n  someSetting:\n    type: 'integer'\n    default: 4\n    enum: [2, 4, 6, 8]\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```coffee\nconfig:\n  someSetting:\n    type: 'string'\n    default: 'foo'\n    enum: [\n      {value: 'foo', description: 'Foo mode. You want this.'}\n      {value: 'bar', description: 'Bar mode. Nobody wants that!'}\n    ]\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'string'\n    default: 'foo'\n    enum: [\n      {value: 'foo', description: 'Foo mode. You want this.'}\n      {value: 'bar', description: 'Bar mode. Nobody wants that!'}\n    ]\n    radio: true\n```\n\nUsage:\n\n```coffee\natom.config.set('my-package.someSetting', '2')\natom.config.get('my-package.someSetting') # -> 2\n\n# will not set values outside of the enum values\natom.config.set('my-package.someSetting', '3')\natom.config.get('my-package.someSetting') # -> 2\n\n# If it cannot be coerced, the value will not be set\natom.config.set('my-package.someSetting', '4')\natom.config.get('my-package.someSetting') # -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```coffee\nconfig:\n  someSetting:\n    title: 'Setting Magnitude'\n    description: 'This will affect the blah and the other blah'\n    type: 'integer'\n    default: 4\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://pulsar-edit.dev) - `[links](https://pulsar-edit.dev)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view orders your settings alphabetically. You can override this\nordering with the order key.\n\n```coffee\nconfig:\n  zSetting:\n    type: 'integer'\n    default: 4\n    order: 1\n  aSetting:\n    type: 'integer'\n    default: 4\n    order: 2\n```\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```coffee\nconfig:\nsomeSetting:\n  type: 'boolean'\n  default: false\n```\n\nYou can still do the following\n\n```coffee\nlet otherSetting  = atom.config.get('some-package.otherSetting')\natom.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
+      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `atom.config` global.\n\n## Getting and setting config settings.\n\n```coffee\n# Note that with no value set, ::get returns the setting's default value.\natom.config.get('my-package.myKey') # -> 'defaultValue'\n\natom.config.set('my-package.myKey', 'value')\natom.config.get('my-package.myKey') # -> 'value'\n```\n\nYou may want to watch for changes. Use {::observe} to catch changes to the setting.\n\n```coffee\natom.config.set('my-package.myKey', 'value')\natom.config.observe 'my-package.myKey', (newValue) ->\n  # `observe` calls immediately and every time the value is changed\n  console.log 'My configuration changed:', newValue\n```\n\nIf you want a notification only when the value changes, use {::onDidChange}.\n\n```coffee\natom.config.onDidChange 'my-package.myKey', ({newValue, oldValue}) ->\n  console.log 'My configuration changed:', newValue, oldValue\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```coffee\n# When no value has been set, `::get` returns the setting's default value\natom.config.get('my-package.anInt') # -> 12\n\n# The string will be coerced to the integer 123\natom.config.set('my-package.anInt', '123')\natom.config.get('my-package.anInt') # -> 123\n\n# The string will be coerced to an integer, but it must be greater than 0, so is set to 1\natom.config.set('my-package.anInt', '-20')\natom.config.get('my-package.anInt') # -> 1\n```\n\n## Defining settings for your package\n\nDefine a schema under a `config` key in your package main.\n\n```coffee\nmodule.exports =\n  # Your config schema\n  config:\n    someInt:\n      type: 'integer'\n      default: 23\n      minimum: 1\n\n  activate: (state) -> # ...\n  # ...\n```\n\nSee the [package tutorial](https://docs.pulsar-edit.dev/developing-for-pulsar/package-word-count/) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](http://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. A simple example:\n\n```coffee\n# We want to provide an `enableThing`, and a `thingVolume`\nconfig:\n  enableThing:\n    type: 'boolean'\n    default: false\n  thingVolume:\n    type: 'integer'\n    default: 5\n    minimum: 1\n    maximum: 11\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```coffee\natom.config.set('my-package.thingVolume', '10')\natom.config.get('my-package.thingVolume') # -> 10\n\n# It respects the min / max\natom.config.set('my-package.thingVolume', '400')\natom.config.get('my-package.thingVolume') # -> 11\n\n# If it cannot be coerced, the value will not be set\natom.config.set('my-package.thingVolume', 'cats')\natom.config.get('my-package.thingVolume') # -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an an array. For example\n\n```coffee\nconfig:\n  someSetting:\n    type: ['boolean', 'integer']\n    default: 5\n\n# Then\natom.config.set('my-package.someSetting', 'true')\natom.config.get('my-package.someSetting') # -> true\n\natom.config.set('my-package.someSetting', '12')\natom.config.get('my-package.someSetting') # -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'string'\n    default: 'hello'\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n  ```coffee\n  config:\n    someSetting:\n      type: 'integer'\n      default: 5\n      minimum: 1\n      maximum: 11\n  ```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'number'\n    default: 5.3\n    minimum: 1.5\n    maximum: 11.5\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'boolean'\n    default: false\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'array'\n    default: [1, 2, 3]\n    items:\n      type: 'integer'\n      minimum: 1.5\n      maximum: 11.5\n```\n\n#### color\n\nValues will be coerced into a {Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'color'\n    default: 'white'\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'object'\n    properties:\n      myChildIntOption:\n        type: 'integer'\n        minimum: 1.5\n        maximum: 11.5\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```coffee\nconfig:\n  someSetting:\n    type: 'integer'\n    default: 4\n    enum: [2, 4, 6, 8]\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```coffee\nconfig:\n  someSetting:\n    type: 'string'\n    default: 'foo'\n    enum: [\n      {value: 'foo', description: 'Foo mode. You want this.'}\n      {value: 'bar', description: 'Bar mode. Nobody wants that!'}\n    ]\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```coffee\nconfig:\n  someSetting:\n    type: 'string'\n    default: 'foo'\n    enum: [\n      {value: 'foo', description: 'Foo mode. You want this.'}\n      {value: 'bar', description: 'Bar mode. Nobody wants that!'}\n    ]\n    radio: true\n```\n\nUsage:\n\n```coffee\natom.config.set('my-package.someSetting', '2')\natom.config.get('my-package.someSetting') # -> 2\n\n# will not set values outside of the enum values\natom.config.set('my-package.someSetting', '3')\natom.config.get('my-package.someSetting') # -> 2\n\n# If it cannot be coerced, the value will not be set\natom.config.set('my-package.someSetting', '4')\natom.config.get('my-package.someSetting') # -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```coffee\nconfig:\n  someSetting:\n    title: 'Setting Magnitude'\n    description: 'This will affect the blah and the other blah'\n    type: 'integer'\n    default: 4\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://pulsar-edit.dev) - `[links](https://pulsar-edit.dev)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```coffee\nconfig:\nsomeSetting:\n  type: 'boolean'\n  default: false\n```\n\nYou can still do the following\n\n```coffee\nlet otherSetting  = atom.config.get('some-package.otherSetting')\natom.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
       "source": "src/config.js",
       "sourcePath": "src/config.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 383,
+      "line": 376,
       "members": [
         {
           "name": "observe",
@@ -769,7 +769,7 @@
           "category": "Config Subscription",
           "visibility": "Essential",
           "description": "Add a listener for changes to a given key path. This is different\nthan {::onDidChange} in that it will immediately call your callback with the\ncurrent value of the config entry.\n\n### Examples\n\nYou might want to be notified when the theme mode changes. We'll watch\n`theme.mode` for changes\n\n```coffee\natom.config.observe 'theme.mode', (value) ->\n  # do stuff with value\n```\n\n* `keyPath` {String} name of the key to observe\n* `options` (optional) {Object}\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples.\n    See [the scopes docs](https://docs.pulsar-edit.dev/infrastructure/scoped-settings/)\n    for more information.\n* `callback` {Function} to call when the value of the key changes.\n  * `value` the new value of the key\n\nReturns a {Disposable} with the following keys on which you can call\n`.dispose()` to unsubscribe.",
-          "line": 491
+          "line": 484
         },
         {
           "name": "onDidChange",
@@ -780,7 +780,7 @@
           "category": "Config Subscription",
           "visibility": "Essential",
           "description": "Add a listener for changes to a given key path. If `keyPath` is\nnot specified, your callback will be called on changes to any key.\n\n* `keyPath` (optional) {String} name of the key to observe. Must be\n  specified if `scopeDescriptor` is specified.\n* `options` (optional) {Object}\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples.\n    See [the scopes docs](https://docs.pulsar-edit.dev/infrastructure/scoped-settings/)\n    for more information.\n* `callback` {Function} to call when the value of the key changes.\n  * `event` {Object}\n    * `newValue` the new value of the key\n    * `oldValue` the prior value of the key.\n\nReturns a {Disposable} with the following keys on which you can call\n`.dispose()` to unsubscribe.",
-          "line": 530
+          "line": 523
         },
         {
           "name": "get",
@@ -791,7 +791,7 @@
           "category": "Managing Settings",
           "visibility": "Essential",
           "description": "Retrieves the setting for the given key.\n\n### Examples\n\nYou might want to know what theme mode is enabled, so check `theme.mode`\n\n```coffee\natom.config.get('theme.mode')\n```\n\nWith scope descriptors you can get settings within a specific editor\nscope. For example, you might want to know `language.tabLength` for ruby\nfiles.\n\n```coffee\natom.config.get('language.tabLength', scope: ['source.ruby']) # => 2\n```\n\nThis setting in ruby files might be different than the global tabLength setting\n\n```coffee\natom.config.get('language.tabLength') # => 4\natom.config.get('language.tabLength', scope: ['source.ruby']) # => 2\n```\n\nYou can get the language scope descriptor via\n{TextEditor::getRootScopeDescriptor}. This will get the setting specifically\nfor the editor's language.\n\n```coffee\natom.config.get('language.tabLength', scope: @editor.getRootScopeDescriptor()) # => 2\n```\n\nAdditionally, you can get the setting at the specific cursor position.\n\n```coffee\nscopeDescriptor = @editor.getLastCursor().getScopeDescriptor()\natom.config.get('language.tabLength', scope: scopeDescriptor) # => 2\n```\n\n* `keyPath` The {String} name of the key to retrieve.\n* `options` (optional) {Object}\n  * `sources` (optional) {Array} of {String} source names. If provided, only\n    values that were associated with these sources during {::set} will be used.\n  * `excludeSources` (optional) {Array} of {String} source names. If provided,\n    values that were associated with these sources during {::set} will not\n    be used.\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}\n    See [the scopes docs](https://docs.pulsar-edit.dev/infrastructure/scoped-settings/)\n    for more information.\n\nReturns the value from Lumine's default settings, the user's configuration\nfile in the type specified by the configuration schema.",
-          "line": 608
+          "line": 601
         },
         {
           "name": "getAll",
@@ -802,7 +802,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Get all of the values for the given key-path, along with their\nassociated scope selector.\n\n* `keyPath` The {String} name of the key to retrieve\n* `options` (optional) {Object} see the `options` argument to {::get}\n\nReturns an {Array} of {Object}s with the following keys:\n * `scopeDescriptor` The {ScopeDescriptor} with which the value is associated\n * `value` The value for the key-path",
-          "line": 636
+          "line": 629
         },
         {
           "name": "set",
@@ -813,7 +813,7 @@
           "category": "Managing Settings",
           "visibility": "Essential",
           "description": "Sets the value for a configuration setting.\n\nThis value is stored in Lumine's internal configuration file.\n\n### Examples\n\nYou might want to change the themes programmatically:\n\n```coffee\natom.config.set('theme.dark', ['one-night-ui', 'one-night-syntax'])\n```\n\nYou can also set scoped settings. For example, you might want change the\n`language.tabLength` only for ruby files.\n\n```coffee\natom.config.get('language.tabLength') # => 4\natom.config.get('language.tabLength', scope: ['source.ruby']) # => 4\natom.config.get('language.tabLength', scope: ['source.js']) # => 4\n\n# Set ruby to 2\natom.config.set('language.tabLength', 2, scopeSelector: '.source.ruby') # => true\n\n# Notice it's only set to 2 in the case of ruby\natom.config.get('language.tabLength') # => 4\natom.config.get('language.tabLength', scope: ['source.ruby']) # => 2\natom.config.get('language.tabLength', scope: ['source.js']) # => 4\n```\n\n* `keyPath` The {String} name of the key.\n* `value` The value of the setting. Passing `undefined` will revert the\n  setting to the default value.\n* `options` (optional) {Object}\n  * `scopeSelector` (optional) {String}. eg. '.source.ruby'\n    See [the scopes docs](https://docs.pulsar-edit.dev/infrastructure/scoped-settings/)\n    for more information.\n  * `source` (optional) {String} The name of a file with which the setting\n    is associated. Defaults to the user's config file.\n\nReturns a {Boolean}\n* `true` if the value was set.\n* `false` if the value was not able to be coerced to the type specified in the setting's schema.",
-          "line": 712
+          "line": 705
         },
         {
           "name": "unset",
@@ -824,7 +824,7 @@
           "category": "Managing Settings",
           "visibility": "Essential",
           "description": "Restore the setting at `keyPath` to its default value.\n\n* `keyPath` The {String} name of the key.\n* `options` (optional) {Object}\n  * `scopeSelector` (optional) {String}. See {::set}\n  * `source` (optional) {String}. See {::set}",
-          "line": 757
+          "line": 750
         },
         {
           "name": "getSources",
@@ -835,7 +835,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Get an {Array} of all of the `source` {String}s with which\nsettings have been added via {::set}.",
-          "line": 806
+          "line": 799
         },
         {
           "name": "getSchema",
@@ -846,7 +846,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Retrieve the schema for a specific key path. The schema will tell\nyou what type the keyPath expects, and other metadata about the config\noption.\n\n* `keyPath` The {String} name of the key.\n\nReturns an {Object} eg. `{type: 'integer', default: 23, minimum: 1}`.\nReturns `null` when the keyPath has no schema specified, but is accessible\nfrom the root schema.",
-          "line": 819
+          "line": 812
         },
         {
           "name": "transact",
@@ -857,7 +857,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Suppress calls to handler functions registered with {::onDidChange}\nand {::observe} for the duration of `callback`. After `callback` executes,\nhandlers will be called once if the value for their key-path has changed.\n\n* `callback` {Function} to execute while suppressing calls to handlers.",
-          "line": 852
+          "line": 845
         }
       ]
     },
@@ -2848,18 +2848,18 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Return detailed cached status for a repository path, or `null`.",
-          "line": 654
+          "line": 652
         },
         {
           "name": "refreshStatusSnapshot",
           "kind": "method",
           "static": false,
-          "async": true,
+          "async": false,
           "signature": "::refreshStatusSnapshot(options = {})",
           "category": "Reading Status",
           "visibility": "Public",
-          "description": "Refresh the detailed branch and file status snapshot with Git.\nThis is intentionally independent from the synchronous git-utils cache so\nhot path coloring never waits for a Git subprocess.",
-          "line": 664
+          "description": "Refresh the detailed branch and file status snapshot with Git.\nConcurrent calls coalesce into at most one in-flight and one trailing\nsubprocess; see {::coalesceSnapshotRefresh}.",
+          "line": 708
         },
         {
           "name": "getPathStatusSummary",
@@ -2870,7 +2870,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Classified status for one path, read from the detailed status\nsnapshot.\n\n* `filePath` A {String} path, absolute or repository-relative.\n\nReturns a frozen `{source, conflicted, modified, added, renamed}` object\n(`source` is always `\"snapshot\"`), or `null` for clean, ignored, unknown,\nand pre-snapshot paths.",
-          "line": 754
+          "line": 807
         },
         {
           "name": "getDirectoryStatusSummary",
@@ -2881,7 +2881,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Aggregate classified status for a directory, including the\nrepository root. Same sourcing and shape as {::getPathStatusSummary}\n(without `renamed`); returns `null` when nothing below the directory has\na reportable status.",
-          "line": 766
+          "line": 819
         },
         {
           "name": "getRefsSnapshot",
@@ -2892,7 +2892,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Return the latest immutable refs snapshot. It contains `head`,\nlocal `branches` with upstream tracking, `remoteBranches`, `tags`,\n`remotes` with fetch and push URLs, `worktrees`, and a monotonic\n`generation`. The initial snapshot has `initialized: false`; subscribe\nwith {::onDidChangeRefsSnapshot} or call {::ensureRefsSnapshot} to load\nit.",
-          "line": 789
+          "line": 842
         },
         {
           "name": "ensureRefsSnapshot",
@@ -2903,18 +2903,18 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Resolve with an initialized refs snapshot, loading it on first\ncall. Concurrent callers share one in-flight refresh.\n\nReturns a {Promise} that resolves to the snapshot.",
-          "line": 797
+          "line": 850
         },
         {
           "name": "refreshRefsSnapshot",
           "kind": "method",
           "static": false,
-          "async": true,
+          "async": false,
           "signature": "::refreshRefsSnapshot(options = {})",
           "category": "Reading Status",
           "visibility": "Public",
-          "description": "Refresh the refs snapshot with Git. Reads branches, tags,\nremotes, worktrees, and the exact HEAD state in one pass; stale\nout-of-order responses are discarded and identical raw output does not\nemit a change event.",
-          "line": 823
+          "description": "Refresh the refs snapshot with Git. Concurrent calls coalesce into\nat most one in-flight and one trailing refresh; see\n{::coalesceSnapshotRefresh}.",
+          "line": 873
         },
         {
           "name": "getDiff",
@@ -2925,7 +2925,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Compute a structured diff between two endpoints.\n\n* `options` An {Object} with the following keys:\n  * `from` and `to`, endpoint objects — one of `{type: \"commit\", revision}`,\n    `{type: \"index\"}`, `{type: \"worktree\"}`, `{type: \"file\", path}`, or\n    `{type: \"empty\"}`. Supported pairs: index→worktree (default),\n    commit→index, commit→worktree, commit→commit, file→file, empty↔file.\n  * `paths` An {Array} of pathspecs limiting the diff.\n  * `context` {Number} of context lines (default 3).\n  * `ignoreWhitespace` {Boolean} to pass `--ignore-all-space`.\n  * `maxBytes` {Number} output limit; exceeding it rejects with an error\n    whose `code` is `ERR_GIT_DIFF_TOO_LARGE`.\n  * `signal` An `AbortSignal` for cancellation.\n\nReturns a {Promise} resolving to a frozen\n`{schemaVersion, files, rawPatch}` object; each file carries paths,\nstatus, similarity, binary flag, modes, and hunks with classified lines.",
-          "line": 869
+          "line": 929
         },
         {
           "name": "getCommits",
@@ -2936,7 +2936,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read paginated commit history.\n\n* `options` An {Object} with the following keys:\n  * `revision` {String} starting revision (default `\"HEAD\"`).\n  * `path` {String} to limit history to one path, following renames.\n  * `limit` {Number} page size (default 50).\n  * `cursor` the `nextCursor` value from a previous page.\n  * `signal` An `AbortSignal` for cancellation.\n\nReturns a {Promise} resolving to a frozen `{commits, hasMore, nextCursor}`\nobject. Each commit has `sha`, `parents`, `author`, `committer`,\n`subject`, and `body`. An unborn repository resolves to an empty page.",
-          "line": 932
+          "line": 992
         },
         {
           "name": "getCommit",
@@ -2947,7 +2947,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read one commit with its changed-file summary.\n\n* `sha` The {String} commit id or any revision expression.\n\nReturns a {Promise} resolving to the commit object extended with\n`changedFiles`: `[{path, originalPath, status, similarity}]`.",
-          "line": 972
+          "line": 1032
         },
         {
           "name": "getFileAtRevision",
@@ -2958,7 +2958,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read a file's contents at a revision.\n\n* `filePath` A {String} path, absolute or repository-relative.\n* `revision` A {String} revision expression.\n* `options` An optional {Object}: `encoding` (default `\"utf8\"`, pass\n  `\"buffer\"` for a {Buffer}) and `signal`.\n\nReturns a {Promise} resolving to the contents, or `null` when the path\ndoes not exist at that revision.",
-          "line": 997
+          "line": 1057
         },
         {
           "name": "getBlob",
@@ -2969,7 +2969,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read a blob's contents by object id (`git cat-file -p <oid>`).\n\n* `oid` A {String} blob object id.\n* `options` An optional {Object}: `encoding` (default `\"utf8\"`, pass\n  `\"buffer\"` for a {Buffer}) and `signal`.\n\nReturns a {Promise} resolving to the contents, or `null` when the oid does\nnot name an object.",
-          "line": 1015
+          "line": 1075
         },
         {
           "name": "getDescription",
@@ -2980,7 +2980,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Describe HEAD as a ref name (`git describe --contains --all\n--always`). Returns a {Promise} resolving to the {String} description, or\n`\"\"` when the branch is unborn.",
-          "line": 1026
+          "line": 1086
         },
         {
           "name": "getBranchesContaining",
@@ -2991,7 +2991,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The fully-qualified refnames of branches that contain a commit\n(`git branch --contains`).\n\n* `commit` A {String} commit id or revision.\n* `options` An optional {Object}: `showLocal`, `showRemote`, `pattern`.\n\nReturns a {Promise} resolving to an {Array} of refname {String}s.",
-          "line": 1039
+          "line": 1099
         },
         {
           "name": "getFileMode",
@@ -3002,7 +3002,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The index mode of a path (`git ls-files --stage`).\n\n* `filePath` A {String} path, absolute or repository-relative.\n\nReturns a {Promise} resolving to the {String} mode (e.g. `\"100644\"`), or\n`null` when the path is not tracked.",
-          "line": 1055
+          "line": 1115
         },
         {
           "name": "getSubmodulePaths",
@@ -3013,7 +3013,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The repository-relative paths of the repository's submodules\n(`git submodule status`).\n\nReturns a {Promise} resolving to an {Array} of path {String}s.",
-          "line": 1065
+          "line": 1125
         },
         {
           "name": "getBlame",
@@ -3024,7 +3024,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read line-by-line blame for a file.\n\n* `filePath` A {String} path, absolute or repository-relative.\n* `options` An optional {Object}: `revision` to blame at a specific\n  revision, and `signal`.\n\nReturns a {Promise} resolving to a frozen `{revision, lines}` object\nwhere each line has `line`, `originalLine`, `sha`, `author`, `summary`.",
-          "line": 1079
+          "line": 1139
         },
         {
           "name": "getLineDiffsAsync",
@@ -3035,7 +3035,7 @@
           "category": "Retrieving Diffs",
           "visibility": "Public",
           "description": "Computes gutter line diffs off the renderer thread via the\ngit-host worker (fetching and caching the HEAD blob, diffing in JS) instead\nof synchronously via libgit2.\n\n* `filePath` The {String} path relative to the repository.\n* `text` The {String} to compare against the `HEAD` contents.\n\nReturns a {Promise} resolving to an {Array} of hunk {Object}s, each with\n`oldStart`, `newStart`, `oldLines`, and `newLines`.",
-          "line": 1103
+          "line": 1163
         },
         {
           "name": "checkoutHead",
@@ -3046,7 +3046,7 @@
           "category": "Checking Out",
           "visibility": "Public",
           "description": "Restore the contents of a path in the working directory and index\nto the version at `HEAD`, via the repository operation provider\n(`git checkout HEAD -- <path>`).\n\n* `filePath` The {String} path to checkout.\n\nReturns a {Promise} resolving to a {Boolean} that's true on success.",
-          "line": 1129
+          "line": 1189
         },
         {
           "name": "checkoutReference",
@@ -3057,7 +3057,7 @@
           "category": "Checking Out",
           "visibility": "Public",
           "description": "Checks out a branch in your repository via the repository operation\nprovider.\n\n* `reference` The {String} reference to checkout.\n* `create`    A {Boolean} value which, if true creates the new reference if\n  it doesn't exist.\n\nReturns a {Promise} resolving to a {Boolean} that's true on success.",
-          "line": 1147
+          "line": 1208
         }
       ]
     },
@@ -4179,7 +4179,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all packages have been loaded.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 113
+          "line": 115
         },
         {
           "name": "onDidActivateInitialPackages",
@@ -4190,7 +4190,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all packages have been activated.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 122
+          "line": 124
         },
         {
           "name": "onDidActivatePackage",
@@ -4201,7 +4201,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is activated.\n\n* `callback` A {Function} to be invoked when a package is activated.\n  * `package` The {Package} that was activated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 140
+          "line": 142
         },
         {
           "name": "onDidDeactivatePackage",
@@ -4212,7 +4212,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is deactivated.\n\n* `callback` A {Function} to be invoked when a package is deactivated.\n  * `package` The {Package} that was deactivated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 150
+          "line": 152
         },
         {
           "name": "onDidLoadPackage",
@@ -4223,7 +4223,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is loaded.\n\n* `callback` A {Function} to be invoked when a package is loaded.\n  * `package` The {Package} that was loaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 160
+          "line": 162
         },
         {
           "name": "onDidUnloadPackage",
@@ -4234,7 +4234,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is unloaded.\n\n* `callback` A {Function} to be invoked when a package is unloaded.\n  * `package` The {Package} that was unloaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 170
+          "line": 172
         },
         {
           "name": "getPackageDirPaths",
@@ -4245,7 +4245,7 @@
           "category": "Package system data",
           "visibility": "Public",
           "description": "Get the paths being used to look for packages.\n\nReturns an {Array} of {String} directory paths.",
-          "line": 181
+          "line": 183
         },
         {
           "name": "resolvePackagePath",
@@ -4256,7 +4256,7 @@
           "category": "General package data",
           "visibility": "Public",
           "description": "Resolve the given package name to a path on disk.\n\n* `name` - The {String} package name.\n\nReturn a {String} folder path or undefined if it could not be resolved.",
-          "line": 194
+          "line": 196
         },
         {
           "name": "isBundledPackage",
@@ -4267,7 +4267,7 @@
           "category": "General package data",
           "visibility": "Public",
           "description": "Is the package with the given name bundled with Lumine?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 217
+          "line": 219
         },
         {
           "name": "enablePackage",
@@ -4278,7 +4278,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Enable the package with the given name.\n\n* `name` - The {String} package name.\n\nReturns the {Package} that was enabled or null if it isn't loaded.",
-          "line": 230
+          "line": 232
         },
         {
           "name": "disablePackage",
@@ -4289,7 +4289,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Disable the package with the given name.\n\n* `name` - The {String} package name.\n\nReturns the {Package} that was disabled or null if it isn't loaded.",
-          "line": 243
+          "line": 245
         },
         {
           "name": "isPackageDisabled",
@@ -4300,7 +4300,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Is the package with the given name disabled?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 256
+          "line": 258
         },
         {
           "name": "getActivePackages",
@@ -4311,7 +4311,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Get an {Array} of all the active {Package}s.",
-          "line": 265
+          "line": 267
         },
         {
           "name": "getActivePackage",
@@ -4322,7 +4322,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Get the active {Package} with the given name.\n\n* `name` - The {String} package name.\n\nReturns a {Package} or undefined.",
-          "line": 274
+          "line": 276
         },
         {
           "name": "isPackageActive",
@@ -4333,7 +4333,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Is the {Package} with the given name active?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 283
+          "line": 285
         },
         {
           "name": "hasActivatedInitialPackages",
@@ -4344,7 +4344,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Returns a {Boolean} indicating whether package activation has occurred.",
-          "line": 288
+          "line": 290
         },
         {
           "name": "getLoadedPackages",
@@ -4355,7 +4355,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Get an {Array} of all the loaded {Package}s",
-          "line": 297
+          "line": 299
         },
         {
           "name": "getLoadedPackage",
@@ -4366,7 +4366,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Get the loaded {Package} with the given name.\n\n* `name` - The {String} package name.\n\nReturns a {Package} or undefined.",
-          "line": 313
+          "line": 315
         },
         {
           "name": "isPackageLoaded",
@@ -4377,7 +4377,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Is the package with the given name loaded?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 322
+          "line": 324
         },
         {
           "name": "hasLoadedInitialPackages",
@@ -4388,7 +4388,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Returns a {Boolean} indicating whether package loading has occurred.",
-          "line": 327
+          "line": 329
         },
         {
           "name": "getAvailablePackagePaths",
@@ -4399,7 +4399,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package paths.",
-          "line": 336
+          "line": 338
         },
         {
           "name": "getAvailablePackageNames",
@@ -4410,7 +4410,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package names.",
-          "line": 341
+          "line": 343
         },
         {
           "name": "getAvailablePackageMetadata",
@@ -4421,7 +4421,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package metadata.",
-          "line": 346
+          "line": 348
         }
       ]
     },
@@ -5026,7 +5026,7 @@
           "category": "Construction and Destruction",
           "visibility": "Public",
           "description": "Destroy and remove this panel from the UI.",
-          "line": 26
+          "line": 37
         },
         {
           "name": "onDidChangeVisible",
@@ -5037,7 +5037,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the pane hidden or shown.\n\n* `callback` {Function} to be called when the pane is destroyed.\n  * `visible` {Boolean} true when the panel has been shown\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 55
+          "line": 66
         },
         {
           "name": "onDidDestroy",
@@ -5048,7 +5048,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the pane is destroyed.\n\n* `callback` {Function} to be called when the pane is destroyed.\n  * `panel` {Panel} this panel\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 65
+          "line": 76
         },
         {
           "name": "getItem",
@@ -5059,7 +5059,7 @@
           "category": "Panel Details",
           "visibility": "Public",
           "description": "Returns the panel's item.",
-          "line": 74
+          "line": 85
         },
         {
           "name": "getPriority",
@@ -5070,7 +5070,7 @@
           "category": "Panel Details",
           "visibility": "Public",
           "description": "Returns a {Number} indicating this panel's priority.",
-          "line": 79
+          "line": 90
         },
         {
           "name": "isVisible",
@@ -5081,7 +5081,7 @@
           "category": "Panel Details",
           "visibility": "Public",
           "description": "Returns a {Boolean} true when the panel is visible.",
-          "line": 88
+          "line": 99
         },
         {
           "name": "hide",
@@ -5092,18 +5092,18 @@
           "category": "Panel Details",
           "visibility": "Public",
           "description": "Hide this panel",
-          "line": 93
+          "line": 104
         },
         {
           "name": "show",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::show()",
+          "signature": "::show(options)",
           "category": "Panel Details",
           "visibility": "Public",
-          "description": "Show this panel",
-          "line": 101
+          "description": "Show this panel.\n\n* `options` (optional) {Object}\n  * `crumb` Modal panels only. A {String}, or `true` to use the label the\n    panel declared when it was added. The panel announces \"display me now\n    and take me into the breadcrumb\": the modal that is visible at this\n    moment becomes the previous entry of the window's modal trail, the\n    breadcrumb strip shows the path, and `modal:go-back` (Shift-Escape)\n    or a click on an earlier crumb returns to it. Without `crumb` the\n    panel is shown standalone, exactly as before — and showing a modal\n    standalone ends whatever trail another flow had built.",
+          "line": 122
         }
       ]
     },
@@ -10810,7 +10810,73 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke `callback` when style sheet changes associated with\nupdating the list of active themes have completed.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 113
+          "line": 114
+        },
+        {
+          "name": "onDidChangeThemePacks",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeThemePacks(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke `callback` when a theme pack is registered or removed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 121
+        },
+        {
+          "name": "registerThemePack",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::registerThemePack({ name, light, dark } = {})",
+          "category": "Accessing Available Themes",
+          "visibility": "Public",
+          "description": "Register a named light/dark theme pack.\n\nA pack groups the complete theme stacks for both appearance modes:\n\n* `name` A user-facing {String}.\n* `light` An {Array} of theme package names.\n* `dark` An {Array} of theme package names.\n\nReturns a {Disposable} that removes the pack.",
+          "line": 143
+        },
+        {
+          "name": "getThemePacks",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getThemePacks()",
+          "category": "Accessing Available Themes",
+          "visibility": "Public",
+          "description": "Returns registered theme packs sorted by their user-facing names.",
+          "line": 175
+        },
+        {
+          "name": "isThemePackActive",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isThemePackActive(themePack)",
+          "category": "Accessing Available Themes",
+          "visibility": "Public",
+          "description": "Returns whether both configured mode pairs match `themePack`.",
+          "line": 180
+        },
+        {
+          "name": "getActiveThemePack",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActiveThemePack()",
+          "category": "Accessing Available Themes",
+          "visibility": "Public",
+          "description": "Returns the registered pack matching both configured mode pairs.",
+          "line": 195
+        },
+        {
+          "name": "setThemePack",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setThemePack(themePack)",
+          "category": "Accessing Available Themes",
+          "visibility": "Public",
+          "description": "Configure both appearance modes from `themePack`.",
+          "line": 200
         },
         {
           "name": "getLoadedThemeNames",
@@ -10821,7 +10887,7 @@
           "category": "Accessing Loaded Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the loaded theme names.",
-          "line": 131
+          "line": 218
         },
         {
           "name": "getLoadedThemes",
@@ -10832,7 +10898,7 @@
           "category": "Accessing Loaded Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of all the loaded themes.",
-          "line": 136
+          "line": 223
         },
         {
           "name": "getActiveThemeNames",
@@ -10843,7 +10909,7 @@
           "category": "Accessing Active Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the active theme names.",
-          "line": 145
+          "line": 232
         },
         {
           "name": "getActiveThemes",
@@ -10854,7 +10920,7 @@
           "category": "Accessing Active Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of all the active themes.",
-          "line": 150
+          "line": 237
         },
         {
           "name": "getEnabledThemeNames",
@@ -10865,7 +10931,7 @@
           "category": "Managing Enabled Themes",
           "visibility": "Public",
           "description": "Get the enabled theme names from the config.\n\nReturns an array of theme names in the order that they should be activated.",
-          "line": 192
+          "line": 279
         },
         {
           "name": "updateAppearance",
@@ -10876,7 +10942,7 @@
           "category": "Private",
           "visibility": "Public",
           "description": "Apply an appearance change that restyles the window without\nchanging which themes are active — a theme package toggling a variant\nattribute on the document root, say.\n\nMutating the document directly would leave anything that caches resolved\ncolors — every package that paints to a canvas — showing the old palette\nuntil something unrelated made it redraw. This runs the mutation inside\nthe same cross-fade a theme switch uses and notifies those consumers from\nwithin it, so they repaint as part of the same transition.\n\n* `mutate` {Function} applying the change to the document.\n\nReturns a {Promise} that resolves once the change has been applied.",
-          "line": 803
+          "line": 902
         }
       ]
     },
@@ -11096,7 +11162,7 @@
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 326,
+      "line": 327,
       "members": [
         {
           "name": "observeTextEditors",
@@ -11107,7 +11173,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future text\neditors in the workspace.\n\n* `callback` {Function} to be called with current and future text editors.\n  * `editor` A {TextEditor} that is present in {::getTextEditors} at the time\n    of subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 827
+          "line": 828
         },
         {
           "name": "observePaneItems",
@@ -11118,7 +11184,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future panes items\nin the workspace.\n\n* `callback` {Function} to be called with current and future pane items.\n  * `item` An item that is present in {::getPaneItems} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 842
+          "line": 843
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -11129,7 +11195,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item changes.\n\nBecause observers are invoked synchronously, it's important not to perform\nany expensive operations via this method. Consider\n{::onDidStopChangingActivePaneItem} to delay operations until after changes\nstop occurring.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 859
+          "line": 860
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -11140,7 +11206,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item stops\nchanging.\n\nObservers are called asynchronously 100ms after the last active pane item\nchange. Handling changes here rather than in the synchronous\n{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly\nchanging or closing tabs and ensures critical UI feedback, like changing the\nhighlighted tab, gets priority over work that can be done asynchronously.\n\n* `callback` {Function} to be called when the active pane item stops\n  changing.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 877
+          "line": 878
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -11151,7 +11217,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when a text editor becomes the active\ntext editor and when there is no longer an active text editor.\n\n* `callback` {Function} to be called when the active text editor changes.\n  * `editor` The active {TextEditor} or undefined if there is no longer an\n     active text editor.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 889
+          "line": 890
         },
         {
           "name": "observeActivePaneItem",
@@ -11162,7 +11228,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active pane item and\nwith all future active pane items in the workspace.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The current active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 900
+          "line": 901
         },
         {
           "name": "observeActiveTextEditor",
@@ -11173,7 +11239,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active text editor\n(if any), with all future active text editors, and when there is no longer\nan active text editor.\n\n* `callback` {Function} to be called when the active text editor changes.\n  * `editor` The active {TextEditor} or undefined if there is not an\n     active text editor.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 914
+          "line": 915
         },
         {
           "name": "onDidOpen",
@@ -11184,7 +11250,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback whenever an item is opened. Unlike\n{::onDidAddPaneItem}, observers will be notified for items that are already\npresent in the workspace when they are reopened.\n\n* `callback` {Function} to be called whenever an item is opened.\n  * `event` {Object} with the following keys:\n    * `uri` {String} representing the opened URI. Could be `undefined`.\n    * `item` The opened item.\n    * `pane` The pane in which the item was opened.\n    * `index` The index of the opened item on its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 932
+          "line": 933
         },
         {
           "name": "onDidAddPane",
@@ -11195,7 +11261,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is added to the workspace.\n\n* `callback` {Function} to be called when panes are added.\n  * `event` {Object} with the following keys:\n    * `pane` The added pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 943
+          "line": 944
         },
         {
           "name": "onWillDestroyPane",
@@ -11206,7 +11272,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback before a pane is destroyed in the\nworkspace.\n\n* `callback` {Function} to be called before panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The pane to be destroyed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 957
+          "line": 958
         },
         {
           "name": "onDidDestroyPane",
@@ -11217,7 +11283,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is destroyed in the\nworkspace.\n\n* `callback` {Function} to be called when panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The destroyed pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 971
+          "line": 972
         },
         {
           "name": "observePanes",
@@ -11228,7 +11294,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with all current and future panes in the\nworkspace.\n\n* `callback` {Function} to be called with current and future panes.\n  * `pane` A {Pane} that is present in {::getPanes} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 985
+          "line": 986
         },
         {
           "name": "onDidChangeActivePane",
@@ -11239,7 +11305,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the active pane changes.\n\n* `callback` {Function} to be called when the active pane changes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 997
+          "line": 998
         },
         {
           "name": "observeActivePane",
@@ -11250,7 +11316,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with the current active pane and when\nthe active pane changes.\n\n* `callback` {Function} to be called with the current and future active\n  panes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1009
+          "line": 1010
         },
         {
           "name": "onDidAddPaneItem",
@@ -11261,7 +11327,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is added to the\nworkspace.\n\n* `callback` {Function} to be called when pane items are added.\n  * `event` {Object} with the following keys:\n    * `item` The added pane item.\n    * `pane` {Pane} containing the added item.\n    * `index` {Number} indicating the index of the added item in its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1024
+          "line": 1025
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -11272,7 +11338,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is about to be\ndestroyed, before the user is prompted to save it.\n\n* `callback` {Function} to be called before pane items are destroyed. If this function returns\n  a {Promise}, then the item will not be destroyed until the promise resolves.\n  * `event` {Object} with the following keys:\n    * `item` The item to be destroyed.\n    * `pane` {Pane} containing the item to be destroyed.\n    * `index` {Number} indicating the index of the item to be destroyed in\n      its pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 1042
+          "line": 1043
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -11283,7 +11349,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is destroyed.\n\n* `callback` {Function} to be called when pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The destroyed item.\n    * `pane` {Pane} containing the destroyed item.\n    * `index` {Number} indicating the index of the destroyed item in its\n      pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 1058
+          "line": 1059
         },
         {
           "name": "onDidAddTextEditor",
@@ -11294,7 +11360,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a text editor is added to the\nworkspace.\n\n* `callback` {Function} to be called when text editors are added.\n  * `event` {Object} with the following keys:\n    * `textEditor` {TextEditor} that was added.\n    * `pane` {Pane} containing the added text editor.\n    * `index` {Number} indicating the index of the added text editor in its\n       pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1075
+          "line": 1076
         },
         {
           "name": "open",
@@ -11305,7 +11371,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Opens the given URI in Lumine asynchronously.\nIf the URI is already open, the existing item for that URI will be\nactivated. If no URI is given, or no registered opener can open\nthe URI, a new empty {TextEditor} will be created.\n\n* `itemOrURI` (optional) An item to open or a {String} containing a URI.\n* `options` (optional) {Object}\n  * `initialLine` A {Number} indicating which row to move the cursor to\n    initially. Defaults to `0`.\n  * `initialColumn` A {Number} indicating which column to move the cursor to\n    initially. Defaults to `0`.\n  * `split` Either 'left', 'right', 'up' or 'down'.\n    If 'left', the item will be opened in leftmost pane of the current active pane's row.\n    If 'right', the item will be opened in the rightmost pane of the current active pane's row. If only one pane exists in the row, a new pane will be created.\n    If 'up', the item will be opened in topmost pane of the current active pane's column.\n    If 'down', the item will be opened in the bottommost pane of the current active pane's column. If only one pane exists in the column, a new pane will be created.\n  * `activatePane` A {Boolean} indicating whether to call {Pane::activate} on\n    containing pane. Defaults to `true`.\n  * `activateItem` A {Boolean} indicating whether to call {Pane::activateItem}\n    on containing pane. Defaults to `true`.\n  * `pending` A {Boolean} indicating whether or not the item should be opened\n    in a pending state. Existing pending items in a pane are replaced with\n    new pending items when they are opened.\n  * `searchAllPanes` A {Boolean}. If `true`, the workspace will attempt to\n    activate an existing item for the given URI on any pane.\n    If `false`, only the active pane will be searched for\n    an existing item for the same URI. Defaults to `false`.\n  * `location` (optional) A {String} containing the name of the location\n    in which this item should be opened (one of \"left\", \"right\", \"bottom\",\n    or \"center\"). If omitted, Lumine will fall back to the last location in\n    which a user has placed an item with the same URI or, if this is a new\n    URI, the default location specified by the item. NOTE: This option\n    should almost always be omitted to honor user preference.\n\nReturns a {Promise} that resolves to the {TextEditor} for the file URI.",
-          "line": 1118
+          "line": 1119
         },
         {
           "name": "hide",
@@ -11316,7 +11382,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Search the workspace for items matching the given URI and hide them.\n\n* `itemOrURI` The item to hide or a {String} containing the URI\n  of the item to hide.\n\nReturns a {Boolean} indicating whether any items were found (and hidden).",
-          "line": 1331
+          "line": 1332
         },
         {
           "name": "toggle",
@@ -11327,7 +11393,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Search the workspace for items matching the given URI. If any are found, hide them.\nOtherwise, open the URL.\n\n* `itemOrURI` (optional) The item to toggle or a {String} containing the URI\n  of the item to toggle.\n\nReturns a Promise that resolves when the item is shown or hidden.",
-          "line": 1367
+          "line": 1368
         },
         {
           "name": "createItemForURI",
@@ -11338,7 +11404,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Creates a new item that corresponds to the provided URI.\n\nIf no URI is given, or no registered opener can open the URI, a new empty\n{TextEditor} will be created.\n\n* `uri` A {String} containing a URI.\n\nReturns a {Promise} that resolves to the {TextEditor} (or other item) for the given URI.",
-          "line": 1438
+          "line": 1439
         },
         {
           "name": "isTextEditor",
@@ -11349,7 +11415,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if `object` is a `TextEditor`.\n\n* `object` An {Object} you want to perform the check against.",
-          "line": 1531
+          "line": 1532
         },
         {
           "name": "buildTextEditor",
@@ -11360,7 +11426,7 @@
           "category": "Opening",
           "visibility": "Extended",
           "description": "Create a new text editor.\n\nReturns a {TextEditor}.",
-          "line": 1538
+          "line": 1539
         },
         {
           "name": "buildSelectList",
@@ -11371,7 +11437,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Create a fuzzy-searchable list shown in a modal panel.\n\nThe editor ships the implementation, so a package neither depends on it nor\npins it, and a window holds exactly one copy of it. This is a factory, not a\nshared instance: every call returns a list that owns its own panel, so a\nrenderer that throws takes down one package's list rather than all of them.\n\nThe list owns its panel. Do not call {::addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n* `props` An {Object} describing the list. The two that matter most:\n  * `items` An {Array} of the objects to show.\n  * `elementForItem` A {Function} called as `(item, options)` to render a\n    row. Return an {HTMLElement}, or an {Object} with `primary` and an\n    optional `secondary`, `icon`, `className` and `trailing` to have a row\n    built for you. `options` carries `selected`, `index`, `filterKey`,\n    `visible`, a lazily computed `matchIndices`, and `highlight(text,\n    indices)` — which wraps the matched characters of `text` in\n    `span.character-match`, defaulting to this item's own indices.\n\nReturns a {SelectListView}.",
-          "line": 1567
+          "line": 1568
         },
         {
           "name": "buildInputDialog",
@@ -11382,7 +11448,51 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {::buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `atom.config`.\n\nPanel ownership is the same as {::buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n* `props` An {Object} describing the dialog, including `didConfirm(query)`,\n  `didCancel()` and `didChangeQuery(query)`.\n\nReturns an {InputDialogView}.",
-          "line": 1585
+          "line": 1586
+        },
+        {
+          "name": "popModal",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::popModal()",
+          "category": "Modal flow",
+          "visibility": "Essential",
+          "description": "Go back one step in the modal breadcrumb trail.\n\nA trail exists while a modal shown with {Panel::show}'s `crumb` option is\non screen. Going back hides the current step — without cancelling it —\nand re-shows the previous panel with its state intact. Bound to\nShift-Escape as `modal:go-back`; Escape still cancels the visible modal,\nwhich ends the whole trail.\n\nReturns a {Boolean} — `false` when there is no step to go back to.",
+          "line": 1613
+        },
+        {
+          "name": "popModalTo",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::popModalTo(index)",
+          "category": "Modal flow",
+          "visibility": "Essential",
+          "description": "Jump back to an earlier step of the modal breadcrumb trail.\n\n* `index` The zero-based trail position to return to, as reported by\n  {::getModalTrail}. The breadcrumb strip wires its crumbs to this.\n\nReturns a {Boolean} — `false` when the index is not an earlier step.",
+          "line": 1623
+        },
+        {
+          "name": "getModalTrail",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getModalTrail()",
+          "category": "Modal flow",
+          "visibility": "Essential",
+          "description": "The current modal breadcrumb trail.\n\nReturns an {Array} of {String} labels, root first; empty when no flow is\nactive.",
+          "line": 1631
+        },
+        {
+          "name": "onDidChangeModalTrail",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeModalTrail(callback)",
+          "category": "Modal flow",
+          "visibility": "Extended",
+          "description": "Invoke the given callback whenever the modal breadcrumb trail\nchanges — a step is entered, the flow goes back, or the trail ends.\n\n* `callback` {Function} receiving the trail as {::getModalTrail} reports\n  it.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 1642
         },
         {
           "name": "reopenItem",
@@ -11390,10 +11500,10 @@
           "static": false,
           "async": false,
           "signature": "::reopenItem()",
-          "category": "Opening",
+          "category": "Modal flow",
           "visibility": "Public",
           "description": "Asynchronously reopens the last-closed item's URI if it hasn't already been\nreopened.\n\nReturns a {Promise} that is resolved when the item is opened",
-          "line": 1593
+          "line": 1650
         },
         {
           "name": "addOpener",
@@ -11401,10 +11511,10 @@
           "static": false,
           "async": false,
           "signature": "::addOpener(opener)",
-          "category": "Opening",
+          "category": "Modal flow",
           "visibility": "Public",
           "description": "Register an opener for a uri.\n\nWhen a URI is opened via {Workspace::open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {ViewRegistry}.\nA {TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```coffee\natom.workspace.addOpener (uri) ->\n  if path.extname(uri) is '.toml'\n    return new TomlEditor(uri)\n```\n\n* `opener` A {Function} to be called when a path is being opened.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nopener.\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{Workspace::open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json` containing an array of URL\nstrings.",
-          "line": 1635
+          "line": 1692
         },
         {
           "name": "getPaneItems",
@@ -11415,7 +11525,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all pane items in the workspace.\n\nReturns an {Array} of items.",
-          "line": 1653
+          "line": 1710
         },
         {
           "name": "getActivePaneItem",
@@ -11426,7 +11536,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the active {Pane}'s active item.\n\nReturns a pane item {Object}.",
-          "line": 1660
+          "line": 1717
         },
         {
           "name": "getTextEditors",
@@ -11437,7 +11547,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all text editors in the workspace, if they are pane items.\n\nReturns an {Array} of {TextEditor}s.",
-          "line": 1667
+          "line": 1724
         },
         {
           "name": "getActiveTextEditor",
@@ -11448,7 +11558,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the workspace center's active item if it is a {TextEditor}.\n\nReturns a {TextEditor} or `undefined` if the workspace center's current\nactive item is not a {TextEditor}.",
-          "line": 1675
+          "line": 1732
         },
         {
           "name": "getActivePaneContainer",
@@ -11459,7 +11569,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the most recently focused pane container.\n\nReturns a {Dock} or the {WorkspaceCenter}.",
-          "line": 1727
+          "line": 1784
         },
         {
           "name": "getPanes",
@@ -11470,7 +11580,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get all panes in the workspace.\n\nReturns an {Array} of {Pane}s.",
-          "line": 1734
+          "line": 1791
         },
         {
           "name": "getActivePane",
@@ -11481,7 +11591,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the active {Pane}.\n\nReturns a {Pane}.",
-          "line": 1745
+          "line": 1802
         },
         {
           "name": "activateNextPane",
@@ -11492,7 +11602,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the next pane active.",
-          "line": 1750
+          "line": 1807
         },
         {
           "name": "activatePreviousPane",
@@ -11503,7 +11613,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the previous pane active.",
-          "line": 1755
+          "line": 1812
         },
         {
           "name": "paneContainerForURI",
@@ -11514,7 +11624,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains an item with the given\nURI.\n\n* `uri` {String} uri\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no item exists\nwith the given URI.",
-          "line": 1766
+          "line": 1823
         },
         {
           "name": "paneContainerForItem",
@@ -11525,7 +11635,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains the given item.\n\n* `item` the Item that the returned pane container must contain.\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no pane container\ncontains the given item.",
-          "line": 1776
+          "line": 1833
         },
         {
           "name": "paneForURI",
@@ -11536,7 +11646,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first {Pane} that contains an item with the given URI.\n\n* `uri` {String} uri\n\nReturns a {Pane} or `undefined` if no item exists with the given URI.",
-          "line": 1785
+          "line": 1842
         },
         {
           "name": "paneForItem",
@@ -11547,7 +11657,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the {Pane} containing the given item.\n\n* `item` the Item that the returned pane must contain.\n\nReturns a {Pane} or `undefined` if no pane exists for the given item.",
-          "line": 1799
+          "line": 1856
         },
         {
           "name": "getCenter",
@@ -11558,7 +11668,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {WorkspaceCenter} at the center of the editor window.",
-          "line": 1892
+          "line": 1949
         },
         {
           "name": "getLeftDock",
@@ -11569,7 +11679,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the left of the editor window.",
-          "line": 1897
+          "line": 1954
         },
         {
           "name": "getRightDock",
@@ -11580,7 +11690,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the right of the editor window.",
-          "line": 1902
+          "line": 1959
         },
         {
           "name": "getBottomDock",
@@ -11591,7 +11701,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} below the editor window.",
-          "line": 1907
+          "line": 1964
         },
         {
           "name": "getBottomPanels",
@@ -11602,7 +11712,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the bottom of the editor window.",
-          "line": 1942
+          "line": 1999
         },
         {
           "name": "addBottomPanel",
@@ -11613,7 +11723,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the bottom of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1958
+          "line": 2015
         },
         {
           "name": "getLeftPanels",
@@ -11624,7 +11734,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the left of the editor window.",
-          "line": 1963
+          "line": 2020
         },
         {
           "name": "addLeftPanel",
@@ -11635,7 +11745,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the left of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 1979
+          "line": 2036
         },
         {
           "name": "getRightPanels",
@@ -11646,7 +11756,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the right of the editor window.",
-          "line": 1984
+          "line": 2041
         },
         {
           "name": "addRightPanel",
@@ -11657,7 +11767,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the right of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2000
+          "line": 2057
         },
         {
           "name": "getTopPanels",
@@ -11668,7 +11778,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the top of the editor window.",
-          "line": 2005
+          "line": 2062
         },
         {
           "name": "addTopPanel",
@@ -11679,7 +11789,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the top of the editor window above the tabs.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2021
+          "line": 2078
         },
         {
           "name": "getHeaderPanels",
@@ -11690,7 +11800,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the header.",
-          "line": 2026
+          "line": 2083
         },
         {
           "name": "addHeaderPanel",
@@ -11701,7 +11811,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the header.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2042
+          "line": 2099
         },
         {
           "name": "getFooterPanels",
@@ -11712,7 +11822,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the footer.",
-          "line": 2047
+          "line": 2104
         },
         {
           "name": "addFooterPanel",
@@ -11723,7 +11833,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the footer.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2063
+          "line": 2120
         },
         {
           "name": "getModalPanels",
@@ -11734,7 +11844,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the modal panel items",
-          "line": 2068
+          "line": 2125
         },
         {
           "name": "addModalPanel",
@@ -11744,8 +11854,8 @@
           "signature": "::addModalPanel(options = {})",
           "category": "Panels",
           "visibility": "Essential",
-          "description": "Adds a panel item as a modal dialog.\n\n* `options` {Object}\n  * `item` Your panel content. It can be a DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    model option. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n  * `autoFocus` (optional) {Boolean|Element} true if you want modal focus managed for you by Lumine.\n    Lumine will automatically focus on this element or your modal panel's first tabbable element when the modal\n    opens and will restore the previously selected element when the modal closes. Lumine will\n    also automatically restrict user tab focus within your modal while it is open.\n    (default: false)\n  * `restoreFocus` (optional) {Boolean} false if you want to manage focus restoration\n    yourself. By default, when a modal panel is hidden, focus returns to the element\n    that was focused before the modal opened — or, for chained modals, before the\n    first modal in the chain opened. (default: true)\n\nReturns a {Panel}",
-          "line": 2093
+          "description": "Adds a panel item as a modal dialog.\n\n* `options` {Object}\n  * `item` Your panel content. It can be a DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    model option. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n  * `autoFocus` (optional) {Boolean|Element} true if you want modal focus managed for you by Lumine.\n    Lumine will automatically focus on this element or your modal panel's first tabbable element when the modal\n    opens and will restore the previously selected element when the modal closes. Lumine will\n    also automatically restrict user tab focus within your modal while it is open.\n    (default: false)\n  * `restoreFocus` (optional) {Boolean} false if you want to manage focus restoration\n    yourself. By default, when a modal panel is hidden, focus returns to the element\n    that was focused before the modal opened — or, for chained modals, before the\n    first modal in the chain opened. (default: true)\n  * `crumb` (optional) {String} the label this panel carries on the modal\n    breadcrumb trail. Used when the panel is shown as a flow step without\n    an explicit label — `panel.show({crumb: true})` — and when a step\n    shown on top of this panel adopts it as the trail root. See\n    {Panel::show}.\n\nReturns a {Panel}",
+          "line": 2155
         },
         {
           "name": "panelForItem",
@@ -11756,7 +11866,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Returns the {Panel} associated with the given item. Returns\n`null` when the item has no panel.\n\n* `item` Item the panel contains",
-          "line": 2101
+          "line": 2163
         },
         {
           "name": "scan",
@@ -11767,7 +11877,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a search across all files in the workspace.\n\n* `regex` {RegExp} to search with.\n* `options` (optional) {Object}\n  * `paths` An {Array} of glob patterns to search within. (See note below for multi-root projects.)\n  * `onPathsSearched` (optional) {Function} to be periodically called\n    with number of paths searched.\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` {Function} callback on each file found.\n\nReturns a {Promise} with a `cancel()` method that will cancel all\nof the underlying searches that were started as part of this scan.\n\n#### Caveats\n\nWhen a project has multiple roots, the patterns in `options.paths` may opt\ninto or out of specific roots.\n\nFor instance: when only one root is present, `'foo/bar.js'` is construed\nas a glob meant to match `<root>/foo/bar.js`; when multiple roots are\npresent and at least one project root has a base directory name of `foo`,\nthen `foo/bar.js` is construed as a glob meant only for root `foo` and\nmeant to match `bar.js`.",
-          "line": 2153
+          "line": 2221
         },
         {
           "name": "replace",
@@ -11778,7 +11888,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a replace across all the specified files in the project.\n\n* `regex` A {RegExp} to search with.\n* `replacementText` {String} to replace all matches of regex with.\n* `filePaths` An {Array} of file path strings to run the replace on.\n* `iterator` A {Function} callback on each file with replacements:\n  * `options` {Object} with keys `filePath` and `replacements`.\n\nReturns a {Promise}.",
-          "line": 2468
+          "line": 2536
         },
         {
           "name": "filePathMatchesPatterns",
@@ -11789,7 +11899,7 @@
           "category": "Searching and Replacing",
           "visibility": "Experimental",
           "description": "Tests the path of a file in the project against a set of\nglobs (using the same semantics as {::scan}) and reports whether the file\nsatisfies the patterns.\n\nInternally, this method is used to decide if a search result should be\nadded to a list of project-wide search results.\n\n* `filePath` {String} representing the absolute path to a file in the\n  project. (Any external path will automatically return `false`.)\n* `rawPatterns` {Array} of strings that describe glob patterns. Identical to\n  (and uses the same glob semantics as) the `options.paths` argument of\n  {::scan}.\n\nReturns a boolean indicating whether the given file path would be included\nin a project-wide search if the given path patterns were specified.",
-          "line": 2539
+          "line": 2607
         }
       ]
     },
@@ -12140,5 +12250,5 @@
       "line": 1000
     }
   ],
-  "memberCount": 1057
+  "memberCount": 1067
 }
