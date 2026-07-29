@@ -18,7 +18,7 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 
 ## Git and GitHub
 
-- **git-command** — run common Git workflows from a searchable command palette.
+- **git-command** — run common Git workflows from a searchable select list in Lumine's modal pane zone.
 - **git-panel** — stage, commit, and manage your repository.
 - **github-panel** — pull requests, issues, and reviews.
 

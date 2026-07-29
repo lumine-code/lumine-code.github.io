@@ -29,7 +29,7 @@ The bundled **`open-repository`** package opens the current file or repository o
 
 For richer workflows, install these `lumine-code` packages from the Install tab (see [The package system](../packages-and-themes/package-system.md)):
 
-- **[git-command](https://github.com/lumine-code/git-command)**: a searchable command palette for common Git workflows — stage and unstage changes; preview and compose commits; check out, merge, rebase, and cherry-pick; fetch, pull, push, and manage stashes; inspect status, diffs, history, and blame; or run arbitrary Git arguments.
+- **[git-command](https://github.com/lumine-code/git-command)**: a searchable select list in Lumine's modal pane zone for common Git workflows — stage and unstage changes; preview and compose commits; check out, merge, rebase, and cherry-pick; fetch, pull, push, and manage stashes; inspect status, diffs, history, and blame; or run arbitrary Git arguments.
 - **[git-panel](https://github.com/lumine-code/git-panel)**: a full Git panel — stage, unstage, and discard changes per file, hunk, or line; compose commits and manage branches; fetch, pull, push, and force-push; view diffs with hunk/line/word-level highlighting; resolve merge conflicts in the editor; and initialize or clone repositories.
 - **[github-panel](https://github.com/lumine-code/github-panel)**: adds GitHub-specific features on top of `git-panel` — browse and review pull requests (with Overview, Build Status, Commits, and Files Changed tabs), see review comments as inline decorations, open issues or pull requests by URL, and create or publish GitHub repositories.
 
