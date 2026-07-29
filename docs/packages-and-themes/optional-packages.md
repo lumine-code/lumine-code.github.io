@@ -12,6 +12,7 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **navigation-panel** — a document outline with click-to-navigate headers.
 - **minimap** — a canvas overview of the whole buffer beside the scrollbar.
 - **highlight-selected** — highlight other occurrences of the selected word.
+- **sort-lines** — sort, reverse, shuffle, and deduplicate selected text lines.
 - **calc-inline** — evaluate selected JavaScript expressions, reuse earlier results, and number selections.
 - **regex-aligner**, **sequence-creator**, **super-select**, **cursor-leader**, **quick-layout**, **invert-colors**, **word-map** — small editing and workspace utilities.
 
