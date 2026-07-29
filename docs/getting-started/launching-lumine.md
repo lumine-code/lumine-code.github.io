@@ -38,6 +38,17 @@ Lumine can also install and manage community packages from the command line (`--
 - **`--safe`** starts the editor without loading your installed or development packages — the quickest way to tell whether a problem comes from a package.
 - **`--dev`** opens a window in development mode, which loads packages from `~/.lumine/dev/packages` and enables extra developer tooling. See [Developing a package](../developing-for-lumine/developing-a-package.md).
 
+Set `LUMINE_DEV_MODE=1` to force development mode independently of command-line arguments:
+
+```sh
+# PowerShell
+$env:LUMINE_DEV_MODE = "1"
+lumine .
+
+# macOS / Linux
+LUMINE_DEV_MODE=1 lumine .
+```
+
 To run a source checkout against an already-installed Lumine, point it at the checkout and launch in dev mode:
 
 ```sh
