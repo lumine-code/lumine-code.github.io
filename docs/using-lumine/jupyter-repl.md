@@ -6,6 +6,10 @@ Lumine's **`jupyter-repl`** package runs code interactively with Jupyter kernels
 
 Without a selection, `jupyter-repl:run` detects what to execute from the cursor position — a Python compound statement, a multi-line bracket expression, a foldable block, or the current line — and `jupyter-repl:run-and-move-down` advances to the next block afterward. `jupyter-repl:run-cell` and `jupyter-repl:run-cell-and-move-down` run the current cell. `jupyter-repl:run-all` and `jupyter-repl:run-all-above` run a whole file (each with an `-inline` variant that runs one statement at a time), and `jupyter-repl:recalculate-all` clears results, restarts the kernel, and re-runs. `jupyter-repl:clear-results` removes inline output.
 
+## Exec panel
+
+`jupyter-repl:toggle-exec-panel` opens a prompt over the session's execution history. Type code and press Enter to run it on the active editor's kernel; every run is listed below the prompt, newest first, badged with its outcome and the time it started. Nothing is deduplicated, so running the same code twice leaves two entries. Typing filters the history: press Enter on a selected entry to re-run it and close the panel, or Shift+Enter (`jupyter-repl:recall-history-entry`) to put it back in the prompt and edit it first. F12 lists the panel's actions with their keys.
+
 ## Kernels
 
 `jupyter-repl:start-local-kernel` starts a kernel for the editor's language; `jupyter-repl:interrupt-kernel`, `jupyter-repl:restart-kernel`, and `jupyter-repl:shutdown-kernel` control it, and `jupyter-repl:shutdown-all-kernels` stops every running kernel. When more than one kernel matches a language, choose it with a magic comment on the first line — for example `#:: python3`. While a file has a live kernel, jupyter-repl adds the `jupyter-kernel` class to its `atom-text-editor`, so you can scope keymaps and styles to editors that are actually running.
