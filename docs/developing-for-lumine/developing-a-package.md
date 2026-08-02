@@ -59,5 +59,5 @@ Everything you can do is reachable through the global `atom` object. Its classes
 ## Next
 
 - [Writing specs](writing-specs.md) — test your package.
-- [Handling URIs](handling-uris.md) — respond to `atom://` links.
+- [Handling URIs](handling-uris.md) — respond to `lumine://` links.
 - [Publishing a package](publishing-a-package.md) — share it with others.
