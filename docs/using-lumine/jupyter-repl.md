@@ -8,7 +8,7 @@ Without a selection, `jupyter-repl:run` detects what to execute from the cursor 
 
 ## Exec panel
 
-`jupyter-repl:toggle-exec-panel` opens a prompt over the session's execution history. Type code and press Enter to run it on the active editor's kernel; every run is listed below the prompt, newest first, badged with its outcome and the time it started. Nothing is deduplicated, so running the same code twice leaves two entries. Typing filters the history: press Enter on a selected entry to re-run it and close the panel, or Shift+Enter (`jupyter-repl:recall-history-entry`) to put it back in the prompt and edit it first. F12 lists the panel's actions with their keys.
+`jupyter-repl:toggle-exec-panel` opens a prompt over the session's execution history. Type code and press Enter to run it on the active editor's kernel; every run is listed below the prompt, newest first, badged with how long ago it ran and how it ended. Nothing is deduplicated, so running the same code twice leaves two entries. Typing filters the history: press Enter on a selected entry to re-run that instead of the prompt, or Shift+Enter (`jupyter-repl:recall-history-entry`) to put it back in the prompt and edit it first. Running anything closes the panel, so you can see the output — unless no kernel is running, in which case the panel and what you typed stay put. F12 lists the panel's actions with their keys.
 
 ## Kernels
 
