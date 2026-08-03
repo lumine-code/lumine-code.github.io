@@ -38,10 +38,10 @@ The build tool lives in the Lumine repository:
 
 ```sh
 # Rebuild a grammar at its current pin
-node script/build-grammar-wasm.js packages/language-json/grammars/tree-sitter-json.json
+node script/build-grammar-wasm.js ../language-json/grammars/tree-sitter-json.json
 
 # Bump to a new upstream version, and report node types the queries may rely on
-node script/build-grammar-wasm.js packages/language-json/grammars/tree-sitter-json.json \
+node script/build-grammar-wasm.js ../language-json/grammars/tree-sitter-json.json \
      --source "github:tree-sitter/tree-sitter-json#v0.24.8" --diff-node-types
 
 # Build without touching the repo, audit the whole fleet's ABI, or rebuild everything
@@ -50,7 +50,7 @@ node script/build-grammar-wasm.js --check
 node script/build-grammar-wasm.js --all
 ```
 
-The script clones the pinned source into a cache (`~/.lumine-grammar-build`), fetches the pinned `tree-sitter-cli`, compiles with emscripten, and verifies the result loads in the exact `web-tree-sitter` runtime Lumine ships. It then installs the wasm into **every** config that shares the same source — shared and copied wasms cannot drift apart — and updates `parserSource` and `wasmBuildTool` in place.
+The script clones the pinned source into a cache (`~/.lumine-grammar-cache`, or wherever `LUMINE_GRAMMAR_CACHE` points), fetches the pinned `tree-sitter-cli`, compiles with emscripten, and verifies the result loads in the exact `web-tree-sitter` runtime Lumine ships. It then installs the wasm into **every** config that shares the same source — shared and copied wasms cannot drift apart — and updates `parserSource` and `wasmBuildTool` in place.
 
 It needs `emcc` available: either an emscripten-activated shell, or an [emsdk](https://github.com/emscripten-core/emsdk) checkout inside the build cache (or at `$EMSDK`) with `emsdk install latest && emsdk activate latest` run once. Relocating the cache with `--cache-dir` moves the emsdk lookup with it.
 
@@ -82,15 +82,17 @@ While authoring queries, do not iterate through the pin. Symlink the package int
 
 1. Pick the new upstream tag or SHA and build with `--source … --diff-node-types`.
 2. Read the diff: **removed** node types or fields are the breakage forecast — search the grammar's `.scm` files for each one. Renames surface as query compile errors; _shape_ changes (a node moving inside another) also surface as compile errors even when the inventory is unchanged.
-3. Run the package's specs and the grammar sweep from the Lumine repo:
+3. Run the three gates from the Lumine repo. A language package lives in its own repository, so its specs run against a real build rather than through `test:only`:
 
    ```sh
-   npm run test:only -- packages/language-json/spec
-   npm run test:only -- spec/grammar-query-validation-spec.js
+   LUMINE_GRAMMAR_PACKAGE_ROOTS=../language-json npm run test:only -- spec/grammar-query-validation-spec.js
+   npm run check:grammar-captures -- --package-root ../language-json
+   npm start -- --test ../language-json/spec
    ```
 
-4. Eyeball highlighting, indentation, and folding on a real file.
-5. Commit the wasm, config, and query fixes together, one grammar per commit: `[language-json] Bump tree-sitter-json to v0.24.8 (rebuild wasm)`. CI validates that any wasm change also updates `parserSource` or `wasmBuildTool`; run `node script/validate-wasm-grammar-prs.js` locally before pushing directly to master.
+4. Eyeball highlighting, indentation, and folding on a real file — `spec/fixtures/sample.*` exists for exactly this.
+5. Commit the wasm, config, and query fixes together, one grammar per commit. CI validates that any wasm change also updates `parserSource` or `wasmBuildTool`; run `node script/validate-wasm-grammar-prs.js` locally before pushing directly to master.
+6. Push the package **first**, then repin it in `lumine/package.json` — in both `dependencies` and `packageDependencies` — and `npm install`. Until that pin moves, the package's own CI still tests against the previously pinned editor. The order reverses only when the editor change is the breaking one.
 
 ## Query validation and errors
 
