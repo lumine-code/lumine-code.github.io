@@ -17,7 +17,7 @@ A grammar is a `.json` file under `grammars/` (the older `.cson` format is still
 
 The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
 
-To start a Tree-sitter grammar package from scratch, `script/new-grammar-package.js` in the Lumine repository scaffolds the whole repository — config, specs, CI, and lint setup — and prints the build and registration steps. If you are adapting queries from upstream or nvim-treesitter, note that none of those files can be used unchanged: a capture name there is a highlight group, not a scope, so every one has to be rewritten. `npm run check:grammar-captures` fails the build on any that were not.
+To start a Tree-sitter grammar package from scratch, `new-grammar-package.js`, in the workspace `tools/grammar-authoring/` checkout, scaffolds the whole repository — config, specs, CI, and lint setup — and prints the build and registration steps. If you are adapting queries from upstream or nvim-treesitter, note that none of those files can be used unchanged: a capture name there is a highlight group, not a scope, so every one has to be rewritten. `npm run check:grammar-captures` fails the build on any that were not.
 
 ## Choosing which grammar applies
 

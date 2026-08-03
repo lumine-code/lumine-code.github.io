@@ -100,7 +100,7 @@ Every query of every bundled grammar is compiled in CI by `spec/grammar-query-va
 
 A grammar package in its own repository carries the same gate as a spec of its own, `spec/grammar-queries-spec.js`, which compiles every query its configs declare against its committed wasm. It needs no CI change: the package's existing integration job already runs its specs inside a real Lumine build. Without it such a package has **no** query gate at all, and a broken highlights query does not fail its other specs — the language layer degrades to a placeholder, so everything stays green while highlighting is silently dead.
 
-New grammar packages are scaffolded with `script/new-grammar-package.js`, which emits that spec along with the rest of the repository.
+New grammar packages are scaffolded with `new-grammar-package.js` from the `tools/grammar-authoring/` checkout, which emits that spec along with the rest of the repository. It lives outside this repository because nothing here runs it: it creates a *different* repository, by hand, and no spec or CI job touches it.
 
 ### Captures that compile but are not scopes
 
