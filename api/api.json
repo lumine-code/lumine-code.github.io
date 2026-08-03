@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.132.1-dev",
-  "generatedAt": "2026-08-03T02:41:08.801Z",
+  "generatedAt": "2026-08-03T16:46:21.397Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -11244,44 +11244,11 @@
       ]
     },
     {
-      "name": "ViewRegistry",
-      "visibility": "Essential",
-      "description": "`ViewRegistry` handles the association between model and view\ntypes in Lumine. We call this association a View Provider. As in, for a given\nmodel, this class can provide a view via {::getView}, as long as the\nmodel/view association was registered via {::addViewProvider}\n\nIf you're adding your own kind of pane item, a good strategy for all but the\nsimplest items is to separate the model and the view. The model handles\napplication logic and is the primary point of API interaction. The view\njust handles presentation.\n\nNote: Models can be any object, but must implement a `getTitle()` function\nif they are to be displayed in a {Pane}\n\nView providers inform the workspace how your model objects should be\npresented in the DOM. A view provider must always return a DOM node, which\nmakes [HTML 5 custom elements](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/)\nan ideal tool for implementing views in Lumine.\n\nYou can access the `ViewRegistry` object via `atom.views`.",
-      "source": "src/view-registry.js",
-      "sourcePath": "src/view-registry.js",
-      "repository": "https://github.com/lumine-code/lumine",
-      "line": 25,
-      "members": [
-        {
-          "name": "addViewProvider",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::addViewProvider(modelConstructor, createView)",
-          "category": "Methods",
-          "visibility": "Essential",
-          "description": "Add a provider that will be used to construct views in the\nworkspace's view layer based on model objects in its model layer.\n\n## Examples\n\nText editors are divided into a model and a view layer, so when you interact\nwith methods like `atom.workspace.getActiveTextEditor()` you're only going\nto get the model object. We display text editors on screen by teaching the\nworkspace what view constructor it should use to represent them:\n\n```coffee\natom.views.addViewProvider TextEditor, (textEditor) ->\n  textEditorElement = new TextEditorElement\n  textEditorElement.initialize(textEditor)\n  textEditorElement\n```\n\n* `modelConstructor` (optional) Constructor {Function} for your model. If\n  a constructor is given, the `createView` function will only be used\n  for model objects inheriting from that constructor. Otherwise, it will\n  will be called for any object.\n* `createView` Factory {Function} that is passed an instance of your model\n  and must return a subclass of `HTMLElement` or `undefined`. If it returns\n  `undefined`, then the registry will continue to search for other view\n  providers.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded provider.",
-          "line": 68
-        },
-        {
-          "name": "getView",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getView(object)",
-          "category": "Methods",
-          "visibility": "Essential",
-          "description": "Get the view associated with an object in the workspace.\n\nIf you're just *using* the workspace, you shouldn't need to access the view\nlayer, but view layer access may be necessary if you want to perform DOM\nmanipulation that isn't supported via the model API.\n\n## View Resolution Algorithm\n\nThe view associated with the object is resolved using the following\nsequence\n\n 1. Is the object an instance of `HTMLElement`? If true, return the object.\n 2. Does the object have a method named `getElement` that returns an\n    instance of `HTMLElement`? If true, return that value.\n 3. Does the object have a property named `element` with a value which is\n    an instance of `HTMLElement`? If true, return the property value.\n 4. Is the object a jQuery object, indicated by the presence of a `jquery`\n    property? If true, return the root DOM element (i.e. `object[0]`).\n 5. Has a view provider been registered for the object? If true, use the\n    provider to create a view associated with the object, and return the\n    view.\n\nIf no associated view is returned by the sequence an error is thrown.\n\nReturns a DOM element.",
-          "line": 126
-        }
-      ]
-    },
-    {
-      "name": "WASMTreeSitterGrammar",
+      "name": "TreeSitterGrammar",
       "visibility": "Extended",
       "description": "This class holds an instance of a Tree-sitter grammar.",
-      "source": "src/wasm-tree-sitter-grammar.js",
-      "sourcePath": "src/wasm-tree-sitter-grammar.js",
+      "source": "src/tree-sitter-grammar.js",
+      "sourcePath": "src/tree-sitter-grammar.js",
       "repository": "https://github.com/lumine-code/lumine",
       "line": 84,
       "members": [
@@ -11381,7 +11348,7 @@
           "signature": "::onDidLoadQueryFiles(callback)",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Calls `callback` when this grammar first loads its query files.\n\nSince a grammar may not load immediately on startup, this method makes it\neasier to hook into the query life cycle in order to modify or augment a\ngrammar's default queries.\n\n* callback A function with the following argument:\n  * grammar The {WASMTreeSitterGrammar} whose queries have loaded.",
+          "description": "Calls `callback` when this grammar first loads its query files.\n\nSince a grammar may not load immediately on startup, this method makes it\neasier to hook into the query life cycle in order to modify or augment a\ngrammar's default queries.\n\n* callback A function with the following argument:\n  * grammar The {TreeSitterGrammar} whose queries have loaded.",
           "line": 664
         },
         {
@@ -11392,7 +11359,7 @@
           "signature": "::onDidAddInjectionPoint(callback)",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Calls `callback` when an injection point is added to this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point added to the grammar. See\n    {WASMTreeSitterGrammar::addInjectionPoint}.",
+          "description": "Calls `callback` when an injection point is added to this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point added to the grammar. See\n    {TreeSitterGrammar::addInjectionPoint}.",
           "line": 674
         },
         {
@@ -11403,7 +11370,7 @@
           "signature": "::onDidRemoveInjectionPoint(callback)",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Calls `callback` when an injection point is removed from this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point removed from this grammar. See\n    {WASMTreeSitterGrammar::addInjectionPoint}.",
+          "description": "Calls `callback` when an injection point is removed from this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point removed from this grammar. See\n    {TreeSitterGrammar::addInjectionPoint}.",
           "line": 684
         },
         {
@@ -11414,8 +11381,41 @@
           "signature": "::addInjectionPoint(injectionPoint)",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Define a set of rules for when this grammar should delegate to a\ndifferent grammar for certain regions of a buffer. Examples:\n\n* embedding one language inside another (e.g., JavaScript in HTML)\n* tokenizing certain structures with greater detail (e.g., regular\n  expressions in most languages)\n* highlighting non-standard augmentations to a language (e.g., JSDoc\n  comments in JavaScript)\n\nThis differs from TextMate-style injections, which operate at the scope\nlevel and are currently incompatible with Tree-sitter grammars.\n\nYou should typically not call this method directly; instead, call\n{GrammarRegistry::addInjectionPoint} and pass a given grammar’s root\nlanguage scope as the first argument.\n\nNOTE: Packages will call {::addInjectionPoint} with a given scope name,\nand that call will be delegated to any Tree-sitter grammars that match\nthat scope name, whether they're legacy Tree-sitter or modern Tree-sitter.\nBut modern Tree-sitter grammars cannot be injected into legacy Tree-sitter\ngrammars, and vice versa.\n\n* `injectionPoint` The options for the injection point:\n  * `type` A {String} describing the type of node to inject into.\n  * `language` A {Function} that should return a string describing the\n    language that should be injected into this area. The string should be a\n    short, unambiguous description of the language; it will be tested\n    against other grammars’ `injectionRegex` properties. Receives one\n    parameter:\n    * `node` A Tree-sitter node.\n  * `content` A {Function} that should return the node (or nodes) that\n    will actually be injected into. Usually this will be the same node\n    that was given, but could also be a specific child or descendant of\n    that node.\n  * `includeChildren` (optional) {Boolean} controlling whether the\n    injection range should include the ranges of the content node’s\n    children. Defaults to `false`, meaning that the range of each of this\n    node's children will be \"subtracted\" from the injection range, and the\n    remainder will be parsed as if those ranges of the buffer do not\n    exist.\n  * `includeAdjacentWhitespace` (optional) {Boolean} controlling whether\n    the injection range should include whitespace that occurs between\n    content nodes. Defaults to `false`. When `true`, if two injection\n    ranges are separated from one another by only whitespace, that\n    whitespace will be added to the injection range, and the ranges will\n    be consolidated.\n  * `newlinesBetween` (optional) {Boolean} controlling whether the\n    injection range should include any newline characters that may exist\n    in between injection ranges. Defaults to `false`. Grammars like ERB\n    and EJS need this so that they do not interpret two different\n    embedded code sections on different lines as occurring on the same\n    line.\n  * `coverShallowerScopes` (optional) {Boolean} controlling whether the\n    injection should prevent the parent grammar (and any of its\n    ancestors) from applying scope boundaries within its injection\n    range(s). Defaults to `false`.\n  * `languageScope` (optional) A value that determines what scope, if\n    any, is added to the injection as its “base” scope name. Can be a\n    {String}, {null}, or a {Function} that returns either of these values.\n    The base language scope that should be used by this injection.\n    Defaults to the grammar's own `scopeName` property. Set this to a\n    string to override the default scope name, or `null` to omit a base\n    scope name altogether. Set this to a function if the scope name to be\n    applied varies based on the grammar; the function will be called with\n    a grammar instance as its only argument.",
-          "line": 771
+          "description": "Define a set of rules for when this grammar should delegate to a\ndifferent grammar for certain regions of a buffer. Examples:\n\n* embedding one language inside another (e.g., JavaScript in HTML)\n* tokenizing certain structures with greater detail (e.g., regular\n  expressions in most languages)\n* highlighting non-standard augmentations to a language (e.g., JSDoc\n  comments in JavaScript)\n\nThis differs from TextMate-style injections, which operate at the scope\nlevel and are currently incompatible with Tree-sitter grammars.\n\nYou should typically not call this method directly; instead, call\n{GrammarRegistry::addInjectionPoint} and pass a given grammar’s root\nlanguage scope as the first argument.\n\nNOTE: Packages will call {::addInjectionPoint} with a given scope name,\nand that call will be delegated to any Tree-sitter grammar matching that\nscope name.\n\n* `injectionPoint` The options for the injection point:\n  * `type` A {String} describing the type of node to inject into.\n  * `language` A {Function} that should return a string describing the\n    language that should be injected into this area. The string should be a\n    short, unambiguous description of the language; it will be tested\n    against other grammars’ `injectionRegex` properties. Receives one\n    parameter:\n    * `node` A Tree-sitter node.\n  * `content` A {Function} that should return the node (or nodes) that\n    will actually be injected into. Usually this will be the same node\n    that was given, but could also be a specific child or descendant of\n    that node.\n  * `includeChildren` (optional) {Boolean} controlling whether the\n    injection range should include the ranges of the content node’s\n    children. Defaults to `false`, meaning that the range of each of this\n    node's children will be \"subtracted\" from the injection range, and the\n    remainder will be parsed as if those ranges of the buffer do not\n    exist.\n  * `includeAdjacentWhitespace` (optional) {Boolean} controlling whether\n    the injection range should include whitespace that occurs between\n    content nodes. Defaults to `false`. When `true`, if two injection\n    ranges are separated from one another by only whitespace, that\n    whitespace will be added to the injection range, and the ranges will\n    be consolidated.\n  * `newlinesBetween` (optional) {Boolean} controlling whether the\n    injection range should include any newline characters that may exist\n    in between injection ranges. Defaults to `false`. Grammars like ERB\n    and EJS need this so that they do not interpret two different\n    embedded code sections on different lines as occurring on the same\n    line.\n  * `coverShallowerScopes` (optional) {Boolean} controlling whether the\n    injection should prevent the parent grammar (and any of its\n    ancestors) from applying scope boundaries within its injection\n    range(s). Defaults to `false`.\n  * `languageScope` (optional) A value that determines what scope, if\n    any, is added to the injection as its “base” scope name. Can be a\n    {String}, {null}, or a {Function} that returns either of these values.\n    The base language scope that should be used by this injection.\n    Defaults to the grammar's own `scopeName` property. Set this to a\n    string to override the default scope name, or `null` to omit a base\n    scope name altogether. Set this to a function if the scope name to be\n    applied varies based on the grammar; the function will be called with\n    a grammar instance as its only argument.",
+          "line": 769
+        }
+      ]
+    },
+    {
+      "name": "ViewRegistry",
+      "visibility": "Essential",
+      "description": "`ViewRegistry` handles the association between model and view\ntypes in Lumine. We call this association a View Provider. As in, for a given\nmodel, this class can provide a view via {::getView}, as long as the\nmodel/view association was registered via {::addViewProvider}\n\nIf you're adding your own kind of pane item, a good strategy for all but the\nsimplest items is to separate the model and the view. The model handles\napplication logic and is the primary point of API interaction. The view\njust handles presentation.\n\nNote: Models can be any object, but must implement a `getTitle()` function\nif they are to be displayed in a {Pane}\n\nView providers inform the workspace how your model objects should be\npresented in the DOM. A view provider must always return a DOM node, which\nmakes [HTML 5 custom elements](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/)\nan ideal tool for implementing views in Lumine.\n\nYou can access the `ViewRegistry` object via `atom.views`.",
+      "source": "src/view-registry.js",
+      "sourcePath": "src/view-registry.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 25,
+      "members": [
+        {
+          "name": "addViewProvider",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addViewProvider(modelConstructor, createView)",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Add a provider that will be used to construct views in the\nworkspace's view layer based on model objects in its model layer.\n\n## Examples\n\nText editors are divided into a model and a view layer, so when you interact\nwith methods like `atom.workspace.getActiveTextEditor()` you're only going\nto get the model object. We display text editors on screen by teaching the\nworkspace what view constructor it should use to represent them:\n\n```coffee\natom.views.addViewProvider TextEditor, (textEditor) ->\n  textEditorElement = new TextEditorElement\n  textEditorElement.initialize(textEditor)\n  textEditorElement\n```\n\n* `modelConstructor` (optional) Constructor {Function} for your model. If\n  a constructor is given, the `createView` function will only be used\n  for model objects inheriting from that constructor. Otherwise, it will\n  will be called for any object.\n* `createView` Factory {Function} that is passed an instance of your model\n  and must return a subclass of `HTMLElement` or `undefined`. If it returns\n  `undefined`, then the registry will continue to search for other view\n  providers.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded provider.",
+          "line": 68
+        },
+        {
+          "name": "getView",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getView(object)",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Get the view associated with an object in the workspace.\n\nIf you're just *using* the workspace, you shouldn't need to access the view\nlayer, but view layer access may be necessary if you want to perform DOM\nmanipulation that isn't supported via the model API.\n\n## View Resolution Algorithm\n\nThe view associated with the object is resolved using the following\nsequence\n\n 1. Is the object an instance of `HTMLElement`? If true, return the object.\n 2. Does the object have a method named `getElement` that returns an\n    instance of `HTMLElement`? If true, return that value.\n 3. Does the object have a property named `element` with a value which is\n    an instance of `HTMLElement`? If true, return the property value.\n 4. Is the object a jQuery object, indicated by the presence of a `jquery`\n    property? If true, return the root DOM element (i.e. `object[0]`).\n 5. Has a view provider been registered for the object? If true, use the\n    provider to create a view associated with the object, and return the\n    view.\n\nIf no associated view is returned by the sequence an error is thrown.\n\nReturns a DOM element.",
+          "line": 126
         }
       ]
     },
