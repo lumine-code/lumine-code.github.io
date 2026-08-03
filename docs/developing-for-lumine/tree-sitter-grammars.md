@@ -63,13 +63,13 @@ A grammar package does not have to live in `packages/`. It may be its own reposi
 Building one needs no extra flags — the package that owns the config passed on the command line is always in scope:
 
 ```sh
-node script/build-grammar-wasm.js ../pkg_bundled/language-lua/grammars/modern-tree-sitter-lua.json
+node script/build-grammar-wasm.js ../pkg_langus/language-lua/grammars/modern-tree-sitter-lua.json
 ```
 
 `--all` and `--check` are different: they default to this repository's packages only, because a gate that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly:
 
 ```sh
-node script/build-grammar-wasm.js --check --package-root ../pkg_bundled
+node script/build-grammar-wasm.js --check --package-root ../pkg_langus
 ```
 
 `--package-root` is repeatable, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` (a `PATH`-style list) does the same thing for a shell you use often. The grammar query sweep reads the same variable.
@@ -77,7 +77,7 @@ node script/build-grammar-wasm.js --check --package-root ../pkg_bundled
 Each grammar package also keeps a gitignored `.dev/` clone of its upstream parser, checked out at the pinned ref, so node types and upstream queries can be read without fetching anything:
 
 ```sh
-node script/clone-parser.js --all --package-root ../pkg_bundled
+node script/clone-parser.js --all --package-root ../pkg_langus
 ```
 
 While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/dev/packages`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
