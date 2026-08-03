@@ -104,6 +104,16 @@ A grammar package in its own repository carries the same gate as a spec of its o
 
 New grammar packages are scaffolded with `script/new-grammar-package.js`, which emits that spec along with the rest of the repository.
 
+### Captures that compile but are not scopes
+
+Compiling is not the whole story. A capture left with the name an upstream Neovim query gave it — `@tag.delimiter`, `@spell`, `@embedded` — compiles, and it matches. Every gate above passes. The scope simply is not a TextMate scope, so it themes as nothing and no scope selector can see it, and the only symptom is a token that stays grey.
+
+`npm run check:grammar-captures` is the gate for that, and it runs in the lint job. A capture whose first segment is not one of the TextMate roots (`comment`, `constant`, `entity`, `invalid`, `keyword`, `markup`, `meta`, `punctuation`, `source`, `storage`, `string`, `support`, `text`, `variable`) fails the build; `_IGNORE_` and `_IGNORE_.…` are exempt, which is how a helper capture used only as a predicate operand says it is not a scope.
+
+It also warns about a capture carrying no language segment. That one does not fail the build, because several are legitimate scope names that simply have no segment to carry — `markup.list.numbered`, `meta.diff.header` — and gating on it would mean keeping an allowlist.
+
+Only `highlightsQuery` is checked. The other query types have vocabularies of their own (`@fold`, `@indent`, `@name`, `@local.scope`), so measuring them against scope names would say nothing. Use `--package-root` to include a checkout that is not pinned yet.
+
 A query that fails to compile does **not** break the grammar: the editor still activates it, parses, and reports the error precisely — the query type, the offending `.scm` file and line, and the unknown node type or field name when there is one. In dev mode the error also appears as a notification, and query files are watched: saving a broken query beeps and reports, saving a fixed one hot-reloads it.
 
 Two commands help while working on queries:
