@@ -6,7 +6,7 @@ A grammar teaches Lumine to understand a language: it assigns **scopes** to piec
 
 Lumine supports two kinds of grammar, and a language package can ship both:
 
-- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: 'modern-tree-sitter'` (or the older `type: 'tree-sitter'`). See [Tree-sitter grammars](tree-sitter-grammars.md) for how their parsers, queries, and build tooling work.
+- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: 'tree-sitter'` (or the older `type: 'tree-sitter'`). See [Tree-sitter grammars](tree-sitter-grammars.md) for how their parsers, queries, and build tooling work.
 - **TextMate grammars** match text with regular expressions. They are simpler and widely available. A TextMate grammar file has a `scopeName` and no `type` field.
 
 When both are present, Lumine prefers the Tree-sitter grammar and falls back to TextMate.
@@ -15,7 +15,7 @@ When both are present, Lumine prefers the Tree-sitter grammar and falls back to 
 
 A grammar is a `.json` file under `grammars/` (the older `.cson` format is still supported). Every grammar declares a **`scopeName`** (for example `source.js`) — the root scope that themes, snippets, and scoped settings target — plus the rules that assign scopes.
 
-The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'modern-tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
+The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
 
 To start a Tree-sitter grammar package from scratch, `script/new-grammar-package.js` in the Lumine repository scaffolds the whole repository — config, specs, CI, and lint setup — and prints the build, port, and registration steps. If you are adapting queries from upstream or nvim-treesitter, read [Porting Tree-sitter queries](porting-tree-sitter-queries.md) first: capture names mean something different there, and none of those files can be used unchanged.
 

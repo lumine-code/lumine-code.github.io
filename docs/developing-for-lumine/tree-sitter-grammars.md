@@ -10,7 +10,7 @@ A Tree-sitter grammar config lives in a package's `grammars/` directory and decl
 {
   "name": "JSON",
   "scopeName": "source.json",
-  "type": "modern-tree-sitter",
+  "type": "tree-sitter",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-json#v0.24.8",
     "wasmBuildTool": "tree-sitter-cli#v0.26.11",
@@ -38,10 +38,10 @@ The build tool lives in the Lumine repository:
 
 ```sh
 # Rebuild a grammar at its current pin
-node script/build-grammar-wasm.js packages/language-json/grammars/modern-tree-sitter-json.json
+node script/build-grammar-wasm.js packages/language-json/grammars/tree-sitter-json.json
 
 # Bump to a new upstream version, and report node types the queries may rely on
-node script/build-grammar-wasm.js packages/language-json/grammars/modern-tree-sitter-json.json \
+node script/build-grammar-wasm.js packages/language-json/grammars/tree-sitter-json.json \
      --source "github:tree-sitter/tree-sitter-json#v0.24.8" --diff-node-types
 
 # Build without touching the repo, audit the whole fleet's ABI, or rebuild everything
@@ -63,7 +63,7 @@ A grammar package does not have to live in `packages/`. It may be its own reposi
 Building one needs no extra flags — the package that owns the config passed on the command line is always in scope:
 
 ```sh
-node script/build-grammar-wasm.js ../language-lua/grammars/modern-tree-sitter-lua.json
+node script/build-grammar-wasm.js ../language-lua/grammars/tree-sitter-lua.json
 ```
 
 `--all` and `--check` are different: they default to this repository's packages only, because a gate that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly:
