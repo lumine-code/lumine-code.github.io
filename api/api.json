@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.132.1-dev",
-  "generatedAt": "2026-07-29T00:20:41.448Z",
+  "generatedAt": "2026-08-03T02:41:08.801Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -13,6 +13,259 @@
       "line": 70,
       "members": [
         {
+          "name": "clipboard",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::clipboard",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Clipboard} instance",
+          "line": 75
+        },
+        {
+          "name": "deserializers",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::deserializers",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {DeserializerManager} instance",
+          "line": 88
+        },
+        {
+          "name": "views",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::views",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ViewRegistry} instance",
+          "line": 92
+        },
+        {
+          "name": "notifications",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::notifications",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {NotificationManager} instance",
+          "line": 95
+        },
+        {
+          "name": "config",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::config",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Config} instance",
+          "line": 98
+        },
+        {
+          "name": "keymaps",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::keymaps",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {KeymapManager} instance",
+          "line": 113
+        },
+        {
+          "name": "tooltips",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::tooltips",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {TooltipManager} instance",
+          "line": 118
+        },
+        {
+          "name": "commands",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::commands",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {CommandRegistry} instance",
+          "line": 124
+        },
+        {
+          "name": "grammars",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::grammars",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {GrammarRegistry} instance",
+          "line": 128
+        },
+        {
+          "name": "styles",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::styles",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {StyleManager} instance",
+          "line": 131
+        },
+        {
+          "name": "packages",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::packages",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {PackageManager} instance",
+          "line": 134
+        },
+        {
+          "name": "themes",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::themes",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ThemeManager} instance",
+          "line": 147
+        },
+        {
+          "name": "menu",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::menu",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {MenuManager} instance",
+          "line": 156
+        },
+        {
+          "name": "contextMenu",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::contextMenu",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ContextMenuManager} instance",
+          "line": 162
+        },
+        {
+          "name": "icons",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::icons",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {IconRegistry} instance",
+          "line": 174
+        },
+        {
+          "name": "repositories",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::repositories",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {RepositoryRegistry} instance",
+          "line": 182
+        },
+        {
+          "name": "secrets",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::secrets",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {SecretStore} instance",
+          "line": 199
+        },
+        {
+          "name": "project",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::project",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Project} instance",
+          "line": 204
+        },
+        {
+          "name": "textEditors",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::textEditors",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {TextEditorRegistry} instance",
+          "line": 217
+        },
+        {
+          "name": "pasteProviders",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::pasteProviders",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {PasteProviderRegistry} instance",
+          "line": 224
+        },
+        {
+          "name": "workspace",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::workspace",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Workspace} instance",
+          "line": 228
+        },
+        {
+          "name": "history",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::history",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {HistoryManager} instance",
+          "line": 260
+        },
+        {
+          "name": "tools",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::tools",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "Editor utilities a package can reuse instead of vendoring its own:\n`markdown`, `fuzzyMatcher`, and `removeDiacritics`.",
+          "line": 280
+        },
+        {
           "name": "onWillDestroy",
           "kind": "method",
           "static": false,
@@ -21,7 +274,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke the given callback when the environment is destroying, as\nhappens during window close or reload.\n\n* `callback` {Function} to be called when the environment starts destroying\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 540
+          "line": 547
         },
         {
           "name": "onDidBeep",
@@ -32,7 +285,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback whenever {@link ::beep} is called.\n\n* `callback` {function} Function to be called whenever {@link ::beep} is called.\n\nReturns {Disposable} on which `.dispose()` can be called to unsubscribe..",
-          "line": 553
+          "line": 560
         },
         {
           "name": "onWillThrowError",
@@ -43,7 +296,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when there is an unhandled error, but\nbefore the devtools pop open\n\nBoth a thrown error and a rejected promise nobody handled arrive here. A\nrejection reports no position of its own, so `url`, `line` and `column`\nare read back out of its stack, and are undefined when it has none.\n\n* `callback` {Function} to be called whenever there is an unhandled error\n  * `event` {Object}\n    * `originalError` {Object} the original error object\n    * `message` {String} the error message\n    * `url` {String} URL to the file where the error originated.\n    * `line` {Number}\n    * `column` {Number}\n    * `preventDefault` {Function} call this to avoid popping up the dev tools.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 574
+          "line": 581
         },
         {
           "name": "onDidThrowError",
@@ -54,7 +307,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback whenever there is an unhandled error,\nwhether thrown or carried by a rejected promise nobody handled.\n\n* `callback` {Function} to be called whenever there is an unhandled error\n  * `event` {Object}\n    * `originalError` {Object} the original error object\n    * `message` {String} the error message\n    * `url` {String} URL to the file where the error originated.\n    * `line` {Number}\n    * `column` {Number}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 590
+          "line": 597
         },
         {
           "name": "whenShellEnvironmentLoaded",
@@ -65,7 +318,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback as soon as the shell environment is\nloaded (or immediately if it was already loaded).\n\n* `callback` {Function} to be called once the shell environment is loaded.",
-          "line": 605
+          "line": 612
         },
         {
           "name": "inDevMode",
@@ -76,7 +329,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if the current window is in development mode.",
-          "line": 619
+          "line": 626
         },
         {
           "name": "inSafeMode",
@@ -87,7 +340,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if the current window is in safe mode.",
-          "line": 625
+          "line": 632
         },
         {
           "name": "inSpecMode",
@@ -98,7 +351,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if the current window is running specs.",
-          "line": 631
+          "line": 638
         },
         {
           "name": "getAppName",
@@ -109,7 +362,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get the full name of this Lumine release (e.g. \"Lumine\", \"Lumine Beta\")\n\nReturns the app name {String}.",
-          "line": 646
+          "line": 653
         },
         {
           "name": "getVersion",
@@ -120,7 +373,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get the version of the Lumine application.\n\nReturns the version text {String}.",
-          "line": 654
+          "line": 661
         },
         {
           "name": "versionSatisfies",
@@ -131,7 +384,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "* `value` {string} Any valid semver range.\n\nReturns {boolean} True if the current version satisfies the range provided,.",
-          "line": 667
+          "line": 674
         },
         {
           "name": "getReleaseChannel",
@@ -142,7 +395,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Gets the release channel of the Lumine application.\n\nReturns the release channel as a {String}. Will return a specific release channel\nname like 'beta' or 'nightly' if one is found in the Lumine version or 'stable'\notherwise.",
-          "line": 676
+          "line": 683
         },
         {
           "name": "isReleasedVersion",
@@ -153,7 +406,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if the current version is an official release.",
-          "line": 681
+          "line": 688
         },
         {
           "name": "getWindowLoadTime",
@@ -164,7 +417,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get the time taken to completely load the current window.\n\nThis time include things like loading and activating packages, creating\nDOM elements for the editor, and reading the config.\n\nReturns the {Number} of milliseconds taken to load the window or null\nif the window hasn't finished loading yet.",
-          "line": 692
+          "line": 699
         },
         {
           "name": "getStartupMarkers",
@@ -175,7 +428,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get all markers containing startup timing information.\n\nReturns an array of timing markers.\nEach timing is an object with two keys:\n * `label`: string\n * `time`:  Time since the `startTime` (in milliseconds).",
-          "line": 702
+          "line": 709
         },
         {
           "name": "getLoadSettings",
@@ -186,7 +439,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get the load settings for the current window.\n\nReturns an {Object} containing all the load setting key/value pairs.",
-          "line": 711
+          "line": 718
         },
         {
           "name": "open",
@@ -197,7 +450,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Open a new Lumine window using the given options.\n\nCalling this method without an options parameter will open a prompt to pick\na file/folder to open in the new window.\n\n* `params` An {Object} with the following keys:\n  * `pathsToOpen`  An {Array} of {String} paths to open.\n  * `newWindow` A {Boolean}, true to always open a new window instead of\n    reusing existing windows depending on the paths to open.\n  * `devMode` A {Boolean}, true to open the window in development mode.\n    Development mode loads the Lumine source from the locally cloned\n    repository and also loads all the packages in ~/.lumine/dev/packages\n  * `safeMode` A {Boolean}, true to open the window in safe mode. Safe\n    mode prevents all packages installed to ~/.lumine/packages from loading.",
-          "line": 733
+          "line": 740
         },
         {
           "name": "pickFolder",
@@ -208,7 +461,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Prompt the user to select one or more folders.\n\n* `callback` A {Function} to call once the user has confirmed the selection.\n  * `paths` An {Array} of {String} paths that the user selected, or `null`\n    if the user dismissed the dialog.",
-          "line": 742
+          "line": 749
         },
         {
           "name": "close",
@@ -219,7 +472,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Close the current window.",
-          "line": 747
+          "line": 754
         },
         {
           "name": "getSize",
@@ -230,7 +483,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Get the size of current window.\n\nReturns an {Object} in the format `{width: 1000, height: 700}`",
-          "line": 754
+          "line": 761
         },
         {
           "name": "setSize",
@@ -241,7 +494,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Set the size of current window.\n\n* `width` The {Number} of pixels.\n* `height` The {Number} of pixels.",
-          "line": 762
+          "line": 769
         },
         {
           "name": "getPosition",
@@ -252,7 +505,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Get the position of current window.\n\nReturns an {Object} in the format `{x: 10, y: 20}`",
-          "line": 769
+          "line": 776
         },
         {
           "name": "setPosition",
@@ -263,7 +516,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Set the position of current window.\n\n* `x` The {Number} of pixels.\n* `y` The {Number} of pixels.",
-          "line": 777
+          "line": 784
         },
         {
           "name": "getCurrentWindow",
@@ -274,7 +527,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Get the current window",
-          "line": 782
+          "line": 789
         },
         {
           "name": "center",
@@ -285,7 +538,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Move current window to the center of the screen.",
-          "line": 787
+          "line": 794
         },
         {
           "name": "focus",
@@ -296,7 +549,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Focus the current window.",
-          "line": 792
+          "line": 799
         },
         {
           "name": "show",
@@ -307,7 +560,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Show the current window.",
-          "line": 798
+          "line": 805
         },
         {
           "name": "hide",
@@ -318,7 +571,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Hide the current window.",
-          "line": 803
+          "line": 810
         },
         {
           "name": "reload",
@@ -329,7 +582,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Reload the current window.",
-          "line": 808
+          "line": 815
         },
         {
           "name": "restartApplication",
@@ -340,7 +593,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Relaunch the entire application.",
-          "line": 813
+          "line": 820
         },
         {
           "name": "isMaximized",
@@ -351,7 +604,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Returns a {Boolean} that is `true` if the current window is maximized.",
-          "line": 818
+          "line": 825
         },
         {
           "name": "isFullScreen",
@@ -362,7 +615,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Returns a {Boolean} that is `true` if the current window is in full screen mode.",
-          "line": 827
+          "line": 834
         },
         {
           "name": "setFullScreen",
@@ -373,7 +626,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Set the full screen state of the current window.",
-          "line": 832
+          "line": 839
         },
         {
           "name": "toggleFullScreen",
@@ -384,7 +637,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Toggle the full screen state of the current window.",
-          "line": 841
+          "line": 848
         },
         {
           "name": "trashItem",
@@ -395,7 +648,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Moves an item to the trash.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 849
+          "line": 856
         },
         {
           "name": "showItemInFolder",
@@ -406,7 +659,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Reveals the given path in the system's file browser, selecting\nit if possible.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 858
+          "line": 865
         },
         {
           "name": "openPath",
@@ -417,7 +670,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Opens the given path in the default manner for the operating\nsystem.\n\nFor instance: if you pass the path to a directory, will likely open that\ndirectory in a file browser. If you pass the path to an image file, will\nlikely open that image file in a web browser or an image editing\napplication.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 872
+          "line": 879
         },
         {
           "name": "openExternal",
@@ -428,7 +681,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Opens the given URL in the default manner for the operating\nsystem.\n\nFor instance: passing an `https:` URI will open it in the default web\nbrowser, and passing a `mailto:` link will open it in the default mail\nclient.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 885
+          "line": 892
         },
         {
           "name": "beep",
@@ -439,7 +692,7 @@
           "category": "Messaging the User",
           "visibility": "Public",
           "description": "Visually trigger a beep.",
-          "line": 1294
+          "line": 1301
         },
         {
           "name": "confirm",
@@ -450,7 +703,7 @@
           "category": "Messaging the User",
           "visibility": "Essential",
           "description": "A flexible way to open a dialog akin to an alert dialog.\n\nWhile both async and sync versions are provided, it is recommended to use the async version\nsuch that the renderer process is not blocked while the dialog box is open.\n\nThe async version accepts the same options as Electron's `dialog.showMessageBox`.\nFor convenience, it sets `type` to `'info'` and `normalizeAccessKeys` to `true` by default.\n\nIf the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button\nthe first button will be clicked unless a \"Cancel\" or \"No\" button is provided.\n\n## Examples\n\n```js\n// Async version (recommended)\natom.confirm({\n  message: 'How you feeling?',\n  detail: 'Be honest.',\n  buttons: ['Good', 'Bad']\n}, response => {\n  if (response === 0) {\n    window.alert('good to hear')\n  } else {\n    window.alert('bummer')\n  }\n})\n```\n\n```js\n// Legacy sync version\nconst chosen = atom.confirm({\n  message: 'How you feeling?',\n  detailedMessage: 'Be honest.',\n  buttons: {\n    Good: () => window.alert('good to hear'),\n    Bad: () => window.alert('bummer')\n  }\n})\n```\n\n* `options` An {Object} of options. If the callback argument is also supplied, see the documentation at\nhttps://electronjs.org/docs/api/dialog#dialogshowmessageboxbrowserwindow-options-callback for the list of\navailable options. Otherwise, only the following keys are accepted:\n  * `message` The {String} message to display.\n  * `detailedMessage` (optional) The {String} detailed message to display.\n  * `buttons` (optional) Either an {Array} of {String}s or an {Object} where keys are\n    button names and the values are callback {Function}s to invoke when clicked.\n* `callback` (optional) A {Function} that will be called with the index of the chosen option.\n  If a callback is supplied, the dialog will be non-blocking. This argument is recommended.\n\nReturns the chosen button index {Number} if the buttons option is an array\nor the return value of the callback if the buttons option is an object.\nIf a callback function is supplied, returns `undefined`.",
-          "line": 1351
+          "line": 1358
         },
         {
           "name": "openDevTools",
@@ -461,7 +714,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Open the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened.",
-          "line": 1367
+          "line": 1374
         },
         {
           "name": "toggleDevTools",
@@ -472,7 +725,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Toggle the visibility of the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened or\nclosed.",
-          "line": 1375
+          "line": 1382
         },
         {
           "name": "executeJavaScriptInDevTools",
@@ -483,7 +736,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Execute code in dev tools.",
-          "line": 1380
+          "line": 1387
         }
       ]
     },
@@ -2254,7 +2507,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the visibility of the dock changes.\n\n* `callback` {Function} to be called when the visibility changes.\n  * `visible` {Boolean} Is the dock now visible?\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 448
+          "line": 452
         },
         {
           "name": "observeVisible",
@@ -2265,7 +2518,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current and all future visibilities of the dock.\n\n* `callback` {Function} to be called when the visibility changes.\n  * `visible` {Boolean} Is the dock now visible?\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 458
+          "line": 462
         },
         {
           "name": "observePaneItems",
@@ -2276,7 +2529,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future panes items\nin the dock.\n\n* `callback` {Function} to be called with current and future pane items.\n  * `item` An item that is present in {::getPaneItems} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 471
+          "line": 475
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -2287,7 +2540,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item changes.\n\nBecause observers are invoked synchronously, it's important not to perform\nany expensive operations via this method. Consider\n{::onDidStopChangingActivePaneItem} to delay operations until after changes\nstop occurring.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 486
+          "line": 490
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -2298,7 +2551,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item stops\nchanging.\n\nObservers are called asynchronously 100ms after the last active pane item\nchange. Handling changes here rather than in the synchronous\n{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly\nchanging or closing tabs and ensures critical UI feedback, like changing the\nhighlighted tab, gets priority over work that can be done asynchronously.\n\n* `callback` {Function} to be called when the active pane item stops\n  changing.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 504
+          "line": 508
         },
         {
           "name": "observeActivePaneItem",
@@ -2309,7 +2562,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active pane item and\nwith all future active pane items in the dock.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The current active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 515
+          "line": 519
         },
         {
           "name": "onDidAddPane",
@@ -2320,7 +2573,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is added to the dock.\n\n* `callback` {Function} to be called when panes are added.\n  * `event` {Object} with the following keys:\n    * `pane` The added pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 526
+          "line": 530
         },
         {
           "name": "onWillDestroyPane",
@@ -2331,7 +2584,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback before a pane is destroyed in the\ndock.\n\n* `callback` {Function} to be called before panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The pane to be destroyed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 538
+          "line": 542
         },
         {
           "name": "onDidDestroyPane",
@@ -2342,7 +2595,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is destroyed in the dock.\n\n* `callback` {Function} to be called when panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The destroyed pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 549
+          "line": 553
         },
         {
           "name": "observePanes",
@@ -2353,7 +2606,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with all current and future panes in the\ndock.\n\n* `callback` {Function} to be called with current and future panes.\n  * `pane` A {Pane} that is present in {::getPanes} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 561
+          "line": 565
         },
         {
           "name": "onDidChangeActivePane",
@@ -2364,7 +2617,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the active pane changes.\n\n* `callback` {Function} to be called when the active pane changes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 571
+          "line": 575
         },
         {
           "name": "observeActivePane",
@@ -2375,7 +2628,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with the current active pane and when\nthe active pane changes.\n\n* `callback` {Function} to be called with the current and future active\n  panes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 583
+          "line": 587
         },
         {
           "name": "onDidAddPaneItem",
@@ -2386,7 +2639,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is added to the dock.\n\n* `callback` {Function} to be called when pane items are added.\n  * `event` {Object} with the following keys:\n    * `item` The added pane item.\n    * `pane` {Pane} containing the added item.\n    * `index` {Number} indicating the index of the added item in its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 596
+          "line": 600
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -2397,7 +2650,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is about to be\ndestroyed, before the user is prompted to save it.\n\n* `callback` {Function} to be called before pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The item to be destroyed.\n    * `pane` {Pane} containing the item to be destroyed.\n    * `index` {Number} indicating the index of the item to be destroyed in\n      its pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 611
+          "line": 615
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -2408,7 +2661,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is destroyed.\n\n* `callback` {Function} to be called when pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The destroyed item.\n    * `pane` {Pane} containing the destroyed item.\n    * `index` {Number} indicating the index of the destroyed item in its\n      pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 625
+          "line": 629
         },
         {
           "name": "onDidChangeHovered",
@@ -2419,7 +2672,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the hovered state of the dock changes.\n\n* `callback` {Function} to be called when the hovered state changes.\n  * `hovered` {Boolean} Is the dock now hovered?\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 635
+          "line": 639
         },
         {
           "name": "getPaneItems",
@@ -2430,7 +2683,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all pane items in the dock.\n\nReturns an {Array} of items.",
-          "line": 646
+          "line": 650
         },
         {
           "name": "getActivePaneItem",
@@ -2441,7 +2694,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the active {Pane}'s active item.\n\nReturns a pane item {Object}.",
-          "line": 653
+          "line": 657
         },
         {
           "name": "getPanes",
@@ -2452,7 +2705,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get all panes in the dock.\n\nReturns an {Array} of {Pane}s.",
-          "line": 688
+          "line": 692
         },
         {
           "name": "getActivePane",
@@ -2463,7 +2716,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the active {Pane}.\n\nReturns a {Pane}.",
-          "line": 695
+          "line": 699
         },
         {
           "name": "activateNextPane",
@@ -2474,7 +2727,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the next pane active.",
-          "line": 700
+          "line": 704
         },
         {
           "name": "activatePreviousPane",
@@ -2485,7 +2738,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the previous pane active.",
-          "line": 705
+          "line": 709
         }
       ]
     },
@@ -2891,8 +3144,8 @@
           "signature": "::getRefsSnapshot()",
           "category": "Reading Status",
           "visibility": "Public",
-          "description": "Return the latest immutable refs snapshot. It contains `head`,\nlocal `branches` with upstream tracking, `remoteBranches`, `tags`,\n`remotes` with fetch and push URLs, `worktrees`, and a monotonic\n`generation`. The initial snapshot has `initialized: false`; subscribe\nwith {::onDidChangeRefsSnapshot} or call {::ensureRefsSnapshot} to load\nit.",
-          "line": 842
+          "description": "Return the latest immutable refs snapshot. It contains `head`,\nlocal `branches` with upstream tracking, `remoteBranches`, `tags`,\n`remotes` with fetch and push URLs, `worktrees`, and a monotonic\n`generation`. Branch and tag entries include `lastCommit` metadata for\ntheir target commit. The initial snapshot has `initialized: false`;\nsubscribe with {::onDidChangeRefsSnapshot} or call\n{::ensureRefsSnapshot} to load it.",
+          "line": 843
         },
         {
           "name": "ensureRefsSnapshot",
@@ -2903,7 +3156,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Resolve with an initialized refs snapshot, loading it on first\ncall. Concurrent callers share one in-flight refresh.\n\nReturns a {Promise} that resolves to the snapshot.",
-          "line": 850
+          "line": 851
         },
         {
           "name": "refreshRefsSnapshot",
@@ -2914,7 +3167,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Refresh the refs snapshot with Git. Concurrent calls coalesce into\nat most one in-flight and one trailing refresh; see\n{::coalesceSnapshotRefresh}.",
-          "line": 873
+          "line": 874
         },
         {
           "name": "getDiff",
@@ -2925,7 +3178,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Compute a structured diff between two endpoints.\n\n* `options` An {Object} with the following keys:\n  * `from` and `to`, endpoint objects — one of `{type: \"commit\", revision}`,\n    `{type: \"index\"}`, `{type: \"worktree\"}`, `{type: \"file\", path}`, or\n    `{type: \"empty\"}`. Supported pairs: index→worktree (default),\n    commit→index, commit→worktree, commit→commit, file→file, empty↔file.\n  * `paths` An {Array} of pathspecs limiting the diff.\n  * `context` {Number} of context lines (default 3).\n  * `ignoreWhitespace` {Boolean} to pass `--ignore-all-space`.\n  * `maxBytes` {Number} output limit; exceeding it rejects with an error\n    whose `code` is `ERR_GIT_DIFF_TOO_LARGE`.\n  * `signal` An `AbortSignal` for cancellation.\n\nReturns a {Promise} resolving to a frozen\n`{schemaVersion, files, rawPatch}` object; each file carries paths,\nstatus, similarity, binary flag, modes, and hunks with classified lines.",
-          "line": 929
+          "line": 930
         },
         {
           "name": "getCommits",
@@ -2936,7 +3189,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read paginated commit history.\n\n* `options` An {Object} with the following keys:\n  * `revision` {String} starting revision (default `\"HEAD\"`).\n  * `path` {String} to limit history to one path, following renames.\n  * `limit` {Number} page size (default 50).\n  * `cursor` the `nextCursor` value from a previous page.\n  * `signal` An `AbortSignal` for cancellation.\n\nReturns a {Promise} resolving to a frozen `{commits, hasMore, nextCursor}`\nobject. Each commit has `sha`, `parents`, `author`, `committer`,\n`subject`, and `body`. An unborn repository resolves to an empty page.",
-          "line": 992
+          "line": 993
         },
         {
           "name": "getCommit",
@@ -2947,7 +3200,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read one commit with its changed-file summary.\n\n* `sha` The {String} commit id or any revision expression.\n\nReturns a {Promise} resolving to the commit object extended with\n`changedFiles`: `[{path, originalPath, status, similarity}]`.",
-          "line": 1032
+          "line": 1033
         },
         {
           "name": "getFileAtRevision",
@@ -2958,7 +3211,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read a file's contents at a revision.\n\n* `filePath` A {String} path, absolute or repository-relative.\n* `revision` A {String} revision expression.\n* `options` An optional {Object}: `encoding` (default `\"utf8\"`, pass\n  `\"buffer\"` for a {Buffer}) and `signal`.\n\nReturns a {Promise} resolving to the contents, or `null` when the path\ndoes not exist at that revision.",
-          "line": 1057
+          "line": 1058
         },
         {
           "name": "getBlob",
@@ -2969,7 +3222,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read a blob's contents by object id (`git cat-file -p <oid>`).\n\n* `oid` A {String} blob object id.\n* `options` An optional {Object}: `encoding` (default `\"utf8\"`, pass\n  `\"buffer\"` for a {Buffer}) and `signal`.\n\nReturns a {Promise} resolving to the contents, or `null` when the oid does\nnot name an object.",
-          "line": 1075
+          "line": 1076
         },
         {
           "name": "getDescription",
@@ -2980,7 +3233,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Describe HEAD as a ref name (`git describe --contains --all\n--always`). Returns a {Promise} resolving to the {String} description, or\n`\"\"` when the branch is unborn.",
-          "line": 1086
+          "line": 1087
         },
         {
           "name": "getBranchesContaining",
@@ -2991,7 +3244,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The fully-qualified refnames of branches that contain a commit\n(`git branch --contains`).\n\n* `commit` A {String} commit id or revision.\n* `options` An optional {Object}: `showLocal`, `showRemote`, `pattern`.\n\nReturns a {Promise} resolving to an {Array} of refname {String}s.",
-          "line": 1099
+          "line": 1100
         },
         {
           "name": "getFileMode",
@@ -3002,7 +3255,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The index mode of a path (`git ls-files --stage`).\n\n* `filePath` A {String} path, absolute or repository-relative.\n\nReturns a {Promise} resolving to the {String} mode (e.g. `\"100644\"`), or\n`null` when the path is not tracked.",
-          "line": 1115
+          "line": 1116
         },
         {
           "name": "getSubmodulePaths",
@@ -3013,7 +3266,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The repository-relative paths of the repository's submodules\n(`git submodule status`).\n\nReturns a {Promise} resolving to an {Array} of path {String}s.",
-          "line": 1125
+          "line": 1126
         },
         {
           "name": "getBlame",
@@ -3024,7 +3277,7 @@
           "category": "Reading Status",
           "visibility": "Public",
           "description": "Read line-by-line blame for a file.\n\n* `filePath` A {String} path, absolute or repository-relative.\n* `options` An optional {Object}: `revision` to blame at a specific\n  revision, and `signal`.\n\nReturns a {Promise} resolving to a frozen `{revision, lines}` object\nwhere each line has `line`, `originalLine`, `sha`, `author`, `summary`.",
-          "line": 1139
+          "line": 1140
         },
         {
           "name": "getLineDiffsAsync",
@@ -3035,7 +3288,7 @@
           "category": "Retrieving Diffs",
           "visibility": "Public",
           "description": "Computes gutter line diffs off the renderer thread via the\ngit-host worker (fetching and caching the HEAD blob, diffing in JS) instead\nof synchronously via libgit2.\n\n* `filePath` The {String} path relative to the repository.\n* `text` The {String} to compare against the `HEAD` contents.\n\nReturns a {Promise} resolving to an {Array} of hunk {Object}s, each with\n`oldStart`, `newStart`, `oldLines`, and `newLines`.",
-          "line": 1163
+          "line": 1164
         },
         {
           "name": "checkoutHead",
@@ -3046,7 +3299,7 @@
           "category": "Checking Out",
           "visibility": "Public",
           "description": "Restore the contents of a path in the working directory and index\nto the version at `HEAD`, via the repository operation provider\n(`git checkout HEAD -- <path>`).\n\n* `filePath` The {String} path to checkout.\n\nReturns a {Promise} resolving to a {Boolean} that's true on success.",
-          "line": 1189
+          "line": 1190
         },
         {
           "name": "checkoutReference",
@@ -3057,7 +3310,7 @@
           "category": "Checking Out",
           "visibility": "Public",
           "description": "Checks out a branch in your repository via the repository operation\nprovider.\n\n* `reference` The {String} reference to checkout.\n* `create`    A {Boolean} value which, if true creates the new reference if\n  it doesn't exist.\n\nReturns a {Promise} resolving to a {Boolean} that's true on success.",
-          "line": 1208
+          "line": 1209
         }
       ]
     },
@@ -3629,7 +3882,7 @@
           "category": "Managing Keyboard Events",
           "visibility": "Public",
           "description": "Dispatch a custom event associated with the matching key binding for\nthe given `KeyboardEvent` if one can be found.\n\nIf a matching binding is found on the event's target or one of its\nancestors, `.preventDefault()` is called on the keyboard event and the\nbinding's command is emitted as a custom event on the matching element.\n\nIf the matching binding's command is 'native!', the method will terminate\nwithout calling `.preventDefault()` on the keyboard event, allowing the\nbrowser to handle it as normal.\n\nIf the matching binding's command is 'unset!', the search will continue from\nthe current element's parent.\n\nIf the matching binding's command is 'abort!', the search will terminate\nwithout dispatching a command event.\n\nIf the event's target is `document.body`, it will be treated as if its\ntarget is `.defaultTarget` if that property is assigned on the keymap.\n\n* `event` A `KeyboardEvent` of type 'keydown'",
-          "line": 564
+          "line": 567
         },
         {
           "name": "keystrokeForKeyboardEvent",
@@ -3640,7 +3893,7 @@
           "category": "Managing Keyboard Events",
           "visibility": "Public",
           "description": "Translate a keydown event to a keystroke string.\n\n* `event` A `KeyboardEvent` of type 'keydown'\n\nReturns a {String} describing the keystroke.",
-          "line": 840
+          "line": 843
         },
         {
           "name": "addKeystrokeResolver",
@@ -3651,7 +3904,7 @@
           "category": "Managing Keyboard Events",
           "visibility": "Public",
           "description": "Customize translation of raw keyboard events to keystroke strings.\nThis API is useful for working around Chrome bugs or changing how Atom\nresolves certain key combinations. If multiple resolvers are installed,\nthe most recently-added resolver returning a string for a given keystroke\ntakes precedence.\n\n* `resolver` A {Function} that returns a keystroke {String} and is called\n   with an object containing the following keys:\n   * `keystroke` The currently resolved keystroke string. If your function\n     returns a falsy value, this is how Atom will resolve your keystroke.\n   * `event` The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API\n     documentation for more details.\n   * `layoutName` The OS-specific name of the current keyboard layout.\n   * `keymap` An object mapping DOM 3 `KeyboardEvent.code` values to objects\n     with the typed character for that key in each modifier state, based on\n     the current operating system layout.\n\nReturns a {Disposable} that removes the added resolver.",
-          "line": 862
+          "line": 865
         },
         {
           "name": "getPartialMatchTimeout",
@@ -3662,7 +3915,7 @@
           "category": "Managing Keyboard Events",
           "visibility": "Public",
           "description": "Get the number of milliseconds allowed before pending states caused\nby partial matches of multi-keystroke bindings are terminated.\n\nReturns a {Number}",
-          "line": 876
+          "line": 879
         }
       ]
     },
@@ -4135,7 +4388,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1141
+          "line": 1144
         },
         {
           "name": "rebuild",
@@ -4146,7 +4399,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1161
+          "line": 1164
         },
         {
           "name": "getBuildFailureOutput",
@@ -4157,7 +4410,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1178
+          "line": 1181
         }
       ]
     },
@@ -5124,7 +5377,7 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 574,
+      "line": 587,
       "members": [
         {
           "name": "getStartPromise",
@@ -5135,7 +5388,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Return a {Promise} that will resolve when the underlying native\nwatcher is ready to begin sending events. When testing filesystem\nwatchers, it's important to await this promise before making filesystem\nchanges that you intend to assert about because there will be a delay\nbetween the instantiation of the watcher and the activation of the\nunderlying OS resources that feed its events.\n\nPathWatchers acquired through `watchPath` are already started.\n\n```js\nconst {watchPath} = require('atom')\nconst ROOT = path.join(__dirname, 'fixtures')\nconst FILE = path.join(ROOT, 'filename.txt')\n\ndescribe('something', function () {\n  it(\"doesn't miss events\", async function () {\n    const watcher = watchPath(ROOT, {}, events => {})\n    await watcher.getStartPromise()\n    fs.writeFile(FILE, 'contents\\n', err => {\n      // The watcher is listening and the event should be\n      // received asynchronously\n    }\n  })\n})\n```",
-          "line": 671
+          "line": 684
         },
         {
           "name": "onDidError",
@@ -5146,7 +5399,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Invoke a {Function} when any errors related to this watcher are\nreported.\n\n* `callback` {Function} to be called when an error occurs.\n  * `err` An {Error} describing the failure condition.\n\nReturns a {Disposable}.",
-          "line": 708
+          "line": 721
         },
         {
           "name": "dispose",
@@ -5157,7 +5410,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Unsubscribe all subscribers from filesystem events. Native\nresources will be released asynchronously, but this watcher will stop\nbroadcasting events immediately.",
-          "line": 870
+          "line": 883
         }
       ]
     },
@@ -9986,7 +10239,7 @@
           "category": "Searching and Replacing",
           "visibility": "Essential",
           "description": "Scan regular expression matches in the entire buffer, calling the\ngiven iterator function on each match.\n\n`::scan` functions as the replace method as well via the `replace`\n\nIf you're programmatically modifying the results, you may want to try\n{::backwardsScanInBufferRange} to avoid tripping over your own changes.\n\n* `regex` A {RegExp} to search for.\n* `options` (optional) {Object}\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` A {Function} that's called on each match\n  * `object` {Object}\n    * `match` The current regular expression match.\n    * `matchText` A {String} with the text of the match.\n    * `range` The {Range} of the match.\n    * `stop` Call this {Function} to terminate the scan.\n    * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 4084
+          "line": 4085
         },
         {
           "name": "scanInBufferRange",
@@ -9997,7 +10250,7 @@
           "category": "Searching and Replacing",
           "visibility": "Essential",
           "description": "Scan regular expression matches in a given range, calling the given\niterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} in which to search.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 4105
+          "line": 4106
         },
         {
           "name": "backwardsScanInBufferRange",
@@ -10008,7 +10261,7 @@
           "category": "Searching and Replacing",
           "visibility": "Essential",
           "description": "Scan regular expression matches in a given range in reverse order,\ncalling the given iterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} in which to search.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 4121
+          "line": 4122
         },
         {
           "name": "getSoftTabs",
@@ -10019,7 +10272,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Returns a {Boolean} indicating whether softTabs are enabled for this\neditor.",
-          "line": 4131
+          "line": 4132
         },
         {
           "name": "setSoftTabs",
@@ -10030,7 +10283,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Enable or disable soft tabs for this editor.\n\n* `softTabs` A {Boolean}",
-          "line": 4138
+          "line": 4139
         },
         {
           "name": "toggleSoftTabs",
@@ -10041,7 +10294,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Toggle soft tabs for this editor",
-          "line": 4149
+          "line": 4150
         },
         {
           "name": "getTabLength",
@@ -10052,7 +10305,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Get the on-screen length of tab characters.\n\nReturns a {Number}.",
-          "line": 4156
+          "line": 4157
         },
         {
           "name": "setTabLength",
@@ -10063,7 +10316,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Set the on-screen length of tab characters. Setting this to a\n{Number} This will override the `language.tabLength` setting.\n\n* `tabLength` {Number} length of a single tab. Setting to `null` will\n  fallback to using the `language.tabLength` config setting",
-          "line": 4165
+          "line": 4166
         },
         {
           "name": "usesSoftTabs",
@@ -10074,7 +10327,7 @@
           "category": "Tab Behavior",
           "visibility": "Extended",
           "description": "Determine if the buffer uses hard or soft tabs.\n\nReturns `true` if the first non-comment line with leading whitespace starts\nwith a space character. Returns `false` if it starts with a hard tab (`\\t`).\n\nReturns a {Boolean} or undefined if no non-comment lines had leading\nwhitespace.",
-          "line": 4192
+          "line": 4193
         },
         {
           "name": "getTabText",
@@ -10085,7 +10338,7 @@
           "category": "Tab Behavior",
           "visibility": "Extended",
           "description": "Get the text representing a single level of indent.\n\nIf soft tabs are enabled, the text is composed of N spaces, where N is the\ntab length. Otherwise the text is a tab character (`\\t`).\n\nReturns a {String}.",
-          "line": 4213
+          "line": 4214
         },
         {
           "name": "isSoftWrapped",
@@ -10096,7 +10349,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Determine whether lines in this editor are soft-wrapped.\n\nReturns a {Boolean}.",
-          "line": 4233
+          "line": 4234
         },
         {
           "name": "setSoftWrapped",
@@ -10107,7 +10360,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Enable or disable soft wrapping for this editor.\n\n* `softWrapped` A {Boolean}\n\nReturns a {Boolean}.",
-          "line": 4242
+          "line": 4243
         },
         {
           "name": "toggleSoftWrapped",
@@ -10118,7 +10371,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Toggle soft wrapping for this editor\n\nReturns a {Boolean}.",
-          "line": 4254
+          "line": 4255
         },
         {
           "name": "isOvertypeMode",
@@ -10129,7 +10382,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Determine whether overtype (overwrite) mode is enabled for this\neditor. In overtype mode, typing replaces the character following the cursor\ninstead of inserting before it.\n\nReturns a {Boolean}.",
-          "line": 4263
+          "line": 4264
         },
         {
           "name": "setOvertypeMode",
@@ -10140,7 +10393,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Enable or disable overtype (overwrite) mode for this editor.\n\n* `overtypeMode` A {Boolean}.\n\nReturns a {Boolean}.",
-          "line": 4272
+          "line": 4273
         },
         {
           "name": "toggleOvertypeMode",
@@ -10151,7 +10404,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Toggle overtype (overwrite) mode for this editor.\n\nReturns a {Boolean}.",
-          "line": 4284
+          "line": 4285
         },
         {
           "name": "applyOvertype",
@@ -10162,7 +10415,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Extended",
           "description": "When overtype mode is active, expand each empty selection one\ncharacter to the right (except at the end of a line) so that the text about\nto be inserted overwrites the following character rather than being inserted\nbefore it. Non-empty selections are left untouched and replaced as usual.\n\nCalled by the editor component immediately before inserting genuinely typed\ntext; it has no effect unless {::isOvertypeMode} is `true`.",
-          "line": 4295
+          "line": 4296
         },
         {
           "name": "getSoftWrapColumn",
@@ -10173,7 +10426,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Gets the column at which column will soft wrap",
-          "line": 4305
+          "line": 4306
         },
         {
           "name": "indentationForBufferRow",
@@ -10184,7 +10437,7 @@
           "category": "Indentation",
           "visibility": "Essential",
           "description": "Get the indentation level of the given buffer row.\n\nDetermines how deeply the given row is indented based on the soft tabs and\ntab length settings of this editor. Note that if soft tabs are enabled and\nthe tab length is 2, a row with 4 leading spaces would have an indentation\nlevel of 2.\n\n* `bufferRow` A {Number} indicating the buffer row.\n\nReturns a {Number}.",
-          "line": 4331
+          "line": 4332
         },
         {
           "name": "setIndentationForBufferRow",
@@ -10195,7 +10448,7 @@
           "category": "Indentation",
           "visibility": "Essential",
           "description": "Set the indentation level for the given buffer row.\n\nInserts or removes hard tabs or spaces based on the soft tabs and tab length\nsettings of this editor in order to bring it to the given indentation level.\nNote that if soft tabs are enabled and the tab length is 2, a row with 4\nleading spaces would have an indentation level of 2.\n\n* `bufferRow` A {Number} indicating the buffer row.\n* `newLevel` A {Number} indicating the new indentation level.\n* `options` (optional) An {Object} with the following keys:\n  * `preserveLeadingWhitespace` `true` to preserve any whitespace already at\n     the beginning of the line (default: false).",
-          "line": 4347
+          "line": 4348
         },
         {
           "name": "indentSelectedRows",
@@ -10206,7 +10459,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Indent rows intersecting selections by one level.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4368
+          "line": 4369
         },
         {
           "name": "outdentSelectedRows",
@@ -10217,7 +10470,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Outdent rows intersecting selections by one level.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4377
+          "line": 4378
         },
         {
           "name": "indentLevelForLine",
@@ -10228,7 +10481,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Get the indentation level of the given line of text.\n\nDetermines how deeply the given line is indented based on the soft tabs and\ntab length settings of this editor. Note that if soft tabs are enabled and\nthe tab length is 2, a row with 4 leading spaces would have an indentation\nlevel of 2.\n\n* `line` A {String} representing a line of text.\n\nReturns a {Number}.",
-          "line": 4392
+          "line": 4393
         },
         {
           "name": "autoIndentSelectedRows",
@@ -10239,7 +10492,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Indent rows intersecting selections based on the grammar's suggested\nindent level.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4413
+          "line": 4414
         },
         {
           "name": "getGrammar",
@@ -10250,7 +10503,7 @@
           "category": "Grammars",
           "visibility": "Essential",
           "description": "Get the current {Grammar} of this editor.",
-          "line": 4448
+          "line": 4449
         },
         {
           "name": "onDidTokenize",
@@ -10261,7 +10514,7 @@
           "category": "Grammars",
           "visibility": "Experimental",
           "description": "Get a notification when async tokenization is completed.",
-          "line": 4465
+          "line": 4466
         },
         {
           "name": "getRootScopeDescriptor",
@@ -10272,7 +10525,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Essential",
           "description": "Returns a {ScopeDescriptor} that includes this editor's language.\ne.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with\n{Config::get} to get language specific config values.",
-          "line": 4476
+          "line": 4477
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -10283,7 +10536,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Essential",
           "description": "Get the syntactic {ScopeDescriptor} for the given position in buffer\ncoordinates. Useful with {Config::get}.\n\nFor example, if called with a position inside the parameter list of an\nanonymous CoffeeScript function, this method returns a {ScopeDescriptor} with\nthe following scopes array:\n`[\"source.coffee\", \"meta.function.inline.coffee\", \"meta.parameters.coffee\", \"variable.parameter.function.coffee\"]`\n\n* `bufferPosition` A {Point} or {Array} of `[row, column]`.\n\nReturns a {ScopeDescriptor}.",
-          "line": 4491
+          "line": 4492
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -10294,7 +10547,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Essential",
           "description": "Get the syntactic tree {ScopeDescriptor} for the given position in buffer\ncoordinates or the syntactic {ScopeDescriptor} for TextMate language mode\n\nFor example, if called with a position inside the parameter list of a\nJavaScript class function, this method returns a {ScopeDescriptor} with\nthe following syntax nodes array:\n`[\"source.js\", \"program\", \"expression_statement\", \"assignment_expression\", \"class\", \"class_body\", \"method_definition\", \"formal_parameters\", \"identifier\"]`\nif tree-sitter is used\nand the following scopes array:\n`[\"source.js\"]`\nif textmate is used\n\n* `bufferPosition` A {Point} or {Array} of `[row, column]`.\n\nReturns a {ScopeDescriptor}.",
-          "line": 4513
+          "line": 4514
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -10305,7 +10558,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Extended",
           "description": "Get the range in buffer coordinates of all tokens surrounding the\ncursor that match the given scope selector.\n\nFor example, if you wanted to find the string surrounding the cursor, you\ncould call `editor.bufferRangeForScopeAtCursor(\".string.quoted\")`.\n\n* `scopeSelector` {String} selector. e.g. `'.source.ruby'`\n\nReturns a {Range}.",
-          "line": 4529
+          "line": 4530
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -10316,7 +10569,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Extended",
           "description": "Get the range in buffer coordinates of all tokens surrounding the\ngiven position in buffer coordinates that match the given scope selector.\n\nFor example, if you wanted to find the string surrounding the cursor, you\ncould call `editor.bufferRangeForScopeAtPosition(\".string.quoted\", this.getCursorBufferPosition())`.\n\n* `scopeSelector` {String} selector. e.g. `'.source.ruby'`\n* `bufferPosition` A {Point} or {Array} of [row, column]\n\nReturns a {Range}.",
-          "line": 4543
+          "line": 4544
         },
         {
           "name": "isBufferRowCommented",
@@ -10327,7 +10580,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Extended",
           "description": "Determine if the given row is entirely a comment",
-          "line": 4550
+          "line": 4551
         },
         {
           "name": "copySelectedText",
@@ -10338,7 +10591,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, copy the selected text.",
-          "line": 4580
+          "line": 4581
         },
         {
           "name": "cutSelectedText",
@@ -10349,7 +10602,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, cut the selected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4610
+          "line": 4611
         },
         {
           "name": "pasteText",
@@ -10360,7 +10613,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, replace the selected text with the contents of\nthe clipboard.\n\nIf the clipboard contains the same number of selections as the current\neditor, each selection will be replaced with the content of the\ncorresponding clipboard selection text.\n\n* `options` (optional) See {Selection::insertText}.",
-          "line": 4633
+          "line": 4634
         },
         {
           "name": "cutToEndOfLine",
@@ -10371,7 +10624,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, if the selection is empty, cut all characters\nof the containing screen line following the cursor. Otherwise cut the selected\ntext.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4727
+          "line": 4728
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -10382,7 +10635,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, if the selection is empty, cut all characters\nof the containing buffer line following the cursor. Otherwise cut the\nselected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4742
+          "line": 4743
         },
         {
           "name": "foldCurrentRow",
@@ -10393,7 +10646,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Fold the most recent cursor's row based on its indentation level.\n\nThe fold will extend from the nearest preceding line with a lower\nindentation level up to the nearest following row with a lower indentation\nlevel.",
-          "line": 4760
+          "line": 4761
         },
         {
           "name": "unfoldCurrentRow",
@@ -10404,7 +10657,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Unfold the most recent cursor's row by one level.",
-          "line": 4770
+          "line": 4771
         },
         {
           "name": "foldBufferRow",
@@ -10415,7 +10668,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Fold the given row in buffer coordinates based on its indentation\nlevel.\n\nIf the given row is foldable, the fold will begin there. Otherwise, it will\nbegin at the first foldable row preceding the given row.\n\n* `bufferRow` A {Number}.",
-          "line": 4782
+          "line": 4783
         },
         {
           "name": "unfoldBufferRow",
@@ -10426,7 +10679,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Unfold all folds containing the given row in buffer coordinates.\n\n* `bufferRow` A {Number}",
-          "line": 4810
+          "line": 4811
         },
         {
           "name": "foldSelectedLines",
@@ -10437,7 +10690,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "For each selection, fold the rows it intersects.",
-          "line": 4816
+          "line": 4817
         },
         {
           "name": "foldAll",
@@ -10448,7 +10701,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Fold all foldable lines.",
-          "line": 4823
+          "line": 4824
         },
         {
           "name": "unfoldAll",
@@ -10459,7 +10712,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Unfold all existing folds.",
-          "line": 4834
+          "line": 4835
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -10470,7 +10723,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Fold all foldable lines at the given indent level.\n\n* `level` A {Number} starting at 0.",
-          "line": 4843
+          "line": 4844
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -10481,7 +10734,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in buffer coordinates is foldable.\n\nA *foldable* row is a row that *starts* a row range that can be folded.\n\n* `bufferRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4861
+          "line": 4862
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -10492,7 +10745,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in screen coordinates is foldable.\n\nA *foldable* row is a row that *starts* a row range that can be folded.\n\n* `screenRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4873
+          "line": 4874
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -10503,7 +10756,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Fold the given buffer row if it isn't currently folded, and unfold\nit otherwise.",
-          "line": 4879
+          "line": 4880
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -10514,7 +10767,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the most recently added cursor's row is folded.\n\nReturns a {Boolean}.",
-          "line": 4890
+          "line": 4891
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -10525,7 +10778,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in buffer coordinates is folded.\n\n* `bufferRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4899
+          "line": 4900
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -10536,7 +10789,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in screen coordinates is folded.\n\n* `screenRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4912
+          "line": 4913
         },
         {
           "name": "addGutter",
@@ -10547,7 +10800,7 @@
           "category": "Gutters",
           "visibility": "Essential",
           "description": "Add a custom {Gutter}.\n\n* `options` An {Object} with the following fields:\n  * `name` (required) A unique {String} to identify this gutter.\n  * `priority` (optional) A {Number} that determines stacking order between\n      gutters. Lower priority items are forced closer to the edges of the\n      window. (default: -100)\n  * `visible` (optional) {Boolean} specifying whether the gutter is visible\n      initially after being created. (default: true)\n  * `type` (optional) {String} specifying the type of gutter to create. `'decorated'`\n      gutters are useful as a destination for decorations created with {Gutter::decorateMarker}.\n      `'line-number'` gutters.\n  * `class` (optional) {String} added to the CSS classnames of the gutter's root DOM element.\n  * `labelFn` (optional) {Function} called by a `'line-number'` gutter to generate the label for each line number\n      element. Should return a {String} that will be used to label the corresponding line.\n    * `lineData` an {Object} containing information about each line to label.\n      * `bufferRow` {Number} indicating the zero-indexed buffer index of this line.\n      * `screenRow` {Number} indicating the zero-indexed screen index.\n      * `foldable` {Boolean} that is `true` if a fold may be created here.\n      * `softWrapped` {Boolean} if this screen row is the soft-wrapped continuation of the same buffer row.\n      * `maxDigits` {Number} the maximum number of digits necessary to represent any known screen row.\n  * `onMouseDown` (optional) {Function} to be called when a mousedown event is received by a line-number\n       element within this `type: 'line-number'` {Gutter}. If unspecified, the default behavior is to select the\n       clicked buffer row.\n    * `lineData` an {Object} containing information about the line that's being clicked.\n      * `bufferRow` {Number} of the originating line element\n      * `screenRow` {Number}\n  * `onMouseMove` (optional) {Function} to be called when a mousemove event occurs on a line-number element within\n       within this `type: 'line-number'` {Gutter}.\n    * `lineData` an {Object} containing information about the line that's being clicked.\n      * `bufferRow` {Number} of the originating line element\n      * `screenRow` {Number}\n\nReturns the newly-created {Gutter}.",
-          "line": 4981
+          "line": 4982
         },
         {
           "name": "getGutters",
@@ -10558,7 +10811,7 @@
           "category": "Gutters",
           "visibility": "Essential",
           "description": "Get this editor's gutters.\n\nReturns an {Array} of {Gutter}s.",
-          "line": 4988
+          "line": 4989
         },
         {
           "name": "gutterWithName",
@@ -10569,7 +10822,7 @@
           "category": "Gutters",
           "visibility": "Essential",
           "description": "Get the gutter with the given name.\n\nReturns a {Gutter}, or `null` if no gutter exists for the given name.",
-          "line": 4999
+          "line": 5000
         },
         {
           "name": "scrollToCursorPosition",
@@ -10580,7 +10833,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
           "description": "Scroll the editor to reveal the most recently added cursor if it is\noff-screen.\n\n* `options` (optional) {Object}\n  * `center` Center the editor around the cursor if possible. (default: true)",
-          "line": 5012
+          "line": 5013
         },
         {
           "name": "scrollToBufferPosition",
@@ -10591,7 +10844,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
           "description": "Scrolls the editor to the given buffer position.\n\n* `bufferPosition` An object that represents a buffer position. It can be either\n  an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)",
-          "line": 5024
+          "line": 5025
         },
         {
           "name": "scrollToScreenPosition",
@@ -10602,7 +10855,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
           "description": "Scrolls the editor to the given screen position.\n\n* `screenPosition` An object that represents a screen position. It can be either\n   an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)",
-          "line": 5037
+          "line": 5038
         },
         {
           "name": "shouldAutoIndent",
@@ -10613,7 +10866,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Is auto-indentation enabled for this editor?\n\nReturns a {Boolean}.",
-          "line": 5106
+          "line": 5107
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -10624,7 +10877,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Is auto-indentation on paste enabled for this editor?\n\nReturns a {Boolean}.",
-          "line": 5113
+          "line": 5114
         },
         {
           "name": "getScrollPastEnd",
@@ -10635,7 +10888,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Does this editor allow scrolling past the last line?\n\nReturns a {Boolean}.",
-          "line": 5120
+          "line": 5121
         },
         {
           "name": "getScrollSensitivity",
@@ -10646,7 +10899,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How fast does the editor scroll in response to mouse wheel\nmovements?\n\nReturns a positive {Number}.",
-          "line": 5132
+          "line": 5133
         },
         {
           "name": "getSmoothScrolling",
@@ -10657,7 +10910,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Are mouse wheel and scroll command movements animated?\n\nReturns a {Boolean}.",
-          "line": 5139
+          "line": 5140
         },
         {
           "name": "getWheelSmoothness",
@@ -10668,7 +10921,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How gradually does the editor glide toward the target\nposition when scrolling with the mouse wheel?\n\nReturns a positive {Number}.",
-          "line": 5148
+          "line": 5149
         },
         {
           "name": "getCommandSmoothness",
@@ -10679,7 +10932,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How gradually does the editor glide when scrolling via the\nscroll commands?\n\nReturns a positive {Number}.",
-          "line": 5157
+          "line": 5158
         },
         {
           "name": "getAltWheelMultiplier",
@@ -10690,7 +10943,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Speed multiplier applied to wheel scrolling while holding\n`alt`.\n\nReturns a positive {Number}.",
-          "line": 5166
+          "line": 5167
         },
         {
           "name": "getScrollCommandDistance",
@@ -10701,7 +10954,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Distance scrolled by the scroll commands, as a fraction of\nthe editor height. Seeded from config; the increase/decrease scroll\ndistance commands adjust it per editor.\n\nReturns a positive {Number}.",
-          "line": 5175
+          "line": 5176
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -10712,7 +10965,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How long (in milliseconds) to wait for the editor width to\nsettle before re-wrapping soft-wrapped lines. `0` re-wraps immediately.\n\nReturns a non-negative {Number}.",
-          "line": 5183
+          "line": 5184
         },
         {
           "name": "doesShowLineNumbers",
@@ -10723,7 +10976,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Are line numbers enabled for this editor?\n\nReturns a {Boolean}",
-          "line": 5190
+          "line": 5191
         },
         {
           "name": "getUndoGroupingInterval",
@@ -10734,7 +10987,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Get the time interval within which text editing operations\nare grouped together in the editor's undo history.\n\nReturns the time interval {Number} in milliseconds.",
-          "line": 5198
+          "line": 5199
         },
         {
           "name": "getNonWordCharacters",
@@ -10745,7 +10998,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Get the characters that are *not* considered part of words,\nfor the purpose of word-based cursor movements.\n\nReturns a {String} containing the non-word characters.",
-          "line": 5206
+          "line": 5207
         },
         {
           "name": "getPlaceholderText",
@@ -10756,7 +11009,7 @@
           "category": "TextEditor Rendering",
           "visibility": "Essential",
           "description": "Retrieves the greyed out placeholder of a mini editor.\n\nReturns a {String}.",
-          "line": 5266
+          "line": 5267
         },
         {
           "name": "setPlaceholderText",
@@ -10767,7 +11020,7 @@
           "category": "TextEditor Rendering",
           "visibility": "Essential",
           "description": "Set the greyed out placeholder of a mini editor. Placeholder text\nwill be displayed when the editor has no content.\n\n* `placeholderText` {String} text that is displayed when the editor has no content.",
-          "line": 5274
+          "line": 5275
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -10778,7 +11031,7 @@
           "category": "Language Mode Delegated Methods",
           "visibility": "Public",
           "description": "Return information about the appropriate comment delimiters to use\nat a given point in the buffer.\n\nLumine allows language bundles to define comment delimiters in several\nplaces. For instance, a grammar author can place delimiter metadata in the\ngrammar definition file, or as scope-specific settings in the ordinary\nconfig system — or a combination of the two.\n\nIn some languages, comment delimiters vary based on position in the\nbuffer. (For instance, line comments can't always be used in JavaScript\nJSX blocks, so block comments are much safer.) This method will look for\nany such overrides and return what it thinks are the best delimiters to\nuse at a given point.\n\nSome languages don't specify all their delimiters in their configuration,\nbut this method will return all the information that it can discern.\n\n* point - A {Point} or point-compatible {Array}.\n\nReturns an {Object} with the following properties:\n\n* `line`: If present, a {String} representing a line comment delimiter.\n  (If `undefined`, there is no known line comment delimiter for the given\n  buffer position.)\n* `block`: If present, a two-item {Array} containing {String}s\n  representing the starting and ending block comment delimiters. (If\n  `undefined`, there are no known block comment delimiters for the given\n  buffer position.)",
-          "line": 5859
+          "line": 5860
         }
       ]
     },
@@ -10949,11 +11202,11 @@
     {
       "name": "TooltipManager",
       "visibility": "Essential",
-      "description": "Associates tooltips with HTML elements.\n\nYou can get the `TooltipManager` via `atom.tooltips`.\n\n## Examples\n\nThe essence of displaying a tooltip\n\n```js\n// display it\nconst disposable = atom.tooltips.add(div, {title: 'This is a tooltip'})\n\n// remove it\ndisposable.dispose()\n```\n\nIn practice there are usually multiple tooltips. So we add them to a\nCompositeDisposable\n\n```js\nconst {CompositeDisposable} = require('atom')\nconst subscriptions = new CompositeDisposable()\n\nconst div1 = document.createElement('div')\nconst div2 = document.createElement('div')\nsubscriptions.add(atom.tooltips.add(div1, {title: 'This is a tooltip'}))\nsubscriptions.add(atom.tooltips.add(div2, {title: 'Another tooltip'}))\n\n// remove them all\nsubscriptions.dispose()\n```\n\nYou can display a key binding in the tooltip as well with the\n`keyBindingCommand` option.\n\n```js\ndisposable = atom.tooltips.add(this.caseOptionButton, {\n  title: 'Match Case',\n  keyBindingCommand: 'search-panel:toggle-case-option',\n  keyBindingTarget: this.findEditor.element\n})\n```",
+      "description": "Associates tooltips with HTML elements.\n\nYou can get the `TooltipManager` via `atom.tooltips`.\n\n## Examples\n\nThe essence of displaying a tooltip\n\n```js\n// display it\nconst disposable = atom.tooltips.add(div, {title: 'This is a tooltip'})\n\n// remove it\ndisposable.dispose()\n```\n\nIn practice there are usually multiple tooltips. So we add them to a\nCompositeDisposable\n\n```js\nconst {CompositeDisposable} = require('atom')\nconst subscriptions = new CompositeDisposable()\n\nconst div1 = document.createElement('div')\nconst div2 = document.createElement('div')\nsubscriptions.add(atom.tooltips.add(div1, {title: 'This is a tooltip'}))\nsubscriptions.add(atom.tooltips.add(div2, {title: 'Another tooltip'}))\n\n// remove them all\nsubscriptions.dispose()\n```\n\nYou can display a key binding in the tooltip as well with the\n`keyBindingCommand` option.\n\n```js\ndisposable = atom.tooltips.add(this.caseOptionButton, {\n  title: 'Match Case',\n  keyBindingCommand: 'search-panel:toggle-case-option',\n  keyBindingTarget: this.findEditor.element\n})\n```\n\nTo display several tooltip entries together, use `addComposite`.\n\n```js\ndisposable = atom.tooltips.addComposite(this.modeIndicator, [\n  {title: 'Column selection'},\n  {\n    title: 'Toggle sticky mode',\n    keyBindingExtra: 'LMB',\n    keyBindingCommand: 'column-selection:sticky'\n  },\n  {\n    title: 'Toggle picker mode',\n    keyBindingExtra: 'RMB',\n    keyBindingCommand: 'column-selection:picker'\n  }\n])\n```",
       "source": "src/tooltip-manager.js",
       "sourcePath": "src/tooltip-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 47,
+      "line": 65,
       "members": [
         {
           "name": "add",
@@ -10963,8 +11216,19 @@
           "signature": "::add(target, options)",
           "category": "Methods",
           "visibility": "Essential",
-          "description": "Add a tooltip to the given element.\n\n* `target` An `HTMLElement`\n* `options` An object with one or more of the following options:\n  * `title` A {String} or {Function} to use for the text in the tip. If\n    a function is passed, `this` will be set to the `target` element. This\n    option is mutually exclusive with the `item` option.\n  * `html` A {Boolean} affecting the interpretation of the `title` option.\n    If `true` (the default), the `title` string will be interpreted as HTML.\n    Otherwise it will be interpreted as plain text.\n  * `item` A view (object with an `.element` property) or a DOM element\n    containing custom content for the tooltip. This option is mutually\n    exclusive with the `title` option.\n  * `class` A {String} with a class to apply to the tooltip element to\n    enable custom styling.\n  * `placement` A {String} or {Function} returning a string to indicate\n    the position of the tooltip relative to `element`. Can be `'top'`,\n    `'bottom'`, `'left'`, `'right'`, or `'auto'`. When `'auto'` is\n    specified, it will dynamically reorient the tooltip. For example, if\n    placement is `'auto left'`, the tooltip will display to the left when\n    possible, otherwise it will display right.\n    When a function is used to determine the placement, it is called with\n    the tooltip DOM node as its first argument and the triggering element\n    DOM node as its second. The `this` context is set to the tooltip\n    instance.\n  * `trigger` A {String} indicating how the tooltip should be displayed.\n    Choose from one of the following options:\n      * `'hover'` Show the tooltip when the mouse hovers over the element.\n        This is the default.\n      * `'click'` Show the tooltip when the element is clicked. The tooltip\n        will be hidden after clicking the element again or anywhere else\n        outside of the tooltip itself.\n      * `'focus'` Show the tooltip when the element is focused.\n      * `'manual'` Show the tooltip immediately and only hide it when the\n        returned disposable is disposed.\n  * `delay` An object specifying the show and hide delay in milliseconds.\n    Defaults to `{show: 1000, hide: 100}` if the `trigger` is `hover` and\n    otherwise defaults to `0` for both values.\n  * `keyBindingCommand` A {String} containing a command name. If you specify\n    this option and a key binding exists that matches the command, it will\n    be appended to the title or rendered alone if no title is specified.\n  * `keyBindingTarget` An `HTMLElement` on which to look up the key binding.\n    If this option is not supplied, the first of all matching key bindings\n    for the given command will be rendered.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\ntooltip.",
-          "line": 113
+          "description": "Add a tooltip to the given element.\n\n* `target` An `HTMLElement`\n* `options` An object with one or more of the following options:\n  * `title` A {String} or {Function} to use for the text in the tip. If\n    a function is passed, `this` will be set to the `target` element. This\n    option is mutually exclusive with the `item` option.\n  * `html` A {Boolean} affecting the interpretation of the `title` option.\n    If `true` (the default), the `title` string will be interpreted as HTML.\n    Otherwise it will be interpreted as plain text.\n  * `item` A view (object with an `.element` property) or a DOM element\n    containing custom content for the tooltip. This option is mutually\n    exclusive with the `title` option.\n  * `class` A {String} with a class to apply to the tooltip element to\n    enable custom styling.\n  * `placement` A {String} or {Function} returning a string to indicate\n    the position of the tooltip relative to `element`. Can be `'top'`,\n    `'bottom'`, `'left'`, `'right'`, or `'auto'`. When `'auto'` is\n    specified, it will dynamically reorient the tooltip. For example, if\n    placement is `'auto left'`, the tooltip will display to the left when\n    possible, otherwise it will display right.\n    When a function is used to determine the placement, it is called with\n    the tooltip DOM node as its first argument and the triggering element\n    DOM node as its second. The `this` context is set to the tooltip\n    instance.\n  * `trigger` A {String} indicating how the tooltip should be displayed.\n    Choose from one of the following options:\n      * `'hover'` Show the tooltip when the mouse hovers over the element.\n        This is the default.\n      * `'click'` Show the tooltip when the element is clicked. The tooltip\n        will be hidden after clicking the element again or anywhere else\n        outside of the tooltip itself.\n      * `'focus'` Show the tooltip when the element is focused.\n      * `'manual'` Show the tooltip immediately and only hide it when the\n        returned disposable is disposed.\n  * `delay` An object specifying the show and hide delay in milliseconds.\n    Defaults to `{show: 1000, hide: 100}` if the `trigger` is `hover` and\n    otherwise defaults to `0` for both values.\n  * `keyBindingCommand` A {String} containing a command name. If you specify\n    this option and a key binding exists that matches the command, it will\n    be appended to the title or rendered alone if no title is specified.\n  * `keyBindingTarget` An `HTMLElement` on which to look up the key binding.\n    If this option is not supplied, the first of all matching key bindings\n    for the given command will be rendered.\n  * `keyBindingExtra` A {String} rendered as an additional key binding\n    before the command's resolved binding. Use this for interactions that\n    are not represented in the keymap, such as `LMB` or `RMB`. The value\n    accepts `+` separators and `cmdorctrl`, which is resolved for the\n    current platform (for example, `cmdorctrl+RMB`).\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\ntooltip.",
+          "line": 136
+        },
+        {
+          "name": "addComposite",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addComposite(target, entries)",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Add several tooltip entries that are displayed together.\n\n* `target` An `HTMLElement`\n* `entries` An {Array} of option objects accepted by {::add}. Entries are\n  rendered on separate lines. Display options, such as `placement` and\n  `delay`, are taken from the first entry.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\ncomposite tooltip.",
+          "line": 157
         },
         {
           "name": "findTooltips",
@@ -10975,7 +11239,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Find the tooltips that have been applied to the given element.\n\n* `target` The `HTMLElement` to find tooltips on.\n\nReturns an {Array} of `Tooltip` objects that match the `target`.",
-          "line": 189
+          "line": 272
         }
       ]
     },
@@ -11096,7 +11360,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when any of this grammar's queries change.\n\nA grammar's queries typically will not change after initial load. When\nthey do, it may mean:\n\n- The user is editing query files in dev mode; Lumine will automatically\n  reload queries in dev mode after changes.\n- A community package is altering a query file via an API like\n  {::setQueryForTest}.\n\n* `callback` {Function}\n  * `data` {Object}\n    * `filePath` {String} The path to the query file on disk.\n    * `queryType` {String} The type of query file, as denoted by its\n        configuration key in the grammar file. Usually one of\n        `highlightsQuery`, `indentsQuery`, `foldsQuery`, or `tagsQuery`.",
-          "line": 636
+          "line": 645
         },
         {
           "name": "onDidChangeQueryFile",
@@ -11107,7 +11371,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when any of this grammar's queries change.\n\nAlias of {::onDidChangeQuery}.",
-          "line": 643
+          "line": 652
         },
         {
           "name": "onDidLoadQueryFiles",
@@ -11118,7 +11382,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when this grammar first loads its query files.\n\nSince a grammar may not load immediately on startup, this method makes it\neasier to hook into the query life cycle in order to modify or augment a\ngrammar's default queries.\n\n* callback A function with the following argument:\n  * grammar The {WASMTreeSitterGrammar} whose queries have loaded.",
-          "line": 655
+          "line": 664
         },
         {
           "name": "onDidAddInjectionPoint",
@@ -11129,7 +11393,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when an injection point is added to this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point added to the grammar. See\n    {WASMTreeSitterGrammar::addInjectionPoint}.",
-          "line": 665
+          "line": 674
         },
         {
           "name": "onDidRemoveInjectionPoint",
@@ -11140,7 +11404,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Calls `callback` when an injection point is removed from this\ngrammar.\n\n* callback A function with the following argument:\n  * injectionPoint The injection point removed from this grammar. See\n    {WASMTreeSitterGrammar::addInjectionPoint}.",
-          "line": 675
+          "line": 684
         },
         {
           "name": "addInjectionPoint",
@@ -11151,7 +11415,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Define a set of rules for when this grammar should delegate to a\ndifferent grammar for certain regions of a buffer. Examples:\n\n* embedding one language inside another (e.g., JavaScript in HTML)\n* tokenizing certain structures with greater detail (e.g., regular\n  expressions in most languages)\n* highlighting non-standard augmentations to a language (e.g., JSDoc\n  comments in JavaScript)\n\nThis differs from TextMate-style injections, which operate at the scope\nlevel and are currently incompatible with Tree-sitter grammars.\n\nYou should typically not call this method directly; instead, call\n{GrammarRegistry::addInjectionPoint} and pass a given grammar’s root\nlanguage scope as the first argument.\n\nNOTE: Packages will call {::addInjectionPoint} with a given scope name,\nand that call will be delegated to any Tree-sitter grammars that match\nthat scope name, whether they're legacy Tree-sitter or modern Tree-sitter.\nBut modern Tree-sitter grammars cannot be injected into legacy Tree-sitter\ngrammars, and vice versa.\n\n* `injectionPoint` The options for the injection point:\n  * `type` A {String} describing the type of node to inject into.\n  * `language` A {Function} that should return a string describing the\n    language that should be injected into this area. The string should be a\n    short, unambiguous description of the language; it will be tested\n    against other grammars’ `injectionRegex` properties. Receives one\n    parameter:\n    * `node` A Tree-sitter node.\n  * `content` A {Function} that should return the node (or nodes) that\n    will actually be injected into. Usually this will be the same node\n    that was given, but could also be a specific child or descendant of\n    that node.\n  * `includeChildren` (optional) {Boolean} controlling whether the\n    injection range should include the ranges of the content node’s\n    children. Defaults to `false`, meaning that the range of each of this\n    node's children will be \"subtracted\" from the injection range, and the\n    remainder will be parsed as if those ranges of the buffer do not\n    exist.\n  * `includeAdjacentWhitespace` (optional) {Boolean} controlling whether\n    the injection range should include whitespace that occurs between\n    content nodes. Defaults to `false`. When `true`, if two injection\n    ranges are separated from one another by only whitespace, that\n    whitespace will be added to the injection range, and the ranges will\n    be consolidated.\n  * `newlinesBetween` (optional) {Boolean} controlling whether the\n    injection range should include any newline characters that may exist\n    in between injection ranges. Defaults to `false`. Grammars like ERB\n    and EJS need this so that they do not interpret two different\n    embedded code sections on different lines as occurring on the same\n    line.\n  * `coverShallowerScopes` (optional) {Boolean} controlling whether the\n    injection should prevent the parent grammar (and any of its\n    ancestors) from applying scope boundaries within its injection\n    range(s). Defaults to `false`.\n  * `languageScope` (optional) A value that determines what scope, if\n    any, is added to the injection as its “base” scope name. Can be a\n    {String}, {null}, or a {Function} that returns either of these values.\n    The base language scope that should be used by this injection.\n    Defaults to the grammar's own `scopeName` property. Set this to a\n    string to override the default scope name, or `null` to omit a base\n    scope name altogether. Set this to a function if the scope name to be\n    applied varies based on the grammar; the function will be called with\n    a grammar instance as its only argument.",
-          "line": 762
+          "line": 771
         }
       ]
     },
@@ -11876,8 +12140,8 @@
           "signature": "::scan(regex, options = {}, iterator)",
           "category": "Searching and Replacing",
           "visibility": "Public",
-          "description": "Performs a search across all files in the workspace.\n\n* `regex` {RegExp} to search with.\n* `options` (optional) {Object}\n  * `paths` An {Array} of glob patterns to search within. (See note below for multi-root projects.)\n  * `onPathsSearched` (optional) {Function} to be periodically called\n    with number of paths searched.\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` {Function} callback on each file found.\n\nReturns a {Promise} with a `cancel()` method that will cancel all\nof the underlying searches that were started as part of this scan.\n\n#### Caveats\n\nWhen a project has multiple roots, the patterns in `options.paths` may opt\ninto or out of specific roots.\n\nFor instance: when only one root is present, `'foo/bar.js'` is construed\nas a glob meant to match `<root>/foo/bar.js`; when multiple roots are\npresent and at least one project root has a base directory name of `foo`,\nthen `foo/bar.js` is construed as a glob meant only for root `foo` and\nmeant to match `bar.js`.",
-          "line": 2221
+          "description": "Performs a search across all files in the workspace.\n\n* `regex` {RegExp} to search with.\n* `options` (optional) {Object}\n  * `paths` An {Array} of glob patterns to search within. (See note below for multi-root projects.)\n  * `includeVcsIgnoredPaths` {Boolean} default `false`; Whether to include\n    paths excluded by VCS ignore files, regardless of the core preference.\n  * `onPathsSearched` (optional) {Function} to be periodically called\n    with number of paths searched.\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` {Function} callback on each file found.\n\nReturns a {Promise} with a `cancel()` method that will cancel all\nof the underlying searches that were started as part of this scan.\n\n#### Caveats\n\nWhen a project has multiple roots, the patterns in `options.paths` may opt\ninto or out of specific roots.\n\nFor instance: when only one root is present, `'foo/bar.js'` is construed\nas a glob meant to match `<root>/foo/bar.js`; when multiple roots are\npresent and at least one project root has a base directory name of `foo`,\nthen `foo/bar.js` is construed as a glob meant only for root `foo` and\nmeant to match `bar.js`.",
+          "line": 2223
         },
         {
           "name": "replace",
@@ -11888,7 +12152,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a replace across all the specified files in the project.\n\n* `regex` A {RegExp} to search with.\n* `replacementText` {String} to replace all matches of regex with.\n* `filePaths` An {Array} of file path strings to run the replace on.\n* `iterator` A {Function} callback on each file with replacements:\n  * `options` {Object} with keys `filePath` and `replacements`.\n\nReturns a {Promise}.",
-          "line": 2536
+          "line": 2540
         },
         {
           "name": "filePathMatchesPatterns",
@@ -11899,7 +12163,7 @@
           "category": "Searching and Replacing",
           "visibility": "Experimental",
           "description": "Tests the path of a file in the project against a set of\nglobs (using the same semantics as {::scan}) and reports whether the file\nsatisfies the patterns.\n\nInternally, this method is used to decide if a search result should be\nadded to a list of project-wide search results.\n\n* `filePath` {String} representing the absolute path to a file in the\n  project. (Any external path will automatically return `false`.)\n* `rawPatterns` {Array} of strings that describe glob patterns. Identical to\n  (and uses the same glob semantics as) the `options.paths` argument of\n  {::scan}.\n\nReturns a boolean indicating whether the given file path would be included\nin a project-wide search if the given path patterns were specified.",
-          "line": 2607
+          "line": 2611
         }
       ]
     },
@@ -12237,7 +12501,7 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 1023
+      "line": 1036
     },
     {
       "name": "watchPath",
@@ -12247,8 +12511,8 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 1000
+      "line": 1013
     }
   ],
-  "memberCount": 1067
+  "memberCount": 1091
 }

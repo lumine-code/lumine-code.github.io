@@ -161,6 +161,83 @@ function jsdocDoc(raw) {
   };
 }
 
+// The contiguous run of comments sitting directly above a statement. Babel hands
+// the same comment to the preceding statement as a trailing one and to this one
+// as a leading one, so anything separated by a blank line documents something
+// else and is dropped.
+function adjacentComments(statement) {
+  const kept = [];
+  let nextLine = statement.loc.start.line;
+  for (const comment of (statement.leadingComments || []).toReversed()) {
+    if (comment.loc.end.line < nextLine - 1) break;
+    kept.unshift(comment);
+    nextLine = comment.loc.start.line;
+  }
+  return kept;
+}
+
+// A constructor assignment such as `this.workspace = …` is not a class-body
+// member, so it needs its own doc reader. Atomdoc ("Public: A {Workspace}
+// instance") describes one outright; a bare `@type` annotation carries no prose,
+// so the sentence is synthesized from the type it names.
+function propertyDoc(comments) {
+  if (!comments.length) return null;
+  const last = comments.at(-1);
+  // A `@type` annotation documents the property by itself. Comments above it are
+  // implementation notes written for a reader of the source, not API prose.
+  const annotated = /(?:^|\n)@type\b/.test(commentText([last])) ? [last] : comments;
+  const raw = commentText(annotated);
+  if (!raw || /(?:^|\n)@private\b/.test(raw)) return null;
+
+  const legacy = legacyDoc(raw);
+  if (legacy) return legacy;
+
+  const type = raw.match(/(?:^|\n)@type\s*\{([^}]+)\}[ \t]*([^\n]*)/);
+  if (!type) return null;
+  return {
+    visibility: "Public",
+    markdown: jsdocDescription(raw) || type[2].trim() || `A {${type[1]}} instance`,
+    category: jsdocTag(raw, "category"),
+  };
+}
+
+function constructorProperties(classNode) {
+  const constructorNode = classNode.body.body.find(
+    (member) => member.type === "ClassMethod" && member.kind === "constructor",
+  );
+  if (!constructorNode) return [];
+
+  const properties = [];
+  for (const statement of constructorNode.body.body) {
+    if (statement.type !== "ExpressionStatement") continue;
+    const assignment = statement.expression;
+    if (assignment.type !== "AssignmentExpression") continue;
+    const target = assignment.left;
+    if (
+      target.type !== "MemberExpression" ||
+      target.object.type !== "ThisExpression" ||
+      target.computed ||
+      target.property.type !== "Identifier"
+    ) {
+      continue;
+    }
+    const doc = propertyDoc(adjacentComments(statement));
+    if (!doc) continue;
+    properties.push({
+      name: target.property.name,
+      kind: "property",
+      static: false,
+      async: false,
+      signature: `::${target.property.name}`,
+      category: doc.category || "Properties",
+      visibility: doc.visibility,
+      description: doc.markdown,
+      line: statement.loc.start.line,
+    });
+  }
+  return properties;
+}
+
 function parseDoc(comments) {
   const raw = commentText(comments);
   if (!raw) return null;
@@ -257,6 +334,9 @@ function parseFile(filePath, sourceInput) {
           line: member.loc.start.line,
         });
       }
+
+      // Properties lead the class, the way the section marker used to order them.
+      members.unshift(...constructorProperties(node));
 
       classes.push({
         name,
