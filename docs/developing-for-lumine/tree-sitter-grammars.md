@@ -74,11 +74,7 @@ node script/build-grammar-wasm.js --check --package-root ../language-lua
 
 `--package-root` is repeatable, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` (a `PATH`-style list) does the same thing for a shell you use often. The grammar query sweep reads the same variable.
 
-Each grammar package also keeps a gitignored `.dev/` clone of its upstream parser, checked out at the pinned ref, so node types and upstream queries can be read without fetching anything:
-
-```sh
-node script/clone-parser.js --all --package-root <dir-of-grammar-packages>
-```
+Writing queries means constantly asking what the parse tree actually contains — which node types exist, which tokens are anonymous, what upstream's own queries say. The build cache already holds a clone of every parser it has built, at the ref it built, so read `src/node-types.json` and `queries/` there rather than fetching again.
 
 While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/dev/packages`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
 
