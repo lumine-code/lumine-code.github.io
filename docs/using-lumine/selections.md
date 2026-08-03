@@ -22,7 +22,7 @@ Handy shortcuts: `editor:select-word` selects the word under the cursor and `edi
 
 - `editor:add-selection-above` / `editor:add-selection-below` add a cursor on the line above or below.
 - `editor:split-selections-into-lines` turns a multi-line selection into one cursor per line.
-- `editor:consolidate-selections` collapses multiple selections back to one.
+- `editor:consolidate-selections` collapses multiple selections back to the most recently added one.
 
 The bundled [search-panel](finding-and-replacing.md) can also select every match of a search, and its `search-panel:select-next` / `search-panel:select-all` commands add a selection per match so you can edit them together.
 
