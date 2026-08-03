@@ -17,6 +17,8 @@ A grammar is a `.json` file under `grammars/` (the older `.cson` format is still
 
 The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'modern-tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
 
+To start a Tree-sitter grammar package from scratch, `script/new-grammar-package.js` in the Lumine repository scaffolds the whole repository — config, specs, CI, and lint setup — and prints the build, port, and registration steps. If you are adapting queries from upstream or nvim-treesitter, read [Porting Tree-sitter queries](porting-tree-sitter-queries.md) first: capture names mean something different there, and none of those files can be used unchanged.
+
 ## Choosing which grammar applies
 
 The grammar for an editor is picked from the file name and contents. Users can override it per file with the bundled `grammar-selector` package (`grammar-selector:show`), and set per-language options under [Language-specific settings](../customizing-lumine/language-settings.md).

@@ -52,14 +52,34 @@ node script/build-grammar-wasm.js --all
 
 The script clones the pinned source into a cache (`~/.lumine-grammar-build`), fetches the pinned `tree-sitter-cli`, compiles with emscripten, and verifies the result loads in the exact `web-tree-sitter` runtime Lumine ships. It then installs the wasm into **every** config that shares the same source — shared and copied wasms cannot drift apart — and updates `parserSource` and `wasmBuildTool` in place.
 
-It needs `emcc` available: either an emscripten-activated shell, or an [emsdk](https://github.com/emscripten-core/emsdk) checkout at `~/.lumine-grammar-build/emsdk` (or `$EMSDK`) with `emsdk install latest && emsdk activate latest` run once.
+It needs `emcc` available: either an emscripten-activated shell, or an [emsdk](https://github.com/emscripten-core/emsdk) checkout inside the build cache (or at `$EMSDK`) with `emsdk install latest && emsdk activate latest` run once. Relocating the cache with `--cache-dir` moves the emsdk lookup with it.
 
 Builds are reproducible: the same pin and CLI version produce a byte-identical wasm. If a bump produces identical bytes, the commit is just a re-pin — that is normal for upstream releases that only touch bindings.
+
+### Grammars outside the Lumine repository
+
+A grammar package does not have to live in `packages/`. It may be its own repository, pinned in `packageDependencies` and delivered through `node_modules/`, or installed from the catalog.
+
+Building one needs no extra flags — the package that owns the config passed on the command line is always in scope:
+
+```sh
+node script/build-grammar-wasm.js ../pkg_bundled/language-lua/grammars/modern-tree-sitter-lua.json
+```
+
+`--all` and `--check` are different: they default to this repository's packages only, because a gate that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly:
+
+```sh
+node script/build-grammar-wasm.js --check --package-root ../pkg_bundled
+```
+
+`--package-root` is repeatable, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` (a `PATH`-style list) does the same thing for a shell you use often. The grammar query sweep reads the same variable.
+
+While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/dev/packages`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
 
 ## Updating a grammar
 
 1. Pick the new upstream tag or SHA and build with `--source … --diff-node-types`.
-2. Read the diff: **removed** node types or fields are the breakage forecast — search the grammar's `.scm` files for each one. Renames surface as query compile errors; *shape* changes (a node moving inside another) also surface as compile errors even when the inventory is unchanged.
+2. Read the diff: **removed** node types or fields are the breakage forecast — search the grammar's `.scm` files for each one. Renames surface as query compile errors; _shape_ changes (a node moving inside another) also surface as compile errors even when the inventory is unchanged.
 3. Run the package's specs and the grammar sweep from the Lumine repo:
 
    ```sh
@@ -72,7 +92,11 @@ Builds are reproducible: the same pin and CLI version produce a byte-identical w
 
 ## Query validation and errors
 
-Every query of every bundled grammar is compiled in CI by `spec/grammar-query-validation-spec.js`, so a broken query cannot ship silently — even for a language package with no spec suite of its own.
+Every query of every bundled grammar is compiled in CI by `spec/grammar-query-validation-spec.js`, so a broken query cannot ship silently — even for a language package with no spec suite of its own. It enumerates `packageDependencies` rather than reading `packages/`, so it covers grammars delivered through `node_modules/` too, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` adds checkouts that are not pinned yet.
+
+A grammar package in its own repository carries the same gate as a spec of its own, `spec/grammar-queries-spec.js`, which compiles every query its configs declare against its committed wasm. It needs no CI change: the package's existing integration job already runs its specs inside a real Lumine build. Without it such a package has **no** query gate at all, and a broken highlights query does not fail its other specs — the language layer degrades to a placeholder, so everything stays green while highlighting is silently dead.
+
+New grammar packages are scaffolded with `script/new-grammar-package.js`, which emits that spec along with the rest of the repository.
 
 A query that fails to compile does **not** break the grammar: the editor still activates it, parses, and reports the error precisely — the query type, the offending `.scm` file and line, and the unknown node type or field name when there is one. In dev mode the error also appears as a notification, and query files are watched: saving a broken query beeps and reports, saving a fixed one hot-reloads it.
 
@@ -85,4 +109,4 @@ Mistakes inside predicates are contained the same way: an unknown `test.`/`adjus
 
 ## ABI compatibility
 
-A parser wasm carries the ABI version of the `tree-sitter-cli` that *generated* its parser — rebuilding does not change it, bumping `parserSource` usually does. Lumine's runtime accepts a window of ABI versions (currently 13–15); the build tool refuses to install a wasm outside that window, and `--check` audits every committed wasm against it. If an upstream commits sources generated with a too-new CLI, build with `--regenerate` to regenerate the parser with the pinned CLI instead.
+A parser wasm carries the ABI version of the `tree-sitter-cli` that _generated_ its parser — rebuilding does not change it, bumping `parserSource` usually does. Lumine's runtime accepts a window of ABI versions (currently 13–15); the build tool refuses to install a wasm outside that window, and `--check` audits every committed wasm against it. If an upstream commits sources generated with a too-new CLI, build with `--regenerate` to regenerate the parser with the pinned CLI instead.
