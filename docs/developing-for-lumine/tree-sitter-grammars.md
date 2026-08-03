@@ -74,6 +74,12 @@ node script/build-grammar-wasm.js --check --package-root ../pkg_bundled
 
 `--package-root` is repeatable, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` (a `PATH`-style list) does the same thing for a shell you use often. The grammar query sweep reads the same variable.
 
+Each grammar package also keeps a gitignored `.dev/` clone of its upstream parser, checked out at the pinned ref, so node types and upstream queries can be read without fetching anything:
+
+```sh
+node script/clone-parser.js --all --package-root ../pkg_bundled
+```
+
 While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/dev/packages`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
 
 ## Updating a grammar
