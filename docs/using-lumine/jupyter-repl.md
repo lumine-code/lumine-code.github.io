@@ -18,9 +18,9 @@ Without a selection, `jupyter-repl:run` detects what to execute from the cursor 
 
 `jupyter-repl:connect-to-remote-kernel` connects to a Jupyter server defined in `gateways.json` — open that file with `jupyter-repl:open-gateways`, and jupyter-repl creates it on first use. `jupyter-repl:connect-to-existing-kernel` attaches to a local kernel by its connection file.
 
-## Inspecting results
+## Panels
 
-`jupyter-repl:inspect-under-cursor` shows documentation for the symbol under the cursor without moving focus, and `jupyter-repl:open-data-explorer` loads a dataframe, array, or nested object into a searchable grid with charts, drill-down, and breadcrumbs. Watch expressions (`jupyter-repl:add-watch`, `jupyter-repl:toggle-watches`) re-run on every execution; `jupyter-repl:toggle-variable-explorer` browses the kernel namespace; and `jupyter-repl:toggle-kernel-monitor-focus` lists and controls running kernels. The watch, inspector, and data-explorer expression editors offer autocomplete — kernel completions plus words from your open buffers. Click an inline result to copy it, or Ctrl+Click (Cmd+Click on macOS) to open it in an editor.
+The panels that used to live in this package are packages of their own, each reading the kernels — and the output rendering — from jupyter-repl through its services: **jupyter-inspector** (`jupyter-inspector:inspect-under-cursor` shows documentation for the symbol under the cursor without moving focus), **jupyter-explorer** (`jupyter-explorer:explore` loads a dataframe, array, or nested object into a searchable grid with charts, drill-down, and breadcrumbs), **jupyter-watches** (`jupyter-watches:add`, `jupyter-watches:toggle` — expressions re-run on every execution, with a scrubbable value history), **jupyter-variables** (`jupyter-variables:toggle` browses and edits the kernel namespace), and **jupyter-monitor** (`jupyter-monitor:toggle` lists and controls every running kernel). Their expression editors offer autocomplete — kernel completions plus words from your open buffers. Click an inline result to copy it, or Ctrl+Click (Cmd+Click on macOS) to open it in an editor.
 
 ## Notebooks and console
 

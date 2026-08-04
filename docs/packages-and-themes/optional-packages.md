@@ -51,8 +51,14 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 
 ## Jupyter
 
-- **jupyter-repl** — run code against Jupyter kernels from any editor.
+- **jupyter-repl** — run code against Jupyter kernels from any editor; the hub the other jupyter
+  packages read their kernels and output rendering from.
 - **jupyter-view** — open and edit Jupyter notebooks.
+- **jupyter-inspector** — introspect the expression under the cursor.
+- **jupyter-variables** — browse and edit the kernel namespace in a table.
+- **jupyter-explorer** — explore dataframes, arrays, and nested objects in a searchable grid.
+- **jupyter-watches** — watch expressions re-evaluated after every execution.
+- **jupyter-monitor** — every running kernel in one table.
 
 ## Scrollbar markers
 

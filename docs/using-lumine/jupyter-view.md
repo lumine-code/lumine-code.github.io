@@ -8,7 +8,7 @@ Like classic Jupyter, the editor has a command mode and an edit mode (`jupyter-v
 
 ## Running cells
 
-When the [jupyter-repl](jupyter-repl.md) package is installed, cells run on its Jupyter kernels through the `jupyter.adapter` service — each cell has a run button and live execution status, and stored outputs (text, images, SVG, HTML, LaTeX, markdown, and ANSI-colored streams) render inline. Clear outputs with `jupyter-view:clear-output` or `jupyter-view:clear-all-outputs`.
+When the [jupyter-repl](jupyter-repl.md) package is installed, cells run on its Jupyter kernels through the `jupyter.adapter` service — each cell has a run button and live execution status — and stored outputs render inline through its `jupyter.output` renderers: text, images, SVG, HTML, LaTeX, markdown, ANSI-colored streams, and interactive Plotly and Vega charts. Without it, a notebook stays readable with plain text and images. Clear outputs with `jupyter-view:clear-output` or `jupyter-view:clear-all-outputs`.
 
 ## Source, search, and export
 
