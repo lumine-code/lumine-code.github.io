@@ -111,6 +111,30 @@ Referencing a package through `extends` does not activate that package's JavaScr
 
 If the chain contains more than one `variables.css`, Lumine applies them in the same order and uses that order when generating the Less compatibility shim. Put the derived theme's palette in its final `styles` directory so its custom properties win. Development live reload also watches the extended glob roots.
 
+## An editor is an input because it says so
+
+Some editors are documents and some are form controls: the select-list query, a search field, a multi-line expression box. A form control marks itself with the `input` attribute, which `mini` implies, so one selector reaches both:
+
+```css
+atom-text-editor[input] {
+}
+atom-text-editor[input].is-focused {
+}
+```
+
+The editor draws the resting box — border, radius, and the single-line background — alongside the other input controls, so a marked editor and an `.input-text` match without either side tuning the other. A theme owns the colours and the focus ring, exactly as it does for those controls.
+
+What a theme must never do is infer the role from position. `atom-panel-container atom-text-editor` looks like "editors in the UI", but it matches every dock and no centre pane, so the same field is styled differently depending on where its panel happens to be docked, while a read-only diff viewer picks up an input ring for no reason but its location. The bundled themes are checked mechanically (`npm run check:editors` in the editor repository fails on any such selector).
+
+A package marks its own editor and needs no CSS for the box:
+
+```js
+const editor = atom.workspace.buildTextEditor({ softWrapped: true });
+editor.element.setAttribute("input", "");
+```
+
+Size stays the widget's business — a field that should grow with its content and one that should scroll after ten lines are both legitimate, so the editor ships neither.
+
 ## Icon geometry belongs to the editor
 
 Every icon in the interface — tree-view rows, tabs, lists, the status bar — renders in one frame, defined once by the editor's base stylesheet: a square of `--component-icon-size` whose `line-height` equals its height, aligned `vertical-align: text-bottom`. The box centers itself in any line, and each font's ink centers inside the box, so the same glyph sits at the same height in every surface without per-surface tuning.
