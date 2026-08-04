@@ -6,7 +6,7 @@ Installed packages and themes are managed from **Settings** or from the command 
 
 - **Settings → Packages** and **Settings → Themes** list what is installed. From a package card you can open its **Settings**, **Disable** / **Enable** it, or **Uninstall** it.
 - Disabling a package is the safe way to turn a feature off without removing it; the disabled list is stored under `core.disabledPackages` in your configuration.
-- Every directory holding a package is listed, one entry each. When more than one provides the same package name, only the first of them loads; the rest are greyed out, carry a **Shadowed** dot naming the copy that loads instead, and offer only **Uninstall** — their settings and enabled state belong to the name, so they are the loaded copy's to change. Uninstalling the copy that loads hands the name to whichever copy is left, and any `core.disabledPackages` entry for that name is kept as long as one remains. See [Where packages live](package-system.md#where-packages-live).
+- Every directory holding a package is listed, one entry each. When more than one provides the same package name, only the first of them loads; the rest are greyed out, carry a yellow dot naming the copy that loads instead, and offer only **Uninstall** — their settings and enabled state belong to the name, so they are the loaded copy's to change. Uninstalling the copy that loads hands the name to whichever copy is left, and any `core.disabledPackages` entry for that name is kept as long as one remains. See [Where packages live](package-system.md#where-packages-live).
 
 ## Choosing a theme
 

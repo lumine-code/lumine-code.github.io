@@ -20,7 +20,7 @@ Packages are looked for in three places, and a package found in an earlier one t
 
 Bundled packages ship with Lumine and are not removed by the Install tab, but a package of the same name in `~/.lumine/packages` shadows one, and a package in `~/.lumine/packages-dev` shadows both.
 
-The **Packages** and **Themes** tabs list every directory, one entry each. A copy that does not load is greyed out, carries a **Shadowed** dot naming the copy that loads instead of it, and offers nothing but **Uninstall** — its settings and its enabled state belong to the name, so they are the loaded copy's to change. Two directories in the same place providing one name is almost always an accident, so that one is also reported as a notification the first time it is seen.
+The **Packages** and **Themes** tabs list every directory, one entry each. A copy that does not load is greyed out, carries a yellow dot naming the copy that loads instead of it, and offers nothing but **Uninstall** — its settings and its enabled state belong to the name, so they are the loaded copy's to change. Opening its details shows what a package that is not installed shows: its README, and nothing that would describe it as part of this install.
 
 ## Package identity: origin vs. name
 
@@ -100,7 +100,21 @@ On a browse (not-installed) card, changing the version re-fetches the manifest f
 
 The repository reference is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to the version the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
 
-**Status dots** at the right edge of the card's name row flag anything unusual, each with its details in a hover tooltip: red when the package could not be loaded from its catalog; yellow when the newest fetch failed (showing the last good data), when catalogs disagree about which version to track, when an installed package's recorded origin does not match its manifest, or when another copy of the package's name loads instead of this one; grey while a manifest is being validated; purple for a Pulsar-registry result; and informational dots for a package **installed as a symlink** (the tooltip names the link's target) and for a bundled package the editor is running **out of its own source checkout** rather than out of a build. Several dots can show at once. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
+**Status dots** at the right edge of the card's name row say what is unusual about a package, each with its details in a hover tooltip. Every state has a colour of its own, and those colours are fixed rather than taken from the active theme — a dot means the same thing on every machine:
+
+| Dot    | State                                                                  |
+| ------ | ---------------------------------------------------------------------- |
+| red    | the package could not be read from its catalog                         |
+| orange | the newest fetch failed; the card is showing the last good data        |
+| yellow | another copy of this package's name loads instead of this one          |
+| pink   | where the package was installed from does not match its manifest       |
+| brown  | catalogs disagree about which version to track; the first one wins     |
+| blue   | a bundled package the editor is running out of its own source checkout |
+| cyan   | installed as a symlink; the tooltip names the link's target            |
+| purple | listed by the Pulsar package registry                                  |
+| grey   | the manifest is being fetched and validated                            |
+
+Several dots can show at once. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
 
 ## Catalog sources
 
