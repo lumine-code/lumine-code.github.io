@@ -4,7 +4,7 @@ Lumine and its packages are tested with **specs** — Jasmine-based tests that r
 
 ## Where specs live
 
-Put specs in your package's `spec/` directory, named `*-spec.js`. A spec uses the familiar Jasmine structure and has the full `atom` API available:
+Put specs in your package's `spec/` directory, named `*-spec.js` (or `*-spec.jsx` for a spec that itself contains JSX). A spec uses the familiar Jasmine structure and has the full `atom` API available:
 
 ```js
 describe("my-package", () => {

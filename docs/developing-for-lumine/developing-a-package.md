@@ -41,6 +41,39 @@ module.exports = {
 };
 ```
 
+## Writing views in JSX
+
+Give a file the `.jsx` extension and Lumine compiles it through Babel on load — no pragma, no build step, no configuration. JSX elements become calls to `etch.dom`, the virtual-DOM helper the editor's own views are written with, so a view is a plain object with `render` and `update` methods:
+
+```jsx
+const etch = require("@lumine-code/etch");
+
+module.exports = class GreetingView {
+  constructor(name) {
+    this.name = name;
+    etch.initialize(this);
+  }
+
+  render() {
+    return <div className="greeting">Hello, {this.name}</div>;
+  }
+
+  update() {}
+};
+```
+
+Require the file the way you would any other — `require("./greeting-view")` resolves `.jsx` without the extension — and remember to require `etch` itself, since the compiled JSX calls into it.
+
+Use `<>…</>` to group siblings without wrapping them in an element. A component still has to render a single root element, so a fragment belongs inside one rather than at the top of `render`.
+
+To compile with something other than etch, name the factory in a comment at the top of the file:
+
+```jsx
+/** @jsx myLibrary.createElement */
+```
+
+The same defaults apply to `.tsx`, which the editor compiles with TypeScript. And a `.js` file that opens with `"use babel"` or `/** @babel */` is still compiled the old way, so existing packages keep working unchanged.
+
 ## Developing against a live editor
 
 Symlink your working copy into Lumine and load it in development mode:
