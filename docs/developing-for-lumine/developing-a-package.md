@@ -19,7 +19,7 @@ my-package/
 
 Key `package.json` fields:
 
-- **`name`** — the package's identity (its install directory, command prefix, and config namespace). See [The package system](../packages-and-themes/package-system.md).
+- **`name`** — the package's identity: its command prefix and config namespace, and what the editor loads it under. The directory it lives in need not match. See [The package system](../packages-and-themes/package-system.md).
 - **`main`** — the entry module (for example `./lib/my-package`).
 - **`version`** and **`engines`** — `"engines": { "atom": "*" }` for broad compatibility.
 - **`activationCommands`** / **`activationHooks`** — let Lumine load the package lazily, only when it is first needed.
@@ -46,11 +46,11 @@ module.exports = {
 Symlink your working copy into Lumine and load it in development mode:
 
 ```sh
-lumine --link . --dev     # link into ~/.lumine/dev/packages
+lumine --link . --dev     # link into ~/.lumine/packages-dev
 lumine --dev .            # open a dev-mode window that loads dev packages
 ```
 
-Dev-mode windows load packages from `~/.lumine/dev/packages`, enable developer tooling, and let you reload quickly with `window:reload`. When you are done, `lumine --unlink .` removes the link.
+Dev-mode windows load packages from `~/.lumine/packages-dev`, enable developer tooling, and let you reload quickly with `window:reload`. A package there shadows an installed or bundled package of the same name, so your checkout is the one that runs. When you are done, `lumine --unlink .` removes the link.
 
 ## The API
 

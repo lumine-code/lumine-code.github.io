@@ -1,28 +1,41 @@
 # Package system
 
-Lumine installs packages and themes directly from Git repositories. There is no central package server that Lumine depends on: the **Install** tab aggregates one or more _catalogs_ — untrusted lists of Git repositories that you control — and fetches every piece of package metadata itself. Installation always clones a Git repository into `~/.lumine/packages/<name>`.
+Lumine installs packages and themes directly from Git repositories. There is no central package server that Lumine depends on: the **Install** tab aggregates one or more _catalogs_ — untrusted lists of Git repositories that you control — and fetches every piece of package metadata itself. Installation puts the repository's files, at one exact commit, into `~/.lumine/packages/<name>`.
 
 A catalog does **not** provide names, versions, descriptions, compatibility, or READMEs. It is only a list of Git sources. Lumine resolves each source to an exact commit, reads that commit's `package.json`, and validates it before anything is installed.
 
 ## Where packages live
 
-Every package is identified by its **name** — the `name` field of its `package.json`. That name is the install directory (`~/.lumine/packages/<name>`), the prefix for its commands (`<name>:command`), its configuration namespace (`<name>.*`), and how it is required and activated. Because the name is the install directory, **only one package with a given name can be installed at a time**, even if two different repositories publish a package by that name.
+Every package is identified by the **name** in its `package.json`. That name is the prefix for its commands (`<name>:command`), its configuration namespace (`<name>.*`), and how it is required, enabled, and activated. **The directory a package lives in does not have to be named after it** — rename it, clone a repository into a folder named after the repository, or keep several checkouts side by side; the manifest decides what the package is called.
 
-Bundled packages ship with Lumine. They are not removed by the Install tab, but a community package of the same name can **override** one (see [Slots: Install, Update, Replace, Override](#slots-install-update-replace-override)).
+Packages are looked for in three places, and a package found in an earlier one takes precedence over a package of the same name found in a later one:
+
+| Place                    | What it holds                                                    |
+| ------------------------ | ---------------------------------------------------------------- |
+| `~/.lumine/packages-dev` | Packages you are working on. Only loaded in dev mode (`--dev`).  |
+| `~/.lumine/packages`     | Packages you installed.                                          |
+| Bundled with Lumine      | The packages Lumine ships with.                                  |
+
+**Only one copy of a package name is ever loaded.** Every other copy stays on disk untouched and does nothing: it registers no commands, no settings, and no keymaps. When two directories in the *same* place provide one name, the one whose directory name comes first alphabetically is the one that loads.
+
+Bundled packages ship with Lumine and are not removed by the Install tab, but a package of the same name in `~/.lumine/packages` shadows one, and a package in `~/.lumine/packages-dev` shadows both.
+
+The **Packages** and **Themes** tabs list every directory, one entry each. A copy that does not load is greyed out, carries a **Shadowed** dot naming the copy that loads instead of it, and offers nothing but **Uninstall** — its settings and its enabled state belong to the name, so they are the loaded copy's to change. Two directories in the same place providing one name is almost always an accident, so that one is also reported as a notification the first time it is seen.
 
 ## Package identity: origin vs. name
 
 Two identities matter, and they are deliberately different:
 
 - **For browsing and de-duplication**, a package is identified by its **origin** — a canonical, transport-independent key derived from the Git URL: `host[:port]/path`, with the credentials, transport (`https`, `ssh`, …), a trailing `.git`, and any ref selector stripped off. The host is lowercased; the path case is preserved on hosts other than GitHub, because Git servers may treat paths case-sensitively.
-- **For installation**, a package is identified by its **name** — the install slot on disk.
+- **For installation**, a package is identified by its **name** — what it is called once it loads.
+- **On disk**, a copy of a package is identified by its **directory**, which is what tells two copies of one name apart and the only thing that can be uninstalled.
 
 Because the origin is transport-independent, the HTTPS and SSH forms of the same `host/path` resolve to a **single** origin (`https://github.com/owner/repo.git` and `git@github.com:owner/repo.git` are the same package). A server-side **redirect is not** treated as an alias: identity is computed from the source string you provide, never from where a request happens to land.
 
-Two invariants follow:
+Two invariants follow for what the Install tab puts on disk:
 
 - At most **one installation per origin** at a time.
-- At most **one package per name** at a time.
+- At most **one installed package per name** at a time — an update or a reinstall replaces the directory that package already occupies, whatever it is called.
 
 The name shown on a browse card is the repository's project name until a valid manifest is fetched for the selected commit; afterwards it is the real `package.json` name, which may differ (the repository `pulsar-invert-colors` ships a package named `invert-colors`). A card is keyed internally by its origin (`community:<origin>`) or, for a bundled package, by its name (`builtin:<name>`) — never by name alone — so two repositories that publish the same name never collide in the UI.
 
@@ -37,8 +50,8 @@ Click **Install** on a card. Lumine:
 
 1. resolves the selected ref to an exact commit SHA and reads that commit's manifest,
 2. validates the manifest (see [Validation](#validation-before-install)),
-3. clones the repository at that exact SHA into a staging directory on the same volume, runs `npm install --omit=dev`, and records an install receipt, then
-4. atomically swaps the staged copy into `~/.lumine/packages/<name>`.
+3. fetches that exact commit into a staging directory on the same volume — as an archive of the commit for a GitHub repository, or a shallow Git fetch for any other host — runs `npm install --omit=dev`, and records an install receipt, then
+4. atomically swaps the staged copy into `~/.lumine/packages/<name>`, or into the directory the package already occupies when it is already installed.
 
 Install, Update, and Replace are **transactional**: everything is prepared in staging first; the active copy is unloaded and backed up; the swap is atomic; and any failure rolls back to the backup and reloads the previous copy. Installs and uninstalls run asynchronously so the editor stays responsive, and the installed-package lists build off the render path so the **Packages** and **Themes** tabs open smoothly even with many packages installed. When an install, update, uninstall, or replace **fails**, the reason is reported as an editor notification, with the underlying `git` / `npm` output available under the notification's details.
 
@@ -49,11 +62,11 @@ The **install receipt** records a credential-free source, the origin, the ref yo
 Nothing package-controlled runs before validation passes. Before `npm install`, Lumine checks the manifest fetched for the selected SHA:
 
 - it parses as JSON, JSONC, or CSON;
-- the `name` is an unscoped, lowercase, folder-safe slot name;
+- the `name` is unscoped, lowercase, and safe to use as a directory name;
 - a Git `repository` is present, and its origin is a **syntactic variant of the same origin** you are installing from — a fork whose `repository` still points upstream, an old address, or a redirect is rejected;
 - `engines.atom` is present and the running Lumine satisfies it;
 - when the ref is a semantic tag, it matches the manifest `version` (an optional leading `v` is ignored);
-- the name is free (or held by the same origin), and no other slot already holds this origin.
+- no other installed package has this name (unless it came from the same origin), and this origin is not already installed under another name.
 
 ### Install sources and version selectors
 
@@ -136,18 +149,19 @@ The Install tab can additionally live-search the Pulsar package registry (`api.p
 - Pulsar results are visibly marked with a **purple status dot** on the card. Installation itself works exactly like any other Git source.
 - The toggle affects **search only**. The [Updates](updates.md) tab never consults the Pulsar registry; it checks each installed package against its own recorded origin.
 
-## Slots: Install, Update, Replace, Override
+## Install, Update, Replace, Override
 
-Because a package's name is its install slot, the action offered on a card depends on what already holds that slot:
+The action a card offers depends on what is already installed under its package's name:
 
-| Slot state                          | Action                                                        |
-| ----------------------------------- | ------------------------------------------------------------- |
-| Free                                | **Install**                                                   |
-| Held by the **same** origin         | **Installed** / **Update**                                    |
-| Held by a **different** community origin | **Replace** (swaps the installed package for this one)   |
-| Held by a **bundled** package       | **Override** (a community package shadows the bundled one, with a warning) |
+| What holds the name                       | Action                                                        |
+| ----------------------------------------- | ------------------------------------------------------------- |
+| Nothing                                   | **Install**                                                   |
+| The **same** origin                       | **Installed** / **Update**                                    |
+| A **different** community origin          | **Replace** (swaps the installed package for this one)        |
+| A **bundled** package                     | **Override** (the installed package shadows the bundled one)  |
+| A package in `~/.lumine/packages-dev`     | **Install**, with a note that your dev copy keeps loading     |
 
-A community package deterministically takes precedence over a bundled package of the same name, including virtual bundled themes; a _disabled_ community package still occupies the slot. When a community package overrides a bundled one, the **Packages** tab shows a manageable community card plus a greyed, inert informational card for the shadowed bundled package — its **Settings** and **Disable** appear but are disabled, and a bundled package cannot be uninstalled or overridden from it. Uninstalling the **community** package restores the bundled one, and any existing `core.disabledPackages` entry for that name is preserved.
+A package in `~/.lumine/packages` takes precedence over a bundled package of the same name, including virtual bundled themes; a _disabled_ package still holds the name. Uninstalling the copy that loads hands the name to whichever copy is left — the bundled package, a dev checkout, a second directory — without a restart, and any `core.disabledPackages` entry for that name is preserved as long as some copy of it remains.
 
 The origin of an installed package is read from its install receipt (what it was actually installed from), not from the `repository` field in its `package.json`, which in a fork often still points upstream. Older installs whose receipt has a missing or mismatched origin stay active with a warning, but their next update must pass strict origin validation.
 

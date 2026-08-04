@@ -20,7 +20,7 @@ These are the options accepted by the `lumine` command:
 | `-n`, `--new-window`        | Open a new window.                                                          |
 | `-a`, `--add`               | Open the given path as a new project in the last used window.               |
 | `-w`, `--wait`              | Wait for the window to close before returning (useful as a `$EDITOR`).      |
-| `--safe`                    | Do not load packages from `~/.lumine/packages` or `~/.lumine/dev/packages`. |
+| `--safe`                    | Do not load packages from `~/.lumine/packages` or `~/.lumine/packages-dev`. |
 | `-r <path>`                 | Set the path to the Lumine source directory and enable dev mode.            |
 | `-t`, `--test`              | Run the specs in the given path.                                            |
 | `--clear-window-state`      | Delete all saved window/environment state.                                  |
@@ -36,7 +36,7 @@ Lumine can also install and manage community packages from the command line (`--
 `--safe` and `--dev` are the two options you will reach for most while troubleshooting or building extensions:
 
 - **`--safe`** starts the editor without loading your installed or development packages — the quickest way to tell whether a problem comes from a package.
-- **`--dev`** opens a window in development mode, which loads packages from `~/.lumine/dev/packages` and enables extra developer tooling. See [Developing a package](../developing-for-lumine/developing-a-package.md).
+- **`--dev`** opens a window in development mode, which loads packages from `~/.lumine/packages-dev` and enables extra developer tooling. See [Developing a package](../developing-for-lumine/developing-a-package.md).
 
 Set `LUMINE_DEV_MODE=1` to force development mode independently of command-line arguments:
 

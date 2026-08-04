@@ -6,7 +6,7 @@ Installed packages and themes are managed from **Settings** or from the command 
 
 - **Settings → Packages** and **Settings → Themes** list what is installed. From a package card you can open its **Settings**, **Disable** / **Enable** it, or **Uninstall** it.
 - Disabling a package is the safe way to turn a feature off without removing it; the disabled list is stored under `core.disabledPackages` in your configuration.
-- A community package can **override** a bundled package of the same name. When it does, the Packages tab shows the manageable community card — with its normal **Settings**, **Disable / Enable**, and **Uninstall** — plus a greyed, inert informational card for the shadowed bundled package (its **Settings** and **Disable** are shown but disabled, and it offers no Uninstall). Uninstalling the **community** package restores the bundled one; any `core.disabledPackages` entry for that name is kept. See [Slots: Install, Update, Replace, Override](package-system.md#slots-install-update-replace-override).
+- Every directory holding a package is listed, one entry each. When more than one provides the same package name, only the first of them loads; the rest are greyed out, carry a **Shadowed** dot naming the copy that loads instead, and offer only **Uninstall** — their settings and enabled state belong to the name, so they are the loaded copy's to change. Uninstalling the copy that loads hands the name to whichever copy is left, and any `core.disabledPackages` entry for that name is kept as long as one remains. See [Where packages live](package-system.md#where-packages-live).
 
 ## Choosing a theme
 
@@ -30,7 +30,7 @@ While developing a package, symlink your working copy into Lumine instead of ins
 
 ```sh
 lumine --link .            # link into ~/.lumine/packages
-lumine --link . --dev      # link into ~/.lumine/dev/packages (loaded only in dev mode)
+lumine --link . --dev      # link into ~/.lumine/packages-dev (loaded only in dev mode)
 lumine --unlink .          # remove the link
 ```
 

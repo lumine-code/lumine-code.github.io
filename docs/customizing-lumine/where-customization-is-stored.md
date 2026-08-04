@@ -12,7 +12,7 @@ All of your personal customization lives in one **configuration directory**: `~/
 | `styles.css`    | Your UI/style tweaks (see [Style tweaks](style-tweaks.md)).                   |
 | `init.js`       | Startup script run when Lumine loads (see [The init file](the-init-file.md)). |
 | `packages/`     | Installed community packages, one directory per package.                      |
-| `dev/packages/` | Packages loaded only in development mode.                                     |
+| `packages-dev/` | Packages loaded only in development mode.                                     |
 
 These are the default formats. Lumine still reads the legacy `config.cson`, `keymap.cson`, `snippets.cson`, and `styles.less` files if you already have them, but new files are created in the JSON/CSS formats above.
 
