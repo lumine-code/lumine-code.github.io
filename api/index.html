@@ -464,7 +464,9 @@ are read back out of its stack, and are undefined when it has none.
 
 * `callback` {function} to be called whenever there is an unhandled error
   * `event` {object}
-    * `originalerror` {object} the original error object
+    * `originalerror` {error} the original error object. never null: an
+      error the browser could not hand over, and a rejection with a
+      non-error value, both arrive as a stand-in carrying no stack.
     * `message` {string} the error message
     * `url` {string} url to the file where the error originated.
     * `line` {number}
@@ -486,7 +488,9 @@ are read back out of its stack, and are undefined when it has none.</p>
 <ul>
 <li><code>event</code> <code>Object</code>
 <ul>
-<li><code>originalError</code> <code>Object</code> the original error object</li>
+<li><code>originalError</code> <code>Error</code> the original error object. Never null: an
+error the browser could not hand over, and a rejection with a
+non-Error value, both arrive as a stand-in carrying no stack.</li>
 <li><code>message</code> <code>String</code> the error message</li>
 <li><code>url</code> <code>String</code> URL to the file where the error originated.</li>
 <li><code>line</code> <code>Number</code></li>
@@ -499,7 +503,7 @@ are read back out of its stack, and are undefined when it has none.</p>
 </ul>
 <p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L591">src/atom-environment.js:591</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L593">src/atom-environment.js:593</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-ondidthrowerror" data-api-entry="atomenvironment ondidthrowerror ::ondidthrowerror(callback) invoke the given callback whenever there is an unhandled error,
@@ -507,7 +511,9 @@ whether thrown or carried by a rejected promise nobody handled.
 
 * `callback` {function} to be called whenever there is an unhandled error
   * `event` {object}
-    * `originalerror` {object} the original error object
+    * `originalerror` {error} the original error object. never null: an
+      error the browser could not hand over, and a rejection with a
+      non-error value, both arrive as a stand-in carrying no stack.
     * `message` {string} the error message
     * `url` {string} url to the file where the error originated.
     * `line` {number}
@@ -525,7 +531,9 @@ whether thrown or carried by a rejected promise nobody handled.</p>
 <ul>
 <li><code>event</code> <code>Object</code>
 <ul>
-<li><code>originalError</code> <code>Object</code> the original error object</li>
+<li><code>originalError</code> <code>Error</code> the original error object. Never null: an
+error the browser could not hand over, and a rejection with a
+non-Error value, both arrive as a stand-in carrying no stack.</li>
 <li><code>message</code> <code>String</code> the error message</li>
 <li><code>url</code> <code>String</code> URL to the file where the error originated.</li>
 <li><code>line</code> <code>Number</code></li>
@@ -537,7 +545,7 @@ whether thrown or carried by a rejected promise nobody handled.</p>
 </ul>
 <p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L607">src/atom-environment.js:607</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L611">src/atom-environment.js:611</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-whenshellenvironmentloaded" data-api-entry="atomenvironment whenshellenvironmentloaded ::whenshellenvironmentloaded(callback) invoke the given callback as soon as the shell environment is
@@ -554,7 +562,7 @@ loaded (or immediately if it was already loaded).</p>
 <li><code>callback</code> <code>Function</code> to be called once the shell environment is loaded.</li>
 </ul>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L622">src/atom-environment.js:622</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L626">src/atom-environment.js:626</a>
                     </article>
             </section>
 
@@ -568,7 +576,7 @@ loaded (or immediately if it was already loaded).</p>
                       </div>
                       <div class="api-description-body"><p>Returns a <code>Boolean</code> that is <code>true</code> if the current window is in development mode.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L636">src/atom-environment.js:636</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L640">src/atom-environment.js:640</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-insafemode" data-api-entry="atomenvironment insafemode ::insafemode() returns a {boolean} that is `true` if the current window is in safe mode.">
@@ -578,7 +586,7 @@ loaded (or immediately if it was already loaded).</p>
                       </div>
                       <div class="api-description-body"><p>Returns a <code>Boolean</code> that is <code>true</code> if the current window is in safe mode.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L642">src/atom-environment.js:642</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L646">src/atom-environment.js:646</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-inspecmode" data-api-entry="atomenvironment inspecmode ::inspecmode() returns a {boolean} that is `true` if the current window is running specs.">
@@ -588,7 +596,7 @@ loaded (or immediately if it was already loaded).</p>
                       </div>
                       <div class="api-description-body"><p>Returns a <code>Boolean</code> that is <code>true</code> if the current window is running specs.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L648">src/atom-environment.js:648</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L652">src/atom-environment.js:652</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getappname" data-api-entry="atomenvironment getappname ::getappname() get the full name of this lumine release (e.g. &quot;lumine&quot;, &quot;lumine beta&quot;)
@@ -601,7 +609,7 @@ returns the app name {string}.">
                       <div class="api-description-body"><p>Get the full name of this Lumine release (e.g. “Lumine”, “Lumine Beta”)</p>
 <p>Returns the app name <code>String</code>.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L663">src/atom-environment.js:663</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L667">src/atom-environment.js:667</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getversion" data-api-entry="atomenvironment getversion ::getversion() get the version of the lumine application.
@@ -614,7 +622,7 @@ returns the version text {string}.">
                       <div class="api-description-body"><p>Get the version of the Lumine application.</p>
 <p>Returns the version text <code>String</code>.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L671">src/atom-environment.js:671</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L675">src/atom-environment.js:675</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-versionsatisfies" data-api-entry="atomenvironment versionsatisfies ::versionsatisfies(value) * `value` {string} any valid semver range.
@@ -629,7 +637,7 @@ returns {boolean} true if the current version satisfies the range provided,.">
 </ul>
 <p>Returns <code>boolean</code> True if the current version satisfies the range provided,.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L684">src/atom-environment.js:684</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L688">src/atom-environment.js:688</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getreleasechannel" data-api-entry="atomenvironment getreleasechannel ::getreleasechannel() gets the release channel of the lumine application.
@@ -646,7 +654,7 @@ otherwise.">
 name like ‘beta’ or ‘nightly’ if one is found in the Lumine version or ‘stable’
 otherwise.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L693">src/atom-environment.js:693</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L697">src/atom-environment.js:697</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-isreleasedversion" data-api-entry="atomenvironment isreleasedversion ::isreleasedversion() returns a {boolean} that is `true` if the current version is an official release.">
@@ -656,7 +664,7 @@ otherwise.</p>
                       </div>
                       <div class="api-description-body"><p>Returns a <code>Boolean</code> that is <code>true</code> if the current version is an official release.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L698">src/atom-environment.js:698</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L702">src/atom-environment.js:702</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getwindowloadtime" data-api-entry="atomenvironment getwindowloadtime ::getwindowloadtime() get the time taken to completely load the current window.
@@ -676,7 +684,7 @@ DOM elements for the editor, and reading the config.</p>
 <p>Returns the <code>Number</code> of milliseconds taken to load the window or null
 if the window hasn’t finished loading yet.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L709">src/atom-environment.js:709</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L713">src/atom-environment.js:713</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getstartupmarkers" data-api-entry="atomenvironment getstartupmarkers ::getstartupmarkers() get all markers containing startup timing information.
@@ -697,7 +705,7 @@ Each timing is an object with two keys:</p>
 <li><code>time</code>:  Time since the <code>startTime</code> (in milliseconds).</li>
 </ul>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L719">src/atom-environment.js:719</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L723">src/atom-environment.js:723</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getloadsettings" data-api-entry="atomenvironment getloadsettings ::getloadsettings() get the load settings for the current window.
@@ -710,7 +718,7 @@ returns an {object} containing all the load setting key/value pairs.">
                       <div class="api-description-body"><p>Get the load settings for the current window.</p>
 <p>Returns an <code>Object</code> containing all the load setting key/value pairs.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L728">src/atom-environment.js:728</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L732">src/atom-environment.js:732</a>
                     </article>
             </section>
 
@@ -753,7 +761,7 @@ mode prevents all packages installed to ~/.lumine/packages from loading.</li>
 </li>
 </ul>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L750">src/atom-environment.js:750</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L754">src/atom-environment.js:754</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-pickfolder" data-api-entry="atomenvironment pickfolder ::pickfolder(callback) prompt the user to select one or more folders.
@@ -775,7 +783,7 @@ if the user dismissed the dialog.</li>
 </li>
 </ul>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L759">src/atom-environment.js:759</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L763">src/atom-environment.js:763</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-close" data-api-entry="atomenvironment close ::close() close the current window.">
@@ -785,7 +793,7 @@ if the user dismissed the dialog.</li>
                       </div>
                       <div class="api-description-body"><p>Close the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L764">src/atom-environment.js:764</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L768">src/atom-environment.js:768</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getsize" data-api-entry="atomenvironment getsize ::getsize() get the size of current window.
@@ -798,7 +806,7 @@ returns an {object} in the format `{width: 1000, height: 700}`">
                       <div class="api-description-body"><p>Get the size of current window.</p>
 <p>Returns an <code>Object</code> in the format <code>width: 1000, height: 700</code></p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L771">src/atom-environment.js:771</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L775">src/atom-environment.js:775</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-setsize" data-api-entry="atomenvironment setsize ::setsize(width, height) set the size of current window.
@@ -815,7 +823,7 @@ returns an {object} in the format `{width: 1000, height: 700}`">
 <li><code>height</code> The <code>Number</code> of pixels.</li>
 </ul>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L779">src/atom-environment.js:779</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L783">src/atom-environment.js:783</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getposition" data-api-entry="atomenvironment getposition ::getposition() get the position of current window.
@@ -828,7 +836,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       <div class="api-description-body"><p>Get the position of current window.</p>
 <p>Returns an <code>Object</code> in the format <code>x: 10, y: 20</code></p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L786">src/atom-environment.js:786</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L790">src/atom-environment.js:790</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-setposition" data-api-entry="atomenvironment setposition ::setposition(x, y) set the position of current window.
@@ -845,7 +853,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
 <li><code>y</code> The <code>Number</code> of pixels.</li>
 </ul>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L794">src/atom-environment.js:794</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L798">src/atom-environment.js:798</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-getcurrentwindow" data-api-entry="atomenvironment getcurrentwindow ::getcurrentwindow() get the current window">
@@ -855,7 +863,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Get the current window</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L799">src/atom-environment.js:799</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L803">src/atom-environment.js:803</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-center" data-api-entry="atomenvironment center ::center() move current window to the center of the screen.">
@@ -865,7 +873,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Move current window to the center of the screen.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L804">src/atom-environment.js:804</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L808">src/atom-environment.js:808</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-focus" data-api-entry="atomenvironment focus ::focus() focus the current window.">
@@ -875,7 +883,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Focus the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L809">src/atom-environment.js:809</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L813">src/atom-environment.js:813</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-show" data-api-entry="atomenvironment show ::show() show the current window.">
@@ -885,7 +893,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Show the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L815">src/atom-environment.js:815</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L819">src/atom-environment.js:819</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-hide" data-api-entry="atomenvironment hide ::hide() hide the current window.">
@@ -895,7 +903,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Hide the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L820">src/atom-environment.js:820</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L824">src/atom-environment.js:824</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-reload" data-api-entry="atomenvironment reload ::reload() reload the current window.">
@@ -905,7 +913,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Reload the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L825">src/atom-environment.js:825</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L829">src/atom-environment.js:829</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-restartapplication" data-api-entry="atomenvironment restartapplication ::restartapplication() relaunch the entire application.">
@@ -915,7 +923,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Relaunch the entire application.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L830">src/atom-environment.js:830</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L834">src/atom-environment.js:834</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-ismaximized" data-api-entry="atomenvironment ismaximized ::ismaximized() returns a {boolean} that is `true` if the current window is maximized.">
@@ -925,7 +933,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Returns a <code>Boolean</code> that is <code>true</code> if the current window is maximized.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L835">src/atom-environment.js:835</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L839">src/atom-environment.js:839</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-isfullscreen" data-api-entry="atomenvironment isfullscreen ::isfullscreen() returns a {boolean} that is `true` if the current window is in full screen mode.">
@@ -935,7 +943,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Returns a <code>Boolean</code> that is <code>true</code> if the current window is in full screen mode.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L844">src/atom-environment.js:844</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L848">src/atom-environment.js:848</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-setfullscreen" data-api-entry="atomenvironment setfullscreen ::setfullscreen(fullscreen = false) set the full screen state of the current window.">
@@ -945,7 +953,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Set the full screen state of the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L849">src/atom-environment.js:849</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L853">src/atom-environment.js:853</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-togglefullscreen" data-api-entry="atomenvironment togglefullscreen ::togglefullscreen() toggle the full screen state of the current window.">
@@ -955,7 +963,7 @@ returns an {object} in the format `{x: 10, y: 20}`">
                       </div>
                       <div class="api-description-body"><p>Toggle the full screen state of the current window.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L858">src/atom-environment.js:858</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L862">src/atom-environment.js:862</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-trashitem" data-api-entry="atomenvironment trashitem ::trashitem(filepath) moves an item to the trash.
@@ -970,7 +978,7 @@ rejects in the event of failure.">
 <p>Returns a <code>Promise</code> that resolves when the operation has completed or
 rejects in the event of failure.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L866">src/atom-environment.js:866</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L870">src/atom-environment.js:870</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-showiteminfolder" data-api-entry="atomenvironment showiteminfolder ::showiteminfolder(filepath) reveals the given path in the system's file browser, selecting
@@ -987,7 +995,7 @@ it if possible.</p>
 <p>Returns a <code>Promise</code> that resolves when the operation has completed or
 rejects in the event of failure.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L875">src/atom-environment.js:875</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L879">src/atom-environment.js:879</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-openpath" data-api-entry="atomenvironment openpath ::openpath(filepath) opens the given path in the default manner for the operating
@@ -1013,7 +1021,7 @@ application.</p>
 <p>Returns a <code>Promise</code> that resolves when the operation has completed or
 rejects in the event of failure.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L889">src/atom-environment.js:889</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L893">src/atom-environment.js:893</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-openexternal" data-api-entry="atomenvironment openexternal ::openexternal(url) opens the given url in the default manner for the operating
@@ -1037,7 +1045,7 @@ client.</p>
 <p>Returns a <code>Promise</code> that resolves when the operation has completed or
 rejects in the event of failure.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L902">src/atom-environment.js:902</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L906">src/atom-environment.js:906</a>
                     </article>
             </section>
 
@@ -1051,7 +1059,7 @@ rejects in the event of failure.</p>
                       </div>
                       <div class="api-description-body"><p>Visually trigger a beep.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1317">src/atom-environment.js:1317</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1333">src/atom-environment.js:1333</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-confirm" data-api-entry="atomenvironment confirm ::confirm(options = {}, callback) a flexible way to open a dialog akin to an alert dialog.
@@ -1160,7 +1168,7 @@ If a callback is supplied, the dialog will be non-blocking. This argument is rec
 or the return value of the callback if the buttons option is an object.
 If a callback function is supplied, returns <code>undefined</code>.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1374">src/atom-environment.js:1374</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1390">src/atom-environment.js:1390</a>
                     </article>
             </section>
 
@@ -1177,7 +1185,7 @@ returns a {promise} that resolves when the devtools have been opened.">
                       <div class="api-description-body"><p>Open the dev tools for the current window.</p>
 <p>Returns a <code>Promise</code> that resolves when the DevTools have been opened.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1390">src/atom-environment.js:1390</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1406">src/atom-environment.js:1406</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-toggledevtools" data-api-entry="atomenvironment toggledevtools ::toggledevtools() toggle the visibility of the dev tools for the current window.
@@ -1192,7 +1200,7 @@ closed.">
 <p>Returns a <code>Promise</code> that resolves when the DevTools have been opened or
 closed.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1398">src/atom-environment.js:1398</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1414">src/atom-environment.js:1414</a>
                     </article>
 
                     <article class="api-member" id="atomenvironment-instance-executejavascriptindevtools" data-api-entry="atomenvironment executejavascriptindevtools ::executejavascriptindevtools(code) execute code in dev tools.">
@@ -1202,7 +1210,7 @@ closed.</p>
                       </div>
                       <div class="api-description-body"><p>Execute code in dev tools.</p>
 </div>
-                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1403">src/atom-environment.js:1403</a>
+                      <a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L1419">src/atom-environment.js:1419</a>
                     </article>
             </section>
         </section>
