@@ -90,7 +90,6 @@
     <header class="nav">
       <a class="brand" href="../index.html" aria-label="Lumine home"><img src="../assets/lumine.svg" alt="" width="34" height="34" /><span>Lumine</span></a>
       <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></nav>
-      <a class="btn btn-primary nav-cta" href="../docs.html#getting-started/installing-lumine">Build from source</a>
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version 1.0.0 &middot; 51 classes &middot; 1116 documented members</p></header>
@@ -3168,7 +3167,7 @@ returns a {disposable} on which `.dispose()` can be called to remove the
 added menu items.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#contextmenumanager-instance-add" aria-label="Link to ::add(itemsBySelector, throwOnInvalidSelector = true)">#</a><code>::add(itemsBySelector, throwOnInvalidSelector = true)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/context-menu-manager.js#L132" title="src/context-menu-manager.js:132">L132</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/context-menu-manager.js#L128" title="src/context-menu-manager.js:128">L128</a></div>
                       </div>
                       <div class="api-description-body"><p>Add context menu items scoped by CSS selectors.</p>
 <h2>Examples</h2>
@@ -9892,7 +9891,7 @@ incompatible packages cannot be activated.
 returns a {boolean}, true if compatible, false if incompatible.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-iscompatible" aria-label="Link to ::isCompatible()">#</a><code>::isCompatible()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1086" title="src/package.js:1086">L1086</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1067" title="src/package.js:1067">L1067</a></div>
                       </div>
                       <div class="api-description-body"><p>Are all native modules depended on by this package correctly
 compiled against the current version of Lumine?</p>
@@ -9909,7 +9908,7 @@ returns a {promise} that resolves with an object containing `code`,
 `lumine -p rebuild` on the package.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-rebuild" aria-label="Link to ::rebuild()">#</a><code>::rebuild()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1104" title="src/package.js:1104">L1104</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1085" title="src/package.js:1085">L1085</a></div>
                       </div>
                       <div class="api-description-body"><p>Rebuild native modules in this package’s dependencies for the
 current version of Lumine.</p>
@@ -9924,7 +9923,7 @@ current version of Lumine.</p>
 returns a {string} or null if no previous build failure occurred.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-getbuildfailureoutput" aria-label="Link to ::getBuildFailureOutput()">#</a><code>::getBuildFailureOutput()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1121" title="src/package.js:1121">L1121</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1102" title="src/package.js:1102">L1102</a></div>
                       </div>
                       <div class="api-description-body"><p>If a previous rebuild failed, get the contents of stderr.</p>
 <p>Returns a <code>String</code> or null if no previous build failure occurred.</p>

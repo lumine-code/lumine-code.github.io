@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-05T23:22:54.508Z",
+  "generatedAt": "2026-08-05T23:25:27.221Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -1143,7 +1143,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\natom.contextMenu.add({\n  'atom-workspace': [{label: 'Help', command: 'application:open-documentation'}]\n  'atom-text-editor': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'}\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments\n\n* `itemsBySelector` An {Object} whose keys are CSS selectors and whose\n  values are {Array}s of item {Object}s containing the following keys:\n  * `label` (optional) A {String} containing the menu item's label.\n  * `command` (optional) A {String} containing the command to invoke on the\n    target of the right click that invoked the context menu.\n  * `enabled` (optional) A {Boolean} indicating whether the menu item\n    should be clickable. Disabled menu items typically appear grayed out.\n    Defaults to `true`.\n  * `submenu` (optional) An {Array} of additional items.\n  * `type` (optional) If you want to create a separator, provide an item\n     with `type: 'separator'` and no other keys.\n  * `visible` (optional) A {Boolean} indicating whether the menu item\n    should appear in the menu. Defaults to `true`.\n  * `created` (optional) A {Function} that is called on the item each time a\n    context menu is created via a right click. You can assign properties to\n   `this` to dynamically compute the command, label, etc. This method is\n   actually called on a clone of the original item template to prevent state\n   from leaking across context menu deployments. Called with the following\n   argument:\n    * `event` The click event that deployed the context menu.\n  * `shouldDisplay` (optional) A {Function} that is called to determine\n    whether to display this item on a given context menu deployment. Called\n    with the following argument:\n    * `event` The click event that deployed the context menu.\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
-          "line": 132
+          "line": 128
         }
       ]
     },
@@ -4443,7 +4443,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1086
+          "line": 1067
         },
         {
           "name": "rebuild",
@@ -4454,7 +4454,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1104
+          "line": 1085
         },
         {
           "name": "getBuildFailureOutput",
@@ -4465,7 +4465,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1121
+          "line": 1102
         }
       ]
     },
