@@ -6,10 +6,18 @@ const parser = require("@babel/parser");
 const MarkdownIt = require("markdown-it");
 
 const siteRoot = path.resolve(__dirname, "..");
+
+// --check renders everything and compares it with what is committed instead of
+// writing. The reference is generated from a checkout of the editor that sits
+// beside this one, so nothing here changes when the editor's documentation
+// does — the output simply goes quietly out of date, which is how it came to
+// still describe 1.132.1-dev.
+const checkOnly = process.argv.includes("--check");
+const positional = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
 const sourceManifestPath = path.resolve(
-  process.argv[2] || path.join(siteRoot, "api-sources.json"),
+  positional[0] || path.join(siteRoot, "api-sources.json"),
 );
-const outputRoot = path.resolve(process.argv[3] || path.join(siteRoot, "api"));
+const outputRoot = path.resolve(positional[1] || path.join(siteRoot, "api"));
 const sourceManifest = require(sourceManifestPath);
 const lumineSource = sourceManifest.sources.find(
   ({ packageMetadata }) => packageMetadata,
@@ -721,12 +729,43 @@ const api = {
     functions.length,
 };
 
-fs.mkdirSync(outputRoot, { recursive: true });
-fs.writeFileSync(
-  path.join(outputRoot, "api.json"),
-  `${JSON.stringify(api, null, 2)}\n`,
-);
-fs.writeFileSync(path.join(outputRoot, "index.html"), renderHtml(api));
-console.log(
-  `Generated ${api.classes.length} classes and ${api.memberCount} documented members in ${outputRoot}`,
-);
+const rendered = {
+  "api.json": `${JSON.stringify(api, null, 2)}\n`,
+  "index.html": renderHtml(api),
+};
+const summary = `${api.classes.length} classes and ${api.memberCount} documented members`;
+
+// The timestamp is the one thing that differs on every run, so comparing it
+// would make the check useless. Everything else — the version, the members,
+// the source line each one links to — is a real difference worth failing on:
+// a moved line number is a reference link that now points at the wrong code.
+function withoutTimestamp(contents, file) {
+  if (file !== "api.json") return contents;
+  return contents.replace(/^(\s*"generatedAt": ).*$/m, "$1null,");
+}
+
+if (checkOnly) {
+  const stale = [];
+  for (const [file, contents] of Object.entries(rendered)) {
+    const committed = path.join(outputRoot, file);
+    const before = fs.existsSync(committed)
+      ? fs.readFileSync(committed, "utf8")
+      : null;
+    if (before === null) stale.push(`${file} has never been generated`);
+    else if (withoutTimestamp(before, file) !== withoutTimestamp(contents, file))
+      stale.push(`${file} does not match the editor source it is generated from`);
+  }
+
+  for (const line of stale) console.error(`error: ${line}`);
+  console.log(
+    `api reference: ${summary}, ${stale.length} file(s) out of date` +
+      (stale.length ? " — run npm run docs:api and commit the result" : ""),
+  );
+  process.exitCode = stale.length > 0 ? 1 : 0;
+} else {
+  fs.mkdirSync(outputRoot, { recursive: true });
+  for (const [file, contents] of Object.entries(rendered)) {
+    fs.writeFileSync(path.join(outputRoot, file), contents);
+  }
+  console.log(`Generated ${summary} in ${outputRoot}`);
+}

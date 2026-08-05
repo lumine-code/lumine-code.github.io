@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  # The reference is generated from the editor's source, so it goes stale
+  # without anything here changing. Nothing else would ever notice.
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  api-reference:
+    name: API reference is current
+    runs-on: ubuntu-latest
+    steps:
+      # The generator reads the editor checkout beside this one, exactly as the
+      # flat workspace lays it out, so both are checked out as siblings here.
+      - uses: actions/checkout@v7
+        with:
+          path: lumine-code.github.io
+      - uses: actions/checkout@v7
+        with:
+          repository: lumine-code/lumine
+          path: lumine
+          # Source and package.json are all it reads — no install, no history.
+          fetch-depth: 1
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: lumine-code.github.io/package-lock.json
+      - run: npm ci
+        working-directory: lumine-code.github.io
+      # Fails when the committed api/ no longer matches the editor's documented
+      # source: a changed doc comment, a new member, or a moved line number that
+      # has left a reference link pointing at the wrong code.
+      - run: npm run docs:api:check
+        working-directory: lumine-code.github.io
