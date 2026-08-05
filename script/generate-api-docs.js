@@ -436,14 +436,23 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
     return `\`${label}\``;
   };
 
+  const rewrite = (prose) =>
+    prose
+      .replace(/\[([^\]]+)\]\{([^}]+)\}/g, (_all, label, target) =>
+        linkFor(target, label),
+      )
+      .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_all, target, label) =>
+        linkFor(target, label || target),
+      )
+      .replace(/\{([^{}]+)\}/g, (_all, target) => linkFor(target));
+
+  // Only prose. Braces inside a fenced block or a code span are the example's
+  // own — an object literal, a destructured argument, a template placeholder —
+  // and rewriting them turned every such example into nonsense.
   return text
-    .replace(/\[([^\]]+)\]\{([^}]+)\}/g, (_all, label, target) =>
-      linkFor(target, label),
-    )
-    .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_all, target, label) =>
-      linkFor(target, label || target),
-    )
-    .replace(/\{([^{}]+)\}/g, (_all, target) => linkFor(target));
+    .split(/(```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]*`)/g)
+    .map((segment, index) => (index % 2 ? segment : rewrite(segment)))
+    .join("");
 }
 
 function renderDoc(text, classNames, memberAnchors, currentClass) {

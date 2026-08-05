@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-05T23:25:27.221Z",
+  "generatedAt": "2026-08-05T23:32:33.026Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -4443,7 +4443,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1067
+          "line": 1066
         },
         {
           "name": "rebuild",
@@ -4454,7 +4454,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1085
+          "line": 1084
         },
         {
           "name": "getBuildFailureOutput",
@@ -4465,7 +4465,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1102
+          "line": 1101
         }
       ]
     },
@@ -11356,13 +11356,102 @@
     },
     {
       "name": "TextEditorRegistry",
-      "visibility": "Experimental",
-      "description": "This global registry tracks registered `TextEditors`.\n\nIf you want to add functionality to a wider set of text editors than just\nthose appearing within workspace panes, use `atom.textEditors.observe` to\ninvoke a callback for all current and future registered text editors.\n\nIf you want packages to be able to add functionality to your non-pane text\neditors (such as a search field in a custom user interface element), register\nthem for observation via `atom.textEditors.add`. **Important:** When you're\ndone using your editor, be sure to call `dispose` on the returned disposable\nto avoid leaking editors.",
+      "visibility": "Public",
+      "description": "The global registry of every {TextEditor} in the window, available as\n`atom.textEditors`.\n\n{Workspace} holds the editors that are pane items; this registry holds all of\nthem, including the ones a package builds for its own interface — a search\nfield, a notebook cell, a REPL prompt. Reach for it when a feature should\napply to editors wherever they are rather than only to open files.\n\n## Observing every editor\n\n{::observe} calls back with every editor that is registered now and every one\nregistered later:\n\n```js\natom.textEditors.observe(editor => {\n  // every editor in the window, not just the ones in panes\n})\n```\n\n## Registering your own\n\nA package that embeds an editor registers it so everyone else's features\nreach it too. **Dispose of the returned {Disposable} when the editor goes\naway**, or the registry keeps it alive:\n\n```js\nconst editor = atom.workspace.buildTextEditor({ mini: true })\nconst registration = atom.textEditors.add(editor, { role: 'fragment' })\n// …later\nregistration.dispose()\n```\n\n## Roles\n\nThe `role` an editor is registered with says how it relates to the user's\ndocuments, so a cross-editor feature can tell them apart:\n\n* `\"document\"` — a standalone document: a pane item, or an embedded editor\n  holding complete content of its own. The default.\n* `\"fragment\"` — a piece of a larger composite document: a notebook cell, a\n  watch expression, a REPL input. Fragments share context with the editors\n  around them.\n* `\"background\"` — an infrastructure editor mirroring content the user works\n  on through another view, such as the JSON source behind a notebook. It is\n  registered so configuration and services apply to it, but cross-editor\n  features like completion sourcing leave it alone.",
       "source": "src/text-editor-registry.js",
       "sourcePath": "src/text-editor-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 57,
-      "members": []
+      "line": 92,
+      "members": [
+        {
+          "name": "add",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::add(editor, { role = \"document\" } = {})",
+          "category": "Registering Editors",
+          "visibility": "Essential",
+          "description": "Register a {TextEditor}, so that features written against the\nregistry reach it.\n\n* `editor` The {TextEditor} to register.\n* `options` (optional) {Object}\n  * `role` (optional) {String} one of `\"document\"` (the default),\n    `\"fragment\"` or `\"background\"`. See {TextEditorRegistry} for what each\n    one means.\n\nThrows a {TypeError} if `role` is not one of those three.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\neditor again. Call it when the editor is destroyed, or the registry holds\nthe editor alive.",
+          "line": 136
+        },
+        {
+          "name": "remove",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::remove(editor)",
+          "category": "Registering Editors",
+          "visibility": "Public",
+          "description": "Remove a {TextEditor} from the registry.\n\nDisposing the {Disposable} that {::add} returned does this for you; call it\ndirectly only when you no longer hold that disposable.\n\n* `editor` The {TextEditor} to remove.\n\nReturns a {Boolean}: `true` if the editor was registered, `false` if it was\nnot.",
+          "line": 172
+        },
+        {
+          "name": "roleFor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::roleFor(editor)",
+          "category": "Registering Editors",
+          "visibility": "Public",
+          "description": "Get the role a {TextEditor} was registered with.\n\nUse it to tell a document apart from a notebook cell or a background\nmirror before applying a cross-editor feature to it.\n\n* `editor` The {TextEditor} to look up.\n\nReturns a {String} role, or `null` if the editor is not registered.",
+          "line": 189
+        },
+        {
+          "name": "getEditors",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getEditors()",
+          "category": "Accessing Editors",
+          "visibility": "Public",
+          "description": "Get every registered editor.\n\nThis is a snapshot. Use {::observe} to keep up with editors registered\nlater.\n\nReturns an {Array} of {TextEditor}s.",
+          "line": 204
+        },
+        {
+          "name": "getActiveTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActiveTextEditor()",
+          "category": "Accessing Editors",
+          "visibility": "Essential",
+          "description": "Get the editor the user is typing in, wherever it is.\n\nUnlike {Workspace::getActiveTextEditor} this sees editors that are not pane\nitems — a search field, a notebook cell — which is usually what a command\nbound to the window should act on.\n\nThe answer is resolved outward from the focused element, so it never\ntouches (or lazily builds) the views of other registered editors, and the\ninnermost registered editor wins when editors are nested.\n\nReturns a {TextEditor}, or `null` if focus is not in one.",
+          "line": 219
+        },
+        {
+          "name": "observe",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observe(callback)",
+          "category": "Event Subscription",
+          "visibility": "Essential",
+          "description": "Invoke the given callback with every registered editor, now and\nin the future.\n\nThe callback runs synchronously for each editor already registered, then\nagain for each one registered afterwards.\n\n* `callback` {Function} to be called with each {TextEditor}.\n  * `editor` The {TextEditor}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 245
+        },
+        {
+          "name": "onDidRemoveEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidRemoveEditor(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the given callback when an editor is removed from the\nregistry.\n\nThe counterpart to {::observe}: anything that attached state to an editor\nwhen it arrived can release it here.\n\n* `callback` {Function} to be called with each removed {TextEditor}.\n  * `editor` The {TextEditor} that was removed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 262
+        },
+        {
+          "name": "maintainConfig",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::maintainConfig(editor)",
+          "category": "Configuration",
+          "visibility": "Public",
+          "description": "Keep a {TextEditor}'s settings in sync with the user's.\n\nApplies the settings that match the editor's language now, and keeps\napplying them as the user changes a setting or the editor's language mode\nchanges — soft wrap, tab length, invisibles, scroll behaviour and the rest.\nAn editor built by {Workspace::buildTextEditor} is already maintained; call\nthis for one you constructed yourself.\n\nA setting the user has overridden on this editor is left alone when the\nlanguage changes, so switching grammar does not undo their choice.\n\nCalling it twice for the same editor is a no-op.\n\n* `editor` The {TextEditor} whose configuration will be maintained.\n\nReturns a {Disposable} that stops updating the editor's configuration.",
+          "line": 286
+        }
+      ]
     },
     {
       "name": "ThemeManager",
@@ -12833,5 +12922,5 @@
       "line": 1033
     }
   ],
-  "memberCount": 1116
+  "memberCount": 1124
 }
