@@ -76,7 +76,7 @@ lem grammar --check --package-root ../language-lua
 
 Writing queries means constantly asking what the parse tree actually contains — which node types exist, which tokens are anonymous, what upstream's own queries say. The build cache already holds a clone of every parser it has built, at the ref it built, so read `src/node-types.json` and `queries/` there rather than fetching again.
 
-While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/dev/packages`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
+While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/packages-dev`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
 
 ## Updating a grammar
 
@@ -92,7 +92,7 @@ While authoring queries, do not iterate through the pin. Symlink the package int
 
 4. Eyeball highlighting, indentation, and folding on a real file — `spec/fixtures/sample.*` exists for exactly this.
 5. Commit the wasm, config, and query fixes together, one grammar per commit. CI validates that any wasm change also updates `parserSource` or `wasmBuildTool`; run `node script/validate-wasm-grammar-prs.js` locally before pushing directly to master.
-6. Push the package **first**, then repin it in `lumine/package.json` `dependencies` (`node script/repin.js <name>` does this) and `npm install`. Until that pin moves, the package's own CI still tests against the previously pinned editor. The order reverses only when the editor change is the breaking one.
+6. Push the package **first**, then advance its pin in `lumine/package.json` `dependencies` to the pushed commit and let `npm install` regenerate the lockfile. Until that pin moves, the package's own CI still tests against the previously pinned editor. The order reverses only when the editor change is the breaking one.
 
 ## Query validation and errors
 
