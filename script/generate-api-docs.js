@@ -428,16 +428,26 @@ function memberId(className, member) {
 
 function linkReferences(text, classNames, memberAnchors, currentClass) {
   if (!text) return "";
+  // A {Foo} is one of two things and they read differently: a type the value
+  // has, or a reference to another entry in the reference. Both are marked so
+  // the page can colour them apart, and both keep the same shape whether or not
+  // the target happens to be documented — a reader should not have to notice
+  // that {String} is not a class here and {Range} is.
+  const token = (kind, label, href) =>
+    href
+      ? `<a class="api-${kind}" href="${href}">${escapeHtml(label)}</a>`
+      : `<code class="api-${kind}">${escapeHtml(label)}</code>`;
+
   const linkFor = (target, label = target) => {
     const normalized = target.replace(/^::/, `${currentClass || ""}::`);
     const match = normalized.match(/^([^:.]+)(::|\.)(.+)$/);
     if (match && classNames.has(match[1])) {
       const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
-      return memberAnchors.has(id) ? `[${label}](#${id})` : `\`${label}\``;
+      return token("ref", label, memberAnchors.has(id) ? `#${id}` : null);
     }
     if (classNames.has(normalized))
-      return `[${label}](#class-${slug(normalized)})`;
-    return `\`${label}\``;
+      return token("type", label, `#class-${slug(normalized)}`);
+    return token("type", label, null);
   };
 
   const rewrite = (prose) =>
@@ -448,7 +458,12 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
       .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_all, target, label) =>
         linkFor(target, label || target),
       )
-      .replace(/\{([^{}]+)\}/g, (_all, target) => linkFor(target));
+      // `{TextEditor}s` is a plural, and the source writes some eighty of them.
+      // The `s` goes inside the token, or it reads as "TextEditor s" once the
+      // token is a chip with padding of its own.
+      .replace(/\{([^{}]+)\}(s\b)?/g, (_all, target, plural) =>
+        linkFor(target, `${target}${plural || ""}`),
+      );
 
   // Only prose. Braces inside a fenced block or a code span are the example's
   // own — an object literal, a destructured argument, a template placeholder —
@@ -563,7 +578,7 @@ function renderHtml(api) {
                     <article class="api-member" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a><code>${escapeHtml(member.signature)}</code></h4>
-                        <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
+                        <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge api-badge-${slug(member.visibility)}">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
                       </div>
                       ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : '<p class="api-empty">No description.</p>'}
                     </article>`,
@@ -586,7 +601,7 @@ function renderHtml(api) {
     ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
         .map(
           (item) =>
-            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4><div class="api-member-meta"><span class="api-badge">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}</article>`,
+            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}</article>`,
         )
         .join("\n")}</section>`
     : "";
@@ -647,6 +662,15 @@ function renderHtml(api) {
       .api-description-body :is(h1, h2, h3, h4, h5, h6) { margin: 16px 0 0; font-size: 1.02rem; line-height: 1.35; }
       .api-description-body :is(h4, h5, h6) { font-size: .95rem; }
       .api-description-body code { padding: 1px 5px; border-radius: 5px; background: rgba(255, 255, 255, .05); font-size: .88em; }
+      /* Three things carry colour, and only three: the type a value has, a
+         reference to another entry, and the name of a parameter. Everything
+         else in the prose stays prose, or the page reads as confetti. A type
+         and a reference look the same whether or not they link anywhere. */
+      .api-description-body .api-type, .api-description-body .api-ref { padding: 1px 5px; border-radius: 5px; font-family: "JetBrains Mono", monospace; font-size: .84em; white-space: nowrap; }
+      .api-description-body .api-type { color: var(--cyan); background: rgba(98, 213, 208, .1); }
+      .api-description-body .api-ref { color: var(--gold-strong); background: rgba(229, 173, 45, .1); }
+      .api-description-body a.api-type:hover, .api-description-body a.api-ref:hover { text-decoration: underline; }
+      .api-description-body li > code:first-child:not(.api-type):not(.api-ref) { color: var(--text); font-weight: 600; }
       .api-description-body pre { margin: 10px 0 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
       .api-description-body pre code { padding: 0; background: none; font-size: .82rem; }
       .api-description-body a { color: var(--gold-strong); }
@@ -665,6 +689,11 @@ function renderHtml(api) {
       .api-anchor:hover { color: var(--gold-strong); }
       .api-member-meta { display: flex; flex: none; align-items: baseline; gap: 10px; }
       .api-badge { padding: 1px 8px; border: 1px solid var(--border); border-radius: 999px; color: #6f7c8d; font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+      /* Visibility is a reading order, so it is worth seeing at a glance which
+         members are the ones to start with. */
+      .api-badge-essential { color: var(--gold-strong); border-color: rgba(229, 173, 45, .38); }
+      .api-badge-extended { color: #5d6878; border-color: rgba(255, 255, 255, .07); }
+      .api-badge-experimental { color: var(--green); border-color: rgba(135, 211, 124, .34); }
       .api-badge-async { color: var(--cyan); border-color: rgba(98, 213, 208, .4); }
       .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--soft); line-height: 1.6; }
       .api-member pre, .api-description pre { overflow: auto; }
