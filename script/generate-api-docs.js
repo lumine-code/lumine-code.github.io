@@ -164,9 +164,13 @@ function jsdocDoc(raw) {
   const description = jsdocDescription(raw);
   if (description) parts.push(description);
 
+  // The type and the name stay on the tag's own line — `\s` would match the
+  // newline, so a `@param` with no description swallowed the `@returns` beneath
+  // it. The description runs on until the next tag, since JSDoc wraps freely
+  // and taking only the first line truncated mid-sentence.
   const params = [
     ...raw.matchAll(
-      /(?:^|\n)@param\s+(?:\{([^}]+)\}\s*)?([^\s-]+)\s*(?:-\s*)?([^\n]*)/g,
+      /(?:^|\n)@param[ \t]+(?:\{([^}]+)\}[ \t]*)?([^\s-]+)[ \t]*(?:-[ \t]*)?([\s\S]*?)(?=\n@|$)/g,
     ),
   ];
   if (params.length) {
@@ -174,7 +178,7 @@ function jsdocDoc(raw) {
       params
         .map(
           (match) =>
-            `* \`${match[2]}\`${match[1] ? ` {${match[1]}}` : ""} ${match[3]}`,
+            `* \`${match[2]}\`${match[1] ? ` {${match[1]}}` : ""} ${match[3].replace(/\s+/g, " ").trim()}`,
         )
         .join("\n"),
     );

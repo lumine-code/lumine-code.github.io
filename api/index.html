@@ -92,7 +92,7 @@
       <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></nav>
     </header>
     <main class="api-main">
-      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version 1.0.0 &middot; 51 classes &middot; 1124 documented members</p></header>
+      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version 1.0.0 &middot; 52 classes &middot; 1164 documented members</p></header>
       <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p class="api-rail-heading">Classes</p><div class="api-tree-list"><a class="api-nav-link" href="#class-atomenvironment" data-api-nav>AtomEnvironment</a>
 <a class="api-nav-link" href="#class-bufferednodeprocess" data-api-nav>BufferedNodeProcess</a>
 <a class="api-nav-link" href="#class-bufferedprocess" data-api-nav>BufferedProcess</a>
@@ -130,6 +130,7 @@
 <a class="api-nav-link" href="#class-range" data-api-nav>Range</a>
 <a class="api-nav-link" href="#class-repositoryregistry" data-api-nav>RepositoryRegistry</a>
 <a class="api-nav-link" href="#class-scopedescriptor" data-api-nav>ScopeDescriptor</a>
+<a class="api-nav-link" href="#class-secretstore" data-api-nav>SecretStore</a>
 <a class="api-nav-link" href="#class-selection" data-api-nav>Selection</a>
 <a class="api-nav-link" href="#class-servicehub" data-api-nav>ServiceHub</a>
 <a class="api-nav-link" href="#class-stylemanager" data-api-nav>StyleManager</a>
@@ -173,13 +174,14 @@
 <div class="api-toc-group" data-toc-group="class-packagemanager"><a class="api-toc-heading" href="#packagemanager-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#packagemanager-instance-ondidloadinitialpackages" data-api-nav-member="packagemanager-instance-ondidloadinitialpackages">onDidLoadInitialPackages()</a><a class="api-nav-member" href="#packagemanager-instance-ondidactivateinitialpackages" data-api-nav-member="packagemanager-instance-ondidactivateinitialpackages">onDidActivateInitialPackages()</a><a class="api-nav-member" href="#packagemanager-instance-ondidactivatepackage" data-api-nav-member="packagemanager-instance-ondidactivatepackage">onDidActivatePackage()</a><a class="api-nav-member" href="#packagemanager-instance-ondiddeactivatepackage" data-api-nav-member="packagemanager-instance-ondiddeactivatepackage">onDidDeactivatePackage()</a><a class="api-nav-member" href="#packagemanager-instance-ondidloadpackage" data-api-nav-member="packagemanager-instance-ondidloadpackage">onDidLoadPackage()</a><a class="api-nav-member" href="#packagemanager-instance-ondidunloadpackage" data-api-nav-member="packagemanager-instance-ondidunloadpackage">onDidUnloadPackage()</a><a class="api-toc-heading" href="#packagemanager-group-package-system-data">Package system data</a><a class="api-nav-member" href="#packagemanager-instance-getpackagedirpaths" data-api-nav-member="packagemanager-instance-getpackagedirpaths">getPackageDirPaths()</a><a class="api-toc-heading" href="#packagemanager-group-general-package-data">General package data</a><a class="api-nav-member" href="#packagemanager-instance-resolvepackagepath" data-api-nav-member="packagemanager-instance-resolvepackagepath">resolvePackagePath()</a><a class="api-nav-member" href="#packagemanager-instance-isbundledpackage" data-api-nav-member="packagemanager-instance-isbundledpackage">isBundledPackage()</a><a class="api-toc-heading" href="#packagemanager-group-enabling-and-disabling-packages">Enabling and disabling packages</a><a class="api-nav-member" href="#packagemanager-instance-enablepackage" data-api-nav-member="packagemanager-instance-enablepackage">enablePackage()</a><a class="api-nav-member" href="#packagemanager-instance-disablepackage" data-api-nav-member="packagemanager-instance-disablepackage">disablePackage()</a><a class="api-nav-member" href="#packagemanager-instance-ispackagedisabled" data-api-nav-member="packagemanager-instance-ispackagedisabled">isPackageDisabled()</a><a class="api-toc-heading" href="#packagemanager-group-accessing-active-packages">Accessing active packages</a><a class="api-nav-member" href="#packagemanager-instance-getactivepackages" data-api-nav-member="packagemanager-instance-getactivepackages">getActivePackages()</a><a class="api-nav-member" href="#packagemanager-instance-getactivepackage" data-api-nav-member="packagemanager-instance-getactivepackage">getActivePackage()</a><a class="api-nav-member" href="#packagemanager-instance-ispackageactive" data-api-nav-member="packagemanager-instance-ispackageactive">isPackageActive()</a><a class="api-nav-member" href="#packagemanager-instance-hasactivatedinitialpackages" data-api-nav-member="packagemanager-instance-hasactivatedinitialpackages">hasActivatedInitialPackages()</a><a class="api-toc-heading" href="#packagemanager-group-accessing-loaded-packages">Accessing loaded packages</a><a class="api-nav-member" href="#packagemanager-instance-getloadedpackages" data-api-nav-member="packagemanager-instance-getloadedpackages">getLoadedPackages()</a><a class="api-nav-member" href="#packagemanager-instance-getloadedpackage" data-api-nav-member="packagemanager-instance-getloadedpackage">getLoadedPackage()</a><a class="api-nav-member" href="#packagemanager-instance-ispackageloaded" data-api-nav-member="packagemanager-instance-ispackageloaded">isPackageLoaded()</a><a class="api-nav-member" href="#packagemanager-instance-hasloadedinitialpackages" data-api-nav-member="packagemanager-instance-hasloadedinitialpackages">hasLoadedInitialPackages()</a><a class="api-toc-heading" href="#packagemanager-group-accessing-available-packages">Accessing available packages</a><a class="api-nav-member" href="#packagemanager-instance-getavailablepackagepaths" data-api-nav-member="packagemanager-instance-getavailablepackagepaths">getAvailablePackagePaths()</a><a class="api-nav-member" href="#packagemanager-instance-getavailablepackagenames" data-api-nav-member="packagemanager-instance-getavailablepackagenames">getAvailablePackageNames()</a><a class="api-nav-member" href="#packagemanager-instance-getavailablepackagemetadata" data-api-nav-member="packagemanager-instance-getavailablepackagemetadata">getAvailablePackageMetadata()</a><a class="api-nav-member" href="#packagemanager-instance-getavailablepackages" data-api-nav-member="packagemanager-instance-getavailablepackages">getAvailablePackages()</a><a class="api-nav-member" href="#packagemanager-instance-getavailablepackage" data-api-nav-member="packagemanager-instance-getavailablepackage">getAvailablePackage()</a><a class="api-nav-member" href="#packagemanager-instance-refreshpackageindex" data-api-nav-member="packagemanager-instance-refreshpackageindex">refreshPackageIndex()</a></div>
 <div class="api-toc-group" data-toc-group="class-pane"><a class="api-toc-heading" href="#pane-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#pane-instance-ondidchangeflexscale" data-api-nav-member="pane-instance-ondidchangeflexscale">onDidChangeFlexScale()</a><a class="api-nav-member" href="#pane-instance-observeflexscale" data-api-nav-member="pane-instance-observeflexscale">observeFlexScale()</a><a class="api-nav-member" href="#pane-instance-ondidactivate" data-api-nav-member="pane-instance-ondidactivate">onDidActivate()</a><a class="api-nav-member" href="#pane-instance-onwilldestroy" data-api-nav-member="pane-instance-onwilldestroy">onWillDestroy()</a><a class="api-nav-member" href="#pane-instance-ondiddestroy" data-api-nav-member="pane-instance-ondiddestroy">onDidDestroy()</a><a class="api-nav-member" href="#pane-instance-ondidchangeactive" data-api-nav-member="pane-instance-ondidchangeactive">onDidChangeActive()</a><a class="api-nav-member" href="#pane-instance-observeactive" data-api-nav-member="pane-instance-observeactive">observeActive()</a><a class="api-nav-member" href="#pane-instance-ondidadditem" data-api-nav-member="pane-instance-ondidadditem">onDidAddItem()</a><a class="api-nav-member" href="#pane-instance-ondidremoveitem" data-api-nav-member="pane-instance-ondidremoveitem">onDidRemoveItem()</a><a class="api-nav-member" href="#pane-instance-onwillremoveitem" data-api-nav-member="pane-instance-onwillremoveitem">onWillRemoveItem()</a><a class="api-nav-member" href="#pane-instance-ondidmoveitem" data-api-nav-member="pane-instance-ondidmoveitem">onDidMoveItem()</a><a class="api-nav-member" href="#pane-instance-observeitems" data-api-nav-member="pane-instance-observeitems">observeItems()</a><a class="api-nav-member" href="#pane-instance-ondidchangeactiveitem" data-api-nav-member="pane-instance-ondidchangeactiveitem">onDidChangeActiveItem()</a><a class="api-nav-member" href="#pane-instance-observeactiveitem" data-api-nav-member="pane-instance-observeactiveitem">observeActiveItem()</a><a class="api-nav-member" href="#pane-instance-onwilldestroyitem" data-api-nav-member="pane-instance-onwilldestroyitem">onWillDestroyItem()</a><a class="api-toc-heading" href="#pane-group-items">Items</a><a class="api-nav-member" href="#pane-instance-getitems" data-api-nav-member="pane-instance-getitems">getItems()</a><a class="api-nav-member" href="#pane-instance-getactiveitem" data-api-nav-member="pane-instance-getactiveitem">getActiveItem()</a><a class="api-nav-member" href="#pane-instance-itematindex" data-api-nav-member="pane-instance-itematindex">itemAtIndex()</a><a class="api-nav-member" href="#pane-instance-activatenextrecentlyuseditem" data-api-nav-member="pane-instance-activatenextrecentlyuseditem">activateNextRecentlyUsedItem()</a><a class="api-nav-member" href="#pane-instance-activatepreviousrecentlyuseditem" data-api-nav-member="pane-instance-activatepreviousrecentlyuseditem">activatePreviousRecentlyUsedItem()</a><a class="api-nav-member" href="#pane-instance-moveactiveitemtotopofstack" data-api-nav-member="pane-instance-moveactiveitemtotopofstack">moveActiveItemToTopOfStack()</a><a class="api-nav-member" href="#pane-instance-activatenextitem" data-api-nav-member="pane-instance-activatenextitem">activateNextItem()</a><a class="api-nav-member" href="#pane-instance-activatepreviousitem" data-api-nav-member="pane-instance-activatepreviousitem">activatePreviousItem()</a><a class="api-nav-member" href="#pane-instance-moveitemright" data-api-nav-member="pane-instance-moveitemright">moveItemRight()</a><a class="api-nav-member" href="#pane-instance-moveitemleft" data-api-nav-member="pane-instance-moveitemleft">moveItemLeft()</a><a class="api-nav-member" href="#pane-instance-getactiveitemindex" data-api-nav-member="pane-instance-getactiveitemindex">getActiveItemIndex()</a><a class="api-nav-member" href="#pane-instance-activateitematindex" data-api-nav-member="pane-instance-activateitematindex">activateItemAtIndex()</a><a class="api-nav-member" href="#pane-instance-activateitem" data-api-nav-member="pane-instance-activateitem">activateItem()</a><a class="api-nav-member" href="#pane-instance-additem" data-api-nav-member="pane-instance-additem">addItem()</a><a class="api-nav-member" href="#pane-instance-togglependingitem" data-api-nav-member="pane-instance-togglependingitem">togglePendingItem()</a><a class="api-nav-member" href="#pane-instance-additems" data-api-nav-member="pane-instance-additems">addItems()</a><a class="api-nav-member" href="#pane-instance-moveitem" data-api-nav-member="pane-instance-moveitem">moveItem()</a><a class="api-nav-member" href="#pane-instance-moveitemtopane" data-api-nav-member="pane-instance-moveitemtopane">moveItemToPane()</a><a class="api-nav-member" href="#pane-instance-destroyactiveitem" data-api-nav-member="pane-instance-destroyactiveitem">destroyActiveItem()</a><a class="api-nav-member" href="#pane-instance-destroyitem" data-api-nav-member="pane-instance-destroyitem">destroyItem()</a><a class="api-nav-member" href="#pane-instance-destroyitems" data-api-nav-member="pane-instance-destroyitems">destroyItems()</a><a class="api-nav-member" href="#pane-instance-destroyinactiveitems" data-api-nav-member="pane-instance-destroyinactiveitems">destroyInactiveItems()</a><a class="api-nav-member" href="#pane-instance-saveactiveitem" data-api-nav-member="pane-instance-saveactiveitem">saveActiveItem()</a><a class="api-nav-member" href="#pane-instance-saveactiveitemas" data-api-nav-member="pane-instance-saveactiveitemas">saveActiveItemAs()</a><a class="api-nav-member" href="#pane-instance-saveitem" data-api-nav-member="pane-instance-saveitem">saveItem()</a><a class="api-nav-member" href="#pane-instance-saveitemas" data-api-nav-member="pane-instance-saveitemas">saveItemAs()</a><a class="api-nav-member" href="#pane-instance-saveitems" data-api-nav-member="pane-instance-saveitems">saveItems()</a><a class="api-nav-member" href="#pane-instance-itemforuri" data-api-nav-member="pane-instance-itemforuri">itemForURI()</a><a class="api-nav-member" href="#pane-instance-activateitemforuri" data-api-nav-member="pane-instance-activateitemforuri">activateItemForURI()</a><a class="api-toc-heading" href="#pane-group-lifecycle">Lifecycle</a><a class="api-nav-member" href="#pane-instance-isactive" data-api-nav-member="pane-instance-isactive">isActive()</a><a class="api-nav-member" href="#pane-instance-activate" data-api-nav-member="pane-instance-activate">activate()</a><a class="api-nav-member" href="#pane-instance-destroy" data-api-nav-member="pane-instance-destroy">destroy()</a><a class="api-nav-member" href="#pane-instance-isdestroyed" data-api-nav-member="pane-instance-isdestroyed">isDestroyed()</a><a class="api-toc-heading" href="#pane-group-splitting">Splitting</a><a class="api-nav-member" href="#pane-instance-splitleft" data-api-nav-member="pane-instance-splitleft">splitLeft()</a><a class="api-nav-member" href="#pane-instance-splitright" data-api-nav-member="pane-instance-splitright">splitRight()</a><a class="api-nav-member" href="#pane-instance-splitup" data-api-nav-member="pane-instance-splitup">splitUp()</a><a class="api-nav-member" href="#pane-instance-splitdown" data-api-nav-member="pane-instance-splitdown">splitDown()</a></div>
 <div class="api-toc-group" data-toc-group="class-panel"><a class="api-toc-heading" href="#panel-group-construction-and-destruction">Construction and Destruction</a><a class="api-nav-member" href="#panel-instance-destroy" data-api-nav-member="panel-instance-destroy">destroy()</a><a class="api-toc-heading" href="#panel-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#panel-instance-ondidchangevisible" data-api-nav-member="panel-instance-ondidchangevisible">onDidChangeVisible()</a><a class="api-nav-member" href="#panel-instance-ondiddestroy" data-api-nav-member="panel-instance-ondiddestroy">onDidDestroy()</a><a class="api-toc-heading" href="#panel-group-panel-details">Panel Details</a><a class="api-nav-member" href="#panel-instance-getitem" data-api-nav-member="panel-instance-getitem">getItem()</a><a class="api-nav-member" href="#panel-instance-getpriority" data-api-nav-member="panel-instance-getpriority">getPriority()</a><a class="api-nav-member" href="#panel-instance-isvisible" data-api-nav-member="panel-instance-isvisible">isVisible()</a><a class="api-nav-member" href="#panel-instance-hide" data-api-nav-member="panel-instance-hide">hide()</a><a class="api-nav-member" href="#panel-instance-show" data-api-nav-member="panel-instance-show">show()</a></div>
-<div class="api-toc-group" data-toc-group="class-pasteproviderregistry"><p class="api-toc-empty">No members.</p></div>
+<div class="api-toc-group" data-toc-group="class-pasteproviderregistry"><a class="api-toc-heading" href="#pasteproviderregistry-group-methods">Methods</a><a class="api-nav-member" href="#pasteproviderregistry-instance-add" data-api-nav-member="pasteproviderregistry-instance-add">add()</a><a class="api-nav-member" href="#pasteproviderregistry-instance-handlepaste" data-api-nav-member="pasteproviderregistry-instance-handlepaste">handlePaste()</a></div>
 <div class="api-toc-group" data-toc-group="class-pathwatcher"><a class="api-toc-heading" href="#pathwatcher-group-methods">Methods</a><a class="api-nav-member" href="#pathwatcher-instance-getstartpromise" data-api-nav-member="pathwatcher-instance-getstartpromise">getStartPromise()</a><a class="api-nav-member" href="#pathwatcher-instance-ondiderror" data-api-nav-member="pathwatcher-instance-ondiderror">onDidError()</a><a class="api-nav-member" href="#pathwatcher-instance-dispose" data-api-nav-member="pathwatcher-instance-dispose">dispose()</a></div>
 <div class="api-toc-group" data-toc-group="class-point"><a class="api-toc-heading" href="#point-group-methods">Methods</a><a class="api-nav-member" href="#point-static-fromobject" data-api-nav-member="point-static-fromobject">.fromObject()</a><a class="api-toc-heading" href="#point-group-comparison">Comparison</a><a class="api-nav-member" href="#point-static-min" data-api-nav-member="point-static-min">.min()</a><a class="api-nav-member" href="#point-static-max" data-api-nav-member="point-static-max">.max()</a><a class="api-nav-member" href="#point-static-assertvalid" data-api-nav-member="point-static-assertvalid">.assertValid()</a><a class="api-nav-member" href="#point-instance-compare" data-api-nav-member="point-instance-compare">compare()</a><a class="api-nav-member" href="#point-instance-isequal" data-api-nav-member="point-instance-isequal">isEqual()</a><a class="api-nav-member" href="#point-instance-islessthan" data-api-nav-member="point-instance-islessthan">isLessThan()</a><a class="api-nav-member" href="#point-instance-islessthanorequal" data-api-nav-member="point-instance-islessthanorequal">isLessThanOrEqual()</a><a class="api-nav-member" href="#point-instance-isgreaterthan" data-api-nav-member="point-instance-isgreaterthan">isGreaterThan()</a><a class="api-nav-member" href="#point-instance-isgreaterthanorequal" data-api-nav-member="point-instance-isgreaterthanorequal">isGreaterThanOrEqual()</a><a class="api-toc-heading" href="#point-group-construction">Construction</a><a class="api-nav-member" href="#point-instance-constructor" data-api-nav-member="point-instance-constructor">new Point()</a><a class="api-nav-member" href="#point-instance-copy" data-api-nav-member="point-instance-copy">copy()</a><a class="api-nav-member" href="#point-instance-negate" data-api-nav-member="point-instance-negate">negate()</a><a class="api-toc-heading" href="#point-group-operations">Operations</a><a class="api-nav-member" href="#point-instance-freeze" data-api-nav-member="point-instance-freeze">freeze()</a><a class="api-nav-member" href="#point-instance-translate" data-api-nav-member="point-instance-translate">translate()</a><a class="api-nav-member" href="#point-instance-traverse" data-api-nav-member="point-instance-traverse">traverse()</a><a class="api-toc-heading" href="#point-group-conversion">Conversion</a><a class="api-nav-member" href="#point-instance-toarray" data-api-nav-member="point-instance-toarray">toArray()</a><a class="api-nav-member" href="#point-instance-serialize" data-api-nav-member="point-instance-serialize">serialize()</a><a class="api-nav-member" href="#point-instance-tostring" data-api-nav-member="point-instance-tostring">toString()</a></div>
 <div class="api-toc-group" data-toc-group="class-project"><a class="api-toc-heading" href="#project-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#project-instance-ondidchangepaths" data-api-nav-member="project-instance-ondidchangepaths">onDidChangePaths()</a><a class="api-nav-member" href="#project-instance-ondidaddbuffer" data-api-nav-member="project-instance-ondidaddbuffer">onDidAddBuffer()</a><a class="api-nav-member" href="#project-instance-observebuffers" data-api-nav-member="project-instance-observebuffers">observeBuffers()</a><a class="api-nav-member" href="#project-instance-ondidchangefiles" data-api-nav-member="project-instance-ondidchangefiles">onDidChangeFiles()</a><a class="api-toc-heading" href="#project-group-accessing-the-git-repository">Accessing the git repository</a><a class="api-nav-member" href="#project-instance-repositoryfordirectory" data-api-nav-member="project-instance-repositoryfordirectory">repositoryForDirectory()</a><a class="api-nav-member" href="#project-instance-repositoryforpath" data-api-nav-member="project-instance-repositoryforpath">repositoryForPath()</a><a class="api-toc-heading" href="#project-group-managing-paths">Managing Paths</a><a class="api-nav-member" href="#project-instance-getpaths" data-api-nav-member="project-instance-getpaths">getPaths()</a><a class="api-nav-member" href="#project-instance-setpaths" data-api-nav-member="project-instance-setpaths">setPaths()</a><a class="api-nav-member" href="#project-instance-addpath" data-api-nav-member="project-instance-addpath">addPath()</a><a class="api-nav-member" href="#project-instance-addpaths" data-api-nav-member="project-instance-addpaths">addPaths()</a><a class="api-nav-member" href="#project-instance-getwatcherpromise" data-api-nav-member="project-instance-getwatcherpromise">getWatcherPromise()</a><a class="api-nav-member" href="#project-instance-removepath" data-api-nav-member="project-instance-removepath">removePath()</a><a class="api-nav-member" href="#project-instance-getdirectories" data-api-nav-member="project-instance-getdirectories">getDirectories()</a><a class="api-nav-member" href="#project-instance-relativizepath" data-api-nav-member="project-instance-relativizepath">relativizePath()</a><a class="api-nav-member" href="#project-instance-contains" data-api-nav-member="project-instance-contains">contains()</a><a class="api-toc-heading" href="#project-group-crawling-files">Crawling files</a><a class="api-nav-member" href="#project-instance-crawl" data-api-nav-member="project-instance-crawl">crawl()</a></div>
 <div class="api-toc-group" data-toc-group="class-range"><a class="api-toc-heading" href="#range-group-construction">Construction</a><a class="api-nav-member" href="#range-static-fromobject" data-api-nav-member="range-static-fromobject">.fromObject()</a><a class="api-nav-member" href="#range-instance-constructor" data-api-nav-member="range-instance-constructor">new Range()</a><a class="api-nav-member" href="#range-instance-copy" data-api-nav-member="range-instance-copy">copy()</a><a class="api-nav-member" href="#range-instance-negate" data-api-nav-member="range-instance-negate">negate()</a><a class="api-toc-heading" href="#range-group-serialization-and-deserialization">Serialization and Deserialization</a><a class="api-nav-member" href="#range-static-deserialize" data-api-nav-member="range-static-deserialize">.deserialize()</a><a class="api-nav-member" href="#range-instance-serialize" data-api-nav-member="range-instance-serialize">serialize()</a><a class="api-toc-heading" href="#range-group-range-details">Range Details</a><a class="api-nav-member" href="#range-instance-isempty" data-api-nav-member="range-instance-isempty">isEmpty()</a><a class="api-nav-member" href="#range-instance-issingleline" data-api-nav-member="range-instance-issingleline">isSingleLine()</a><a class="api-nav-member" href="#range-instance-getrowcount" data-api-nav-member="range-instance-getrowcount">getRowCount()</a><a class="api-nav-member" href="#range-instance-getrows" data-api-nav-member="range-instance-getrows">getRows()</a><a class="api-toc-heading" href="#range-group-operations">Operations</a><a class="api-nav-member" href="#range-instance-freeze" data-api-nav-member="range-instance-freeze">freeze()</a><a class="api-nav-member" href="#range-instance-union" data-api-nav-member="range-instance-union">union()</a><a class="api-nav-member" href="#range-instance-translate" data-api-nav-member="range-instance-translate">translate()</a><a class="api-nav-member" href="#range-instance-traverse" data-api-nav-member="range-instance-traverse">traverse()</a><a class="api-toc-heading" href="#range-group-comparison">Comparison</a><a class="api-nav-member" href="#range-instance-compare" data-api-nav-member="range-instance-compare">compare()</a><a class="api-nav-member" href="#range-instance-isequal" data-api-nav-member="range-instance-isequal">isEqual()</a><a class="api-nav-member" href="#range-instance-coverssamerows" data-api-nav-member="range-instance-coverssamerows">coversSameRows()</a><a class="api-nav-member" href="#range-instance-intersectswith" data-api-nav-member="range-instance-intersectswith">intersectsWith()</a><a class="api-nav-member" href="#range-instance-containsrange" data-api-nav-member="range-instance-containsrange">containsRange()</a><a class="api-nav-member" href="#range-instance-containspoint" data-api-nav-member="range-instance-containspoint">containsPoint()</a><a class="api-nav-member" href="#range-instance-intersectsrow" data-api-nav-member="range-instance-intersectsrow">intersectsRow()</a><a class="api-nav-member" href="#range-instance-intersectsrowrange" data-api-nav-member="range-instance-intersectsrowrange">intersectsRowRange()</a><a class="api-toc-heading" href="#range-group-conversion">Conversion</a><a class="api-nav-member" href="#range-instance-tostring" data-api-nav-member="range-instance-tostring">toString()</a></div>
-<div class="api-toc-group" data-toc-group="class-repositoryregistry"><a class="api-toc-heading" href="#repositoryregistry-group-methods">Methods</a><a class="api-nav-member" href="#repositoryregistry-instance-getactiverepository" data-api-nav-member="repositoryregistry-instance-getactiverepository">getActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-getactiverepositorycontext" data-api-nav-member="repositoryregistry-instance-getactiverepositorycontext">getActiveRepositoryContext()</a><a class="api-nav-member" href="#repositoryregistry-instance-isactiverepositorypinned" data-api-nav-member="repositoryregistry-instance-isactiverepositorypinned">isActiveRepositoryPinned()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidchangeactiverepository" data-api-nav-member="repositoryregistry-instance-ondidchangeactiverepository">onDidChangeActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-observeactiverepository" data-api-nav-member="repositoryregistry-instance-observeactiverepository">observeActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-setactiverepository" data-api-nav-member="repositoryregistry-instance-setactiverepository">setActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-setactiverepositoryforpath" data-api-nav-member="repositoryregistry-instance-setactiverepositoryforpath">setActiveRepositoryForPath()</a></div>
+<div class="api-toc-group" data-toc-group="class-repositoryregistry"><a class="api-toc-heading" href="#repositoryregistry-group-active-repository">Active Repository</a><a class="api-nav-member" href="#repositoryregistry-instance-getactiverepository" data-api-nav-member="repositoryregistry-instance-getactiverepository">getActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-getactiverepositorycontext" data-api-nav-member="repositoryregistry-instance-getactiverepositorycontext">getActiveRepositoryContext()</a><a class="api-nav-member" href="#repositoryregistry-instance-isactiverepositorypinned" data-api-nav-member="repositoryregistry-instance-isactiverepositorypinned">isActiveRepositoryPinned()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidchangeactiverepository" data-api-nav-member="repositoryregistry-instance-ondidchangeactiverepository">onDidChangeActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-observeactiverepository" data-api-nav-member="repositoryregistry-instance-observeactiverepository">observeActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-setactiverepository" data-api-nav-member="repositoryregistry-instance-setactiverepository">setActiveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-setactiverepositoryforpath" data-api-nav-member="repositoryregistry-instance-setactiverepositoryforpath">setActiveRepositoryForPath()</a><a class="api-toc-heading" href="#repositoryregistry-group-accessing-repositories">Accessing Repositories</a><a class="api-nav-member" href="#repositoryregistry-instance-getsnapshot" data-api-nav-member="repositoryregistry-instance-getsnapshot">getSnapshot()</a><a class="api-nav-member" href="#repositoryregistry-instance-getrepositories" data-api-nav-member="repositoryregistry-instance-getrepositories">getRepositories()</a><a class="api-nav-member" href="#repositoryregistry-instance-getbyid" data-api-nav-member="repositoryregistry-instance-getbyid">getById()</a><a class="api-toc-heading" href="#repositoryregistry-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#repositoryregistry-instance-observerepositories" data-api-nav-member="repositoryregistry-instance-observerepositories">observeRepositories()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidaddrepository" data-api-nav-member="repositoryregistry-instance-ondidaddrepository">onDidAddRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidremoverepository" data-api-nav-member="repositoryregistry-instance-ondidremoverepository">onDidRemoveRepository()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidchange" data-api-nav-member="repositoryregistry-instance-ondidchange">onDidChange()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidstartrescan" data-api-nav-member="repositoryregistry-instance-ondidstartrescan">onDidStartRescan()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidfinishrescan" data-api-nav-member="repositoryregistry-instance-ondidfinishrescan">onDidFinishRescan()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidqueueoperation" data-api-nav-member="repositoryregistry-instance-ondidqueueoperation">onDidQueueOperation()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidstartoperation" data-api-nav-member="repositoryregistry-instance-ondidstartoperation">onDidStartOperation()</a><a class="api-nav-member" href="#repositoryregistry-instance-ondidfinishoperation" data-api-nav-member="repositoryregistry-instance-ondidfinishoperation">onDidFinishOperation()</a><a class="api-toc-heading" href="#repositoryregistry-group-resolving-paths">Resolving Paths</a><a class="api-nav-member" href="#repositoryregistry-instance-getforpath" data-api-nav-member="repositoryregistry-instance-getforpath">getForPath()</a><a class="api-nav-member" href="#repositoryregistry-instance-resolveforpath" data-api-nav-member="repositoryregistry-instance-resolveforpath">resolveForPath()</a><a class="api-nav-member" href="#repositoryregistry-instance-resolveforpathsync" data-api-nav-member="repositoryregistry-instance-resolveforpathsync">resolveForPathSync()</a><a class="api-nav-member" href="#repositoryregistry-instance-resolvedirectory" data-api-nav-member="repositoryregistry-instance-resolvedirectory">resolveDirectory()</a><a class="api-nav-member" href="#repositoryregistry-instance-resolvedirectorysync" data-api-nav-member="repositoryregistry-instance-resolvedirectorysync">resolveDirectorySync()</a><a class="api-toc-heading" href="#repositoryregistry-group-managing-repositories">Managing Repositories</a><a class="api-nav-member" href="#repositoryregistry-instance-retain" data-api-nav-member="repositoryregistry-instance-retain">retain()</a><a class="api-nav-member" href="#repositoryregistry-instance-runoperation" data-api-nav-member="repositoryregistry-instance-runoperation">runOperation()</a><a class="api-nav-member" href="#repositoryregistry-instance-add" data-api-nav-member="repositoryregistry-instance-add">add()</a><a class="api-nav-member" href="#repositoryregistry-instance-forget" data-api-nav-member="repositoryregistry-instance-forget">forget()</a><a class="api-toc-heading" href="#repositoryregistry-group-operations">Operations</a><a class="api-nav-member" href="#repositoryregistry-instance-addoperationprovider" data-api-nav-member="repositoryregistry-instance-addoperationprovider">addOperationProvider()</a><a class="api-nav-member" href="#repositoryregistry-instance-getoperations" data-api-nav-member="repositoryregistry-instance-getoperations">getOperations()</a><a class="api-nav-member" href="#repositoryregistry-instance-canperformoperation" data-api-nav-member="repositoryregistry-instance-canperformoperation">canPerformOperation()</a><a class="api-nav-member" href="#repositoryregistry-instance-getoperationcapabilities" data-api-nav-member="repositoryregistry-instance-getoperationcapabilities">getOperationCapabilities()</a><a class="api-nav-member" href="#repositoryregistry-instance-getpendingoperations" data-api-nav-member="repositoryregistry-instance-getpendingoperations">getPendingOperations()</a><a class="api-toc-heading" href="#repositoryregistry-group-creating-repositories">Creating Repositories</a><a class="api-nav-member" href="#repositoryregistry-instance-getworkspaceoperationcapabilities" data-api-nav-member="repositoryregistry-instance-getworkspaceoperationcapabilities">getWorkspaceOperationCapabilities()</a><a class="api-nav-member" href="#repositoryregistry-instance-canperformworkspaceoperation" data-api-nav-member="repositoryregistry-instance-canperformworkspaceoperation">canPerformWorkspaceOperation()</a><a class="api-nav-member" href="#repositoryregistry-instance-initialize" data-api-nav-member="repositoryregistry-instance-initialize">initialize()</a><a class="api-nav-member" href="#repositoryregistry-instance-clone" data-api-nav-member="repositoryregistry-instance-clone">clone()</a><a class="api-toc-heading" href="#repositoryregistry-group-running-git">Running Git</a><a class="api-nav-member" href="#repositoryregistry-instance-canexecutegitcommands" data-api-nav-member="repositoryregistry-instance-canexecutegitcommands">canExecuteGitCommands()</a><a class="api-nav-member" href="#repositoryregistry-instance-executegit" data-api-nav-member="repositoryregistry-instance-executegit">executeGit()</a><a class="api-nav-member" href="#repositoryregistry-instance-getgitexecutablepath" data-api-nav-member="repositoryregistry-instance-getgitexecutablepath">getGitExecutablePath()</a></div>
 <div class="api-toc-group" data-toc-group="class-scopedescriptor"><a class="api-toc-heading" href="#scopedescriptor-group-construction-and-destruction">Construction and Destruction</a><a class="api-nav-member" href="#scopedescriptor-instance-constructor" data-api-nav-member="scopedescriptor-instance-constructor">new ScopeDescriptor()</a><a class="api-nav-member" href="#scopedescriptor-instance-getscopesarray" data-api-nav-member="scopedescriptor-instance-getscopesarray">getScopesArray()</a></div>
+<div class="api-toc-group" data-toc-group="class-secretstore"><a class="api-toc-heading" href="#secretstore-group-storing-secrets">Storing Secrets</a><a class="api-nav-member" href="#secretstore-instance-isencryptionavailable" data-api-nav-member="secretstore-instance-isencryptionavailable">isEncryptionAvailable()</a><a class="api-nav-member" href="#secretstore-instance-get" data-api-nav-member="secretstore-instance-get">get()</a><a class="api-nav-member" href="#secretstore-instance-set" data-api-nav-member="secretstore-instance-set">set()</a><a class="api-nav-member" href="#secretstore-instance-delete" data-api-nav-member="secretstore-instance-delete">delete()</a><a class="api-toc-heading" href="#secretstore-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#secretstore-instance-ondidchange" data-api-nav-member="secretstore-instance-ondidchange">onDidChange()</a></div>
 <div class="api-toc-group" data-toc-group="class-selection"><a class="api-toc-heading" href="#selection-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#selection-instance-ondidchangerange" data-api-nav-member="selection-instance-ondidchangerange">onDidChangeRange()</a><a class="api-nav-member" href="#selection-instance-ondiddestroy" data-api-nav-member="selection-instance-ondiddestroy">onDidDestroy()</a><a class="api-toc-heading" href="#selection-group-managing-the-selection-range">Managing the selection range</a><a class="api-nav-member" href="#selection-instance-getscreenrange" data-api-nav-member="selection-instance-getscreenrange">getScreenRange()</a><a class="api-nav-member" href="#selection-instance-setscreenrange" data-api-nav-member="selection-instance-setscreenrange">setScreenRange()</a><a class="api-nav-member" href="#selection-instance-getbufferrange" data-api-nav-member="selection-instance-getbufferrange">getBufferRange()</a><a class="api-nav-member" href="#selection-instance-setbufferrange" data-api-nav-member="selection-instance-setbufferrange">setBufferRange()</a><a class="api-nav-member" href="#selection-instance-getbufferrowrange" data-api-nav-member="selection-instance-getbufferrowrange">getBufferRowRange()</a><a class="api-toc-heading" href="#selection-group-info-about-the-selection">Info about the selection</a><a class="api-nav-member" href="#selection-instance-isempty" data-api-nav-member="selection-instance-isempty">isEmpty()</a><a class="api-nav-member" href="#selection-instance-isreversed" data-api-nav-member="selection-instance-isreversed">isReversed()</a><a class="api-nav-member" href="#selection-instance-issinglescreenline" data-api-nav-member="selection-instance-issinglescreenline">isSingleScreenLine()</a><a class="api-nav-member" href="#selection-instance-gettext" data-api-nav-member="selection-instance-gettext">getText()</a><a class="api-nav-member" href="#selection-instance-intersectsbufferrange" data-api-nav-member="selection-instance-intersectsbufferrange">intersectsBufferRange()</a><a class="api-nav-member" href="#selection-instance-intersectswith" data-api-nav-member="selection-instance-intersectswith">intersectsWith()</a><a class="api-toc-heading" href="#selection-group-modifying-the-selected-range">Modifying the selected range</a><a class="api-nav-member" href="#selection-instance-clear" data-api-nav-member="selection-instance-clear">clear()</a><a class="api-nav-member" href="#selection-instance-selecttoscreenposition" data-api-nav-member="selection-instance-selecttoscreenposition">selectToScreenPosition()</a><a class="api-nav-member" href="#selection-instance-selecttobufferposition" data-api-nav-member="selection-instance-selecttobufferposition">selectToBufferPosition()</a><a class="api-nav-member" href="#selection-instance-selectright" data-api-nav-member="selection-instance-selectright">selectRight()</a><a class="api-nav-member" href="#selection-instance-selectleft" data-api-nav-member="selection-instance-selectleft">selectLeft()</a><a class="api-nav-member" href="#selection-instance-selectup" data-api-nav-member="selection-instance-selectup">selectUp()</a><a class="api-nav-member" href="#selection-instance-selectdown" data-api-nav-member="selection-instance-selectdown">selectDown()</a><a class="api-nav-member" href="#selection-instance-selecttotop" data-api-nav-member="selection-instance-selecttotop">selectToTop()</a><a class="api-nav-member" href="#selection-instance-selecttobottom" data-api-nav-member="selection-instance-selecttobottom">selectToBottom()</a><a class="api-nav-member" href="#selection-instance-selectall" data-api-nav-member="selection-instance-selectall">selectAll()</a><a class="api-nav-member" href="#selection-instance-selecttobeginningofline" data-api-nav-member="selection-instance-selecttobeginningofline">selectToBeginningOfLine()</a><a class="api-nav-member" href="#selection-instance-selecttofirstcharacterofline" data-api-nav-member="selection-instance-selecttofirstcharacterofline">selectToFirstCharacterOfLine()</a><a class="api-nav-member" href="#selection-instance-selecttoendofline" data-api-nav-member="selection-instance-selecttoendofline">selectToEndOfLine()</a><a class="api-nav-member" href="#selection-instance-selecttoendofbufferline" data-api-nav-member="selection-instance-selecttoendofbufferline">selectToEndOfBufferLine()</a><a class="api-nav-member" href="#selection-instance-selecttobeginningofword" data-api-nav-member="selection-instance-selecttobeginningofword">selectToBeginningOfWord()</a><a class="api-nav-member" href="#selection-instance-selecttoendofword" data-api-nav-member="selection-instance-selecttoendofword">selectToEndOfWord()</a><a class="api-nav-member" href="#selection-instance-selecttobeginningofnextword" data-api-nav-member="selection-instance-selecttobeginningofnextword">selectToBeginningOfNextWord()</a><a class="api-nav-member" href="#selection-instance-selecttopreviouswordboundary" data-api-nav-member="selection-instance-selecttopreviouswordboundary">selectToPreviousWordBoundary()</a><a class="api-nav-member" href="#selection-instance-selecttonextwordboundary" data-api-nav-member="selection-instance-selecttonextwordboundary">selectToNextWordBoundary()</a><a class="api-nav-member" href="#selection-instance-selecttoprevioussubwordboundary" data-api-nav-member="selection-instance-selecttoprevioussubwordboundary">selectToPreviousSubwordBoundary()</a><a class="api-nav-member" href="#selection-instance-selecttonextsubwordboundary" data-api-nav-member="selection-instance-selecttonextsubwordboundary">selectToNextSubwordBoundary()</a><a class="api-nav-member" href="#selection-instance-selecttobeginningofnextparagraph" data-api-nav-member="selection-instance-selecttobeginningofnextparagraph">selectToBeginningOfNextParagraph()</a><a class="api-nav-member" href="#selection-instance-selecttobeginningofpreviousparagraph" data-api-nav-member="selection-instance-selecttobeginningofpreviousparagraph">selectToBeginningOfPreviousParagraph()</a><a class="api-nav-member" href="#selection-instance-selectsubword" data-api-nav-member="selection-instance-selectsubword">selectSubword()</a><a class="api-nav-member" href="#selection-instance-selectword" data-api-nav-member="selection-instance-selectword">selectWord()</a><a class="api-nav-member" href="#selection-instance-expandoverword" data-api-nav-member="selection-instance-expandoverword">expandOverWord()</a><a class="api-nav-member" href="#selection-instance-selectline" data-api-nav-member="selection-instance-selectline">selectLine()</a><a class="api-nav-member" href="#selection-instance-expandoverline" data-api-nav-member="selection-instance-expandoverline">expandOverLine()</a><a class="api-toc-heading" href="#selection-group-modifying-the-selected-text">Modifying the selected text</a><a class="api-nav-member" href="#selection-instance-inserttext" data-api-nav-member="selection-instance-inserttext">insertText()</a><a class="api-nav-member" href="#selection-instance-backspace" data-api-nav-member="selection-instance-backspace">backspace()</a><a class="api-nav-member" href="#selection-instance-deletetopreviouswordboundary" data-api-nav-member="selection-instance-deletetopreviouswordboundary">deleteToPreviousWordBoundary()</a><a class="api-nav-member" href="#selection-instance-deletetonextwordboundary" data-api-nav-member="selection-instance-deletetonextwordboundary">deleteToNextWordBoundary()</a><a class="api-nav-member" href="#selection-instance-deletetobeginningofword" data-api-nav-member="selection-instance-deletetobeginningofword">deleteToBeginningOfWord()</a><a class="api-nav-member" href="#selection-instance-deletetobeginningofline" data-api-nav-member="selection-instance-deletetobeginningofline">deleteToBeginningOfLine()</a><a class="api-nav-member" href="#selection-instance-delete" data-api-nav-member="selection-instance-delete">delete()</a><a class="api-nav-member" href="#selection-instance-deletetoendofline" data-api-nav-member="selection-instance-deletetoendofline">deleteToEndOfLine()</a><a class="api-nav-member" href="#selection-instance-deletetoendofword" data-api-nav-member="selection-instance-deletetoendofword">deleteToEndOfWord()</a><a class="api-nav-member" href="#selection-instance-deletetobeginningofsubword" data-api-nav-member="selection-instance-deletetobeginningofsubword">deleteToBeginningOfSubword()</a><a class="api-nav-member" href="#selection-instance-deletetoendofsubword" data-api-nav-member="selection-instance-deletetoendofsubword">deleteToEndOfSubword()</a><a class="api-nav-member" href="#selection-instance-deleteselectedtext" data-api-nav-member="selection-instance-deleteselectedtext">deleteSelectedText()</a><a class="api-nav-member" href="#selection-instance-deleteline" data-api-nav-member="selection-instance-deleteline">deleteLine()</a><a class="api-nav-member" href="#selection-instance-joinlines" data-api-nav-member="selection-instance-joinlines">joinLines()</a><a class="api-nav-member" href="#selection-instance-outdentselectedrows" data-api-nav-member="selection-instance-outdentselectedrows">outdentSelectedRows()</a><a class="api-nav-member" href="#selection-instance-autoindentselectedrows" data-api-nav-member="selection-instance-autoindentselectedrows">autoIndentSelectedRows()</a><a class="api-nav-member" href="#selection-instance-togglelinecomments" data-api-nav-member="selection-instance-togglelinecomments">toggleLineComments()</a><a class="api-nav-member" href="#selection-instance-cuttoendofline" data-api-nav-member="selection-instance-cuttoendofline">cutToEndOfLine()</a><a class="api-nav-member" href="#selection-instance-cuttoendofbufferline" data-api-nav-member="selection-instance-cuttoendofbufferline">cutToEndOfBufferLine()</a><a class="api-nav-member" href="#selection-instance-cut" data-api-nav-member="selection-instance-cut">cut()</a><a class="api-nav-member" href="#selection-instance-copy" data-api-nav-member="selection-instance-copy">copy()</a><a class="api-nav-member" href="#selection-instance-fold" data-api-nav-member="selection-instance-fold">fold()</a><a class="api-nav-member" href="#selection-instance-indentselectedrows" data-api-nav-member="selection-instance-indentselectedrows">indentSelectedRows()</a><a class="api-toc-heading" href="#selection-group-managing-multiple-selections">Managing multiple selections</a><a class="api-nav-member" href="#selection-instance-addselectionbelow" data-api-nav-member="selection-instance-addselectionbelow">addSelectionBelow()</a><a class="api-nav-member" href="#selection-instance-addselectionabove" data-api-nav-member="selection-instance-addselectionabove">addSelectionAbove()</a><a class="api-nav-member" href="#selection-instance-merge" data-api-nav-member="selection-instance-merge">merge()</a><a class="api-toc-heading" href="#selection-group-comparing-to-other-selections">Comparing to other selections</a><a class="api-nav-member" href="#selection-instance-compare" data-api-nav-member="selection-instance-compare">compare()</a></div>
 <div class="api-toc-group" data-toc-group="class-servicehub"><a class="api-toc-heading" href="#servicehub-group-methods">Methods</a><a class="api-nav-member" href="#servicehub-instance-provide" data-api-nav-member="servicehub-instance-provide">provide()</a><a class="api-nav-member" href="#servicehub-instance-consume" data-api-nav-member="servicehub-instance-consume">consume()</a><a class="api-nav-member" href="#servicehub-instance-unmatchedconsumers" data-api-nav-member="servicehub-instance-unmatchedconsumers">unmatchedConsumers()</a><a class="api-nav-member" href="#servicehub-instance-clear" data-api-nav-member="servicehub-instance-clear">clear()</a></div>
 <div class="api-toc-group" data-toc-group="class-stylemanager"><a class="api-toc-heading" href="#stylemanager-group-event-subscription">Event Subscription</a><a class="api-nav-member" href="#stylemanager-instance-observestyleelements" data-api-nav-member="stylemanager-instance-observestyleelements">observeStyleElements()</a><a class="api-nav-member" href="#stylemanager-instance-ondidaddstyleelement" data-api-nav-member="stylemanager-instance-ondidaddstyleelement">onDidAddStyleElement()</a><a class="api-nav-member" href="#stylemanager-instance-ondidremovestyleelement" data-api-nav-member="stylemanager-instance-ondidremovestyleelement">onDidRemoveStyleElement()</a><a class="api-nav-member" href="#stylemanager-instance-ondidupdatestyleelement" data-api-nav-member="stylemanager-instance-ondidupdatestyleelement">onDidUpdateStyleElement()</a><a class="api-toc-heading" href="#stylemanager-group-reading-style-elements">Reading Style Elements</a><a class="api-nav-member" href="#stylemanager-instance-getstyleelements" data-api-nav-member="stylemanager-instance-getstyleelements">getStyleElements()</a><a class="api-toc-heading" href="#stylemanager-group-paths">Paths</a><a class="api-nav-member" href="#stylemanager-instance-getuserstylesheetpath" data-api-nav-member="stylemanager-instance-getuserstylesheetpath">getUserStyleSheetPath()</a></div>
@@ -355,7 +357,7 @@ an instance of this class is always available as the `atom` global.">
                         <h4><a class="api-anchor" href="#atomenvironment-instance-secrets" aria-label="Link to ::secrets">#</a><code>::secrets</code></h4>
                         <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/atom-environment.js#L199" title="src/atom-environment.js:199">L199</a></div>
                       </div>
-                      <div class="api-description-body"><p>A <code>SecretStore</code> instance</p>
+                      <div class="api-description-body"><p>A <a href="#class-secretstore">SecretStore</a> instance</p>
 </div>
                     </article>
 
@@ -1458,38 +1460,31 @@ The error will not be thrown if this function is called.</li>
 
 an instance of this class is always available as the `atom.clipboard` global.
 
+this class owns what the clipboard holds, not what a paste does with it. to
+intercept a paste before the editor inserts it as text — to handle an image,
+say — register a provider with {pasteproviderregistry} through
+`atom.pasteproviders`.
+
 ## examples
 
 ```js
 atom.clipboard.write('hello')
 
 console.log(atom.clipboard.read()) // 'hello'
-```
-@class clipboard
-@desc represents the clipboard used for copying and pasting in lumine.
-
-an instance of this class is always available as the `atom.clipboard` global.
-@example
-// returns 'hello'
-atom.clipboard.write('hello');
-
-console.log(atom.clipboard.read());">
+```">
           <p class="eyebrow">Extended API</p>
-          <h2>Clipboard<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L35">src/clipboard.js:35</a></h2>
+          <h2>Clipboard<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L29">src/clipboard.js:29</a></h2>
           <div class="api-description-body api-class-description"><p>Represents the clipboard used for copying and pasting in Lumine.</p>
 <p>An instance of this class is always available as the <code>atom.clipboard</code> global.</p>
+<p>This class owns what the clipboard holds, not what a paste does with it. To
+intercept a paste before the editor inserts it as text — to handle an image,
+say — register a provider with <a href="#class-pasteproviderregistry">PasteProviderRegistry</a> through
+<code>atom.pasteProviders</code>.</p>
 <h2>Examples</h2>
 <pre><code class="language-js">atom.clipboard.write('hello')
 
 console.log(atom.clipboard.read()) // 'hello'
 </code></pre>
-<p>@class Clipboard
-@desc Represents the clipboard used for copying and pasting in Lumine.</p>
-<p>An instance of this class is always available as the <code>atom.clipboard</code> global.
-@example
-// returns ‘hello’
-atom.clipboard.write(‘hello’);</p>
-<p>console.log(atom.clipboard.read());</p>
 </div>
           
             <section class="api-group" id="clipboard-group-methods">
@@ -1504,7 +1499,7 @@ the metadata associated with the text is available by calling
 * `metadata` (optional) the additional info to associate with the text.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-write" aria-label="Link to ::write(text, metadata)">#</a><code>::write(text, metadata)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L69" title="src/clipboard.js:69">L69</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L63" title="src/clipboard.js:63">L63</a></div>
                       </div>
                       <div class="api-description-body"><p>Write the given text to the clipboard.</p>
 <p>The metadata associated with the text is available by calling
@@ -1534,7 +1529,7 @@ returns a {promise} that resolves to `true` when the payload was written,
 or `false` when only the plain text could be written.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-writenativedata" aria-label="Link to ::writeNativeData(text, format, data)">#</a><code>::writeNativeData(text, format, data)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L189" title="src/clipboard.js:189">L189</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L183" title="src/clipboard.js:183">L183</a></div>
                       </div>
                       <div class="api-description-body"><p>Write text plus a JSON payload for a custom format to the system
 clipboard through the async Clipboard API.</p>
@@ -1563,7 +1558,7 @@ returns a {promise} that resolves to the parsed payload {object}, or
 `null` when the clipboard holds no valid payload for the format.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-readnativedata" aria-label="Link to ::readNativeData(format)">#</a><code>::readNativeData(format)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L212" title="src/clipboard.js:212">L212</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L206" title="src/clipboard.js:206">L206</a></div>
                       </div>
                       <div class="api-description-body"><p>Read a JSON payload written by <a href="#clipboard-instance-writenativedata">::writeNativeData</a> in this or any
 other window.</p>
@@ -1580,7 +1575,7 @@ other window.</p>
 returns a {string}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-read" aria-label="Link to ::read()">#</a><code>::read()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L254" title="src/clipboard.js:254">L254</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L248" title="src/clipboard.js:248">L248</a></div>
                       </div>
                       <div class="api-description-body"><p>Read the text from the clipboard.</p>
 <p>Returns a <code>String</code>.</p>
@@ -1590,7 +1585,7 @@ returns a {string}.">
                     <article class="api-member" id="clipboard-instance-writefindtext" data-api-entry="clipboard writefindtext ::writefindtext(text) write the given text to the macos find pasteboard">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-writefindtext" aria-label="Link to ::writeFindText(text)">#</a><code>::writeFindText(text)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L259" title="src/clipboard.js:259">L259</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L253" title="src/clipboard.js:253">L253</a></div>
                       </div>
                       <div class="api-description-body"><p>Write the given text to the macOS find pasteboard</p>
 </div>
@@ -1601,7 +1596,7 @@ returns a {string}.">
 returns a {string}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-readfindtext" aria-label="Link to ::readFindText()">#</a><code>::readFindText()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L266" title="src/clipboard.js:266">L266</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L260" title="src/clipboard.js:260">L260</a></div>
                       </div>
                       <div class="api-description-body"><p>Read the text from the macOS find pasteboard.</p>
 <p>Returns a <code>String</code>.</p>
@@ -1621,7 +1616,7 @@ returns an {object} with the following keys:
 * `metadata` the metadata stored by an earlier call to {::write}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#clipboard-instance-readwithmetadata" aria-label="Link to ::readWithMetadata()">#</a><code>::readWithMetadata()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L281" title="src/clipboard.js:281">L281</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/clipboard.js#L275" title="src/clipboard.js:275">L275</a></div>
                       </div>
                       <div class="api-description-body"><p>Read the text from the clipboard and return both the text and the
 associated metadata.</p>
@@ -11585,14 +11580,172 @@ standalone ends whatever trail another flow had built.</li>
             </section>
         </section>
 
-        <section class="api-class" id="class-pasteproviderregistry" data-api-entry="pasteproviderregistry coordinates packages that can handle clipboard content before
-lumine falls back to its built-in text paste behavior.">
+        <section class="api-class" id="class-pasteproviderregistry" data-api-entry="pasteproviderregistry lets a package claim a paste before the editor turns the
+clipboard into text.
+
+an instance of this class is always available as the `atom.pasteproviders`
+global.
+
+this is a dispatch table, not a second clipboard. {clipboard} owns what the
+clipboard holds; this owns who gets first refusal on putting it somewhere.
+the two are deliberately separate, because a provider is chosen by the
+paste's *target* — a text editor, a tree-view directory — and that is
+workspace vocabulary the clipboard has no business knowing.
+
+providers are offered the paste highest `priority` first, and equal
+priorities keep registration order. the first one to return `true` claims it
+and no later provider is consulted; when none does, the caller falls back to
+its own behavior — inserting text, in the editor's case. a paste that sets
+`skippasteproviders` in its options skips the registry outright, which is how
+`editor:paste-without-reformatting` guarantees it pastes raw text.
+
+a provider must decide synchronously. the editor may be inside a native
+`paste` clipboardevent, whose `clipboarddata` is readable only for the
+duration of that event, so claim the paste first and then do the slow part.
+
+## examples
+
+take over pasting an image, and leave every other paste alone:
+
+```js
+atom.pasteproviders.add({
+  handlepaste({ target, clipboarddata }) {
+    if (target.type !== 'text-editor') return false
+    const image = imagefrom(clipboarddata)
+    if (!image) return false
+    saveandinsert(image, target.editor) // may finish asynchronously
+    return true
+  }
+}, { priority: 100 })
+```">
           <p class="eyebrow">Experimental API</p>
-          <h2>PasteProviderRegistry<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/paste-provider-registry.js#L5">src/paste-provider-registry.js:5</a></h2>
-          <div class="api-description-body api-class-description"><p>Coordinates packages that can handle clipboard content before
-Lumine falls back to its built-in text paste behavior.</p>
+          <h2>PasteProviderRegistry<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/paste-provider-registry.js#L41">src/paste-provider-registry.js:41</a></h2>
+          <div class="api-description-body api-class-description"><p>Lets a package claim a paste before the editor turns the
+clipboard into text.</p>
+<p>An instance of this class is always available as the <code>atom.pasteProviders</code>
+global.</p>
+<p>This is a dispatch table, not a second clipboard. <a href="#class-clipboard">Clipboard</a> owns what the
+clipboard holds; this owns who gets first refusal on putting it somewhere.
+The two are deliberately separate, because a provider is chosen by the
+paste’s <em>target</em> — a text editor, a tree-view directory — and that is
+workspace vocabulary the clipboard has no business knowing.</p>
+<p>Providers are offered the paste highest <code>priority</code> first, and equal
+priorities keep registration order. The first one to return <code>true</code> claims it
+and no later provider is consulted; when none does, the caller falls back to
+its own behavior — inserting text, in the editor’s case. A paste that sets
+<code>skipPasteProviders</code> in its options skips the registry outright, which is how
+<code>editor:paste-without-reformatting</code> guarantees it pastes raw text.</p>
+<p>A provider must decide synchronously. The editor may be inside a native
+<code>paste</code> ClipboardEvent, whose <code>clipboardData</code> is readable only for the
+duration of that event, so claim the paste first and then do the slow part.</p>
+<h2>Examples</h2>
+<p>Take over pasting an image, and leave every other paste alone:</p>
+<pre><code class="language-js">atom.pasteProviders.add({
+  handlePaste({ target, clipboardData }) {
+    if (target.type !== 'text-editor') return false
+    const image = imageFrom(clipboardData)
+    if (!image) return false
+    saveAndInsert(image, target.editor) // may finish asynchronously
+    return true
+  }
+}, { priority: 100 })
+</code></pre>
 </div>
-          <p class="api-empty">No documented public members.</p>
+          
+            <section class="api-group" id="pasteproviderregistry-group-methods">
+              <h3>Methods</h3>
+              
+                    <article class="api-member" id="pasteproviderregistry-instance-add" data-api-entry="pasteproviderregistry add ::add(provider, { priority = 0 } = {}) register a paste provider. returns a {disposable} that
+unregisters it.
+
+* `provider` an {object} with a `handlepaste(context)` method. it receives
+  exactly what {::handlepaste} was given, and returns `true` to claim the
+  paste or `false` to pass it on.
+* `options` (optional) an {object} with the following keys:
+  * `priority` a {number} deciding the order providers are consulted in,
+    highest first. defaults to `0`; ties keep registration order.
+
+throws a {typeerror} when the provider has no `handlepaste` method, or when
+`priority` is not a finite number.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#pasteproviderregistry-instance-add" aria-label="Link to ::add(provider, { priority = 0 } = {})">#</a><code>::add(provider, { priority = 0 } = {})</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/paste-provider-registry.js#L63" title="src/paste-provider-registry.js:63">L63</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Register a paste provider. Returns a <code>Disposable</code> that
+unregisters it.</p>
+<ul>
+<li><code>provider</code> An <code>Object</code> with a <code>handlePaste(context)</code> method. It receives
+exactly what <a href="#pasteproviderregistry-instance-handlepaste">::handlePaste</a> was given, and returns <code>true</code> to claim the
+paste or <code>false</code> to pass it on.</li>
+<li><code>options</code> (optional) An <code>Object</code> with the following keys:
+<ul>
+<li><code>priority</code> A <code>Number</code> deciding the order providers are consulted in,
+highest first. Defaults to <code>0</code>; ties keep registration order.</li>
+</ul>
+</li>
+</ul>
+<p>Throws a <code>TypeError</code> when the provider has no <code>handlePaste</code> method, or when
+<code>priority</code> is not a finite number.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="pasteproviderregistry-instance-handlepaste" data-api-entry="pasteproviderregistry handlepaste ::handlepaste(context) offer a paste to each registered provider in turn.
+
+the text editor calls this for you. call it directly when your own package
+is somewhere a paste can land: the tree-view does, so that pasting onto a
+directory row reaches the same providers an editor paste would.
+
+* `context` an {object} describing the paste, with the following keys:
+  * `target` an {object} naming where the paste lands. today that is
+    `{type: 'text-editor', editor}` or `{type: 'directory', path}`. always
+    branch on `type` and return `false` for one you do not recognize — the
+    set grows as more of the workspace offers its pastes here.
+  * `clipboard` (optional) the {clipboard} to read the paste from. inside a
+    native paste event this is a datatransfer-backed clipboard, so
+    `readwithmetadata()` sees the metadata of the window that did the copy;
+    outside one it is `atom.clipboard`. absent when the caller is not a
+    text editor.
+  * `clipboarddata` (optional) the event's `datatransfer`, or `null` when
+    the paste did not arrive as a native paste event. custom formats and
+    non-text items such as files and images are readable only from here.
+  * `options` (optional) an {object} of the paste options the editor would
+    otherwise have used, such as `autoindent` and `normalizelineendings`.
+
+returns a {boolean}: `true` when a provider claimed the paste and the
+caller must not handle it itself, `false` when none did.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#pasteproviderregistry-instance-handlepaste" aria-label="Link to ::handlePaste(context)">#</a><code>::handlePaste(context)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/paste-provider-registry.js#L111" title="src/paste-provider-registry.js:111">L111</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Offer a paste to each registered provider in turn.</p>
+<p>The text editor calls this for you. Call it directly when your own package
+is somewhere a paste can land: the tree-view does, so that pasting onto a
+directory row reaches the same providers an editor paste would.</p>
+<ul>
+<li><code>context</code> An <code>Object</code> describing the paste, with the following keys:
+<ul>
+<li><code>target</code> An <code>Object</code> naming where the paste lands. Today that is
+<code>{type: 'text-editor', editor}</code> or <code>{type: 'directory', path}</code>. Always
+branch on <code>type</code> and return <code>false</code> for one you do not recognize — the
+set grows as more of the workspace offers its pastes here.</li>
+<li><code>clipboard</code> (optional) The <a href="#class-clipboard">Clipboard</a> to read the paste from. Inside a
+native paste event this is a DataTransfer-backed clipboard, so
+<code>readWithMetadata()</code> sees the metadata of the window that did the copy;
+outside one it is <code>atom.clipboard</code>. Absent when the caller is not a
+text editor.</li>
+<li><code>clipboardData</code> (optional) The event’s <code>DataTransfer</code>, or <code>null</code> when
+the paste did not arrive as a native paste event. Custom formats and
+non-text items such as files and images are readable only from here.</li>
+<li><code>options</code> (optional) An <code>Object</code> of the paste options the editor would
+otherwise have used, such as <code>autoIndent</code> and <code>normalizeLineEndings</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Boolean</code>: <code>true</code> when a provider claimed the paste and the
+caller must not handle it itself, <code>false</code> when none did.</p>
+</div>
+                    </article>
+            </section>
         </section>
 
         <section class="api-class" id="class-pathwatcher" data-api-entry="pathwatcher manage a subscription to filesystem events that occur beneath a
@@ -13068,105 +13221,1063 @@ row range indicated by the given startRow and endRow <code>Number</code>s.</p>
             </section>
         </section>
 
-        <section class="api-class" id="class-repositoryregistry" data-api-entry="repositoryregistry owns every git repository known to this window. project roots are discovery
-seeds and lifetime owners, but repository identity is independent of roots.">
+        <section class="api-class" id="class-repositoryregistry" data-api-entry="repositoryregistry every git repository this window knows about, available as
+`atom.repositories`.
+
+project roots are where repositories are discovered and what keeps them
+alive, but a repository's identity is independent of them: one root can hold
+several repositories, one repository can span several roots, and a file
+opened from outside every root still resolves to the repository that
+contains it.
+
+## finding a repository
+
+{::getforpath} answers from what is already known and never touches the
+filesystem, which is what a renderer wants. {::resolveforpath} may discover
+and register a repository that was not known yet, at the cost of being
+asynchronous:
+
+```js
+const repository = atom.repositories.getforpath(editor.getpath())
+if (repository) console.log(repository.getshorthead())
+```
+
+## following the one the user is in
+
+{::observeactiverepository} tracks the repository behind the active pane
+item, so a status bar or a panel does not have to work it out itself:
+
+```js
+atom.repositories.observeactiverepository(({ repository, workingdirectory }) =&gt; {
+  // repository is null when the active item belongs to none
+})
+```
+
+## operations
+
+the registry performs no git work of its own. a package provides an
+implementation through {::addoperationprovider}, and everything under
+&quot;operations&quot; and &quot;running git&quot; below is routed to whichever provider claims
+the capability. ask {::canperformoperation} before offering an action, since
+a window with no provider installed can answer nothing.">
           <p class="eyebrow">Public API</p>
-          <h2>RepositoryRegistry<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L49">src/repository-registry.js:49</a></h2>
-          <div class="api-description-body api-class-description"><p>Owns every Git repository known to this window. Project roots are discovery
-seeds and lifetime owners, but repository identity is independent of roots.</p>
+          <h2>RepositoryRegistry<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L86">src/repository-registry.js:86</a></h2>
+          <div class="api-description-body api-class-description"><p>Every Git repository this window knows about, available as
+<code>atom.repositories</code>.</p>
+<p>Project roots are where repositories are discovered and what keeps them
+alive, but a repository’s identity is independent of them: one root can hold
+several repositories, one repository can span several roots, and a file
+opened from outside every root still resolves to the repository that
+contains it.</p>
+<h2>Finding a repository</h2>
+<p><a href="#repositoryregistry-instance-getforpath">::getForPath</a> answers from what is already known and never touches the
+filesystem, which is what a renderer wants. <a href="#repositoryregistry-instance-resolveforpath">::resolveForPath</a> may discover
+and register a repository that was not known yet, at the cost of being
+asynchronous:</p>
+<pre><code class="language-js">const repository = atom.repositories.getForPath(editor.getPath())
+if (repository) console.log(repository.getShortHead())
+</code></pre>
+<h2>Following the one the user is in</h2>
+<p><a href="#repositoryregistry-instance-observeactiverepository">::observeActiveRepository</a> tracks the repository behind the active pane
+item, so a status bar or a panel does not have to work it out itself:</p>
+<pre><code class="language-js">atom.repositories.observeActiveRepository(({ repository, workingDirectory }) =&gt; {
+  // repository is null when the active item belongs to none
+})
+</code></pre>
+<h2>Operations</h2>
+<p>The registry performs no Git work of its own. A package provides an
+implementation through <a href="#repositoryregistry-instance-addoperationprovider">::addOperationProvider</a>, and everything under
+“Operations” and “Running Git” below is routed to whichever provider claims
+the capability. Ask <a href="#repositoryregistry-instance-canperformoperation">::canPerformOperation</a> before offering an action, since
+a window with no provider installed can answer nothing.</p>
 </div>
           
-            <section class="api-group" id="repositoryregistry-group-methods">
-              <h3>Methods</h3>
+            <section class="api-group" id="repositoryregistry-group-active-repository">
+              <h3>Active Repository</h3>
               
-                    <article class="api-member" id="repositoryregistry-instance-getactiverepository" data-api-entry="repositoryregistry getactiverepository ::getactiverepository() the repository the window is currently working in, or null. it
-follows the active pane item unless a consumer pinned a selection with
+                    <article class="api-member" id="repositoryregistry-instance-getactiverepository" data-api-entry="repositoryregistry getactiverepository ::getactiverepository() the repository the window is currently working in. it follows
+the active pane item unless a consumer pinned a selection with
 {::setactiverepository}. an item whose path lies outside every repository
-clears it; only path-less items keep the current selection.">
+clears it; only path-less items keep the current selection.
+
+returns a {gitrepository}, or `null` when the active item belongs to none.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getactiverepository" aria-label="Link to ::getActiveRepository()">#</a><code>::getActiveRepository()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L165" title="src/repository-registry.js:165">L165</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L208" title="src/repository-registry.js:208">L208</a></div>
                       </div>
-                      <div class="api-description-body"><p>The repository the window is currently working in, or null. It
-follows the active pane item unless a consumer pinned a selection with
+                      <div class="api-description-body"><p>The repository the window is currently working in. It follows
+the active pane item unless a consumer pinned a selection with
 <a href="#repositoryregistry-instance-setactiverepository">::setActiveRepository</a>. An item whose path lies outside every repository
 clears it; only path-less items keep the current selection.</p>
+<p>Returns a <a href="#class-gitrepository">GitRepository</a>, or <code>null</code> when the active item belongs to none.</p>
 </div>
                     </article>
 
-                    <article class="api-member" id="repositoryregistry-instance-getactiverepositorycontext" data-api-entry="repositoryregistry getactiverepositorycontext ::getactiverepositorycontext() the active repository context as `{repository, workingdirectory,
-pinned}`. the working directory is always present while a file-backed item
-is focused: it is the repository's working directory, or, when the item's
-path lies outside every repository, the directory a consumer would
-initialize or clone into (its containing project root, or the item's own
-directory).">
+                    <article class="api-member" id="repositoryregistry-instance-getactiverepositorycontext" data-api-entry="repositoryregistry getactiverepositorycontext ::getactiverepositorycontext() the active repository together with the directory it applies to.
+
+the working directory is always present while a file-backed item is
+focused: it is the repository's working directory, or, when the item's path
+lies outside every repository, the directory a consumer would initialize or
+clone into — its containing project root, or the item's own directory.
+
+returns a frozen {object}.
+* `repository` the active {gitrepository}, or `null`.
+* `workingdirectory` the {string} directory the context applies to, or
+  `null` when no file-backed item is focused.
+* `pinned` a {boolean}, `true` while a manual selection holds.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getactiverepositorycontext" aria-label="Link to ::getActiveRepositoryContext()">#</a><code>::getActiveRepositoryContext()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L175" title="src/repository-registry.js:175">L175</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L224" title="src/repository-registry.js:224">L224</a></div>
                       </div>
-                      <div class="api-description-body"><p>The active repository context as <code>repository, workingDirectory, pinned</code>. The working directory is always present while a file-backed item
-is focused: it is the repository’s working directory, or, when the item’s
-path lies outside every repository, the directory a consumer would
-initialize or clone into (its containing project root, or the item’s own
-directory).</p>
+                      <div class="api-description-body"><p>The active repository together with the directory it applies to.</p>
+<p>The working directory is always present while a file-backed item is
+focused: it is the repository’s working directory, or, when the item’s path
+lies outside every repository, the directory a consumer would initialize or
+clone into — its containing project root, or the item’s own directory.</p>
+<p>Returns a frozen <code>Object</code>.</p>
+<ul>
+<li><code>repository</code> The active <a href="#class-gitrepository">GitRepository</a>, or <code>null</code>.</li>
+<li><code>workingDirectory</code> The <code>String</code> directory the context applies to, or
+<code>null</code> when no file-backed item is focused.</li>
+<li><code>pinned</code> A <code>Boolean</code>, <code>true</code> while a manual selection holds.</li>
+</ul>
 </div>
                     </article>
 
-                    <article class="api-member" id="repositoryregistry-instance-isactiverepositorypinned" data-api-entry="repositoryregistry isactiverepositorypinned ::isactiverepositorypinned() whether the active repository is pinned to a manual selection.">
+                    <article class="api-member" id="repositoryregistry-instance-isactiverepositorypinned" data-api-entry="repositoryregistry isactiverepositorypinned ::isactiverepositorypinned() whether the active repository is pinned to a manual selection.
+
+returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-isactiverepositorypinned" aria-label="Link to ::isActiveRepositoryPinned()">#</a><code>::isActiveRepositoryPinned()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L184" title="src/repository-registry.js:184">L184</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L235" title="src/repository-registry.js:235">L235</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether the active repository is pinned to a manual selection.</p>
+<p>Returns a <code>Boolean</code>.</p>
 </div>
                     </article>
 
-                    <article class="api-member" id="repositoryregistry-instance-ondidchangeactiverepository" data-api-entry="repositoryregistry ondidchangeactiverepository ::ondidchangeactiverepository(callback) invoke the callback with `{repository, workingdirectory, pinned}`
-whenever the active repository context changes, including moves between
-out-of-repository directories while the repository stays null.">
+                    <article class="api-member" id="repositoryregistry-instance-ondidchangeactiverepository" data-api-entry="repositoryregistry ondidchangeactiverepository ::ondidchangeactiverepository(callback) invoke the callback whenever the active repository context changes.
+
+it fires for moves between out-of-repository directories too, while the
+repository itself stays `null`.
+
+* `callback` {function} called with the context {::getactiverepositorycontext}
+  returns.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidchangeactiverepository" aria-label="Link to ::onDidChangeActiveRepository(callback)">#</a><code>::onDidChangeActiveRepository(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L191" title="src/repository-registry.js:191">L191</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L248" title="src/repository-registry.js:248">L248</a></div>
                       </div>
-                      <div class="api-description-body"><p>Invoke the callback with <code>{repository, workingDirectory, pinned}</code>
-whenever the active repository context changes, including moves between
-out-of-repository directories while the repository stays null.</p>
+                      <div class="api-description-body"><p>Invoke the callback whenever the active repository context changes.</p>
+<p>It fires for moves between out-of-repository directories too, while the
+repository itself stays <code>null</code>.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with the context <a href="#repositoryregistry-instance-getactiverepositorycontext">::getActiveRepositoryContext</a>
+returns.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
 </div>
                     </article>
 
-                    <article class="api-member" id="repositoryregistry-instance-observeactiverepository" data-api-entry="repositoryregistry observeactiverepository ::observeactiverepository(callback) invoke the callback with the current `{repository,
-workingdirectory, pinned}` state immediately, and again on every change.">
+                    <article class="api-member" id="repositoryregistry-instance-observeactiverepository" data-api-entry="repositoryregistry observeactiverepository ::observeactiverepository(callback) invoke the callback with the current context immediately, and
+again on every change.
+
+this is what a status bar or a panel wants: it is called once on
+subscription, so there is no gap to fill in by hand.
+
+* `callback` {function} called with the context {::getactiverepositorycontext}
+  returns.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-observeactiverepository" aria-label="Link to ::observeActiveRepository(callback)">#</a><code>::observeActiveRepository(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L197" title="src/repository-registry.js:197">L197</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L262" title="src/repository-registry.js:262">L262</a></div>
                       </div>
-                      <div class="api-description-body"><p>Invoke the callback with the current <code>repository, workingDirectory, pinned</code> state immediately, and again on every change.</p>
+                      <div class="api-description-body"><p>Invoke the callback with the current context immediately, and
+again on every change.</p>
+<p>This is what a status bar or a panel wants: it is called once on
+subscription, so there is no gap to fill in by hand.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with the context <a href="#repositoryregistry-instance-getactiverepositorycontext">::getActiveRepositoryContext</a>
+returns.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
 </div>
                     </article>
 
-                    <article class="api-member" id="repositoryregistry-instance-setactiverepository" data-api-entry="repositoryregistry setactiverepository ::setactiverepository(repository, { pin = false } = {}) select the active repository manually. passing `pin: true` keeps
-the selection until it is cleared; otherwise the next pane item change may
-move the active repository again. passing null clears any pin and
-recomputes the active repository from the workspace.">
+                    <article class="api-member" id="repositoryregistry-instance-setactiverepository" data-api-entry="repositoryregistry setactiverepository ::setactiverepository(repository, { pin = false } = {}) select the active repository manually.
+
+* `repository` the {gitrepository} to activate, or `null` to clear any pin
+  and recompute the active repository from the workspace.
+* `options` (optional) {object}
+  * `pin` (optional) {boolean} keeps the selection until it is cleared.
+    without it the next pane item change may move the active repository
+    again.
+
+throws a {typeerror} if the repository is unregistered or destroyed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-setactiverepository" aria-label="Link to ::setActiveRepository(repository, { pin = false } = {})">#</a><code>::setActiveRepository(repository, { pin = false } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L206" title="src/repository-registry.js:206">L206</a></div>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L277" title="src/repository-registry.js:277">L277</a></div>
                       </div>
-                      <div class="api-description-body"><p>Select the active repository manually. Passing <code>pin: true</code> keeps
-the selection until it is cleared; otherwise the next pane item change may
-move the active repository again. Passing null clears any pin and
-recomputes the active repository from the workspace.</p>
+                      <div class="api-description-body"><p>Select the active repository manually.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a> to activate, or <code>null</code> to clear any pin
+and recompute the active repository from the workspace.</li>
+<li><code>options</code> (optional) <code>Object</code>
+<ul>
+<li><code>pin</code> (optional) <code>Boolean</code> keeps the selection until it is cleared.
+Without it the next pane item change may move the active repository
+again.</li>
+</ul>
+</li>
+</ul>
+<p>Throws a <code>TypeError</code> if the repository is unregistered or destroyed.</p>
 </div>
                     </article>
 
                     <article class="api-member" id="repositoryregistry-instance-setactiverepositoryforpath" data-api-entry="repositoryregistry setactiverepositoryforpath ::setactiverepositoryforpath(filepath, { pin = false } = {}) resolve the repository for a path and make it the active one.
-resolves to the repository, or null when the path is not in a repository.">
+
+unlike {::setactiverepository} this discovers a repository that was not
+registered yet, so it is asynchronous.
+
+* `filepath` the {string} path to resolve.
+* `options` (optional) {object}
+  * `pin` (optional) {boolean} keeps the selection, as in
+    {::setactiverepository}.
+
+returns a {promise} that resolves to the {gitrepository}, or to `null` when
+the path is not in one.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-setactiverepositoryforpath" aria-label="Link to ::setActiveRepositoryForPath(filePath, { pin = false } = {})">#</a><code>::setActiveRepositoryForPath(filePath, { pin = false } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L224" title="src/repository-registry.js:224">L224</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L305" title="src/repository-registry.js:305">L305</a></div>
                       </div>
-                      <div class="api-description-body"><p>Resolve the repository for a path and make it the active one.
-Resolves to the repository, or null when the path is not in a repository.</p>
+                      <div class="api-description-body"><p>Resolve the repository for a path and make it the active one.</p>
+<p>Unlike <a href="#repositoryregistry-instance-setactiverepository">::setActiveRepository</a> this discovers a repository that was not
+registered yet, so it is asynchronous.</p>
+<ul>
+<li><code>filePath</code> The <code>String</code> path to resolve.</li>
+<li><code>options</code> (optional) <code>Object</code>
+<ul>
+<li><code>pin</code> (optional) <code>Boolean</code> keeps the selection, as in
+<a href="#repositoryregistry-instance-setactiverepository">::setActiveRepository</a>.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to the <a href="#class-gitrepository">GitRepository</a>, or to <code>null</code> when
+the path is not in one.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-accessing-repositories">
+              <h3>Accessing Repositories</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-getsnapshot" data-api-entry="repositoryregistry getsnapshot ::getsnapshot() the registered repositories together with the version they were
+read at.
+
+the version increments on every change, so a consumer holding derived state
+can tell whether its copy is still current without diffing.
+
+returns a frozen {object}.
+* `version` a {number}.
+* `repositories` a frozen {array} of {gitrepository}.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getsnapshot" aria-label="Link to ::getSnapshot()">#</a><code>::getSnapshot()</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L515" title="src/repository-registry.js:515">L515</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The registered repositories together with the version they were
+read at.</p>
+<p>The version increments on every change, so a consumer holding derived state
+can tell whether its copy is still current without diffing.</p>
+<p>Returns a frozen <code>Object</code>.</p>
+<ul>
+<li><code>version</code> A <code>Number</code>.</li>
+<li><code>repositories</code> A frozen <code>Array</code> of <a href="#class-gitrepository">GitRepository</a>.</li>
+</ul>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-getrepositories" data-api-entry="repositoryregistry getrepositories ::getrepositories() every registered repository.
+
+this is a snapshot. use {::observerepositories} to keep up with the ones
+registered later.
+
+returns an {array} of {gitrepository}.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getrepositories" aria-label="Link to ::getRepositories()">#</a><code>::getRepositories()</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L528" title="src/repository-registry.js:528">L528</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Every registered repository.</p>
+<p>This is a snapshot. Use <a href="#repositoryregistry-instance-observerepositories">::observeRepositories</a> to keep up with the ones
+registered later.</p>
+<p>Returns an <code>Array</code> of <a href="#class-gitrepository">GitRepository</a>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-getbyid" data-api-entry="repositoryregistry getbyid ::getbyid(id) look a repository up by the id the registry gave it.
+
+* `id` the {string} id.
+
+returns a {gitrepository}, or `null` if nothing is registered under it.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getbyid" aria-label="Link to ::getById(id)">#</a><code>::getById(id)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L537" title="src/repository-registry.js:537">L537</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Look a repository up by the id the registry gave it.</p>
+<ul>
+<li><code>id</code> The <code>String</code> id.</li>
+</ul>
+<p>Returns a <a href="#class-gitrepository">GitRepository</a>, or <code>null</code> if nothing is registered under it.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-event-subscription">
+              <h3>Event Subscription</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-observerepositories" data-api-entry="repositoryregistry observerepositories ::observerepositories(callback) invoke the callback with every registered repository, now and in
+the future.
+
+* `callback` {function} called with each {gitrepository}.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-observerepositories" aria-label="Link to ::observeRepositories(callback)">#</a><code>::observeRepositories(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L551" title="src/repository-registry.js:551">L551</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback with every registered repository, now and in
+the future.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with each <a href="#class-gitrepository">GitRepository</a>.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidaddrepository" data-api-entry="repositoryregistry ondidaddrepository ::ondidaddrepository(callback) invoke the callback when a repository is registered.
+
+* `callback` {function} called with the new {gitrepository}.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidaddrepository" aria-label="Link to ::onDidAddRepository(callback)">#</a><code>::onDidAddRepository(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L561" title="src/repository-registry.js:561">L561</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when a repository is registered.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with the new <a href="#class-gitrepository">GitRepository</a>.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidremoverepository" data-api-entry="repositoryregistry ondidremoverepository ::ondidremoverepository(callback) invoke the callback when a repository is removed.
+
+release anything keyed on the repository here: it is destroyed once nothing
+holds it any more.
+
+* `callback` {function} called with the removed {gitrepository}.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidremoverepository" aria-label="Link to ::onDidRemoveRepository(callback)">#</a><code>::onDidRemoveRepository(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L573" title="src/repository-registry.js:573">L573</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when a repository is removed.</p>
+<p>Release anything keyed on the repository here: it is destroyed once nothing
+holds it any more.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with the removed <a href="#class-gitrepository">GitRepository</a>.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidchange" data-api-entry="repositoryregistry ondidchange ::ondidchange(callback) invoke the callback once per batch of changes to the registered
+set, with everything that changed together.
+
+cheaper than the individual events when a consumer rebuilds derived state,
+since adding a project root registers many repositories at once.
+
+* `callback` {function} called with a frozen {object}.
+  * `version` the {number} the registry is now at.
+  * `added` an {array} of newly registered {gitrepository}.
+  * `removed` an {array} of {gitrepository} no longer registered.
+  * `updated` an {array} of {gitrepository} whose routing changed.
+  * `rootsadded` an {array} of {string} project roots added.
+  * `rootsremoved` an {array} of {string} project roots removed.
+  * `routingchangedprefixes` an {array} of {string} directories whose
+    path-to-repository routing is no longer what it was.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidchange" aria-label="Link to ::onDidChange(callback)">#</a><code>::onDidChange(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L594" title="src/repository-registry.js:594">L594</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback once per batch of changes to the registered
+set, with everything that changed together.</p>
+<p>Cheaper than the individual events when a consumer rebuilds derived state,
+since adding a project root registers many repositories at once.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with a frozen <code>Object</code>.
+<ul>
+<li><code>version</code> The <code>Number</code> the registry is now at.</li>
+<li><code>added</code> An <code>Array</code> of newly registered <a href="#class-gitrepository">GitRepository</a>.</li>
+<li><code>removed</code> An <code>Array</code> of <a href="#class-gitrepository">GitRepository</a> no longer registered.</li>
+<li><code>updated</code> An <code>Array</code> of <a href="#class-gitrepository">GitRepository</a> whose routing changed.</li>
+<li><code>rootsAdded</code> An <code>Array</code> of <code>String</code> project roots added.</li>
+<li><code>rootsRemoved</code> An <code>Array</code> of <code>String</code> project roots removed.</li>
+<li><code>routingChangedPrefixes</code> An <code>Array</code> of <code>String</code> directories whose
+path-to-repository routing is no longer what it was.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidstartrescan" data-api-entry="repositoryregistry ondidstartrescan ::ondidstartrescan(callback) invoke the callback when a rescan of the project roots begins.
+
+* `callback` {function} called with a frozen {object}.
+  * `id` a {number} identifying this rescan.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidstartrescan" aria-label="Link to ::onDidStartRescan(callback)">#</a><code>::onDidStartRescan(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L604" title="src/repository-registry.js:604">L604</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when a rescan of the project roots begins.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with a frozen <code>Object</code>.
+<ul>
+<li><code>id</code> A <code>Number</code> identifying this rescan.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidfinishrescan" data-api-entry="repositoryregistry ondidfinishrescan ::ondidfinishrescan(callback) invoke the callback when a rescan finishes, whether or not it
+succeeded.
+
+* `callback` {function} called with a frozen {object}.
+  * `id` the {number} of the rescan that started.
+  * `repositories` a frozen {array} of the {gitrepository} it found.
+  * `error` the {error} that ended the scan, or `null`.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidfinishrescan" aria-label="Link to ::onDidFinishRescan(callback)">#</a><code>::onDidFinishRescan(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L617" title="src/repository-registry.js:617">L617</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when a rescan finishes, whether or not it
+succeeded.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with a frozen <code>Object</code>.
+<ul>
+<li><code>id</code> The <code>Number</code> of the rescan that started.</li>
+<li><code>repositories</code> A frozen <code>Array</code> of the <a href="#class-gitrepository">GitRepository</a> it found.</li>
+<li><code>error</code> The <code>Error</code> that ended the scan, or <code>null</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidqueueoperation" data-api-entry="repositoryregistry ondidqueueoperation ::ondidqueueoperation(callback) invoke the callback when an operation is queued behind another on
+the same repository.
+
+* `callback` {function} called with an operation snapshot; see
+  {::getpendingoperations}.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidqueueoperation" aria-label="Link to ::onDidQueueOperation(callback)">#</a><code>::onDidQueueOperation(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L628" title="src/repository-registry.js:628">L628</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when an operation is queued behind another on
+the same repository.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with an operation snapshot; see
+<a href="#repositoryregistry-instance-getpendingoperations">::getPendingOperations</a>.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidstartoperation" data-api-entry="repositoryregistry ondidstartoperation ::ondidstartoperation(callback) invoke the callback when an operation starts running.
+
+* `callback` {function} called with an operation snapshot; see
+  {::getpendingoperations}.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidstartoperation" aria-label="Link to ::onDidStartOperation(callback)">#</a><code>::onDidStartOperation(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L638" title="src/repository-registry.js:638">L638</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when an operation starts running.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with an operation snapshot; see
+<a href="#repositoryregistry-instance-getpendingoperations">::getPendingOperations</a>.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-ondidfinishoperation" data-api-entry="repositoryregistry ondidfinishoperation ::ondidfinishoperation(callback) invoke the callback when an operation finishes, whether or not it
+succeeded.
+
+* `callback` {function} called with an operation snapshot; see
+  {::getpendingoperations}.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidfinishoperation" aria-label="Link to ::onDidFinishOperation(callback)">#</a><code>::onDidFinishOperation(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L649" title="src/repository-registry.js:649">L649</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when an operation finishes, whether or not it
+succeeded.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with an operation snapshot; see
+<a href="#repositoryregistry-instance-getpendingoperations">::getPendingOperations</a>.</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-resolving-paths">
+              <h3>Resolving Paths</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-getforpath" data-api-entry="repositoryregistry getforpath ::getforpath(filepath) the repository a path belongs to, from what is already
+registered.
+
+synchronous and free of filesystem access, so it is safe on a hot path such
+as rendering a gutter. when several repositories contain the path, the one
+with the longest matching working directory wins, which is what a submodule
+or a nested checkout should do. use {::resolveforpath} when the path may
+belong to a repository nobody has discovered yet.
+
+* `filepath` the {string} path to look up.
+
+returns a {gitrepository}, or `null`.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getforpath" aria-label="Link to ::getForPath(filePath)">#</a><code>::getForPath(filePath)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L669" title="src/repository-registry.js:669">L669</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The repository a path belongs to, from what is already
+registered.</p>
+<p>Synchronous and free of filesystem access, so it is safe on a hot path such
+as rendering a gutter. When several repositories contain the path, the one
+with the longest matching working directory wins, which is what a submodule
+or a nested checkout should do. Use <a href="#repositoryregistry-instance-resolveforpath">::resolveForPath</a> when the path may
+belong to a repository nobody has discovered yet.</p>
+<ul>
+<li><code>filePath</code> The <code>String</code> path to look up.</li>
+</ul>
+<p>Returns a <a href="#class-gitrepository">GitRepository</a>, or <code>null</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-resolveforpath" data-api-entry="repositoryregistry resolveforpath ::resolveforpath(filepath) the repository a path belongs to, discovering and registering one
+if it is not known yet.
+
+* `filepath` the {string} path to resolve.
+
+returns a {promise} that resolves to a {gitrepository}, or to `null` when
+the path is not in one.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-resolveforpath" aria-label="Link to ::resolveForPath(filePath)">#</a><code>::resolveForPath(filePath)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L716" title="src/repository-registry.js:716">L716</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The repository a path belongs to, discovering and registering one
+if it is not known yet.</p>
+<ul>
+<li><code>filePath</code> The <code>String</code> path to resolve.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to a <a href="#class-gitrepository">GitRepository</a>, or to <code>null</code> when
+the path is not in one.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-resolveforpathsync" data-api-entry="repositoryregistry resolveforpathsync ::resolveforpathsync(filepath) {::resolveforpath}, synchronously.
+
+discovery reads the filesystem, so this blocks the renderer. prefer
+{::getforpath} when the repository is expected to be known already, and
+{::resolveforpath} when it is not.
+
+* `filepath` the {string} path to resolve.
+
+returns a {gitrepository}, or `null`.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-resolveforpathsync" aria-label="Link to ::resolveForPathSync(filePath)">#</a><code>::resolveForPathSync(filePath)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L733" title="src/repository-registry.js:733">L733</a></div>
+                      </div>
+                      <div class="api-description-body"><p><a href="#repositoryregistry-instance-resolveforpath">::resolveForPath</a>, synchronously.</p>
+<p>Discovery reads the filesystem, so this blocks the renderer. Prefer
+<a href="#repositoryregistry-instance-getforpath">::getForPath</a> when the repository is expected to be known already, and
+<a href="#repositoryregistry-instance-resolveforpath">::resolveForPath</a> when it is not.</p>
+<ul>
+<li><code>filePath</code> The <code>String</code> path to resolve.</li>
+</ul>
+<p>Returns a <a href="#class-gitrepository">GitRepository</a>, or <code>null</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-resolvedirectory" data-api-entry="repositoryregistry resolvedirectory ::resolvedirectory(directory) the repository for a {directory}, discovering and registering one
+if it is not known yet.
+
+* `directory` the {directory} to resolve.
+
+returns a {promise} that resolves to a {gitrepository}, or to `null`.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-resolvedirectory" aria-label="Link to ::resolveDirectory(directory)">#</a><code>::resolveDirectory(directory)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L747" title="src/repository-registry.js:747">L747</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The repository for a <code>Directory</code>, discovering and registering one
+if it is not known yet.</p>
+<ul>
+<li><code>directory</code> The <code>Directory</code> to resolve.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to a <a href="#class-gitrepository">GitRepository</a>, or to <code>null</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-resolvedirectorysync" data-api-entry="repositoryregistry resolvedirectorysync ::resolvedirectorysync(directory) {::resolvedirectory}, synchronously. reads the filesystem.
+
+* `directory` the {directory} to resolve.
+
+returns a {gitrepository}, or `null`.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-resolvedirectorysync" aria-label="Link to ::resolveDirectorySync(directory)">#</a><code>::resolveDirectorySync(directory)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L757" title="src/repository-registry.js:757">L757</a></div>
+                      </div>
+                      <div class="api-description-body"><p><a href="#repositoryregistry-instance-resolvedirectory">::resolveDirectory</a>, synchronously. Reads the filesystem.</p>
+<ul>
+<li><code>directory</code> The <code>Directory</code> to resolve.</li>
+</ul>
+<p>Returns a <a href="#class-gitrepository">GitRepository</a>, or <code>null</code>.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-managing-repositories">
+              <h3>Managing Repositories</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-retain" data-api-entry="repositoryregistry retain ::retain(repository, source = &quot;pin&quot;) keep a repository alive for as long as you hold the result.
+
+a repository is destroyed once nothing owns it — no project root contains
+it, no open buffer belongs to it. retain one you intend to keep using
+across those changes, and dispose the result when you are done, or it will
+outlive its usefulness.
+
+* `repository` the {gitrepository} to hold.
+* `source` (optional) a {string} label for the hold, for debugging.
+
+returns a {disposable} that releases the hold.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-retain" aria-label="Link to ::retain(repository, source = &quot;pin&quot;)">#</a><code>::retain(repository, source = &quot;pin&quot;)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L777" title="src/repository-registry.js:777">L777</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Keep a repository alive for as long as you hold the result.</p>
+<p>A repository is destroyed once nothing owns it — no project root contains
+it, no open buffer belongs to it. Retain one you intend to keep using
+across those changes, and dispose the result when you are done, or it will
+outlive its usefulness.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a> to hold.</li>
+<li><code>source</code> (optional) A <code>String</code> label for the hold, for debugging.</li>
+</ul>
+<p>Returns a <code>Disposable</code> that releases the hold.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-runoperation" data-api-entry="repositoryregistry runoperation ::runoperation(repository, operation) run your own work against a repository, holding it alive for the
+duration.
+
+{::retain} for the length of one asynchronous call, without the bookkeeping.
+
+* `repository` the {gitrepository} to work with.
+* `operation` an async {function} called with the repository.
+
+throws an {error} if the repository cannot be registered.
+
+returns a {promise} for whatever the operation returned.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-runoperation" aria-label="Link to ::runOperation(repository, operation)">#</a><code>::runOperation(repository, operation)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L800" title="src/repository-registry.js:800">L800</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Run your own work against a repository, holding it alive for the
+duration.</p>
+<p><a href="#repositoryregistry-instance-retain">::retain</a> for the length of one asynchronous call, without the bookkeeping.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a> to work with.</li>
+<li><code>operation</code> An async <code>Function</code> called with the repository.</li>
+</ul>
+<p>Throws an <code>Error</code> if the repository cannot be registered.</p>
+<p>Returns a <code>Promise</code> for whatever the operation returned.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-add" data-api-entry="repositoryregistry add ::add(filepath, { persist = true } = {}) register the repository containing a path, and keep it.
+
+for a repository the user chose that no project root covers. it is held
+until the returned handle is disposed, and by default remembered across
+window reloads.
+
+* `filepath` the {string} path inside the repository to add.
+* `options` (optional) {object}
+  * `persist` (optional) {boolean}, `true` by default. pass `false` to hold
+    the repository for this session only.
+
+returns a {promise} that resolves to an {object}, or to `null` when the path
+is not in a repository.
+* `repository` the {gitrepository}.
+* `dispose` a {function} that releases it.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-add" aria-label="Link to ::add(filePath, { persist = true } = {})">#</a><code>::add(filePath, { persist = true } = {})</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1393" title="src/repository-registry.js:1393">L1393</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Register the repository containing a path, and keep it.</p>
+<p>For a repository the user chose that no project root covers. It is held
+until the returned handle is disposed, and by default remembered across
+window reloads.</p>
+<ul>
+<li><code>filePath</code> The <code>String</code> path inside the repository to add.</li>
+<li><code>options</code> (optional) <code>Object</code>
+<ul>
+<li><code>persist</code> (optional) <code>Boolean</code>, <code>true</code> by default. Pass <code>false</code> to hold
+the repository for this session only.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to an <code>Object</code>, or to <code>null</code> when the path
+is not in a repository.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a>.</li>
+<li><code>dispose</code> A <code>Function</code> that releases it.</li>
+</ul>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-forget" data-api-entry="repositoryregistry forget ::forget(repository) drop every manual hold {::add} placed on a repository.
+
+the repository stays registered while a project root or an open buffer
+still owns it.
+
+* `repository` the {gitrepository} to forget.
+
+returns a {boolean}: `true` if the repository was registered.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-forget" aria-label="Link to ::forget(repository)">#</a><code>::forget(repository)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1420" title="src/repository-registry.js:1420">L1420</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Drop every manual hold <a href="#repositoryregistry-instance-add">::add</a> placed on a repository.</p>
+<p>The repository stays registered while a project root or an open buffer
+still owns it.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a> to forget.</li>
+</ul>
+<p>Returns a <code>Boolean</code>: <code>true</code> if the repository was registered.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-operations">
+              <h3>Operations</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-addoperationprovider" data-api-entry="repositoryregistry addoperationprovider ::addoperationprovider(provider, { fallback = false } = {}) supply the git implementation behind the registry's operations.
+
+the registry routes work but performs none of it. a provider implements at
+least one of `createrepositoryoperations`, `initializerepository`,
+`clonerepository` or `executegit`, and the first provider claiming a
+capability handles it.
+
+* `provider` the {object} implementing the operations.
+* `options` (optional) {object}
+  * `fallback` (optional) {boolean} puts the provider last instead of
+    first, so anything registered later takes precedence over it.
+
+throws a {typeerror} if the provider implements none of those methods, and
+an {error} if the registry has been destroyed.
+
+returns a {disposable} that removes the provider and everything it
+implemented.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-addoperationprovider" aria-label="Link to ::addOperationProvider(provider, { fallback = false } = {})">#</a><code>::addOperationProvider(provider, { fallback = false } = {})</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L835" title="src/repository-registry.js:835">L835</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Supply the Git implementation behind the registry’s operations.</p>
+<p>The registry routes work but performs none of it. A provider implements at
+least one of <code>createRepositoryOperations</code>, <code>initializeRepository</code>,
+<code>cloneRepository</code> or <code>executeGit</code>, and the first provider claiming a
+capability handles it.</p>
+<ul>
+<li><code>provider</code> The <code>Object</code> implementing the operations.</li>
+<li><code>options</code> (optional) <code>Object</code>
+<ul>
+<li><code>fallback</code> (optional) <code>Boolean</code> puts the provider last instead of
+first, so anything registered later takes precedence over it.</li>
+</ul>
+</li>
+</ul>
+<p>Throws a <code>TypeError</code> if the provider implements none of those methods, and
+an <code>Error</code> if the registry has been destroyed.</p>
+<p>Returns a <code>Disposable</code> that removes the provider and everything it
+implemented.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-getoperations" data-api-entry="repositoryregistry getoperations ::getoperations(repository) the operations available on a repository.
+
+* `repository` the {gitrepository}.
+
+returns an {object} of operation functions, or `null` when no provider has
+claimed the repository.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getoperations" aria-label="Link to ::getOperations(repository)">#</a><code>::getOperations(repository)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L874" title="src/repository-registry.js:874">L874</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The operations available on a repository.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a>.</li>
+</ul>
+<p>Returns an <code>Object</code> of operation functions, or <code>null</code> when no provider has
+claimed the repository.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-canperformoperation" data-api-entry="repositoryregistry canperformoperation ::canperformoperation(repository, operationname) whether an operation can be performed on a repository right now.
+
+ask before offering an action. a window where no package provides git can
+answer nothing, and the honest response is to hide the command rather than
+to fail when it is invoked.
+
+* `repository` the {gitrepository}.
+* `operationname` the {string} name of the operation, such as `&quot;commit&quot;`.
+
+returns a {boolean}.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-canperformoperation" aria-label="Link to ::canPerformOperation(repository, operationName)">#</a><code>::canPerformOperation(repository, operationName)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L888" title="src/repository-registry.js:888">L888</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Whether an operation can be performed on a repository right now.</p>
+<p>Ask before offering an action. A window where no package provides Git can
+answer nothing, and the honest response is to hide the command rather than
+to fail when it is invoked.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a>.</li>
+<li><code>operationName</code> The <code>String</code> name of the operation, such as <code>&quot;commit&quot;</code>.</li>
+</ul>
+<p>Returns a <code>Boolean</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-getoperationcapabilities" data-api-entry="repositoryregistry getoperationcapabilities ::getoperationcapabilities(repository) every operation any provider can perform on a repository.
+
+* `repository` the {gitrepository}.
+
+returns a frozen {array} of {string} operation names.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getoperationcapabilities" aria-label="Link to ::getOperationCapabilities(repository)">#</a><code>::getOperationCapabilities(repository)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L897" title="src/repository-registry.js:897">L897</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Every operation any provider can perform on a repository.</p>
+<ul>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a>.</li>
+</ul>
+<p>Returns a frozen <code>Array</code> of <code>String</code> operation names.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-getpendingoperations" data-api-entry="repositoryregistry getpendingoperations ::getpendingoperations(repository) the operations queued or running right now.
+
+operations on one repository run one at a time, so a long fetch leaves the
+next one queued. this is what a progress indicator reads.
+
+* `repository` (optional) the {gitrepository} to report on. omit it for
+  every repository, plus the workspace operations that belong to none.
+
+returns a frozen {array} of frozen {object}s.
+* `id` a {number} identifying the operation.
+* `repository` the {gitrepository} it runs on, or `null`.
+* `name` the {string} operation name.
+* `status` a {string}, `&quot;queued&quot;` or `&quot;running&quot;`.
+* `workingdirectory` the {string} directory it runs in, or `null`.
+* `queuedat` the {number} timestamp it was queued at.
+* `startedat` the {number} timestamp it started at, or `null`.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getpendingoperations" aria-label="Link to ::getPendingOperations(repository)">#</a><code>::getPendingOperations(repository)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L934" title="src/repository-registry.js:934">L934</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The operations queued or running right now.</p>
+<p>Operations on one repository run one at a time, so a long fetch leaves the
+next one queued. This is what a progress indicator reads.</p>
+<ul>
+<li><code>repository</code> (optional) The <a href="#class-gitrepository">GitRepository</a> to report on. Omit it for
+every repository, plus the workspace operations that belong to none.</li>
+</ul>
+<p>Returns a frozen <code>Array</code> of frozen <code>Object</code>s.</p>
+<ul>
+<li><code>id</code> A <code>Number</code> identifying the operation.</li>
+<li><code>repository</code> The <a href="#class-gitrepository">GitRepository</a> it runs on, or <code>null</code>.</li>
+<li><code>name</code> The <code>String</code> operation name.</li>
+<li><code>status</code> A <code>String</code>, <code>&quot;queued&quot;</code> or <code>&quot;running&quot;</code>.</li>
+<li><code>workingDirectory</code> The <code>String</code> directory it runs in, or <code>null</code>.</li>
+<li><code>queuedAt</code> The <code>Number</code> timestamp it was queued at.</li>
+<li><code>startedAt</code> The <code>Number</code> timestamp it started at, or <code>null</code>.</li>
+</ul>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-creating-repositories">
+              <h3>Creating Repositories</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-getworkspaceoperationcapabilities" data-api-entry="repositoryregistry getworkspaceoperationcapabilities ::getworkspaceoperationcapabilities() which of `initialize` and `clone` a provider can perform.
+
+these belong to no repository — they are what creates one — so they are
+asked for separately from {::getoperationcapabilities}.
+
+returns a frozen {array} of {string} operation names.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getworkspaceoperationcapabilities" aria-label="Link to ::getWorkspaceOperationCapabilities()">#</a><code>::getWorkspaceOperationCapabilities()</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L963" title="src/repository-registry.js:963">L963</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Which of <code>initialize</code> and <code>clone</code> a provider can perform.</p>
+<p>These belong to no repository — they are what creates one — so they are
+asked for separately from <a href="#repositoryregistry-instance-getoperationcapabilities">::getOperationCapabilities</a>.</p>
+<p>Returns a frozen <code>Array</code> of <code>String</code> operation names.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-canperformworkspaceoperation" data-api-entry="repositoryregistry canperformworkspaceoperation ::canperformworkspaceoperation(operationname) whether a repository-creating operation can be performed.
+
+* `operationname` a {string}, `&quot;initialize&quot;` or `&quot;clone&quot;`.
+
+returns a {boolean}.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-canperformworkspaceoperation" aria-label="Link to ::canPerformWorkspaceOperation(operationName)">#</a><code>::canPerformWorkspaceOperation(operationName)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L975" title="src/repository-registry.js:975">L975</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Whether a repository-creating operation can be performed.</p>
+<ul>
+<li><code>operationName</code> A <code>String</code>, <code>&quot;initialize&quot;</code> or <code>&quot;clone&quot;</code>.</li>
+</ul>
+<p>Returns a <code>Boolean</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-initialize" data-api-entry="repositoryregistry initialize ::initialize(directorypath, options) create a repository in a directory and register it.
+
+* `directorypath` the {string} directory to initialize.
+* `options` (optional) {object} passed through to the provider.
+
+returns a {promise} that resolves to the new {gitrepository}. it rejects
+when no provider implements `initialize`, and with an {error} whose `code`
+is `err_repository_discovery_failed` if the command succeeded but nothing
+was found at the path afterwards.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-initialize" aria-label="Link to ::initialize(directoryPath, options)">#</a><code>::initialize(directoryPath, options)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1041" title="src/repository-registry.js:1041">L1041</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Create a repository in a directory and register it.</p>
+<ul>
+<li><code>directoryPath</code> The <code>String</code> directory to initialize.</li>
+<li><code>options</code> (optional) <code>Object</code> passed through to the provider.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to the new <a href="#class-gitrepository">GitRepository</a>. It rejects
+when no provider implements <code>initialize</code>, and with an <code>Error</code> whose <code>code</code>
+is <code>ERR_REPOSITORY_DISCOVERY_FAILED</code> if the command succeeded but nothing
+was found at the path afterwards.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-clone" data-api-entry="repositoryregistry clone ::clone(remoteurl, destinationpath, options) clone a remote into a directory and register the result.
+
+* `remoteurl` the {string} url to clone.
+* `destinationpath` the {string} directory to clone into.
+* `options` (optional) {object} passed through to the provider.
+
+returns a {promise} that resolves to the new {gitrepository}, and rejects
+the same way {::initialize} does.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-clone" aria-label="Link to ::clone(remoteUrl, destinationPath, options)">#</a><code>::clone(remoteUrl, destinationPath, options)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1053" title="src/repository-registry.js:1053">L1053</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Clone a remote into a directory and register the result.</p>
+<ul>
+<li><code>remoteUrl</code> The <code>String</code> URL to clone.</li>
+<li><code>destinationPath</code> The <code>String</code> directory to clone into.</li>
+<li><code>options</code> (optional) <code>Object</code> passed through to the provider.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to the new <a href="#class-gitrepository">GitRepository</a>, and rejects
+the same way <a href="#repositoryregistry-instance-initialize">::initialize</a> does.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="repositoryregistry-group-running-git">
+              <h3>Running Git</h3>
+              
+                    <article class="api-member" id="repositoryregistry-instance-canexecutegitcommands" data-api-entry="repositoryregistry canexecutegitcommands ::canexecutegitcommands() whether any provider can run raw git commands.
+
+returns a {boolean}.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-canexecutegitcommands" aria-label="Link to ::canExecuteGitCommands()">#</a><code>::canExecuteGitCommands()</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L986" title="src/repository-registry.js:986">L986</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Whether any provider can run raw Git commands.</p>
+<p>Returns a <code>Boolean</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-executegit" data-api-entry="repositoryregistry executegit ::executegit(args, workingdirectory, options) run a git command through whichever provider offers one.
+
+the escape hatch for what the operation set does not cover. prefer a named
+operation where one exists — it is the part a provider can implement
+without shelling out.
+
+* `args` an {array} of {string} arguments, without the leading `git`.
+* `workingdirectory` the {string} directory to run in.
+* `options` (optional) {object} passed through to the provider.
+
+returns a {promise} for the provider's result. it rejects with a {typeerror}
+if `args` is not an array, and with an {error} whose `code` is
+`err_git_execution_unavailable` when no provider runs git commands.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-executegit" aria-label="Link to ::executeGit(args, workingDirectory, options)">#</a><code>::executeGit(args, workingDirectory, options)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1003" title="src/repository-registry.js:1003">L1003</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Run a Git command through whichever provider offers one.</p>
+<p>The escape hatch for what the operation set does not cover. Prefer a named
+operation where one exists — it is the part a provider can implement
+without shelling out.</p>
+<ul>
+<li><code>args</code> An <code>Array</code> of <code>String</code> arguments, without the leading <code>git</code>.</li>
+<li><code>workingDirectory</code> The <code>String</code> directory to run in.</li>
+<li><code>options</code> (optional) <code>Object</code> passed through to the provider.</li>
+</ul>
+<p>Returns a <code>Promise</code> for the provider’s result. It rejects with a <code>TypeError</code>
+if <code>args</code> is not an array, and with an <code>Error</code> whose <code>code</code> is
+<code>ERR_GIT_EXECUTION_UNAVAILABLE</code> when no provider runs Git commands.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="repositoryregistry-instance-getgitexecutablepath" data-api-entry="repositoryregistry getgitexecutablepath ::getgitexecutablepath() the git binary the active provider runs.
+
+returns a {string} path, or `null` when no provider runs git commands or it
+does not say which binary it uses.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#repositoryregistry-instance-getgitexecutablepath" aria-label="Link to ::getGitExecutablePath()">#</a><code>::getGitExecutablePath()</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1024" title="src/repository-registry.js:1024">L1024</a></div>
+                      </div>
+                      <div class="api-description-body"><p>The Git binary the active provider runs.</p>
+<p>Returns a <code>String</code> path, or <code>null</code> when no provider runs Git commands or it
+does not say which binary it uses.</p>
 </div>
                     </article>
             </section>
@@ -13239,6 +14350,172 @@ for more information.</p>
                         <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/scope-descriptor.js#L42" title="src/scope-descriptor.js:42">L42</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns an <code>Array</code> of <code>String</code>s</p>
+</div>
+                    </article>
+            </section>
+        </section>
+
+        <section class="api-class" id="class-secretstore" data-api-entry="secretstore somewhere to keep an access token, available as `atom.secrets`.
+
+for the sensitive strings a package must remember between sessions — a
+forge token, an api key, a password. never `atom.config`: everything in
+there is written to disk in plain text and shown in the settings view.
+
+keys are opaque strings and values are strings. namespace your own keys, by
+convention with the package name:
+
+```js
+await atom.secrets.set('github.token', token)
+const token = await atom.secrets.get('github.token')
+```
+
+## storage
+
+values are encrypted with the operating system's own facility — dpapi on
+windows, the keychain on macos, libsecret or kwallet on linux — and kept as
+base64 in one file under the config directory.
+
+where the os offers no encryption, typically a headless linux box with no
+keyring, the store keeps values in memory for the session only and warns the
+user once. it never writes a secret to disk in the clear. a package should
+therefore expect {::get} to return `null` for something it stored in an
+earlier session, and ask again rather than fail.">
+          <p class="eyebrow">Public API</p>
+          <h2>SecretStore<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/secret-store.js#L30">src/secret-store.js:30</a></h2>
+          <div class="api-description-body api-class-description"><p>Somewhere to keep an access token, available as <code>atom.secrets</code>.</p>
+<p>For the sensitive strings a package must remember between sessions — a
+forge token, an API key, a password. Never <code>atom.config</code>: everything in
+there is written to disk in plain text and shown in the settings view.</p>
+<p>Keys are opaque strings and values are strings. Namespace your own keys, by
+convention with the package name:</p>
+<pre><code class="language-js">await atom.secrets.set('github.token', token)
+const token = await atom.secrets.get('github.token')
+</code></pre>
+<h2>Storage</h2>
+<p>Values are encrypted with the operating system’s own facility — DPAPI on
+Windows, the Keychain on macOS, libsecret or kwallet on Linux — and kept as
+base64 in one file under the config directory.</p>
+<p>Where the OS offers no encryption, typically a headless Linux box with no
+keyring, the store keeps values in memory for the session only and warns the
+user once. It never writes a secret to disk in the clear. A package should
+therefore expect <a href="#secretstore-instance-get">::get</a> to return <code>null</code> for something it stored in an
+earlier session, and ask again rather than fail.</p>
+</div>
+          
+            <section class="api-group" id="secretstore-group-storing-secrets">
+              <h3>Storing Secrets</h3>
+              
+                    <article class="api-member" id="secretstore-instance-isencryptionavailable" data-api-entry="secretstore isencryptionavailable ::isencryptionavailable() whether the operating system will encrypt what is stored.
+
+when it will not, secrets last for this session only. worth checking before
+telling the user that a token has been saved — the first call warns them
+once on its own.
+
+returns a {boolean}.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#secretstore-instance-isencryptionavailable" aria-label="Link to ::isEncryptionAvailable()">#</a><code>::isEncryptionAvailable()</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/secret-store.js#L60" title="src/secret-store.js:60">L60</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Whether the operating system will encrypt what is stored.</p>
+<p>When it will not, secrets last for this session only. Worth checking before
+telling the user that a token has been saved — the first call warns them
+once on its own.</p>
+<p>Returns a <code>Boolean</code>.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="secretstore-instance-get" data-api-entry="secretstore get ::get(key) read a secret.
+
+* `key` the {string} key it was stored under.
+
+returns a {promise} that resolves to the {string} value, or to `null` when
+nothing is stored under the key or it can no longer be decrypted — which
+happens after the os credential store is reset, or when this session has no
+encryption and an earlier one did.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#secretstore-instance-get" aria-label="Link to ::get(key)">#</a><code>::get(key)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/secret-store.js#L113" title="src/secret-store.js:113">L113</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Read a secret.</p>
+<ul>
+<li><code>key</code> The <code>String</code> key it was stored under.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves to the <code>String</code> value, or to <code>null</code> when
+nothing is stored under the key or it can no longer be decrypted — which
+happens after the OS credential store is reset, or when this session has no
+encryption and an earlier one did.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="secretstore-instance-set" data-api-entry="secretstore set ::set(key, value) store a secret.
+
+* `key` the {string} key to store it under.
+* `value` the {string} to store. `null` or `undefined` deletes the key, as
+  {::delete} would.
+
+returns a {promise} that resolves once the value is written.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#secretstore-instance-set" aria-label="Link to ::set(key, value)">#</a><code>::set(key, value)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/secret-store.js#L133" title="src/secret-store.js:133">L133</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Store a secret.</p>
+<ul>
+<li><code>key</code> The <code>String</code> key to store it under.</li>
+<li><code>value</code> The <code>String</code> to store. <code>null</code> or <code>undefined</code> deletes the key, as
+<a href="#secretstore-instance-delete">::delete</a> would.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves once the value is written.</p>
+</div>
+                    </article>
+
+                    <article class="api-member" id="secretstore-instance-delete" data-api-entry="secretstore delete ::delete(key) forget a secret.
+
+deleting a key that was never stored is not an error and emits nothing.
+
+* `key` the {string} key to remove.
+
+returns a {promise} that resolves once the key is gone.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#secretstore-instance-delete" aria-label="Link to ::delete(key)">#</a><code>::delete(key)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/secret-store.js#L153" title="src/secret-store.js:153">L153</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Forget a secret.</p>
+<p>Deleting a key that was never stored is not an error and emits nothing.</p>
+<ul>
+<li><code>key</code> The <code>String</code> key to remove.</li>
+</ul>
+<p>Returns a <code>Promise</code> that resolves once the key is gone.</p>
+</div>
+                    </article>
+            </section>
+
+            <section class="api-group" id="secretstore-group-event-subscription">
+              <h3>Event Subscription</h3>
+              
+                    <article class="api-member" id="secretstore-instance-ondidchange" data-api-entry="secretstore ondidchange ::ondidchange(callback) invoke the callback when a secret is stored or removed.
+
+the event names the key but never carries the value; read it with {::get}
+if you need it.
+
+* `callback` {function} called with an {object}.
+  * `key` the {string} key that changed.
+
+returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
+                      <div class="api-member-heading">
+                        <h4><a class="api-anchor" href="#secretstore-instance-ondidchange" aria-label="Link to ::onDidChange(callback)">#</a><code>::onDidChange(callback)</code></h4>
+                        <div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/secret-store.js#L175" title="src/secret-store.js:175">L175</a></div>
+                      </div>
+                      <div class="api-description-body"><p>Invoke the callback when a secret is stored or removed.</p>
+<p>The event names the key but never carries the value; read it with <a href="#secretstore-instance-get">::get</a>
+if you need it.</p>
+<ul>
+<li><code>callback</code> <code>Function</code> called with an <code>Object</code>.
+<ul>
+<li><code>key</code> The <code>String</code> key that changed.</li>
+</ul>
+</li>
+</ul>
+<p>Returns a <code>Disposable</code> on which <code>.dispose()</code> can be called to unsubscribe.</p>
 </div>
                     </article>
             </section>
@@ -26760,18 +28037,18 @@ returns a {pane}.">
         </section><section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2><article class="api-member" id="function-applysyntaxhighlighting" data-api-entry="applysyntaxhighlighting uses lumine's built-in syntax highlighting system to apply the same syntax
 highlighting to code blocks within markdown. modifies the existing object passed.
 
-* `content` {htmlfragment} the html node/fragment to apply syntax highlighting on.
+* `content` {htmlfragment} the html node/fragment to apply syntax highlighting on. will modify the original object.
 * `givenopts` {object} optional arguments:
-* `givenopts.syntaxscopenamefunc` {function} a function that can be called with
-* `givenopts.rendermode` {string} whether we are rdnering a document fragment
-* `givenopts.grammar` {object} the grammar of the source file. carryover from"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-applysyntaxhighlighting" aria-label="Link to applySyntaxHighlighting">#</a><code>applySyntaxHighlighting(content, givenOpts = {})</code></h4><div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/markdown.js#L497">src/markdown.js:497</a></div></div><div class="api-description-body"><p>Uses Lumine’s built-in Syntax Highlighting system to apply the same syntax
+* `givenopts.syntaxscopenamefunc` {function} a function that can be called with any given language id from a code block scope, and returns the grammar source id that should be used to perform syntax highlighting.
+* `givenopts.rendermode` {string} whether we are rendering a document fragment or a full document. valid values: &quot;full&quot;, &quot;fragment&quot;.
+* `givenopts.grammar` {object} the grammar of the source file. carryover from original `markdown-preview` functionality."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-applysyntaxhighlighting" aria-label="Link to applySyntaxHighlighting">#</a><code>applySyntaxHighlighting(content, givenOpts = {})</code></h4><div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/markdown.js#L497">src/markdown.js:497</a></div></div><div class="api-description-body"><p>Uses Lumine’s built-in Syntax Highlighting system to apply the same syntax
 highlighting to code blocks within markdown. Modifies the existing object passed.</p>
 <ul>
-<li><code>content</code> <code>HTMLFragment</code> The HTML Node/Fragment to apply syntax highlighting on.</li>
+<li><code>content</code> <code>HTMLFragment</code> The HTML Node/Fragment to apply syntax highlighting on. Will modify the original object.</li>
 <li><code>givenOpts</code> <code>object</code> Optional Arguments:</li>
-<li><code>givenOpts.syntaxScopeNameFunc</code> <code>function</code> A function that can be called with</li>
-<li><code>givenOpts.renderMode</code> <code>string</code> Whether we are rdnering a document fragment</li>
-<li><code>givenOpts.grammar</code> <code>object</code> The grammar of the source file. Carryover from</li>
+<li><code>givenOpts.syntaxScopeNameFunc</code> <code>function</code> A function that can be called with any given language ID from a code block scope, and returns the grammar source id that should be used to perform syntax highlighting.</li>
+<li><code>givenOpts.renderMode</code> <code>string</code> Whether we are rendering a document fragment or a full document. Valid values: “full”, “fragment”.</li>
+<li><code>givenOpts.grammar</code> <code>object</code> The grammar of the source file. Carryover from original <code>markdown-preview</code> functionality.</li>
 </ul>
 </div></article>
 <article class="api-member" id="function-converttodom" data-api-entry="converttodom takes a raw html string of data and returns a proper htmlfragment.
@@ -26786,85 +28063,96 @@ This should be done if you need access to APIs available on the DOM itself.</p>
 </ul>
 <p>Returns <code>HTMLFragment</code>.</p>
 </div></article>
-<article class="api-member" id="function-matcherforselector" data-api-entry="matcherforselector return a matcher function for a selector.
+<article class="api-member" id="function-matcherforselector" data-api-entry="matcherforselector build a reusable test for a scope selector.
 
-* selector, a {string} selector
-returns {(scope: string) -&gt; boolean}, a matcher function returning
-true iff the scope matches the selector."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-matcherforselector" aria-label="Link to matcherForSelector">#</a><code>matcherForSelector(selector)</code></h4><div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/selectors.js#L21">src/selectors.js:21</a></div></div><div class="api-description-body"><p>Return a matcher function for a selector.</p>
+parsing the selector once and testing many scopes with the result is what
+makes this worth having over {selectormatchesanyscope} in a loop.
+
+* `selector` a {string} selector such as `&quot;source.js&quot;`, or an {array} of the
+  parts it is made of. an empty selector matches everything.
+
+returns a {function} taking a scope {string} and returning a {boolean}, true
+when the scope matches the selector."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-matcherforselector" aria-label="Link to matcherForSelector">#</a><code>matcherForSelector(selector)</code></h4><div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/selectors.js#L26">src/selectors.js:26</a></div></div><div class="api-description-body"><p>Build a reusable test for a scope selector.</p>
+<p>Parsing the selector once and testing many scopes with the result is what
+makes this worth having over <code>selectorMatchesAnyScope</code> in a loop.</p>
 <ul>
-<li>selector, a <code>String</code> selector
-Returns <code>(scope: String) -&gt; Boolean</code>, a matcher function returning
-true iff the scope matches the selector.</li>
+<li><code>selector</code> A <code>String</code> selector such as <code>&quot;source.js&quot;</code>, or an <code>Array</code> of the
+parts it is made of. An empty selector matches everything.</li>
 </ul>
+<p>Returns a <code>Function</code> taking a scope <code>String</code> and returning a <code>Boolean</code>, true
+when the scope matches the selector.</p>
 </div></article>
-<article class="api-member" id="function-removediacritics" data-api-entry="removediacritics removes diacritical marks from a string.
+<article class="api-member" id="function-removediacritics" data-api-entry="removediacritics removes diacritical marks from a string, so that &quot;café&quot; can be matched by
+typing &quot;cafe&quot;.
 
-* `text` {string} @returns {string}
+* `text` {string} the string to fold.
 
-returns {string}."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-removediacritics" aria-label="Link to removeDiacritics">#</a><code>removeDiacritics(text)</code></h4><div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/diacritics.js#L9">src/diacritics.js:9</a></div></div><div class="api-description-body"><p>Removes diacritical marks from a string.</p>
+returns {string} the same string with its diacritics removed.."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-removediacritics" aria-label="Link to removeDiacritics">#</a><code>removeDiacritics(text)</code></h4><div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/diacritics.js#L10">src/diacritics.js:10</a></div></div><div class="api-description-body"><p>Removes diacritical marks from a string, so that “café” can be matched by
+typing “cafe”.</p>
 <ul>
-<li><code>text</code> <code>string</code> @returns <code>string</code></li>
+<li><code>text</code> <code>string</code> The string to fold.</li>
 </ul>
-<p>Returns <code>string</code>.</p>
+<p>Returns <code>string</code> The same string with its diacritics removed…</p>
 </div></article>
 <article class="api-member" id="function-rendermarkdown" data-api-entry="rendermarkdown takes a markdown document and renders it as html.
 
 * `content` {string} the markdown source material.
 * `givenopts` {object} the optional arguments:
-* `givenopts.rendermode` {string} determines how the page is rendered.
+* `givenopts.rendermode` {string} determines how the page is rendered. valid values &quot;full&quot; or &quot;fragment&quot;.
 * `givenopts.html` {boolean} whether html tags should be allowed.
 * `givenopts.sanitize` {boolean} if the page content should be saniized via dompurify.
-* `givenopts.sanitizeallowunknownprotocols` {boolean} controls dompurify's
-* `givenopts.sanitizeallowselfclose` {boolean} controls dompurify's
-* `givenopts.breaks` {boolean} if newlines should always be converted
-* `givenopts.handlefrontmatter` {boolean} whether frontmatter data should
+* `givenopts.sanitizeallowunknownprotocols` {boolean} controls dompurify's own option of 'allow_unknown_protocols'.
+* `givenopts.sanitizeallowselfclose` {boolean} controls dompurify's own option of 'allow_self_close'
+* `givenopts.breaks` {boolean} if newlines should always be converted into breaklines.
+* `givenopts.handlefrontmatter` {boolean} whether frontmatter data should processed and displayed.
 * `givenopts.usedefaultemoji` {boolean} whether `markdown-it-emoji` should be enabled.
-* `givenopts.usegithubheadings` {boolean} whether `markdown-it-github-headings`
-* `givenopts.usetaskcheckbox` {boolean} whether `markdown-it-task-checkbox`
-* `givenopts.taskcheckboxdisabled` {boolean} controls `markdown-it-task-checkbox`
-* `givenopts.taskcheckboxdivwrap` {boolean} controls `markdown-it-task-checkboc`
-* `givenopts.transformimagelinks` {boolean} attempt to resolve image urls.
-* `givenopts.transformlegacylinks` {boolean} attempt to redirect links
-* `givenopts.transformnonfqdnlinks` {boolean} attempt to resolve links
-* `givenopts.rootdomain` {string} the root url of the online resource.
-* `givenopts.filepath` {string} the local alternative to `rootdomain`.
-* `givenopts.disabledmode` {string} the level of disabling of markdown features.
+* `givenopts.usegithubheadings` {boolean} whether `markdown-it-github-headings` should be enabled. false by default.
+* `givenopts.usetaskcheckbox` {boolean} whether `markdown-it-task-checkbox` should be enabled. true by default.
+* `givenopts.taskcheckboxdisabled` {boolean} controls `markdown-it-task-checkbox` `disabled` option. true by default.
+* `givenopts.taskcheckboxdivwrap` {boolean} controls `markdown-it-task-checkbox` `divwrap` option. false by default.
+* `givenopts.transformimagelinks` {boolean} attempt to resolve image urls. true by default.
+* `givenopts.transformlegacylinks` {boolean} attempt to redirect links pointing at retired resources to an archived copy. true by default.
+* `givenopts.transformnonfqdnlinks` {boolean} attempt to resolve links that are not fully qualified domain names. true by default.
+* `givenopts.rootdomain` {string} the root url of the online resource. useful when attempting to resolve any links on the page. only works for online resources.
+* `givenopts.filepath` {string} the local alternative to `rootdomain`. used to resolve incomplete paths, but locally on the file system.
+* `givenopts.disablemode` {string} the level of disabling of markdown features. `none` by default. but supports: &quot;none&quot;, &quot;strict&quot;
 
 returns {string} parsed html content.."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-rendermarkdown" aria-label="Link to renderMarkdown">#</a><code>renderMarkdown(content, givenOpts = {})</code></h4><div class="api-member-meta"><span class="api-badge">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/markdown.js#L74">src/markdown.js:74</a></div></div><div class="api-description-body"><p>Takes a Markdown document and renders it as HTML.</p>
 <ul>
 <li><code>content</code> <code>string</code> The Markdown source material.</li>
 <li><code>givenOpts</code> <code>object</code> The optional arguments:</li>
-<li><code>givenOpts.renderMode</code> <code>string</code> Determines how the page is rendered.</li>
+<li><code>givenOpts.renderMode</code> <code>string</code> Determines how the page is rendered. Valid values “full” or “fragment”.</li>
 <li><code>givenOpts.html</code> <code>boolean</code> Whether HTML tags should be allowed.</li>
 <li><code>givenOpts.sanitize</code> <code>boolean</code> If the page content should be saniized via DOMPurify.</li>
-<li><code>givenOpts.sanitizeAllowUnknownProtocols</code> <code>boolean</code> Controls DOMPurify’s</li>
-<li><code>givenOpts.sanitizeAllowSelfClose</code> <code>boolean</code> Controls DOMPurify’s</li>
-<li><code>givenOpts.breaks</code> <code>boolean</code> If newlines should always be converted</li>
-<li><code>givenOpts.handleFrontMatter</code> <code>boolean</code> Whether frontmatter data should</li>
+<li><code>givenOpts.sanitizeAllowUnknownProtocols</code> <code>boolean</code> Controls DOMPurify’s own option of ‘ALLOW_UNKNOWN_PROTOCOLS’.</li>
+<li><code>givenOpts.sanitizeAllowSelfClose</code> <code>boolean</code> Controls DOMPurify’s own option of ‘ALLOW_SELF_CLOSE’</li>
+<li><code>givenOpts.breaks</code> <code>boolean</code> If newlines should always be converted into breaklines.</li>
+<li><code>givenOpts.handleFrontMatter</code> <code>boolean</code> Whether frontmatter data should processed and displayed.</li>
 <li><code>givenOpts.useDefaultEmoji</code> <code>boolean</code> Whether <code>markdown-it-emoji</code> should be enabled.</li>
-<li><code>givenOpts.useGitHubHeadings</code> <code>boolean</code> Whether <code>markdown-it-github-headings</code></li>
-<li><code>givenOpts.useTaskCheckbox</code> <code>boolean</code> Whether <code>markdown-it-task-checkbox</code></li>
-<li><code>givenOpts.taskCheckboxDisabled</code> <code>boolean</code> Controls <code>markdown-it-task-checkbox</code></li>
-<li><code>givenOpts.taskCheckboxDivWrap</code> <code>boolean</code> Controls <code>markdown-it-task-checkboc</code></li>
-<li><code>givenOpts.transformImageLinks</code> <code>boolean</code> Attempt to resolve image URLs.</li>
-<li><code>givenOpts.transformLegacyLinks</code> <code>boolean</code> Attempt to redirect links</li>
-<li><code>givenOpts.transformNonFqdnLinks</code> <code>boolean</code> Attempt to resolve links</li>
-<li><code>givenOpts.rootDomain</code> <code>string</code> The root URL of the online resource.</li>
-<li><code>givenOpts.filePath</code> <code>string</code> The local alternative to <code>rootDomain</code>.</li>
-<li><code>givenOpts.disabledMode</code> <code>string</code> The level of disabling of markdown features.</li>
+<li><code>givenOpts.useGitHubHeadings</code> <code>boolean</code> Whether <code>markdown-it-github-headings</code> should be enabled. False by default.</li>
+<li><code>givenOpts.useTaskCheckbox</code> <code>boolean</code> Whether <code>markdown-it-task-checkbox</code> should be enabled. True by default.</li>
+<li><code>givenOpts.taskCheckboxDisabled</code> <code>boolean</code> Controls <code>markdown-it-task-checkbox</code> <code>disabled</code> option. True by default.</li>
+<li><code>givenOpts.taskCheckboxDivWrap</code> <code>boolean</code> Controls <code>markdown-it-task-checkbox</code> <code>divWrap</code> option. False by default.</li>
+<li><code>givenOpts.transformImageLinks</code> <code>boolean</code> Attempt to resolve image URLs. True by default.</li>
+<li><code>givenOpts.transformLegacyLinks</code> <code>boolean</code> Attempt to redirect links pointing at retired resources to an archived copy. True by default.</li>
+<li><code>givenOpts.transformNonFqdnLinks</code> <code>boolean</code> Attempt to resolve links that are not fully qualified domain names. True by default.</li>
+<li><code>givenOpts.rootDomain</code> <code>string</code> The root URL of the online resource. Useful when attempting to resolve any links on the page. Only works for online resources.</li>
+<li><code>givenOpts.filePath</code> <code>string</code> The local alternative to <code>rootDomain</code>. Used to resolve incomplete paths, but locally on the file system.</li>
+<li><code>givenOpts.disableMode</code> <code>string</code> The level of disabling of markdown features. <code>none</code> by default. But supports: “none”, “strict”</li>
 </ul>
 <p>Returns <code>string</code> Parsed HTML content…</p>
 </div></article>
-<article class="api-member" id="function-selectormatchesanyscope" data-api-entry="selectormatchesanyscope return true iff the selector matches any provided scope.
+<article class="api-member" id="function-selectormatchesanyscope" data-api-entry="selectormatchesanyscope whether any of the given scopes matches a selector.
 
-* {string} selector
-* {array&lt;string&gt;} scopes
-returns {boolean} true if any scope matches the selector."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-selectormatchesanyscope" aria-label="Link to selectorMatchesAnyScope">#</a><code>selectorMatchesAnyScope(selector, scopes)</code></h4><div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/selectors.js#L32">src/selectors.js:32</a></div></div><div class="api-description-body"><p>Return true iff the selector matches any provided scope.</p>
+* `selector` a {string} selector. an empty selector matches everything.
+* `scopes` an {array} of scope {string}s to test.
+
+returns a {boolean}."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-selectormatchesanyscope" aria-label="Link to selectorMatchesAnyScope">#</a><code>selectorMatchesAnyScope(selector, scopes)</code></h4><div class="api-member-meta"><span class="api-badge">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/selectors.js#L38">src/selectors.js:38</a></div></div><div class="api-description-body"><p>Whether any of the given scopes matches a selector.</p>
 <ul>
-<li><code>String</code> selector</li>
-<li><code>Array&lt;String&gt;</code> scopes
-Returns <code>Boolean</code> true if any scope matches the selector.</li>
+<li><code>selector</code> A <code>String</code> selector. An empty selector matches everything.</li>
+<li><code>scopes</code> An <code>Array</code> of scope <code>String</code>s to test.</li>
 </ul>
+<p>Returns a <code>Boolean</code>.</p>
 </div></article>
 <article class="api-member" id="function-watchfile" data-api-entry="watchfile watch a single file for changes, deletion, and renaming. this is
 the replacement for the old `file` watching api: it exposes just the change

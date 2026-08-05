@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-05T23:32:33.026Z",
+  "generatedAt": "2026-08-05T23:39:26.864Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -820,11 +820,11 @@
     {
       "name": "Clipboard",
       "visibility": "Extended",
-      "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `atom.clipboard` global.\n\n## Examples\n\n```js\natom.clipboard.write('hello')\n\nconsole.log(atom.clipboard.read()) // 'hello'\n```\n@class Clipboard\n@desc Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `atom.clipboard` global.\n@example\n// returns 'hello'\natom.clipboard.write('hello');\n\nconsole.log(atom.clipboard.read());",
+      "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `atom.clipboard` global.\n\nThis class owns what the clipboard holds, not what a paste does with it. To\nintercept a paste before the editor inserts it as text — to handle an image,\nsay — register a provider with {PasteProviderRegistry} through\n`atom.pasteProviders`.\n\n## Examples\n\n```js\natom.clipboard.write('hello')\n\nconsole.log(atom.clipboard.read()) // 'hello'\n```",
       "source": "src/clipboard.js",
       "sourcePath": "src/clipboard.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 35,
+      "line": 29,
       "members": [
         {
           "name": "write",
@@ -835,7 +835,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Write the given text to the clipboard.\n\nThe metadata associated with the text is available by calling\n{::readWithMetadata}.\n\n* `text` The {String} to store.\n* `metadata` (optional) The additional info to associate with the text.",
-          "line": 69
+          "line": 63
         },
         {
           "name": "writeNativeData",
@@ -846,7 +846,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Write text plus a JSON payload for a custom format to the system\nclipboard through the async Clipboard API.\n\nChromium registers `web `-prefixed custom formats with the operating\nsystem, so any window can read the payload back with {::readNativeData}.\nCustom formats written through a DataTransfer during a copy event are only\nreadable inside paste ClipboardEvents, and renderer-initiated\n`execCommand(\"paste\")` never fires one, so this is the only way to\nround-trip a custom format without a native paste keystroke.\n\n* `text` The plain-text {String} to store alongside the payload.\n* `format` The MIME-style format {String}, without the `web ` prefix.\n* `data` The JSON-serializable payload.\n\nReturns a {Promise} that resolves to `true` when the payload was written,\nor `false` when only the plain text could be written.",
-          "line": 189
+          "line": 183
         },
         {
           "name": "readNativeData",
@@ -857,7 +857,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read a JSON payload written by {::writeNativeData} in this or any\nother window.\n\n* `format` The MIME-style format {String}, without the `web ` prefix.\n\nReturns a {Promise} that resolves to the parsed payload {Object}, or\n`null` when the clipboard holds no valid payload for the format.",
-          "line": 212
+          "line": 206
         },
         {
           "name": "read",
@@ -868,7 +868,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the clipboard.\n\nReturns a {String}.",
-          "line": 254
+          "line": 248
         },
         {
           "name": "writeFindText",
@@ -879,7 +879,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Write the given text to the macOS find pasteboard",
-          "line": 259
+          "line": 253
         },
         {
           "name": "readFindText",
@@ -890,7 +890,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the macOS find pasteboard.\n\nReturns a {String}.",
-          "line": 266
+          "line": 260
         },
         {
           "name": "readWithMetadata",
@@ -901,7 +901,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the clipboard and return both the text and the\nassociated metadata.\n\nMetadata copied in another window only flows through paste\nClipboardEvents (see {::createDataTransferClipboard}): Chromium stores\nDataTransfer custom formats in a private bundle that Electron's clipboard\nAPI cannot read back, so there is no native-format fallback here.\n\nReturns an {Object} with the following keys:\n* `text` The {String} clipboard text.\n* `metadata` The metadata stored by an earlier call to {::write}.",
-          "line": 281
+          "line": 275
         }
       ]
     },
@@ -5451,12 +5451,35 @@
     {
       "name": "PasteProviderRegistry",
       "visibility": "Experimental",
-      "description": "Coordinates packages that can handle clipboard content before\nLumine falls back to its built-in text paste behavior.",
+      "description": "Lets a package claim a paste before the editor turns the\nclipboard into text.\n\nAn instance of this class is always available as the `atom.pasteProviders`\nglobal.\n\nThis is a dispatch table, not a second clipboard. {Clipboard} owns what the\nclipboard holds; this owns who gets first refusal on putting it somewhere.\nThe two are deliberately separate, because a provider is chosen by the\npaste's *target* — a text editor, a tree-view directory — and that is\nworkspace vocabulary the clipboard has no business knowing.\n\nProviders are offered the paste highest `priority` first, and equal\npriorities keep registration order. The first one to return `true` claims it\nand no later provider is consulted; when none does, the caller falls back to\nits own behavior — inserting text, in the editor's case. A paste that sets\n`skipPasteProviders` in its options skips the registry outright, which is how\n`editor:paste-without-reformatting` guarantees it pastes raw text.\n\nA provider must decide synchronously. The editor may be inside a native\n`paste` ClipboardEvent, whose `clipboardData` is readable only for the\nduration of that event, so claim the paste first and then do the slow part.\n\n## Examples\n\nTake over pasting an image, and leave every other paste alone:\n\n```js\natom.pasteProviders.add({\n  handlePaste({ target, clipboardData }) {\n    if (target.type !== 'text-editor') return false\n    const image = imageFrom(clipboardData)\n    if (!image) return false\n    saveAndInsert(image, target.editor) // may finish asynchronously\n    return true\n  }\n}, { priority: 100 })\n```",
       "source": "src/paste-provider-registry.js",
       "sourcePath": "src/paste-provider-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 5,
-      "members": []
+      "line": 41,
+      "members": [
+        {
+          "name": "add",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::add(provider, { priority = 0 } = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Register a paste provider. Returns a {Disposable} that\nunregisters it.\n\n* `provider` An {Object} with a `handlePaste(context)` method. It receives\n  exactly what {::handlePaste} was given, and returns `true` to claim the\n  paste or `false` to pass it on.\n* `options` (optional) An {Object} with the following keys:\n  * `priority` A {Number} deciding the order providers are consulted in,\n    highest first. Defaults to `0`; ties keep registration order.\n\nThrows a {TypeError} when the provider has no `handlePaste` method, or when\n`priority` is not a finite number.",
+          "line": 63
+        },
+        {
+          "name": "handlePaste",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::handlePaste(context)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Offer a paste to each registered provider in turn.\n\nThe text editor calls this for you. Call it directly when your own package\nis somewhere a paste can land: the tree-view does, so that pasting onto a\ndirectory row reaches the same providers an editor paste would.\n\n* `context` An {Object} describing the paste, with the following keys:\n  * `target` An {Object} naming where the paste lands. Today that is\n    `{type: 'text-editor', editor}` or `{type: 'directory', path}`. Always\n    branch on `type` and return `false` for one you do not recognize — the\n    set grows as more of the workspace offers its pastes here.\n  * `clipboard` (optional) The {Clipboard} to read the paste from. Inside a\n    native paste event this is a DataTransfer-backed clipboard, so\n    `readWithMetadata()` sees the metadata of the window that did the copy;\n    outside one it is `atom.clipboard`. Absent when the caller is not a\n    text editor.\n  * `clipboardData` (optional) The event's `DataTransfer`, or `null` when\n    the paste did not arrive as a native paste event. Custom formats and\n    non-text items such as files and images are readable only from here.\n  * `options` (optional) An {Object} of the paste options the editor would\n    otherwise have used, such as `autoIndent` and `normalizeLineEndings`.\n\nReturns a {Boolean}: `true` when a provider claimed the paste and the\ncaller must not handle it itself, `false` when none did.",
+          "line": 111
+        }
+      ]
     },
     {
       "name": "PathWatcher",
@@ -6176,11 +6199,11 @@
     {
       "name": "RepositoryRegistry",
       "visibility": "Public",
-      "description": "Owns every Git repository known to this window. Project roots are discovery\nseeds and lifetime owners, but repository identity is independent of roots.",
+      "description": "Every Git repository this window knows about, available as\n`atom.repositories`.\n\nProject roots are where repositories are discovered and what keeps them\nalive, but a repository's identity is independent of them: one root can hold\nseveral repositories, one repository can span several roots, and a file\nopened from outside every root still resolves to the repository that\ncontains it.\n\n## Finding a repository\n\n{::getForPath} answers from what is already known and never touches the\nfilesystem, which is what a renderer wants. {::resolveForPath} may discover\nand register a repository that was not known yet, at the cost of being\nasynchronous:\n\n```js\nconst repository = atom.repositories.getForPath(editor.getPath())\nif (repository) console.log(repository.getShortHead())\n```\n\n## Following the one the user is in\n\n{::observeActiveRepository} tracks the repository behind the active pane\nitem, so a status bar or a panel does not have to work it out itself:\n\n```js\natom.repositories.observeActiveRepository(({ repository, workingDirectory }) => {\n  // repository is null when the active item belongs to none\n})\n```\n\n## Operations\n\nThe registry performs no Git work of its own. A package provides an\nimplementation through {::addOperationProvider}, and everything under\n\"Operations\" and \"Running Git\" below is routed to whichever provider claims\nthe capability. Ask {::canPerformOperation} before offering an action, since\na window with no provider installed can answer nothing.",
       "source": "src/repository-registry.js",
       "sourcePath": "src/repository-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 49,
+      "line": 86,
       "members": [
         {
           "name": "getActiveRepository",
@@ -6188,10 +6211,10 @@
           "static": false,
           "async": false,
           "signature": "::getActiveRepository()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "The repository the window is currently working in, or null. It\nfollows the active pane item unless a consumer pinned a selection with\n{::setActiveRepository}. An item whose path lies outside every repository\nclears it; only path-less items keep the current selection.",
-          "line": 165
+          "category": "Active Repository",
+          "visibility": "Essential",
+          "description": "The repository the window is currently working in. It follows\nthe active pane item unless a consumer pinned a selection with\n{::setActiveRepository}. An item whose path lies outside every repository\nclears it; only path-less items keep the current selection.\n\nReturns a {GitRepository}, or `null` when the active item belongs to none.",
+          "line": 208
         },
         {
           "name": "getActiveRepositoryContext",
@@ -6199,10 +6222,10 @@
           "static": false,
           "async": false,
           "signature": "::getActiveRepositoryContext()",
-          "category": "Methods",
+          "category": "Active Repository",
           "visibility": "Public",
-          "description": "The active repository context as `{repository, workingDirectory,\npinned}`. The working directory is always present while a file-backed item\nis focused: it is the repository's working directory, or, when the item's\npath lies outside every repository, the directory a consumer would\ninitialize or clone into (its containing project root, or the item's own\ndirectory).",
-          "line": 175
+          "description": "The active repository together with the directory it applies to.\n\nThe working directory is always present while a file-backed item is\nfocused: it is the repository's working directory, or, when the item's path\nlies outside every repository, the directory a consumer would initialize or\nclone into — its containing project root, or the item's own directory.\n\nReturns a frozen {Object}.\n* `repository` The active {GitRepository}, or `null`.\n* `workingDirectory` The {String} directory the context applies to, or\n  `null` when no file-backed item is focused.\n* `pinned` A {Boolean}, `true` while a manual selection holds.",
+          "line": 224
         },
         {
           "name": "isActiveRepositoryPinned",
@@ -6210,10 +6233,10 @@
           "static": false,
           "async": false,
           "signature": "::isActiveRepositoryPinned()",
-          "category": "Methods",
+          "category": "Active Repository",
           "visibility": "Public",
-          "description": "Whether the active repository is pinned to a manual selection.",
-          "line": 184
+          "description": "Whether the active repository is pinned to a manual selection.\n\nReturns a {Boolean}.",
+          "line": 235
         },
         {
           "name": "onDidChangeActiveRepository",
@@ -6221,10 +6244,10 @@
           "static": false,
           "async": false,
           "signature": "::onDidChangeActiveRepository(callback)",
-          "category": "Methods",
+          "category": "Active Repository",
           "visibility": "Public",
-          "description": "Invoke the callback with `{repository, workingDirectory, pinned}`\nwhenever the active repository context changes, including moves between\nout-of-repository directories while the repository stays null.",
-          "line": 191
+          "description": "Invoke the callback whenever the active repository context changes.\n\nIt fires for moves between out-of-repository directories too, while the\nrepository itself stays `null`.\n\n* `callback` {Function} called with the context {::getActiveRepositoryContext}\n  returns.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 248
         },
         {
           "name": "observeActiveRepository",
@@ -6232,10 +6255,10 @@
           "static": false,
           "async": false,
           "signature": "::observeActiveRepository(callback)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Invoke the callback with the current `{repository,\nworkingDirectory, pinned}` state immediately, and again on every change.",
-          "line": 197
+          "category": "Active Repository",
+          "visibility": "Essential",
+          "description": "Invoke the callback with the current context immediately, and\nagain on every change.\n\nThis is what a status bar or a panel wants: it is called once on\nsubscription, so there is no gap to fill in by hand.\n\n* `callback` {Function} called with the context {::getActiveRepositoryContext}\n  returns.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 262
         },
         {
           "name": "setActiveRepository",
@@ -6243,10 +6266,10 @@
           "static": false,
           "async": false,
           "signature": "::setActiveRepository(repository, { pin = false } = {})",
-          "category": "Methods",
+          "category": "Active Repository",
           "visibility": "Public",
-          "description": "Select the active repository manually. Passing `pin: true` keeps\nthe selection until it is cleared; otherwise the next pane item change may\nmove the active repository again. Passing null clears any pin and\nrecomputes the active repository from the workspace.",
-          "line": 206
+          "description": "Select the active repository manually.\n\n* `repository` The {GitRepository} to activate, or `null` to clear any pin\n  and recompute the active repository from the workspace.\n* `options` (optional) {Object}\n  * `pin` (optional) {Boolean} keeps the selection until it is cleared.\n    Without it the next pane item change may move the active repository\n    again.\n\nThrows a {TypeError} if the repository is unregistered or destroyed.",
+          "line": 277
         },
         {
           "name": "setActiveRepositoryForPath",
@@ -6254,10 +6277,373 @@
           "static": false,
           "async": true,
           "signature": "::setActiveRepositoryForPath(filePath, { pin = false } = {})",
-          "category": "Methods",
+          "category": "Active Repository",
           "visibility": "Public",
-          "description": "Resolve the repository for a path and make it the active one.\nResolves to the repository, or null when the path is not in a repository.",
-          "line": 224
+          "description": "Resolve the repository for a path and make it the active one.\n\nUnlike {::setActiveRepository} this discovers a repository that was not\nregistered yet, so it is asynchronous.\n\n* `filePath` The {String} path to resolve.\n* `options` (optional) {Object}\n  * `pin` (optional) {Boolean} keeps the selection, as in\n    {::setActiveRepository}.\n\nReturns a {Promise} that resolves to the {GitRepository}, or to `null` when\nthe path is not in one.",
+          "line": 305
+        },
+        {
+          "name": "getSnapshot",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getSnapshot()",
+          "category": "Accessing Repositories",
+          "visibility": "Extended",
+          "description": "The registered repositories together with the version they were\nread at.\n\nThe version increments on every change, so a consumer holding derived state\ncan tell whether its copy is still current without diffing.\n\nReturns a frozen {Object}.\n* `version` A {Number}.\n* `repositories` A frozen {Array} of {GitRepository}.",
+          "line": 515
+        },
+        {
+          "name": "getRepositories",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getRepositories()",
+          "category": "Accessing Repositories",
+          "visibility": "Public",
+          "description": "Every registered repository.\n\nThis is a snapshot. Use {::observeRepositories} to keep up with the ones\nregistered later.\n\nReturns an {Array} of {GitRepository}.",
+          "line": 528
+        },
+        {
+          "name": "getById",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getById(id)",
+          "category": "Accessing Repositories",
+          "visibility": "Extended",
+          "description": "Look a repository up by the id the registry gave it.\n\n* `id` The {String} id.\n\nReturns a {GitRepository}, or `null` if nothing is registered under it.",
+          "line": 537
+        },
+        {
+          "name": "observeRepositories",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observeRepositories(callback)",
+          "category": "Event Subscription",
+          "visibility": "Essential",
+          "description": "Invoke the callback with every registered repository, now and in\nthe future.\n\n* `callback` {Function} called with each {GitRepository}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 551
+        },
+        {
+          "name": "onDidAddRepository",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidAddRepository(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the callback when a repository is registered.\n\n* `callback` {Function} called with the new {GitRepository}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 561
+        },
+        {
+          "name": "onDidRemoveRepository",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidRemoveRepository(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the callback when a repository is removed.\n\nRelease anything keyed on the repository here: it is destroyed once nothing\nholds it any more.\n\n* `callback` {Function} called with the removed {GitRepository}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 573
+        },
+        {
+          "name": "onDidChange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChange(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the callback once per batch of changes to the registered\nset, with everything that changed together.\n\nCheaper than the individual events when a consumer rebuilds derived state,\nsince adding a project root registers many repositories at once.\n\n* `callback` {Function} called with a frozen {Object}.\n  * `version` The {Number} the registry is now at.\n  * `added` An {Array} of newly registered {GitRepository}.\n  * `removed` An {Array} of {GitRepository} no longer registered.\n  * `updated` An {Array} of {GitRepository} whose routing changed.\n  * `rootsAdded` An {Array} of {String} project roots added.\n  * `rootsRemoved` An {Array} of {String} project roots removed.\n  * `routingChangedPrefixes` An {Array} of {String} directories whose\n    path-to-repository routing is no longer what it was.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 594
+        },
+        {
+          "name": "onDidStartRescan",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidStartRescan(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the callback when a rescan of the project roots begins.\n\n* `callback` {Function} called with a frozen {Object}.\n  * `id` A {Number} identifying this rescan.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 604
+        },
+        {
+          "name": "onDidFinishRescan",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidFinishRescan(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the callback when a rescan finishes, whether or not it\nsucceeded.\n\n* `callback` {Function} called with a frozen {Object}.\n  * `id` The {Number} of the rescan that started.\n  * `repositories` A frozen {Array} of the {GitRepository} it found.\n  * `error` The {Error} that ended the scan, or `null`.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 617
+        },
+        {
+          "name": "onDidQueueOperation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidQueueOperation(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the callback when an operation is queued behind another on\nthe same repository.\n\n* `callback` {Function} called with an operation snapshot; see\n  {::getPendingOperations}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 628
+        },
+        {
+          "name": "onDidStartOperation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidStartOperation(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the callback when an operation starts running.\n\n* `callback` {Function} called with an operation snapshot; see\n  {::getPendingOperations}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 638
+        },
+        {
+          "name": "onDidFinishOperation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidFinishOperation(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the callback when an operation finishes, whether or not it\nsucceeded.\n\n* `callback` {Function} called with an operation snapshot; see\n  {::getPendingOperations}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 649
+        },
+        {
+          "name": "getForPath",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getForPath(filePath)",
+          "category": "Resolving Paths",
+          "visibility": "Essential",
+          "description": "The repository a path belongs to, from what is already\nregistered.\n\nSynchronous and free of filesystem access, so it is safe on a hot path such\nas rendering a gutter. When several repositories contain the path, the one\nwith the longest matching working directory wins, which is what a submodule\nor a nested checkout should do. Use {::resolveForPath} when the path may\nbelong to a repository nobody has discovered yet.\n\n* `filePath` The {String} path to look up.\n\nReturns a {GitRepository}, or `null`.",
+          "line": 669
+        },
+        {
+          "name": "resolveForPath",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::resolveForPath(filePath)",
+          "category": "Resolving Paths",
+          "visibility": "Public",
+          "description": "The repository a path belongs to, discovering and registering one\nif it is not known yet.\n\n* `filePath` The {String} path to resolve.\n\nReturns a {Promise} that resolves to a {GitRepository}, or to `null` when\nthe path is not in one.",
+          "line": 716
+        },
+        {
+          "name": "resolveForPathSync",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::resolveForPathSync(filePath)",
+          "category": "Resolving Paths",
+          "visibility": "Extended",
+          "description": "{::resolveForPath}, synchronously.\n\nDiscovery reads the filesystem, so this blocks the renderer. Prefer\n{::getForPath} when the repository is expected to be known already, and\n{::resolveForPath} when it is not.\n\n* `filePath` The {String} path to resolve.\n\nReturns a {GitRepository}, or `null`.",
+          "line": 733
+        },
+        {
+          "name": "resolveDirectory",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::resolveDirectory(directory)",
+          "category": "Resolving Paths",
+          "visibility": "Extended",
+          "description": "The repository for a {Directory}, discovering and registering one\nif it is not known yet.\n\n* `directory` The {Directory} to resolve.\n\nReturns a {Promise} that resolves to a {GitRepository}, or to `null`.",
+          "line": 747
+        },
+        {
+          "name": "resolveDirectorySync",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::resolveDirectorySync(directory)",
+          "category": "Resolving Paths",
+          "visibility": "Extended",
+          "description": "{::resolveDirectory}, synchronously. Reads the filesystem.\n\n* `directory` The {Directory} to resolve.\n\nReturns a {GitRepository}, or `null`.",
+          "line": 757
+        },
+        {
+          "name": "retain",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::retain(repository, source = \"pin\")",
+          "category": "Managing Repositories",
+          "visibility": "Public",
+          "description": "Keep a repository alive for as long as you hold the result.\n\nA repository is destroyed once nothing owns it — no project root contains\nit, no open buffer belongs to it. Retain one you intend to keep using\nacross those changes, and dispose the result when you are done, or it will\noutlive its usefulness.\n\n* `repository` The {GitRepository} to hold.\n* `source` (optional) A {String} label for the hold, for debugging.\n\nReturns a {Disposable} that releases the hold.",
+          "line": 777
+        },
+        {
+          "name": "runOperation",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::runOperation(repository, operation)",
+          "category": "Managing Repositories",
+          "visibility": "Extended",
+          "description": "Run your own work against a repository, holding it alive for the\nduration.\n\n{::retain} for the length of one asynchronous call, without the bookkeeping.\n\n* `repository` The {GitRepository} to work with.\n* `operation` An async {Function} called with the repository.\n\nThrows an {Error} if the repository cannot be registered.\n\nReturns a {Promise} for whatever the operation returned.",
+          "line": 800
+        },
+        {
+          "name": "addOperationProvider",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addOperationProvider(provider, { fallback = false } = {})",
+          "category": "Operations",
+          "visibility": "Public",
+          "description": "Supply the Git implementation behind the registry's operations.\n\nThe registry routes work but performs none of it. A provider implements at\nleast one of `createRepositoryOperations`, `initializeRepository`,\n`cloneRepository` or `executeGit`, and the first provider claiming a\ncapability handles it.\n\n* `provider` The {Object} implementing the operations.\n* `options` (optional) {Object}\n  * `fallback` (optional) {Boolean} puts the provider last instead of\n    first, so anything registered later takes precedence over it.\n\nThrows a {TypeError} if the provider implements none of those methods, and\nan {Error} if the registry has been destroyed.\n\nReturns a {Disposable} that removes the provider and everything it\nimplemented.",
+          "line": 835
+        },
+        {
+          "name": "getOperations",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getOperations(repository)",
+          "category": "Operations",
+          "visibility": "Public",
+          "description": "The operations available on a repository.\n\n* `repository` The {GitRepository}.\n\nReturns an {Object} of operation functions, or `null` when no provider has\nclaimed the repository.",
+          "line": 874
+        },
+        {
+          "name": "canPerformOperation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::canPerformOperation(repository, operationName)",
+          "category": "Operations",
+          "visibility": "Essential",
+          "description": "Whether an operation can be performed on a repository right now.\n\nAsk before offering an action. A window where no package provides Git can\nanswer nothing, and the honest response is to hide the command rather than\nto fail when it is invoked.\n\n* `repository` The {GitRepository}.\n* `operationName` The {String} name of the operation, such as `\"commit\"`.\n\nReturns a {Boolean}.",
+          "line": 888
+        },
+        {
+          "name": "getOperationCapabilities",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getOperationCapabilities(repository)",
+          "category": "Operations",
+          "visibility": "Public",
+          "description": "Every operation any provider can perform on a repository.\n\n* `repository` The {GitRepository}.\n\nReturns a frozen {Array} of {String} operation names.",
+          "line": 897
+        },
+        {
+          "name": "getPendingOperations",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPendingOperations(repository)",
+          "category": "Operations",
+          "visibility": "Public",
+          "description": "The operations queued or running right now.\n\nOperations on one repository run one at a time, so a long fetch leaves the\nnext one queued. This is what a progress indicator reads.\n\n* `repository` (optional) The {GitRepository} to report on. Omit it for\n  every repository, plus the workspace operations that belong to none.\n\nReturns a frozen {Array} of frozen {Object}s.\n* `id` A {Number} identifying the operation.\n* `repository` The {GitRepository} it runs on, or `null`.\n* `name` The {String} operation name.\n* `status` A {String}, `\"queued\"` or `\"running\"`.\n* `workingDirectory` The {String} directory it runs in, or `null`.\n* `queuedAt` The {Number} timestamp it was queued at.\n* `startedAt` The {Number} timestamp it started at, or `null`.",
+          "line": 934
+        },
+        {
+          "name": "getWorkspaceOperationCapabilities",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getWorkspaceOperationCapabilities()",
+          "category": "Creating Repositories",
+          "visibility": "Public",
+          "description": "Which of `initialize` and `clone` a provider can perform.\n\nThese belong to no repository — they are what creates one — so they are\nasked for separately from {::getOperationCapabilities}.\n\nReturns a frozen {Array} of {String} operation names.",
+          "line": 963
+        },
+        {
+          "name": "canPerformWorkspaceOperation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::canPerformWorkspaceOperation(operationName)",
+          "category": "Creating Repositories",
+          "visibility": "Public",
+          "description": "Whether a repository-creating operation can be performed.\n\n* `operationName` A {String}, `\"initialize\"` or `\"clone\"`.\n\nReturns a {Boolean}.",
+          "line": 975
+        },
+        {
+          "name": "canExecuteGitCommands",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::canExecuteGitCommands()",
+          "category": "Running Git",
+          "visibility": "Public",
+          "description": "Whether any provider can run raw Git commands.\n\nReturns a {Boolean}.",
+          "line": 986
+        },
+        {
+          "name": "executeGit",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::executeGit(args, workingDirectory, options)",
+          "category": "Running Git",
+          "visibility": "Extended",
+          "description": "Run a Git command through whichever provider offers one.\n\nThe escape hatch for what the operation set does not cover. Prefer a named\noperation where one exists — it is the part a provider can implement\nwithout shelling out.\n\n* `args` An {Array} of {String} arguments, without the leading `git`.\n* `workingDirectory` The {String} directory to run in.\n* `options` (optional) {Object} passed through to the provider.\n\nReturns a {Promise} for the provider's result. It rejects with a {TypeError}\nif `args` is not an array, and with an {Error} whose `code` is\n`ERR_GIT_EXECUTION_UNAVAILABLE` when no provider runs Git commands.",
+          "line": 1003
+        },
+        {
+          "name": "getGitExecutablePath",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getGitExecutablePath()",
+          "category": "Running Git",
+          "visibility": "Extended",
+          "description": "The Git binary the active provider runs.\n\nReturns a {String} path, or `null` when no provider runs Git commands or it\ndoes not say which binary it uses.",
+          "line": 1024
+        },
+        {
+          "name": "initialize",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::initialize(directoryPath, options)",
+          "category": "Creating Repositories",
+          "visibility": "Public",
+          "description": "Create a repository in a directory and register it.\n\n* `directoryPath` The {String} directory to initialize.\n* `options` (optional) {Object} passed through to the provider.\n\nReturns a {Promise} that resolves to the new {GitRepository}. It rejects\nwhen no provider implements `initialize`, and with an {Error} whose `code`\nis `ERR_REPOSITORY_DISCOVERY_FAILED` if the command succeeded but nothing\nwas found at the path afterwards.",
+          "line": 1041
+        },
+        {
+          "name": "clone",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clone(remoteUrl, destinationPath, options)",
+          "category": "Creating Repositories",
+          "visibility": "Public",
+          "description": "Clone a remote into a directory and register the result.\n\n* `remoteUrl` The {String} URL to clone.\n* `destinationPath` The {String} directory to clone into.\n* `options` (optional) {Object} passed through to the provider.\n\nReturns a {Promise} that resolves to the new {GitRepository}, and rejects\nthe same way {::initialize} does.",
+          "line": 1053
+        },
+        {
+          "name": "add",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::add(filePath, { persist = true } = {})",
+          "category": "Managing Repositories",
+          "visibility": "Public",
+          "description": "Register the repository containing a path, and keep it.\n\nFor a repository the user chose that no project root covers. It is held\nuntil the returned handle is disposed, and by default remembered across\nwindow reloads.\n\n* `filePath` The {String} path inside the repository to add.\n* `options` (optional) {Object}\n  * `persist` (optional) {Boolean}, `true` by default. Pass `false` to hold\n    the repository for this session only.\n\nReturns a {Promise} that resolves to an {Object}, or to `null` when the path\nis not in a repository.\n* `repository` The {GitRepository}.\n* `dispose` A {Function} that releases it.",
+          "line": 1393
+        },
+        {
+          "name": "forget",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::forget(repository)",
+          "category": "Managing Repositories",
+          "visibility": "Public",
+          "description": "Drop every manual hold {::add} placed on a repository.\n\nThe repository stays registered while a project root or an open buffer\nstill owns it.\n\n* `repository` The {GitRepository} to forget.\n\nReturns a {Boolean}: `true` if the repository was registered.",
+          "line": 1420
         }
       ]
     },
@@ -6291,6 +6677,72 @@
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s",
           "line": 42
+        }
+      ]
+    },
+    {
+      "name": "SecretStore",
+      "visibility": "Public",
+      "description": "Somewhere to keep an access token, available as `atom.secrets`.\n\nFor the sensitive strings a package must remember between sessions — a\nforge token, an API key, a password. Never `atom.config`: everything in\nthere is written to disk in plain text and shown in the settings view.\n\nKeys are opaque strings and values are strings. Namespace your own keys, by\nconvention with the package name:\n\n```js\nawait atom.secrets.set('github.token', token)\nconst token = await atom.secrets.get('github.token')\n```\n\n## Storage\n\nValues are encrypted with the operating system's own facility — DPAPI on\nWindows, the Keychain on macOS, libsecret or kwallet on Linux — and kept as\nbase64 in one file under the config directory.\n\nWhere the OS offers no encryption, typically a headless Linux box with no\nkeyring, the store keeps values in memory for the session only and warns the\nuser once. It never writes a secret to disk in the clear. A package should\ntherefore expect {::get} to return `null` for something it stored in an\nearlier session, and ask again rather than fail.",
+      "source": "src/secret-store.js",
+      "sourcePath": "src/secret-store.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 30,
+      "members": [
+        {
+          "name": "isEncryptionAvailable",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isEncryptionAvailable()",
+          "category": "Storing Secrets",
+          "visibility": "Extended",
+          "description": "Whether the operating system will encrypt what is stored.\n\nWhen it will not, secrets last for this session only. Worth checking before\ntelling the user that a token has been saved — the first call warns them\nonce on its own.\n\nReturns a {Boolean}.",
+          "line": 60
+        },
+        {
+          "name": "get",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::get(key)",
+          "category": "Storing Secrets",
+          "visibility": "Essential",
+          "description": "Read a secret.\n\n* `key` The {String} key it was stored under.\n\nReturns a {Promise} that resolves to the {String} value, or to `null` when\nnothing is stored under the key or it can no longer be decrypted — which\nhappens after the OS credential store is reset, or when this session has no\nencryption and an earlier one did.",
+          "line": 113
+        },
+        {
+          "name": "set",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::set(key, value)",
+          "category": "Storing Secrets",
+          "visibility": "Essential",
+          "description": "Store a secret.\n\n* `key` The {String} key to store it under.\n* `value` The {String} to store. `null` or `undefined` deletes the key, as\n  {::delete} would.\n\nReturns a {Promise} that resolves once the value is written.",
+          "line": 133
+        },
+        {
+          "name": "delete",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::delete(key)",
+          "category": "Storing Secrets",
+          "visibility": "Public",
+          "description": "Forget a secret.\n\nDeleting a key that was never stored is not an error and emits nothing.\n\n* `key` The {String} key to remove.\n\nReturns a {Promise} that resolves once the key is gone.",
+          "line": 153
+        },
+        {
+          "name": "onDidChange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChange(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the callback when a secret is stored or removed.\n\nThe event names the key but never carries the value; read it with {::get}\nif you need it.\n\n* `callback` {Function} called with an {Object}.\n  * `key` The {String} key that changed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 175
         }
       ]
     },
@@ -12845,7 +13297,7 @@
       "name": "applySyntaxHighlighting",
       "signature": "applySyntaxHighlighting(content, givenOpts = {})",
       "visibility": "Public",
-      "description": "Uses Lumine's built-in Syntax Highlighting system to apply the same syntax\nhighlighting to code blocks within markdown. Modifies the existing object passed.\n\n* `content` {HTMLFragment} The HTML Node/Fragment to apply syntax highlighting on.\n* `givenOpts` {object} Optional Arguments:\n* `givenOpts.syntaxScopeNameFunc` {function} A function that can be called with\n* `givenOpts.renderMode` {string} Whether we are rdnering a document fragment\n* `givenOpts.grammar` {object} The grammar of the source file. Carryover from",
+      "description": "Uses Lumine's built-in Syntax Highlighting system to apply the same syntax\nhighlighting to code blocks within markdown. Modifies the existing object passed.\n\n* `content` {HTMLFragment} The HTML Node/Fragment to apply syntax highlighting on. Will modify the original object.\n* `givenOpts` {object} Optional Arguments:\n* `givenOpts.syntaxScopeNameFunc` {function} A function that can be called with any given language ID from a code block scope, and returns the grammar source id that should be used to perform syntax highlighting.\n* `givenOpts.renderMode` {string} Whether we are rendering a document fragment or a full document. Valid values: \"full\", \"fragment\".\n* `givenOpts.grammar` {object} The grammar of the source file. Carryover from original `markdown-preview` functionality.",
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -12865,27 +13317,27 @@
       "name": "matcherForSelector",
       "signature": "matcherForSelector(selector)",
       "visibility": "Essential",
-      "description": "Return a matcher function for a selector.\n\n* selector, a {String} selector\nReturns {(scope: String) -> Boolean}, a matcher function returning\ntrue iff the scope matches the selector.",
+      "description": "Build a reusable test for a scope selector.\n\nParsing the selector once and testing many scopes with the result is what\nmakes this worth having over {selectorMatchesAnyScope} in a loop.\n\n* `selector` A {String} selector such as `\"source.js\"`, or an {Array} of the\n  parts it is made of. An empty selector matches everything.\n\nReturns a {Function} taking a scope {String} and returning a {Boolean}, true\nwhen the scope matches the selector.",
       "source": "src/selectors.js",
       "sourcePath": "src/selectors.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 21
+      "line": 26
     },
     {
       "name": "removeDiacritics",
       "signature": "removeDiacritics(text)",
       "visibility": "Public",
-      "description": "Removes diacritical marks from a string.\n\n* `text` {string} @returns {string}\n\nReturns {string}.",
+      "description": "Removes diacritical marks from a string, so that \"café\" can be matched by\ntyping \"cafe\".\n\n* `text` {string} The string to fold.\n\nReturns {string} The same string with its diacritics removed..",
       "source": "src/diacritics.js",
       "sourcePath": "src/diacritics.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 9
+      "line": 10
     },
     {
       "name": "renderMarkdown",
       "signature": "renderMarkdown(content, givenOpts = {})",
       "visibility": "Public",
-      "description": "Takes a Markdown document and renders it as HTML.\n\n* `content` {string} The Markdown source material.\n* `givenOpts` {object} The optional arguments:\n* `givenOpts.renderMode` {string} Determines how the page is rendered.\n* `givenOpts.html` {boolean} Whether HTML tags should be allowed.\n* `givenOpts.sanitize` {boolean} If the page content should be saniized via DOMPurify.\n* `givenOpts.sanitizeAllowUnknownProtocols` {boolean} Controls DOMPurify's\n* `givenOpts.sanitizeAllowSelfClose` {boolean} Controls DOMPurify's\n* `givenOpts.breaks` {boolean} If newlines should always be converted\n* `givenOpts.handleFrontMatter` {boolean} Whether frontmatter data should\n* `givenOpts.useDefaultEmoji` {boolean} Whether `markdown-it-emoji` should be enabled.\n* `givenOpts.useGitHubHeadings` {boolean} Whether `markdown-it-github-headings`\n* `givenOpts.useTaskCheckbox` {boolean} Whether `markdown-it-task-checkbox`\n* `givenOpts.taskCheckboxDisabled` {boolean} Controls `markdown-it-task-checkbox`\n* `givenOpts.taskCheckboxDivWrap` {boolean} Controls `markdown-it-task-checkboc`\n* `givenOpts.transformImageLinks` {boolean} Attempt to resolve image URLs.\n* `givenOpts.transformLegacyLinks` {boolean} Attempt to redirect links\n* `givenOpts.transformNonFqdnLinks` {boolean} Attempt to resolve links\n* `givenOpts.rootDomain` {string} The root URL of the online resource.\n* `givenOpts.filePath` {string} The local alternative to `rootDomain`.\n* `givenOpts.disabledMode` {string} The level of disabling of markdown features.\n\nReturns {string} Parsed HTML content..",
+      "description": "Takes a Markdown document and renders it as HTML.\n\n* `content` {string} The Markdown source material.\n* `givenOpts` {object} The optional arguments:\n* `givenOpts.renderMode` {string} Determines how the page is rendered. Valid values \"full\" or \"fragment\".\n* `givenOpts.html` {boolean} Whether HTML tags should be allowed.\n* `givenOpts.sanitize` {boolean} If the page content should be saniized via DOMPurify.\n* `givenOpts.sanitizeAllowUnknownProtocols` {boolean} Controls DOMPurify's own option of 'ALLOW_UNKNOWN_PROTOCOLS'.\n* `givenOpts.sanitizeAllowSelfClose` {boolean} Controls DOMPurify's own option of 'ALLOW_SELF_CLOSE'\n* `givenOpts.breaks` {boolean} If newlines should always be converted into breaklines.\n* `givenOpts.handleFrontMatter` {boolean} Whether frontmatter data should processed and displayed.\n* `givenOpts.useDefaultEmoji` {boolean} Whether `markdown-it-emoji` should be enabled.\n* `givenOpts.useGitHubHeadings` {boolean} Whether `markdown-it-github-headings` should be enabled. False by default.\n* `givenOpts.useTaskCheckbox` {boolean} Whether `markdown-it-task-checkbox` should be enabled. True by default.\n* `givenOpts.taskCheckboxDisabled` {boolean} Controls `markdown-it-task-checkbox` `disabled` option. True by default.\n* `givenOpts.taskCheckboxDivWrap` {boolean} Controls `markdown-it-task-checkbox` `divWrap` option. False by default.\n* `givenOpts.transformImageLinks` {boolean} Attempt to resolve image URLs. True by default.\n* `givenOpts.transformLegacyLinks` {boolean} Attempt to redirect links pointing at retired resources to an archived copy. True by default.\n* `givenOpts.transformNonFqdnLinks` {boolean} Attempt to resolve links that are not fully qualified domain names. True by default.\n* `givenOpts.rootDomain` {string} The root URL of the online resource. Useful when attempting to resolve any links on the page. Only works for online resources.\n* `givenOpts.filePath` {string} The local alternative to `rootDomain`. Used to resolve incomplete paths, but locally on the file system.\n* `givenOpts.disableMode` {string} The level of disabling of markdown features. `none` by default. But supports: \"none\", \"strict\"\n\nReturns {string} Parsed HTML content..",
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -12895,11 +13347,11 @@
       "name": "selectorMatchesAnyScope",
       "signature": "selectorMatchesAnyScope(selector, scopes)",
       "visibility": "Essential",
-      "description": "Return true iff the selector matches any provided scope.\n\n* {String} selector\n* {Array<String>} scopes\nReturns {Boolean} true if any scope matches the selector.",
+      "description": "Whether any of the given scopes matches a selector.\n\n* `selector` A {String} selector. An empty selector matches everything.\n* `scopes` An {Array} of scope {String}s to test.\n\nReturns a {Boolean}.",
       "source": "src/selectors.js",
       "sourcePath": "src/selectors.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 32
+      "line": 38
     },
     {
       "name": "watchFile",
@@ -12922,5 +13374,5 @@
       "line": 1033
     }
   ],
-  "memberCount": 1124
+  "memberCount": 1164
 }
