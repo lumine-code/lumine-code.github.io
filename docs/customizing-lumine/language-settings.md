@@ -2,9 +2,9 @@
 
 Most editor settings can be overridden per language, so different file types can have their own indentation, wrapping, and other behavior while everything else keeps your global defaults.
 
-## The Languages tab
+## The Language tab
 
-The easiest way is **Settings → Languages**. Pick a language from the list and adjust its settings; Lumine stores them under the **`language`** namespace, scoped to that language's grammar. There is also a **Defaults** entry for the settings applied to files that have no specific language.
+The easiest way is **Settings → Language**. Pick a language from the list and adjust its settings; Lumine stores them under the **`language`** namespace, scoped to that language's grammar. There is also a **Defaults** entry for the settings applied to files that have no specific language.
 
 Each installed language grammar appears here, identified by its scope name (for example `source.python` or `source.js`).
 
@@ -28,7 +28,7 @@ Language settings are **scoped**: they apply only to editors whose grammar match
 }
 ```
 
-Here every file uses two-space indentation except Makefiles, which use a four-wide real tab. The Languages tab writes these scoped blocks for you.
+Here every file uses two-space indentation except Makefiles, which use a four-wide real tab. The Language tab writes these scoped blocks for you.
 
 ## Choosing a grammar for a file
 

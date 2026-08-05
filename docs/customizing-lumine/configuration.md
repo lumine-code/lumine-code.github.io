@@ -4,7 +4,7 @@ Lumine can be adjusted from a graphical settings screen or by editing plain text
 
 ## The Settings view
 
-Open **Settings** (the bundled `settings-view` package) to configure the editor and your packages through a UI. It has tabs for **Core** and **Editor** settings, **Languages**, **Keybindings**, **Themes**, **Packages**, and **Install**. Most users never need to touch a config file directly.
+Open **Settings** (the bundled `settings-view` package) to configure the editor and your packages through a UI. It has tabs for **Core** and **Editor** settings, **Language**, **Keybindings**, **Themes**, **Packages**, and **Install**. Most users never need to touch a config file directly.
 
 ## The config file
 
