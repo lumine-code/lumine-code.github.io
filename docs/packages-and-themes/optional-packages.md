@@ -59,6 +59,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 - **jupyter-explorer** — explore dataframes, arrays, and nested objects in a searchable grid.
 - **jupyter-watches** — watch expressions re-evaluated after every execution.
 - **jupyter-monitor** — every running kernel in one table.
+- **jupyter-prompt** — run code on the current kernel from a prompt with history.
 
 ## Scrollbar markers
 
