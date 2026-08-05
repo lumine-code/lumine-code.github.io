@@ -27,10 +27,65 @@ if (!lumineSource)
 const packageMetadata = require(
   path.resolve(siteRoot, lumineSource.packageMetadata),
 );
+// Enough of a lexer to colour an example, in every language the doc comments
+// actually use. A parser would be exact and would also refuse the fragments
+// half of these examples are, so this reads the shapes that are the same
+// everywhere: a comment, a string, a number, a word.
+const CODE_KEYWORDS = new Set([
+  "async", "await", "break", "case", "catch", "class", "const", "continue",
+  "debugger", "default", "delete", "do", "else", "export", "extends", "false",
+  "finally", "for", "from", "function", "if", "import", "in", "instanceof",
+  "let", "new", "null", "of", "return", "static", "super", "switch", "this",
+  "throw", "try", "typeof", "undefined", "var", "void", "while", "yield",
+  // CoffeeScript adds these; the ones that double as ordinary identifiers
+  // (`is`, `on`, `by`) are left out rather than colour `emitter.on`.
+  "and", "loop", "not", "or", "then", "unless", "until", "when", "yes", "no",
+]);
+
+const HASH_COMMENT_LANGUAGES =
+  /^(coffee|coffeescript|cson|yaml|yml|sh|bash|shell|python|ruby|toml)$/;
+
+function highlightCode(source, language) {
+  const comment = HASH_COMMENT_LANGUAGES.test(language)
+    ? String.raw`###[\s\S]*?###|#[^\n]*`
+    : String.raw`/\*[\s\S]*?\*/|//[^\n]*`;
+  const pattern = new RegExp(
+    [
+      comment,
+      String.raw`<!--[\s\S]*?-->`,
+      String.raw`'(?:\\.|[^'\\\n])*'|"(?:\\.|[^"\\\n])*"|\`(?:\\.|[^\`\\])*\``,
+      String.raw`\b\d[\d_.]*(?:[eE][+-]?\d+)?\b`,
+      String.raw`[A-Za-z_$][\w$]*`,
+    ].join("|"),
+    "g",
+  );
+
+  let out = "";
+  let last = 0;
+  for (const match of source.matchAll(pattern)) {
+    const text = match[0];
+    out += escapeHtml(source.slice(last, match.index));
+    last = match.index + text.length;
+
+    let kind = null;
+    if (/^(\/\/|\/\*|#|<!--)/.test(text)) kind = "comment";
+    else if (/^['"`]/.test(text)) kind = "string";
+    else if (/^\d/.test(text)) kind = "number";
+    else if (CODE_KEYWORDS.has(text)) kind = "keyword";
+    else if (source[last] === "(") kind = "fn";
+
+    out += kind
+      ? `<span class="tok-${kind}">${escapeHtml(text)}</span>`
+      : escapeHtml(text);
+  }
+  return out + escapeHtml(source.slice(last));
+}
+
 const markdown = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
+  highlight: highlightCode,
 });
 
 function walk(directory) {

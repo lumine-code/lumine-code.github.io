@@ -426,9 +426,28 @@ pre code {
   font: 500 0.88rem/1.75 var(--mono);
 }
 
+/* Syntax colours, shared by the hand-written snippets on the home page and the
+   API reference's generated ones. Three hues and a grey is all the palette
+   has, and all a short example needs. */
 .tok-comment {
   color: #748094;
   font-style: italic;
+}
+
+.tok-string {
+  color: var(--green);
+}
+
+.tok-number {
+  color: var(--gold-strong);
+}
+
+.tok-keyword {
+  color: var(--cyan);
+}
+
+.tok-fn {
+  color: var(--text);
 }
 
 .build-notes {
