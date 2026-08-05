@@ -92,6 +92,30 @@ function commentsFor(node, ancestors = []) {
   return [];
 }
 
+// The comment a reader would take as the class's own: the one on the class, or
+// on the statement that exports it. commentsFor() keeps walking all the way to
+// the Program, which is fine when a visibility marker has to be found but would
+// otherwise hand an undocumented class the file's header comment.
+function ownComments(node, ancestors = []) {
+  for (const candidate of [node, ...ancestors.toReversed().slice(0, 2)]) {
+    if (candidate?.leadingComments?.length) return candidate.leadingComments;
+  }
+  return [];
+}
+
+// Tooling directives are not prose.
+function isDirective(raw) {
+  return /^\s*(eslint|prettier|ts-|@ts-|istanbul|globals?|jshint)\b/.test(raw);
+}
+
+// The strongest visibility any member claims, for a class that never stated one.
+function inferredVisibility(members) {
+  for (const rank of ["Essential", "Public", "Extended", "Experimental"]) {
+    if (members.some((member) => member.visibility === rank)) return rank;
+  }
+  return "Public";
+}
+
 function legacyDoc(raw) {
   const matches = [
     ...raw.matchAll(
@@ -311,7 +335,11 @@ function parseFile(filePath, sourceInput) {
   visit(ast, [], (node, parent, ancestors) => {
     if (node.type === "ClassDeclaration" || node.type === "ClassExpression") {
       const doc = parseDoc(commentsFor(node, ancestors));
-      if (!doc) return;
+      const own = commentText(ownComments(node, ancestors));
+      // Private is a decision; a missing marker is only an omission. The class
+      // is read from its members below, and kept when they are documented even
+      // though it never introduced itself.
+      if (!doc && /(?:^|\n)Private:|(?:^|\n)@private\b/.test(own)) return;
       const name = node.id?.name || classNameFromFile(filePath);
       const members = [];
       let category = "Methods";
@@ -346,10 +374,12 @@ function parseFile(filePath, sourceInput) {
       // Properties lead the class, the way the section marker used to order them.
       members.unshift(...constructorProperties(node));
 
+      if (!doc && !members.length) return;
+
       classes.push({
         name,
-        visibility: doc.visibility,
-        description: doc.markdown,
+        visibility: doc ? doc.visibility : inferredVisibility(members),
+        description: doc ? doc.markdown : isDirective(own) ? "" : own,
         source: `${sourceInput.label}/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
         sourcePath: `src/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
         repository: sourceInput.repository,
@@ -468,8 +498,11 @@ function renderHtml(api) {
         `<a class="api-nav-link" href="#class-${slug(item.name)}" data-api-nav>${escapeHtml(item.name)}</a>`,
     )
     .join("\n");
+  // Everything the reference holds that is not a class sits under its own
+  // chapter heading, so the class list is not asked to end with something that
+  // is not a class.
   const functionNav = api.functions.length
-    ? '<a class="api-nav-link api-nav-functions" href="#functions" data-api-nav>Functions</a>'
+    ? '<p class="api-rail-heading">Others</p><a class="api-nav-link" href="#functions" data-api-nav>Functions</a>'
     : "";
   const classList = `${classNav}${functionNav}`;
   // Right rail: one "On this page" group of members per class; only the group
@@ -570,9 +603,10 @@ function renderHtml(api) {
       /* Class names are short and known; member signatures are neither, so the
          fixed width goes to the classes and the slack to the members. */
       .api-tree:first-child { flex: 0 0 172px; }
-      /* Same treatment as a section heading opposite, so the two rails start on
-         the same line and their entries stay level. */
-      .api-tree > p { margin: 0 0 6px; color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; }
+      /* One heading treatment for both rails, so the two columns start on the
+         same line and their entries stay level. */
+      .api-rail-heading, .api-toc-heading { margin: 24px 0 6px; color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; }
+      .api-tree > .api-rail-heading { margin-top: 0; }
       .api-nav-link { display: block; padding: 4px 0 4px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .86rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
@@ -580,7 +614,7 @@ function renderHtml(api) {
       .api-toc-group.active { display: block; }
       /* A section name is the rail's structure, so it wraps rather than
          truncates — "Managing Cursor Position" must stay readable. */
-      .api-toc-heading { display: block; margin: 24px 0 6px; color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; transition: color .15s ease; }
+      .api-toc-heading { display: block; transition: color .15s ease; }
       .api-toc-heading:first-child { margin-top: 0; }
       .api-toc-heading:hover { color: var(--gold-strong); }
       .api-toc-empty { margin: 0; color: var(--muted); font-style: italic; font-size: .8rem; }
@@ -589,7 +623,6 @@ function renderHtml(api) {
       .api-nav-member.active { border-left-color: var(--gold-strong); color: var(--text); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-      .api-nav-functions { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
       .api-class { margin-bottom: 48px; scroll-margin-top: 88px; }
       .api-class > h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 4px 0 10px; font-size: 1.95rem; }
       .api-description-body { margin: 6px 0 0; max-width: 82ch; font-size: .94rem; }
@@ -641,7 +674,7 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p>Classes</p><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article>${classes}${functions}</article></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p class="api-rail-heading">Classes</p><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article>${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>

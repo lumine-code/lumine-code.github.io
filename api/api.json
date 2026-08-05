@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-05T23:11:36.382Z",
+  "generatedAt": "2026-08-05T23:22:54.508Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -1870,6 +1870,50 @@
           "visibility": "Essential",
           "description": "Update the marker with new Properties. Allows you to change the decoration's class.\n\n## Examples\n\n```coffee\ndecoration.setProperties({type: 'line-number', class: 'my-new-class'})\n```\n\n* `newProperties` {Object} eg. `{type: 'line-number', class: 'my-new-class'}`",
           "line": 176
+        }
+      ]
+    },
+    {
+      "name": "DefaultDirectoryProvider",
+      "visibility": "Public",
+      "description": "Turns a project URI into a {Directory}, for local paths.\n\nThis is the provider {Project} falls back to when no package claims a URI. A\npackage supplies its own by providing the `project.directory-provider`\nservice; the methods below are the shape that contract expects.",
+      "source": "src/default-directory-provider.js",
+      "sourcePath": "src/default-directory-provider.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 18,
+      "members": [
+        {
+          "name": "directoryForURISync",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::directoryForURISync(uri)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `atom.project`.\n\nReturns:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
+          "line": 27
+        },
+        {
+          "name": "directoryForURI",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::directoryForURI(uri)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `atom.project`.\n\nReturns a {Promise} that resolves to:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
+          "line": 59
+        },
+        {
+          "name": "normalizePath",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::normalizePath(uri)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Normalizes path.\n\n* `uri` {String} The path that should be normalized.\n\nReturns a {String} with normalized path.",
+          "line": 68
         }
       ]
     },
@@ -6130,6 +6174,94 @@
       ]
     },
     {
+      "name": "RepositoryRegistry",
+      "visibility": "Public",
+      "description": "Owns every Git repository known to this window. Project roots are discovery\nseeds and lifetime owners, but repository identity is independent of roots.",
+      "source": "src/repository-registry.js",
+      "sourcePath": "src/repository-registry.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 49,
+      "members": [
+        {
+          "name": "getActiveRepository",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActiveRepository()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "The repository the window is currently working in, or null. It\nfollows the active pane item unless a consumer pinned a selection with\n{::setActiveRepository}. An item whose path lies outside every repository\nclears it; only path-less items keep the current selection.",
+          "line": 165
+        },
+        {
+          "name": "getActiveRepositoryContext",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActiveRepositoryContext()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "The active repository context as `{repository, workingDirectory,\npinned}`. The working directory is always present while a file-backed item\nis focused: it is the repository's working directory, or, when the item's\npath lies outside every repository, the directory a consumer would\ninitialize or clone into (its containing project root, or the item's own\ndirectory).",
+          "line": 175
+        },
+        {
+          "name": "isActiveRepositoryPinned",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isActiveRepositoryPinned()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Whether the active repository is pinned to a manual selection.",
+          "line": 184
+        },
+        {
+          "name": "onDidChangeActiveRepository",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeActiveRepository(callback)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Invoke the callback with `{repository, workingDirectory, pinned}`\nwhenever the active repository context changes, including moves between\nout-of-repository directories while the repository stays null.",
+          "line": 191
+        },
+        {
+          "name": "observeActiveRepository",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observeActiveRepository(callback)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Invoke the callback with the current `{repository,\nworkingDirectory, pinned}` state immediately, and again on every change.",
+          "line": 197
+        },
+        {
+          "name": "setActiveRepository",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setActiveRepository(repository, { pin = false } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Select the active repository manually. Passing `pin: true` keeps\nthe selection until it is cleared; otherwise the next pane item change may\nmove the active repository again. Passing null clears any pin and\nrecomputes the active repository from the workspace.",
+          "line": 206
+        },
+        {
+          "name": "setActiveRepositoryForPath",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::setActiveRepositoryForPath(filePath, { pin = false } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Resolve the repository for a path and make it the active one.\nResolves to the repository, or null when the path is not in a repository.",
+          "line": 224
+        }
+      ]
+    },
+    {
       "name": "ScopeDescriptor",
       "visibility": "Extended",
       "description": "Wraps an {Array} of `String`s. The Array describes a path from the\nroot of the syntax tree to a token including _all_ scope names for the entire\npath.\n\nMethods that take a `ScopeDescriptor` will also accept an {Array} of {String}\nscope names e.g. `['.source.js']`.\n\nYou can use `ScopeDescriptor`s to get language-specific config settings via\n{Config::get}.\n\nYou should not need to create a `ScopeDescriptor` directly.\n\n* {TextEditor::getRootScopeDescriptor} to get the language's descriptor.\n* {TextEditor::scopeDescriptorForBufferPosition} to get the descriptor at a\n  specific position in the buffer.\n* {Cursor::getScopeDescriptor} to get a cursor's descriptor based on position.\n\nSee the [scopes and scope descriptor guide](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\nfor more information.",
@@ -6918,6 +7050,61 @@
           "visibility": "Public",
           "description": "Compare this selection's buffer range to another selection's buffer\nrange.\n\nSee {Range::compare} for more details.\n\n* `otherSelection` A {Selection} to compare against",
           "line": 1081
+        }
+      ]
+    },
+    {
+      "name": "ServiceHub",
+      "visibility": "Public",
+      "description": "",
+      "source": "src/service-hub.js",
+      "sourcePath": "src/service-hub.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 111,
+      "members": [
+        {
+          "name": "provide",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::provide(keyPath, version, service)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Provide a service by invoking the callback of all current and future\nconsumers matching the given service name and version range.\n\n* `keyPath` A {String} naming the service. Names are matched exactly. A `.`\n  is a grouping convention for related services (`linter.provider`,\n  `linter.registry`) and carries no lookup meaning: consuming `linter` does\n  not match a provider of `linter.provider`.\n* `version` A {String} containing a [semantic version](http://semver.org/)\n  for the service's API.\n* `service` An object exposing the service API.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nprovided service.",
+          "line": 130
+        },
+        {
+          "name": "consume",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::consume(keyPath, versionRange, callback)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Consume a service by invoking the given callback for all current\nand future provided services matching the given service name and version\nrange.\n\n* `keyPath` A {String} naming the service. Names are matched exactly; see\n  {::provide}.\n* `versionRange` A {String} containing a [semantic version range](https://www.npmjs.org/doc/misc/semver.html)\n  that any provided services for the given service name must satisfy.\n* `callback` A {Function} to be called with current and future matching\n  service objects.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nconsumer. Disposing it also disposes whatever the callback returned, so a\npackage that deactivates unregisters itself from the services it took.",
+          "line": 168
+        },
+        {
+          "name": "unmatchedConsumers",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::unmatchedConsumers()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Names consumed by someone and provided by no one.\n\nDeliberately not reported on its own: packages activate lazily, so a\nconsumer with no provider *yet* is ordinary. It is a question to ask at a\nmoment the caller chooses -- a diagnostic command, `timecop` -- rather than\na warning this class can time correctly. Nothing makes the check statically\neither, so this is the only place the question is answered at all.\n\nReturns an {Array} of `{keyPath, versionRange}`.",
+          "line": 192
+        },
+        {
+          "name": "clear",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clear()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Clear out all service consumers and providers, disposing of any\ndisposables returned by previous consumers.",
+          "line": 203
         }
       ]
     },
@@ -11080,6 +11267,94 @@
       ]
     },
     {
+      "name": "TextEditorElement",
+      "visibility": "Essential",
+      "description": "",
+      "source": "src/text-editor-element.js",
+      "sourcePath": "src/text-editor-element.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 6,
+      "members": [
+        {
+          "name": "getNextUpdatePromise",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getNextUpdatePromise()",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "Get a promise that resolves the next time the element's DOM\nis updated in any way.\n\nThis can be useful when you've made a change to the model and need to\nbe sure this change has been flushed to the DOM.\n\nReturns a {Promise}.",
+          "line": 81
+        },
+        {
+          "name": "getBaseCharacterWidth",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getBaseCharacterWidth()",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "get the width of an `x` character displayed in this element.\n\nReturns a {Number} of pixels.",
+          "line": 174
+        },
+        {
+          "name": "scrollToTop",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::scrollToTop()",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Scrolls the editor to the top.",
+          "line": 235
+        },
+        {
+          "name": "scrollToBottom",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::scrollToBottom()",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Scrolls the editor to the bottom.",
+          "line": 240
+        },
+        {
+          "name": "pixelPositionForBufferPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::pixelPositionForBufferPosition(bufferPosition)",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "Converts a buffer position to a pixel position.\n\n* `bufferPosition` A {Point}-like object that represents a buffer position.\n\nBe aware that calling this method with a column that does not translate\nto column 0 on screen could cause a synchronous DOM update in order to\nmeasure the requested horizontal pixel position if it isn't already\ncached.\n\nReturns an {Object} with two values: `top` and `left`, representing the\npixel position.",
+          "line": 259
+        },
+        {
+          "name": "pixelPositionForScreenPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::pixelPositionForScreenPosition(screenPosition)",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "Converts a screen position to a pixel position.\n\n* `screenPosition` A {Point}-like object that represents a buffer position.\n\nBe aware that calling this method with a non-zero column value could\ncause a synchronous DOM update in order to measure the requested\nhorizontal pixel position if it isn't already cached.\n\nReturns an {Object} with two values: `top` and `left`, representing the\npixel position.",
+          "line": 274
+        },
+        {
+          "name": "invalidateBlockDecorationDimensions",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::invalidateBlockDecorationDimensions()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invalidate the passed block {Decoration}'s dimensions,\nforcing them to be recalculated and the surrounding content to be adjusted\non the next animation frame.\n\n* {blockDecoration} A {Decoration} representing the block decoration you\nwant to update the dimensions of.",
+          "line": 336
+        }
+      ]
+    },
+    {
       "name": "TextEditorRegistry",
       "visibility": "Experimental",
       "description": "This global registry tracks registered `TextEditors`.\n\nIf you want to add functionality to a wider set of text editors than just\nthose appearing within workspace panes, use `atom.textEditors.observe` to\ninvoke a callback for all current and future registered text editors.\n\nIf you want packages to be able to add functionality to your non-pane text\neditors (such as a search field in a custom user interface element), register\nthem for observation via `atom.textEditors.add`. **Important:** When you're\ndone using your editor, be sure to call `dispose` on the returned disposable\nto avoid leaking editors.",
@@ -11096,7 +11371,7 @@
       "source": "src/theme-manager.js",
       "sourcePath": "src/theme-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 65,
+      "line": 62,
       "members": [
         {
           "name": "onDidChangeActiveThemes",
@@ -11107,7 +11382,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke `callback` when style sheet changes associated with\nupdating the list of active themes have completed.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 100
+          "line": 97
         },
         {
           "name": "onDidChangeThemePacks",
@@ -11118,7 +11393,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke `callback` when a theme pack is registered or removed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 107
+          "line": 104
         },
         {
           "name": "registerThemePack",
@@ -11129,7 +11404,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Register a named light/dark theme pack.\n\nA pack groups the complete theme stacks for both appearance modes:\n\n* `name` A user-facing {String}.\n* `light` An {Array} of theme package names.\n* `dark` An {Array} of theme package names.\n\nReturns a {Disposable} that removes the pack.",
-          "line": 129
+          "line": 126
         },
         {
           "name": "getThemePacks",
@@ -11140,7 +11415,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Returns registered theme packs sorted by their user-facing names.",
-          "line": 161
+          "line": 158
         },
         {
           "name": "isThemePackActive",
@@ -11151,7 +11426,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Returns whether both configured mode pairs match `themePack`.",
-          "line": 166
+          "line": 163
         },
         {
           "name": "getActiveThemePack",
@@ -11162,7 +11437,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Returns the registered pack matching both configured mode pairs.",
-          "line": 181
+          "line": 178
         },
         {
           "name": "setThemePack",
@@ -11173,7 +11448,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Configure both appearance modes from `themePack`.",
-          "line": 186
+          "line": 183
         },
         {
           "name": "getLoadedThemeNames",
@@ -11184,7 +11459,7 @@
           "category": "Accessing Loaded Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the loaded theme names.",
-          "line": 204
+          "line": 201
         },
         {
           "name": "getLoadedThemes",
@@ -11195,7 +11470,7 @@
           "category": "Accessing Loaded Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of all the loaded themes.",
-          "line": 209
+          "line": 206
         },
         {
           "name": "getActiveThemeNames",
@@ -11206,7 +11481,7 @@
           "category": "Accessing Active Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the active theme names.",
-          "line": 218
+          "line": 215
         },
         {
           "name": "getActiveThemes",
@@ -11217,7 +11492,7 @@
           "category": "Accessing Active Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of all the active themes.",
-          "line": 223
+          "line": 220
         },
         {
           "name": "getEnabledThemeNames",
@@ -11228,7 +11503,7 @@
           "category": "Managing Enabled Themes",
           "visibility": "Public",
           "description": "Get the enabled theme names from the config.\n\nReturns an array of theme names in the order that they should be activated.",
-          "line": 281
+          "line": 278
         },
         {
           "name": "updateAppearance",
@@ -11239,7 +11514,7 @@
           "category": "Private",
           "visibility": "Public",
           "description": "Apply an appearance change that restyles the window without\nchanging which themes are active — a theme package toggling a variant\nattribute on the document root, say.\n\nMutating the document directly would leave anything that caches resolved\ncolors — every package that paints to a canvas — showing the old palette\nuntil something unrelated made it redraw. This runs the mutation inside\nthe same cross-fade a theme switch uses and notifies those consumers from\nwithin it, so they repaint as part of the same transition.\n\n* `mutate` {Function} applying the change to the document.\n\nReturns a {Promise} that resolves once the change has been applied.",
-          "line": 711
+          "line": 708
         }
       ]
     },
@@ -12558,5 +12833,5 @@
       "line": 1033
     }
   ],
-  "memberCount": 1095
+  "memberCount": 1116
 }
