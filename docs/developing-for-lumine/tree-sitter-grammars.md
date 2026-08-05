@@ -38,16 +38,16 @@ The build tool lives in the Lumine repository:
 
 ```sh
 # Rebuild a grammar at its current pin
-node script/build-grammar-wasm.js ../language-json/grammars/tree-sitter-json.json
+lem grammar language-json/grammars/tree-sitter-json.json
 
 # Bump to a new upstream version, and report node types the queries may rely on
-node script/build-grammar-wasm.js ../language-json/grammars/tree-sitter-json.json \
+lem grammar language-json/grammars/tree-sitter-json.json \
      --source "github:tree-sitter/tree-sitter-json#v0.24.8" --diff-node-types
 
 # Build without touching the repo, audit the whole fleet's ABI, or rebuild everything
-node script/build-grammar-wasm.js <config> --dry-run
-node script/build-grammar-wasm.js --check
-node script/build-grammar-wasm.js --all
+lem grammar <config> --dry-run
+lem grammar --check
+lem grammar --all
 ```
 
 The script clones the pinned source into a cache (`~/.lumine-grammar-cache`, or wherever `LUMINE_GRAMMAR_CACHE` points), fetches the pinned `tree-sitter-cli`, compiles with emscripten, and verifies the result loads in the exact `web-tree-sitter` runtime Lumine ships. It then installs the wasm into **every** config that shares the same source — shared and copied wasms cannot drift apart — and updates `parserSource` and `wasmBuildTool` in place.
@@ -63,13 +63,13 @@ A grammar package does not have to live in `packages/`. It may be its own reposi
 Building one needs no extra flags — the package that owns the config passed on the command line is always in scope:
 
 ```sh
-node script/build-grammar-wasm.js ../language-lua/grammars/tree-sitter-lua.json
+lem grammar ../language-lua/grammars/tree-sitter-lua.json
 ```
 
 `--all` and `--check` are different: they default to this repository's packages only, because a gate that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly:
 
 ```sh
-node script/build-grammar-wasm.js --check --package-root ../language-lua
+lem grammar --check --package-root ../language-lua
 ```
 
 `--package-root` is repeatable, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` (a `PATH`-style list) does the same thing for a shell you use often. The grammar query sweep reads the same variable.
