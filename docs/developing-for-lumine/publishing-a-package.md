@@ -10,6 +10,8 @@ Lumine installs and updates packages from Git **tags**. Give each release a semv
 - installing `owner/repo@1.2.0` pins that exact tag;
 - once installed, a newer tag is offered as an update.
 
+The `version` in your manifest names what that tree publishes as, and the tag is what makes it published — so it carries no `-dev` or similar suffix between releases. Cutting a release is one commit: set the version, commit, tag it, push both. Decide whether the work was a patch, a minor or a major **at that moment**, not when you started it; whether anything is released at all is `git tag -l`'s question, and how far you have moved past it is `git describe --tags`'s.
+
 ## Requirements
 
 - A valid `package.json` with at least `name`, `repository`, and `version`.
