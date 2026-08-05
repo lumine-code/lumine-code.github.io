@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
-  "version": "1.132.1-dev",
-  "generatedAt": "2026-08-04T22:11:26.646Z",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-05T15:26:42.967Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -395,7 +395,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Gets the release channel of the Lumine application.\n\nReturns the release channel as a {String}. Will return a specific release channel\nname like 'beta' or 'nightly' if one is found in the Lumine version or 'stable'\notherwise.",
-          "line": 697
+          "line": 703
         },
         {
           "name": "isReleasedVersion",
@@ -405,8 +405,8 @@
           "signature": "::isReleasedVersion()",
           "category": "Lumine Details",
           "visibility": "Public",
-          "description": "Returns a {Boolean} that is `true` if the current version is an official release.",
-          "line": 702
+          "description": "Returns a {Boolean} that is `true` if the current version is an official release.\n\nA release candidate counts: it is tagged, built and published like any\nother release, just flagged as a pre-release. Only builds that never went\nthrough that pipeline — `dev` above all — are excluded.",
+          "line": 712
         },
         {
           "name": "getWindowLoadTime",
@@ -417,7 +417,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get the time taken to completely load the current window.\n\nThis time include things like loading and activating packages, creating\nDOM elements for the editor, and reading the config.\n\nReturns the {Number} of milliseconds taken to load the window or null\nif the window hasn't finished loading yet.",
-          "line": 713
+          "line": 723
         },
         {
           "name": "getStartupMarkers",
@@ -428,7 +428,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get all markers containing startup timing information.\n\nReturns an array of timing markers.\nEach timing is an object with two keys:\n * `label`: string\n * `time`:  Time since the `startTime` (in milliseconds).",
-          "line": 723
+          "line": 733
         },
         {
           "name": "getLoadSettings",
@@ -439,7 +439,7 @@
           "category": "Lumine Details",
           "visibility": "Public",
           "description": "Get the load settings for the current window.\n\nReturns an {Object} containing all the load setting key/value pairs.",
-          "line": 732
+          "line": 742
         },
         {
           "name": "open",
@@ -450,7 +450,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Open a new Lumine window using the given options.\n\nCalling this method without an options parameter will open a prompt to pick\na file/folder to open in the new window.\n\n* `params` An {Object} with the following keys:\n  * `pathsToOpen`  An {Array} of {String} paths to open.\n  * `newWindow` A {Boolean}, true to always open a new window instead of\n    reusing existing windows depending on the paths to open.\n  * `devMode` A {Boolean}, true to open the window in development mode.\n    Development mode loads the Lumine source from the locally cloned\n    repository and also loads all the packages in ~/.lumine/packages-dev\n  * `safeMode` A {Boolean}, true to open the window in safe mode. Safe\n    mode prevents all packages installed to ~/.lumine/packages from loading.",
-          "line": 754
+          "line": 764
         },
         {
           "name": "pickFolder",
@@ -461,7 +461,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Prompt the user to select one or more folders.\n\n* `callback` A {Function} to call once the user has confirmed the selection.\n  * `paths` An {Array} of {String} paths that the user selected, or `null`\n    if the user dismissed the dialog.",
-          "line": 763
+          "line": 773
         },
         {
           "name": "close",
@@ -472,7 +472,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Close the current window.",
-          "line": 768
+          "line": 778
         },
         {
           "name": "getSize",
@@ -483,7 +483,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Get the size of current window.\n\nReturns an {Object} in the format `{width: 1000, height: 700}`",
-          "line": 775
+          "line": 785
         },
         {
           "name": "setSize",
@@ -494,7 +494,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Set the size of current window.\n\n* `width` The {Number} of pixels.\n* `height` The {Number} of pixels.",
-          "line": 783
+          "line": 793
         },
         {
           "name": "getPosition",
@@ -505,7 +505,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Get the position of current window.\n\nReturns an {Object} in the format `{x: 10, y: 20}`",
-          "line": 790
+          "line": 800
         },
         {
           "name": "setPosition",
@@ -516,7 +516,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Essential",
           "description": "Set the position of current window.\n\n* `x` The {Number} of pixels.\n* `y` The {Number} of pixels.",
-          "line": 798
+          "line": 808
         },
         {
           "name": "getCurrentWindow",
@@ -527,7 +527,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Get the current window",
-          "line": 803
+          "line": 813
         },
         {
           "name": "center",
@@ -538,7 +538,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Move current window to the center of the screen.",
-          "line": 808
+          "line": 818
         },
         {
           "name": "focus",
@@ -549,7 +549,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Focus the current window.",
-          "line": 813
+          "line": 823
         },
         {
           "name": "show",
@@ -560,7 +560,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Show the current window.",
-          "line": 819
+          "line": 829
         },
         {
           "name": "hide",
@@ -571,7 +571,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Hide the current window.",
-          "line": 824
+          "line": 834
         },
         {
           "name": "reload",
@@ -582,7 +582,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Reload the current window.",
-          "line": 829
+          "line": 839
         },
         {
           "name": "restartApplication",
@@ -593,7 +593,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Relaunch the entire application.",
-          "line": 834
+          "line": 844
         },
         {
           "name": "isMaximized",
@@ -604,7 +604,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Returns a {Boolean} that is `true` if the current window is maximized.",
-          "line": 839
+          "line": 849
         },
         {
           "name": "isFullScreen",
@@ -615,7 +615,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Returns a {Boolean} that is `true` if the current window is in full screen mode.",
-          "line": 848
+          "line": 858
         },
         {
           "name": "setFullScreen",
@@ -626,7 +626,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Set the full screen state of the current window.",
-          "line": 853
+          "line": 863
         },
         {
           "name": "toggleFullScreen",
@@ -637,7 +637,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Toggle the full screen state of the current window.",
-          "line": 862
+          "line": 872
         },
         {
           "name": "trashItem",
@@ -648,7 +648,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Moves an item to the trash.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 870
+          "line": 880
         },
         {
           "name": "showItemInFolder",
@@ -659,7 +659,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Reveals the given path in the system's file browser, selecting\nit if possible.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 879
+          "line": 889
         },
         {
           "name": "openPath",
@@ -670,7 +670,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Opens the given path in the default manner for the operating\nsystem.\n\nFor instance: if you pass the path to a directory, will likely open that\ndirectory in a file browser. If you pass the path to an image file, will\nlikely open that image file in a web browser or an image editing\napplication.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 893
+          "line": 903
         },
         {
           "name": "openExternal",
@@ -681,7 +681,7 @@
           "category": "Managing The Lumine Window",
           "visibility": "Extended",
           "description": "Opens the given URL in the default manner for the operating\nsystem.\n\nFor instance: passing an `https:` URI will open it in the default web\nbrowser, and passing a `mailto:` link will open it in the default mail\nclient.\n\nReturns a {Promise} that resolves when the operation has completed or\nrejects in the event of failure.",
-          "line": 906
+          "line": 916
         },
         {
           "name": "beep",
@@ -692,7 +692,7 @@
           "category": "Messaging the User",
           "visibility": "Public",
           "description": "Visually trigger a beep.",
-          "line": 1333
+          "line": 1343
         },
         {
           "name": "confirm",
@@ -703,7 +703,7 @@
           "category": "Messaging the User",
           "visibility": "Essential",
           "description": "A flexible way to open a dialog akin to an alert dialog.\n\nWhile both async and sync versions are provided, it is recommended to use the async version\nsuch that the renderer process is not blocked while the dialog box is open.\n\nThe async version accepts the same options as Electron's `dialog.showMessageBox`.\nFor convenience, it sets `type` to `'info'` and `normalizeAccessKeys` to `true` by default.\n\nIf the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button\nthe first button will be clicked unless a \"Cancel\" or \"No\" button is provided.\n\n## Examples\n\n```js\n// Async version (recommended)\natom.confirm({\n  message: 'How you feeling?',\n  detail: 'Be honest.',\n  buttons: ['Good', 'Bad']\n}, response => {\n  if (response === 0) {\n    window.alert('good to hear')\n  } else {\n    window.alert('bummer')\n  }\n})\n```\n\n```js\n// Legacy sync version\nconst chosen = atom.confirm({\n  message: 'How you feeling?',\n  detailedMessage: 'Be honest.',\n  buttons: {\n    Good: () => window.alert('good to hear'),\n    Bad: () => window.alert('bummer')\n  }\n})\n```\n\n* `options` An {Object} of options. If the callback argument is also supplied, see the documentation at\nhttps://electronjs.org/docs/api/dialog#dialogshowmessageboxbrowserwindow-options-callback for the list of\navailable options. Otherwise, only the following keys are accepted:\n  * `message` The {String} message to display.\n  * `detailedMessage` (optional) The {String} detailed message to display.\n  * `buttons` (optional) Either an {Array} of {String}s or an {Object} where keys are\n    button names and the values are callback {Function}s to invoke when clicked.\n* `callback` (optional) A {Function} that will be called with the index of the chosen option.\n  If a callback is supplied, the dialog will be non-blocking. This argument is recommended.\n\nReturns the chosen button index {Number} if the buttons option is an array\nor the return value of the callback if the buttons option is an object.\nIf a callback function is supplied, returns `undefined`.",
-          "line": 1390
+          "line": 1400
         },
         {
           "name": "openDevTools",
@@ -714,7 +714,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Open the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened.",
-          "line": 1406
+          "line": 1416
         },
         {
           "name": "toggleDevTools",
@@ -725,7 +725,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Toggle the visibility of the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened or\nclosed.",
-          "line": 1414
+          "line": 1424
         },
         {
           "name": "executeJavaScriptInDevTools",
@@ -736,7 +736,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Execute code in dev tools.",
-          "line": 1419
+          "line": 1429
         }
       ]
     },
@@ -4153,7 +4153,7 @@
     {
       "name": "MenuManager",
       "visibility": "Extended",
-      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `atom.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/lumine/blob/master/packages/tree-view/menus/tree-view-plus.json):\n\n```coffee\n[\n  {\n    'label': 'View'\n    'submenu': [\n      { 'label': 'Toggle Tree View', 'command': 'tree-view:toggle' }\n    ]\n  }\n  {\n    'label': 'Packages'\n    'submenu': [\n      'label': 'Tree View'\n      'submenu': [\n        { 'label': 'Focus', 'command': 'tree-view:toggle-focus' }\n        { 'label': 'Toggle', 'command': 'tree-view:toggle' }\n        { 'label': 'Reveal Active File', 'command': 'tree-view:reveal-active-file' }\n        { 'label': 'Toggle Tree Side', 'command': 'tree-view:toggle-side' }\n      ]\n    ]\n  }\n]\n```\n\nUse in your package's menu JSON, JSONC, or CSON file requires that you place your menu\nstructure under a `menu` key.\n\n```coffee\n'menu': [\n  {\n    'label': 'View'\n    'submenu': [\n      { 'label': 'Toggle Tree View', 'command': 'tree-view:toggle' }\n    ]\n  }\n]\n```\n\nSee {::add} for more information about adding menus directly.",
+      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `atom.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view-plus.json):\n\n```coffee\n[\n  {\n    'label': 'View'\n    'submenu': [\n      { 'label': 'Toggle Tree View', 'command': 'tree-view:toggle' }\n    ]\n  }\n  {\n    'label': 'Packages'\n    'submenu': [\n      'label': 'Tree View'\n      'submenu': [\n        { 'label': 'Focus', 'command': 'tree-view:toggle-focus' }\n        { 'label': 'Toggle', 'command': 'tree-view:toggle' }\n        { 'label': 'Reveal Active File', 'command': 'tree-view:reveal-active-file' }\n        { 'label': 'Toggle Tree Side', 'command': 'tree-view:toggle-side' }\n      ]\n    ]\n  }\n]\n```\n\nUse in your package's menu JSON, JSONC, or CSON file requires that you place your menu\nstructure under a `menu` key.\n\n```coffee\n'menu': [\n  {\n    'label': 'View'\n    'submenu': [\n      { 'label': 'Toggle Tree View', 'command': 'tree-view:toggle' }\n    ]\n  }\n]\n```\n\nSee {::add} for more information about adding menus directly.",
       "source": "src/menu-manager.js",
       "sourcePath": "src/menu-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -4388,7 +4388,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1144
+          "line": 1145
         },
         {
           "name": "rebuild",
@@ -4399,7 +4399,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1164
+          "line": 1165
         },
         {
           "name": "getBuildFailureOutput",
@@ -4410,7 +4410,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1181
+          "line": 1182
         }
       ]
     },
@@ -4421,7 +4421,7 @@
       "source": "src/package-manager.js",
       "sourcePath": "src/package-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 29,
+      "line": 30,
       "members": [
         {
           "name": "onDidLoadInitialPackages",
@@ -4432,7 +4432,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all packages have been loaded.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 119
+          "line": 117
         },
         {
           "name": "onDidActivateInitialPackages",
@@ -4443,7 +4443,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all packages have been activated.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 128
+          "line": 126
         },
         {
           "name": "onDidActivatePackage",
@@ -4454,7 +4454,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is activated.\n\n* `callback` A {Function} to be invoked when a package is activated.\n  * `package` The {Package} that was activated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 146
+          "line": 144
         },
         {
           "name": "onDidDeactivatePackage",
@@ -4465,7 +4465,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is deactivated.\n\n* `callback` A {Function} to be invoked when a package is deactivated.\n  * `package` The {Package} that was deactivated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 156
+          "line": 154
         },
         {
           "name": "onDidLoadPackage",
@@ -4476,7 +4476,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is loaded.\n\n* `callback` A {Function} to be invoked when a package is loaded.\n  * `package` The {Package} that was loaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 166
+          "line": 164
         },
         {
           "name": "onDidUnloadPackage",
@@ -4487,7 +4487,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is unloaded.\n\n* `callback` A {Function} to be invoked when a package is unloaded.\n  * `package` The {Package} that was unloaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 176
+          "line": 174
         },
         {
           "name": "getPackageDirPaths",
@@ -4498,7 +4498,7 @@
           "category": "Package system data",
           "visibility": "Public",
           "description": "Get the paths being used to look for packages.\n\nReturns an {Array} of {String} directory paths.",
-          "line": 187
+          "line": 185
         },
         {
           "name": "resolvePackagePath",
@@ -4509,7 +4509,7 @@
           "category": "General package data",
           "visibility": "Public",
           "description": "Resolve the given package name to a path on disk.\n\n* `name` - The {String} package name.\n\nReturn a {String} folder path or undefined if it could not be resolved.",
-          "line": 200
+          "line": 198
         },
         {
           "name": "isBundledPackage",
@@ -4520,7 +4520,7 @@
           "category": "General package data",
           "visibility": "Public",
           "description": "Is the package with the given name bundled with Lumine?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 256
+          "line": 254
         },
         {
           "name": "enablePackage",
@@ -4531,7 +4531,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Enable the package with the given name.\n\n* `name` - The {String} package name.\n\nReturns the {Package} that was enabled or null if it isn't loaded.",
-          "line": 269
+          "line": 267
         },
         {
           "name": "disablePackage",
@@ -4542,7 +4542,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Disable the package with the given name.\n\n* `name` - The {String} package name.\n\nReturns the {Package} that was disabled or null if it isn't loaded.",
-          "line": 282
+          "line": 280
         },
         {
           "name": "isPackageDisabled",
@@ -4553,7 +4553,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Is the package with the given name disabled?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 295
+          "line": 293
         },
         {
           "name": "getActivePackages",
@@ -4564,7 +4564,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Get an {Array} of all the active {Package}s.",
-          "line": 304
+          "line": 302
         },
         {
           "name": "getActivePackage",
@@ -4575,7 +4575,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Get the active {Package} with the given name.\n\n* `name` - The {String} package name.\n\nReturns a {Package} or undefined.",
-          "line": 313
+          "line": 311
         },
         {
           "name": "isPackageActive",
@@ -4586,7 +4586,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Is the {Package} with the given name active?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 322
+          "line": 320
         },
         {
           "name": "hasActivatedInitialPackages",
@@ -4597,7 +4597,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Returns a {Boolean} indicating whether package activation has occurred.",
-          "line": 327
+          "line": 325
         },
         {
           "name": "getLoadedPackages",
@@ -4608,7 +4608,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Get an {Array} of all the loaded {Package}s",
-          "line": 336
+          "line": 334
         },
         {
           "name": "getLoadedPackage",
@@ -4619,7 +4619,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Get the loaded {Package} with the given name.\n\n* `name` - The {String} package name.\n\nReturns a {Package} or undefined.",
-          "line": 352
+          "line": 350
         },
         {
           "name": "isPackageLoaded",
@@ -4630,7 +4630,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Is the package with the given name loaded?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 361
+          "line": 359
         },
         {
           "name": "hasLoadedInitialPackages",
@@ -4641,7 +4641,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Returns a {Boolean} indicating whether package loading has occurred.",
-          "line": 366
+          "line": 364
         },
         {
           "name": "getAvailablePackagePaths",
@@ -4652,7 +4652,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package paths.",
-          "line": 375
+          "line": 373
         },
         {
           "name": "getAvailablePackageNames",
@@ -4663,7 +4663,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package names.",
-          "line": 380
+          "line": 378
         },
         {
           "name": "getAvailablePackageMetadata",
@@ -4674,7 +4674,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package metadata.",
-          "line": 385
+          "line": 383
         },
         {
           "name": "getAvailablePackages",
@@ -4685,7 +4685,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns the available packages that own their name.\n\n* `options` (optional) {Object}\n  * `includeShadowed` When `true`, also returns the copies whose name is\n    owned by another directory. Those never load; they exist so the UI can\n    list every directory on disk.\n\nReturns an {Array} of package descriptors sorted by name.",
-          "line": 404
+          "line": 402
         },
         {
           "name": "getAvailablePackage",
@@ -4696,7 +4696,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Get the available package that owns the given name.\n\nReturns a package descriptor or undefined.",
-          "line": 414
+          "line": 412
         },
         {
           "name": "refreshPackageIndex",
@@ -4707,7 +4707,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Forget everything read from package manifests.\n\nThe directory scan itself always runs fresh, so this only has to be called\nwhen a manifest changes on disk — after an install, update, or uninstall.",
-          "line": 422
+          "line": 420
         }
       ]
     },
@@ -6917,7 +6917,7 @@
       "source": "src/style-manager.js",
       "sourcePath": "src/style-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 15,
+      "line": 16,
       "members": [
         {
           "name": "observeStyleElements",
@@ -6928,7 +6928,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` for all current and future style elements.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance. The `.sheet` property\n    will be null because this element isn't attached to the DOM. If you want\n    to attach this element to the DOM, be sure to clone it first by calling\n    `.cloneNode(true)` on it. The style element will also have the following\n    non-standard properties:\n    * `sourcePath` A {String} containing the path from which the style\n      element was loaded.\n    * `context` A {String} indicating the target context of the style\n      element.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 49
+          "line": 50
         },
         {
           "name": "onDidAddStyleElement",
@@ -6939,7 +6939,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` when a style element is added.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance. The `.sheet` property\n    will be null because this element isn't attached to the DOM. If you want\n    to attach this element to the DOM, be sure to clone it first by calling\n    `.cloneNode(true)` on it. The style element will also have the following\n    non-standard properties:\n    * `sourcePath` A {String} containing the path from which the style\n      element was loaded.\n    * `context` A {String} indicating the target context of the style\n      element.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 72
+          "line": 73
         },
         {
           "name": "onDidRemoveStyleElement",
@@ -6950,7 +6950,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` when a style element is removed.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 83
+          "line": 84
         },
         {
           "name": "onDidUpdateStyleElement",
@@ -6961,7 +6961,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` when an existing style element is updated.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance. The `.sheet` property\n     will be null because this element isn't attached to the DOM. The style\n     element will also have the following non-standard properties:\n    * `sourcePath` A {String} containing the path from which the style\n      element was loaded.\n    * `context` A {String} indicating the target context of the style\n      element.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 100
+          "line": 101
         },
         {
           "name": "getStyleElements",
@@ -6972,7 +6972,7 @@
           "category": "Reading Style Elements",
           "visibility": "Extended",
           "description": "Get all loaded style elements.",
-          "line": 113
+          "line": 114
         },
         {
           "name": "getUserStyleSheetPath",
@@ -6983,7 +6983,7 @@
           "category": "Paths",
           "visibility": "Extended",
           "description": "Get the path of the user style sheet in `~/.lumine`.\n\nReturns a {String}.",
-          "line": 305
+          "line": 301
         }
       ]
     },
