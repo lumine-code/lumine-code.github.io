@@ -23,6 +23,9 @@
       /* Class names are short and known; member signatures are neither, so the
          fixed width goes to the classes and the slack to the members. */
       .api-tree:first-child { flex: 0 0 172px; }
+      /* Same treatment as a section heading opposite, so the two rails start on
+         the same line and their entries stay level. */
+      .api-tree > p { margin: 0 0 6px; color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; }
       .api-nav-link { display: block; padding: 4px 0 4px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .86rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
@@ -91,7 +94,7 @@
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version 1.0.0 &middot; 47 classes &middot; 1095 documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><div class="api-tree-list"><a class="api-nav-link" href="#class-atomenvironment" data-api-nav>AtomEnvironment</a>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p>Classes</p><div class="api-tree-list"><a class="api-nav-link" href="#class-atomenvironment" data-api-nav>AtomEnvironment</a>
 <a class="api-nav-link" href="#class-bufferednodeprocess" data-api-nav>BufferedNodeProcess</a>
 <a class="api-nav-link" href="#class-bufferedprocess" data-api-nav>BufferedProcess</a>
 <a class="api-nav-link" href="#class-clipboard" data-api-nav>Clipboard</a>
