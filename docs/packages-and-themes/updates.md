@@ -27,10 +27,6 @@ Each installed package with a newer version available gets a card offering **Upd
 
 The results of an update check are written back to the persistent catalog cache, so a browse card for the same repository reflects the newer version without a full catalog Fetch.
 
-### Legacy installs
-
-An older install whose receipt has a missing or mismatched origin stays active, but is shown with a warning. Because every update re-validates the fetched manifest with strict origin matching, updating such a package requires a new, valid manifest whose `repository` resolves to the same origin.
-
 ### Notes on version selection
 
 - A fresh install pins the exact SHA you browsed, while still recording a policy that tracks new releases — so an update can be offered right afterward.

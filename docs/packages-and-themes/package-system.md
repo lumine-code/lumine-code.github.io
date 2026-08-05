@@ -49,7 +49,7 @@ Open **Settings → Install** (`settings-view:install-packages-and-themes`).
 Click **Install** on a card. Lumine:
 
 1. resolves the selected ref to an exact commit SHA and reads that commit's manifest,
-2. validates the manifest (see [Validation](#validation-before-install)),
+2. validates the manifest (see [Validation](package-system.md#validation-before-install)),
 3. fetches that exact commit into a staging directory on the same volume — as an archive of the commit for a GitHub repository, or a shallow Git fetch for any other host — runs `npm install --omit=dev`, and records an install receipt, then
 4. atomically swaps the staged copy into `~/.lumine/packages/<name>`, or into the directory the package already occupies when it is already installed.
 
@@ -85,7 +85,7 @@ Notes:
 - **Browsing then installing pins the exact commit you were looking at.** If a card shows `1.2.3`, exactly that SHA is installed even if `1.2.4` was published in between — but the recorded update policy still tracks new releases, so an update to `1.2.4` is offered afterward.
 - **Explicit selectors win.** Typing `owner/repo@0.4.0` installs `0.4.0` and keeps that selector; it is never silently upgraded.
 - Generic (non-GitHub) Git URLs must carry an explicit `#branch:`, `#tag:`, or `#commit:` selector so the ref is never ambiguous.
-- A **manually typed** install source may use SSH and private repositories. Sources that come from a catalog are held to a stricter safety allowlist (see [Catalog safety](#catalog-safety)).
+- A **manually typed** install source may use SSH and private repositories. Sources that come from a catalog are held to a stricter safety allowlist (see [Catalog safety](package-system.md#catalog-safety)).
 
 ### Choosing a version on the card
 

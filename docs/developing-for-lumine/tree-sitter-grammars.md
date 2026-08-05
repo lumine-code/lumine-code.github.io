@@ -34,53 +34,42 @@ Several configs can share one wasm (JSON and JSONC), and several packages can ca
 
 ## Building a parser wasm
 
-The build tool lives in the Lumine repository:
+A parser is compiled from the upstream sources the config pins, with the `tree-sitter` CLI and emscripten. Clone the repository at the exact ref in `parserSource`, then build inside it:
 
 ```sh
-# Rebuild a grammar at its current pin
-lem grammar language-json/grammars/tree-sitter-json.json
-
-# Bump to a new upstream version, and report node types the queries may rely on
-lem grammar language-json/grammars/tree-sitter-json.json \
-     --source "github:tree-sitter/tree-sitter-json#v0.24.8" --diff-node-types
-
-# Build without touching the repo, audit the whole fleet's ABI, or rebuild everything
-lem grammar <config> --dry-run
-lem grammar --check
-lem grammar --all
+git clone https://github.com/tree-sitter/tree-sitter-json
+git -C tree-sitter-json checkout v0.24.8
+npx tree-sitter-cli@0.26.11 build --wasm tree-sitter-json
 ```
 
-The script clones the pinned source into a cache (`~/.lumine-grammar-cache`, or wherever `LUMINE_GRAMMAR_CACHE` points), fetches the pinned `tree-sitter-cli`, compiles with emscripten, and verifies the result loads in the exact `web-tree-sitter` runtime Lumine ships. It then installs the wasm into **every** config that shares the same source — shared and copied wasms cannot drift apart — and updates `parserSource` and `wasmBuildTool` in place.
+This needs `emcc` on `PATH` — either an emscripten-activated shell, or an [emsdk](https://github.com/emscripten-core/emsdk) checkout with `emsdk install latest && emsdk activate latest` run once. If upstream ships no generated `src/parser.c`, run `tree-sitter generate` in the clone first.
 
-It needs `emcc` available: either an emscripten-activated shell, or an [emsdk](https://github.com/emscripten-core/emsdk) checkout inside the build cache (or at `$EMSDK`) with `emsdk install latest && emsdk activate latest` run once. Relocating the cache with `--cache-dir` moves the emsdk lookup with it.
+Copy the resulting wasm over the file `grammar` points at, and record what produced it in the same commit: `parserSource` at the ref you checked out, `wasmBuildTool` at the CLI version you ran. Those two fields are the only provenance a wasm has, so a wasm change that leaves them untouched is a change nobody can reproduce — CI enforces it, and `node script/validate-wasm-grammar-prs.js` runs the same check locally.
 
-Builds are reproducible: the same pin and CLI version produce a byte-identical wasm. If a bump produces identical bytes, the commit is just a re-pin — that is normal for upstream releases that only touch bindings.
+When a parser is shared by several configs, or copied into more than one package, install the rebuilt wasm into **every** one of them in that same commit. Shared and copied wasms must not drift apart.
+
+Builds are reproducible: the same source ref and CLI version produce a byte-identical wasm. If a bump produces identical bytes, the commit is just a re-pin — that is normal for upstream releases that only touch bindings.
+
+Finally, confirm the result loads in the `web-tree-sitter` runtime Lumine ships and that its ABI falls inside the accepted window — see [ABI compatibility](tree-sitter-grammars.md#abi-compatibility) below.
 
 ### Grammars outside the Lumine repository
 
-A grammar package does not have to live in `packages/`. It may be its own repository, pinned in the editor's `dependencies` and delivered through `node_modules/`, or installed from the catalog.
+A grammar package does not have to be bundled with the editor. It may be its own repository, pinned in the editor's `dependencies` and delivered through `node_modules/`, or installed from the catalog. Building its wasm is exactly the same — the build reads the clone, not the workspace.
 
-Building one needs no extra flags — the package that owns the config passed on the command line is always in scope:
-
-```sh
-lem grammar ../language-lua/grammars/tree-sitter-lua.json
-```
-
-`--all` and `--check` are different: they default to this repository's packages only, because a gate that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly:
+The gates that sweep a whole fleet are different: they default to the editor's own packages, because a check that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly — the capture check takes a repeatable `--package-root`, and the query-compilation spec reads the same list from `LUMINE_GRAMMAR_PACKAGE_ROOTS`, a `PATH`-style variable:
 
 ```sh
-lem grammar --check --package-root ../language-lua
+npm run check:grammar-captures -- --package-root ../language-lua
+LUMINE_GRAMMAR_PACKAGE_ROOTS=../language-lua npm run test:only -- spec/grammar-query-validation-spec.js
 ```
 
-`--package-root` is repeatable, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` (a `PATH`-style list) does the same thing for a shell you use often. The grammar query sweep reads the same variable.
-
-Writing queries means constantly asking what the parse tree actually contains — which node types exist, which tokens are anonymous, what upstream's own queries say. The build cache already holds a clone of every parser it has built, at the ref it built, so read `src/node-types.json` and `queries/` there rather than fetching again.
+Writing queries means constantly asking what the parse tree actually contains — which node types exist, which tokens are anonymous, what upstream's own queries say. Keep the clone you built from, at the ref you built, and read its `src/node-types.json` and `queries/` rather than fetching again.
 
 While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/packages-dev`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
 
 ## Updating a grammar
 
-1. Pick the new upstream tag or SHA and build with `--source … --diff-node-types`.
+1. Pick the new upstream tag or SHA, build the wasm from it, and diff `src/node-types.json` between the old clone and the new one.
 2. Read the diff: **removed** node types or fields are the breakage forecast — search the grammar's `.scm` files for each one. Renames surface as query compile errors; _shape_ changes (a node moving inside another) also surface as compile errors even when the inventory is unchanged.
 3. Run the three gates from the Lumine repo. A language package lives in its own repository, so its specs run against a real build rather than through `test:only`:
 
@@ -123,4 +112,4 @@ Mistakes inside predicates are contained the same way: an unknown `test.`/`adjus
 
 ## ABI compatibility
 
-A parser wasm carries the ABI version of the `tree-sitter-cli` that _generated_ its parser — rebuilding does not change it, bumping `parserSource` usually does. Lumine's runtime accepts a window of ABI versions (currently 13–15); the build tool refuses to install a wasm outside that window, and `--check` audits every committed wasm against it. If an upstream commits sources generated with a too-new CLI, build with `--regenerate` to regenerate the parser with the pinned CLI instead.
+A parser wasm carries the ABI version of the `tree-sitter-cli` that _generated_ its parser — rebuilding does not change it, bumping `parserSource` usually does. Lumine's runtime accepts a window of ABI versions (currently 13–15), so a wasm outside that window must not be committed. If an upstream commits sources generated with a too-new CLI, delete its `src/parser.c` and run `tree-sitter generate` with the CLI version you are pinning, so the parser is regenerated at an ABI the runtime accepts.

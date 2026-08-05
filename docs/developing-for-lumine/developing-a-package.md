@@ -43,9 +43,11 @@ module.exports = {
 
 ## Writing views in JSX
 
-Give a file the `.jsx` extension and Lumine compiles it through Babel on load — no pragma, no build step, no configuration. JSX elements become calls to `etch.dom`, the virtual-DOM helper the editor's own views are written with, so a view is a plain object with `render` and `update` methods:
+Give a file the `.jsx` extension and Lumine compiles it through Babel on load — no build step and no configuration. Name the factory the file's tags compile to in a `/** @jsx … */` pragma at the top; for a Lumine view that is `etch.dom`, the virtual-DOM helper the editor's own views are written with, so a view is a plain object with `render` and `update` methods:
 
 ```jsx
+/** @jsx etch.dom */
+
 const etch = require("@lumine-code/etch");
 
 module.exports = class GreetingView {
@@ -64,15 +66,18 @@ module.exports = class GreetingView {
 
 Require the file the way you would any other — `require("./greeting-view")` resolves `.jsx` without the extension — and remember to require `etch` itself, since the compiled JSX calls into it.
 
-Use `<>…</>` to group siblings without wrapping them in an element. A component still has to render a single root element, so a fragment belongs inside one rather than at the top of `render`.
+The pragma is required. Compiling a file that omits one falls back to `etch.dom`, but Lumine's lint configuration fails any JSX file without a pragma, and every package in the ecosystem carries one: what a tag compiles to should be readable in the file rather than inherited from a build option in another repository. It is also what makes a package that mixes two factories work with no configuration at all — write `/** @jsx myLibrary.createElement */` to compile with something other than etch.
 
-To compile with something other than etch, name the factory in a comment at the top of the file:
+Use `<>…</>` to group siblings without wrapping them in an element. A fragment compiles to its own factory, so a file that uses one declares that too:
 
 ```jsx
-/** @jsx myLibrary.createElement */
+/** @jsx etch.dom */
+/** @jsxFrag etch.Fragment */
 ```
 
-The same defaults apply to `.tsx`, which the editor compiles with TypeScript. And a `.js` file that opens with `"use babel"` or `/** @babel */` is still compiled the old way, so existing packages keep working unchanged.
+A component still has to render a single root element, so a fragment belongs inside one rather than at the top of `render`.
+
+The same pragmas and the same defaults apply to `.tsx`, which the editor compiles with TypeScript. And a `.js` file that opens with `"use babel"` or `/** @babel */` is still compiled the old way, so existing packages keep working unchanged.
 
 ## Developing against a live editor
 
