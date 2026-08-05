@@ -430,6 +430,21 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
+// The article and the member rail split a class the same way, so they read the
+// same grouping: declaration order, one entry per Section: marker.
+function byCategory(members) {
+  const groups = new Map();
+  for (const member of members) {
+    if (!groups.has(member.category)) groups.set(member.category, []);
+    groups.get(member.category).push(member);
+  }
+  return [...groups];
+}
+
+function groupId(className, category) {
+  return `${slug(className)}-group-${slug(category)}`;
+}
+
 function renderHtml(api) {
   const classNames = new Set(api.classes.map(({ name }) => name));
   const memberAnchors = new Set(
@@ -437,10 +452,15 @@ function renderHtml(api) {
       item.members.map((member) => memberId(item.name, member)),
     ),
   );
-  const memberShort = (member) =>
-    member.signature.includes("(")
+  // The rail is width-starved, and every instance member would otherwise open
+  // with the same two colons. The article carries the full signature, so the
+  // rail keeps only what tells entries apart — the leading `.` of a static one.
+  const memberShort = (member) => {
+    const short = member.signature.includes("(")
       ? `${member.signature.slice(0, member.signature.indexOf("("))}()`
       : member.signature;
+    return short.startsWith("::") ? short.slice(2) : short;
+  };
   // Left rail: a flat list of class links.
   const classNav = api.classes
     .map(
@@ -453,20 +473,27 @@ function renderHtml(api) {
     : "";
   const classList = `${classNav}${functionNav}`;
   // Right rail: one "On this page" group of members per class; only the group
-  // for the class you are reading is shown (toggled by the scroll spy).
+  // for the class you are reading is shown (toggled by the scroll spy). The rail
+  // carries the class's own section names as its headings, so it needs no
+  // heading of its own.
   const memberToc = api.classes
     .map((item) => {
-      const memberNav = item.members
+      const memberNav = byCategory(item.members)
         .map(
-          (member) =>
-            `<a class="api-nav-member" href="#${memberId(item.name, member)}" data-api-nav-member="${memberId(item.name, member)}">${escapeHtml(memberShort(member))}</a>`,
+          ([category, entries]) =>
+            `<a class="api-toc-heading" href="#${groupId(item.name, category)}">${escapeHtml(category)}</a>${entries
+              .map(
+                (member) =>
+                  `<a class="api-nav-member" href="#${memberId(item.name, member)}" data-api-nav-member="${memberId(item.name, member)}">${escapeHtml(memberShort(member))}</a>`,
+              )
+              .join("")}`,
         )
         .join("");
       return `<div class="api-toc-group" data-toc-group="class-${slug(item.name)}">${memberNav || '<p class="api-toc-empty">No members.</p>'}</div>`;
     })
     .join("\n");
   const functionToc = api.functions.length
-    ? `<div class="api-toc-group" data-toc-group="functions">${api.functions
+    ? `<div class="api-toc-group" data-toc-group="functions"><a class="api-toc-heading" href="#functions">Functions</a>${api.functions
         .map(
           (item) =>
             `<a class="api-nav-member" href="#function-${slug(item.name)}" data-api-nav-member="function-${slug(item.name)}">${escapeHtml(item.name)}()</a>`,
@@ -474,17 +501,15 @@ function renderHtml(api) {
         .join("")}</div>`
     : "";
   const tocList = `${memberToc}${functionToc}`;
+  // Every member of a class comes from the file named beside the class heading,
+  // so each row carries only its line number; the full path stays in the link's
+  // title. Functions are gathered from across the tree and keep theirs.
   const classes = api.classes
     .map((item) => {
-      const groups = new Map();
-      for (const member of item.members) {
-        if (!groups.has(member.category)) groups.set(member.category, []);
-        groups.get(member.category).push(member);
-      }
-      const members = [...groups]
+      const members = byCategory(item.members)
         .map(
           ([category, entries]) => `
-            <section class="api-group">
+            <section class="api-group" id="${groupId(item.name, category)}">
               <h3>${escapeHtml(category)}</h3>
               ${entries
                 .map(
@@ -492,10 +517,9 @@ function renderHtml(api) {
                     <article class="api-member" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a><code>${escapeHtml(member.signature)}</code></h4>
-                        <div class="api-badges">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge">${escapeHtml(member.visibility)}</span></div>
+                        <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
                       </div>
                       ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : '<p class="api-empty">No description.</p>'}
-                      <a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}">${escapeHtml(item.source)}:${member.line}</a>
                     </article>`,
                 )
                 .join("\n")}
@@ -505,9 +529,8 @@ function renderHtml(api) {
       return `
         <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}">
           <p class="eyebrow">${escapeHtml(item.visibility)} API</p>
-          <h2>${escapeHtml(item.name)}</h2>
+          <h2>${escapeHtml(item.name)}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></h2>
           ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}
-          <a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a>
           ${members || '<p class="api-empty">No documented public members.</p>'}
         </section>`;
     })
@@ -517,7 +540,7 @@ function renderHtml(api) {
     ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
         .map(
           (item) =>
-            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></article>`,
+            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4><div class="api-member-meta"><span class="api-badge">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}</article>`,
         )
         .join("\n")}</section>`
     : "";
@@ -536,55 +559,75 @@ function renderHtml(api) {
     <link rel="stylesheet" href="../styles.css" />
     <style>
       html { scroll-behavior: auto; }
-      .api-main { width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 72px 0 96px; }
-      .api-header { max-width: 780px; margin-bottom: 40px; }
-      .api-header h1 { margin: 8px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); }
-      .api-meta { color: var(--muted); }
-      .api-layout { display: grid; grid-template-columns: 440px minmax(0, 1fr); gap: 48px; align-items: start; }
-      .api-sidebar { display: flex; gap: 28px; }
-      .api-sidebar p { margin: 0 0 10px; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .api-main { width: min(1400px, calc(100% - 48px)); margin: 0 auto; padding: 52px 0 72px; }
+      .api-header { max-width: 780px; margin-bottom: 30px; }
+      .api-header h1 { margin: 8px 0 10px; font-size: clamp(2.1rem, 5vw, 3.4rem); }
+      .api-header p:not(.eyebrow) { margin: 0; color: var(--soft); }
+      .api-header .api-meta { margin-top: 6px; color: var(--muted); font-size: .88rem; }
+      .api-layout { display: grid; grid-template-columns: 450px minmax(0, 1fr); gap: 40px; align-items: start; }
+      .api-sidebar { display: flex; gap: 24px; }
       .api-tree { flex: 1 1 0; min-width: 0; }
-      .api-nav-link { display: block; padding: 5px 0 5px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
+      /* Class names are short and known; member signatures are neither, so the
+         fixed width goes to the classes and the slack to the members. */
+      .api-tree:first-child { flex: 0 0 172px; }
+      .api-nav-link { display: block; padding: 4px 0 4px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .86rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
       .api-nav-link:hover { color: var(--gold-strong); }
       .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
       .api-toc-group { display: none; }
       .api-toc-group.active { display: block; }
+      /* A section name is the rail's structure, so it wraps rather than
+         truncates — "Managing Cursor Position" must stay readable. */
+      .api-toc-heading { display: block; margin: 14px 0 6px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; transition: color .15s ease; }
+      .api-toc-heading:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+      .api-toc-heading:hover { color: var(--gold-strong); }
       .api-toc-empty { margin: 0; color: var(--muted); font-style: italic; font-size: .8rem; }
-      .api-nav-member { display: block; padding: 4px 0 4px 10px; border-left: 2px solid transparent; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
+      .api-nav-member { display: block; padding: 3px 0 3px 10px; border-left: 2px solid transparent; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
       .api-nav-member:hover { color: var(--gold-strong); }
       .api-nav-member.active { border-left-color: var(--gold-strong); color: var(--text); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-      .api-nav-functions { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
-      .api-class { margin-bottom: 76px; scroll-margin-top: 92px; }
-      .api-class > h2 { margin: 5px 0 16px; font-size: 2.35rem; }
-      .api-description-body { margin: 10px 0 6px; font-size: 1rem; }
+      .api-nav-functions { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+      .api-class { margin-bottom: 48px; scroll-margin-top: 88px; }
+      .api-class > h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 4px 0 10px; font-size: 1.95rem; }
+      .api-description-body { margin: 6px 0 0; max-width: 82ch; font-size: .94rem; }
       .api-description-body > :first-child { margin-top: 0; }
       .api-description-body > :last-child { margin-bottom: 0; }
+      .api-description-body p { margin: 8px 0 0; }
+      .api-description-body ul, .api-description-body ol { margin: 6px 0 0; padding-left: 18px; }
+      .api-description-body li { margin: 2px 0 0; }
+      .api-description-body :is(h1, h2, h3, h4, h5, h6) { margin: 16px 0 0; font-size: 1.02rem; line-height: 1.35; }
+      .api-description-body :is(h4, h5, h6) { font-size: .95rem; }
       .api-description-body code { padding: 1px 5px; border-radius: 5px; background: rgba(255, 255, 255, .05); font-size: .88em; }
-      .api-description-body pre { padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
-      .api-description-body pre code { padding: 0; background: none; }
+      .api-description-body pre { margin: 10px 0 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+      .api-description-body pre code { padding: 0; background: none; font-size: .82rem; }
       .api-description-body a { color: var(--gold-strong); }
-      .api-class-description { max-width: 760px; margin: 12px 0 4px; font-size: 1.05rem; }
-      .api-source { display: inline-block; margin: 8px 0 20px; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .76rem; }
-      .api-group { margin-top: 36px; }
-      .api-group > h3 { padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-      .api-member { padding: 22px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 92px; }
+      .api-class-description { max-width: 78ch; margin: 8px 0 0; font-size: 1rem; }
+      .api-source { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 400; white-space: nowrap; transition: color .15s ease; }
+      .api-source:hover { color: var(--gold-strong); }
+      .api-group { margin-top: 28px; scroll-margin-top: 88px; }
+      .api-group > h3 { margin: 0; padding-bottom: 7px; border-bottom: 1px solid var(--border); font-size: 1.02rem; }
+      .api-member { padding: 11px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 88px; }
       .api-member:last-child { border-bottom: 0; }
-      .api-member-heading { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; }
-      .api-member h4 { display: flex; align-items: baseline; gap: 8px; min-width: 0; margin: 0; font-size: 1.02rem; overflow-wrap: anywhere; }
+      .api-member-heading { display: flex; gap: 14px; align-items: baseline; justify-content: space-between; }
+      .api-member h4 { display: flex; align-items: baseline; gap: 8px; min-width: 0; margin: 0; font-size: .95rem; overflow-wrap: anywhere; }
       .api-member h4 code { color: var(--gold-strong); }
       .api-anchor { flex: none; color: var(--border); font-weight: 400; text-decoration: none; opacity: 0; transition: opacity .15s ease, color .15s ease; }
       .api-member:hover .api-anchor, .api-anchor:focus { opacity: 1; }
       .api-anchor:hover { color: var(--gold-strong); }
-      .api-badges { display: flex; flex: none; gap: 6px; }
-      .api-badge { padding: 2px 9px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .66rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+      .api-member-meta { display: flex; flex: none; align-items: baseline; gap: 10px; }
+      .api-badge { padding: 1px 8px; border: 1px solid var(--border); border-radius: 999px; color: #6f7c8d; font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
       .api-badge-async { color: var(--cyan); border-color: rgba(98, 213, 208, .4); }
-      .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--muted); line-height: 1.72; }
+      .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--soft); line-height: 1.6; }
       .api-member pre, .api-description pre { overflow: auto; }
-      .api-empty { color: var(--muted); font-style: italic; }
+      .api-empty { margin: 6px 0 0; color: var(--muted); font-style: italic; font-size: .9rem; }
       [hidden] { display: none !important; }
-      @media (max-width: 1040px) { .api-layout { grid-template-columns: 1fr; } .api-sidebar { flex-direction: column; gap: 24px; } }
+      @media (max-width: 1040px) {
+        .api-layout { grid-template-columns: 1fr; }
+        .api-sidebar { flex-direction: column; gap: 20px; }
+        /* Stacked, the rails size to their content: a zero flex-basis in a
+           column with no free space to hand out would collapse them outright. */
+        .api-tree, .api-tree:first-child { flex: 0 0 auto; }
+      }
     </style>
   </head>
   <body>
@@ -595,7 +638,7 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p>Classes</p><div class="api-tree-scroll" data-api-classlist>${classList}</div></div><div class="api-tree"><p>Members</p><div class="api-tree-scroll" data-api-memberlist>${tocList}</div></div></aside><article>${classes}${functions}</article></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article>${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
@@ -604,21 +647,9 @@ function renderHtml(api) {
       const tocGroups = [...document.querySelectorAll('.api-toc-group')];
       const memberNav = [...document.querySelectorAll('[data-api-nav-member]')];
       const sections = [...document.querySelectorAll('.api-class')];
-      const classlist = document.querySelector('[data-api-classlist]');
-      const memberlist = document.querySelector('[data-api-memberlist]');
       const toast = document.querySelector('[data-api-toast]');
       const sectionIds = new Set(sections.map(section => section.id));
       let trackingFrame, toastTimer;
-
-      // Scroll a rail so the given entry stays visible (instant).
-      const keepInView = (container, el) => {
-        const top = el.offsetTop;
-        const bottom = top + el.offsetHeight;
-        if (top < container.scrollTop) container.scrollTop = top;
-        else if (bottom > container.scrollTop + container.clientHeight) {
-          container.scrollTop = bottom - container.clientHeight;
-        }
-      };
 
       // The class selected by the hash: a class id, or the parent class of a
       // member id. Falls back to the first class.
@@ -641,7 +672,6 @@ function renderHtml(api) {
           if (section && section.getBoundingClientRect().top <= 160) current = link;
         }
         for (const link of memberNav) link.classList.toggle('active', link === current);
-        if (current) keepInView(memberlist, current);
       };
       const requestMemberSync = () => {
         if (!trackingFrame) trackingFrame = requestAnimationFrame(syncMember);
@@ -658,8 +688,6 @@ function renderHtml(api) {
           else link.removeAttribute('aria-current');
         }
         for (const group of tocGroups) group.classList.toggle('active', group.dataset.tocGroup === key);
-        const activeLink = navLinks.find(link => link.hash.slice(1) === key);
-        if (activeLink) keepInView(classlist, activeLink);
         const hash = location.hash.slice(1);
         if (hash && !sectionIds.has(hash)) {
           const el = document.getElementById(hash);

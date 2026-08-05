@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-05T22:00:36.938Z",
+  "generatedAt": "2026-08-05T23:04:46.319Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -11096,7 +11096,7 @@
       "source": "src/theme-manager.js",
       "sourcePath": "src/theme-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 67,
+      "line": 65,
       "members": [
         {
           "name": "onDidChangeActiveThemes",
@@ -11107,7 +11107,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke `callback` when style sheet changes associated with\nupdating the list of active themes have completed.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 114
+          "line": 100
         },
         {
           "name": "onDidChangeThemePacks",
@@ -11118,7 +11118,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke `callback` when a theme pack is registered or removed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 121
+          "line": 107
         },
         {
           "name": "registerThemePack",
@@ -11129,7 +11129,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Register a named light/dark theme pack.\n\nA pack groups the complete theme stacks for both appearance modes:\n\n* `name` A user-facing {String}.\n* `light` An {Array} of theme package names.\n* `dark` An {Array} of theme package names.\n\nReturns a {Disposable} that removes the pack.",
-          "line": 143
+          "line": 129
         },
         {
           "name": "getThemePacks",
@@ -11140,7 +11140,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Returns registered theme packs sorted by their user-facing names.",
-          "line": 175
+          "line": 161
         },
         {
           "name": "isThemePackActive",
@@ -11151,7 +11151,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Returns whether both configured mode pairs match `themePack`.",
-          "line": 180
+          "line": 166
         },
         {
           "name": "getActiveThemePack",
@@ -11162,7 +11162,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Returns the registered pack matching both configured mode pairs.",
-          "line": 195
+          "line": 181
         },
         {
           "name": "setThemePack",
@@ -11173,7 +11173,7 @@
           "category": "Accessing Available Themes",
           "visibility": "Public",
           "description": "Configure both appearance modes from `themePack`.",
-          "line": 200
+          "line": 186
         },
         {
           "name": "getLoadedThemeNames",
@@ -11184,7 +11184,7 @@
           "category": "Accessing Loaded Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the loaded theme names.",
-          "line": 218
+          "line": 204
         },
         {
           "name": "getLoadedThemes",
@@ -11195,7 +11195,7 @@
           "category": "Accessing Loaded Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of all the loaded themes.",
-          "line": 223
+          "line": 209
         },
         {
           "name": "getActiveThemeNames",
@@ -11206,7 +11206,7 @@
           "category": "Accessing Active Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the active theme names.",
-          "line": 232
+          "line": 218
         },
         {
           "name": "getActiveThemes",
@@ -11217,7 +11217,7 @@
           "category": "Accessing Active Themes",
           "visibility": "Public",
           "description": "Returns an {Array} of all the active themes.",
-          "line": 237
+          "line": 223
         },
         {
           "name": "getEnabledThemeNames",
@@ -11228,7 +11228,7 @@
           "category": "Managing Enabled Themes",
           "visibility": "Public",
           "description": "Get the enabled theme names from the config.\n\nReturns an array of theme names in the order that they should be activated.",
-          "line": 279
+          "line": 281
         },
         {
           "name": "updateAppearance",
@@ -11239,7 +11239,7 @@
           "category": "Private",
           "visibility": "Public",
           "description": "Apply an appearance change that restyles the window without\nchanging which themes are active — a theme package toggling a variant\nattribute on the document root, say.\n\nMutating the document directly would leave anything that caches resolved\ncolors — every package that paints to a canvas — showing the old palette\nuntil something unrelated made it redraw. This runs the mutation inside\nthe same cross-fade a theme switch uses and notifies those consumers from\nwithin it, so they repaint as part of the same transition.\n\n* `mutate` {Function} applying the change to the document.\n\nReturns a {Promise} that resolves once the change has been applied.",
-          "line": 936
+          "line": 707
         }
       ]
     },
