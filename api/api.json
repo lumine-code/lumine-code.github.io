@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-05T23:04:46.319Z",
+  "generatedAt": "2026-08-05T23:10:02.955Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -11239,7 +11239,7 @@
           "category": "Private",
           "visibility": "Public",
           "description": "Apply an appearance change that restyles the window without\nchanging which themes are active — a theme package toggling a variant\nattribute on the document root, say.\n\nMutating the document directly would leave anything that caches resolved\ncolors — every package that paints to a canvas — showing the old palette\nuntil something unrelated made it redraw. This runs the mutation inside\nthe same cross-fade a theme switch uses and notifies those consumers from\nwithin it, so they repaint as part of the same transition.\n\n* `mutate` {Function} applying the change to the document.\n\nReturns a {Promise} that resolves once the change has been applied.",
-          "line": 707
+          "line": 711
         }
       ]
     },

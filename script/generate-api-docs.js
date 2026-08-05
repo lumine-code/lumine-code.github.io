@@ -577,8 +577,8 @@ function renderHtml(api) {
       .api-toc-group.active { display: block; }
       /* A section name is the rail's structure, so it wraps rather than
          truncates — "Managing Cursor Position" must stay readable. */
-      .api-toc-heading { display: block; margin: 14px 0 6px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; transition: color .15s ease; }
-      .api-toc-heading:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+      .api-toc-heading { display: block; margin: 24px 0 6px; color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; transition: color .15s ease; }
+      .api-toc-heading:first-child { margin-top: 0; }
       .api-toc-heading:hover { color: var(--gold-strong); }
       .api-toc-empty { margin: 0; color: var(--muted); font-style: italic; font-size: .8rem; }
       .api-nav-member { display: block; padding: 3px 0 3px 10px; border-left: 2px solid transparent; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
