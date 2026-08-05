@@ -482,7 +482,9 @@ pre code {
 .doc-main {
   width: min(var(--maxw), calc(100% - 36px));
   margin: 0 auto;
-  padding: clamp(40px, 7vw, 76px) 0 0;
+  /* The footer draws its own rule directly above itself, so the page has to
+     leave room for it — without this the pager cards sit on that line. */
+  padding: clamp(40px, 7vw, 76px) 0 clamp(48px, 8vw, 88px);
 }
 
 .doc-manual {
