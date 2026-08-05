@@ -165,7 +165,7 @@ Only for changes that alter the palette. Settings that rearrange the window rath
 
 ## Developing live
 
-Themes reload as you edit, especially with the bundled `dev-live-reload` package active in a development window. Link and run your theme the same way as any package:
+Themes reload as you edit, especially with the bundled `dev-live-reload` package active in a development window. An ordinary stylesheet edit reloads just your theme; editing `variables.css` also re-derives the Less variable shim, so packages still compiled from Less pick up the new palette live. Link and run your theme the same way as any package:
 
 ```sh
 lumine --link . --dev
