@@ -23,7 +23,7 @@ File names in the tree view and on tabs are colored by their Git status (green f
 
 ## Opening on your Git host
 
-The bundled **`open-repository`** package opens the current file or repository on its Git host's website. It supports GitHub, GitLab, and Bitbucket (and falls back to GitHub-style URLs for other hosts). It can open the file (`open-repository:file`), its blame or history, the repository, its issues or pull/merge requests, the branch compare page, and can copy a URL for the current file and selected lines (`open-repository:copy-url`).
+The **`open-repository`** package opens the current file or repository on its Git host's website. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/open-repository`. It supports GitHub, GitLab, and Bitbucket (and falls back to GitHub-style URLs for other hosts). It can open the file (`open-repository:file`), its blame or history, the repository, its issues or pull/merge requests, the branch compare page, and can copy a URL for the current file and selected lines (`open-repository:copy-url`).
 
 ## Going further
 

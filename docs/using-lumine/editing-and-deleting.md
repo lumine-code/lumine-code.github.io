@@ -28,7 +28,7 @@ Beyond typing, Lumine has commands for the line- and word-level edits you make c
 
 ## Reflowing text
 
-The bundled `autoflow` package re-wraps a selection of prose or comments to your preferred line length — useful for Markdown and comment blocks.
+The `autoflow` package re-wraps a selection of prose or comments to your preferred line length — useful for Markdown and comment blocks. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/autoflow`.
 
 ## Whitespace and overtype
 

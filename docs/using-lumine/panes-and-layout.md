@@ -25,7 +25,7 @@ Move between panes with `window:focus-pane-on-left`, `window:focus-pane-on-right
 
 ## Docks
 
-The left, right, and bottom docks hold tool UIs such as the tree view. Items that belong in a dock open there; you can show or hide each dock and drag items between the center and the docks. The bundled `fuzzy-workspace` package will reveal a hidden dock when you jump to an item inside it.
+The left, right, and bottom docks hold tool UIs such as the tree view. Items that belong in a dock open there; you can show or hide each dock and drag items between the center and the docks. The `fuzzy-workspace` package, installed from the Install pane in **Settings**, will reveal a hidden dock when you jump to an item inside it.
 
 ## Window and font
 

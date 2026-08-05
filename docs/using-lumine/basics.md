@@ -16,7 +16,7 @@ Every command can be bound to a key. To see what is bound — and to what — op
 
 - **Open** a file or folder from the menus, or from the terminal with the `lumine` command (see [Launching Lumine](../getting-started/launching-lumine.md)).
 - **Save** with `core:save`; save under a new name with `core:save-as`; save every open editor with `window:save-all`.
-- The bundled `autosave` package can save automatically when an editor loses focus — enable it in its settings.
+- The `autosave` package can save automatically when an editor loses focus — install it from the Install pane in **Settings**, then enable it in its settings.
 
 ## Undo, cut, copy, paste
 

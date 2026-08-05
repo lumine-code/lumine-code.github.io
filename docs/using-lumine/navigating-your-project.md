@@ -14,10 +14,12 @@ Lumine splits fuzzy finding into focused packages:
 - **`fuzzy-workspace`** (`fuzzy-workspace:toggle`) — jump to any _already open_ item across the workspace center and the left, right, and bottom docks; confirming reveals its dock and focuses it.
 - **`fuzzy-explorer`** (`fuzzy-explorer:toggle`) — fuzzy-search files across your own list of directories, defined in an `explorer.json` config file (open it with `fuzzy-explorer:edit`; a legacy `explorer.cson` is also read).
 
+`fuzzy-files` ships with the editor. Install the other two from the Install pane in **Settings**, or with `lumine --install lumine-code/fuzzy-workspace` and `lumine --install lumine-code/fuzzy-explorer`.
+
 ## Symbols
 
 The bundled **`symbols-view`** package jumps to functions, methods, and other symbols. Use `symbols-view:toggle-file-symbols` for the active editor and `symbols-view:toggle-project-symbols` across the project. Follow a symbol with `symbols-view:go-to-declaration` and return with `symbols-view:return-from-declaration`. Symbols are provided by `symbol-provider-tree-sitter` (from the active grammar) and `symbol-provider-ctags`.
 
 ## Other navigators
 
-The bundled `project-list` and `recent-list` packages let you switch between saved projects and recently opened paths. Combined with the [Command Palette](basics.md#the-command-palette), these give you fast, mouse-free navigation across everything you have open.
+The bundled `recent-list` package switches between recently opened paths, and `project-list` does the same for projects you have saved — install it from the Install pane in **Settings**, or with `lumine --install lumine-code/project-list`. Combined with the [Command Palette](basics.md#the-command-palette), these give you fast, mouse-free navigation across everything you have open.
