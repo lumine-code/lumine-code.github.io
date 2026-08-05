@@ -13,7 +13,7 @@ Lumine installs and updates packages from Git **tags**. Give each release a semv
 ## Requirements
 
 - A valid `package.json` with at least `name`, `repository`, and `version`.
-- `"engines": { "atom": "*" }` (or a real range) so Lumine knows it is compatible.
+- `"engines": { "lumine": "^1.0.0" }` so Lumine knows it is compatible; a manifest without the `lumine` engine cannot be installed.
 - A `name` that does not collide with one of Lumine's bundled packages — the install directory is keyed by name. See [The package system](../packages-and-themes/package-system.md).
 
 ## Getting into the Install tab

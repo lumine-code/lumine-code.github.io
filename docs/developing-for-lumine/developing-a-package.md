@@ -21,7 +21,7 @@ Key `package.json` fields:
 
 - **`name`** — the package's identity: its command prefix and config namespace, and what the editor loads it under. The directory it lives in need not match. See [The package system](../packages-and-themes/package-system.md).
 - **`main`** — the entry module (for example `./lib/my-package`).
-- **`version`** and **`engines`** — `"engines": { "atom": "*" }` for broad compatibility.
+- **`version`** and **`engines`** — `"engines": { "lumine": "^1.0.0" }`; the `lumine` key is also what marks the manifest as a package.
 - **`activationCommands`** / **`activationHooks`** — let Lumine load the package lazily, only when it is first needed.
 - **`configSchema`** — declares the package's settings so they appear in the Settings view.
 - **`providedServices`** / **`consumedServices`** — how packages offer and use functionality from one another.

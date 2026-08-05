@@ -64,7 +64,7 @@ Nothing package-controlled runs before validation passes. Before `npm install`, 
 - it parses as JSON, JSONC, or CSON;
 - the `name` is unscoped, lowercase, and safe to use as a directory name;
 - a Git `repository` is present, and its origin is a **syntactic variant of the same origin** you are installing from — a fork whose `repository` still points upstream, an old address, or a redirect is rejected;
-- `engines.atom` is present and the running Lumine satisfies it;
+- `engines.lumine` is present and the running Lumine satisfies it;
 - when the ref is a semantic tag, it matches the manifest `version` (an optional leading `v` is ignored);
 - no other installed package has this name (unless it came from the same origin), and this origin is not already installed under another name.
 
@@ -94,7 +94,7 @@ The card's **version** is a dropdown. It lists every **tag** (SemVer-descending,
 - Selecting a **tag** _pins_ that exact release.
 - Selecting the **default branch** _tracks_ it — updates follow the new branch HEAD.
 
-The default selection is the highest compatible stable tag (or the default branch when there are no tags). If the selected version's `engines.atom` does not match your Lumine version, the card is **not** dropped from the list: it stays with a **disabled Install** (the reason shown on hover) and is **not** offered as an update, but you can still switch the dropdown to another tag, since a different release may declare a compatible range.
+The default selection is the highest compatible stable tag (or the default branch when there are no tags). If the selected version's `engines.lumine` does not match your Lumine version, the card is **not** dropped from the list: it stays with a **disabled Install** (the reason shown on hover) and is **not** offered as an update, but you can still switch the dropdown to another tag, since a different release may declare a compatible range.
 
 On a browse (not-installed) card, changing the version re-fetches the manifest for the new commit and re-validates it; **Install** stays disabled until validation completes. On an installed card, choosing a different version turns the action into **Update to X** targeting that exact commit (choosing the installed version again clears the pending update); its **details** then show only the README fetched for the previewed commit, since the package's active settings, keybindings, and grammars still belong to the installed version.
 

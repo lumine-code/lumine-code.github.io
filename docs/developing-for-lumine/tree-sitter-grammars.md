@@ -58,7 +58,7 @@ Builds are reproducible: the same pin and CLI version produce a byte-identical w
 
 ### Grammars outside the Lumine repository
 
-A grammar package does not have to live in `packages/`. It may be its own repository, pinned in `packageDependencies` and delivered through `node_modules/`, or installed from the catalog.
+A grammar package does not have to live in `packages/`. It may be its own repository, pinned in the editor's `dependencies` and delivered through `node_modules/`, or installed from the catalog.
 
 Building one needs no extra flags — the package that owns the config passed on the command line is always in scope:
 
@@ -92,11 +92,11 @@ While authoring queries, do not iterate through the pin. Symlink the package int
 
 4. Eyeball highlighting, indentation, and folding on a real file — `spec/fixtures/sample.*` exists for exactly this.
 5. Commit the wasm, config, and query fixes together, one grammar per commit. CI validates that any wasm change also updates `parserSource` or `wasmBuildTool`; run `node script/validate-wasm-grammar-prs.js` locally before pushing directly to master.
-6. Push the package **first**, then repin it in `lumine/package.json` — in both `dependencies` and `packageDependencies` — and `npm install`. Until that pin moves, the package's own CI still tests against the previously pinned editor. The order reverses only when the editor change is the breaking one.
+6. Push the package **first**, then repin it in `lumine/package.json` `dependencies` (`node script/repin.js <name>` does this) and `npm install`. Until that pin moves, the package's own CI still tests against the previously pinned editor. The order reverses only when the editor change is the breaking one.
 
 ## Query validation and errors
 
-Every query of every bundled grammar is compiled in CI by `spec/grammar-query-validation-spec.js`, so a broken query cannot ship silently — even for a language package with no spec suite of its own. It enumerates `packageDependencies` rather than reading `packages/`, so it covers grammars delivered through `node_modules/` too, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` adds checkouts that are not pinned yet.
+Every query of every bundled grammar is compiled in CI by `spec/grammar-query-validation-spec.js`, so a broken query cannot ship silently — even for a language package with no spec suite of its own. It enumerates the dependencies whose manifests declare `engines.lumine` rather than reading `packages/`, so it covers grammars delivered through `node_modules/` too, and `LUMINE_GRAMMAR_PACKAGE_ROOTS` adds checkouts that are not pinned yet.
 
 A grammar package in its own repository carries the same gate as a spec of its own, `spec/grammar-queries-spec.js`, which compiles every query its configs declare against its committed wasm. It needs no CI change: the package's existing integration job already runs its specs inside a real Lumine build. Without it such a package has **no** query gate at all, and a broken highlights query does not fail its other specs — the language layer degrades to a placeholder, so everything stays green while highlighting is silently dead.
 

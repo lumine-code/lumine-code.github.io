@@ -15,7 +15,7 @@ A theme is a package whose `package.json` declares its kind:
   "version": "0.1.0",
   "theme": "syntax",
   "styles": ["index.css"],
-  "engines": { "atom": "*" }
+  "engines": { "lumine": "^1.0.0" }
 }
 ```
 
@@ -64,7 +64,7 @@ A package can expose several independently selectable themes through a `themes` 
       "styles": "styles/night-syntax"
     }
   ],
-  "engines": { "atom": "*" }
+  "engines": { "lumine": "^1.0.0" }
 }
 ```
 
