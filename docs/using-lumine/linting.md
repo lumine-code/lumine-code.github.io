@@ -29,3 +29,5 @@ By default files are linted when opened (**Lint on Open**) and as you type (**Li
 ## Providers
 
 The `linter` package does not analyze code itself — it consumes the `linter.provider` service. Install one or more provider packages for the languages you work in, and their diagnostics appear automatically. Packages can also push messages directly through the `linter.registry` service, and non-text items such as Jupyter notebooks integrate through the `linter.adapter` service.
+
+A language server reports through the same panel, so the same tool can reach you by two routes — `linter-ruff` shells out to Ruff, and `ide-ruff` runs Ruff's own server. Install both: `linter-ruff` sees the adapter and reports nothing for the editors it covers, keeping what the server does not do, namely Jupyter notebook cells, project-wide scans of files nobody opened, and its own fix and format commands. Two providers that wrap genuinely different tools, such as `linter-eslint` beside `ide-typescript`, are both worth running and neither stands down.
