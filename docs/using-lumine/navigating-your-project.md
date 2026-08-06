@@ -20,6 +20,8 @@ Lumine splits fuzzy finding into focused packages:
 
 The bundled **`symbol`** package jumps to functions, methods, and other symbols. Use `symbol:toggle-file-symbols` for the active editor and `symbol:toggle-project-symbols` across the project. Follow a symbol with `symbol:go-to-declaration` and return with `symbol:return-from-declaration`. Symbols are provided by `symbol-tree-sitter` (from the active grammar) and `symbol-ctags`.
 
+The bundled **`hyperclick`** package makes the same jump with the pointer: hold Alt and symbols that something can resolve are underlined, and clicking one follows it. The modifier is configurable, and `hyperclick:confirm-cursor` does the same for whatever the cursor is on. Any package can answer for the words it understands by providing `hyperclick.provider`.
+
 ## Other navigators
 
 The `recent-list` package switches between recently opened paths, and `project-list` does the same for projects you have saved. Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/recent-list` and `lumine --install lumine-code/project-list`. Recently opened projects are also always available from **File > Reopen Project**, which is part of the editor itself. Combined with the [Command Palette](basics.md#the-command-palette), these give you fast, mouse-free navigation across everything you have open.
