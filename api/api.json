@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-06T00:49:40.231Z",
+  "generatedAt": "2026-08-06T11:35:31.768Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -3500,6 +3500,17 @@
           "line": 509
         },
         {
+          "name": "onDidRemoveGrammar",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidRemoveGrammar(callback)",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "Invoke the given callback when a grammar is removed from the\nregistry, which happens whenever the package that provides it deactivates.\n\n* `callback` {Function} to call when a grammar is removed.\n  * `grammar` {Grammar} that was removed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
+          "line": 525
+        },
+        {
           "name": "addInjectionPoint",
           "kind": "method",
           "static": false,
@@ -3508,7 +3519,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Specify a type of syntax node that may embed other languages.\n\n* `grammarId` The {String} id of the parent language\n* `injectionPoint` An {Object} with the following keys:\n  * `type` The {String} type of syntax node that may embed other languages\n  * `language` A {Function} that is called with syntax nodes of the specified `type` and\n    returns a {String} that will be tested against other grammars' `injectionRegex` in\n    order to determine what language should be embedded.\n  * `content` A {Function} that is called with syntax nodes of the specified `type` and\n    returns another syntax node or array of syntax nodes that contain the embedded source\n    code. Depending on the settings below, the content node(s) will be converted into a\n    series of buffer ranges; when this injection is parsed, anything not inside those\n    ranges will be invisible to the parser.\n  * `includeChildren` A {Boolean} that indicates whether the children (and, in fact, all\n    descendants) of the nodes returned by `content` should be included in the injection's\n    buffer range(s). Defaults to `false`.\n  * `newlinesBetween` A {Boolean} that indicates whether each node returned from `content`\n    should be separated by at least one newline character so that the parser understands\n    them to be logically separated. Embedded languages like ERB and EJS need this. Defaults\n    to {false}.\n  * `languageScope` A {String} or {Function} that returns the desired scope name to apply\n    to each of the injection's buffer ranges. Defaults to the injected grammar's own language\n    scope — e.g., `source.js` for the JavaScript grammar. Set to `null` if the language scope\n    should be omitted. If a {Function}, will be called with the grammar instance as an\n    argument, and should return either a {String} or `null`.\n  * `coverShallowerScopes` A {Boolean} that indicates whether this injection should prevent\n    shallower layers (including the layer that created this injection) from adding scopes\n    within any of this injection's buffer ranges. Useful for injecting languages into\n    themselves — for instance, injecting Rust into Rust macro definitions.\n  * `includeAdjacentWhitespace` A {Boolean} that indicates whether the injection's buffer\n    range(s) should include whitespace that occurs between two adjacent ranges. Defaults to\n    `false`. When `true`, if two consecutive injection buffer ranges are separated _only_ by\n    whitespace, those ranges will be consolidated into one range along with that whitespace.",
-          "line": 552
+          "line": 568
         },
         {
           "name": "loadGrammar",
@@ -3519,7 +3530,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously and add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when loaded with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.",
-          "line": 633
+          "line": 650
         },
         {
           "name": "loadGrammarSync",
@@ -3530,7 +3541,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously and add it to this registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
-          "line": 646
+          "line": 663
         },
         {
           "name": "readGrammar",
@@ -3541,7 +3552,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when read with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.\n\nReturns undefined.",
-          "line": 660
+          "line": 677
         },
         {
           "name": "readGrammarSync",
@@ -3552,7 +3563,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
-          "line": 677
+          "line": 694
         },
         {
           "name": "getGrammars",
@@ -3563,7 +3574,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Get all the grammars in this registry.\n\n* `params` (optional) {Object}\n  * `includeTreeSitter` (optional) {Boolean} Set to include\n    [Tree-sitter](https://github.blog/2018-10-31-atoms-new-parsing-system/) grammars\n\nReturns a non-empty {Array} of {Grammar} instances.",
-          "line": 699
+          "line": 716
         }
       ]
     },
@@ -7600,7 +7611,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` for all current and future style elements.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance. The `.sheet` property\n    will be null because this element isn't attached to the DOM. If you want\n    to attach this element to the DOM, be sure to clone it first by calling\n    `.cloneNode(true)` on it. The style element will also have the following\n    non-standard properties:\n    * `sourcePath` A {String} containing the path from which the style\n      element was loaded.\n    * `context` A {String} indicating the target context of the style\n      element.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 42
+          "line": 41
         },
         {
           "name": "onDidAddStyleElement",
@@ -7611,7 +7622,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` when a style element is added.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance. The `.sheet` property\n    will be null because this element isn't attached to the DOM. If you want\n    to attach this element to the DOM, be sure to clone it first by calling\n    `.cloneNode(true)` on it. The style element will also have the following\n    non-standard properties:\n    * `sourcePath` A {String} containing the path from which the style\n      element was loaded.\n    * `context` A {String} indicating the target context of the style\n      element.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 65
+          "line": 64
         },
         {
           "name": "onDidRemoveStyleElement",
@@ -7622,7 +7633,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` when a style element is removed.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 76
+          "line": 75
         },
         {
           "name": "onDidUpdateStyleElement",
@@ -7633,7 +7644,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke `callback` when an existing style element is updated.\n\n* `callback` {Function} that is called with style elements.\n  * `styleElement` An `HTMLStyleElement` instance. The `.sheet` property\n     will be null because this element isn't attached to the DOM. The style\n     element will also have the following non-standard properties:\n    * `sourcePath` A {String} containing the path from which the style\n      element was loaded.\n    * `context` A {String} indicating the target context of the style\n      element.\n\nReturns a {Disposable} on which `.dispose()` can be called to cancel the\nsubscription.",
-          "line": 93
+          "line": 92
         },
         {
           "name": "getStyleElements",
@@ -7644,7 +7655,7 @@
           "category": "Reading Style Elements",
           "visibility": "Extended",
           "description": "Get all loaded style elements.",
-          "line": 106
+          "line": 101
         },
         {
           "name": "getUserStyleSheetPath",
@@ -7655,7 +7666,7 @@
           "category": "Paths",
           "visibility": "Extended",
           "description": "Get the path of the user style sheet in `~/.lumine`.\n\nReturns a {String}.",
-          "line": 219
+          "line": 206
         }
       ]
     },
@@ -12208,7 +12219,7 @@
           "signature": "::onDidChangeQuery(callback)",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Calls `callback` when any of this grammar's queries change.\n\nA grammar's queries typically will not change after initial load. When\nthey do, it may mean:\n\n- The user is editing query files in dev mode; Lumine will automatically\n  reload queries in dev mode after changes.\n- A community package is altering a query file via an API like\n  {::setQueryForTest}.\n\n* `callback` {Function}\n  * `data` {Object}\n    * `filePath` {String} The path to the query file on disk.\n    * `queryType` {String} The type of query file, as denoted by its\n        configuration key in the grammar file. Usually one of\n        `highlightsQuery`, `indentsQuery`, `foldsQuery`, or `tagsQuery`.",
+          "description": "Calls `callback` when any of this grammar's queries change.\n\nA grammar's queries typically will not change after initial load. When\nthey do, it may mean:\n\n- The user is editing query files in dev mode; Lumine will automatically\n  reload queries in dev mode after changes.\n- An installed package is altering a query file via an API like\n  {::setQueryForTest}.\n\n* `callback` {Function}\n  * `data` {Object}\n    * `filePath` {String} The path to the query file on disk.\n    * `queryType` {String} The type of query file, as denoted by its\n        configuration key in the grammar file. Usually one of\n        `highlightsQuery`, `indentsQuery`, `foldsQuery`, or `tagsQuery`.",
           "line": 589
         },
         {
@@ -13450,5 +13461,5 @@
       "line": 1033
     }
   ],
-  "memberCount": 1170
+  "memberCount": 1171
 }
