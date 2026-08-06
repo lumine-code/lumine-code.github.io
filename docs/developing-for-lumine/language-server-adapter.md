@@ -40,10 +40,28 @@ Returning the registration disposable from the consumer method unregisters the a
 - `languageIdForScope(scopeName)` — optional per-grammar override for the LSP `languageId`; a built-in table already maps common scopes, and a blanket `languageId` remains as a last-resort fallback.
 - `getInitializationOptions(context)` — optional `initializationOptions` for the handshake.
 - `getSettings()` and `settingsKeyPaths` — the settings object pushed via `workspace/didChangeConfiguration` after startup, and the config key paths that re-push it when the user changes them.
-- `getWorkspaceConfiguration(section, scopeUri)` — optional answers for `workspace/configuration` requests; defaults to `atom.config.get(section)`.
+- `getWorkspaceConfiguration(section, scopeUri)` — optional answers for `workspace/configuration` requests; defaults to `atom.config.get(section)`. Answer the sections your server asks for by name: the default is a Lumine config namespace, and for a section named after the server it does not exist, so every option would come back undefined.
+- `features` — fallback feature switches, only for an adapter with no config namespace to hold them. A package declares them in its manifest instead; see below.
 - `transformServerCapabilities(capabilities)` — optional hook to correct a server's advertised capabilities.
 
 The complete shapes are documented in `ide-client`'s `lib/main.d.ts`.
+
+## Settings
+
+Declare the server's options in your manifest's `configSchema`, in the same shape the server receives them, so the mapping in `getSettings` stays a transcription rather than a translation. Two conventions make that mapping behave:
+
+- An empty setting means "no opinion". Leave it out of the object you send rather than sending `""` or `[]`, so a project that configures itself through its own file is not overruled by a setting the user never touched.
+- Where an option is only read at startup, subscribe to its config key and restart the running sessions. `settingsKeyPaths` re-pushes what a server re-reads; it cannot help with an initialization option.
+
+## Feature switches
+
+Declare a `features` object in `configSchema` naming the capabilities your server implements. `ide-client` reads `<your adapter id>.features.<name>` and refuses a switched-off feature before it asks the server, so the request goes to the next server covering that file instead. This is what lets a user choose between two servers on one language.
+
+The vocabulary is `diagnostics`, `autocomplete`, `hover`, `signature`, `definition`, `references`, `symbols`, `outline`, `format`, `rename`, `codeActions`, `inlayHints`, `codeLens`, and `semanticTokens`.
+
+List **only what your server advertises** — read its `initialize` response rather than its documentation, since the two disagree more often than you would expect. A switch for a capability the server never had is a control that does nothing.
+
+Where the server can be told to stop the work itself, map the switch onto its own option as well, so what the editor would discard is not computed. `ide-ruff` maps `features.diagnostics` onto Ruff's `lint.enable`, and `ide-tinymist` maps `features.semanticTokens` onto Tinymist's `semanticTokens`.
 
 ## Resolving the server binary
 
