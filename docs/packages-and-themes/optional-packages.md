@@ -81,7 +81,8 @@ The tree view, tabs, search results, and fuzzy finders show a generic icon per f
 - **windows-clip** — Explorer-compatible file cut/copy/paste in the tree view.
 - **open-in-totalcmd** — reveal paths in Total Commander.
 - **terminal-spawn** — launch external terminals in project folders.
-- **folder-sync**, **fast-publish**, **tree-view-favourites** — file management helpers.
+- **tree-view-favourite** — pin files and folders into sections above the project folders, where a pinned folder expands in place.
+- **folder-sync**, **fast-publish** — file management helpers.
 
 ## Editor integration for AI
 
