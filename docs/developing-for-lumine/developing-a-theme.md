@@ -19,7 +19,7 @@ A theme is a package whose `package.json` declares its kind:
 }
 ```
 
-Set `"theme"` to `"ui"` or `"syntax"`. The stylesheets listed in `"styles"` (CSS, or Less if you prefer) provide the look; the bundled themes are plain CSS built on custom properties.
+Set `"theme"` to `"ui"` or `"syntax"`. The stylesheets listed in `"styles"` provide the look. They are plain CSS built on custom properties, as the bundled themes are.
 
 ## Use custom properties
 
@@ -102,14 +102,14 @@ The part before `::` is a package name. The part after it is a glob relative to 
 Lumine builds the cascade in this order:
 
 1. Process `extends` entries in their declared order.
-2. Sort the `.css` and `.less` files matched by each glob and load them.
+2. Sort the `.css` files matched by each glob and load them.
 3. Load the theme's own `styles` directories in their declared order.
 
 Overlapping globs do not load the same file twice. There is no filename replacement: extended and local stylesheets both load, so ordinary CSS specificity and source order determine the result. Keep only real differences in the local override sheets. When the parent sets a declaration that the child does not want, reset it explicitly in the child.
 
 Referencing a package through `extends` does not activate that package's JavaScript or add its theme class. Only include reusable styles in the matched path; package-specific settings should live outside it.
 
-If the chain contains more than one `variables.css`, Lumine applies them in the same order and uses that order when generating the Less compatibility shim. Put the derived theme's palette in its final `styles` directory so its custom properties win. Development live reload also watches the extended glob roots.
+If the chain contains more than one `variables.css`, Lumine applies them in the same order. Put the derived theme's palette in its final `styles` directory so its custom properties win. Development live reload also watches the extended glob roots.
 
 ## An editor is an input because it says so
 
@@ -165,7 +165,7 @@ Only for changes that alter the palette. Settings that rearrange the window rath
 
 ## Developing live
 
-Themes reload as you edit, especially with the bundled `dev-live-reload` package active in a development window. An ordinary stylesheet edit reloads just your theme; editing `variables.css` also re-derives the Less variable shim, so packages still compiled from Less pick up the new palette live. Link and run your theme the same way as any package:
+Themes reload as you edit, especially with the bundled `dev-live-reload` package active in a development window. A stylesheet edit reloads just your theme, `variables.css` included: custom properties cascade at runtime, so everything reading them restyles. Link and run your theme the same way as any package:
 
 ```sh
 lumine --link . --dev
