@@ -67,10 +67,17 @@ function highlightCode(source, language) {
     out += escapeHtml(source.slice(last, match.index));
     last = match.index + text.length;
 
+    // A name with a colon after it is a key, quoted or not — which is most of
+    // a JSON example, and the reason its keys do not read as one wall of
+    // string-coloured text.
+    const key = /^[ \t]*:/.test(source.slice(last));
     let kind = null;
     if (/^(\/\/|\/\*|#|<!--)/.test(text)) kind = "comment";
-    else if (/^['"`]/.test(text)) kind = "string";
+    else if (/^['"`]/.test(text)) kind = key ? "key" : "string";
     else if (/^\d/.test(text)) kind = "number";
+    // Before the keyword test: `class:` and `default:` are property names here,
+    // however they are spelled.
+    else if (key) kind = "key";
     else if (CODE_KEYWORDS.has(text)) kind = "keyword";
     else if (source[last] === "(") kind = "fn";
 
