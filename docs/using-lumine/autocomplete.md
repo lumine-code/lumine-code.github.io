@@ -17,7 +17,7 @@ Behavior — the activation delay, whether to auto-confirm a single suggestion, 
 - **`autocomplete-snippets`** — your [snippets](../customizing-lumine/snippets.md), offered as completions.
 - **`autocomplete-lumine`** — the editor API, for package and init-script development.
 
-Community packages can add more providers (for a framework, a data source, and so on); install them like any other package. See [The package system](../packages-and-themes/package-system.md). The bundled `ide-client` package is a provider too, so installing a [language-server adapter](language-servers.md) puts your server's completions in the same list.
+Installed packages can add more providers (for a framework, a data source, and so on); install them like any other package. See [The package system](../packages-and-themes/package-system.md). The bundled `ide-client` package is a provider too, so installing a [language-server adapter](language-servers.md) puts your server's completions in the same list.
 
 ## Matching and ordering
 

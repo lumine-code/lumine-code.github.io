@@ -20,7 +20,7 @@ Lumine bundles several diagnostic packages, each with a `:view` command:
 - **`deprecation-cop:view`** — lists deprecated API calls made by Lumine or your packages; useful when a package misbehaves after an update.
 - **`timecop:view`** — shows where time goes during startup. See [Performance](performance.md).
 
-If a bundled package behaves unexpectedly, check whether a community package of the same name is overriding it: the **Packages** tab marks the shadowed bundled card as **Overridden**. See [Managing packages](../packages-and-themes/managing.md).
+If a bundled package behaves unexpectedly, check whether an installed package of the same name is overriding it: the **Packages** tab marks the shadowed bundled card as **Overridden**. See [Managing packages](../packages-and-themes/managing.md).
 
 ## Look at the console
 

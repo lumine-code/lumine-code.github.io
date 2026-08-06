@@ -29,7 +29,7 @@ These are the options accepted by the `lumine` command:
 | `-v`, `--version`           | Print version information.                                                  |
 | `-h`, `--help`              | Print the usage message.                                                    |
 
-Lumine can also install and manage community packages from the command line (`--install`, `--uninstall`, `--list`, `--link`, `--unlink`); those are covered in [Managing packages and themes](../packages-and-themes/managing.md).
+Lumine can also install and manage packages from the command line (`--install`, `--uninstall`, `--list`, `--link`, `--unlink`); those are covered in [Managing packages and themes](../packages-and-themes/managing.md).
 
 ## Development mode
 

@@ -1,6 +1,6 @@
 # Build tools
 
-Installing a community package clones its repository and runs an install step, so Lumine needs a couple of external tools on your `PATH`. Missing or mismatched build tools are the most common cause of install and load failures.
+Installing a package clones its repository and runs an install step, so Lumine needs a couple of external tools on your `PATH`. Missing or mismatched build tools are the most common cause of install and load failures.
 
 ## What is required
 

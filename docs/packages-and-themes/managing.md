@@ -14,12 +14,12 @@ Lumine bundles the **`one-theme`** package, which provides light and dark varian
 
 ## From the command line
 
-The `lumine` command manages community packages without opening the editor:
+The `lumine` command manages installed packages without opening the editor:
 
 ```sh
 lumine --install owner/repo          # install (supports @tag, #commit, ~branch)
 lumine --uninstall <name>            # uninstall by package name
-lumine --list                        # list installed community and dev packages
+lumine --list                        # list installed and dev packages
 ```
 
 The install source accepts the same selectors as the Install tab — for example `lumine --install owner/repo@1.2.3`. See [Install sources and version selectors](package-system.md#install-sources-and-version-selectors).

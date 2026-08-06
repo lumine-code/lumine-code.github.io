@@ -2,7 +2,7 @@
 
 There are two independent kinds of updates in Lumine:
 
-- **Package updates** — newer versions of the community packages and themes you installed, handled by the **Install** tab.
+- **Package updates** — newer versions of the packages and themes you installed, handled by the **Install** tab.
 - **Editor updates** — new releases of Lumine itself, handled by the bundled `lumine-updater` package.
 
 ## Package updates

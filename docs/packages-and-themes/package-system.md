@@ -37,7 +37,7 @@ Two invariants follow for what the Install tab puts on disk:
 - At most **one installation per origin** at a time.
 - At most **one installed package per name** at a time — an update or a reinstall replaces the directory that package already occupies, whatever it is called.
 
-The name shown on a browse card is the repository's project name until a valid manifest is fetched for the selected commit; afterwards it is the real `package.json` name, which may differ (the repository `pulsar-invert-colors` ships a package named `invert-colors`). A card is keyed internally by its origin (`community:<origin>`) or, for a bundled package, by its name (`builtin:<name>`) — never by name alone — so two repositories that publish the same name never collide in the UI.
+The name shown on a browse card is the repository's project name until a valid manifest is fetched for the selected commit; afterwards it is the real `package.json` name, which may differ (the repository `pulsar-invert-colors` ships a package named `invert-colors`). A card is keyed internally by its origin (`origin:<origin>`) or, for a bundled package, by its name (`builtin:<name>`) — never by name alone — so two repositories that publish the same name never collide in the UI.
 
 ## Installing a package
 
@@ -126,7 +126,7 @@ A **catalog** is an `index.json` file: a plain JSON array of Git source strings,
 
 > `index.json` is the array-of-sources format above. The **old metadata catalog format** (a `schemaVersion` object with a `packages` array of pre-baked names, versions, and descriptions) is **no longer supported** and fails with a readable error; convert it to a plain array of Git sources.
 
-Catalog sources are configured in **Settings → Install → Catalog Sources**, or via the `settings-view.communityPackageCatalogs` setting (an ordered array). A source can be:
+Catalog sources are configured in **Settings → Install → Catalog Sources**, or via the `settings-view.packageCatalogs` setting (an ordered array). A source can be:
 
 - a GitHub shorthand `owner/repo` (resolves to that repo's `index.json` on its default branch),
 - a public HTTP(S) URL to a repository or directly to an `index.json`, or
@@ -171,7 +171,7 @@ The action a card offers depends on what is already installed under its package'
 | ----------------------------------------- | ------------------------------------------------------------- |
 | Nothing                                   | **Install**                                                   |
 | The **same** origin                       | **Installed** / **Update**                                    |
-| A **different** community origin          | **Replace** (swaps the installed package for this one)        |
+| A **different** origin                    | **Replace** (swaps the installed package for this one)        |
 | A **bundled** package                     | **Override** (the installed package shadows the bundled one)  |
 | A package in `~/.lumine/packages-dev`     | **Install**, with a note that your dev copy keeps loading     |
 

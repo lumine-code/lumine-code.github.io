@@ -8,7 +8,7 @@ Lumine is a desktop application built on **Electron 43** and **Node 24**. The in
 
 ## Hackable by design
 
-Almost everything in Lumine is a **package** — many core features are packages that ship with the editor, sitting beside the community packages you install. That keeps the editor open rather than sealed: you can inspect, restyle, rebind, disable, or replace nearly any part of it.
+Almost everything in Lumine is a **package** — many core features are packages that ship with the editor, sitting beside the packages you install. That keeps the editor open rather than sealed: you can inspect, restyle, rebind, disable, or replace nearly any part of it.
 
 - **Packages** add features and languages. See [The package system](../packages-and-themes/package-system.md).
 - **Themes** change the look of the interface and syntax. See [Developing a theme](../developing-for-lumine/developing-a-theme.md).
