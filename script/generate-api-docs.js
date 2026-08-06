@@ -377,7 +377,9 @@ function signatureFor(node, source, className) {
 }
 
 function parseFile(filePath, sourceInput) {
-  const source = fs.readFileSync(filePath, "utf8");
+  // Normalize line endings so a CRLF working copy generates byte-identical
+  // output to the LF checkout CI compares against.
+  const source = fs.readFileSync(filePath, "utf8").replace(/\r\n/g, "\n");
   let ast;
   try {
     ast = parser.parse(source, {

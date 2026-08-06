@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-06T11:35:31.768Z",
+  "generatedAt": "2026-08-06T15:29:22.306Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -725,7 +725,7 @@
           "category": "Messaging the User",
           "visibility": "Public",
           "description": "Visually trigger a beep.",
-          "line": 1383
+          "line": 1382
         },
         {
           "name": "confirm",
@@ -736,7 +736,7 @@
           "category": "Messaging the User",
           "visibility": "Essential",
           "description": "A flexible way to open a dialog akin to an alert dialog.\n\nWhile both async and sync versions are provided, it is recommended to use the async version\nsuch that the renderer process is not blocked while the dialog box is open.\n\nThe async version accepts the same options as Electron's `dialog.showMessageBox`.\nFor convenience, it sets `type` to `'info'` and `normalizeAccessKeys` to `true` by default.\n\nIf the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button\nthe first button will be clicked unless a \"Cancel\" or \"No\" button is provided.\n\n## Examples\n\n```js\n// Async version (recommended)\natom.confirm({\n  message: 'How you feeling?',\n  detail: 'Be honest.',\n  buttons: ['Good', 'Bad']\n}, response => {\n  if (response === 0) {\n    window.alert('good to hear')\n  } else {\n    window.alert('bummer')\n  }\n})\n```\n\n```js\n// Legacy sync version\nconst chosen = atom.confirm({\n  message: 'How you feeling?',\n  detailedMessage: 'Be honest.',\n  buttons: {\n    Good: () => window.alert('good to hear'),\n    Bad: () => window.alert('bummer')\n  }\n})\n```\n\n* `options` An {Object} of options. If the callback argument is also supplied, see the documentation at\nhttps://electronjs.org/docs/api/dialog#dialogshowmessageboxbrowserwindow-options-callback for the list of\navailable options. Otherwise, only the following keys are accepted:\n  * `message` The {String} message to display.\n  * `detailedMessage` (optional) The {String} detailed message to display.\n  * `buttons` (optional) Either an {Array} of {String}s or an {Object} where keys are\n    button names and the values are callback {Function}s to invoke when clicked.\n* `callback` (optional) A {Function} that will be called with the index of the chosen option.\n  If a callback is supplied, the dialog will be non-blocking. This argument is recommended.\n\nReturns the chosen button index {Number} if the buttons option is an array\nor the return value of the callback if the buttons option is an object.\nIf a callback function is supplied, returns `undefined`.",
-          "line": 1440
+          "line": 1439
         },
         {
           "name": "openDevTools",
@@ -747,7 +747,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Open the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened.",
-          "line": 1456
+          "line": 1455
         },
         {
           "name": "toggleDevTools",
@@ -758,7 +758,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Toggle the visibility of the dev tools for the current window.\n\nReturns a {Promise} that resolves when the DevTools have been opened or\nclosed.",
-          "line": 1464
+          "line": 1463
         },
         {
           "name": "executeJavaScriptInDevTools",
@@ -769,7 +769,7 @@
           "category": "Managing the Dev Tools",
           "visibility": "Extended",
           "description": "Execute code in dev tools.",
-          "line": 1469
+          "line": 1468
         }
       ]
     },
