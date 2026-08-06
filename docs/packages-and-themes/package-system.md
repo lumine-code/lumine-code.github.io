@@ -128,11 +128,11 @@ A **catalog** is an `index.json` file: a plain JSON array of Git source strings,
 
 Catalog sources are configured in **Settings → Install → Catalog Sources**, or via the `settings-view.communityPackageCatalogs` setting (an ordered array). A source can be:
 
-- a GitHub shorthand `owner/repo` (resolves to that repo's `index.json` on the `main` branch),
+- a GitHub shorthand `owner/repo` (resolves to that repo's `index.json` on its default branch),
 - a public HTTP(S) URL to a repository or directly to an `index.json`, or
 - a local absolute path (or `file://` URL) to a directory or `index.json`.
 
-The default source is Lumine's own catalog: `https://raw.githubusercontent.com/lumine-code/packages/main/index.json`.
+The default source is Lumine's own catalog, which lists the packages `lumine-code` maintains: `https://raw.githubusercontent.com/lumine-code/packages/HEAD/index.json`. Adding catalogs beside it is expected — the Install tab merges them all.
 
 When the same origin appears in more than one catalog, the entries are **merged** into a single card: the first catalog sets the initial ref selector, and the card shows the full provenance (which catalogs list it) and flags a **selector conflict** when the catalogs disagree on the ref. **Restore Defaults** clears your customizations back to the default source.
 

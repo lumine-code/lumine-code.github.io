@@ -20,11 +20,9 @@ The `version` in your manifest names what that tree publishes as, and the tag is
 
 ## Getting into the Install tab
 
-Lumine's **Install** tab aggregates one or more community **catalogs**. The default catalog is the [`lumine-code/packages`](https://github.com/lumine-code/packages) repository, which lists packages by their `owner/repo`.
+Lumine's **Install** tab aggregates one or more **catalogs**. The default one is the [`lumine-code/packages`](https://github.com/lumine-code/packages) repository, which lists the packages `lumine-code` maintains — an `index.json` array of `owner/repo` sources, nothing more. Lumine reads each listed repository's `package.json` directly from the ref it resolves, so the catalog carries no copy of your metadata.
 
-To add yours, open a **"Register a package"** issue on that repository and provide your repository. The catalog then reads your `package.json` at your highest stable tag and includes your package in the generated index, so it shows up in everyone's Install tab. You never hand-edit the index — the catalog rebuilds itself from the registered repositories.
-
-Because catalogs are just index files, anyone can also publish their **own** catalog and users can add it as a source — you are not limited to the default one.
+A catalog is just an index file, so publishing your own and telling people to add it as a source is a first-class way to be discoverable — the Install tab takes any number of them. And whether or not your package is in a catalog, anyone can install it by typing its `owner/repo`, or pin a release with `owner/repo@1.2.0`.
 
 ## The Pulsar registry
 
