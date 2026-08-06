@@ -18,7 +18,7 @@ Lumine splits fuzzy finding into focused packages:
 
 ## Symbols
 
-The bundled **`symbols-view`** package jumps to functions, methods, and other symbols. Use `symbols-view:toggle-file-symbols` for the active editor and `symbols-view:toggle-project-symbols` across the project. Follow a symbol with `symbols-view:go-to-declaration` and return with `symbols-view:return-from-declaration`. Symbols are provided by `symbol-provider-tree-sitter` (from the active grammar) and `symbol-provider-ctags`.
+The bundled **`symbol`** package jumps to functions, methods, and other symbols. Use `symbol:toggle-file-symbols` for the active editor and `symbol:toggle-project-symbols` across the project. Follow a symbol with `symbol:go-to-declaration` and return with `symbol:return-from-declaration`. Symbols are provided by `symbol-tree-sitter` (from the active grammar) and `symbol-ctags`.
 
 ## Other navigators
 

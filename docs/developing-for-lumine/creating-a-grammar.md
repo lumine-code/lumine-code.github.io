@@ -25,4 +25,4 @@ The grammar for an editor is picked from the file name and contents. Users can o
 
 ## Symbols and more
 
-A grammar also powers other features: the bundled `symbol-provider-tree-sitter` derives symbols from a Tree-sitter tree, and scoped settings and snippets key off the grammar's `scopeName`.
+A grammar also powers other features: the bundled `symbol-tree-sitter` derives symbols from a Tree-sitter tree, and scoped settings and snippets key off the grammar's `scopeName`.
