@@ -14,7 +14,7 @@ All of your personal customization lives in one **configuration directory**: `~/
 | `packages/`     | Installed community packages, one directory per package.                      |
 | `packages-dev/` | Packages loaded only in development mode.                                     |
 
-These are the default formats. Lumine still reads the legacy `config.cson`, `keymap.cson`, `snippets.cson`, and `styles.less` files if you already have them, but new files are created in the JSON/CSS formats above.
+These are the only formats Lumine reads. A `config.cson`, `keymap.cson`, `snippets.cson`, `styles.less` or `init.coffee` left over from Atom or Pulsar is ignored; rename it to the matching file above and convert its contents.
 
 Each of the personal files has an "open your…" command (`application:open-your-config`, `application:open-your-keymap`, `application:open-your-snippets`, `application:open-your-stylesheet`, `application:open-your-init-script`), which creates the file if it does not exist yet.
 

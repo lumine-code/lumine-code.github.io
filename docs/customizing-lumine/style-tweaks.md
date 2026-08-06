@@ -4,7 +4,7 @@ Because Lumine's interface is HTML and CSS, you can restyle any part of it yours
 
 ## Your stylesheet
 
-Personal styles live in **`styles.css`**, opened with `application:open-your-stylesheet`. It is plain CSS, and its rules are applied on top of your active theme. A legacy `styles.less` ([Less](https://lesscss.org/)) file is still read if you already have one, but new stylesheets are created as CSS.
+Personal styles live in **`styles.css`**, opened with `application:open-your-stylesheet`. It is plain CSS, and its rules are applied on top of your active theme.
 
 ```css
 /* Make the tree view text a little larger. */

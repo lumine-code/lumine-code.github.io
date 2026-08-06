@@ -23,7 +23,7 @@ Each customization is a single file, so you can reset just one:
 - Empty or delete `config.json` to restore default settings.
 - Empty `keymap.json`, `snippets.json`, or `styles.css` to drop your keybindings, snippets, or style tweaks.
 
-Use the `application:open-your-*` commands to open each one. If you upgraded from an older setup you may instead have legacy `config.cson`, `keymap.cson`, `snippets.cson`, or `styles.less` files — reset those the same way.
+Use the `application:open-your-*` commands to open each one.
 
 ## Reset everything
 
