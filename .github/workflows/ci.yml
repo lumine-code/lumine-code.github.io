@@ -40,3 +40,27 @@ jobs:
       # has left a reference link pointing at the wrong code.
       - run: npm run docs:api:check
         working-directory: lumine-code.github.io
+
+  logo:
+    name: Logo matches the editor
+    runs-on: ubuntu-latest
+    steps:
+      # Same sibling layout as above, but the check reads two files and needs no
+      # dependencies, so this skips the install entirely rather than sharing the
+      # job and waiting on one.
+      - uses: actions/checkout@v7
+        with:
+          path: lumine-code.github.io
+      - uses: actions/checkout@v7
+        with:
+          repository: lumine-code/lumine
+          path: lumine
+          fetch-depth: 1
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      # assets/ holds copies of the editor's app icon, and a copy is exactly the
+      # thing that goes quietly stale: the previous one was a separate export of
+      # the same drawing whose curves had already diverged from it.
+      - run: npm run assets:check
+        working-directory: lumine-code.github.io

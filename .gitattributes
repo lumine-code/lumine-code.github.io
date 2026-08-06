@@ -1,0 +1,4 @@
+# assets/*.svg is a byte copy of the editor's master vector, checked by
+# script/check-assets.js. core.autocrlf would hand a Windows clone CRLF and the
+# check would fail there and nowhere else, so pin it to the LF the master uses.
+assets/*.svg text eol=lf
