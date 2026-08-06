@@ -20,6 +20,8 @@ Install them from the Install pane in **Settings**, or with `lumine --install lu
 
 The `hover` package shows what the server knows about the symbol under the pointer or the cursor: its type, its signature, its documentation, rendered as markdown with syntax-highlighted code blocks. `hover:toggle` shows the tooltip at the cursor without touching the mouse.
 
+Everything with something to say about the position is shown at once, most important first: a linter message sits above the documentation rather than replacing it, and a message on a gutter dot covers the whole line.
+
 While you are typing arguments, signature help shows the active overload with the current parameter highlighted. It appears when you type a trigger character the server nominates — usually `(` and `,` — and follows along as you move between arguments. `hover:toggle-signature-help` brings it back after it has been dismissed, and Escape (or `hover:dismiss`) closes either overlay.
 
 Hover on mouse rest is on by default; hover on cursor rest is not. Both are settings of the package, along with how long the pointer has to rest before a tooltip is asked for and how long it has to be away from the symbol before that tooltip goes — a tooltip retires on its own once you have moved off it, without waiting for the pointer to stop somewhere else.
