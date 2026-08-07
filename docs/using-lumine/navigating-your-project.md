@@ -25,3 +25,13 @@ The bundled **`hyperclick`** package makes the same jump with the pointer: hold 
 ## Other navigators
 
 The `recent-list` package switches between recently opened paths, and `project-list` does the same for projects you have saved. Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/recent-list` and `lumine --install lumine-code/project-list`. Recently opened projects are also always available from **File > Reopen Project**, which is part of the editor itself. Combined with the [Command Palette](basics.md#the-command-palette), these give you fast, mouse-free navigation across everything you have open.
+
+## Switching projects in place
+
+Both lists offer **Open in This Window** alongside **Open in a New Window**, and the tree view offers it on any entry's context menu. It changes which project the window has open without starting a second one, so packages, themes, and grammars stay loaded and the change is close to instant.
+
+The editors you have open are saved with the project you are leaving — unsaved changes included — and the ones the incoming project was last left with are restored, so returning to a project finds it as you left it. Only the editor area changes: a tree view, a terminal, or any other panel in a dock keeps running, because docks belong to the window rather than to the project it happens to have open.
+
+Two things it cannot do. A project configured for dev or safe mode still opens a window of its own, since neither can change while a window is running. And a project already open in another window shares one saved session with that window, so the last one to save wins — keep a project to one window if you care which editors come back.
+
+Packages reach the same behavior through `atom.project.setState(projectPaths)`, documented in the [Lumine API reference](https://lumine-code.github.io/api/).
