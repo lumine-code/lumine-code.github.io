@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-06T15:29:22.306Z",
+  "generatedAt": "2026-08-07T03:20:43.283Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -1040,11 +1040,11 @@
     {
       "name": "Config",
       "visibility": "Essential",
-      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `atom.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\natom.config.get('my-package.myKey') // -> 'defaultValue'\n\natom.config.set('my-package.myKey', 'value')\natom.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {::observe} to catch changes to the setting.\n\n```js\natom.config.set('my-package.myKey', 'value')\natom.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {::onDidChange}.\n\n```js\natom.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\natom.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\natom.config.set('my-package.anInt', '123')\natom.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\natom.config.set('my-package.anInt', '-20')\natom.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\natom.config.set('my-package.thingVolume', '10')\natom.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\natom.config.set('my-package.thingVolume', '400')\natom.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\natom.config.set('my-package.thingVolume', 'cats')\natom.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\natom.config.set('my-package.someSetting', 'true')\natom.config.get('my-package.someSetting') // -> true\n\natom.config.set('my-package.someSetting', '12')\natom.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\natom.config.set('my-package.someSetting', '2')\natom.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\natom.config.set('my-package.someSetting', '3')\natom.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\natom.config.set('my-package.someSetting', '4')\natom.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = atom.config.get('some-package.otherSetting')\natom.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
+      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `atom.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\natom.config.get('my-package.myKey') // -> 'defaultValue'\n\natom.config.set('my-package.myKey', 'value')\natom.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {::observe} to catch changes to the setting.\n\n```js\natom.config.set('my-package.myKey', 'value')\natom.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {::onDidChange}.\n\n```js\natom.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\natom.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\natom.config.set('my-package.anInt', '123')\natom.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\natom.config.set('my-package.anInt', '-20')\natom.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\natom.config.set('my-package.thingVolume', '10')\natom.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\natom.config.set('my-package.thingVolume', '400')\natom.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\natom.config.set('my-package.thingVolume', 'cats')\natom.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\natom.config.set('my-package.someSetting', 'true')\natom.config.get('my-package.someSetting') // -> true\n\natom.config.set('my-package.someSetting', '12')\natom.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\natom.config.set('my-package.someSetting', '2')\natom.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\natom.config.set('my-package.someSetting', '3')\natom.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\natom.config.set('my-package.someSetting', '4')\natom.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = atom.config.get('some-package.otherSetting')\natom.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
       "source": "src/config.js",
       "sourcePath": "src/config.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 420,
+      "line": 426,
       "members": [
         {
           "name": "observe",
@@ -1055,7 +1055,7 @@
           "category": "Config Subscription",
           "visibility": "Essential",
           "description": "Add a listener for changes to a given key path. This is different\nthan {::onDidChange} in that it will immediately call your callback with the\ncurrent value of the config entry.\n\n### Examples\n\nYou might want to be notified when the theme mode changes. We'll watch\n`theme.mode` for changes\n\n```js\natom.config.observe('theme.mode', (value) => {\n  // do stuff with value\n})\n```\n\n* `keyPath` {String} name of the key to observe\n* `options` (optional) {Object}\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples.\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n* `callback` {Function} to call when the value of the key changes.\n  * `value` the new value of the key\n\nReturns a {Disposable} with the following keys on which you can call\n`.dispose()` to unsubscribe.",
-          "line": 529
+          "line": 535
         },
         {
           "name": "onDidChange",
@@ -1066,7 +1066,7 @@
           "category": "Config Subscription",
           "visibility": "Essential",
           "description": "Add a listener for changes to a given key path. If `keyPath` is\nnot specified, your callback will be called on changes to any key.\n\n* `keyPath` (optional) {String} name of the key to observe. Must be\n  specified if `scopeDescriptor` is specified.\n* `options` (optional) {Object}\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples.\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n* `callback` {Function} to call when the value of the key changes.\n  * `event` {Object}\n    * `newValue` the new value of the key\n    * `oldValue` the prior value of the key.\n\nReturns a {Disposable} with the following keys on which you can call\n`.dispose()` to unsubscribe.",
-          "line": 568
+          "line": 574
         },
         {
           "name": "get",
@@ -1077,7 +1077,7 @@
           "category": "Managing Settings",
           "visibility": "Essential",
           "description": "Retrieves the setting for the given key.\n\n### Examples\n\nYou might want to know what theme mode is enabled, so check `theme.mode`\n\n```js\natom.config.get('theme.mode')\n```\n\nWith scope descriptors you can get settings within a specific editor\nscope. For example, you might want to know `language.tabLength` for ruby\nfiles.\n\n```js\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\n```\n\nThis setting in ruby files might be different than the global tabLength setting\n\n```js\natom.config.get('language.tabLength') // => 4\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\n```\n\nYou can get the language scope descriptor via\n{TextEditor::getRootScopeDescriptor}. This will get the setting specifically\nfor the editor's language.\n\n```js\natom.config.get('language.tabLength', { scope: editor.getRootScopeDescriptor() }) // => 2\n```\n\nAdditionally, you can get the setting at the specific cursor position.\n\n```js\nconst scopeDescriptor = editor.getLastCursor().getScopeDescriptor()\natom.config.get('language.tabLength', { scope: scopeDescriptor }) // => 2\n```\n\n* `keyPath` The {String} name of the key to retrieve.\n* `options` (optional) {Object}\n  * `sources` (optional) {Array} of {String} source names. If provided, only\n    values that were associated with these sources during {::set} will be used.\n  * `excludeSources` (optional) {Array} of {String} source names. If provided,\n    values that were associated with these sources during {::set} will not\n    be used.\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n\nReturns the value from Lumine's default settings, the user's configuration\nfile in the type specified by the configuration schema.",
-          "line": 646
+          "line": 652
         },
         {
           "name": "getAll",
@@ -1088,7 +1088,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Get all of the values for the given key-path, along with their\nassociated scope selector.\n\n* `keyPath` The {String} name of the key to retrieve\n* `options` (optional) {Object} see the `options` argument to {::get}\n\nReturns an {Array} of {Object}s with the following keys:\n * `scopeDescriptor` The {ScopeDescriptor} with which the value is associated\n * `value` The value for the key-path",
-          "line": 674
+          "line": 680
         },
         {
           "name": "set",
@@ -1099,7 +1099,7 @@
           "category": "Managing Settings",
           "visibility": "Essential",
           "description": "Sets the value for a configuration setting.\n\nThis value is stored in Lumine's internal configuration file.\n\n### Examples\n\nYou might want to change the themes programmatically:\n\n```js\natom.config.set('theme.dark', ['one-night-ui', 'one-night-syntax'])\n```\n\nYou can also set scoped settings. For example, you might want change the\n`language.tabLength` only for ruby files.\n\n```js\natom.config.get('language.tabLength') // => 4\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 4\natom.config.get('language.tabLength', { scope: ['source.js'] }) // => 4\n\n// Set ruby to 2\natom.config.set('language.tabLength', 2, { scopeSelector: '.source.ruby' }) // => true\n\n// Notice it's only set to 2 in the case of ruby\natom.config.get('language.tabLength') // => 4\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\natom.config.get('language.tabLength', { scope: ['source.js'] }) // => 4\n```\n\n* `keyPath` The {String} name of the key.\n* `value` The value of the setting. Passing `undefined` will revert the\n  setting to the default value.\n* `options` (optional) {Object}\n  * `scopeSelector` (optional) {String}. eg. '.source.ruby'\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n  * `source` (optional) {String} The name of a file with which the setting\n    is associated. Defaults to the user's config file.\n\nReturns a {Boolean}\n* `true` if the value was set.\n* `false` if the value was not able to be coerced to the type specified in the setting's schema.",
-          "line": 750
+          "line": 756
         },
         {
           "name": "unset",
@@ -1110,7 +1110,7 @@
           "category": "Managing Settings",
           "visibility": "Essential",
           "description": "Restore the setting at `keyPath` to its default value.\n\n* `keyPath` The {String} name of the key.\n* `options` (optional) {Object}\n  * `scopeSelector` (optional) {String}. See {::set}\n  * `source` (optional) {String}. See {::set}",
-          "line": 795
+          "line": 801
         },
         {
           "name": "getSources",
@@ -1121,7 +1121,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Get an {Array} of all of the `source` {String}s with which\nsettings have been added via {::set}.",
-          "line": 844
+          "line": 850
         },
         {
           "name": "getSchema",
@@ -1132,7 +1132,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Retrieve the schema for a specific key path. The schema will tell\nyou what type the keyPath expects, and other metadata about the config\noption.\n\n* `keyPath` The {String} name of the key.\n\nReturns an {Object} eg. `{type: 'integer', default: 23, minimum: 1}`.\nReturns `null` when the keyPath has no schema specified, but is accessible\nfrom the root schema.",
-          "line": 857
+          "line": 863
         },
         {
           "name": "transact",
@@ -1143,7 +1143,7 @@
           "category": "Managing Settings",
           "visibility": "Extended",
           "description": "Suppress calls to handler functions registered with {::onDidChange}\nand {::observe} for the duration of `callback`. After `callback` executes,\nhandlers will be called once if the value for their key-path has changed.\n\n* `callback` {Function} to execute while suppressing calls to handlers.",
-          "line": 890
+          "line": 896
         }
       ]
     },
@@ -3530,7 +3530,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously and add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when loaded with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.",
-          "line": 650
+          "line": 652
         },
         {
           "name": "loadGrammarSync",
@@ -3541,7 +3541,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously and add it to this registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
-          "line": 663
+          "line": 665
         },
         {
           "name": "readGrammar",
@@ -3552,7 +3552,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar asynchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n* `callback` A {Function} to call when read with the following arguments:\n  * `error` An {Error}, may be null.\n  * `grammar` A {Grammar} or null if an error occurred.\n\nReturns undefined.",
-          "line": 677
+          "line": 679
         },
         {
           "name": "readGrammarSync",
@@ -3563,7 +3563,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Read a grammar synchronously but don't add it to the registry.\n\n* `grammarPath` A {String} absolute file path to a grammar file.\n\nReturns a {Grammar}.",
-          "line": 694
+          "line": 696
         },
         {
           "name": "getGrammars",
@@ -3574,7 +3574,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Get all the grammars in this registry.\n\n* `params` (optional) {Object}\n  * `includeTreeSitter` (optional) {Boolean} Set to include\n    [Tree-sitter](https://github.blog/2018-10-31-atoms-new-parsing-system/) grammars\n\nReturns a non-empty {Array} of {Grammar} instances.",
-          "line": 716
+          "line": 718
         }
       ]
     },
@@ -4454,7 +4454,7 @@
       "source": "src/package.js",
       "sourcePath": "src/package.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 15,
+      "line": 29,
       "members": [
         {
           "name": "onDidDeactivate",
@@ -4465,7 +4465,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when all packages have been activated.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 55
+          "line": 69
         },
         {
           "name": "isCompatible",
@@ -4476,7 +4476,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1059
+          "line": 1087
         },
         {
           "name": "rebuild",
@@ -4487,7 +4487,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1077
+          "line": 1105
         },
         {
           "name": "getBuildFailureOutput",
@@ -4498,7 +4498,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1094
+          "line": 1123
         }
       ]
     },
@@ -11548,8 +11548,8 @@
           "signature": "::scrollToCursorPosition(options)",
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
-          "description": "Scroll the editor to reveal the most recently added cursor if it is\noff-screen.\n\n* `options` (optional) {Object}\n  * `center` Center the editor around the cursor if possible. (default: true)",
-          "line": 4892
+          "description": "Scroll the editor to reveal the most recently added cursor if it is\noff-screen.\n\n* `options` (optional) {Object}\n  * `center` Center the editor around the cursor if possible. (default: true\n    when an options object is given at all, false otherwise — the bare call\n    is the one the editor's own movement commands make, and they scroll only\n    as far as they must)\n  * `zone` Land the cursor inside a band of the viewport, instead of\n    centering it. See {::scrollToScreenRange}.",
+          "line": 4897
         },
         {
           "name": "scrollToBufferPosition",
@@ -11559,8 +11559,8 @@
           "signature": "::scrollToBufferPosition(bufferPosition, options)",
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
-          "description": "Scrolls the editor to the given buffer position.\n\n* `bufferPosition` An object that represents a buffer position. It can be either\n  an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)",
-          "line": 4904
+          "description": "Scrolls the editor to the given buffer position.\n\n* `bufferPosition` An object that represents a buffer position. It can be either\n  an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)\n  * `zone` Land the position inside a band of the viewport. See\n    {::scrollToScreenRange}.",
+          "line": 4913
         },
         {
           "name": "scrollToScreenPosition",
@@ -11570,8 +11570,19 @@
           "signature": "::scrollToScreenPosition(screenPosition, options)",
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
-          "description": "Scrolls the editor to the given screen position.\n\n* `screenPosition` An object that represents a screen position. It can be either\n   an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)",
-          "line": 4917
+          "description": "Scrolls the editor to the given screen position.\n\n* `screenPosition` An object that represents a screen position. It can be either\n   an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)\n  * `zone` Land the position inside a band of the viewport. See\n    {::scrollToScreenRange}.",
+          "line": 4928
+        },
+        {
+          "name": "scrollToScreenRange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::scrollToScreenRange(screenRange, options = {})",
+          "category": "Scrolling the TextEditor",
+          "visibility": "Extended",
+          "description": "Scrolls the editor to the given screen range.\n\n* `screenRange` A {Range} or range-compatible {Array}.\n* `options` (optional) {Object}\n  * `center` Center the editor around the range if possible. (default: false)\n  * `zone` Where in the viewport the range should come to rest, as a\n    percentage of the travel it has between the vertical scroll margins: `0`\n    rests it against the top margin and `100` against the bottom one. A\n    {Number} pins the range to that one spot. An {Array} of two numbers\n    names where it lands after leaving the band through the top and after\n    leaving it through the bottom, and so describes the band itself —\n    nothing scrolls while the range is already inside. Ordered\n    (`[0, 50]`) that is the edge it just crossed, the smallest scroll that\n    brings it back; inverted (`[50, 0]`) it is the opposite edge, throwing\n    the range across the viewport to leave the most room ahead of it.\n    `[0, 100]` is the default behaviour and `50` is `center`.\n  * `reversed` Scroll to the start of the range before its end when both\n    are off-screen. (default: true)\n  * `clip` Clip the range to the editor's contents first. (default: true)",
+          "line": 4951
         },
         {
           "name": "shouldAutoIndent",
@@ -11582,7 +11593,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Is auto-indentation enabled for this editor?\n\nReturns a {Boolean}.",
-          "line": 4962
+          "line": 4993
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -11593,7 +11604,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Is auto-indentation on paste enabled for this editor?\n\nReturns a {Boolean}.",
-          "line": 4969
+          "line": 5000
         },
         {
           "name": "getScrollPastEnd",
@@ -11604,7 +11615,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Does this editor allow scrolling past the last line?\n\nReturns a {Boolean}.",
-          "line": 4976
+          "line": 5007
         },
         {
           "name": "getScrollSensitivity",
@@ -11615,7 +11626,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How fast does the editor scroll in response to mouse wheel\nmovements?\n\nReturns a positive {Number}.",
-          "line": 4988
+          "line": 5019
         },
         {
           "name": "getSmoothScrolling",
@@ -11626,7 +11637,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Are mouse wheel and scroll command movements animated?\n\nReturns a {Boolean}.",
-          "line": 4995
+          "line": 5026
         },
         {
           "name": "getWheelSmoothness",
@@ -11637,7 +11648,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How gradually does the editor glide toward the target\nposition when scrolling with the mouse wheel?\n\nReturns a positive {Number}.",
-          "line": 5004
+          "line": 5035
         },
         {
           "name": "getCommandSmoothness",
@@ -11648,7 +11659,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How gradually does the editor glide when scrolling via the\nscroll commands?\n\nReturns a positive {Number}.",
-          "line": 5013
+          "line": 5044
         },
         {
           "name": "getAltWheelMultiplier",
@@ -11659,7 +11670,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Speed multiplier applied to wheel scrolling while holding\n`alt`.\n\nReturns a positive {Number}.",
-          "line": 5022
+          "line": 5053
         },
         {
           "name": "getScrollCommandDistance",
@@ -11670,7 +11681,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Distance scrolled by the scroll commands, as a fraction of\nthe editor height. Seeded from config; the increase/decrease scroll\ndistance commands adjust it per editor.\n\nReturns a positive {Number}.",
-          "line": 5031
+          "line": 5062
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -11681,7 +11692,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How long (in milliseconds) to wait for the editor width to\nsettle before re-wrapping soft-wrapped lines. `0` re-wraps immediately.\n\nReturns a non-negative {Number}.",
-          "line": 5039
+          "line": 5070
         },
         {
           "name": "doesShowLineNumbers",
@@ -11692,7 +11703,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Are line numbers enabled for this editor?\n\nReturns a {Boolean}",
-          "line": 5046
+          "line": 5077
         },
         {
           "name": "getUndoGroupingInterval",
@@ -11703,7 +11714,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Get the time interval within which text editing operations\nare grouped together in the editor's undo history.\n\nReturns the time interval {Number} in milliseconds.",
-          "line": 5054
+          "line": 5085
         },
         {
           "name": "getNonWordCharacters",
@@ -11714,7 +11725,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Get the characters that are *not* considered part of words,\nfor the purpose of word-based cursor movements.\n\nReturns a {String} containing the non-word characters.",
-          "line": 5062
+          "line": 5093
         },
         {
           "name": "getPlaceholderText",
@@ -11725,7 +11736,7 @@
           "category": "TextEditor Rendering",
           "visibility": "Essential",
           "description": "Retrieves the greyed out placeholder of a mini editor.\n\nReturns a {String}.",
-          "line": 5122
+          "line": 5153
         },
         {
           "name": "setPlaceholderText",
@@ -11736,7 +11747,7 @@
           "category": "TextEditor Rendering",
           "visibility": "Essential",
           "description": "Set the greyed out placeholder of a mini editor. Placeholder text\nwill be displayed when the editor has no content.\n\n* `placeholderText` {String} text that is displayed when the editor has no content.",
-          "line": 5130
+          "line": 5161
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -11747,7 +11758,7 @@
           "category": "Language Mode Delegated Methods",
           "visibility": "Public",
           "description": "Return information about the appropriate comment delimiters to use\nat a given point in the buffer.\n\nLumine allows language bundles to define comment delimiters in several\nplaces. For instance, a grammar author can place delimiter metadata in the\ngrammar definition file, or as scope-specific settings in the ordinary\nconfig system — or a combination of the two.\n\nIn some languages, comment delimiters vary based on position in the\nbuffer. (For instance, line comments can't always be used in JavaScript\nJSX blocks, so block comments are much safer.) This method will look for\nany such overrides and return what it thinks are the best delimiters to\nuse at a given point.\n\nSome languages don't specify all their delimiters in their configuration,\nbut this method will return all the information that it can discern.\n\n* point - A {Point} or point-compatible {Array}.\n\nReturns an {Object} with the following properties:\n\n* `line`: If present, a {String} representing a line comment delimiter.\n  (If `undefined`, there is no known line comment delimiter for the given\n  buffer position.)\n* `block`: If present, a two-item {Array} containing {String}s\n  representing the starting and ending block comment delimiters. (If\n  `undefined`, there are no known block comment delimiters for the given\n  buffer position.)",
-          "line": 5598
+          "line": 5629
         }
       ]
     },
@@ -13384,11 +13395,11 @@
       "name": "applySyntaxHighlighting",
       "signature": "applySyntaxHighlighting(content, givenOpts = {})",
       "visibility": "Public",
-      "description": "Uses Lumine's built-in Syntax Highlighting system to apply the same syntax\nhighlighting to code blocks within markdown. Modifies the existing object passed.\n\n* `content` {HTMLFragment} The HTML Node/Fragment to apply syntax highlighting on. Will modify the original object.\n* `givenOpts` {object} Optional Arguments:\n* `givenOpts.syntaxScopeNameFunc` {function} A function that can be called with any given language ID from a code block scope, and returns the grammar source id that should be used to perform syntax highlighting.\n* `givenOpts.renderMode` {string} Whether we are rendering a document fragment or a full document. Valid values: \"full\", \"fragment\".\n* `givenOpts.grammar` {object} The grammar of the source file. Carryover from original `markdown-preview` functionality.",
+      "description": "Uses Lumine's built-in Syntax Highlighting system to apply the same syntax\nhighlighting to code blocks within markdown. Modifies the existing object passed.\n\n* `content` {HTMLFragment} The HTML Node/Fragment to apply syntax highlighting on. Will modify the original object.\n* `givenOpts` {object} Optional Arguments:\n* `givenOpts.syntaxScopeNameFunc` {function} A function that can be called with any given language ID from a code block scope, and returns the grammar source id that should be used to perform syntax highlighting.\n* `givenOpts.renderMode` {string} Whether we are rendering a document fragment or a full document. Valid values: \"full\", \"fragment\".\n* `givenOpts.grammar` {object} The grammar of the source file. Carryover from original `markdown-preview` functionality.\n* `givenOpts.autoWidth` {boolean} Whether the editors standing in for code blocks size themselves to their longest line (\"fragment\" mode only). A code block otherwise takes the width its container gives it, which is nothing at all when the container is sized by its content — a tooltip, a popover. Pass true there.",
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 497
+      "line": 501
     },
     {
       "name": "convertToDOM",
@@ -13398,7 +13409,7 @@
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 575
+      "line": 581
     },
     {
       "name": "matcherForSelector",
@@ -13461,5 +13472,5 @@
       "line": 1033
     }
   ],
-  "memberCount": 1171
+  "memberCount": 1172
 }
