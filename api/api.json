@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-07T13:43:42.499Z",
+  "generatedAt": "2026-08-07T21:49:42.545Z",
   "classes": [
     {
       "name": "AtomEnvironment",
@@ -1902,7 +1902,7 @@
       "source": "src/default-directory-provider.js",
       "sourcePath": "src/default-directory-provider.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 18,
+      "line": 32,
       "members": [
         {
           "name": "directoryForURISync",
@@ -1913,7 +1913,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `atom.project`.\n\nReturns:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
-          "line": 27
+          "line": 41
         },
         {
           "name": "directoryForURI",
@@ -1924,7 +1924,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `atom.project`.\n\nReturns a {Promise} that resolves to:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
-          "line": 59
+          "line": 91
         },
         {
           "name": "normalizePath",
@@ -1935,7 +1935,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Normalizes path.\n\n* `uri` {String} The path that should be normalized.\n\nReturns a {String} with normalized path.",
-          "line": 68
+          "line": 100
         }
       ]
     },
@@ -4256,7 +4256,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Adds the given items to the application menu.\n\n## Examples\n```javascript\n  atom.menu.add([\n    {\n      label: 'Hello'\n      submenu : [{label: 'World!', id: 'World!', command: 'hello:world'}]\n    }\n  ]);\n```\n\n* `items` An {Array} of menu item {Object}s containing the keys:\n  * `label` The {String} menu label.\n  * `submenu` An optional {Array} of sub menu items.\n  * `command` An optional {String} command to trigger when the item is\n    clicked.\n\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
-          "line": 107
+          "line": 115
         },
         {
           "name": "update",
@@ -4267,7 +4267,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Refreshes the currently visible menu.",
-          "line": 178
+          "line": 186
         }
       ]
     },
@@ -4476,7 +4476,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1087
+          "line": 1092
         },
         {
           "name": "rebuild",
@@ -4487,7 +4487,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1105
+          "line": 1110
         },
         {
           "name": "getBuildFailureOutput",
@@ -4498,7 +4498,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1123
+          "line": 1128
         }
       ]
     },
@@ -9327,7 +9327,7 @@
           "category": "File Details",
           "visibility": "Essential",
           "description": "Returns the {String} path of this editor's text buffer.",
-          "line": 1434
+          "line": 1489
         },
         {
           "name": "getEncoding",
@@ -9338,7 +9338,7 @@
           "category": "File Details",
           "visibility": "Extended",
           "description": "Returns the {String} character set encoding of this editor's text\nbuffer.",
-          "line": 1450
+          "line": 1505
         },
         {
           "name": "setEncoding",
@@ -9349,7 +9349,7 @@
           "category": "File Details",
           "visibility": "Extended",
           "description": "Set the character set encoding to use in this editor's text\nbuffer.\n\n* `encoding` The {String} character set encoding name such as 'utf8'",
-          "line": 1458
+          "line": 1513
         },
         {
           "name": "isModified",
@@ -9360,7 +9360,7 @@
           "category": "File Details",
           "visibility": "Essential",
           "description": "Returns {Boolean} `true` if this editor has been modified.",
-          "line": 1463
+          "line": 1518
         },
         {
           "name": "isDeleted",
@@ -9371,7 +9371,7 @@
           "category": "File Details",
           "visibility": "Essential",
           "description": "Returns {Boolean} `true` if this editor's buffer previously had a\nfile on disk that has since been deleted (and has not been recreated or\nsaved since). The buffer may still be unmodified — see {::isModified}.",
-          "line": 1470
+          "line": 1525
         },
         {
           "name": "isInConflict",
@@ -9382,7 +9382,7 @@
           "category": "File Details",
           "visibility": "Essential",
           "description": "Returns {Boolean} `true` if this editor's buffer is in conflict\n— that is, if the buffer is modified and those changes are based on buffer\ncontents that do not match what is currently written to disk.\n\nThis can happen if another process writes to a file after you start to\nedit it in Lumine, but before you're able to save those changes. It can\nalso happen if you switch branches in version control while a certain\nbuffer has uncommitted changes.",
-          "line": 1482
+          "line": 1537
         },
         {
           "name": "isEmpty",
@@ -9393,7 +9393,7 @@
           "category": "File Details",
           "visibility": "Essential",
           "description": "Returns {Boolean} `true` if this editor has no content.",
-          "line": 1487
+          "line": 1542
         },
         {
           "name": "save",
@@ -9404,7 +9404,7 @@
           "category": "File Operations",
           "visibility": "Essential",
           "description": "Saves the editor's text buffer.\n\nSee {TextBuffer::save} for more details.",
-          "line": 1498
+          "line": 1553
         },
         {
           "name": "saveAs",
@@ -9415,7 +9415,7 @@
           "category": "File Operations",
           "visibility": "Essential",
           "description": "Saves the editor's text buffer as the given path.\n\nSee {TextBuffer::saveAs} for more details.\n\n* `filePath` A {String} path.",
-          "line": 1507
+          "line": 1562
         },
         {
           "name": "getText",
@@ -9426,7 +9426,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {String} representing the entire contents of the editor.",
-          "line": 1541
+          "line": 1596
         },
         {
           "name": "getTextInBufferRange",
@@ -9437,7 +9437,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Get the text in the given {Range} in buffer coordinates.\n\n* `range` A {Range} or range-compatible {Array}.\n\nReturns a {String}.",
-          "line": 1550
+          "line": 1605
         },
         {
           "name": "getLineCount",
@@ -9448,7 +9448,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {Number} representing the number of lines in the buffer.",
-          "line": 1555
+          "line": 1610
         },
         {
           "name": "getScreenLineCount",
@@ -9459,7 +9459,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {Number} representing the number of screen lines in the\neditor. This accounts for folds.",
-          "line": 1561
+          "line": 1616
         },
         {
           "name": "getLastBufferRow",
@@ -9470,7 +9470,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {Number} representing the last zero-indexed buffer row\nnumber of the editor.",
-          "line": 1571
+          "line": 1626
         },
         {
           "name": "getLastScreenRow",
@@ -9481,7 +9481,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {Number} representing the last zero-indexed screen row\nnumber of the editor.",
-          "line": 1577
+          "line": 1632
         },
         {
           "name": "lineTextForBufferRow",
@@ -9492,7 +9492,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {String} representing the contents of the line at the\ngiven buffer row.\n\n* `bufferRow` A {Number} representing a zero-indexed buffer row.",
-          "line": 1585
+          "line": 1640
         },
         {
           "name": "lineTextForScreenRow",
@@ -9503,7 +9503,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Returns a {String} representing the contents of the line at the\ngiven screen row.\n\n* `screenRow` A {Number} representing a zero-indexed screen row.",
-          "line": 1593
+          "line": 1648
         },
         {
           "name": "getCurrentParagraphBufferRange",
@@ -9514,7 +9514,7 @@
           "category": "Reading Text",
           "visibility": "Essential",
           "description": "Get the {Range} of the paragraph surrounding the most recently added\ncursor.\n\nReturns a {Range}.",
-          "line": 1709
+          "line": 1764
         },
         {
           "name": "setText",
@@ -9525,7 +9525,7 @@
           "category": "Mutating Text",
           "visibility": "Essential",
           "description": "Replaces the entire contents of the buffer with the given {String}.\n\n* `text` A {String} to replace with\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 1722
+          "line": 1777
         },
         {
           "name": "setTextInBufferRange",
@@ -9536,7 +9536,7 @@
           "category": "Mutating Text",
           "visibility": "Essential",
           "description": "Set the text in the given {Range} in buffer coordinates.\n\n* `range` A {Range} or range-compatible {Array}.\n* `text` A {String}\n* `options` (optional) {Object}\n  * `normalizeLineEndings` (optional) {Boolean} (default: true)\n  * `undo` (optional) *Deprecated* {String} 'skip' will skip the undo system. This property is deprecated. Call groupLastChanges() on the {TextBuffer} afterward instead.\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)\n\nReturns the {Range} of the newly-inserted text.",
-          "line": 1737
+          "line": 1792
         },
         {
           "name": "insertText",
@@ -9547,7 +9547,7 @@
           "category": "Mutating Text",
           "visibility": "Essential",
           "description": "For each selection, replace the selected text with the given text.\n\n* `text` A {String} representing the text to insert.\n* `options` (optional) See {Selection::insertText}.\n\nReturns a {Range} when the text has been inserted. Returns a {Boolean} `false` when the text\nhas not been inserted.",
-          "line": 1749
+          "line": 1804
         },
         {
           "name": "insertNewline",
@@ -9558,7 +9558,7 @@
           "category": "Mutating Text",
           "visibility": "Essential",
           "description": "For each selection, replace the selected text with a newline.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 1781
+          "line": 1836
         },
         {
           "name": "delete",
@@ -9569,7 +9569,7 @@
           "category": "Mutating Text",
           "visibility": "Essential",
           "description": "For each selection, if the selection is empty, delete the character\nfollowing the cursor. Otherwise delete the selected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 1790
+          "line": 1845
         },
         {
           "name": "backspace",
@@ -9580,7 +9580,7 @@
           "category": "Mutating Text",
           "visibility": "Essential",
           "description": "For each selection, if the selection is empty, delete the character\npreceding the cursor. Otherwise delete the selected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 1800
+          "line": 1855
         },
         {
           "name": "mutateSelectedText",
@@ -9591,7 +9591,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Mutate the text of all the selections in a single transaction.\n\nAll the changes made inside the given {Function} can be reverted with a\nsingle call to {::undo}.\n\n* `fn` A {Function} that will be called once for each {Selection}. The first\n     argument will be a {Selection} and the second argument will be the\n     {Number} index of that selection.",
-          "line": 1813
+          "line": 1868
         },
         {
           "name": "transpose",
@@ -9602,7 +9602,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, transpose the selected text.\n\nIf the selection is empty, the characters preceding and following the cursor\nare swapped. Otherwise, the selected characters are reversed.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2174
+          "line": 2229
         },
         {
           "name": "upperCase",
@@ -9613,7 +9613,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Convert the selected text to upper case.\n\nFor each selection, if the selection is empty, converts the containing word\nto upper case. Otherwise convert the selected text to upper case.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2196
+          "line": 2251
         },
         {
           "name": "lowerCase",
@@ -9624,7 +9624,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Convert the selected text to lower case.\n\nFor each selection, if the selection is empty, converts the containing word\nto upper case. Otherwise convert the selected text to upper case.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2208
+          "line": 2263
         },
         {
           "name": "toggleLineCommentsInSelection",
@@ -9635,7 +9635,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Toggle line comments for rows intersecting selections.\n\nIf the current grammar doesn't support comments, does nothing.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2219
+          "line": 2274
         },
         {
           "name": "insertNewlineBelow",
@@ -9646,7 +9646,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each cursor, insert a newline at beginning the following line.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2244
+          "line": 2299
         },
         {
           "name": "insertNewlineAbove",
@@ -9657,7 +9657,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each cursor, insert a newline at the end of the preceding line.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2256
+          "line": 2311
         },
         {
           "name": "deleteToBeginningOfWord",
@@ -9668,7 +9668,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, if the selection is empty, delete all characters\nof the containing word that precede the cursor. Otherwise delete the\nselected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2284
+          "line": 2339
         },
         {
           "name": "deleteToPreviousWordBoundary",
@@ -9679,7 +9679,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Similar to {::deleteToBeginningOfWord}, but deletes only back to the\nprevious word boundary.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2294
+          "line": 2349
         },
         {
           "name": "deleteToNextWordBoundary",
@@ -9690,7 +9690,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Similar to {::deleteToEndOfWord}, but deletes only up to the\nnext word boundary.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2304
+          "line": 2359
         },
         {
           "name": "deleteToBeginningOfSubword",
@@ -9701,7 +9701,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, if the selection is empty, delete all characters\nof the containing subword following the cursor. Otherwise delete the selected\ntext.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2315
+          "line": 2370
         },
         {
           "name": "deleteToEndOfSubword",
@@ -9712,7 +9712,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, if the selection is empty, delete all characters\nof the containing subword following the cursor. Otherwise delete the selected\ntext.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2326
+          "line": 2381
         },
         {
           "name": "deleteToBeginningOfLine",
@@ -9723,7 +9723,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, if the selection is empty, delete all characters\nof the containing line that precede the cursor. Otherwise delete the\nselected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2337
+          "line": 2392
         },
         {
           "name": "deleteToEndOfLine",
@@ -9734,7 +9734,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, if the selection is not empty, deletes the\nselection; otherwise, deletes all characters of the containing line\nfollowing the cursor. If the cursor is already at the end of the line,\ndeletes the following newline.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2349
+          "line": 2404
         },
         {
           "name": "deleteToEndOfWord",
@@ -9745,7 +9745,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "For each selection, if the selection is empty, delete all characters\nof the containing word following the cursor. Otherwise delete the selected\ntext.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2360
+          "line": 2415
         },
         {
           "name": "deleteLine",
@@ -9756,7 +9756,7 @@
           "category": "Mutating Text",
           "visibility": "Extended",
           "description": "Delete all lines intersecting selections.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2369
+          "line": 2424
         },
         {
           "name": "undo",
@@ -9767,7 +9767,7 @@
           "category": "History",
           "visibility": "Essential",
           "description": "Undo the last change.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2402
+          "line": 2457
         },
         {
           "name": "redo",
@@ -9778,7 +9778,7 @@
           "category": "History",
           "visibility": "Essential",
           "description": "Redo the last change.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor. (default: false)",
-          "line": 2414
+          "line": 2469
         },
         {
           "name": "transact",
@@ -9789,7 +9789,7 @@
           "category": "History",
           "visibility": "Extended",
           "description": "Batch multiple operations as a single undo/redo step.\n\nAny group of operations that are logically grouped from the perspective of\nundoing and redoing should be performed in a transaction. If you want to\nabort the transaction, call {::abortTransaction} to terminate the function's\nexecution and revert any changes performed up to the abortion.\n\n* `groupingInterval` (optional) The {Number} of milliseconds for which this\n  transaction should be considered 'groupable' after it begins. If a transaction\n  with a positive `groupingInterval` is committed while the previous transaction is\n  still 'groupable', the two transactions are merged with respect to undo and redo.\n* `fn` A {Function} to call inside the transaction.",
-          "line": 2434
+          "line": 2489
         },
         {
           "name": "abortTransaction",
@@ -9800,7 +9800,7 @@
           "category": "History",
           "visibility": "Extended",
           "description": "Abort an open transaction, undoing any operations performed so far\nwithin the transaction.",
-          "line": 2446
+          "line": 2501
         },
         {
           "name": "createCheckpoint",
@@ -9811,7 +9811,7 @@
           "category": "History",
           "visibility": "Extended",
           "description": "Create a pointer to the current state of the buffer for use\nwith {::revertToCheckpoint} and {::groupChangesSinceCheckpoint}.\n\nReturns a checkpoint value.",
-          "line": 2454
+          "line": 2509
         },
         {
           "name": "revertToCheckpoint",
@@ -9822,7 +9822,7 @@
           "category": "History",
           "visibility": "Extended",
           "description": "Revert the buffer to the state it was in when the given\ncheckpoint was created.\n\nThe redo stack will be empty following this operation, so changes since the\ncheckpoint will be lost. If the given checkpoint is no longer present in the\nundo history, no changes will be made to the buffer and this method will\nreturn `false`.\n\n* `checkpoint` The checkpoint to revert to.\n\nReturns a {Boolean} indicating whether the operation succeeded.",
-          "line": 2471
+          "line": 2526
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -9833,7 +9833,7 @@
           "category": "History",
           "visibility": "Extended",
           "description": "Group all changes since the given checkpoint into a single\ntransaction for purposes of undo/redo.\n\nIf the given checkpoint is no longer present in the undo history, no\ngrouping will be performed and this method will return `false`.\n\n* `checkpoint` The checkpoint from which to group changes.\n\nReturns a {Boolean} indicating whether the operation succeeded.",
-          "line": 2484
+          "line": 2539
         },
         {
           "name": "screenPositionForBufferPosition",
@@ -9844,7 +9844,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Essential",
           "description": "Convert a position in buffer-coordinates to screen-coordinates.\n\nThe position is clipped via {::clipBufferPosition} prior to the conversion.\nThe position is also clipped via {::clipScreenPosition} following the\nconversion, which only makes a difference when `options` are supplied.\n\n* `bufferPosition` A {Point} or {Array} of [row, column].\n* `options` (optional) An options object for {::clipScreenPosition}.\n\nReturns a {Point}.",
-          "line": 2504
+          "line": 2559
         },
         {
           "name": "bufferPositionForScreenPosition",
@@ -9855,7 +9855,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Essential",
           "description": "Convert a position in screen-coordinates to buffer-coordinates.\n\nThe position is clipped via {::clipScreenPosition} prior to the conversion.\n\n* `bufferPosition` A {Point} or {Array} of [row, column].\n* `options` (optional) An options object for {::clipScreenPosition}.\n\nReturns a {Point}.",
-          "line": 2516
+          "line": 2571
         },
         {
           "name": "screenRangeForBufferRange",
@@ -9866,7 +9866,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Essential",
           "description": "Convert a range in buffer-coordinates to screen-coordinates.\n\n* `bufferRange` {Range} in buffer coordinates to translate into screen coordinates.\n\nReturns a {Range}.",
-          "line": 2525
+          "line": 2580
         },
         {
           "name": "bufferRangeForScreenRange",
@@ -9877,7 +9877,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Essential",
           "description": "Convert a range in screen-coordinates to buffer-coordinates.\n\n* `screenRange` {Range} in screen coordinates to translate into buffer coordinates.\n\nReturns a {Range}.",
-          "line": 2537
+          "line": 2592
         },
         {
           "name": "clipBufferPosition",
@@ -9888,7 +9888,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Extended",
           "description": "Clip the given {Point} to a valid position in the buffer.\n\nIf the given {Point} describes a position that is actually reachable by the\ncursor based on the current contents of the buffer, it is returned\nunchanged. If the {Point} does not describe a valid position, the closest\nvalid position is returned instead.\n\n## Examples\n\n```js\neditor.clipBufferPosition([-1, -1]) // -> `[0, 0]`\n\n// When the line at buffer row 2 is 10 characters long\neditor.clipBufferPosition([2, Infinity]) // -> `[2, 10]`\n```\n\n* `bufferPosition` The {Point} representing the position to clip.\n\nReturns a {Point}.",
-          "line": 2563
+          "line": 2618
         },
         {
           "name": "clipBufferRange",
@@ -9899,7 +9899,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Extended",
           "description": "Clip the start and end of the given range to valid positions in the\nbuffer. See {::clipBufferPosition} for more information.\n\n* `range` The {Range} to clip.\n\nReturns a {Range}.",
-          "line": 2573
+          "line": 2628
         },
         {
           "name": "clipScreenPosition",
@@ -9910,7 +9910,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Extended",
           "description": "Clip the given {Point} to a valid position on screen.\n\nIf the given {Point} describes a position that is actually reachable by the\ncursor based on the current contents of the screen, it is returned\nunchanged. If the {Point} does not describe a valid position, the closest\nvalid position is returned instead.\n\n## Examples\n\n```js\neditor.clipScreenPosition([-1, -1]) // -> `[0, 0]`\n\n// When the line at screen row 2 is 10 characters long\neditor.clipScreenPosition([2, Infinity]) // -> `[2, 10]`\n```\n\n* `screenPosition` The {Point} representing the position to clip.\n* `options` (optional) {Object}\n  * `clipDirection` {String} If `'backward'`, returns the first valid\n    position preceding an invalid position. If `'forward'`, returns the\n    first valid position following an invalid position. If `'closest'`,\n    returns the first valid position closest to an invalid position.\n    Defaults to `'closest'`.\n\nReturns a {Point}.",
-          "line": 2602
+          "line": 2657
         },
         {
           "name": "clipScreenRange",
@@ -9921,7 +9921,7 @@
           "category": "TextEditor Coordinates",
           "visibility": "Extended",
           "description": "Clip the start and end of the given range to valid positions on screen.\nSee {::clipScreenPosition} for more information.\n\n* `screenRange` The {Range} to clip.\n* `options` (optional) See {::clipScreenPosition} `options`.\n\nReturns a {Range}.",
-          "line": 2613
+          "line": 2668
         },
         {
           "name": "decorateMarker",
@@ -9932,7 +9932,7 @@
           "category": "Decorations",
           "visibility": "Essential",
           "description": "Add a decoration that tracks a {DisplayMarker}. When the\nmarker moves, is invalidated, or is destroyed, the decoration will be\nupdated to reflect the marker's state.\n\nThe following are the supported decorations types:\n\n* __line__: Adds the given CSS `class` to the lines overlapping the rows\n    spanned by the marker.\n* __line-number__: Adds the given CSS `class` to the line numbers overlapping\n    the rows spanned by the marker\n* __text__: Injects spans into all text overlapping the marked range, then adds\n    the given `class` or `style` to these spans. Use this to manipulate the foreground\n    color or styling of text in a range.\n* __highlight__: Creates an absolutely-positioned `.highlight` div to the editor\n    containing nested divs that cover the marked region. For example, when the user\n    selects text, the selection is implemented with a highlight decoration. The structure\n    of this highlight will be:\n    ```html\n    <div class=\"highlight <your-class>\">\n      <!-- Will be one region for each row in the range. Spans 2 lines? There will be 2 regions. -->\n      <div class=\"region\"></div>\n    </div>\n    ```\n* __overlay__: Positions the view associated with the given item at the head\n    or tail of the given `DisplayMarker`, depending on the `position` property.\n* __gutter__: Tracks a {DisplayMarker} in a {Gutter}. Gutter decorations are created\n    by calling {Gutter::decorateMarker} on the desired `Gutter` instance.\n* __block__: Positions the view associated with the given item before or\n    after the row of the given {DisplayMarker}, depending on the `position` property.\n    Block decorations at the same screen row are ordered by their `order` property.\n* __cursor__: Render a cursor at the head of the {DisplayMarker}. If multiple cursor decorations\n    are created for the same marker, their class strings and style objects are combined\n    into a single cursor. This decoration type may be used to style existing cursors\n    by passing in their markers or to render artificial cursors that don't actually\n    exist in the model by passing a marker that isn't associated with a real cursor.\n\n## Arguments\n\n* `marker` A {DisplayMarker} you want this decoration to follow.\n* `decorationParams` An {Object} representing the decoration e.g.\n  `{type: 'line-number', class: 'linter-error'}`\n  * `type` Determines the behavior and appearance of this {Decoration}. Supported decoration types\n    and their uses are listed above.\n  * `class` This CSS class will be applied to the decorated line number,\n    line, text spans, highlight regions, cursors, or overlay.\n  * `style` An {Object} containing CSS style properties to apply to the\n    relevant DOM node. Currently this only works with a `type` of `cursor`\n    or `text`.\n  * `item` (optional) An {HTMLElement} or a model {Object} with a\n    corresponding view registered. Only applicable to the `gutter`,\n    `overlay` and `block` decoration types.\n  * `onlyHead` (optional) If `true`, the decoration will only be applied to\n    the head of the `DisplayMarker`. Only applicable to the `line` and\n    `line-number` decoration types.\n  * `onlyEmpty` (optional) If `true`, the decoration will only be applied if\n    the associated `DisplayMarker` is empty. Only applicable to the `gutter`,\n    `line`, and `line-number` decoration types.\n  * `onlyNonEmpty` (optional) If `true`, the decoration will only be applied\n    if the associated `DisplayMarker` is non-empty. Only applicable to the\n    `gutter`, `line`, and `line-number` decoration types.\n  * `omitEmptyLastRow` (optional) If `false`, the decoration will be applied\n    to the last row of a non-empty range, even if it ends at column 0.\n    Defaults to `true`. Only applicable to the `gutter`, `line`, and\n    `line-number` decoration types.\n  * `position` (optional) Only applicable to decorations of type `overlay` and `block`.\n    Controls where the view is positioned relative to the `TextEditorMarker`.\n    Values can be `'head'` (the default) or `'tail'` for overlay decorations, and\n    `'before'` (the default) or `'after'` for block decorations.\n  * `order` (optional) Only applicable to decorations of type `block`. Controls\n     where the view is positioned relative to other block decorations at the\n     same screen row. If unspecified, block decorations render oldest to newest.\n  * `avoidOverflow` (optional) Only applicable to decorations of type\n     `overlay`. Determines whether the decoration adjusts its horizontal or\n     vertical position to remain fully visible when it would otherwise\n     overflow the editor. Defaults to `true`.\n\nReturns the created {Decoration} object.",
-          "line": 2701
+          "line": 2756
         },
         {
           "name": "decorateMarkerLayer",
@@ -9943,7 +9943,7 @@
           "category": "Decorations",
           "visibility": "Essential",
           "description": "Add a decoration to every marker in the given marker layer. Can\nbe used to decorate a large number of markers without having to create and\nmanage many individual decorations.\n\n* `markerLayer` A {DisplayMarkerLayer} or {MarkerLayer} to decorate.\n* `decorationParams` The same parameters that are passed to\n  {TextEditor::decorateMarker}, except the `type` cannot be `overlay` or `gutter`.\n\nReturns a {LayerDecoration}.",
-          "line": 2714
+          "line": 2769
         },
         {
           "name": "getDecorations",
@@ -9954,7 +9954,7 @@
           "category": "Decorations",
           "visibility": "Extended",
           "description": "Get all decorations.\n\n* `propertyFilter` (optional) An {Object} containing key value pairs that\n  the returned decorations' properties must match.\n\nReturns an {Array} of {Decoration}s.",
-          "line": 2743
+          "line": 2798
         },
         {
           "name": "getLineDecorations",
@@ -9965,7 +9965,7 @@
           "category": "Decorations",
           "visibility": "Extended",
           "description": "Get all decorations of type 'line'.\n\n* `propertyFilter` (optional) An {Object} containing key value pairs that\n  the returned decorations' properties must match.\n\nReturns an {Array} of {Decoration}s.",
-          "line": 2753
+          "line": 2808
         },
         {
           "name": "getLineNumberDecorations",
@@ -9976,7 +9976,7 @@
           "category": "Decorations",
           "visibility": "Extended",
           "description": "Get all decorations of type 'line-number'.\n\n* `propertyFilter` (optional) An {Object} containing key value pairs that\n  the returned decorations' properties must match.\n\nReturns an {Array} of {Decoration}s.",
-          "line": 2763
+          "line": 2818
         },
         {
           "name": "getHighlightDecorations",
@@ -9987,7 +9987,7 @@
           "category": "Decorations",
           "visibility": "Extended",
           "description": "Get all decorations of type 'highlight'.\n\n* `propertyFilter` (optional) An {Object} containing key value pairs that\n  the returned decorations' properties must match.\n\nReturns an {Array} of {Decoration}s.",
-          "line": 2773
+          "line": 2828
         },
         {
           "name": "getOverlayDecorations",
@@ -9998,7 +9998,7 @@
           "category": "Decorations",
           "visibility": "Extended",
           "description": "Get all decorations of type 'overlay'.\n\n* `propertyFilter` (optional) An {Object} containing key value pairs that\n  the returned decorations' properties must match.\n\nReturns an {Array} of {Decoration}s.",
-          "line": 2783
+          "line": 2838
         },
         {
           "name": "markBufferRange",
@@ -10009,7 +10009,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Create a marker on the default marker layer with the given range\nin buffer coordinates. This marker will maintain its logical location as the\nbuffer is changed, so if you mark a particular word, the marker will remain\nover that word even if the word's location in the buffer changes.\n\n* `bufferRange` A {Range} or range-compatible {Array}\n* `options` A hash of key-value pairs to associate with the marker. There\n  are also reserved property names that have marker-specific meaning.\n  * `maintainHistory` (optional) {Boolean} Whether to store this marker's\n    range before and after each change in the undo history. This allows the\n    marker's position to be restored more accurately for certain undo/redo\n    operations, but uses more time and memory. (default: false)\n  * `reversed` (optional) {Boolean} Creates the marker in a reversed\n    orientation. (default: false)\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n\nReturns a {DisplayMarker}.",
-          "line": 2821
+          "line": 2876
         },
         {
           "name": "markScreenRange",
@@ -10020,7 +10020,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Create a marker on the default marker layer with the given range\nin screen coordinates. This marker will maintain its logical location as the\nbuffer is changed, so if you mark a particular word, the marker will remain\nover that word even if the word's location in the buffer changes.\n\n* `screenRange` A {Range} or range-compatible {Array}\n* `options` A hash of key-value pairs to associate with the marker. There\n  are also reserved property names that have marker-specific meaning.\n  * `maintainHistory` (optional) {Boolean} Whether to store this marker's\n    range before and after each change in the undo history. This allows the\n    marker's position to be restored more accurately for certain undo/redo\n    operations, but uses more time and memory. (default: false)\n  * `reversed` (optional) {Boolean} Creates the marker in a reversed\n    orientation. (default: false)\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n\nReturns a {DisplayMarker}.",
-          "line": 2855
+          "line": 2910
         },
         {
           "name": "markBufferPosition",
@@ -10031,7 +10031,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Create a marker on the default marker layer with the given buffer\nposition and no tail. To group multiple markers together in their own\nprivate layer, see {::addMarkerLayer}.\n\n* `bufferPosition` A {Point} or point-compatible {Array}\n* `options` (optional) An {Object} with the following keys:\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n\nReturns a {DisplayMarker}.",
-          "line": 2881
+          "line": 2936
         },
         {
           "name": "markScreenPosition",
@@ -10042,7 +10042,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Create a marker on the default marker layer with the given screen\nposition and no tail. To group multiple markers together in their own\nprivate layer, see {::addMarkerLayer}.\n\n* `screenPosition` A {Point} or point-compatible {Array}\n* `options` (optional) An {Object} with the following keys:\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n  * `clipDirection` {String} If `'backward'`, returns the first valid\n    position preceding an invalid position. If `'forward'`, returns the\n    first valid position following an invalid position. If `'closest'`,\n    returns the first valid position closest to an invalid position.\n    Defaults to `'closest'`.\n\nReturns a {DisplayMarker}.",
-          "line": 2912
+          "line": 2967
         },
         {
           "name": "findMarkers",
@@ -10053,7 +10053,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Find all {DisplayMarker}s on the default marker layer that\nmatch the given properties.\n\nThis method finds markers based on the given properties. Markers can be\nassociated with custom properties that will be compared with basic equality.\nIn addition, there are several special properties that will be compared\nwith the range of the markers rather than their properties.\n\n* `params` An {Object} containing properties that each returned marker\n  must satisfy. Markers can be associated with custom properties, which are\n  compared with basic equality. In addition, several reserved properties\n  can be used to filter markers based on their current range:\n  * `startBufferRow` Only include markers starting at this row in buffer\n      coordinates.\n  * `endBufferRow` Only include markers ending at this row in buffer\n      coordinates.\n  * `containsBufferRange` Only include markers containing this {Range} or\n      in range-compatible {Array} in buffer coordinates.\n  * `containsBufferPosition` Only include markers containing this {Point}\n      or {Array} of `[row, column]` in buffer coordinates.\n\nReturns an {Array} of {DisplayMarker}s",
-          "line": 2938
+          "line": 2993
         },
         {
           "name": "getMarker",
@@ -10064,7 +10064,7 @@
           "category": "Markers",
           "visibility": "Extended",
           "description": "Get the {DisplayMarker} on the default layer for the given\nmarker id.\n\n* `id` {Number} id of the marker",
-          "line": 2946
+          "line": 3001
         },
         {
           "name": "getMarkers",
@@ -10075,7 +10075,7 @@
           "category": "Markers",
           "visibility": "Extended",
           "description": "Get all {DisplayMarker}s on the default marker layer. Consider\nusing {::findMarkers}",
-          "line": 2952
+          "line": 3007
         },
         {
           "name": "getMarkerCount",
@@ -10086,7 +10086,7 @@
           "category": "Markers",
           "visibility": "Extended",
           "description": "Get the number of markers in the default marker layer.\n\nReturns a {Number}.",
-          "line": 2959
+          "line": 3014
         },
         {
           "name": "addMarkerLayer",
@@ -10097,7 +10097,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Create a marker layer to group related markers.\n\n* `options` An {Object} containing the following keys:\n  * `maintainHistory` A {Boolean} indicating whether marker state should be\n    restored on undo/redo. Defaults to `false`.\n  * `persistent` A {Boolean} indicating whether or not this marker layer\n    should be serialized and deserialized along with the rest of the\n    buffer. Defaults to `false`. If `true`, the marker layer's id will be\n    maintained across the serialization boundary, allowing you to retrieve\n    it via {::getMarkerLayer}.\n\nReturns a {DisplayMarkerLayer}.",
-          "line": 2980
+          "line": 3035
         },
         {
           "name": "getMarkerLayer",
@@ -10108,7 +10108,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Get a {DisplayMarkerLayer} by id.\n\n* `id` The id of the marker layer to retrieve.\n\nReturns a {DisplayMarkerLayer} or `undefined` if no layer exists with the\ngiven id.",
-          "line": 2990
+          "line": 3045
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -10119,7 +10119,7 @@
           "category": "Markers",
           "visibility": "Essential",
           "description": "Get the default {DisplayMarkerLayer}.\n\nAll marker APIs not tied to an explicit layer interact with this default\nlayer.\n\nReturns a {DisplayMarkerLayer}.",
-          "line": 3000
+          "line": 3055
         },
         {
           "name": "getCursorBufferPosition",
@@ -10130,7 +10130,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Get the position of the most recently added cursor in buffer\ncoordinates.\n\nReturns a {Point}",
-          "line": 3012
+          "line": 3067
         },
         {
           "name": "getCursorBufferPositions",
@@ -10141,7 +10141,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Get the position of all the cursor positions in buffer coordinates.\n\nReturns {Array} of {Point}s in the order they were added",
-          "line": 3019
+          "line": 3074
         },
         {
           "name": "setCursorBufferPosition",
@@ -10152,7 +10152,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move the cursor to the given position in buffer coordinates.\n\nIf there are multiple cursors, they will be consolidated to a single cursor.\n\n* `position` A {Point} or {Array} of `[row, column]`\n* `options` (optional) An {Object} containing the following keys:\n  * `autoscroll` Determines whether the editor scrolls to the new cursor's\n    position. Defaults to true.",
-          "line": 3031
+          "line": 3086
         },
         {
           "name": "getCursorAtScreenPosition",
@@ -10163,7 +10163,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Get a {Cursor} at given screen coordinates {Point}\n\n* `position` A {Point} or {Array} of `[row, column]`\n\nReturns the first matched {Cursor} or undefined",
-          "line": 3040
+          "line": 3095
         },
         {
           "name": "getCursorScreenPosition",
@@ -10174,7 +10174,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Get the position of the most recently added cursor in screen\ncoordinates.\n\nReturns a {Point}.",
-          "line": 3051
+          "line": 3106
         },
         {
           "name": "getCursorScreenPositions",
@@ -10185,7 +10185,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Get the position of all the cursor positions in screen coordinates.\n\nReturns {Array} of {Point}s in the order the cursors were added",
-          "line": 3058
+          "line": 3113
         },
         {
           "name": "setCursorScreenPosition",
@@ -10196,7 +10196,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move the cursor to the given position in screen coordinates.\n\nIf there are multiple cursors, they will be consolidated to a single cursor.\n\n* `position` A {Point} or {Array} of `[row, column]`\n* `options` (optional) An {Object} combining options for {::clipScreenPosition} with:\n  * `autoscroll` Determines whether the editor scrolls to the new cursor's\n    position. Defaults to true.",
-          "line": 3070
+          "line": 3125
         },
         {
           "name": "addCursorAtBufferPosition",
@@ -10207,7 +10207,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Add a cursor at the given position in buffer coordinates.\n\n* `bufferPosition` A {Point} or {Array} of `[row, column]`\n\nReturns a {Cursor}.",
-          "line": 3079
+          "line": 3134
         },
         {
           "name": "addCursorAtScreenPosition",
@@ -10218,7 +10218,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Add a cursor at the position in screen coordinates.\n\n* `screenPosition` A {Point} or {Array} of `[row, column]`\n\nReturns a {Cursor}.",
-          "line": 3092
+          "line": 3147
         },
         {
           "name": "hasMultipleCursors",
@@ -10229,7 +10229,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Returns {Boolean} indicating whether or not there are multiple cursors.",
-          "line": 3101
+          "line": 3156
         },
         {
           "name": "moveUp",
@@ -10240,7 +10240,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor up one row in screen coordinates.\n\n* `lineCount` (optional) {Number} number of lines to move",
-          "line": 3108
+          "line": 3163
         },
         {
           "name": "moveDown",
@@ -10251,7 +10251,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor down one row in screen coordinates.\n\n* `lineCount` (optional) {Number} number of lines to move",
-          "line": 3115
+          "line": 3170
         },
         {
           "name": "moveLeft",
@@ -10262,7 +10262,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor left one column.\n\n* `columnCount` (optional) {Number} number of columns to move (default: 1)",
-          "line": 3122
+          "line": 3177
         },
         {
           "name": "moveRight",
@@ -10273,7 +10273,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor right one column.\n\n* `columnCount` (optional) {Number} number of columns to move (default: 1)",
-          "line": 3131
+          "line": 3186
         },
         {
           "name": "moveToBeginningOfLine",
@@ -10284,7 +10284,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the beginning of its line in buffer coordinates.",
-          "line": 3138
+          "line": 3193
         },
         {
           "name": "moveToBeginningOfScreenLine",
@@ -10295,7 +10295,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the beginning of its line in screen coordinates.",
-          "line": 3143
+          "line": 3198
         },
         {
           "name": "moveToFirstCharacterOfLine",
@@ -10306,7 +10306,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the first non-whitespace character of its line.",
-          "line": 3148
+          "line": 3203
         },
         {
           "name": "moveToEndOfLine",
@@ -10317,7 +10317,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the end of its line in buffer coordinates.",
-          "line": 3153
+          "line": 3208
         },
         {
           "name": "moveToEndOfScreenLine",
@@ -10328,7 +10328,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the end of its line in screen coordinates.",
-          "line": 3158
+          "line": 3213
         },
         {
           "name": "moveToBeginningOfWord",
@@ -10339,7 +10339,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the beginning of its surrounding word.",
-          "line": 3163
+          "line": 3218
         },
         {
           "name": "moveToEndOfWord",
@@ -10350,7 +10350,7 @@
           "category": "Cursors",
           "visibility": "Essential",
           "description": "Move every cursor to the end of its surrounding word.",
-          "line": 3168
+          "line": 3223
         },
         {
           "name": "moveToTop",
@@ -10361,7 +10361,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the top of the buffer.\n\nIf there are multiple cursors, they will be merged into a single cursor.",
-          "line": 3177
+          "line": 3232
         },
         {
           "name": "moveToBottom",
@@ -10372,7 +10372,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the bottom of the buffer.\n\nIf there are multiple cursors, they will be merged into a single cursor.",
-          "line": 3184
+          "line": 3239
         },
         {
           "name": "moveToBeginningOfNextWord",
@@ -10383,7 +10383,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the beginning of the next word.",
-          "line": 3189
+          "line": 3244
         },
         {
           "name": "moveToPreviousWordBoundary",
@@ -10394,7 +10394,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the previous word boundary.",
-          "line": 3194
+          "line": 3249
         },
         {
           "name": "moveToNextWordBoundary",
@@ -10405,7 +10405,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the next word boundary.",
-          "line": 3199
+          "line": 3254
         },
         {
           "name": "moveToPreviousSubwordBoundary",
@@ -10416,7 +10416,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the previous subword boundary.",
-          "line": 3204
+          "line": 3259
         },
         {
           "name": "moveToNextSubwordBoundary",
@@ -10427,7 +10427,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the next subword boundary.",
-          "line": 3209
+          "line": 3264
         },
         {
           "name": "moveToBeginningOfNextParagraph",
@@ -10438,7 +10438,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the beginning of the next paragraph.",
-          "line": 3214
+          "line": 3269
         },
         {
           "name": "moveToBeginningOfPreviousParagraph",
@@ -10449,7 +10449,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Move every cursor to the beginning of the previous paragraph.",
-          "line": 3219
+          "line": 3274
         },
         {
           "name": "getLastCursor",
@@ -10460,7 +10460,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Returns the most recently added {Cursor}",
-          "line": 3224
+          "line": 3279
         },
         {
           "name": "getWordUnderCursor",
@@ -10471,7 +10471,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Returns the word surrounding the most recently added cursor.\n\n* `options` (optional) See {Cursor::getBeginningOfCurrentWordBufferPosition}.",
-          "line": 3232
+          "line": 3287
         },
         {
           "name": "getCursors",
@@ -10482,7 +10482,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Get an Array of all {Cursor}s.",
-          "line": 3237
+          "line": 3292
         },
         {
           "name": "getCursorsOrderedByBufferPosition",
@@ -10493,7 +10493,7 @@
           "category": "Cursors",
           "visibility": "Extended",
           "description": "Get all {Cursor}s, ordered by their position in the buffer\ninstead of the order in which they were added.\n\nReturns an {Array} of {Selection}s.",
-          "line": 3246
+          "line": 3301
         },
         {
           "name": "getSelectedText",
@@ -10504,7 +10504,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Get the selected text of the most recently added selection.\n\nReturns a {String}.",
-          "line": 3303
+          "line": 3358
         },
         {
           "name": "getSelectedBufferRange",
@@ -10515,7 +10515,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Get the {Range} of the most recently added selection in buffer\ncoordinates.\n\nReturns a {Range}.",
-          "line": 3311
+          "line": 3366
         },
         {
           "name": "getSelectedBufferRanges",
@@ -10526,7 +10526,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Get the {Range}s of all selections in buffer coordinates.\n\nThe ranges are sorted by when the selections were added. Most recent at the end.\n\nReturns an {Array} of {Range}s.",
-          "line": 3320
+          "line": 3375
         },
         {
           "name": "setSelectedBufferRange",
@@ -10537,7 +10537,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Set the selected range in buffer coordinates. If there are multiple\nselections, they are reduced to a single selection with the given range.\n\n* `bufferRange` A {Range} or range-compatible {Array}.\n* `options` (optional) An {Object} of options:\n  * `reversed` A {Boolean} indicating whether to create the selection in a\n    reversed orientation.\n  * `preserveFolds` A {Boolean}, which if `true` preserves the fold settings after the\n    selection is set.",
-          "line": 3333
+          "line": 3388
         },
         {
           "name": "setSelectedBufferRanges",
@@ -10548,7 +10548,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Set the selected ranges in buffer coordinates. If there are multiple\nselections, they are replaced by new selections with the given ranges.\n\n* `bufferRanges` An {Array} of {Range}s or range-compatible {Array}s.\n* `options` (optional) An {Object} of options:\n  * `reversed` A {Boolean} indicating whether to create the selection in a\n    reversed orientation.\n  * `preserveFolds` A {Boolean}, which if `true` preserves the fold settings after the\n    selection is set.",
-          "line": 3346
+          "line": 3401
         },
         {
           "name": "getSelectedScreenRange",
@@ -10559,7 +10559,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Get the {Range} of the most recently added selection in screen\ncoordinates.\n\nReturns a {Range}.",
-          "line": 3371
+          "line": 3426
         },
         {
           "name": "getSelectedScreenRanges",
@@ -10570,7 +10570,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Get the {Range}s of all selections in screen coordinates.\n\nThe ranges are sorted by when the selections were added. Most recent at the end.\n\nReturns an {Array} of {Range}s.",
-          "line": 3380
+          "line": 3435
         },
         {
           "name": "setSelectedScreenRange",
@@ -10581,7 +10581,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Set the selected range in screen coordinates. If there are multiple\nselections, they are reduced to a single selection with the given range.\n\n* `screenRange` A {Range} or range-compatible {Array}.\n* `options` (optional) An {Object} of options:\n  * `reversed` A {Boolean} indicating whether to create the selection in a\n    reversed orientation.",
-          "line": 3391
+          "line": 3446
         },
         {
           "name": "setSelectedScreenRanges",
@@ -10592,7 +10592,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Set the selected ranges in screen coordinates. If there are multiple\nselections, they are replaced by new selections with the given ranges.\n\n* `screenRanges` An {Array} of {Range}s or range-compatible {Array}s.\n* `options` (optional) An {Object} of options:\n  * `reversed` A {Boolean} indicating whether to create the selection in a\n    reversed orientation.",
-          "line": 3405
+          "line": 3460
         },
         {
           "name": "addSelectionForBufferRange",
@@ -10603,7 +10603,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Add a selection for the given range in buffer coordinates.\n\n* `bufferRange` A {Range}\n* `options` (optional) An {Object} of options:\n  * `reversed` A {Boolean} indicating whether to create the selection in a\n    reversed orientation.\n  * `preserveFolds` A {Boolean}, which if `true` preserves the fold settings after the\n    selection is set.\n\nReturns the added {Selection}.",
-          "line": 3436
+          "line": 3491
         },
         {
           "name": "addSelectionForScreenRange",
@@ -10614,7 +10614,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Add a selection for the given range in screen coordinates.\n\n* `screenRange` A {Range}\n* `options` (optional) An {Object} of options:\n  * `reversed` A {Boolean} indicating whether to create the selection in a\n    reversed orientation.\n  * `preserveFolds` A {Boolean}, which if `true` preserves the fold settings after the\n    selection is set.\nReturns the added {Selection}.",
-          "line": 3461
+          "line": 3516
         },
         {
           "name": "selectToBufferPosition",
@@ -10625,7 +10625,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Select from the current cursor position to the given position in\nbuffer coordinates.\n\nThis method may merge selections that end up intersecting.\n\n* `position` An instance of {Point}, with a given `row` and `column`.",
-          "line": 3471
+          "line": 3526
         },
         {
           "name": "selectToScreenPosition",
@@ -10636,7 +10636,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Select from the current cursor position to the given position in\nscreen coordinates.\n\nThis method may merge selections that end up intersecting.\n\n* `position` An instance of {Point}, with a given `row` and `column`.",
-          "line": 3485
+          "line": 3540
         },
         {
           "name": "selectUp",
@@ -10647,7 +10647,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection one character upward while\npreserving the selection's tail position.\n\n* `rowCount` (optional) {Number} number of rows to select (default: 1)\n\nThis method may merge selections that end up intersecting.",
-          "line": 3501
+          "line": 3556
         },
         {
           "name": "selectDown",
@@ -10658,7 +10658,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection one character downward while\npreserving the selection's tail position.\n\n* `rowCount` (optional) {Number} number of rows to select (default: 1)\n\nThis method may merge selections that end up intersecting.",
-          "line": 3511
+          "line": 3566
         },
         {
           "name": "selectLeft",
@@ -10669,7 +10669,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection one character leftward while\npreserving the selection's tail position.\n\n* `columnCount` (optional) {Number} number of columns to select (default: 1)\n\nThis method may merge selections that end up intersecting.",
-          "line": 3521
+          "line": 3576
         },
         {
           "name": "selectRight",
@@ -10680,7 +10680,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection one character rightward while\npreserving the selection's tail position.\n\n* `columnCount` (optional) {Number} number of columns to select (default: 1)\n\nThis method may merge selections that end up intersecting.",
-          "line": 3531
+          "line": 3586
         },
         {
           "name": "selectToTop",
@@ -10691,7 +10691,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Select from the top of the buffer to the end of the last selection\nin the buffer.\n\nThis method merges multiple selections into a single selection.",
-          "line": 3539
+          "line": 3594
         },
         {
           "name": "selectToBottom",
@@ -10702,7 +10702,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Selects from the top of the first selection in the buffer to the end\nof the buffer.\n\nThis method merges multiple selections into a single selection.",
-          "line": 3547
+          "line": 3602
         },
         {
           "name": "selectAll",
@@ -10713,7 +10713,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Select all text in the buffer.\n\nThis method merges multiple selections into a single selection.",
-          "line": 3554
+          "line": 3609
         },
         {
           "name": "selectToBeginningOfLine",
@@ -10724,7 +10724,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection to the beginning of its line\nwhile preserving the selection's tail position.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3562
+          "line": 3617
         },
         {
           "name": "selectToFirstCharacterOfLine",
@@ -10735,7 +10735,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection to the first non-whitespace\ncharacter of its line while preserving the selection's tail position. If the\ncursor is already on the first character of the line, move it to the\nbeginning of the line.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3572
+          "line": 3627
         },
         {
           "name": "selectToEndOfLine",
@@ -10746,7 +10746,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Move the cursor of each selection to the end of its line while\npreserving the selection's tail position.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3580
+          "line": 3635
         },
         {
           "name": "selectToBeginningOfWord",
@@ -10757,7 +10757,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Expand selections to the beginning of their containing word.\n\nOperates on all selections. Moves the cursor to the beginning of the\ncontaining word while preserving the selection's tail position.",
-          "line": 3588
+          "line": 3643
         },
         {
           "name": "selectToEndOfWord",
@@ -10768,7 +10768,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Expand selections to the end of their containing word.\n\nOperates on all selections. Moves the cursor to the end of the containing\nword while preserving the selection's tail position.",
-          "line": 3596
+          "line": 3651
         },
         {
           "name": "selectToPreviousSubwordBoundary",
@@ -10779,7 +10779,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "For each selection, move its cursor to the preceding subword\nboundary while maintaining the selection's tail position.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3604
+          "line": 3659
         },
         {
           "name": "selectToNextSubwordBoundary",
@@ -10790,7 +10790,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "For each selection, move its cursor to the next subword boundary\nwhile maintaining the selection's tail position.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3614
+          "line": 3669
         },
         {
           "name": "selectLinesContainingCursors",
@@ -10801,7 +10801,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "For each cursor, select the containing line.\n\nThis method merges selections on successive lines.",
-          "line": 3621
+          "line": 3676
         },
         {
           "name": "selectWordsContainingCursors",
@@ -10812,7 +10812,7 @@
           "category": "Selections",
           "visibility": "Essential",
           "description": "Select the word surrounding each cursor.",
-          "line": 3626
+          "line": 3681
         },
         {
           "name": "selectSubwordsContainingCursors",
@@ -10823,7 +10823,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Select the subword surrounding each cursor.",
-          "line": 3631
+          "line": 3686
         },
         {
           "name": "selectToPreviousWordBoundary",
@@ -10834,7 +10834,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "For each selection, move its cursor to the preceding word boundary\nwhile maintaining the selection's tail position.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3641
+          "line": 3696
         },
         {
           "name": "selectToNextWordBoundary",
@@ -10845,7 +10845,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "For each selection, move its cursor to the next word boundary while\nmaintaining the selection's tail position.\n\nThis method may merge selections that end up intersecting.",
-          "line": 3649
+          "line": 3704
         },
         {
           "name": "selectToBeginningOfNextWord",
@@ -10856,7 +10856,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Expand selections to the beginning of the next word.\n\nOperates on all selections. Moves the cursor to the beginning of the next\nword while preserving the selection's tail position.",
-          "line": 3657
+          "line": 3712
         },
         {
           "name": "selectToBeginningOfNextParagraph",
@@ -10867,7 +10867,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Expand selections to the beginning of the next paragraph.\n\nOperates on all selections. Moves the cursor to the beginning of the next\nparagraph while preserving the selection's tail position.",
-          "line": 3665
+          "line": 3720
         },
         {
           "name": "selectToBeginningOfPreviousParagraph",
@@ -10878,7 +10878,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Expand selections to the beginning of the next paragraph.\n\nOperates on all selections. Moves the cursor to the beginning of the next\nparagraph while preserving the selection's tail position.",
-          "line": 3675
+          "line": 3730
         },
         {
           "name": "selectLargerSyntaxNode",
@@ -10889,7 +10889,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "For each selection, select the syntax node that contains\nthat selection.",
-          "line": 3683
+          "line": 3738
         },
         {
           "name": "selectSmallerSyntaxNode",
@@ -10900,7 +10900,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Undo the effect of a preceding call to {::selectLargerSyntaxNode}.",
-          "line": 3699
+          "line": 3754
         },
         {
           "name": "selectMarker",
@@ -10911,7 +10911,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Select the range of the given marker if it is valid.\n\n* `marker` A {DisplayMarker}\n\nReturns the selected {Range} or `undefined` if the marker is invalid.",
-          "line": 3716
+          "line": 3771
         },
         {
           "name": "getLastSelection",
@@ -10922,7 +10922,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Get the most recently added {Selection}.\n\nReturns a {Selection}.",
-          "line": 3727
+          "line": 3782
         },
         {
           "name": "getSelections",
@@ -10933,7 +10933,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Get current {Selection}s.\n\nReturns: An {Array} of {Selection}s.",
-          "line": 3742
+          "line": 3797
         },
         {
           "name": "getSelectionsOrderedByBufferPosition",
@@ -10944,7 +10944,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Get all {Selection}s, ordered by their position in the buffer\ninstead of the order in which they were added.\n\nReturns an {Array} of {Selection}s.",
-          "line": 3751
+          "line": 3806
         },
         {
           "name": "selectionIntersectsBufferRange",
@@ -10955,7 +10955,7 @@
           "category": "Selections",
           "visibility": "Extended",
           "description": "Determine if a given range in buffer coordinates intersects a\nselection.\n\n* `bufferRange` A {Range} or range-compatible {Array}.\n\nReturns a {Boolean}.",
-          "line": 3761
+          "line": 3816
         },
         {
           "name": "scan",
@@ -10966,7 +10966,7 @@
           "category": "Searching and Replacing",
           "visibility": "Essential",
           "description": "Scan regular expression matches in the entire buffer, calling the\ngiven iterator function on each match.\n\n`::scan` functions as the replace method as well via the `replace`\n\nIf you're programmatically modifying the results, you may want to try\n{::backwardsScanInBufferRange} to avoid tripping over your own changes.\n\n* `regex` A {RegExp} to search for.\n* `options` (optional) {Object}\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` A {Function} that's called on each match\n  * `object` {Object}\n    * `match` The current regular expression match.\n    * `matchText` A {String} with the text of the match.\n    * `range` The {Range} of the match.\n    * `stop` Call this {Function} to terminate the scan.\n    * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 3964
+          "line": 4019
         },
         {
           "name": "scanInBufferRange",
@@ -10977,7 +10977,7 @@
           "category": "Searching and Replacing",
           "visibility": "Essential",
           "description": "Scan regular expression matches in a given range, calling the given\niterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} in which to search.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 3985
+          "line": 4040
         },
         {
           "name": "backwardsScanInBufferRange",
@@ -10988,7 +10988,7 @@
           "category": "Searching and Replacing",
           "visibility": "Essential",
           "description": "Scan regular expression matches in a given range in reverse order,\ncalling the given iterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} in which to search.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 4001
+          "line": 4056
         },
         {
           "name": "getSoftTabs",
@@ -10999,7 +10999,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Returns a {Boolean} indicating whether softTabs are enabled for this\neditor.",
-          "line": 4011
+          "line": 4066
         },
         {
           "name": "setSoftTabs",
@@ -11010,7 +11010,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Enable or disable soft tabs for this editor.\n\n* `softTabs` A {Boolean}",
-          "line": 4018
+          "line": 4073
         },
         {
           "name": "toggleSoftTabs",
@@ -11021,7 +11021,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Toggle soft tabs for this editor",
-          "line": 4029
+          "line": 4084
         },
         {
           "name": "getTabLength",
@@ -11032,7 +11032,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Get the on-screen length of tab characters.\n\nReturns a {Number}.",
-          "line": 4036
+          "line": 4091
         },
         {
           "name": "setTabLength",
@@ -11043,7 +11043,7 @@
           "category": "Tab Behavior",
           "visibility": "Essential",
           "description": "Set the on-screen length of tab characters. Setting this to a\n{Number} This will override the `language.tabLength` setting.\n\n* `tabLength` {Number} length of a single tab. Setting to `null` will\n  fallback to using the `language.tabLength` config setting",
-          "line": 4045
+          "line": 4100
         },
         {
           "name": "usesSoftTabs",
@@ -11054,7 +11054,7 @@
           "category": "Tab Behavior",
           "visibility": "Extended",
           "description": "Determine if the buffer uses hard or soft tabs.\n\nReturns `true` if the first non-comment line with leading whitespace starts\nwith a space character. Returns `false` if it starts with a hard tab (`\\t`).\n\nReturns a {Boolean} or undefined if no non-comment lines had leading\nwhitespace.",
-          "line": 4072
+          "line": 4127
         },
         {
           "name": "getTabText",
@@ -11065,7 +11065,7 @@
           "category": "Tab Behavior",
           "visibility": "Extended",
           "description": "Get the text representing a single level of indent.\n\nIf soft tabs are enabled, the text is composed of N spaces, where N is the\ntab length. Otherwise the text is a tab character (`\\t`).\n\nReturns a {String}.",
-          "line": 4093
+          "line": 4148
         },
         {
           "name": "isSoftWrapped",
@@ -11076,7 +11076,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Determine whether lines in this editor are soft-wrapped.\n\nReturns a {Boolean}.",
-          "line": 4113
+          "line": 4168
         },
         {
           "name": "setSoftWrapped",
@@ -11087,7 +11087,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Enable or disable soft wrapping for this editor.\n\n* `softWrapped` A {Boolean}\n\nReturns a {Boolean}.",
-          "line": 4122
+          "line": 4177
         },
         {
           "name": "toggleSoftWrapped",
@@ -11098,7 +11098,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Toggle soft wrapping for this editor\n\nReturns a {Boolean}.",
-          "line": 4134
+          "line": 4189
         },
         {
           "name": "isOvertypeMode",
@@ -11109,7 +11109,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Determine whether overtype (overwrite) mode is enabled for this\neditor. In overtype mode, typing replaces the character following the cursor\ninstead of inserting before it.\n\nReturns a {Boolean}.",
-          "line": 4143
+          "line": 4198
         },
         {
           "name": "setOvertypeMode",
@@ -11120,7 +11120,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Enable or disable overtype (overwrite) mode for this editor.\n\n* `overtypeMode` A {Boolean}.\n\nReturns a {Boolean}.",
-          "line": 4152
+          "line": 4207
         },
         {
           "name": "toggleOvertypeMode",
@@ -11131,7 +11131,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Toggle overtype (overwrite) mode for this editor.\n\nReturns a {Boolean}.",
-          "line": 4164
+          "line": 4219
         },
         {
           "name": "applyOvertype",
@@ -11142,7 +11142,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Extended",
           "description": "When overtype mode is active, expand each empty selection one\ncharacter to the right (except at the end of a line) so that the text about\nto be inserted overwrites the following character rather than being inserted\nbefore it. Non-empty selections are left untouched and replaced as usual.\n\nCalled by the editor component immediately before inserting genuinely typed\ntext; it has no effect unless {::isOvertypeMode} is `true`.",
-          "line": 4175
+          "line": 4230
         },
         {
           "name": "getSoftWrapColumn",
@@ -11153,7 +11153,7 @@
           "category": "Soft Wrap Behavior",
           "visibility": "Essential",
           "description": "Gets the column at which column will soft wrap",
-          "line": 4185
+          "line": 4240
         },
         {
           "name": "indentationForBufferRow",
@@ -11164,7 +11164,7 @@
           "category": "Indentation",
           "visibility": "Essential",
           "description": "Get the indentation level of the given buffer row.\n\nDetermines how deeply the given row is indented based on the soft tabs and\ntab length settings of this editor. Note that if soft tabs are enabled and\nthe tab length is 2, a row with 4 leading spaces would have an indentation\nlevel of 2.\n\n* `bufferRow` A {Number} indicating the buffer row.\n\nReturns a {Number}.",
-          "line": 4211
+          "line": 4266
         },
         {
           "name": "setIndentationForBufferRow",
@@ -11175,7 +11175,7 @@
           "category": "Indentation",
           "visibility": "Essential",
           "description": "Set the indentation level for the given buffer row.\n\nInserts or removes hard tabs or spaces based on the soft tabs and tab length\nsettings of this editor in order to bring it to the given indentation level.\nNote that if soft tabs are enabled and the tab length is 2, a row with 4\nleading spaces would have an indentation level of 2.\n\n* `bufferRow` A {Number} indicating the buffer row.\n* `newLevel` A {Number} indicating the new indentation level.\n* `options` (optional) An {Object} with the following keys:\n  * `preserveLeadingWhitespace` `true` to preserve any whitespace already at\n     the beginning of the line (default: false).",
-          "line": 4227
+          "line": 4282
         },
         {
           "name": "indentSelectedRows",
@@ -11186,7 +11186,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Indent rows intersecting selections by one level.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4248
+          "line": 4303
         },
         {
           "name": "outdentSelectedRows",
@@ -11197,7 +11197,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Outdent rows intersecting selections by one level.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4257
+          "line": 4312
         },
         {
           "name": "indentLevelForLine",
@@ -11208,7 +11208,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Get the indentation level of the given line of text.\n\nDetermines how deeply the given line is indented based on the soft tabs and\ntab length settings of this editor. Note that if soft tabs are enabled and\nthe tab length is 2, a row with 4 leading spaces would have an indentation\nlevel of 2.\n\n* `line` A {String} representing a line of text.\n\nReturns a {Number}.",
-          "line": 4272
+          "line": 4327
         },
         {
           "name": "autoIndentSelectedRows",
@@ -11219,7 +11219,7 @@
           "category": "Indentation",
           "visibility": "Extended",
           "description": "Indent rows intersecting selections based on the grammar's suggested\nindent level.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4293
+          "line": 4348
         },
         {
           "name": "getGrammar",
@@ -11230,7 +11230,7 @@
           "category": "Grammars",
           "visibility": "Essential",
           "description": "Get the current {Grammar} of this editor.",
-          "line": 4328
+          "line": 4383
         },
         {
           "name": "onDidTokenize",
@@ -11241,7 +11241,7 @@
           "category": "Grammars",
           "visibility": "Experimental",
           "description": "Get a notification when async tokenization is completed.",
-          "line": 4345
+          "line": 4400
         },
         {
           "name": "getRootScopeDescriptor",
@@ -11252,7 +11252,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Essential",
           "description": "Returns a {ScopeDescriptor} that includes this editor's language.\ne.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with\n{Config::get} to get language specific config values.",
-          "line": 4356
+          "line": 4411
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -11263,7 +11263,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Essential",
           "description": "Get the syntactic {ScopeDescriptor} for the given position in buffer\ncoordinates. Useful with {Config::get}.\n\nFor example, if called with a position inside the parameter list of an\nanonymous CoffeeScript function, this method returns a {ScopeDescriptor} with\nthe following scopes array:\n`[\"source.coffee\", \"meta.function.inline.coffee\", \"meta.parameters.coffee\", \"variable.parameter.function.coffee\"]`\n\n* `bufferPosition` A {Point} or {Array} of `[row, column]`.\n\nReturns a {ScopeDescriptor}.",
-          "line": 4371
+          "line": 4426
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -11274,7 +11274,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Essential",
           "description": "Get the syntactic tree {ScopeDescriptor} for the given position in buffer\ncoordinates or the syntactic {ScopeDescriptor} for TextMate language mode\n\nFor example, if called with a position inside the parameter list of a\nJavaScript class function, this method returns a {ScopeDescriptor} with\nthe following syntax nodes array:\n`[\"source.js\", \"program\", \"expression_statement\", \"assignment_expression\", \"class\", \"class_body\", \"method_definition\", \"formal_parameters\", \"identifier\"]`\nif tree-sitter is used\nand the following scopes array:\n`[\"source.js\"]`\nif textmate is used\n\n* `bufferPosition` A {Point} or {Array} of `[row, column]`.\n\nReturns a {ScopeDescriptor}.",
-          "line": 4393
+          "line": 4448
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -11285,7 +11285,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Extended",
           "description": "Get the range in buffer coordinates of all tokens surrounding the\ncursor that match the given scope selector.\n\nFor example, if you wanted to find the string surrounding the cursor, you\ncould call `editor.bufferRangeForScopeAtCursor(\".string.quoted\")`.\n\n* `scopeSelector` {String} selector. e.g. `'.source.ruby'`\n\nReturns a {Range}.",
-          "line": 4409
+          "line": 4464
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -11296,7 +11296,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Extended",
           "description": "Get the range in buffer coordinates of all tokens surrounding the\ngiven position in buffer coordinates that match the given scope selector.\n\nFor example, if you wanted to find the string surrounding the cursor, you\ncould call `editor.bufferRangeForScopeAtPosition(\".string.quoted\", this.getCursorBufferPosition())`.\n\n* `scopeSelector` {String} selector. e.g. `'.source.ruby'`\n* `bufferPosition` A {Point} or {Array} of [row, column]\n\nReturns a {Range}.",
-          "line": 4423
+          "line": 4478
         },
         {
           "name": "isBufferRowCommented",
@@ -11307,7 +11307,7 @@
           "category": "Managing Syntax Scopes",
           "visibility": "Extended",
           "description": "Determine if the given row is entirely a comment",
-          "line": 4430
+          "line": 4485
         },
         {
           "name": "copySelectedText",
@@ -11318,7 +11318,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, copy the selected text.",
-          "line": 4460
+          "line": 4515
         },
         {
           "name": "cutSelectedText",
@@ -11329,7 +11329,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, cut the selected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4490
+          "line": 4545
         },
         {
           "name": "pasteText",
@@ -11340,7 +11340,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, replace the selected text with the contents of\nthe clipboard.\n\nIf the clipboard contains the same number of selections as the current\neditor, each selection will be replaced with the content of the\ncorresponding clipboard selection text.\n\n* `options` (optional) See {Selection::insertText}.",
-          "line": 4513
+          "line": 4568
         },
         {
           "name": "cutToEndOfLine",
@@ -11351,7 +11351,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, if the selection is empty, cut all characters\nof the containing screen line following the cursor. Otherwise cut the selected\ntext.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4607
+          "line": 4662
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -11362,7 +11362,7 @@
           "category": "Clipboard Operations",
           "visibility": "Essential",
           "description": "For each selection, if the selection is empty, cut all characters\nof the containing buffer line following the cursor. Otherwise cut the\nselected text.\n\n* `options` (optional) {Object}\n  * `bypassReadOnly` (optional) {Boolean} Must be `true` to modify a read-only editor.",
-          "line": 4622
+          "line": 4677
         },
         {
           "name": "foldCurrentRow",
@@ -11373,7 +11373,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Fold the most recent cursor's row based on its indentation level.\n\nThe fold will extend from the nearest preceding line with a lower\nindentation level up to the nearest following row with a lower indentation\nlevel.",
-          "line": 4640
+          "line": 4695
         },
         {
           "name": "unfoldCurrentRow",
@@ -11384,7 +11384,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Unfold the most recent cursor's row by one level.",
-          "line": 4650
+          "line": 4705
         },
         {
           "name": "foldBufferRow",
@@ -11395,7 +11395,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Fold the given row in buffer coordinates based on its indentation\nlevel.\n\nIf the given row is foldable, the fold will begin there. Otherwise, it will\nbegin at the first foldable row preceding the given row.\n\n* `bufferRow` A {Number}.",
-          "line": 4662
+          "line": 4717
         },
         {
           "name": "unfoldBufferRow",
@@ -11406,7 +11406,7 @@
           "category": "Folds",
           "visibility": "Essential",
           "description": "Unfold all folds containing the given row in buffer coordinates.\n\n* `bufferRow` A {Number}",
-          "line": 4690
+          "line": 4745
         },
         {
           "name": "foldSelectedLines",
@@ -11417,7 +11417,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "For each selection, fold the rows it intersects.",
-          "line": 4696
+          "line": 4751
         },
         {
           "name": "foldAll",
@@ -11428,7 +11428,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Fold all foldable lines.",
-          "line": 4703
+          "line": 4758
         },
         {
           "name": "unfoldAll",
@@ -11439,7 +11439,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Unfold all existing folds.",
-          "line": 4714
+          "line": 4769
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -11450,7 +11450,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Fold all foldable lines at the given indent level.\n\n* `level` A {Number} starting at 0.",
-          "line": 4723
+          "line": 4778
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -11461,7 +11461,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in buffer coordinates is foldable.\n\nA *foldable* row is a row that *starts* a row range that can be folded.\n\n* `bufferRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4741
+          "line": 4796
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -11472,7 +11472,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in screen coordinates is foldable.\n\nA *foldable* row is a row that *starts* a row range that can be folded.\n\n* `screenRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4753
+          "line": 4808
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -11483,7 +11483,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Fold the given buffer row if it isn't currently folded, and unfold\nit otherwise.",
-          "line": 4759
+          "line": 4814
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -11494,7 +11494,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the most recently added cursor's row is folded.\n\nReturns a {Boolean}.",
-          "line": 4770
+          "line": 4825
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -11505,7 +11505,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in buffer coordinates is folded.\n\n* `bufferRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4779
+          "line": 4834
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -11516,7 +11516,7 @@
           "category": "Folds",
           "visibility": "Extended",
           "description": "Determine whether the given row in screen coordinates is folded.\n\n* `screenRow` A {Number}\n\nReturns a {Boolean}.",
-          "line": 4792
+          "line": 4847
         },
         {
           "name": "addGutter",
@@ -11527,7 +11527,7 @@
           "category": "Gutters",
           "visibility": "Essential",
           "description": "Add a custom {Gutter}.\n\n* `options` An {Object} with the following fields:\n  * `name` (required) A unique {String} to identify this gutter.\n  * `priority` (optional) A {Number} that determines stacking order between\n      gutters. Lower priority items are forced closer to the edges of the\n      window. (default: -100)\n  * `visible` (optional) {Boolean} specifying whether the gutter is visible\n      initially after being created. (default: true)\n  * `type` (optional) {String} specifying the type of gutter to create. `'decorated'`\n      gutters are useful as a destination for decorations created with {Gutter::decorateMarker}.\n      `'line-number'` gutters.\n  * `class` (optional) {String} added to the CSS classnames of the gutter's root DOM element.\n  * `labelFn` (optional) {Function} called by a `'line-number'` gutter to generate the label for each line number\n      element. Should return a {String} that will be used to label the corresponding line.\n    * `lineData` an {Object} containing information about each line to label.\n      * `bufferRow` {Number} indicating the zero-indexed buffer index of this line.\n      * `screenRow` {Number} indicating the zero-indexed screen index.\n      * `foldable` {Boolean} that is `true` if a fold may be created here.\n      * `softWrapped` {Boolean} if this screen row is the soft-wrapped continuation of the same buffer row.\n      * `maxDigits` {Number} the maximum number of digits necessary to represent any known screen row.\n  * `onMouseDown` (optional) {Function} to be called when a mousedown event is received by a line-number\n       element within this `type: 'line-number'` {Gutter}. If unspecified, the default behavior is to select the\n       clicked buffer row.\n    * `lineData` an {Object} containing information about the line that's being clicked.\n      * `bufferRow` {Number} of the originating line element\n      * `screenRow` {Number}\n  * `onMouseMove` (optional) {Function} to be called when a mousemove event occurs on a line-number element within\n       within this `type: 'line-number'` {Gutter}.\n    * `lineData` an {Object} containing information about the line that's being clicked.\n      * `bufferRow` {Number} of the originating line element\n      * `screenRow` {Number}\n\nReturns the newly-created {Gutter}.",
-          "line": 4861
+          "line": 4916
         },
         {
           "name": "getGutters",
@@ -11538,7 +11538,7 @@
           "category": "Gutters",
           "visibility": "Essential",
           "description": "Get this editor's gutters.\n\nReturns an {Array} of {Gutter}s.",
-          "line": 4868
+          "line": 4923
         },
         {
           "name": "gutterWithName",
@@ -11549,7 +11549,7 @@
           "category": "Gutters",
           "visibility": "Essential",
           "description": "Get the gutter with the given name.\n\nReturns a {Gutter}, or `null` if no gutter exists for the given name.",
-          "line": 4879
+          "line": 4934
         },
         {
           "name": "scrollToCursorPosition",
@@ -11560,7 +11560,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
           "description": "Scroll the editor to reveal the most recently added cursor if it is\noff-screen.\n\n* `options` (optional) {Object}\n  * `center` Center the editor around the cursor if possible. (default: true\n    when an options object is given at all, false otherwise — the bare call\n    is the one the editor's own movement commands make, and they scroll only\n    as far as they must)\n  * `zone` Land the cursor inside a band of the viewport, instead of\n    centering it. See {::scrollToScreenRange}.",
-          "line": 4897
+          "line": 4952
         },
         {
           "name": "scrollToBufferPosition",
@@ -11571,7 +11571,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
           "description": "Scrolls the editor to the given buffer position.\n\n* `bufferPosition` An object that represents a buffer position. It can be either\n  an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)\n  * `zone` Land the position inside a band of the viewport. See\n    {::scrollToScreenRange}.",
-          "line": 4913
+          "line": 4968
         },
         {
           "name": "scrollToScreenPosition",
@@ -11582,7 +11582,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Essential",
           "description": "Scrolls the editor to the given screen position.\n\n* `screenPosition` An object that represents a screen position. It can be either\n   an {Object} (`{row, column}`), {Array} (`[row, column]`), or {Point}\n* `options` (optional) {Object}\n  * `center` Center the editor around the position if possible. (default: false)\n  * `zone` Land the position inside a band of the viewport. See\n    {::scrollToScreenRange}.",
-          "line": 4928
+          "line": 4983
         },
         {
           "name": "scrollToScreenRange",
@@ -11593,7 +11593,7 @@
           "category": "Scrolling the TextEditor",
           "visibility": "Extended",
           "description": "Scrolls the editor to the given screen range.\n\n* `screenRange` A {Range} or range-compatible {Array}.\n* `options` (optional) {Object}\n  * `center` Center the editor around the range if possible. (default: false)\n  * `zone` Where in the viewport the range should come to rest, as a\n    percentage of the travel it has between the vertical scroll margins: `0`\n    rests it against the top margin and `100` against the bottom one. A\n    {Number} pins the range to that one spot. An {Array} of two numbers\n    names where it lands after leaving the band through the top and after\n    leaving it through the bottom, and so describes the band itself —\n    nothing scrolls while the range is already inside. Ordered\n    (`[0, 50]`) that is the edge it just crossed, the smallest scroll that\n    brings it back; inverted (`[50, 0]`) it is the opposite edge, throwing\n    the range across the viewport to leave the most room ahead of it.\n    `[0, 100]` is the default behaviour and `50` is `center`.\n  * `reversed` Scroll to the start of the range before its end when both\n    are off-screen. (default: true)\n  * `clip` Clip the range to the editor's contents first. (default: true)",
-          "line": 4951
+          "line": 5006
         },
         {
           "name": "shouldAutoIndent",
@@ -11604,7 +11604,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Is auto-indentation enabled for this editor?\n\nReturns a {Boolean}.",
-          "line": 4993
+          "line": 5048
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -11615,7 +11615,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Is auto-indentation on paste enabled for this editor?\n\nReturns a {Boolean}.",
-          "line": 5000
+          "line": 5055
         },
         {
           "name": "getScrollPastEnd",
@@ -11626,7 +11626,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Does this editor allow scrolling past the last line?\n\nReturns a {Boolean}.",
-          "line": 5007
+          "line": 5062
         },
         {
           "name": "getScrollSensitivity",
@@ -11637,7 +11637,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How fast does the editor scroll in response to mouse wheel\nmovements?\n\nReturns a positive {Number}.",
-          "line": 5019
+          "line": 5074
         },
         {
           "name": "getSmoothScrolling",
@@ -11648,7 +11648,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Are mouse wheel and scroll command movements animated?\n\nReturns a {Boolean}.",
-          "line": 5026
+          "line": 5081
         },
         {
           "name": "getWheelSmoothness",
@@ -11659,7 +11659,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How gradually does the editor glide toward the target\nposition when scrolling with the mouse wheel?\n\nReturns a positive {Number}.",
-          "line": 5035
+          "line": 5090
         },
         {
           "name": "getCommandSmoothness",
@@ -11670,7 +11670,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How gradually does the editor glide when scrolling via the\nscroll commands?\n\nReturns a positive {Number}.",
-          "line": 5044
+          "line": 5099
         },
         {
           "name": "getAltWheelMultiplier",
@@ -11681,7 +11681,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Speed multiplier applied to wheel scrolling while holding\n`alt`.\n\nReturns a positive {Number}.",
-          "line": 5053
+          "line": 5108
         },
         {
           "name": "getScrollCommandDistance",
@@ -11692,7 +11692,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Distance scrolled by the scroll commands, as a fraction of\nthe editor height. Seeded from config; the increase/decrease scroll\ndistance commands adjust it per editor.\n\nReturns a positive {Number}.",
-          "line": 5062
+          "line": 5117
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -11703,7 +11703,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "How long (in milliseconds) to wait for the editor width to\nsettle before re-wrapping soft-wrapped lines. `0` re-wraps immediately.\n\nReturns a non-negative {Number}.",
-          "line": 5070
+          "line": 5125
         },
         {
           "name": "doesShowLineNumbers",
@@ -11714,7 +11714,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Are line numbers enabled for this editor?\n\nReturns a {Boolean}",
-          "line": 5077
+          "line": 5132
         },
         {
           "name": "getUndoGroupingInterval",
@@ -11725,7 +11725,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Get the time interval within which text editing operations\nare grouped together in the editor's undo history.\n\nReturns the time interval {Number} in milliseconds.",
-          "line": 5085
+          "line": 5140
         },
         {
           "name": "getNonWordCharacters",
@@ -11736,7 +11736,7 @@
           "category": "Config",
           "visibility": "Experimental",
           "description": "Get the characters that are *not* considered part of words,\nfor the purpose of word-based cursor movements.\n\nReturns a {String} containing the non-word characters.",
-          "line": 5093
+          "line": 5148
         },
         {
           "name": "getPlaceholderText",
@@ -11747,7 +11747,7 @@
           "category": "TextEditor Rendering",
           "visibility": "Essential",
           "description": "Retrieves the greyed out placeholder of a mini editor.\n\nReturns a {String}.",
-          "line": 5153
+          "line": 5208
         },
         {
           "name": "setPlaceholderText",
@@ -11758,7 +11758,7 @@
           "category": "TextEditor Rendering",
           "visibility": "Essential",
           "description": "Set the greyed out placeholder of a mini editor. Placeholder text\nwill be displayed when the editor has no content.\n\n* `placeholderText` {String} text that is displayed when the editor has no content.",
-          "line": 5161
+          "line": 5216
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -11769,7 +11769,7 @@
           "category": "Language Mode Delegated Methods",
           "visibility": "Public",
           "description": "Return information about the appropriate comment delimiters to use\nat a given point in the buffer.\n\nLumine allows language bundles to define comment delimiters in several\nplaces. For instance, a grammar author can place delimiter metadata in the\ngrammar definition file, or as scope-specific settings in the ordinary\nconfig system — or a combination of the two.\n\nIn some languages, comment delimiters vary based on position in the\nbuffer. (For instance, line comments can't always be used in JavaScript\nJSX blocks, so block comments are much safer.) This method will look for\nany such overrides and return what it thinks are the best delimiters to\nuse at a given point.\n\nSome languages don't specify all their delimiters in their configuration,\nbut this method will return all the information that it can discern.\n\n* point - A {Point} or point-compatible {Array}.\n\nReturns an {Object} with the following properties:\n\n* `line`: If present, a {String} representing a line comment delimiter.\n  (If `undefined`, there is no known line comment delimiter for the given\n  buffer position.)\n* `block`: If present, a two-item {Array} containing {String}s\n  representing the starting and ending block comment delimiters. (If\n  `undefined`, there are no known block comment delimiters for the given\n  buffer position.)",
-          "line": 5629
+          "line": 5684
         }
       ]
     },
@@ -12362,7 +12362,7 @@
           "category": "Methods",
           "visibility": "Extended",
           "description": "Destroy every item in the given pane container locations,\nleaving each of them with a single empty pane.\n\nNothing is prompted for — the caller decides whether the items may go,\nwhich is why this is not {Pane::destroyItems} on every pane.\n\n* `options` An optional {Object} that may contain the following key:\n  * `locations` An {Array} of the pane container locations to empty.\n    Defaults to all four.\n\nReturns a {Promise} that resolves once they are empty.",
-          "line": 600
+          "line": 602
         },
         {
           "name": "observeTextEditors",
@@ -12373,7 +12373,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future text\neditors in the workspace.\n\n* `callback` {Function} to be called with current and future text editors.\n  * `editor` A {TextEditor} that is present in {::getTextEditors} at the time\n    of subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 879
+          "line": 886
         },
         {
           "name": "observePaneItems",
@@ -12384,7 +12384,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with all current and future panes items\nin the workspace.\n\n* `callback` {Function} to be called with current and future pane items.\n  * `item` An item that is present in {::getPaneItems} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 894
+          "line": 901
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -12395,7 +12395,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item changes.\n\nBecause observers are invoked synchronously, it's important not to perform\nany expensive operations via this method. Consider\n{::onDidStopChangingActivePaneItem} to delay operations until after changes\nstop occurring.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 911
+          "line": 918
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -12406,7 +12406,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when the active pane item stops\nchanging.\n\nObservers are called asynchronously 100ms after the last active pane item\nchange. Handling changes here rather than in the synchronous\n{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly\nchanging or closing tabs and ensures critical UI feedback, like changing the\nhighlighted tab, gets priority over work that can be done asynchronously.\n\n* `callback` {Function} to be called when the active pane item stops\n  changing.\n  * `item` The active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 929
+          "line": 936
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -12417,7 +12417,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when a text editor becomes the active\ntext editor and when there is no longer an active text editor.\n\n* `callback` {Function} to be called when the active text editor changes.\n  * `editor` The active {TextEditor} or undefined if there is no longer an\n     active text editor.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 941
+          "line": 948
         },
         {
           "name": "observeActivePaneItem",
@@ -12428,7 +12428,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active pane item and\nwith all future active pane items in the workspace.\n\n* `callback` {Function} to be called when the active pane item changes.\n  * `item` The current active pane item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 952
+          "line": 959
         },
         {
           "name": "observeActiveTextEditor",
@@ -12439,7 +12439,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback with the current active text editor\n(if any), with all future active text editors, and when there is no longer\nan active text editor.\n\n* `callback` {Function} to be called when the active text editor changes.\n  * `editor` The active {TextEditor} or undefined if there is not an\n     active text editor.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 966
+          "line": 973
         },
         {
           "name": "onDidOpen",
@@ -12450,7 +12450,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback whenever an item is opened. Unlike\n{::onDidAddPaneItem}, observers will be notified for items that are already\npresent in the workspace when they are reopened.\n\n* `callback` {Function} to be called whenever an item is opened.\n  * `event` {Object} with the following keys:\n    * `uri` {String} representing the opened URI. Could be `undefined`.\n    * `item` The opened item.\n    * `pane` The pane in which the item was opened.\n    * `index` The index of the opened item on its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 984
+          "line": 991
         },
         {
           "name": "onDidAddPane",
@@ -12461,7 +12461,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is added to the workspace.\n\n* `callback` {Function} to be called when panes are added.\n  * `event` {Object} with the following keys:\n    * `pane` The added pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 995
+          "line": 1002
         },
         {
           "name": "onWillDestroyPane",
@@ -12472,7 +12472,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback before a pane is destroyed in the\nworkspace.\n\n* `callback` {Function} to be called before panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The pane to be destroyed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1009
+          "line": 1016
         },
         {
           "name": "onDidDestroyPane",
@@ -12483,7 +12483,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane is destroyed in the\nworkspace.\n\n* `callback` {Function} to be called when panes are destroyed.\n  * `event` {Object} with the following keys:\n    * `pane` The destroyed pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1023
+          "line": 1030
         },
         {
           "name": "observePanes",
@@ -12494,7 +12494,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with all current and future panes in the\nworkspace.\n\n* `callback` {Function} to be called with current and future panes.\n  * `pane` A {Pane} that is present in {::getPanes} at the time of\n     subscription or that is added at some later time.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1037
+          "line": 1044
         },
         {
           "name": "onDidChangeActivePane",
@@ -12505,7 +12505,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when the active pane changes.\n\n* `callback` {Function} to be called when the active pane changes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1049
+          "line": 1056
         },
         {
           "name": "observeActivePane",
@@ -12516,7 +12516,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback with the current active pane and when\nthe active pane changes.\n\n* `callback` {Function} to be called with the current and future active\n  panes.\n  * `pane` A {Pane} that is the current return value of {::getActivePane}.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1061
+          "line": 1068
         },
         {
           "name": "onDidAddPaneItem",
@@ -12527,7 +12527,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is added to the\nworkspace.\n\n* `callback` {Function} to be called when pane items are added.\n  * `event` {Object} with the following keys:\n    * `item` The added pane item.\n    * `pane` {Pane} containing the added item.\n    * `index` {Number} indicating the index of the added item in its pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1076
+          "line": 1083
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -12538,7 +12538,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is about to be\ndestroyed, before the user is prompted to save it.\n\n* `callback` {Function} to be called before pane items are destroyed. If this function returns\n  a {Promise}, then the item will not be destroyed until the promise resolves.\n  * `event` {Object} with the following keys:\n    * `item` The item to be destroyed.\n    * `pane` {Pane} containing the item to be destroyed.\n    * `index` {Number} indicating the index of the item to be destroyed in\n      its pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 1094
+          "line": 1101
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -12549,7 +12549,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a pane item is destroyed.\n\n* `callback` {Function} to be called when pane items are destroyed.\n  * `event` {Object} with the following keys:\n    * `item` The destroyed item.\n    * `pane` {Pane} containing the destroyed item.\n    * `index` {Number} indicating the index of the destroyed item in its\n      pane.\n\nReturns a {Disposable} on which `.dispose` can be called to unsubscribe.",
-          "line": 1110
+          "line": 1117
         },
         {
           "name": "onDidAddTextEditor",
@@ -12560,7 +12560,7 @@
           "category": "Event Subscription",
           "visibility": "Extended",
           "description": "Invoke the given callback when a text editor is added to the\nworkspace.\n\n* `callback` {Function} to be called when text editors are added.\n  * `event` {Object} with the following keys:\n    * `textEditor` {TextEditor} that was added.\n    * `pane` {Pane} containing the added text editor.\n    * `index` {Number} indicating the index of the added text editor in its\n       pane.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1127
+          "line": 1134
         },
         {
           "name": "open",
@@ -12571,7 +12571,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Opens the given URI in Lumine asynchronously.\nIf the URI is already open, the existing item for that URI will be\nactivated. If no URI is given, or no registered opener can open\nthe URI, a new empty {TextEditor} will be created.\n\n* `itemOrURI` (optional) An item to open or a {String} containing a URI.\n* `options` (optional) {Object}\n  * `initialLine` A {Number} indicating which row to move the cursor to\n    initially. Defaults to `0`.\n  * `initialColumn` A {Number} indicating which column to move the cursor to\n    initially. Defaults to `0`.\n  * `split` Either 'left', 'right', 'up' or 'down'.\n    If 'left', the item will be opened in leftmost pane of the current active pane's row.\n    If 'right', the item will be opened in the rightmost pane of the current active pane's row. If only one pane exists in the row, a new pane will be created.\n    If 'up', the item will be opened in topmost pane of the current active pane's column.\n    If 'down', the item will be opened in the bottommost pane of the current active pane's column. If only one pane exists in the column, a new pane will be created.\n  * `activatePane` A {Boolean} indicating whether to call {Pane::activate} on\n    containing pane. Defaults to `true`.\n  * `activateItem` A {Boolean} indicating whether to call {Pane::activateItem}\n    on containing pane. Defaults to `true`.\n  * `pending` A {Boolean} indicating whether or not the item should be opened\n    in a pending state. Existing pending items in a pane are replaced with\n    new pending items when they are opened.\n  * `searchAllPanes` A {Boolean}. If `true`, the workspace will attempt to\n    activate an existing item for the given URI on any pane.\n    If `false`, only the active pane will be searched for\n    an existing item for the same URI. Defaults to `false`.\n  * `location` (optional) A {String} containing the name of the location\n    in which this item should be opened (one of \"left\", \"right\", \"bottom\",\n    or \"center\"). If omitted, Lumine will fall back to the last location in\n    which a user has placed an item with the same URI or, if this is a new\n    URI, the default location specified by the item. NOTE: This option\n    should almost always be omitted to honor user preference.\n\nReturns a {Promise} that resolves to the {TextEditor} for the file URI.",
-          "line": 1170
+          "line": 1177
         },
         {
           "name": "hide",
@@ -12582,7 +12582,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Search the workspace for items matching the given URI and hide them.\n\n* `itemOrURI` The item to hide or a {String} containing the URI\n  of the item to hide.\n\nReturns a {Boolean} indicating whether any items were found (and hidden).",
-          "line": 1383
+          "line": 1403
         },
         {
           "name": "toggle",
@@ -12593,7 +12593,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Search the workspace for items matching the given URI. If any are found, hide them.\nOtherwise, open the URL.\n\n* `itemOrURI` (optional) The item to toggle or a {String} containing the URI\n  of the item to toggle.\n\nReturns a Promise that resolves when the item is shown or hidden.",
-          "line": 1419
+          "line": 1439
         },
         {
           "name": "createItemForURI",
@@ -12604,7 +12604,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Creates a new item that corresponds to the provided URI.\n\nIf no URI is given, or no registered opener can open the URI, a new empty\n{TextEditor} will be created.\n\n* `uri` A {String} containing a URI.\n\nReturns a {Promise} that resolves to the {TextEditor} (or other item) for the given URI.",
-          "line": 1490
+          "line": 1557
         },
         {
           "name": "isTextEditor",
@@ -12615,7 +12615,7 @@
           "category": "Opening",
           "visibility": "Public",
           "description": "Returns a {Boolean} that is `true` if `object` is a `TextEditor`.\n\n* `object` An {Object} you want to perform the check against.",
-          "line": 1583
+          "line": 1650
         },
         {
           "name": "buildTextEditor",
@@ -12626,7 +12626,7 @@
           "category": "Opening",
           "visibility": "Extended",
           "description": "Create a new text editor.\n\nReturns a {TextEditor}.",
-          "line": 1590
+          "line": 1657
         },
         {
           "name": "buildSelectList",
@@ -12637,7 +12637,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Create a fuzzy-searchable list shown in a modal panel.\n\nThe editor ships the implementation, so a package neither depends on it nor\npins it, and a window holds exactly one copy of it. This is a factory, not a\nshared instance: every call returns a list that owns its own panel, so a\nrenderer that throws takes down one package's list rather than all of them.\n\nThe list owns its panel. Do not call {::addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n* `props` An {Object} describing the list. The two that matter most:\n  * `items` An {Array} of the objects to show.\n  * `elementForItem` A {Function} called as `(item, options)` to render a\n    row. Return an {HTMLElement}, or an {Object} with `primary` and an\n    optional `secondary`, `icon`, `className` and `trailing` to have a row\n    built for you. `options` carries `selected`, `index`, `filterKey`,\n    `visible`, a lazily computed `matchIndices`, and `highlight(text,\n    indices)` — which wraps the matched characters of `text` in\n    `span.character-match`, defaulting to this item's own indices.\n\nReturns a {SelectListView}.",
-          "line": 1619
+          "line": 1686
         },
         {
           "name": "buildInputDialog",
@@ -12648,7 +12648,7 @@
           "category": "Opening",
           "visibility": "Essential",
           "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {::buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `atom.config`.\n\nPanel ownership is the same as {::buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n* `props` An {Object} describing the dialog, including `didConfirm(query)`,\n  `didCancel()` and `didChangeQuery(query)`.\n\nReturns an {InputDialogView}.",
-          "line": 1637
+          "line": 1704
         },
         {
           "name": "popModal",
@@ -12659,7 +12659,7 @@
           "category": "Modal flow",
           "visibility": "Essential",
           "description": "Go back one step in the modal breadcrumb trail.\n\nA trail exists while a modal shown with {Panel::show}'s `crumb` option is\non screen. Going back hides the current step — without cancelling it —\nand re-shows the previous panel with its state intact. Bound to\nShift-Escape as `modal:go-back`; Escape still cancels the visible modal,\nwhich ends the whole trail.\n\nReturns a {Boolean} — `false` when there is no step to go back to.",
-          "line": 1664
+          "line": 1731
         },
         {
           "name": "popModalTo",
@@ -12670,7 +12670,7 @@
           "category": "Modal flow",
           "visibility": "Essential",
           "description": "Jump back to an earlier step of the modal breadcrumb trail.\n\n* `index` The zero-based trail position to return to, as reported by\n  {::getModalTrail}. The breadcrumb strip wires its crumbs to this.\n\nReturns a {Boolean} — `false` when the index is not an earlier step.",
-          "line": 1674
+          "line": 1741
         },
         {
           "name": "getModalTrail",
@@ -12681,7 +12681,7 @@
           "category": "Modal flow",
           "visibility": "Essential",
           "description": "The current modal breadcrumb trail.\n\nReturns an {Array} of {String} labels, root first; empty when no flow is\nactive.",
-          "line": 1682
+          "line": 1749
         },
         {
           "name": "onDidChangeModalTrail",
@@ -12692,7 +12692,7 @@
           "category": "Modal flow",
           "visibility": "Extended",
           "description": "Invoke the given callback whenever the modal breadcrumb trail\nchanges — a step is entered, the flow goes back, or the trail ends.\n\n* `callback` {Function} receiving the trail as {::getModalTrail} reports\n  it.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1693
+          "line": 1760
         },
         {
           "name": "reopenItem",
@@ -12703,7 +12703,7 @@
           "category": "Modal flow",
           "visibility": "Public",
           "description": "Asynchronously reopens the last-closed item's URI if it hasn't already been\nreopened.\n\nReturns a {Promise} that is resolved when the item is opened",
-          "line": 1701
+          "line": 1768
         },
         {
           "name": "addOpener",
@@ -12714,7 +12714,7 @@
           "category": "Modal flow",
           "visibility": "Public",
           "description": "Register an opener for a uri.\n\nWhen a URI is opened via {Workspace::open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {ViewRegistry}.\nA {TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\natom.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n* `opener` A {Function} to be called when a path is being opened.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nopener.\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{Workspace::open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json` containing an array of URL\nstrings.",
-          "line": 1743
+          "line": 1810
         },
         {
           "name": "getPaneItems",
@@ -12725,7 +12725,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all pane items in the workspace.\n\nReturns an {Array} of items.",
-          "line": 1761
+          "line": 1828
         },
         {
           "name": "getActivePaneItem",
@@ -12736,7 +12736,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the active {Pane}'s active item.\n\nReturns a pane item {Object}.",
-          "line": 1768
+          "line": 1835
         },
         {
           "name": "getTextEditors",
@@ -12747,7 +12747,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all text editors in the workspace, if they are pane items.\n\nReturns an {Array} of {TextEditor}s.",
-          "line": 1775
+          "line": 1842
         },
         {
           "name": "getActiveTextEditor",
@@ -12758,7 +12758,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the workspace center's active item if it is a {TextEditor}.\n\nReturns a {TextEditor} or `undefined` if the workspace center's current\nactive item is not a {TextEditor}.",
-          "line": 1783
+          "line": 1867
         },
         {
           "name": "saveActivePaneItem",
@@ -12769,7 +12769,7 @@
           "category": "Pane Items",
           "visibility": "Extended",
           "description": "Save the workspace center's active pane item.\n\nIf the item has a URI according to its `.getURI` method, calls `.save` on\nit; otherwise {::saveActivePaneItemAs} is called instead. Does nothing when\nthe item implements no `.save` method.\n\nTargets the center rather than the focused pane container, for the reason\ngiven on {::destroyActivePaneItem}.",
-          "line": 1809
+          "line": 1893
         },
         {
           "name": "saveActivePaneItemAs",
@@ -12780,7 +12780,7 @@
           "category": "Pane Items",
           "visibility": "Extended",
           "description": "Prompt for a path and save the workspace center's active pane\nitem to it.\n\nOpens a native dialog where the user selects a path on disk, then calls\n`.saveAs` on the item with the selected path. Does nothing when the item\nimplements no `.saveAs` method.\n\nTargets the center rather than the focused pane container, for the reason\ngiven on {::destroyActivePaneItem}.",
-          "line": 1822
+          "line": 1906
         },
         {
           "name": "destroyActivePaneItem",
@@ -12791,7 +12791,7 @@
           "category": "Pane Items",
           "visibility": "Extended",
           "description": "Destroy (close) the active pane item.\n\nRemoves the active pane item and calls its `.destroy` method if it has one.\n\nThis one resolves through the *active pane container*, so it closes the\nfocused dock's item while a dock has focus. That pairs it with\n{::getActivePaneItem} and {::getActivePane}, which resolve the same way, and\nis what a package wants when it has already inspected the active item and\ndecided to close it.\n\nIts neighbours here deliberately differ: {::saveActivePaneItem},\n{::saveActivePaneItemAs} and {::closeActivePaneItemOrEmptyPaneOrWindow} are\npinned to the workspace center. They back `core:save`, `core:save-as` and\n`core:close`, whose keystrokes fire from anywhere in the window, so\nfollowing focus would make Ctrl-S in a search field or a dock try to save\nthat instead of the document being edited.",
-          "line": 1842
+          "line": 1926
         },
         {
           "name": "getActivePaneContainer",
@@ -12802,7 +12802,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the most recently focused pane container.\n\nReturns a {Dock} or the {WorkspaceCenter}.",
-          "line": 1853
+          "line": 1937
         },
         {
           "name": "getPanes",
@@ -12813,7 +12813,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get all panes in the workspace.\n\nReturns an {Array} of {Pane}s.",
-          "line": 1860
+          "line": 1944
         },
         {
           "name": "getActivePane",
@@ -12824,7 +12824,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the active {Pane}.\n\nReturns a {Pane}.",
-          "line": 1871
+          "line": 1955
         },
         {
           "name": "activateNextPane",
@@ -12835,7 +12835,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the next pane active.",
-          "line": 1876
+          "line": 1960
         },
         {
           "name": "activatePreviousPane",
@@ -12846,7 +12846,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the previous pane active.",
-          "line": 1881
+          "line": 1965
         },
         {
           "name": "paneContainerForURI",
@@ -12857,7 +12857,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains an item with the given\nURI.\n\n* `uri` {String} uri\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no item exists\nwith the given URI.",
-          "line": 1892
+          "line": 1976
         },
         {
           "name": "paneContainerForItem",
@@ -12868,7 +12868,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains the given item.\n\n* `item` the Item that the returned pane container must contain.\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no pane container\ncontains the given item.",
-          "line": 1902
+          "line": 1986
         },
         {
           "name": "paneForURI",
@@ -12879,7 +12879,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first {Pane} that contains an item with the given URI.\n\n* `uri` {String} uri\n\nReturns a {Pane} or `undefined` if no item exists with the given URI.",
-          "line": 1911
+          "line": 1995
         },
         {
           "name": "paneForItem",
@@ -12890,7 +12890,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the {Pane} containing the given item.\n\n* `item` the Item that the returned pane must contain.\n\nReturns a {Pane} or `undefined` if no pane exists for the given item.",
-          "line": 1925
+          "line": 2009
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -12901,7 +12901,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Close the workspace center's active pane item, or its active pane\nif that pane is empty, or the window if only the empty root pane is left.\n\nTargets the center rather than the focused pane container, for the reason\ngiven on {::destroyActivePaneItem}.",
-          "line": 1947
+          "line": 2031
         },
         {
           "name": "getCenter",
@@ -12912,7 +12912,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {WorkspaceCenter} at the center of the editor window.",
-          "line": 2021
+          "line": 2106
         },
         {
           "name": "getLeftDock",
@@ -12923,7 +12923,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the left of the editor window.",
-          "line": 2026
+          "line": 2111
         },
         {
           "name": "getRightDock",
@@ -12934,7 +12934,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the right of the editor window.",
-          "line": 2031
+          "line": 2116
         },
         {
           "name": "getBottomDock",
@@ -12945,7 +12945,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} below the editor window.",
-          "line": 2036
+          "line": 2121
         },
         {
           "name": "getBottomPanels",
@@ -12956,7 +12956,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the bottom of the editor window.",
-          "line": 2071
+          "line": 2156
         },
         {
           "name": "addBottomPanel",
@@ -12967,7 +12967,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the bottom of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2087
+          "line": 2172
         },
         {
           "name": "getLeftPanels",
@@ -12978,7 +12978,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the left of the editor window.",
-          "line": 2092
+          "line": 2177
         },
         {
           "name": "addLeftPanel",
@@ -12989,7 +12989,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the left of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2108
+          "line": 2193
         },
         {
           "name": "getRightPanels",
@@ -13000,7 +13000,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the right of the editor window.",
-          "line": 2113
+          "line": 2198
         },
         {
           "name": "addRightPanel",
@@ -13011,7 +13011,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the right of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2129
+          "line": 2214
         },
         {
           "name": "getTopPanels",
@@ -13022,7 +13022,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the top of the editor window.",
-          "line": 2134
+          "line": 2219
         },
         {
           "name": "addTopPanel",
@@ -13033,7 +13033,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the top of the editor window above the tabs.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2150
+          "line": 2235
         },
         {
           "name": "getHeaderPanels",
@@ -13044,7 +13044,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the header.",
-          "line": 2155
+          "line": 2240
         },
         {
           "name": "addHeaderPanel",
@@ -13055,7 +13055,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the header.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2171
+          "line": 2256
         },
         {
           "name": "getFooterPanels",
@@ -13066,7 +13066,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the footer.",
-          "line": 2176
+          "line": 2261
         },
         {
           "name": "addFooterPanel",
@@ -13077,7 +13077,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the footer.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2192
+          "line": 2277
         },
         {
           "name": "getModalPanels",
@@ -13088,7 +13088,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the modal panel items",
-          "line": 2197
+          "line": 2282
         },
         {
           "name": "addModalPanel",
@@ -13099,7 +13099,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item as a modal dialog.\n\n* `options` {Object}\n  * `item` Your panel content. It can be a DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    model option. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n  * `autoFocus` (optional) {Boolean|Element} true if you want modal focus managed for you by Lumine.\n    Lumine will automatically focus on this element or your modal panel's first tabbable element when the modal\n    opens and will restore the previously selected element when the modal closes. Lumine will\n    also automatically restrict user tab focus within your modal while it is open.\n    (default: false)\n  * `restoreFocus` (optional) {Boolean} false if you want to manage focus restoration\n    yourself. By default, when a modal panel is hidden, focus returns to the element\n    that was focused before the modal opened — or, for chained modals, before the\n    first modal in the chain opened. (default: true)\n  * `crumb` (optional) {String} the label this panel carries on the modal\n    breadcrumb trail. Used when the panel is shown as a flow step without\n    an explicit label — `panel.show({crumb: true})` — and when a step\n    shown on top of this panel adopts it as the trail root. See\n    {Panel::show}.\n\nReturns a {Panel}",
-          "line": 2227
+          "line": 2312
         },
         {
           "name": "panelForItem",
@@ -13110,7 +13110,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Returns the {Panel} associated with the given item. Returns\n`null` when the item has no panel.\n\n* `item` Item the panel contains",
-          "line": 2235
+          "line": 2320
         },
         {
           "name": "scan",
@@ -13121,7 +13121,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a search across all files in the workspace.\n\n* `regex` {RegExp} to search with.\n* `options` (optional) {Object}\n  * `paths` An {Array} of glob patterns to search within. (See note below for multi-root projects.)\n  * `includeVcsIgnoredPaths` {Boolean} default `false`; Whether to include\n    paths excluded by VCS ignore files, regardless of the core preference.\n  * `onPathsSearched` (optional) {Function} to be periodically called\n    with number of paths searched.\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` {Function} callback on each file found.\n\nReturns a {Promise} with a `cancel()` method that will cancel all\nof the underlying searches that were started as part of this scan.\n\n#### Caveats\n\nWhen a project has multiple roots, the patterns in `options.paths` may opt\ninto or out of specific roots.\n\nFor instance: when only one root is present, `'foo/bar.js'` is construed\nas a glob meant to match `<root>/foo/bar.js`; when multiple roots are\npresent and at least one project root has a base directory name of `foo`,\nthen `foo/bar.js` is construed as a glob meant only for root `foo` and\nmeant to match `bar.js`.",
-          "line": 2295
+          "line": 2380
         },
         {
           "name": "replace",
@@ -13132,7 +13132,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a replace across all the specified files in the project.\n\n* `regex` A {RegExp} to search with.\n* `replacementText` {String} to replace all matches of regex with.\n* `filePaths` An {Array} of file path strings to run the replace on.\n* `iterator` A {Function} callback on each file with replacements:\n  * `options` {Object} with keys `filePath` and `replacements`.\n\nReturns a {Promise}.",
-          "line": 2612
+          "line": 2697
         },
         {
           "name": "filePathMatchesPatterns",
@@ -13143,7 +13143,7 @@
           "category": "Searching and Replacing",
           "visibility": "Experimental",
           "description": "Tests the path of a file in the project against a set of\nglobs (using the same semantics as {::scan}) and reports whether the file\nsatisfies the patterns.\n\nInternally, this method is used to decide if a search result should be\nadded to a list of project-wide search results.\n\n* `filePath` {String} representing the absolute path to a file in the\n  project. (Any external path will automatically return `false`.)\n* `rawPatterns` {Array} of strings that describe glob patterns. Identical to\n  (and uses the same glob semantics as) the `options.paths` argument of\n  {::scan}.\n\nReturns a boolean indicating whether the given file path would be included\nin a project-wide search if the given path patterns were specified.",
-          "line": 2683
+          "line": 2768
         }
       ]
     },
