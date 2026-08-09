@@ -17,8 +17,7 @@ jobs:
     name: API reference is current
     runs-on: ubuntu-latest
     steps:
-      # The generator reads the editor checkout beside this one, exactly as the
-      # flat workspace lays it out, so both are checked out as siblings here.
+      # Check out both inputs and tell the generator where the editor source is.
       - uses: actions/checkout@v7
         with:
           path: lumine-code.github.io
@@ -38,16 +37,15 @@ jobs:
       # Fails when the committed api/ no longer matches the editor's documented
       # source: a changed doc comment, a new member, or a moved line number that
       # has left a reference link pointing at the wrong code.
-      - run: npm run docs:api:check
+      - run: npm run docs:api:check -- --editor ../lumine
         working-directory: lumine-code.github.io
 
   logo:
     name: Logo matches the editor
     runs-on: ubuntu-latest
     steps:
-      # Same sibling layout as above, but the check reads two files and needs no
-      # dependencies, so this skips the install entirely rather than sharing the
-      # job and waiting on one.
+      # This check reads two files and needs no dependencies, so it skips the
+      # install entirely rather than sharing the job and waiting on one.
       - uses: actions/checkout@v7
         with:
           path: lumine-code.github.io
@@ -62,5 +60,5 @@ jobs:
       # assets/ holds copies of the editor's app icon, and a copy is exactly the
       # thing that goes quietly stale: the previous one was a separate export of
       # the same drawing whose curves had already diverged from it.
-      - run: npm run assets:check
+      - run: npm run assets:check -- --editor ../lumine
         working-directory: lumine-code.github.io

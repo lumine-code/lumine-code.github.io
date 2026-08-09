@@ -24,12 +24,12 @@ Install the website's small documentation toolchain and run the generator:
 
 ```sh
 npm install
-npm run docs:api
+npm run docs:api -- --editor /path/to/lumine
 ```
 
-The source repositories are declared in `api-sources.json`. The generator reads both Atomdoc and
-JSDoc comments from each source, then rewrites `api/index.html` and `api/api.json`. Add another
-manifest entry when another Lumine repository exposes documented public APIs.
+The source paths are declared relative to the editor checkout in `api-sources.json`. The generator
+reads both Atomdoc and JSDoc comments from each source, then rewrites `api/index.html` and
+`api/api.json`. `LUMINE_CORE_ROOT` may be set instead of passing `--editor`.
 
 ## Local preview
 

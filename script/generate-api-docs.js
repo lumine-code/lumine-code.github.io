@@ -7,13 +7,37 @@ const MarkdownIt = require("markdown-it");
 
 const siteRoot = path.resolve(__dirname, "..");
 
-// --check renders everything and compares it with what is committed instead of
-// writing. The reference is generated from a checkout of the editor that sits
-// beside this one, so nothing here changes when the editor's documentation
-// does — the output simply goes quietly out of date, which is how it came to
-// still describe 1.132.1-dev.
+function optionValue(name) {
+  const index = process.argv.indexOf(name);
+  if (index === -1) return null;
+  const value = process.argv[index + 1];
+  if (!value || value.startsWith("--")) {
+    throw new Error(`${name} requires a path.`);
+  }
+  return value;
+}
+
+function positionalArguments() {
+  const positional = [];
+  for (let index = 2; index < process.argv.length; index += 1) {
+    const argument = process.argv[index];
+    if (argument === "--editor") index += 1;
+    else if (!argument.startsWith("--")) positional.push(argument);
+  }
+  return positional;
+}
+
+// --check renders everything and compares it with what is committed instead
+// of writing.
 const checkOnly = process.argv.includes("--check");
-const positional = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
+const editorOption = optionValue("--editor") || process.env.LUMINE_CORE_ROOT;
+if (!editorOption) {
+  throw new Error(
+    "Pass --editor <path> or set LUMINE_CORE_ROOT to a Lumine editor checkout.",
+  );
+}
+const editorRoot = path.resolve(editorOption);
+const positional = positionalArguments();
 const sourceManifestPath = path.resolve(
   positional[0] || path.join(siteRoot, "api-sources.json"),
 );
@@ -25,7 +49,7 @@ const lumineSource = sourceManifest.sources.find(
 if (!lumineSource)
   throw new Error("One API source must provide a packageMetadata path.");
 const packageMetadata = require(
-  path.resolve(siteRoot, lumineSource.packageMetadata),
+  path.resolve(editorRoot, lumineSource.packageMetadata),
 );
 // Enough of a lexer to colour an example, in every language the doc comments
 // actually use. A parser would be exact and would also refuse the fragments
@@ -863,7 +887,7 @@ function renderHtml(api) {
 
 const sourceInputs = sourceManifest.sources.map((source) => ({
   ...source,
-  root: path.resolve(siteRoot, source.path),
+  root: path.resolve(editorRoot, source.path),
 }));
 for (const source of sourceInputs) {
   if (!fs.existsSync(source.root)) {
