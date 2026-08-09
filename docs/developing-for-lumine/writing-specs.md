@@ -4,17 +4,17 @@ Lumine and its packages are tested with **specs** — Jasmine-based tests that r
 
 ## Where specs live
 
-Put specs in your package's `spec/` directory, named `*-spec.js` (or `*-spec.jsx` for a spec that itself contains JSX). A spec uses the familiar Jasmine structure and has the full `atom` API available:
+Put specs in your package's `spec/` directory, named `*-spec.js` (or `*-spec.jsx` for a spec that itself contains JSX). A spec uses the familiar Jasmine structure and has the full `lumine` API available:
 
 ```js
 describe("my-package", () => {
   it("greets", async () => {
-    await atom.packages.activatePackage("my-package");
-    atom.commands.dispatch(
-      atom.views.getView(atom.workspace),
+    await lumine.packages.activatePackage("my-package");
+    lumine.commands.dispatch(
+      lumine.views.getView(lumine.workspace),
       "my-package:hello",
     );
-    expect(atom.notifications.getNotifications().length).toBe(1);
+    expect(lumine.notifications.getNotifications().length).toBe(1);
   });
 });
 ```
@@ -35,6 +35,6 @@ Lumine provides async helpers (such as `waitsForPromise`) for tests that await e
 
 ## Tips
 
-- Activate the package under test explicitly (`atom.packages.activatePackage`) rather than assuming it is loaded.
-- Dispatch commands through `atom.commands.dispatch` against the right view to test behavior the way a user triggers it.
+- Activate the package under test explicitly (`lumine.packages.activatePackage`) rather than assuming it is loaded.
+- Dispatch commands through `lumine.commands.dispatch` against the right view to test behavior the way a user triggers it.
 - Keep specs isolated — undo any config or workspace changes, since specs share one editor environment.

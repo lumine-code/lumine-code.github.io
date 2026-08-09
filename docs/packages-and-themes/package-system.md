@@ -43,7 +43,7 @@ The name shown on a browse card is the repository's project name until a valid m
 
 Open **Settings → Install** (`settings-view:install-packages-and-themes`).
 
-- Type a search term to find packages across your configured catalogs (and, if enabled, the Pulsar registry). Filter the results with **All / Packages / Themes / Updates**.
+- Type a search term to find packages across your configured catalogs. Filter the results with **All / Packages / Themes / Updates**.
 - Or type an install source directly (for example `owner/repo`) and press Enter to get an install card for that exact repository.
 
 Click **Install** on a card. Lumine:
@@ -111,7 +111,6 @@ The repository reference is a link to the repo; **hover over it** to see the ori
 | brown  | catalogs disagree about which version to track; the first one wins     |
 | blue   | a bundled package the editor is running out of its own source checkout |
 | cyan   | installed as a symlink; the tooltip names the link's target            |
-| purple | listed by the Pulsar package registry                                  |
 | grey   | the manifest is being fetched and validated                            |
 
 Several dots can show at once. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
@@ -155,14 +154,6 @@ A package's README is fetched only when you open its details for the selected SH
 
 Opening a package's **details** shows everything it has in one scrolling list — its settings, keybindings, grammars, snippets, README, and documentation, in that order. The sidebar holds a **table of contents** for that list: one entry per section, with the README's and the documents' own headers nested underneath. Sections a package has nothing for are left out. The buttons above the list lead to the repository, the issue tracker, the CHANGELOG, and the **LICENSE** file on GitHub.
 
-## The Pulsar package registry
-
-The Install tab can additionally live-search the Pulsar package registry (`api.pulsar-edit.dev`). Enable **Include results from the Pulsar package registry** (the checkbox next to Restore Defaults, or the `settings-view.includePulsarPackageResults` setting; off by default).
-
-- Pulsar results are used **only as repository links**. Their registry metadata is ignored — Lumine re-hydrates each result from its repository like any other source. Results are fetched per search, appended after catalog results, and de-duplicated by origin (catalog wins).
-- Pulsar results are visibly marked with a **purple status dot** on the card. Installation itself works exactly like any other Git source.
-- The toggle affects **search only**. The [Updates](updates.md) tab never consults the Pulsar registry; it checks each installed package against its own recorded origin.
-
 ## Install, Update, Replace, Override
 
 The action a card offers depends on what is already installed under its package's name:
@@ -185,7 +176,7 @@ The **Settings → Packages** and **Settings → Themes** tabs list what is inst
 
 ## Commands
 
-Commands available in `atom-workspace`:
+Commands available in `lumine-workspace`:
 
 - `settings-view:install-packages-and-themes`: open the Install tab,
 - `settings-view:view-installed-packages`: open the Packages tab,

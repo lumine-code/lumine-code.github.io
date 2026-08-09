@@ -1,179 +1,14 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-09T10:47:16.761Z",
+  "generatedAt": "2026-08-09T16:46:12.335Z",
   "classes": [
     {
-      "name": "AppService",
+      "name": "LumineEnvironment",
       "visibility": "Public",
-      "description": "Main-process application services exposed as serializable values.",
-      "source": "src/app-service.js",
-      "sourcePath": "src/app-service.js",
-      "repository": "https://github.com/lumine-code/lumine",
-      "line": 6,
-      "members": [
-        {
-          "name": "getPath",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getPath(name)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Return an Electron application path captured during bootstrap.\n\n* `name` A supported Electron application-path {String}.\n\nReturns the cached path {String} synchronously.",
-          "line": 16
-        },
-        {
-          "name": "getLocale",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getLocale()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Return the application locale captured during bootstrap.\n\nReturns the cached locale {String} synchronously.",
-          "line": 25
-        },
-        {
-          "name": "getResourcePath",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getResourcePath()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Return the editor resource directory captured during bootstrap.\n\nReturns the absolute resource path {String} synchronously.",
-          "line": 32
-        },
-        {
-          "name": "getName",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getName()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Return the full name of this Lumine application.\n\nReturns the application name {String} synchronously.",
-          "line": 39
-        },
-        {
-          "name": "getVersion",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getVersion()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Return the Lumine application version.\n\nReturns the version {String} synchronously.",
-          "line": 46
-        },
-        {
-          "name": "versionSatisfies",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::versionSatisfies(range)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Determine whether the current application version satisfies a\nsemantic-version range.",
-          "line": 52
-        },
-        {
-          "name": "getReleaseChannel",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getReleaseChannel()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Return the current release channel.",
-          "line": 58
-        },
-        {
-          "name": "isReleasedVersion",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::isReleasedVersion()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Determine whether this build came from the release pipeline.",
-          "line": 63
-        },
-        {
-          "name": "openWindow",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::openWindow(params)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Open paths in a new or reusable Lumine window.\n\nReturns immediately after the open request is sent to the main process.",
-          "line": 70
-        },
-        {
-          "name": "getUserDefault",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getUserDefault(key, type)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Read an operating-system user default.\n\nReturns a {Promise} resolving to a serializable preference value.",
-          "line": 77
-        },
-        {
-          "name": "isDefaultProtocolClient",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::isDefaultProtocolClient(protocol, path, args)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Determine whether Lumine is the default handler for a protocol.\n\nReturns a {Promise} resolving to a {Boolean}.",
-          "line": 84
-        },
-        {
-          "name": "setAsDefaultProtocolClient",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::setAsDefaultProtocolClient(protocol, path, args)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Register Lumine as the default handler for a protocol.\n\nReturns a {Promise} resolving to a {Boolean}.",
-          "line": 91
-        },
-        {
-          "name": "getFileIcon",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getFileIcon(filePath, options = {})",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Load an operating-system file icon as a data URL.\n\nReturns a {Promise} resolving to a data-URL {String}, or `null`.",
-          "line": 98
-        },
-        {
-          "name": "restart",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::restart()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Restart Lumine with the current launch options.\n\nReturns a {Promise} that resolves when restart is scheduled.",
-          "line": 105
-        }
-      ]
-    },
-    {
-      "name": "AtomEnvironment",
-      "visibility": "Public",
-      "description": "Lumine global for dealing with packages, themes, menus, and the window.\n\nAn instance of this class is always available as the `atom` global.",
-      "source": "src/atom-environment.js",
-      "sourcePath": "src/atom-environment.js",
+      "description": "Lumine global for dealing with packages, themes, menus, and the window.\n\nAn instance of this class is always available as the `lumine` global.",
+      "source": "src/lumine-environment.js",
+      "sourcePath": "src/lumine-environment.js",
       "repository": "https://github.com/lumine-code/lumine",
       "line": 74,
       "members": [
@@ -499,9 +334,174 @@
       ]
     },
     {
+      "name": "AppService",
+      "visibility": "Public",
+      "description": "Main-process application services exposed as serializable values.",
+      "source": "src/app-service.js",
+      "sourcePath": "src/app-service.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 6,
+      "members": [
+        {
+          "name": "getPath",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPath(name)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Return an Electron application path captured during bootstrap.\n\n* `name` A supported Electron application-path {String}.\n\nReturns the cached path {String} synchronously.",
+          "line": 16
+        },
+        {
+          "name": "getLocale",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getLocale()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Return the application locale captured during bootstrap.\n\nReturns the cached locale {String} synchronously.",
+          "line": 25
+        },
+        {
+          "name": "getResourcePath",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getResourcePath()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Return the editor resource directory captured during bootstrap.\n\nReturns the absolute resource path {String} synchronously.",
+          "line": 32
+        },
+        {
+          "name": "getName",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getName()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Return the full name of this Lumine application.\n\nReturns the application name {String} synchronously.",
+          "line": 39
+        },
+        {
+          "name": "getVersion",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getVersion()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Return the Lumine application version.\n\nReturns the version {String} synchronously.",
+          "line": 46
+        },
+        {
+          "name": "versionSatisfies",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::versionSatisfies(range)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Determine whether the current application version satisfies a\nsemantic-version range.",
+          "line": 52
+        },
+        {
+          "name": "getReleaseChannel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getReleaseChannel()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Return the current release channel.",
+          "line": 58
+        },
+        {
+          "name": "isReleasedVersion",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isReleasedVersion()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Determine whether this build came from the release pipeline.",
+          "line": 63
+        },
+        {
+          "name": "openWindow",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::openWindow(params)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Open paths in a new or reusable Lumine window.\n\nReturns immediately after the open request is sent to the main process.",
+          "line": 70
+        },
+        {
+          "name": "getUserDefault",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getUserDefault(key, type)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Read an operating-system user default.\n\nReturns a {Promise} resolving to a serializable preference value.",
+          "line": 77
+        },
+        {
+          "name": "isDefaultProtocolClient",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isDefaultProtocolClient(protocol, path, args)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Determine whether Lumine is the default handler for a protocol.\n\nReturns a {Promise} resolving to a {Boolean}.",
+          "line": 84
+        },
+        {
+          "name": "setAsDefaultProtocolClient",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setAsDefaultProtocolClient(protocol, path, args)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Register Lumine as the default handler for a protocol.\n\nReturns a {Promise} resolving to a {Boolean}.",
+          "line": 91
+        },
+        {
+          "name": "getFileIcon",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFileIcon(filePath, options = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Load an operating-system file icon as a data URL.\n\nReturns a {Promise} resolving to a data-URL {String}, or `null`.",
+          "line": 98
+        },
+        {
+          "name": "restart",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::restart()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Restart Lumine with the current launch options.\n\nReturns a {Promise} that resolves when restart is scheduled.",
+          "line": 105
+        }
+      ]
+    },
+    {
       "name": "BufferedNodeProcess",
       "visibility": "Extended",
-      "description": "Like {BufferedProcess}, but accepts a Node script as the command\nto run.\n\nThis is necessary on Windows since it doesn't support shebang `#!` lines.\n\n## Examples\n\n```js\n  const {BufferedNodeProcess} = require('atom')\n```",
+      "description": "Like {BufferedProcess}, but accepts a Node script as the command\nto run.\n\nThis is necessary on Windows since it doesn't support shebang `#!` lines.\n\n## Examples\n\n```js\n  const {BufferedNodeProcess} = require('lumine')\n```",
       "source": "src/buffered-node-process.js",
       "sourcePath": "src/buffered-node-process.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -523,7 +523,7 @@
     {
       "name": "BufferedProcess",
       "visibility": "Extended",
-      "description": "A wrapper which provides standard error/output line buffering for\nNode's ChildProcess.\n\n## Examples\n\n```js\n{BufferedProcess} = require('atom')\n\nconst command = 'ps'\nconst args = ['-ef']\nconst stdout = (output) => console.log(output)\nconst exit = (code) => console.log(\"ps -ef exited with #{code}\")\nconst process = new BufferedProcess({command, args, stdout, exit})\n```",
+      "description": "A wrapper which provides standard error/output line buffering for\nNode's ChildProcess.\n\n## Examples\n\n```js\n{BufferedProcess} = require('lumine')\n\nconst command = 'ps'\nconst args = ['-ef']\nconst stdout = (output) => console.log(output)\nconst exit = (code) => console.log(\"ps -ef exited with #{code}\")\nconst process = new BufferedProcess({command, args, stdout, exit})\n```",
       "source": "src/buffered-process.js",
       "sourcePath": "src/buffered-process.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -567,7 +567,7 @@
     {
       "name": "Clipboard",
       "visibility": "Extended",
-      "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `atom.clipboard` global.\n\nThis class owns what the clipboard holds, not what a paste does with it. To\nintercept a paste before the editor inserts it as text — to handle an image,\nsay — register a provider with {PasteProviderRegistry} through\n`atom.pasteProviders`.\n\n## Examples\n\n```js\natom.clipboard.write('hello')\n\nconsole.log(atom.clipboard.read()) // 'hello'\n```",
+      "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `lumine.clipboard` global.\n\nThis class owns what the clipboard holds, not what a paste does with it. To\nintercept a paste before the editor inserts it as text — to handle an image,\nsay — register a provider with {PasteProviderRegistry} through\n`lumine.pasteProviders`.\n\n## Examples\n\n```js\nlumine.clipboard.write('hello')\n\nconsole.log(lumine.clipboard.read()) // 'hello'\n```",
       "source": "src/clipboard.js",
       "sourcePath": "src/clipboard.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -699,7 +699,7 @@
     {
       "name": "CommandRegistry",
       "visibility": "Public",
-      "description": "Associates listener functions with commands in a\ncontext-sensitive way using CSS selectors. You can access a global instance of\nthis class via `atom.commands`, and commands registered there will be\npresented in the command palette.\n\nThe global command registry facilitates a style of event handling known as\n*event delegation* that was popularized by jQuery. Lumine commands are expressed\nas custom DOM events that can be invoked on the currently focused element via\na key binding or manually via the command palette. Rather than binding\nlisteners for command events directly to DOM nodes, you instead register\ncommand event listeners globally on `atom.commands` and constrain them to\nspecific kinds of elements with CSS selectors.\n\nCommand names must follow the `namespace:action` pattern, where `namespace`\nwill typically be the name of your package, and `action` describes the\nbehavior of your command. If either part consists of multiple words, these\nmust be separated by hyphens. E.g. `awesome-package:turn-it-up-to-eleven`.\nAll words should be lowercased.\n\nAs the event bubbles upward through the DOM, all registered event listeners\nwith matching selectors are invoked in order of specificity. In the event of a\nspecificity tie, the most recently registered listener is invoked first. This\nmirrors the \"cascade\" semantics of CSS. Event listeners are invoked in the\ncontext of the current DOM node, meaning `this` always points at\n`event.currentTarget`. As is normally the case with DOM events,\n`stopPropagation` and `stopImmediatePropagation` can be used to terminate the\nbubbling process and prevent invocation of additional listeners.\n\n## Example\n\nHere is a command that inserts the current date in an editor:\n\n```js\natom.commands.add('atom-text-editor', {\n  'user:insert-date'(event) {\n    const editor = this.getModel()\n    editor.insertText(new Date().toLocaleString())\n  }\n})\n```",
+      "description": "Associates listener functions with commands in a\ncontext-sensitive way using CSS selectors. You can access a global instance of\nthis class via `lumine.commands`, and commands registered there will be\npresented in the command palette.\n\nThe global command registry facilitates a style of event handling known as\n*event delegation* that was popularized by jQuery. Lumine commands are expressed\nas custom DOM events that can be invoked on the currently focused element via\na key binding or manually via the command palette. Rather than binding\nlisteners for command events directly to DOM nodes, you instead register\ncommand event listeners globally on `lumine.commands` and constrain them to\nspecific kinds of elements with CSS selectors.\n\nCommand names must follow the `namespace:action` pattern, where `namespace`\nwill typically be the name of your package, and `action` describes the\nbehavior of your command. If either part consists of multiple words, these\nmust be separated by hyphens. E.g. `awesome-package:turn-it-up-to-eleven`.\nAll words should be lowercased.\n\nAs the event bubbles upward through the DOM, all registered event listeners\nwith matching selectors are invoked in order of specificity. In the event of a\nspecificity tie, the most recently registered listener is invoked first. This\nmirrors the \"cascade\" semantics of CSS. Event listeners are invoked in the\ncontext of the current DOM node, meaning `this` always points at\n`event.currentTarget`. As is normally the case with DOM events,\n`stopPropagation` and `stopImmediatePropagation` can be used to terminate the\nbubbling process and prevent invocation of additional listeners.\n\n## Example\n\nHere is a command that inserts the current date in an editor:\n\n```js\nlumine.commands.add('lumine-text-editor', {\n  'user:insert-date'(event) {\n    const editor = this.getModel()\n    editor.insertText(new Date().toLocaleString())\n  }\n})\n```",
       "source": "src/command-registry.js",
       "sourcePath": "src/command-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -713,7 +713,7 @@
           "signature": "::add(target, commandName, listener, throwOnInvalidSelector = true)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Add one or more command listeners associated with a selector.\n\n## Arguments: Registering One Command\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the command will be globally associated with all matching\n  elements. The `,` combinator is not currently supported. If you pass a\n  DOM element, the command will be associated with just that element.\n* `commandName` A {String} containing the name of a command you want to\n  handle such as `user:insert-date`.\n* `listener` A listener which handles the event.  Either a {Function} to\n  call when the given command is invoked on an element matching the\n  selector, or an {Object} with a `didDispatch` property which is such a\n  function.\n\n  The function (`listener` itself if it is a function, or the `didDispatch`\n  method if `listener` is an object) will be called with `this` referencing\n  the matching DOM node and the following argument:\n    * `event`: A standard DOM event instance. Call `stopPropagation` or\n      `stopImmediatePropagation` to terminate bubbling early.\n\n  Additionally, `listener` may have additional properties which are returned\n  to those who query using `atom.commands.findCommands`, as well as several\n  meaningful metadata properties:\n    * `displayName`: Overrides any generated `displayName` that would\n      otherwise be generated from the event name.\n    * `description`: Used by consumers to display detailed information about\n      the command.\n    * `hiddenInCommandPalette`: If `true`, this command will not appear in\n      the bundled command palette by default, but can still be shown with.\n      the `Command Palette: Show Hidden Commands` command. This is a good\n      option when you need to register large numbers of commands that don't\n      make sense to be executed from the command palette. Please use this\n      option conservatively, as it could reduce the discoverability of your\n      package's commands.\n    * `modal`: Declares that dispatching this command opens a modal panel.\n      Set to `true`, or to a {String} naming the label the modal carries\n      on the breadcrumb trail. The registry does not act on it — the\n      declaration travels with the command metadata so tooling can tell\n      modal-opening commands apart.\n\n## Arguments: Registering Multiple Commands\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the commands will be globally associated with all\n  matching elements. The `,` combinator is not currently supported.\n  If you pass a DOM element, the command will be associated with just that\n  element.\n* `commands` An {Object} mapping command names like `user:insert-date` to\n  listener {Function}s.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded command handler(s).",
+          "description": "Add one or more command listeners associated with a selector.\n\n## Arguments: Registering One Command\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the command will be globally associated with all matching\n  elements. The `,` combinator is not currently supported. If you pass a\n  DOM element, the command will be associated with just that element.\n* `commandName` A {String} containing the name of a command you want to\n  handle such as `user:insert-date`.\n* `listener` A listener which handles the event.  Either a {Function} to\n  call when the given command is invoked on an element matching the\n  selector, or an {Object} with a `didDispatch` property which is such a\n  function.\n\n  The function (`listener` itself if it is a function, or the `didDispatch`\n  method if `listener` is an object) will be called with `this` referencing\n  the matching DOM node and the following argument:\n    * `event`: A standard DOM event instance. Call `stopPropagation` or\n      `stopImmediatePropagation` to terminate bubbling early.\n\n  Additionally, `listener` may have additional properties which are returned\n  to those who query using `lumine.commands.findCommands`, as well as several\n  meaningful metadata properties:\n    * `displayName`: Overrides any generated `displayName` that would\n      otherwise be generated from the event name.\n    * `description`: Used by consumers to display detailed information about\n      the command.\n    * `hiddenInCommandPalette`: If `true`, this command will not appear in\n      the bundled command palette by default, but can still be shown with.\n      the `Command Palette: Show Hidden Commands` command. This is a good\n      option when you need to register large numbers of commands that don't\n      make sense to be executed from the command palette. Please use this\n      option conservatively, as it could reduce the discoverability of your\n      package's commands.\n    * `modal`: Declares that dispatching this command opens a modal panel.\n      Set to `true`, or to a {String} naming the label the modal carries\n      on the breadcrumb trail. The registry does not act on it — the\n      declaration travels with the command metadata so tooling can tell\n      modal-opening commands apart.\n\n## Arguments: Registering Multiple Commands\n\n* `target` A {String} containing a CSS selector or a DOM element. If you\n  pass a selector, the commands will be globally associated with all\n  matching elements. The `,` combinator is not currently supported.\n  If you pass a DOM element, the command will be associated with just that\n  element.\n* `commands` An {Object} mapping command names like `user:insert-date` to\n  listener {Function}s.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded command handler(s).",
           "line": 133
         },
         {
@@ -765,7 +765,7 @@
     {
       "name": "Config",
       "visibility": "Essential",
-      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `atom.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\natom.config.get('my-package.myKey') // -> 'defaultValue'\n\natom.config.set('my-package.myKey', 'value')\natom.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {::observe} to catch changes to the setting.\n\n```js\natom.config.set('my-package.myKey', 'value')\natom.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {::onDidChange}.\n\n```js\natom.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\natom.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\natom.config.set('my-package.anInt', '123')\natom.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\natom.config.set('my-package.anInt', '-20')\natom.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\natom.config.set('my-package.thingVolume', '10')\natom.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\natom.config.set('my-package.thingVolume', '400')\natom.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\natom.config.set('my-package.thingVolume', 'cats')\natom.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\natom.config.set('my-package.someSetting', 'true')\natom.config.get('my-package.someSetting') // -> true\n\natom.config.set('my-package.someSetting', '12')\natom.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\natom.config.set('my-package.someSetting', '2')\natom.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\natom.config.set('my-package.someSetting', '3')\natom.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\natom.config.set('my-package.someSetting', '4')\natom.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = atom.config.get('some-package.otherSetting')\natom.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
+      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `lumine.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\nlumine.config.get('my-package.myKey') // -> 'defaultValue'\n\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {::observe} to catch changes to the setting.\n\n```js\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {::onDidChange}.\n\n```js\nlumine.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\nlumine.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\nlumine.config.set('my-package.anInt', '123')\nlumine.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\nlumine.config.set('my-package.anInt', '-20')\nlumine.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\nlumine.config.set('my-package.thingVolume', '10')\nlumine.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\nlumine.config.set('my-package.thingVolume', '400')\nlumine.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\nlumine.config.set('my-package.thingVolume', 'cats')\nlumine.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\nlumine.config.set('my-package.someSetting', 'true')\nlumine.config.get('my-package.someSetting') // -> true\n\nlumine.config.set('my-package.someSetting', '12')\nlumine.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\nlumine.config.set('my-package.someSetting', '2')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\nlumine.config.set('my-package.someSetting', '3')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\nlumine.config.set('my-package.someSetting', '4')\nlumine.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = lumine.config.get('some-package.otherSetting')\nlumine.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
       "source": "src/config.js",
       "sourcePath": "src/config.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -779,7 +779,7 @@
           "signature": "::observe(...args)",
           "category": "Config Subscription",
           "visibility": "Essential",
-          "description": "Add a listener for changes to a given key path. This is different\nthan {::onDidChange} in that it will immediately call your callback with the\ncurrent value of the config entry.\n\n### Examples\n\nYou might want to be notified when the theme mode changes. We'll watch\n`theme.mode` for changes\n\n```js\natom.config.observe('theme.mode', (value) => {\n  // do stuff with value\n})\n```\n\n* `keyPath` {String} name of the key to observe\n* `options` (optional) {Object}\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples.\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n* `callback` {Function} to call when the value of the key changes.\n  * `value` the new value of the key\n\nReturns a {Disposable} with the following keys on which you can call\n`.dispose()` to unsubscribe.",
+          "description": "Add a listener for changes to a given key path. This is different\nthan {::onDidChange} in that it will immediately call your callback with the\ncurrent value of the config entry.\n\n### Examples\n\nYou might want to be notified when the theme mode changes. We'll watch\n`theme.mode` for changes\n\n```js\nlumine.config.observe('theme.mode', (value) => {\n  // do stuff with value\n})\n```\n\n* `keyPath` {String} name of the key to observe\n* `options` (optional) {Object}\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples.\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n* `callback` {Function} to call when the value of the key changes.\n  * `value` the new value of the key\n\nReturns a {Disposable} with the following keys on which you can call\n`.dispose()` to unsubscribe.",
           "line": 535
         },
         {
@@ -801,7 +801,7 @@
           "signature": "::get(...args)",
           "category": "Managing Settings",
           "visibility": "Essential",
-          "description": "Retrieves the setting for the given key.\n\n### Examples\n\nYou might want to know what theme mode is enabled, so check `theme.mode`\n\n```js\natom.config.get('theme.mode')\n```\n\nWith scope descriptors you can get settings within a specific editor\nscope. For example, you might want to know `language.tabLength` for ruby\nfiles.\n\n```js\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\n```\n\nThis setting in ruby files might be different than the global tabLength setting\n\n```js\natom.config.get('language.tabLength') // => 4\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\n```\n\nYou can get the language scope descriptor via\n{TextEditor::getRootScopeDescriptor}. This will get the setting specifically\nfor the editor's language.\n\n```js\natom.config.get('language.tabLength', { scope: editor.getRootScopeDescriptor() }) // => 2\n```\n\nAdditionally, you can get the setting at the specific cursor position.\n\n```js\nconst scopeDescriptor = editor.getLastCursor().getScopeDescriptor()\natom.config.get('language.tabLength', { scope: scopeDescriptor }) // => 2\n```\n\n* `keyPath` The {String} name of the key to retrieve.\n* `options` (optional) {Object}\n  * `sources` (optional) {Array} of {String} source names. If provided, only\n    values that were associated with these sources during {::set} will be used.\n  * `excludeSources` (optional) {Array} of {String} source names. If provided,\n    values that were associated with these sources during {::set} will not\n    be used.\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n\nReturns the value from Lumine's default settings, the user's configuration\nfile in the type specified by the configuration schema.",
+          "description": "Retrieves the setting for the given key.\n\n### Examples\n\nYou might want to know what theme mode is enabled, so check `theme.mode`\n\n```js\nlumine.config.get('theme.mode')\n```\n\nWith scope descriptors you can get settings within a specific editor\nscope. For example, you might want to know `language.tabLength` for ruby\nfiles.\n\n```js\nlumine.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\n```\n\nThis setting in ruby files might be different than the global tabLength setting\n\n```js\nlumine.config.get('language.tabLength') // => 4\nlumine.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\n```\n\nYou can get the language scope descriptor via\n{TextEditor::getRootScopeDescriptor}. This will get the setting specifically\nfor the editor's language.\n\n```js\nlumine.config.get('language.tabLength', { scope: editor.getRootScopeDescriptor() }) // => 2\n```\n\nAdditionally, you can get the setting at the specific cursor position.\n\n```js\nconst scopeDescriptor = editor.getLastCursor().getScopeDescriptor()\nlumine.config.get('language.tabLength', { scope: scopeDescriptor }) // => 2\n```\n\n* `keyPath` The {String} name of the key to retrieve.\n* `options` (optional) {Object}\n  * `sources` (optional) {Array} of {String} source names. If provided, only\n    values that were associated with these sources during {::set} will be used.\n  * `excludeSources` (optional) {Array} of {String} source names. If provided,\n    values that were associated with these sources during {::set} will not\n    be used.\n  * `scope` (optional) {ScopeDescriptor} describing a path from\n    the root of the syntax tree to a token. Get one by calling\n    {editor.getLastCursor().getScopeDescriptor()}\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n\nReturns the value from Lumine's default settings, the user's configuration\nfile in the type specified by the configuration schema.",
           "line": 652
         },
         {
@@ -823,7 +823,7 @@
           "signature": "::set(...args)",
           "category": "Managing Settings",
           "visibility": "Essential",
-          "description": "Sets the value for a configuration setting.\n\nThis value is stored in Lumine's internal configuration file.\n\n### Examples\n\nYou might want to change the themes programmatically:\n\n```js\natom.config.set('theme.dark', ['one-night-ui', 'one-night-syntax'])\n```\n\nYou can also set scoped settings. For example, you might want change the\n`language.tabLength` only for ruby files.\n\n```js\natom.config.get('language.tabLength') // => 4\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 4\natom.config.get('language.tabLength', { scope: ['source.js'] }) // => 4\n\n// Set ruby to 2\natom.config.set('language.tabLength', 2, { scopeSelector: '.source.ruby' }) // => true\n\n// Notice it's only set to 2 in the case of ruby\natom.config.get('language.tabLength') // => 4\natom.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\natom.config.get('language.tabLength', { scope: ['source.js'] }) // => 4\n```\n\n* `keyPath` The {String} name of the key.\n* `value` The value of the setting. Passing `undefined` will revert the\n  setting to the default value.\n* `options` (optional) {Object}\n  * `scopeSelector` (optional) {String}. eg. '.source.ruby'\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n  * `source` (optional) {String} The name of a file with which the setting\n    is associated. Defaults to the user's config file.\n\nReturns a {Boolean}\n* `true` if the value was set.\n* `false` if the value was not able to be coerced to the type specified in the setting's schema.",
+          "description": "Sets the value for a configuration setting.\n\nThis value is stored in Lumine's internal configuration file.\n\n### Examples\n\nYou might want to change the themes programmatically:\n\n```js\nlumine.config.set('theme.dark', ['one-night-ui', 'one-night-syntax'])\n```\n\nYou can also set scoped settings. For example, you might want change the\n`language.tabLength` only for ruby files.\n\n```js\nlumine.config.get('language.tabLength') // => 4\nlumine.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 4\nlumine.config.get('language.tabLength', { scope: ['source.js'] }) // => 4\n\n// Set ruby to 2\nlumine.config.set('language.tabLength', 2, { scopeSelector: '.source.ruby' }) // => true\n\n// Notice it's only set to 2 in the case of ruby\nlumine.config.get('language.tabLength') // => 4\nlumine.config.get('language.tabLength', { scope: ['source.ruby'] }) // => 2\nlumine.config.get('language.tabLength', { scope: ['source.js'] }) // => 4\n```\n\n* `keyPath` The {String} name of the key.\n* `value` The value of the setting. Passing `undefined` will revert the\n  setting to the default value.\n* `options` (optional) {Object}\n  * `scopeSelector` (optional) {String}. eg. '.source.ruby'\n    See [the scopes docs](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\n    for more information.\n  * `source` (optional) {String} The name of a file with which the setting\n    is associated. Defaults to the user's config file.\n\nReturns a {Boolean}\n* `true` if the value was set.\n* `false` if the value was not able to be coerced to the type specified in the setting's schema.",
           "line": 756
         },
         {
@@ -875,7 +875,7 @@
     {
       "name": "ContextMenuManager",
       "visibility": "Extended",
-      "description": "Provides a registry for commands that you'd like to appear in the\ncontext menu.\n\nAn instance of this class is always available as the `atom.contextMenu`\nglobal.\n\n## Context Menu Object Format\n\n```json\n{\n  \"atom-workspace\": [\n    { \"label\": \"Help\", \"command\": \"application:open-documentation\" }\n  ],\n  \"atom-text-editor\": [\n    {\n      \"label\": \"History\",\n      \"submenu\": [\n        { \"label\": \"Undo\", \"command\": \"core:undo\" },\n        { \"label\": \"Redo\", \"command\": \"core:redo\" }\n      ]\n    }\n  ]\n}\n```\n\nA package declares its context menu in a file under `menus/`, with the\nstructure above under a `context-menu` key:\n\n```json\n{\n  \"context-menu\": {\n    \"atom-workspace\": [\n      { \"label\": \"Help\", \"command\": \"application:open-documentation\" }\n    ]\n  }\n}\n```\n\nThe format for use in {::add} is the same minus the `context-menu` key. See\n{::add} for more information.",
+      "description": "Provides a registry for commands that you'd like to appear in the\ncontext menu.\n\nAn instance of this class is always available as the `lumine.contextMenu`\nglobal.\n\n## Context Menu Object Format\n\n```json\n{\n  \"lumine-workspace\": [\n    { \"label\": \"Help\", \"command\": \"application:open-documentation\" }\n  ],\n  \"lumine-text-editor\": [\n    {\n      \"label\": \"History\",\n      \"submenu\": [\n        { \"label\": \"Undo\", \"command\": \"core:undo\" },\n        { \"label\": \"Redo\", \"command\": \"core:redo\" }\n      ]\n    }\n  ]\n}\n```\n\nA package declares its context menu in a file under `menus/`, with the\nstructure above under a `context-menu` key:\n\n```json\n{\n  \"context-menu\": {\n    \"lumine-workspace\": [\n      { \"label\": \"Help\", \"command\": \"application:open-documentation\" }\n    ]\n  }\n}\n```\n\nThe format for use in {::add} is the same minus the `context-menu` key. See\n{::add} for more information.",
       "source": "src/context-menu-manager.js",
       "sourcePath": "src/context-menu-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -889,7 +889,7 @@
           "signature": "::add(itemsBySelector, throwOnInvalidSelector = true)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\natom.contextMenu.add({\n  'atom-workspace': [{label: 'Help', command: 'application:open-documentation'}]\n  'atom-text-editor': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'}\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments\n\n* `itemsBySelector` An {Object} whose keys are CSS selectors and whose\n  values are {Array}s of item {Object}s containing the following keys:\n  * `label` (optional) A {String} containing the menu item's label.\n  * `command` (optional) A {String} containing the command to invoke on the\n    target of the right click that invoked the context menu.\n  * `enabled` (optional) A {Boolean} indicating whether the menu item\n    should be clickable. Disabled menu items typically appear grayed out.\n    Defaults to `true`.\n  * `submenu` (optional) An {Array} of additional items.\n  * `type` (optional) If you want to create a separator, provide an item\n     with `type: 'separator'` and no other keys.\n  * `visible` (optional) A {Boolean} indicating whether the menu item\n    should appear in the menu. Defaults to `true`.\n  * `created` (optional) A {Function} that is called on the item each time a\n    context menu is created via a right click. You can assign properties to\n   `this` to dynamically compute the command, label, etc. This method is\n   actually called on a clone of the original item template to prevent state\n   from leaking across context menu deployments. Called with the following\n   argument:\n    * `event` The click event that deployed the context menu.\n  * `shouldDisplay` (optional) A {Function} that is called to determine\n    whether to display this item on a given context menu deployment. Called\n    with the following argument:\n    * `event` The click event that deployed the context menu.\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
+          "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\nlumine.contextMenu.add({\n  'lumine-workspace': [{label: 'Help', command: 'application:open-documentation'}]\n  'lumine-text-editor': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'}\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments\n\n* `itemsBySelector` An {Object} whose keys are CSS selectors and whose\n  values are {Array}s of item {Object}s containing the following keys:\n  * `label` (optional) A {String} containing the menu item's label.\n  * `command` (optional) A {String} containing the command to invoke on the\n    target of the right click that invoked the context menu.\n  * `enabled` (optional) A {Boolean} indicating whether the menu item\n    should be clickable. Disabled menu items typically appear grayed out.\n    Defaults to `true`.\n  * `submenu` (optional) An {Array} of additional items.\n  * `type` (optional) If you want to create a separator, provide an item\n     with `type: 'separator'` and no other keys.\n  * `visible` (optional) A {Boolean} indicating whether the menu item\n    should appear in the menu. Defaults to `true`.\n  * `created` (optional) A {Function} that is called on the item each time a\n    context menu is created via a right click. You can assign properties to\n   `this` to dynamically compute the command, label, etc. This method is\n   actually called on a clone of the original item template to prevent state\n   from leaking across context menu deployments. Called with the following\n   argument:\n    * `event` The click event that deployed the context menu.\n  * `shouldDisplay` (optional) A {Function} that is called to determine\n    whether to display this item on a given context menu deployment. Called\n    with the following argument:\n    * `event` The click event that deployed the context menu.\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
           "line": 138
         },
         {
@@ -1648,7 +1648,7 @@
           "signature": "::directoryForURISync(uri)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `atom.project`.\n\nReturns:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
+          "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `lumine.project`.\n\nReturns:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
           "line": 41
         },
         {
@@ -1659,7 +1659,7 @@
           "signature": "::directoryForURI(uri)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `atom.project`.\n\nReturns a {Promise} that resolves to:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
+          "description": "Create a Directory that corresponds to the specified URI.\n\n* `uri` {String} The path to the directory to add. This is guaranteed not to\nbe contained by a {Directory} in `lumine.project`.\n\nReturns a {Promise} that resolves to:\n* {Directory} if the given URI is compatible with this provider.\n* `null` if the given URI is not compatible with this provider.",
           "line": 91
         },
         {
@@ -1678,7 +1678,7 @@
     {
       "name": "DeserializerManager",
       "visibility": "Extended",
-      "description": "Manages the deserializers used for serialized state\n\nAn instance of this class is always available as the `atom.deserializers`\nglobal.\n\n## Examples\n\n```js\nclass MyPackageView {\n  static deserialize(state) {\n    return new MyPackageView(state)\n  }\n\n  constructor(state) {\n    this.state = state\n  }\n\n  serialize() {\n    return { deserializer: 'MyPackageView', ...this.state }\n  }\n}\n\natom.deserializers.add(MyPackageView)\n```\n\nSerialized state has to carry the `deserializer` key: it is the name\n{::deserialize} looks the class up by, and state without it is dropped with a\nwarning rather than restored.",
+      "description": "Manages the deserializers used for serialized state\n\nAn instance of this class is always available as the `lumine.deserializers`\nglobal.\n\n## Examples\n\n```js\nclass MyPackageView {\n  static deserialize(state) {\n    return new MyPackageView(state)\n  }\n\n  constructor(state) {\n    this.state = state\n  }\n\n  serialize() {\n    return { deserializer: 'MyPackageView', ...this.state }\n  }\n}\n\nlumine.deserializers.add(MyPackageView)\n```\n\nSerialized state has to carry the `deserializer` key: it is the name\n{::deserialize} looks the class up by, and state without it is dropped with a\nwarning rather than restored.",
       "source": "src/deserializer-manager.js",
       "sourcePath": "src/deserializer-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -1692,7 +1692,7 @@
           "signature": "::add(...deserializers)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Register the given class(es) as deserializers.\n\n* `deserializers` One or more deserializers to register. A deserializer can\n  be any object with a `.name` property and a `.deserialize()` method. A\n  common approach is to register a *constructor* as the deserializer for its\n  instances by adding a `.deserialize()` class method. When your method is\n  called, it will be passed serialized state as the first argument and the\n  {AtomEnvironment} object as the second argument, which is useful if you\n  wish to avoid referencing the `atom` global.",
+          "description": "Register the given class(es) as deserializers.\n\n* `deserializers` One or more deserializers to register. A deserializer can\n  be any object with a `.name` property and a `.deserialize()` method. A\n  common approach is to register a *constructor* as the deserializer for its\n  instances by adding a `.deserialize()` class method. When your method is\n  called, it will be passed serialized state as the first argument and the\n  {LumineEnvironment} object as the second argument, which is useful if you\n  wish to avoid referencing the `lumine` global.",
           "line": 46
         },
         {
@@ -2558,7 +2558,7 @@
     {
       "name": "GitRepository",
       "visibility": "Extended",
-      "description": "Represents the underlying git operations performed by Lumine.\n\nThis class shouldn't be instantiated directly but instead by accessing the\n`atom.repositories` and calling `getRepositories()` or `getForPath()`. It is\nindependent from project roots and may represent containing or nested repos.\n\nThis class handles submodules automatically by taking a `path` argument to many\nof the methods.  This `path` argument will determine which underlying\nrepository is used.\n\nFor a repository with submodules this would have the following outcome:\n\n```js\nconst repo = atom.repositories.getRepositories()[0]\nrepo.getShortHead() // 'master'\nrepo.getShortHead('vendor/path/to/a/submodule') // 'dead1234'\n```\n\n## Examples\n\n### Logging the URL of the origin remote\n\n```js\nconst git = atom.repositories.getRepositories()[0]\nconsole.log(git.getOriginURL())\n```\n\n### Requiring in packages\n\n```js\nconst { GitRepository } = require('atom')\n```",
+      "description": "Represents the underlying git operations performed by Lumine.\n\nThis class shouldn't be instantiated directly but instead by accessing the\n`lumine.repositories` and calling `getRepositories()` or `getForPath()`. It is\nindependent from project roots and may represent containing or nested repos.\n\nThis class handles submodules automatically by taking a `path` argument to many\nof the methods.  This `path` argument will determine which underlying\nrepository is used.\n\nFor a repository with submodules this would have the following outcome:\n\n```js\nconst repo = lumine.repositories.getRepositories()[0]\nrepo.getShortHead() // 'master'\nrepo.getShortHead('vendor/path/to/a/submodule') // 'dead1234'\n```\n\n## Examples\n\n### Logging the URL of the origin remote\n\n```js\nconst git = lumine.repositories.getRepositories()[0]\nconsole.log(git.getOriginURL())\n```\n\n### Requiring in packages\n\n```js\nconst { GitRepository } = require('lumine')\n```",
       "source": "src/git-repository.js",
       "sourcePath": "src/git-repository.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -2616,7 +2616,7 @@
           "signature": "::getOperations()",
           "category": "Construction and Destruction",
           "visibility": "Public",
-          "description": "Returns the stable write facade assigned by atom.repositories.\nIts methods are enabled by repositories.operations-provider services.",
+          "description": "Returns the stable write facade assigned by lumine.repositories.\nIts methods are enabled by repositories.operations-provider services.",
           "line": 242
         },
         {
@@ -3130,7 +3130,7 @@
     {
       "name": "GrammarRegistry",
       "visibility": "Extended",
-      "description": "This class holds the grammars used for tokenizing.\n\nAn instance of this class is always available as the `atom.grammars` global.",
+      "description": "This class holds the grammars used for tokenizing.\n\nAn instance of this class is always available as the `lumine.grammars` global.",
       "source": "src/grammar-registry.js",
       "sourcePath": "src/grammar-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -3405,7 +3405,7 @@
     {
       "name": "HistoryManager",
       "visibility": "Extended",
-      "description": "History manager for remembering which projects have been opened.\n\nAn instance of this class is always available as the `atom.history` global.\n\nThe project history is used to populate recent project lists.",
+      "description": "History manager for remembering which projects have been opened.\n\nAn instance of this class is always available as the `lumine.history` global.\n\nThe project history is used to populate recent project lists.",
       "source": "src/history-manager.js",
       "sourcePath": "src/history-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -3449,7 +3449,7 @@
     {
       "name": "IconRegistry",
       "visibility": "Essential",
-      "description": "The single source of every icon the editor renders — file-type\nicons, the semantic names pane items return from `getIconName()`, and LSP\nsymbol kinds.\n\nProviders form a priority chain. Each is asked in turn, and returning `null`\nmeans \"not mine, ask the next one\"; core's octicon mapping is the always\npresent provider at the bottom, so every target resolves. Returning\n`Icon.none()` is *not* the same as `null` — it stops the chain with \"no icon\nhere\".\n\nAn instance of this class is always available as the `atom.icons` global.",
+      "description": "The single source of every icon the editor renders — file-type\nicons, the semantic names pane items return from `getIconName()`, and LSP\nsymbol kinds.\n\nProviders form a priority chain. Each is asked in turn, and returning `null`\nmeans \"not mine, ask the next one\"; core's octicon mapping is the always\npresent provider at the bottom, so every target resolves. Returning\n`Icon.none()` is *not* the same as `null` — it stops the chain with \"no icon\nhere\".\n\nAn instance of this class is always available as the `lumine.icons` global.",
       "source": "src/icon-registry.js",
       "sourcePath": "src/icon-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -3537,7 +3537,7 @@
     {
       "name": "KeymapManager",
       "visibility": "Extended",
-      "description": "Allows commands to be associated with keystrokes in a\ncontext-sensitive way. You can access a global instance of this\nobject via `atom.keymaps`.\n\nKey bindings are plain JavaScript objects containing **CSS selectors** as\ntheir top level keys, then **keystroke patterns** mapped to commands.\n\n```jsonc\n{\n  \".workspace\": {\n    \"ctrl-l\": \"package:do-something\",\n    \"ctrl-z\": \"package:do-something-else\"\n  },\n  \".mini.editor\": {\n    \"enter\": \"core:confirm\"\n  }\n}\n```\n\nWhen a keystroke sequence matches a binding in a given context, a custom DOM\nevent with a type based on the command is dispatched on the target of the\nkeyboard event.\n\nTo match a keystroke sequence, the keymap starts at the target element for the\nkeyboard event. It looks for key bindings associated with selectors that match\nthe target element. If multiple match, the most specific is selected. If there\nis a tie in specificity, the most recently added binding wins. If no bindings\nare found for the events target, the search is repeated again for the target's\nparent node and so on recursively until a binding is found or we traverse off\nthe top of the document.\n\nWhen a binding is found, its command event is always dispatched on the\noriginal target of the keyboard event, even if the matching element is higher\nup in the DOM. In addition, `.preventDefault()` is called on the keyboard\nevent to prevent the browser from taking action. `.preventDefault` is only\ncalled if a matching binding is found.\n\nCommand event objects have a non-standard method called `.abortKeyBinding()`.\nIf your command handler is invoked but you programmatically determine that no\naction can be taken and you want to allow other bindings to be matched, call\n`.abortKeyBinding()` on the event object. An example of where this is useful\nis binding snippet expansion to `tab`. If `snippets:expand` is invoked when\nthe cursor does not follow a valid snippet prefix, we abort the binding and\nallow `tab` to be handled by the default handler, which inserts whitespace.\n\nMulti-keystroke bindings are possible. If a sequence of one or more keystrokes\n*partially* matches a multi-keystroke binding, the keymap enters a pending\nstate. The pending state is terminated on the next keystroke, or after\n{::getPartialMatchTimeout} milliseconds has elapsed. When the pending state is\nterminated via a timeout or a keystroke that leads to no matches, the longest\nambiguous bindings that caused the pending state are temporarily disabled and\nthe previous keystrokes are replayed. If there is ambiguity again during the\nreplay, the next longest bindings are disabled and the keystrokes are replayed\nagain.",
+      "description": "Allows commands to be associated with keystrokes in a\ncontext-sensitive way. You can access a global instance of this\nobject via `lumine.keymaps`.\n\nKey bindings are plain JavaScript objects containing **CSS selectors** as\ntheir top level keys, then **keystroke patterns** mapped to commands.\n\n```jsonc\n{\n  \".workspace\": {\n    \"ctrl-l\": \"package:do-something\",\n    \"ctrl-z\": \"package:do-something-else\"\n  },\n  \".mini.editor\": {\n    \"enter\": \"core:confirm\"\n  }\n}\n```\n\nWhen a keystroke sequence matches a binding in a given context, a custom DOM\nevent with a type based on the command is dispatched on the target of the\nkeyboard event.\n\nTo match a keystroke sequence, the keymap starts at the target element for the\nkeyboard event. It looks for key bindings associated with selectors that match\nthe target element. If multiple match, the most specific is selected. If there\nis a tie in specificity, the most recently added binding wins. If no bindings\nare found for the events target, the search is repeated again for the target's\nparent node and so on recursively until a binding is found or we traverse off\nthe top of the document.\n\nWhen a binding is found, its command event is always dispatched on the\noriginal target of the keyboard event, even if the matching element is higher\nup in the DOM. In addition, `.preventDefault()` is called on the keyboard\nevent to prevent the browser from taking action. `.preventDefault` is only\ncalled if a matching binding is found.\n\nCommand event objects have a non-standard method called `.abortKeyBinding()`.\nIf your command handler is invoked but you programmatically determine that no\naction can be taken and you want to allow other bindings to be matched, call\n`.abortKeyBinding()` on the event object. An example of where this is useful\nis binding snippet expansion to `tab`. If `snippets:expand` is invoked when\nthe cursor does not follow a valid snippet prefix, we abort the binding and\nallow `tab` to be handled by the default handler, which inserts whitespace.\n\nMulti-keystroke bindings are possible. If a sequence of one or more keystrokes\n*partially* matches a multi-keystroke binding, the keymap enters a pending\nstate. The pending state is terminated on the next keystroke, or after\n{::getPartialMatchTimeout} milliseconds has elapsed. When the pending state is\nterminated via a timeout or a keystroke that leads to no matches, the longest\nambiguous bindings that caused the pending state are temporarily disabled and\nthe previous keystrokes are replayed. If there is ambiguity again during the\nreplay, the next longest bindings are disabled and the keystrokes are replayed\nagain.",
       "source": "src/keymap-manager.js",
       "sourcePath": "src/keymap-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -3914,7 +3914,7 @@
           "signature": "::getRole()",
           "category": "Querying",
           "visibility": "Public",
-          "description": "Get the role of the marker layer e.g. `atom.selection`.\nReturns a {String}.",
+          "description": "Get the role of the marker layer e.g. `lumine.selection`.\nReturns a {String}.",
           "line": 235
         },
         {
@@ -3977,7 +3977,7 @@
     {
       "name": "MenuManager",
       "visibility": "Extended",
-      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `atom.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view-plus.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n      ]\n    }\n  ]\n}\n```\n\nSee {::add} for more information about adding menus directly.",
+      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `lumine.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view-plus.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n      ]\n    }\n  ]\n}\n```\n\nSee {::add} for more information about adding menus directly.",
       "source": "src/menu-manager.js",
       "sourcePath": "src/menu-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -3991,7 +3991,7 @@
           "signature": "::add(items)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Adds the given items to the application menu.\n\n## Examples\n```javascript\n  atom.menu.add([\n    {\n      label: 'Hello'\n      submenu : [{label: 'World!', id: 'World!', command: 'hello:world'}]\n    }\n  ]);\n```\n\n* `items` An {Array} of menu item {Object}s containing the keys:\n  * `label` The {String} menu label.\n  * `submenu` An optional {Array} of sub menu items.\n  * `command` An optional {String} command to trigger when the item is\n    clicked.\n\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
+          "description": "Adds the given items to the application menu.\n\n## Examples\n```javascript\n  lumine.menu.add([\n    {\n      label: 'Hello'\n      submenu : [{label: 'World!', id: 'World!', command: 'hello:world'}]\n    }\n  ]);\n```\n\n* `items` An {Array} of menu item {Object}s containing the keys:\n  * `label` The {String} menu label.\n  * `submenu` An optional {Array} of sub menu items.\n  * `command` An optional {String} command to trigger when the item is\n    clicked.\n\n  * `id` (internal) A {String} containing the menu item's id.\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded menu items.",
           "line": 115
         },
         {
@@ -4003,7 +4003,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Refreshes the currently visible menu.",
-          "line": 186
+          "line": 188
         }
       ]
     },
@@ -4076,7 +4076,7 @@
     {
       "name": "NotificationManager",
       "visibility": "Public",
-      "description": "A notification manager used to create {Notification}s to be shown\nto the user.\n\nAn instance of this class is always available as the `atom.notifications`\nglobal.",
+      "description": "A notification manager used to create {Notification}s to be shown\nto the user.\n\nAn instance of this class is always available as the `lumine.notifications`\nglobal.",
       "source": "src/notification-manager.js",
       "sourcePath": "src/notification-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -4263,7 +4263,7 @@
     {
       "name": "PackageManager",
       "visibility": "Extended",
-      "description": "Package manager for coordinating the lifecycle of Lumine packages.\n\nAn instance of this class is always available as the `atom.packages` global.\n\nPackages can be loaded, activated, and deactivated, and unloaded:\n * Loading a package reads and parses the package's metadata and resources\n   such as keymaps, menus, stylesheets, etc.\n * Activating a package registers the loaded resources and calls `activate()`\n   on the package's main module.\n * Deactivating a package unregisters the package's resources  and calls\n   `deactivate()` on the package's main module.\n * Unloading a package removes it completely from the package manager.\n\nPackages can be enabled/disabled via the `core.disabledPackages` config\nsettings and also by calling `enablePackage()/disablePackage()`.",
+      "description": "Package manager for coordinating the lifecycle of Lumine packages.\n\nAn instance of this class is always available as the `lumine.packages` global.\n\nPackages can be loaded, activated, and deactivated, and unloaded:\n * Loading a package reads and parses the package's metadata and resources\n   such as keymaps, menus, stylesheets, etc.\n * Activating a package registers the loaded resources and calls `activate()`\n   on the package's main module.\n * Deactivating a package unregisters the package's resources  and calls\n   `deactivate()` on the package's main module.\n * Unloading a package removes it completely from the package manager.\n\nPackages can be enabled/disabled via the `core.disabledPackages` config\nsettings and also by calling `enablePackage()/disablePackage()`.",
       "source": "src/package-manager.js",
       "sourcePath": "src/package-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -5242,7 +5242,7 @@
     {
       "name": "PasteProviderRegistry",
       "visibility": "Experimental",
-      "description": "Lets a package claim a paste before the editor turns the\nclipboard into text.\n\nAn instance of this class is always available as the `atom.pasteProviders`\nglobal.\n\nThis is a dispatch table, not a second clipboard. {Clipboard} owns what the\nclipboard holds; this owns who gets first refusal on putting it somewhere.\nThe two are deliberately separate, because a provider is chosen by the\npaste's *target* — a text editor, a tree-view directory — and that is\nworkspace vocabulary the clipboard has no business knowing.\n\nProviders are offered the paste highest `priority` first, and equal\npriorities keep registration order. The first one to return `true` claims it\nand no later provider is consulted; when none does, the caller falls back to\nits own behavior — inserting text, in the editor's case. A paste that sets\n`skipPasteProviders` in its options skips the registry outright, which is how\n`editor:paste-without-reformatting` guarantees it pastes raw text.\n\nA provider must decide synchronously. The editor may be inside a native\n`paste` ClipboardEvent, whose `clipboardData` is readable only for the\nduration of that event, so claim the paste first and then do the slow part.\n\n## Examples\n\nTake over pasting an image, and leave every other paste alone:\n\n```js\natom.pasteProviders.add({\n  handlePaste({ target, clipboardData }) {\n    if (target.type !== 'text-editor') return false\n    const image = imageFrom(clipboardData)\n    if (!image) return false\n    saveAndInsert(image, target.editor) // may finish asynchronously\n    return true\n  }\n}, { priority: 100 })\n```",
+      "description": "Lets a package claim a paste before the editor turns the\nclipboard into text.\n\nAn instance of this class is always available as the `lumine.pasteProviders`\nglobal.\n\nThis is a dispatch table, not a second clipboard. {Clipboard} owns what the\nclipboard holds; this owns who gets first refusal on putting it somewhere.\nThe two are deliberately separate, because a provider is chosen by the\npaste's *target* — a text editor, a tree-view directory — and that is\nworkspace vocabulary the clipboard has no business knowing.\n\nProviders are offered the paste highest `priority` first, and equal\npriorities keep registration order. The first one to return `true` claims it\nand no later provider is consulted; when none does, the caller falls back to\nits own behavior — inserting text, in the editor's case. A paste that sets\n`skipPasteProviders` in its options skips the registry outright, which is how\n`editor:paste-without-reformatting` guarantees it pastes raw text.\n\nA provider must decide synchronously. The editor may be inside a native\n`paste` ClipboardEvent, whose `clipboardData` is readable only for the\nduration of that event, so claim the paste first and then do the slow part.\n\n## Examples\n\nTake over pasting an image, and leave every other paste alone:\n\n```js\nlumine.pasteProviders.add({\n  handlePaste({ target, clipboardData }) {\n    if (target.type !== 'text-editor') return false\n    const image = imageFrom(clipboardData)\n    if (!image) return false\n    saveAndInsert(image, target.editor) // may finish asynchronously\n    return true\n  }\n}, { priority: 100 })\n```",
       "source": "src/paste-provider-registry.js",
       "sourcePath": "src/paste-provider-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -5267,7 +5267,7 @@
           "signature": "::handlePaste(context)",
           "category": "Methods",
           "visibility": "Experimental",
-          "description": "Offer a paste to each registered provider in turn.\n\nThe text editor calls this for you. Call it directly when your own package\nis somewhere a paste can land: the tree-view does, so that pasting onto a\ndirectory row reaches the same providers an editor paste would.\n\n* `context` An {Object} describing the paste, with the following keys:\n  * `target` An {Object} naming where the paste lands. Today that is\n    `{type: 'text-editor', editor}` or `{type: 'directory', path}`. Always\n    branch on `type` and return `false` for one you do not recognize — the\n    set grows as more of the workspace offers its pastes here.\n  * `clipboard` (optional) The {Clipboard} to read the paste from. Inside a\n    native paste event this is a DataTransfer-backed clipboard, so\n    `readWithMetadata()` sees the metadata of the window that did the copy;\n    outside one it is `atom.clipboard`. Absent when the caller is not a\n    text editor.\n  * `clipboardData` (optional) The event's `DataTransfer`, or `null` when\n    the paste did not arrive as a native paste event. Custom formats and\n    non-text items such as files and images are readable only from here.\n  * `options` (optional) An {Object} of the paste options the editor would\n    otherwise have used, such as `autoIndent` and `normalizeLineEndings`.\n\nReturns a {Boolean}: `true` when a provider claimed the paste and the\ncaller must not handle it itself, `false` when none did.",
+          "description": "Offer a paste to each registered provider in turn.\n\nThe text editor calls this for you. Call it directly when your own package\nis somewhere a paste can land: the tree-view does, so that pasting onto a\ndirectory row reaches the same providers an editor paste would.\n\n* `context` An {Object} describing the paste, with the following keys:\n  * `target` An {Object} naming where the paste lands. Today that is\n    `{type: 'text-editor', editor}` or `{type: 'directory', path}`. Always\n    branch on `type` and return `false` for one you do not recognize — the\n    set grows as more of the workspace offers its pastes here.\n  * `clipboard` (optional) The {Clipboard} to read the paste from. Inside a\n    native paste event this is a DataTransfer-backed clipboard, so\n    `readWithMetadata()` sees the metadata of the window that did the copy;\n    outside one it is `lumine.clipboard`. Absent when the caller is not a\n    text editor.\n  * `clipboardData` (optional) The event's `DataTransfer`, or `null` when\n    the paste did not arrive as a native paste event. Custom formats and\n    non-text items such as files and images are readable only from here.\n  * `options` (optional) An {Object} of the paste options the editor would\n    otherwise have used, such as `autoIndent` and `normalizeLineEndings`.\n\nReturns a {Boolean}: `true` when a provider claimed the paste and the\ncaller must not handle it itself, `false` when none did.",
           "line": 111
         }
       ]
@@ -5275,7 +5275,7 @@
     {
       "name": "PathWatcher",
       "visibility": "Extended",
-      "description": "Manage a subscription to filesystem events that occur beneath a\nroot directory. Construct these by calling `watchPath`. To watch for events\nwithin active project directories, use {Project::onDidChangeFiles} instead.\n\nMultiple PathWatchers may be backed by a single native watcher to conserve\noperating-system resources.\n\nCall {::dispose} to stop receiving events and, if possible, release\nunderlying resources. A PathWatcher may be added to a {CompositeDisposable}\nto manage its lifetime along with other {Disposable} resources like event\nsubscriptions.\n\n```js\nconst {watchPath} = require('atom')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to\n // subscribe to these events.\n disposable.dispose()\n```\n\n`watchPath` accepts the following arguments:\n\n* `rootPath` {String} specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior. Currently a placeholder.\n* `eventCallback` {Function} to be called each time a batch of filesystem\n  events is observed. Each event object has the keys:\n  * `action`, a {String} describing the filesystem action that occurred, one\n    of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`;\n  * `path`, a {String} containing the absolute path to the filesystem entry\n    that was acted upon;\n  * `oldPath` (for `renamed` events only), a {String} containing the\n    filesystem entry's former absolute path.",
+      "description": "Manage a subscription to filesystem events that occur beneath a\nroot directory. Construct these by calling `watchPath`. To watch for events\nwithin active project directories, use {Project::onDidChangeFiles} instead.\n\nMultiple PathWatchers may be backed by a single native watcher to conserve\noperating-system resources.\n\nCall {::dispose} to stop receiving events and, if possible, release\nunderlying resources. A PathWatcher may be added to a {CompositeDisposable}\nto manage its lifetime along with other {Disposable} resources like event\nsubscriptions.\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to\n // subscribe to these events.\n disposable.dispose()\n```\n\n`watchPath` accepts the following arguments:\n\n* `rootPath` {String} specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior. Currently a placeholder.\n* `eventCallback` {Function} to be called each time a batch of filesystem\n  events is observed. Each event object has the keys:\n  * `action`, a {String} describing the filesystem action that occurred, one\n    of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`;\n  * `path`, a {String} containing the absolute path to the filesystem entry\n    that was acted upon;\n  * `oldPath` (for `renamed` events only), a {String} containing the\n    filesystem entry's former absolute path.",
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -5289,7 +5289,7 @@
           "signature": "::getStartPromise()",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Return a {Promise} that will resolve when the underlying native\nwatcher is ready to begin sending events. When testing filesystem\nwatchers, it's important to await this promise before making filesystem\nchanges that you intend to assert about because there will be a delay\nbetween the instantiation of the watcher and the activation of the\nunderlying OS resources that feed its events.\n\nPathWatchers acquired through `watchPath` are already started.\n\n```js\nconst {watchPath} = require('atom')\nconst ROOT = path.join(__dirname, 'fixtures')\nconst FILE = path.join(ROOT, 'filename.txt')\n\ndescribe('something', function () {\n  it(\"doesn't miss events\", async function () {\n    const watcher = watchPath(ROOT, {}, events => {})\n    await watcher.getStartPromise()\n    fs.writeFile(FILE, 'contents\\n', err => {\n      // The watcher is listening and the event should be\n      // received asynchronously\n    }\n  })\n})\n```",
+          "description": "Return a {Promise} that will resolve when the underlying native\nwatcher is ready to begin sending events. When testing filesystem\nwatchers, it's important to await this promise before making filesystem\nchanges that you intend to assert about because there will be a delay\nbetween the instantiation of the watcher and the activation of the\nunderlying OS resources that feed its events.\n\nPathWatchers acquired through `watchPath` are already started.\n\n```js\nconst {watchPath} = require('lumine')\nconst ROOT = path.join(__dirname, 'fixtures')\nconst FILE = path.join(ROOT, 'filename.txt')\n\ndescribe('something', function () {\n  it(\"doesn't miss events\", async function () {\n    const watcher = watchPath(ROOT, {}, events => {})\n    await watcher.getStartPromise()\n    fs.writeFile(FILE, 'contents\\n', err => {\n      // The watcher is listening and the event should be\n      // received asynchronously\n    }\n  })\n})\n```",
           "line": 688
         },
         {
@@ -5539,7 +5539,7 @@
     {
       "name": "Project",
       "visibility": "Extended",
-      "description": "Represents a project that's opened in Lumine.\n\nAn instance of this class is always available as the `atom.project` global.",
+      "description": "Represents a project that's opened in Lumine.\n\nAn instance of this class is always available as the `lumine.project` global.",
       "source": "src/project.js",
       "sourcePath": "src/project.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -5554,7 +5554,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the project paths change.\n\n* `callback` {Function} to be called after the project paths change.\n   * `projectPaths` An {Array} of {String} project paths.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 197
+          "line": 198
         },
         {
           "name": "onDidAddBuffer",
@@ -5565,7 +5565,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a text buffer is added to the\nproject.\n\n* `callback` {Function} to be called when a text buffer is added.\n  * `buffer` A {TextBuffer} item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 208
+          "line": 209
         },
         {
           "name": "observeBuffers",
@@ -5576,7 +5576,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback with all current and future text\nbuffers in the project.\n\n* `callback` {Function} to be called with current and future text buffers.\n  * `buffer` A {TextBuffer} item.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 219
+          "line": 220
         },
         {
           "name": "onDidChangeFiles",
@@ -5586,8 +5586,8 @@
           "signature": "::onDidChangeFiles(callback)",
           "category": "Event Subscription",
           "visibility": "Extended",
-          "description": "Invoke a callback when a filesystem change occurs within any open\nproject path.\n\n```js\nconst disposable = atom.project.onDidChangeFiles(events => {\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", or \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\ndisposable.dispose()\n```\n\nTo watch paths outside of open projects, use the `watchPaths` function instead; see {PathWatcher}.\n\nWhen writing tests against functionality that uses this method, be sure to wait for the\n{Promise} returned by {::getWatcherPromise} before manipulating the filesystem to ensure that\nthe watcher is receiving events.\n\n* `callback` {Function} to be called with batches of filesystem events reported by\n  the operating system.\n   * `events` An {Array} of objects that describe a batch of filesystem events.\n    * `action` {String} describing the filesystem action that occurred. One of `\"created\"`,\n      `\"modified\"`, `\"deleted\"`, or `\"renamed\"`.\n    * `path` {String} containing the absolute path to the filesystem entry\n      that was acted upon.\n    * `oldPath` For rename events, {String} containing the filesystem entry's\n      former absolute path.\n\nReturns a {Disposable} to manage this event subscription.",
-          "line": 264
+          "description": "Invoke a callback when a filesystem change occurs within any open\nproject path.\n\n```js\nconst disposable = lumine.project.onDidChangeFiles(events => {\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", or \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\ndisposable.dispose()\n```\n\nTo watch paths outside of open projects, use the `watchPaths` function instead; see {PathWatcher}.\n\nWhen writing tests against functionality that uses this method, be sure to wait for the\n{Promise} returned by {::getWatcherPromise} before manipulating the filesystem to ensure that\nthe watcher is receiving events.\n\n* `callback` {Function} to be called with batches of filesystem events reported by\n  the operating system.\n   * `events` An {Array} of objects that describe a batch of filesystem events.\n    * `action` {String} describing the filesystem action that occurred. One of `\"created\"`,\n      `\"modified\"`, `\"deleted\"`, or `\"renamed\"`.\n    * `path` {String} containing the absolute path to the filesystem entry\n      that was acted upon.\n    * `oldPath` For rename events, {String} containing the filesystem entry's\n      former absolute path.\n\nReturns a {Disposable} to manage this event subscription.",
+          "line": 265
         },
         {
           "name": "repositoryForDirectory",
@@ -5598,7 +5598,7 @@
           "category": "Accessing the git repository",
           "visibility": "Public",
           "description": "Get the repository for a given directory asynchronously.\n\n* `directory` {Directory} for which to get a {GitRepository}.\n\nReturns a {Promise} that resolves with either:\n* {GitRepository} if a repository can be created for the given directory\n* `null` if no repository can be created for the given directory.",
-          "line": 279
+          "line": 280
         },
         {
           "name": "repositoryForPath",
@@ -5609,7 +5609,7 @@
           "category": "Accessing the git repository",
           "visibility": "Public",
           "description": "Get the repository that contains a given file or directory path\nasynchronously.\n\nThis is a convenience over {::repositoryForDirectory} for callers that have\na path {String} rather than a {Directory}. The path is resolved to its\ncontaining {Directory} (a file path resolves to its parent directory), so\ncallers no longer need to construct a {Directory} themselves.\n\n* `filePath` {String} path of a file or directory.\n\nReturns a {Promise} that resolves with either:\n* {GitRepository} if a repository can be created for the given path\n* `null` if no repository can be created for the given path.",
-          "line": 296
+          "line": 297
         },
         {
           "name": "getPaths",
@@ -5620,7 +5620,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Get an {Array} of {String}s containing the paths of the project's\ndirectories.",
-          "line": 342
+          "line": 343
         },
         {
           "name": "setPaths",
@@ -5631,7 +5631,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Set the paths of the project's directories.\n\n* `projectPaths` {Array} of {String} paths.\n* `options` An optional {Object} that may contain the following keys:\n  * `mustExist` If `true`, throw an Error if any `projectPaths` do not exist. Any remaining `projectPaths` that\n    do exist will still be added to the project. Default: `false`.\n  * `exact` If `true`, only add a `projectPath` if it names an existing directory. If `false` and any `projectPath`\n    is a file or does not exist, its parent directory will be added instead. Default: `false`.",
-          "line": 360
+          "line": 361
         },
         {
           "name": "setState",
@@ -5641,8 +5641,8 @@
           "signature": "::setState(projectPaths)",
           "category": "Managing Paths",
           "visibility": "Public",
-          "description": "Open a different project in this window.\n\n* `projectPaths` {Array} of {String} paths to the directories the window\n  should have open.\n\nWhere {::setPaths} changes the folders and leaves everything else alone —\nso the editors open on the old project stay open on the new one — this\nchanges the whole state: the current folders and the editors open on them\nare saved together, and whatever was last saved for `projectPaths` is\nrestored in their place. No new window is opened, so packages, themes and\ngrammars stay loaded.\n\nOnly the workspace center is restored. Docks belong to the window rather\nthan to the project it has open, so a tree view, a terminal or a panel\nkeeps running across the change — as does anything a package put there.\n\nThree things are worth knowing before reaching for this:\n\n* Development and safe mode belong to the window, so they cannot change\n  here. Use {AtomEnvironment::open} with `newWindow` for those.\n* State is keyed by the set of folders, so a project already open in\n  another window shares one saved state with it and the last window to\n  save wins.\n* Package state is not re-applied. A package that follows the project\n  observes {::onDidChangePaths} and rebuilds itself.\n\nReturns a {Promise} that resolves to `true` once the new state is in\nplace, or to `false` if the window was left as it was — because the paths\nwere already open, none was given, or the user cancelled at the save\nprompt.",
-          "line": 431
+          "description": "Open a different project in this window.\n\n* `projectPaths` {Array} of {String} paths to the directories the window\n  should have open.\n\nWhere {::setPaths} changes the folders and leaves everything else alone —\nso the editors open on the old project stay open on the new one — this\nchanges the whole state: the current folders and the editors open on them\nare saved together, and whatever was last saved for `projectPaths` is\nrestored in their place. No new window is opened, so packages, themes and\ngrammars stay loaded.\n\nOnly the workspace center is restored. Docks belong to the window rather\nthan to the project it has open, so a tree view, a terminal or a panel\nkeeps running across the change — as does anything a package put there.\n\nThree things are worth knowing before reaching for this:\n\n* Development and safe mode belong to the window, so they cannot change\n  here. Use {LumineEnvironment::open} with `newWindow` for those.\n* State is keyed by the set of folders, so a project already open in\n  another window shares one saved state with it and the last window to\n  save wins.\n* Package state is not re-applied. A package that follows the project\n  observes {::onDidChangePaths} and rebuilds itself.\n\nReturns a {Promise} that resolves to `true` once the new state is in\nplace, or to `false` if the window was left as it was — because the paths\nwere already open, none was given, or the user cancelled at the save\nprompt.",
+          "line": 432
         },
         {
           "name": "addPath",
@@ -5653,7 +5653,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Add a path to the project's list of root paths\n\n* `projectPath` {String} The path to the directory to add.\n* `options` An optional {Object} that may contain the following keys:\n  * `mustExist` If `true`, throw an Error if the `projectPath` does not exist. If `false`, a `projectPath` that does\n    not exist is ignored. Default: `false`.\n  * `exact` If `true`, only add `projectPath` if it names an existing directory. If `false`, if `projectPath` is a\n    a file or does not exist, its parent directory will be added instead.",
-          "line": 445
+          "line": 446
         },
         {
           "name": "addPaths",
@@ -5664,7 +5664,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Add multiple paths to the project's list of root paths,\nemitting a single `did-change-paths` event after all paths are added.\n\n* `projectPaths` An {Array} of {String} paths to add.\n* `options` An optional {Object} passed to {::addPath} for each path.",
-          "line": 517
+          "line": 518
         },
         {
           "name": "getWatcherPromise",
@@ -5675,7 +5675,7 @@
           "category": "Managing Paths",
           "visibility": "Extended",
           "description": "Access a {Promise} that resolves when the filesystem watcher associated with a project\nroot directory is ready to begin receiving events.\n\nThis is especially useful in test cases, where it's important to know that the watcher is\nready before manipulating the filesystem to produce events.\n\n* `projectPath` {String} One of the project's root directories.\n\nReturns a {Promise} that resolves with the {PathWatcher} associated with this project root\nonce it has initialized and is ready to start sending events. The Promise will reject with\nan error instead if `projectPath` is not currently a root directory.",
-          "line": 563
+          "line": 564
         },
         {
           "name": "removePath",
@@ -5686,7 +5686,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "remove a path from the project's list of root paths.\n\n* `projectPath` {String} The path to remove.",
-          "line": 573
+          "line": 574
         },
         {
           "name": "getDirectories",
@@ -5697,7 +5697,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Get an {Array} of {Directory}s associated with this project.",
-          "line": 606
+          "line": 607
         },
         {
           "name": "relativizePath",
@@ -5708,7 +5708,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Get the path to the project directory that contains the given path,\nand the relative path from that project directory to the given path.\n\n* `fullPath` {String} An absolute path.\n\nReturns an {Array} with two elements:\n* `projectPath` The {String} path to the project directory that contains the\n  given path, or `null` if none is found.\n* `relativePath` {String} The relative path from the project directory to\n  the given path.",
-          "line": 647
+          "line": 648
         },
         {
           "name": "contains",
@@ -5719,7 +5719,7 @@
           "category": "Managing Paths",
           "visibility": "Public",
           "description": "Determines whether the given path (real or symbolic) is inside the\nproject's directory.\n\nThis method does not actually check if the path exists, it just checks their\nlocations relative to each other.\n\n## Examples\n\nBasic operation\n\n```js\n// Project's root directory is /foo/bar\nproject.contains('/foo/bar/baz')        // => true\nproject.contains('/usr/lib/baz')        // => false\n```\n\nExistence of the path is not required\n\n```js\n// Project's root directory is /foo/bar\nfs.existsSync('/foo/bar/baz')           // => false\nproject.contains('/foo/bar/baz')        // => true\n```\n\n* `pathToCheck` {String} path\n\nReturns whether the path is inside the project's root directory.",
-          "line": 687
+          "line": 688
         },
         {
           "name": "crawl",
@@ -5729,8 +5729,8 @@
           "signature": "::crawl(options = {})",
           "category": "Crawling files",
           "visibility": "Public",
-          "description": "Lists the files under the project's directories.\n\nThe crawl runs in a separate process (the bundled ripgrep binary), honors\n`.gitignore` unless told otherwise, and streams results as it finds them\nrather than resolving with one large array. Prefer it over walking the\nfilesystem yourself: `core.ignoredNames` and `core.excludeVcsIgnoredPaths`\nare respected here in one place.\n\n```js\nconst crawl = atom.project.crawl({\n  didFindPaths: (paths) => results.push(...paths),\n});\nawait crawl;\n```\n\n* `options` (optional) {Object}\n  * `didFindPaths` {Function} called with an {Array} of absolute paths as\n    they are found. Called several times over the life of one crawl.\n  * `directoryPaths` an {Array} of {String} paths to crawl. Defaults to the\n    project's root directories.\n  * `inclusion` {String} glob scoping the crawl. `**` means \"everything\".\n  * `ignoredNames` an {Array} of {String} globs to exclude. Defaults to\n    `core.ignoredNames`.\n  * `followSymlinks` {Boolean} whether to descend into symlinked\n    directories. Defaults to `core.followSymlinks`.\n  * `excludeVcsIgnoredPaths` {Boolean} whether to honor VCS ignore files.\n    Defaults to `core.excludeVcsIgnoredPaths`. Only takes effect inside a\n    repository — a directory with no `.git` above it lists everything.\n  * `sort` {Boolean} whether to return paths in a stable order. Costs\n    ripgrep its parallel walk, so only ask when the order is observable.\n\nReturns a {Promise} with a `cancel()` method that resolves the crawl early.",
-          "line": 727
+          "description": "Lists the files under the project's directories.\n\nThe crawl runs in a separate process (the bundled ripgrep binary), honors\n`.gitignore` unless told otherwise, and streams results as it finds them\nrather than resolving with one large array. Prefer it over walking the\nfilesystem yourself: `core.ignoredNames` and `core.excludeVcsIgnoredPaths`\nare respected here in one place.\n\n```js\nconst crawl = lumine.project.crawl({\n  didFindPaths: (paths) => results.push(...paths),\n});\nawait crawl;\n```\n\n* `options` (optional) {Object}\n  * `didFindPaths` {Function} called with an {Array} of absolute paths as\n    they are found. Called several times over the life of one crawl.\n  * `directoryPaths` an {Array} of {String} paths to crawl. Defaults to the\n    project's root directories.\n  * `inclusion` {String} glob scoping the crawl. `**` means \"everything\".\n  * `ignoredNames` an {Array} of {String} globs to exclude. Defaults to\n    `core.ignoredNames`.\n  * `followSymlinks` {Boolean} whether to descend into symlinked\n    directories. Defaults to `core.followSymlinks`.\n  * `excludeVcsIgnoredPaths` {Boolean} whether to honor VCS ignore files.\n    Defaults to `core.excludeVcsIgnoredPaths`. Only takes effect inside a\n    repository — a directory with no `.git` above it lists everything.\n  * `sort` {Boolean} whether to return paths in a stable order. Costs\n    ripgrep its parallel walk, so only ask when the order is observable.\n\nReturns a {Promise} with a `cancel()` method that resolves the crawl early.",
+          "line": 728
         }
       ]
     },
@@ -6001,7 +6001,7 @@
     {
       "name": "RepositoryRegistry",
       "visibility": "Public",
-      "description": "Every Git repository this window knows about, available as\n`atom.repositories`.\n\nProject roots are where repositories are discovered and what keeps them\nalive, but a repository's identity is independent of them: one root can hold\nseveral repositories, one repository can span several roots, and a file\nopened from outside every root still resolves to the repository that\ncontains it.\n\n## Finding a repository\n\n{::getForPath} answers from what is already known and never touches the\nfilesystem, which is what a renderer wants. {::resolveForPath} may discover\nand register a repository that was not known yet, at the cost of being\nasynchronous:\n\n```js\nconst repository = atom.repositories.getForPath(editor.getPath())\nif (repository) console.log(repository.getShortHead())\n```\n\n## Following the one the user is in\n\n{::observeActiveRepository} tracks the repository behind the active pane\nitem, so a status bar or a panel does not have to work it out itself:\n\n```js\natom.repositories.observeActiveRepository(({ repository, workingDirectory }) => {\n  // repository is null when the active item belongs to none\n})\n```\n\n## Operations\n\nThe registry performs no Git work of its own. A package provides an\nimplementation through {::addOperationProvider}, and everything under\n\"Operations\" and \"Running Git\" below is routed to whichever provider claims\nthe capability. Ask {::canPerformOperation} before offering an action, since\na window with no provider installed can answer nothing.",
+      "description": "Every Git repository this window knows about, available as\n`lumine.repositories`.\n\nProject roots are where repositories are discovered and what keeps them\nalive, but a repository's identity is independent of them: one root can hold\nseveral repositories, one repository can span several roots, and a file\nopened from outside every root still resolves to the repository that\ncontains it.\n\n## Finding a repository\n\n{::getForPath} answers from what is already known and never touches the\nfilesystem, which is what a renderer wants. {::resolveForPath} may discover\nand register a repository that was not known yet, at the cost of being\nasynchronous:\n\n```js\nconst repository = lumine.repositories.getForPath(editor.getPath())\nif (repository) console.log(repository.getShortHead())\n```\n\n## Following the one the user is in\n\n{::observeActiveRepository} tracks the repository behind the active pane\nitem, so a status bar or a panel does not have to work it out itself:\n\n```js\nlumine.repositories.observeActiveRepository(({ repository, workingDirectory }) => {\n  // repository is null when the active item belongs to none\n})\n```\n\n## Operations\n\nThe registry performs no Git work of its own. A package provides an\nimplementation through {::addOperationProvider}, and everything under\n\"Operations\" and \"Running Git\" below is routed to whichever provider claims\nthe capability. Ask {::canPerformOperation} before offering an action, since\na window with no provider installed can answer nothing.",
       "source": "src/repository-registry.js",
       "sourcePath": "src/repository-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -6540,7 +6540,7 @@
     {
       "name": "SecretStore",
       "visibility": "Public",
-      "description": "Somewhere to keep an access token, available as `atom.secrets`.\n\nFor the sensitive strings a package must remember between sessions — a\nforge token, an API key, a password. Never `atom.config`: everything in\nthere is written to disk in plain text and shown in the settings view.\n\nKeys are opaque strings and values are strings. Namespace your own keys, by\nconvention with the package name:\n\n```js\nawait atom.secrets.set('github.token', token)\nconst token = await atom.secrets.get('github.token')\n```\n\n## Storage\n\nValues are encrypted with the operating system's own facility — DPAPI on\nWindows, the Keychain on macOS, libsecret or kwallet on Linux — and kept as\nbase64 in one file under the config directory.\n\nWhere the OS offers no encryption, typically a headless Linux box with no\nkeyring, the store keeps values in memory for the session only and warns the\nuser once. It never writes a secret to disk in the clear. A package should\ntherefore expect {::get} to return `null` for something it stored in an\nearlier session, and ask again rather than fail.",
+      "description": "Somewhere to keep an access token, available as `lumine.secrets`.\n\nFor the sensitive strings a package must remember between sessions — a\nforge token, an API key, a password. Never `lumine.config`: everything in\nthere is written to disk in plain text and shown in the settings view.\n\nKeys are opaque strings and values are strings. Namespace your own keys, by\nconvention with the package name:\n\n```js\nawait lumine.secrets.set('github.token', token)\nconst token = await lumine.secrets.get('github.token')\n```\n\n## Storage\n\nValues are encrypted with the operating system's own facility — DPAPI on\nWindows, the Keychain on macOS, libsecret or kwallet on Linux — and kept as\nbase64 in one file under the config directory.\n\nWhere the OS offers no encryption, typically a headless Linux box with no\nkeyring, the store keeps values in memory for the session only and warns the\nuser once. It never writes a secret to disk in the clear. A package should\ntherefore expect {::get} to return `null` for something it stored in an\nearlier session, and ask again rather than fail.",
       "source": "src/secret-store.js",
       "sourcePath": "src/secret-store.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -7475,7 +7475,7 @@
     {
       "name": "StyleManager",
       "visibility": "Extended",
-      "description": "A singleton instance of this class available via `atom.styles`,\nwhich you can use to globally query and observe the set of active style\nsheets. The `StyleManager` doesn't add any style elements to the DOM on its\nown, but is instead subscribed to by individual `<atom-styles>` elements,\nwhich clone and attach style elements in different contexts.",
+      "description": "A singleton instance of this class available via `lumine.styles`,\nwhich you can use to globally query and observe the set of active style\nsheets. The `StyleManager` doesn't add any style elements to the DOM on its\nown, but is instead subscribed to by individual `<lumine-styles>` elements,\nwhich clone and attach style elements in different contexts.",
       "source": "src/style-manager.js",
       "sourcePath": "src/style-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -7552,7 +7552,7 @@
     {
       "name": "Task",
       "visibility": "Extended",
-      "description": "Run a node script in a separate process.\n\nUsed by fuzzy file search and find-and-replace in project.\n\nFor a real-world example, see the [replace-handler](https://github.com/lumine-code/lumine/blob/master/src/replace-handler.js).\n\n## Examples\n\nIn your package code:\n\n```javascript\nconst {Task} = require('atom');\n\nlet task = Task.once('/path/to/task-file.js', parameter1, parameter2, function() {\n  console.log('task has finished');\n});\n\ntask.on('some-event-from-the-task', (data) => {\n  console.log(data.someString); // prints 'yep this is it'\n});\n```\n\nIn `'/path/to/task-file.js'`:\n\n```javascript\nmodule.exports = function(parameter1, parameter2) {\n  // Indicates that this task will be async.\n  // Call the `callback` to finish the task\n  const callback = this.async();\n  emit('some-event-from-the-task', {\n    someString: 'yep this is it'\n  });\n  return callback();\n};\n```",
+      "description": "Run a node script in a separate process.\n\nUsed by fuzzy file search and find-and-replace in project.\n\nFor a real-world example, see the [replace-handler](https://github.com/lumine-code/lumine/blob/master/src/replace-handler.js).\n\n## Examples\n\nIn your package code:\n\n```javascript\nconst {Task} = require('lumine');\n\nlet task = Task.once('/path/to/task-file.js', parameter1, parameter2, function() {\n  console.log('task has finished');\n});\n\ntask.on('some-event-from-the-task', (data) => {\n  console.log(data.someString); // prints 'yep this is it'\n});\n```\n\nIn `'/path/to/task-file.js'`:\n\n```javascript\nmodule.exports = function(parameter1, parameter2) {\n  // Indicates that this task will be async.\n  // Call the `callback` to finish the task\n  const callback = this.async();\n  emit('some-event-from-the-task', {\n    someString: 'yep this is it'\n  });\n  return callback();\n};\n```",
       "source": "src/task.js",
       "sourcePath": "src/task.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -8806,7 +8806,7 @@
     {
       "name": "TextEditor",
       "visibility": "Essential",
-      "description": "This class represents all essential editing state for a single\n{TextBuffer}, including cursor and selection positions, folds, and soft wraps.\nIf you're manipulating the state of an editor, use this class.\n\nA single {TextBuffer} can belong to multiple editors. For example, if the\nsame file is open in two different panes, Lumine creates a separate editor for\neach pane. If the buffer is manipulated the changes are reflected in both\neditors, but each maintains its own cursor position, folded lines, etc.\n\n## Accessing TextEditor Instances\n\nThe easiest way to get hold of `TextEditor` objects is by registering a callback\nwith `::observeTextEditors` on the `atom.workspace` global. Your callback will\nthen be called with all current editor instances and also when any editor is\ncreated in the future.\n\n```js\natom.workspace.observeTextEditors(editor => {\n  editor.insertText('Hello World')\n})\n```\n\n## Buffer vs. Screen Coordinates\n\nBecause editors support folds and soft-wrapping, the lines on screen don't\nalways match the lines in the buffer. For example, a long line that soft wraps\ntwice renders as three lines on screen, but only represents one line in the\nbuffer. Similarly, if rows 5-10 are folded, then row 6 on screen corresponds\nto row 11 in the buffer.\n\nYour choice of coordinates systems will depend on what you're trying to\nachieve. For example, if you're writing a command that jumps the cursor up or\ndown by 10 lines, you'll want to use screen coordinates because the user\nprobably wants to skip lines *on screen*. However, if you're writing a package\nthat jumps between method definitions, you'll want to work in buffer\ncoordinates.\n\n**When in doubt, just default to buffer coordinates**, then experiment with\nsoft wraps and folds to ensure your code interacts with them correctly.",
+      "description": "This class represents all essential editing state for a single\n{TextBuffer}, including cursor and selection positions, folds, and soft wraps.\nIf you're manipulating the state of an editor, use this class.\n\nA single {TextBuffer} can belong to multiple editors. For example, if the\nsame file is open in two different panes, Lumine creates a separate editor for\neach pane. If the buffer is manipulated the changes are reflected in both\neditors, but each maintains its own cursor position, folded lines, etc.\n\n## Accessing TextEditor Instances\n\nThe easiest way to get hold of `TextEditor` objects is by registering a callback\nwith `::observeTextEditors` on the `lumine.workspace` global. Your callback will\nthen be called with all current editor instances and also when any editor is\ncreated in the future.\n\n```js\nlumine.workspace.observeTextEditors(editor => {\n  editor.insertText('Hello World')\n})\n```\n\n## Buffer vs. Screen Coordinates\n\nBecause editors support folds and soft-wrapping, the lines on screen don't\nalways match the lines in the buffer. For example, a long line that soft wraps\ntwice renders as three lines on screen, but only represents one line in the\nbuffer. Similarly, if rows 5-10 are folded, then row 6 on screen corresponds\nto row 11 in the buffer.\n\nYour choice of coordinates systems will depend on what you're trying to\nachieve. For example, if you're writing a command that jumps the cursor up or\ndown by 10 lines, you'll want to use screen coordinates because the user\nprobably wants to skip lines *on screen*. However, if you're writing a package\nthat jumps between method definitions, you'll want to work in buffer\ncoordinates.\n\n**When in doubt, just default to buffer coordinates**, then experiment with\nsoft wraps and folds to ensure your code interacts with them correctly.",
       "source": "src/text-editor.js",
       "sourcePath": "src/text-editor.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -11765,7 +11765,7 @@
     {
       "name": "TextEditorRegistry",
       "visibility": "Public",
-      "description": "The global registry of every {TextEditor} in the window, available as\n`atom.textEditors`.\n\n{Workspace} holds the editors that are pane items; this registry holds all of\nthem, including the ones a package builds for its own interface — a search\nfield, a notebook cell, a REPL prompt. Reach for it when a feature should\napply to editors wherever they are rather than only to open files.\n\n## Observing every editor\n\n{::observe} calls back with every editor that is registered now and every one\nregistered later:\n\n```js\natom.textEditors.observe(editor => {\n  // every editor in the window, not just the ones in panes\n})\n```\n\n## Registering your own\n\nA package that embeds an editor registers it so everyone else's features\nreach it too. **Dispose of the returned {Disposable} when the editor goes\naway**, or the registry keeps it alive:\n\n```js\nconst editor = atom.workspace.buildTextEditor({ mini: true })\nconst registration = atom.textEditors.add(editor, { role: 'fragment' })\n// …later\nregistration.dispose()\n```\n\n## Roles\n\nThe `role` an editor is registered with says how it relates to the user's\ndocuments, so a cross-editor feature can tell them apart:\n\n* `\"document\"` — a standalone document: a pane item, or an embedded editor\n  holding complete content of its own. The default.\n* `\"fragment\"` — a piece of a larger composite document: a notebook cell, a\n  watch expression, a REPL input. Fragments share context with the editors\n  around them.\n* `\"background\"` — an infrastructure editor mirroring content the user works\n  on through another view, such as the JSON source behind a notebook. It is\n  registered so configuration and services apply to it, but cross-editor\n  features like completion sourcing leave it alone.",
+      "description": "The global registry of every {TextEditor} in the window, available as\n`lumine.textEditors`.\n\n{Workspace} holds the editors that are pane items; this registry holds all of\nthem, including the ones a package builds for its own interface — a search\nfield, a notebook cell, a REPL prompt. Reach for it when a feature should\napply to editors wherever they are rather than only to open files.\n\n## Observing every editor\n\n{::observe} calls back with every editor that is registered now and every one\nregistered later:\n\n```js\nlumine.textEditors.observe(editor => {\n  // every editor in the window, not just the ones in panes\n})\n```\n\n## Registering your own\n\nA package that embeds an editor registers it so everyone else's features\nreach it too. **Dispose of the returned {Disposable} when the editor goes\naway**, or the registry keeps it alive:\n\n```js\nconst editor = lumine.workspace.buildTextEditor({ mini: true })\nconst registration = lumine.textEditors.add(editor, { role: 'fragment' })\n// …later\nregistration.dispose()\n```\n\n## Roles\n\nThe `role` an editor is registered with says how it relates to the user's\ndocuments, so a cross-editor feature can tell them apart:\n\n* `\"document\"` — a standalone document: a pane item, or an embedded editor\n  holding complete content of its own. The default.\n* `\"fragment\"` — a piece of a larger composite document: a notebook cell, a\n  watch expression, a REPL input. Fragments share context with the editors\n  around them.\n* `\"background\"` — an infrastructure editor mirroring content the user works\n  on through another view, such as the JSON source behind a notebook. It is\n  registered so configuration and services apply to it, but cross-editor\n  features like completion sourcing leave it alone.",
       "source": "src/text-editor-registry.js",
       "sourcePath": "src/text-editor-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -11864,7 +11864,7 @@
     {
       "name": "ThemeManager",
       "visibility": "Extended",
-      "description": "Handles loading and activating available themes.\n\nAn instance of this class is always available as the `atom.themes` global.",
+      "description": "Handles loading and activating available themes.\n\nAn instance of this class is always available as the `lumine.themes` global.",
       "source": "src/theme-manager.js",
       "sourcePath": "src/theme-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -12018,7 +12018,7 @@
     {
       "name": "TooltipManager",
       "visibility": "Essential",
-      "description": "Associates tooltips with HTML elements.\n\nYou can get the `TooltipManager` via `atom.tooltips`.\n\n## Examples\n\nThe essence of displaying a tooltip\n\n```js\n// display it\nconst disposable = atom.tooltips.add(div, {title: 'This is a tooltip'})\n\n// remove it\ndisposable.dispose()\n```\n\nIn practice there are usually multiple tooltips. So we add them to a\nCompositeDisposable\n\n```js\nconst {CompositeDisposable} = require('atom')\nconst subscriptions = new CompositeDisposable()\n\nconst div1 = document.createElement('div')\nconst div2 = document.createElement('div')\nsubscriptions.add(atom.tooltips.add(div1, {title: 'This is a tooltip'}))\nsubscriptions.add(atom.tooltips.add(div2, {title: 'Another tooltip'}))\n\n// remove them all\nsubscriptions.dispose()\n```\n\nYou can display a key binding in the tooltip as well with the\n`keyBindingCommand` option.\n\n```js\ndisposable = atom.tooltips.add(this.caseOptionButton, {\n  title: 'Match Case',\n  keyBindingCommand: 'search-panel:toggle-case-option',\n  keyBindingTarget: this.findEditor.element\n})\n```\n\nTo display several tooltip entries together, use `addComposite`.\n\n```js\ndisposable = atom.tooltips.addComposite(this.modeIndicator, [\n  {title: 'Column selection'},\n  {\n    title: 'Toggle sticky mode',\n    keyBindingExtra: 'LMB',\n    keyBindingCommand: 'column-selection:sticky'\n  },\n  {\n    title: 'Toggle picker mode',\n    keyBindingExtra: 'RMB',\n    keyBindingCommand: 'column-selection:picker'\n  }\n])\n```",
+      "description": "Associates tooltips with HTML elements.\n\nYou can get the `TooltipManager` via `lumine.tooltips`.\n\n## Examples\n\nThe essence of displaying a tooltip\n\n```js\n// display it\nconst disposable = lumine.tooltips.add(div, {title: 'This is a tooltip'})\n\n// remove it\ndisposable.dispose()\n```\n\nIn practice there are usually multiple tooltips. So we add them to a\nCompositeDisposable\n\n```js\nconst {CompositeDisposable} = require('lumine')\nconst subscriptions = new CompositeDisposable()\n\nconst div1 = document.createElement('div')\nconst div2 = document.createElement('div')\nsubscriptions.add(lumine.tooltips.add(div1, {title: 'This is a tooltip'}))\nsubscriptions.add(lumine.tooltips.add(div2, {title: 'Another tooltip'}))\n\n// remove them all\nsubscriptions.dispose()\n```\n\nYou can display a key binding in the tooltip as well with the\n`keyBindingCommand` option.\n\n```js\ndisposable = lumine.tooltips.add(this.caseOptionButton, {\n  title: 'Match Case',\n  keyBindingCommand: 'search-panel:toggle-case-option',\n  keyBindingTarget: this.findEditor.element\n})\n```\n\nTo display several tooltip entries together, use `addComposite`.\n\n```js\ndisposable = lumine.tooltips.addComposite(this.modeIndicator, [\n  {title: 'Column selection'},\n  {\n    title: 'Toggle sticky mode',\n    keyBindingExtra: 'LMB',\n    keyBindingCommand: 'column-selection:sticky'\n  },\n  {\n    title: 'Toggle picker mode',\n    keyBindingExtra: 'RMB',\n    keyBindingCommand: 'column-selection:picker'\n  }\n])\n```",
       "source": "src/tooltip-manager.js",
       "sourcePath": "src/tooltip-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -12205,7 +12205,7 @@
     {
       "name": "URIHandlerRegistry",
       "visibility": "Extended",
-      "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `atom.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nBy default, Lumine will defer activation of your package until a URI it needs to handle\nis triggered. If you need your package to activate right away, you can add\n`\"deferActivation\": false` to your \"uriHandler\" configuration object. When activation\nis deferred, once Lumine receives a request for a URI in your package's namespace, it will\nactivate your package and then call `methodName` on it as before.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```javascript\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": {\n    \"method\": \"handleURI\"\n  }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  }\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
+      "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `lumine.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nBy default, Lumine will defer activation of your package until a URI it needs to handle\nis triggered. If you need your package to activate right away, you can add\n`\"deferActivation\": false` to your \"uriHandler\" configuration object. When activation\nis deferred, once Lumine receives a request for a URI in your package's namespace, it will\nactivate your package and then call `methodName` on it as before.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```javascript\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": {\n    \"method\": \"handleURI\"\n  }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  }\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
       "source": "src/uri-handler-registry.js",
       "sourcePath": "src/uri-handler-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -12215,7 +12215,7 @@
     {
       "name": "ViewRegistry",
       "visibility": "Essential",
-      "description": "`ViewRegistry` handles the association between model and view\ntypes in Lumine. We call this association a View Provider. As in, for a given\nmodel, this class can provide a view via {::getView}, as long as the\nmodel/view association was registered via {::addViewProvider}\n\nIf you're adding your own kind of pane item, a good strategy for all but the\nsimplest items is to separate the model and the view. The model handles\napplication logic and is the primary point of API interaction. The view\njust handles presentation.\n\nNote: Models can be any object, but must implement a `getTitle()` function\nif they are to be displayed in a {Pane}\n\nView providers inform the workspace how your model objects should be\npresented in the DOM. A view provider must always return a DOM node, which\nmakes [HTML 5 custom elements](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/)\nan ideal tool for implementing views in Lumine.\n\nYou can access the `ViewRegistry` object via `atom.views`.",
+      "description": "`ViewRegistry` handles the association between model and view\ntypes in Lumine. We call this association a View Provider. As in, for a given\nmodel, this class can provide a view via {::getView}, as long as the\nmodel/view association was registered via {::addViewProvider}\n\nIf you're adding your own kind of pane item, a good strategy for all but the\nsimplest items is to separate the model and the view. The model handles\napplication logic and is the primary point of API interaction. The view\njust handles presentation.\n\nNote: Models can be any object, but must implement a `getTitle()` function\nif they are to be displayed in a {Pane}\n\nView providers inform the workspace how your model objects should be\npresented in the DOM. A view provider must always return a DOM node, which\nmakes [HTML 5 custom elements](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/)\nan ideal tool for implementing views in Lumine.\n\nYou can access the `ViewRegistry` object via `lumine.views`.",
       "source": "src/view-registry.js",
       "sourcePath": "src/view-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -12229,7 +12229,7 @@
           "signature": "::addViewProvider(modelConstructor, createView)",
           "category": "Methods",
           "visibility": "Essential",
-          "description": "Add a provider that will be used to construct views in the\nworkspace's view layer based on model objects in its model layer.\n\n## Examples\n\nText editors are divided into a model and a view layer, so when you interact\nwith methods like `atom.workspace.getActiveTextEditor()` you're only going\nto get the model object. We display text editors on screen by teaching the\nworkspace what view constructor it should use to represent them:\n\n```js\natom.views.addViewProvider(TextEditor, (textEditor) => {\n  const textEditorElement = new TextEditorElement()\n  textEditorElement.initialize(textEditor)\n  return textEditorElement\n})\n```\n\n* `modelConstructor` (optional) Constructor {Function} for your model. If\n  a constructor is given, the `createView` function will only be used\n  for model objects inheriting from that constructor. Otherwise, it will\n  will be called for any object.\n* `createView` Factory {Function} that is passed an instance of your model\n  and must return a subclass of `HTMLElement` or `undefined`. If it returns\n  `undefined`, then the registry will continue to search for other view\n  providers.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded provider.",
+          "description": "Add a provider that will be used to construct views in the\nworkspace's view layer based on model objects in its model layer.\n\n## Examples\n\nText editors are divided into a model and a view layer, so when you interact\nwith methods like `lumine.workspace.getActiveTextEditor()` you're only going\nto get the model object. We display text editors on screen by teaching the\nworkspace what view constructor it should use to represent them:\n\n```js\nlumine.views.addViewProvider(TextEditor, (textEditor) => {\n  const textEditorElement = new TextEditorElement()\n  textEditorElement.initialize(textEditor)\n  return textEditorElement\n})\n```\n\n* `modelConstructor` (optional) Constructor {Function} for your model. If\n  a constructor is given, the `createView` function will only be used\n  for model objects inheriting from that constructor. Otherwise, it will\n  will be called for any object.\n* `createView` Factory {Function} that is passed an instance of your model\n  and must return a subclass of `HTMLElement` or `undefined`. If it returns\n  `undefined`, then the registry will continue to search for other view\n  providers.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nadded provider.",
           "line": 68
         },
         {
@@ -12787,7 +12787,7 @@
     {
       "name": "Workspace",
       "visibility": "Essential",
-      "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `atom.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {Workspace::addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {WorkspaceCenter} or in one\nof the three {Dock}s. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a {String} containing the title of the item to display on its\nassociated tab.\n\n### Optional Methods\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a {Disposable}.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `getLongTitle()`\n\nReturns a {String} containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a {Disposable}.\n\n#### `getIconName()`\n\nReturn a {String} with the name of an icon. If this method is defined and\nreturns a string, the item's tab element will be rendered with the `icon` and\n`icon-${iconName}` CSS classes.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the workspace so it can be notified when the item's icon changes.\nMust return a {Disposable}.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a {String} with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an {Array} of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `isModified()`\n\nReturns whether or not the item is modified to reflect modification in the\nUI.\n\n#### `onDidChangeModified()`\n\nCalled by the workspace so it can be notified when item's modified status\nchanges. Must return a {Disposable}.\n\n#### `copy()`\n\nCreate a copy of the item. If defined, the workspace will call this method to\nduplicate the item when splitting panes via certain split commands.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a {Number}.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a {Number}.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a {Disposable}.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
+      "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `lumine.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {Workspace::addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {WorkspaceCenter} or in one\nof the three {Dock}s. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a {String} containing the title of the item to display on its\nassociated tab.\n\n### Optional Methods\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a {Disposable}.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `getLongTitle()`\n\nReturns a {String} containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a {Disposable}.\n\n#### `getIconName()`\n\nReturn a {String} with the name of an icon. If this method is defined and\nreturns a string, the item's tab element will be rendered with the `icon` and\n`icon-${iconName}` CSS classes.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the workspace so it can be notified when the item's icon changes.\nMust return a {Disposable}.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a {String} with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an {Array} of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `isModified()`\n\nReturns whether or not the item is modified to reflect modification in the\nUI.\n\n#### `onDidChangeModified()`\n\nCalled by the workspace so it can be notified when item's modified status\nchanges. Must return a {Disposable}.\n\n#### `copy()`\n\nCreate a copy of the item. If defined, the workspace will call this method to\nduplicate the item when splitting panes via certain split commands.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a {Number}.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a {Number}.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a {Disposable}.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
@@ -13087,7 +13087,7 @@
           "signature": "::buildInputDialog(props)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {::buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `atom.config`.\n\nPanel ownership is the same as {::buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n* `props` An {Object} describing the dialog, including `didConfirm(query)`,\n  `didCancel()` and `didChangeQuery(query)`.\n\nReturns an {InputDialogView}.",
+          "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {::buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `lumine.config`.\n\nPanel ownership is the same as {::buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n* `props` An {Object} describing the dialog, including `didConfirm(query)`,\n  `didCancel()` and `didChangeQuery(query)`.\n\nReturns an {InputDialogView}.",
           "line": 1696
         },
         {
@@ -13153,7 +13153,7 @@
           "signature": "::addOpener(opener)",
           "category": "Modal flow",
           "visibility": "Public",
-          "description": "Register an opener for a uri.\n\nWhen a URI is opened via {Workspace::open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {ViewRegistry}.\nA {TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\natom.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n* `opener` A {Function} to be called when a path is being opened.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nopener.\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{Workspace::open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json` containing an array of URL\nstrings.",
+          "description": "Register an opener for a uri.\n\nWhen a URI is opened via {Workspace::open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {ViewRegistry}.\nA {TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\nlumine.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n* `opener` A {Function} to be called when a path is being opened.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nopener.\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{Workspace::open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json` containing an array of URL\nstrings.",
           "line": 1802
         },
         {
@@ -13861,7 +13861,7 @@
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 501
+      "line": 470
     },
     {
       "name": "convertToDOM",
@@ -13871,7 +13871,7 @@
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 581
+      "line": 550
     },
     {
       "name": "matcherForSelector",
@@ -13897,11 +13897,11 @@
       "name": "renderMarkdown",
       "signature": "renderMarkdown(content, givenOpts = {})",
       "visibility": "Public",
-      "description": "Takes a Markdown document and renders it as HTML.\n\n* `content` {string} The Markdown source material.\n* `givenOpts` {object} The optional arguments:\n* `givenOpts.renderMode` {string} Determines how the page is rendered. Valid values \"full\" or \"fragment\".\n* `givenOpts.html` {boolean} Whether HTML tags should be allowed.\n* `givenOpts.sanitize` {boolean} If the page content should be saniized via DOMPurify.\n* `givenOpts.sanitizeAllowUnknownProtocols` {boolean} Controls DOMPurify's own option of 'ALLOW_UNKNOWN_PROTOCOLS'.\n* `givenOpts.sanitizeAllowSelfClose` {boolean} Controls DOMPurify's own option of 'ALLOW_SELF_CLOSE'\n* `givenOpts.breaks` {boolean} If newlines should always be converted into breaklines.\n* `givenOpts.handleFrontMatter` {boolean} Whether frontmatter data should processed and displayed.\n* `givenOpts.useDefaultEmoji` {boolean} Whether `markdown-it-emoji` should be enabled.\n* `givenOpts.useGitHubHeadings` {boolean} Whether `markdown-it-github-headings` should be enabled. False by default.\n* `givenOpts.useTaskCheckbox` {boolean} Whether `markdown-it-task-checkbox` should be enabled. True by default.\n* `givenOpts.taskCheckboxDisabled` {boolean} Controls `markdown-it-task-checkbox` `disabled` option. True by default.\n* `givenOpts.taskCheckboxDivWrap` {boolean} Controls `markdown-it-task-checkbox` `divWrap` option. False by default.\n* `givenOpts.transformImageLinks` {boolean} Attempt to resolve image URLs. True by default.\n* `givenOpts.transformLegacyLinks` {boolean} Attempt to redirect links pointing at retired resources to an archived copy. True by default.\n* `givenOpts.transformNonFqdnLinks` {boolean} Attempt to resolve links that are not fully qualified domain names. True by default.\n* `givenOpts.rootDomain` {string} The root URL of the online resource. Useful when attempting to resolve any links on the page. Only works for online resources.\n* `givenOpts.filePath` {string} The local alternative to `rootDomain`. Used to resolve incomplete paths, but locally on the file system.\n* `givenOpts.disableMode` {string} The level of disabling of markdown features. `none` by default. But supports: \"none\", \"strict\"\n\nReturns {string} Parsed HTML content..",
+      "description": "Takes a Markdown document and renders it as HTML.\n\n* `content` {string} The Markdown source material.\n* `givenOpts` {object} The optional arguments:\n* `givenOpts.renderMode` {string} Determines how the page is rendered. Valid values \"full\" or \"fragment\".\n* `givenOpts.html` {boolean} Whether HTML tags should be allowed.\n* `givenOpts.sanitize` {boolean} If the page content should be saniized via DOMPurify.\n* `givenOpts.sanitizeAllowUnknownProtocols` {boolean} Controls DOMPurify's own option of 'ALLOW_UNKNOWN_PROTOCOLS'.\n* `givenOpts.sanitizeAllowSelfClose` {boolean} Controls DOMPurify's own option of 'ALLOW_SELF_CLOSE'\n* `givenOpts.breaks` {boolean} If newlines should always be converted into breaklines.\n* `givenOpts.handleFrontMatter` {boolean} Whether frontmatter data should processed and displayed.\n* `givenOpts.useDefaultEmoji` {boolean} Whether `markdown-it-emoji` should be enabled.\n* `givenOpts.useGitHubHeadings` {boolean} Whether `markdown-it-github-headings` should be enabled. False by default.\n* `givenOpts.useTaskCheckbox` {boolean} Whether `markdown-it-task-checkbox` should be enabled. True by default.\n* `givenOpts.taskCheckboxDisabled` {boolean} Controls `markdown-it-task-checkbox` `disabled` option. True by default.\n* `givenOpts.taskCheckboxDivWrap` {boolean} Controls `markdown-it-task-checkbox` `divWrap` option. False by default.\n* `givenOpts.transformImageLinks` {boolean} Attempt to resolve image URLs. True by default.\n* `givenOpts.transformNonFqdnLinks` {boolean} Attempt to resolve links that are not fully qualified domain names. True by default.\n* `givenOpts.rootDomain` {string} The root URL of the online resource. Useful when attempting to resolve any links on the page. Only works for online resources.\n* `givenOpts.filePath` {string} The local alternative to `rootDomain`. Used to resolve incomplete paths, but locally on the file system.\n* `givenOpts.disableMode` {string} The level of disabling of markdown features. `none` by default. But supports: \"none\", \"strict\"\n\nReturns {string} Parsed HTML content..",
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 74
+      "line": 69
     },
     {
       "name": "selectorMatchesAnyScope",
@@ -13927,7 +13927,7 @@
       "name": "watchPath",
       "signature": "watchPath(rootPath, options, eventCallback)",
       "visibility": "Extended",
-      "description": "Invoke a callback with each filesystem event that occurs beneath a\nspecified path. If you only need to watch events within the project's root\npaths, use {Project::onDidChangeFiles} instead.\n\nwatchPath handles the efficient re-use of operating system resources across\nliving watchers. Watching the same path more than once, or the child of a\nwatched path, will re-use the existing native watcher.\n\n* `rootPath` {String} specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior:\n  * `realPaths` {Boolean} Whether to report real paths on disk for\n    filesystem events. Default is `true`; a value of `false` will instead\n    return paths on disk that will always descend from the given path, even\n    if the real path of the file is different due to symlinks.\n* `eventCallback` {Function} or other callable to be called each time a\n  batch of filesystem events is observed.\n   * `events` {Array} of objects that describe the events that have occurred.\n     * `action` {String} describing the filesystem action that occurred. One\n       of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`.\n     * `path` {String} containing the absolute path to the filesystem entry\n       that was acted upon.\n     * `oldPath` For rename events, {String} containing the filesystem\n       entry's former absolute path.\n\nReturns a {Promise} that will resolve to a {PathWatcher} once it has\nstarted. Note that every {PathWatcher} is a {Disposable}, so they can be\nmanaged by a {CompositeDisposable} if desired.\n\n```js\nconst {watchPath} = require('atom')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to subscribe\n // to these events.\n disposable.dispose()\n```",
+      "description": "Invoke a callback with each filesystem event that occurs beneath a\nspecified path. If you only need to watch events within the project's root\npaths, use {Project::onDidChangeFiles} instead.\n\nwatchPath handles the efficient re-use of operating system resources across\nliving watchers. Watching the same path more than once, or the child of a\nwatched path, will re-use the existing native watcher.\n\n* `rootPath` {String} specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior:\n  * `realPaths` {Boolean} Whether to report real paths on disk for\n    filesystem events. Default is `true`; a value of `false` will instead\n    return paths on disk that will always descend from the given path, even\n    if the real path of the file is different due to symlinks.\n* `eventCallback` {Function} or other callable to be called each time a\n  batch of filesystem events is observed.\n   * `events` {Array} of objects that describe the events that have occurred.\n     * `action` {String} describing the filesystem action that occurred. One\n       of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`.\n     * `path` {String} containing the absolute path to the filesystem entry\n       that was acted upon.\n     * `oldPath` For rename events, {String} containing the filesystem\n       entry's former absolute path.\n\nReturns a {Promise} that will resolve to a {PathWatcher} once it has\nstarted. Note that every {PathWatcher} is a {Disposable}, so they can be\nmanaged by a {CompositeDisposable} if desired.\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to subscribe\n // to these events.\n disposable.dispose()\n```",
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",

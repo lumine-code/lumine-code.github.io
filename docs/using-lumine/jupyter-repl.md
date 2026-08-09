@@ -12,7 +12,7 @@ Without a selection, `jupyter-repl:run` detects what to execute from the cursor 
 
 ## Kernels
 
-`jupyter-repl:start-local-kernel` starts a kernel for the editor's language; `jupyter-repl:interrupt-kernel`, `jupyter-repl:restart-kernel`, and `jupyter-repl:shutdown-kernel` control it, and `jupyter-repl:shutdown-all-kernels` stops every running kernel. When more than one kernel matches a language, choose it with a magic comment on the first line — for example `#:: python3`. While a file has a live kernel, jupyter-repl adds the `jupyter-kernel` class to its `atom-text-editor`, so you can scope keymaps and styles to editors that are actually running.
+`jupyter-repl:start-local-kernel` starts a kernel for the editor's language; `jupyter-repl:interrupt-kernel`, `jupyter-repl:restart-kernel`, and `jupyter-repl:shutdown-kernel` control it, and `jupyter-repl:shutdown-all-kernels` stops every running kernel. When more than one kernel matches a language, choose it with a magic comment on the first line — for example `#:: python3`. While a file has a live kernel, jupyter-repl adds the `jupyter-kernel` class to its `lumine-text-editor`, so you can scope keymaps and styles to editors that are actually running.
 
 ## Remote kernels
 

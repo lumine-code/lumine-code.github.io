@@ -34,4 +34,4 @@ The editors you have open are saved with the project you are leaving — unsaved
 
 Two things it cannot do. A project configured for dev or safe mode still opens a window of its own, since neither can change while a window is running. And a project already open in another window shares one saved session with that window, so the last one to save wins — keep a project to one window if you care which editors come back.
 
-Packages reach the same behavior through `atom.project.setState(projectPaths)`, documented in the [Lumine API reference](https://lumine-code.github.io/api/).
+Packages reach the same behavior through `lumine.project.setState(projectPaths)`, documented in the [Lumine API reference](https://lumine-code.github.io/api/).

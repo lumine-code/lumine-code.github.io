@@ -12,16 +12,16 @@ Personal bindings live in **`keymap.json`**, opened with `application:open-your-
 
 ```json
 {
-  "atom-text-editor": {
+  "lumine-text-editor": {
     "ctrl-alt-r": "editor:duplicate-lines"
   },
-  "atom-workspace": {
+  "lumine-workspace": {
     "ctrl-shift-p": "command-palette:toggle"
   }
 }
 ```
 
-- The **selector** (`atom-text-editor`, `atom-workspace`, a package's root class, and so on) decides where the binding is active.
+- The **selector** (`lumine-text-editor`, `lumine-workspace`, a package's root class, and so on) decides where the binding is active.
 - The **keystroke** is on the left; the **command** it runs is on the right.
 - Later bindings win over earlier ones, and your `keymap.json` is loaded last — so it overrides package and core bindings.
 - A legacy `keymap.cson` is still read if you already have one, but new keymaps are created as JSON.
@@ -32,7 +32,7 @@ Use the special **`cmdorctrl`** modifier to bind the natural key for each platfo
 
 ```json
 {
-  "atom-workspace": {
+  "lumine-workspace": {
     "cmdorctrl-shift-e": "fuzzy-explorer:toggle"
   }
 }

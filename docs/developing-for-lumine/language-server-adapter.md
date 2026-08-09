@@ -40,7 +40,7 @@ Returning the registration disposable from the consumer method unregisters the a
 - `languageIdForScope(scopeName)` — optional per-grammar override for the LSP `languageId`; a built-in table already maps common scopes, and a blanket `languageId` remains as a last-resort fallback.
 - `getInitializationOptions(context)` — optional `initializationOptions` for the handshake.
 - `getSettings()` and `settingsKeyPaths` — the settings object pushed via `workspace/didChangeConfiguration` after startup, and the config key paths that re-push it when the user changes them.
-- `getWorkspaceConfiguration(section, scopeUri)` — optional answers for `workspace/configuration` requests; defaults to `atom.config.get(section)`. Answer the sections your server asks for by name: the default is a Lumine config namespace, and for a section named after the server it does not exist, so every option would come back undefined.
+- `getWorkspaceConfiguration(section, scopeUri)` — optional answers for `workspace/configuration` requests; defaults to `lumine.config.get(section)`. Answer the sections your server asks for by name: the default is a Lumine config namespace, and for a section named after the server it does not exist, so every option would come back undefined.
 - `features` — fallback feature switches, only for an adapter with no config namespace to hold them. A package declares them in its manifest instead; see below.
 - `transformServerCapabilities(capabilities)` — optional hook to correct a server's advertised capabilities.
 

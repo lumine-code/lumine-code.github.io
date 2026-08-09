@@ -4,11 +4,11 @@ The init file is a small script that runs once, when Lumine starts. It is the qu
 
 ## Your init file
 
-The file is **`init.js`** in your configuration directory, opened with `application:open-your-init-script`. It runs in the editor's context with the global **`atom`** object available, so it can reach the whole editor API.
+The file is **`init.js`** in your configuration directory, opened with `application:open-your-init-script`. It runs in the editor's context with the global **`lumine`** object available, so it can reach the whole editor API.
 
 ```js
 // Log a message once the editor is ready.
-atom.notifications.addInfo("Welcome back!");
+lumine.notifications.addInfo("Welcome back!");
 ```
 
 ## What it is good for
@@ -16,8 +16,8 @@ atom.notifications.addInfo("Welcome back!");
 - **Small custom commands.** Register a command and bind it in your [keymap](keybindings.md):
 
   ```js
-  atom.commands.add("atom-text-editor", "custom:insert-date", () => {
-    const editor = atom.workspace.getActiveTextEditor();
+  lumine.commands.add("lumine-text-editor", "custom:insert-date", () => {
+    const editor = lumine.workspace.getActiveTextEditor();
     if (editor) editor.insertText(new Date().toISOString());
   });
   ```
@@ -31,4 +31,4 @@ When an idea in your init file grows, move it into a real package — see [Devel
 
 Changes to the init file take effect after you reload the window (`window:reload`) or restart Lumine.
 
-> The full editor API — every class and method reachable through `atom` — is documented in the [Lumine API reference](https://lumine-code.github.io/api/).
+> The full editor API — every class and method reachable through `lumine` — is documented in the [Lumine API reference](https://lumine-code.github.io/api/).

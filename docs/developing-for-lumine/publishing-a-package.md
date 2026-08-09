@@ -23,7 +23,3 @@ The `version` in your manifest names what that tree publishes as, and the tag is
 Lumine's **Install** tab aggregates one or more **catalogs**. The default one is the [`lumine-code/packages`](https://github.com/lumine-code/packages) repository, which lists the packages `lumine-code` maintains — an `index.json` array of `owner/repo` sources, nothing more. Lumine reads each listed repository's `package.json` directly from the ref it resolves, so the catalog carries no copy of your metadata.
 
 A catalog is just an index file, so publishing your own and telling people to add it as a source is a first-class way to be discoverable — the Install tab takes any number of them. And whether or not your package is in a catalog, anyone can install it by typing its `owner/repo`, or pin a release with `owner/repo@1.2.0`.
-
-## The Pulsar registry
-
-Lumine can additionally surface results from the Pulsar package registry when the user opts in. If your package is published there, it is findable that way too. See [The package system](../packages-and-themes/package-system.md#the-pulsar-package-registry).

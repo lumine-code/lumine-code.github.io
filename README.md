@@ -2,7 +2,9 @@
 
 Website and documentation for the Lumine text editor.
 
-It documents **[Lumine](https://github.com/lumine-code/lumine)**, a modern, extensible text editor built on the Pulsar and Atom legacy.
+A modern, extensible text editor built on the Pulsar and Atom legacy.
+
+This site documents **[Lumine](https://github.com/lumine-code/lumine)**.
 
 Served via GitHub Pages at **https://lumine-code.github.io**.
 

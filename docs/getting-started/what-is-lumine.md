@@ -1,10 +1,12 @@
 # What is Lumine
 
-Lumine is a modern, extensible text editor built on the Pulsar and Atom legacy. It is easy to use out of the box and just as easy to shape to your needs — from a few settings tweaks to new commands, keybindings, themes, and packages that change how the editor behaves.
+A modern, extensible text editor built on the Pulsar and Atom legacy.
+
+Lumine is easy to use out of the box and just as easy to shape to your needs — from a few settings tweaks to new commands, keybindings, themes, and packages that change how the editor behaves.
 
 ## Built on web technology
 
-Lumine is a desktop application built on **Electron 43** and **Node 24**. The interface is HTML and CSS and the editor is scriptable in JavaScript, so the same tools you use to build for the web are the tools you use to customize and extend the editor. The full application programming interface is exposed to packages and to your own init script through the global `atom` object.
+Lumine is a desktop application built on **Electron 43** and **Node 24**. The interface is HTML and CSS and the editor is scriptable in JavaScript, so the same tools you use to build for the web are the tools you use to customize and extend the editor. The full application programming interface is exposed to packages and to your own init script through the global `lumine` object.
 
 ## Hackable by design
 

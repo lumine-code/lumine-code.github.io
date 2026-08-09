@@ -13,7 +13,7 @@ Personal styles live in **`styles.css`**, opened with `application:open-your-sty
 }
 
 /* Add breathing room around the active editor. */
-atom-text-editor {
+lumine-text-editor {
   padding-top: 4px;
 }
 ```
@@ -22,13 +22,13 @@ Changes are applied live as you save the file — no reload needed.
 
 ## Finding the right selector
 
-To find what to target, open the developer tools (`window:toggle-dev-tools`) and use the element inspector to hover over the interface. The editor is built from custom elements such as `atom-workspace`, `atom-panel`, and `atom-text-editor`, plus ordinary class names on package UIs (for example `.tree-view`, `.status-bar`, `.tab-bar`).
+To find what to target, open the developer tools (`window:toggle-dev-tools`) and use the element inspector to hover over the interface. The editor is built from custom elements such as `lumine-workspace`, `lumine-panel`, and `lumine-text-editor`, plus ordinary class names on package UIs (for example `.tree-view`, `.status-bar`, `.tab-bar`).
 
-Editors carry attributes describing what they are, which is usually a better handle than where they sit. `atom-text-editor[input]` is every editor used as a form control — the command palette's query, the search fields, a package's expression box — so one rule restyles all of them at once, and `[mini]` narrows that to the single-line ones:
+Editors carry attributes describing what they are, which is usually a better handle than where they sit. `lumine-text-editor[input]` is every editor used as a form control — the command palette's query, the search fields, a package's expression box — so one rule restyles all of them at once, and `[mini]` narrows that to the single-line ones:
 
 ```css
 /* Give every input editor a little more room. */
-atom-text-editor[input] {
+lumine-text-editor[input] {
   border-radius: 6px;
 }
 ```

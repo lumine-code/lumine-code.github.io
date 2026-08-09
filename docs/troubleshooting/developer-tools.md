@@ -10,7 +10,7 @@ Run `window:toggle-dev-tools` to open (or close) the developer tools for the cur
 
 The **Console** tab shows log messages, warnings, and errors. When a package throws, the error and its stack trace appear here — usually pointing straight at the file and line responsible. If you are reporting a bug, the console output is the most useful thing to include.
 
-You can also poke at the editor live from the console: the global `atom` object is available, so you can inspect state or try API calls interactively.
+You can also poke at the editor live from the console: the global `lumine` object is available, so you can inspect state or try API calls interactively.
 
 ## The inspector
 

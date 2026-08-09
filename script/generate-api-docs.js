@@ -873,13 +873,21 @@ for (const source of sourceInputs) {
 const parsed = sourceInputs.flatMap((sourceInput) =>
   walk(sourceInput.root).map((filePath) => parseFile(filePath, sourceInput)),
 );
+const compareApiClasses = (left, right) => {
+  if (left.name === "LumineEnvironment") return -1;
+  if (right.name === "LumineEnvironment") return 1;
+  return left.name.localeCompare(right.name);
+};
 const classes = parsed
   .flatMap(({ classes: items }) => items)
   .filter(
     (item, index, all) =>
       all.findIndex(({ name }) => name === item.name) === index,
   )
-  .sort((left, right) => left.name.localeCompare(right.name));
+  .sort(compareApiClasses);
+if (classes[0]?.name !== "LumineEnvironment") {
+  throw new Error("LumineEnvironment must be the first generated API class.");
+}
 const functions = parsed
   .flatMap(({ functions: items }) => items)
   .filter(

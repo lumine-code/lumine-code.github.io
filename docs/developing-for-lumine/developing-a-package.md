@@ -31,8 +31,8 @@ The entry module exports lifecycle methods — most importantly `activate()`, wh
 ```js
 module.exports = {
   activate() {
-    this.sub = atom.commands.add("atom-workspace", {
-      "my-package:hello": () => atom.notifications.addSuccess("Hello!"),
+    this.sub = lumine.commands.add("lumine-workspace", {
+      "my-package:hello": () => lumine.notifications.addSuccess("Hello!"),
     });
   },
   deactivate() {
@@ -92,7 +92,7 @@ Dev-mode windows load packages from `~/.lumine/packages-dev`, enable developer t
 
 ## The API
 
-Everything you can do is reachable through the global `atom` object. Its classes and methods are documented in the [Lumine API reference](https://lumine-code.github.io/api/), generated from Lumine's own source. The bundled `autocomplete-lumine` package completes this API as you type.
+Everything you can do is reachable through the global `lumine` object. Its classes and methods are documented in the [Lumine API reference](https://lumine-code.github.io/api/), generated from Lumine's own source. The bundled `autocomplete-lumine` package completes this API as you type.
 
 ## Next
 

@@ -116,20 +116,20 @@ If the chain contains more than one `variables.css`, Lumine applies them in the 
 Some editors are documents and some are form controls: the select-list query, a search field, a multi-line expression box. A form control marks itself with the `input` attribute, which `mini` implies, so one selector reaches both:
 
 ```css
-atom-text-editor[input] {
+lumine-text-editor[input] {
 }
-atom-text-editor[input].is-focused {
+lumine-text-editor[input].is-focused {
 }
 ```
 
 The editor draws the resting box — border, radius, and the single-line background — alongside the other input controls, so a marked editor and an `.input-text` match without either side tuning the other. A theme owns the colours and the focus ring, exactly as it does for those controls.
 
-What a theme must never do is infer the role from position. `atom-panel-container atom-text-editor` looks like "editors in the UI", but it matches every dock and no centre pane, so the same field is styled differently depending on where its panel happens to be docked, while a read-only diff viewer picks up an input ring for no reason but its location. The bundled themes are checked mechanically (`npm run check:editors` in the editor repository fails on any such selector).
+What a theme must never do is infer the role from position. `lumine-panel-container lumine-text-editor` looks like "editors in the UI", but it matches every dock and no centre pane, so the same field is styled differently depending on where its panel happens to be docked, while a read-only diff viewer picks up an input ring for no reason but its location. The bundled themes are checked mechanically (`npm run check:editors` in the editor repository fails on any such selector).
 
 A package marks its own editor and needs no CSS for the box:
 
 ```js
-const editor = atom.workspace.buildTextEditor({ softWrapped: true });
+const editor = lumine.workspace.buildTextEditor({ softWrapped: true });
 editor.element.setAttribute("input", "");
 ```
 
@@ -151,11 +151,11 @@ To scale icons on one surface, scope the variable instead of restyling the pseud
 
 A theme may repaint the window without the active themes changing — offering a variant as a setting, for example, and keying its stylesheets off an attribute on the document root. Switching themes cross-fades the window and tells packages that cache resolved colors to re-read them; a bare `setAttribute` does neither, so the new palette snaps in and anything painting to a canvas (the terminal, the minimap) keeps the old colors until something unrelated makes it redraw.
 
-Apply those changes through `atom.themes.updateAppearance` instead, and they behave like a theme switch:
+Apply those changes through `lumine.themes.updateAppearance` instead, and they behave like a theme switch:
 
 ```js
-atom.config.onDidChange("my-theme.variant", ({ newValue }) => {
-  atom.themes.updateAppearance(() => {
+lumine.config.onDidChange("my-theme.variant", ({ newValue }) => {
+  lumine.themes.updateAppearance(() => {
     document.documentElement.setAttribute("ui-variant", newValue.toLowerCase());
   });
 });

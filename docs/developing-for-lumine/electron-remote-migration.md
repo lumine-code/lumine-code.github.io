@@ -1,7 +1,7 @@
 # Migrating away from `@electron/remote`
 
 Lumine no longer initializes or bundles `@electron/remote`. Packages must use
-the documented `atom.window` and `atom.app` services for main-process work. The
+the documented `lumine.window` and `lumine.app` services for main-process work. The
 services return plain serializable values and promises; they never expose an
 Electron `BrowserWindow`, `WebContents`, `NativeImage`, function, or process
 stream to renderer code.
@@ -12,51 +12,51 @@ There is no compatibility alias for the removed APIs.
 
 | Removed API or import | Replacement |
 | --- | --- |
-| `remote.getCurrentWindow()` or `atom.getCurrentWindow()` | `atom.window` |
-| `atom.close()` and top-level size, position, visibility, fullscreen, and DevTools methods | The corresponding `atom.window` method |
-| `atom.restartApplication()` | `await atom.app.restart()` |
-| `remote.app.getPath(name)` | `atom.app.getPath(name)` |
-| `remote.app.getLocale()` | `atom.app.getLocale()` |
-| `remote.app.getFileIcon(path)` | `await atom.app.getFileIcon(path)`; the result is a data URL |
-| Protocol-client and user-default calls on `remote.app` or `remote.systemPreferences` | The asynchronous `atom.app` methods |
-| `remote.dialog.showOpenDialog()` for folders | `await atom.window.pickFolder()` |
-| `remote.dialog.showSaveDialog()` | `await atom.window.showSaveDialog(options)` |
-| `remote.BrowserWindow.fromId()` or renderer-to-renderer access | `atom.window.broadcast()` and `atom.window.onDidReceive()` |
-| `remote.shell.openExternal()` | `await atom.shell.openExternal()` |
+| `remote.getCurrentWindow()` or `lumine.getCurrentWindow()` | `lumine.window` |
+| `lumine.close()` and top-level size, position, visibility, fullscreen, and DevTools methods | The corresponding `lumine.window` method |
+| `lumine.restartApplication()` | `await lumine.app.restart()` |
+| `remote.app.getPath(name)` | `lumine.app.getPath(name)` |
+| `remote.app.getLocale()` | `lumine.app.getLocale()` |
+| `remote.app.getFileIcon(path)` | `await lumine.app.getFileIcon(path)`; the result is a data URL |
+| Protocol-client and user-default calls on `remote.app` or `remote.systemPreferences` | The asynchronous `lumine.app` methods |
+| `remote.dialog.showOpenDialog()` for folders | `await lumine.window.pickFolder()` |
+| `remote.dialog.showSaveDialog()` | `await lumine.window.showSaveDialog(options)` |
+| `remote.BrowserWindow.fromId()` or renderer-to-renderer access | `lumine.window.broadcast()` and `lumine.window.onDidReceive()` |
+| `remote.shell.openExternal()` | `await lumine.shell.openExternal()` |
 | `remote.clipboard` or `remote.nativeImage` | Import renderer-safe `clipboard` or `nativeImage` from `electron` |
-| Renderer-side safe-storage calls | The asynchronous `atom.secrets` API |
+| Renderer-side safe-storage calls | The asynchronous `lumine.secrets` API |
 
 The global API was split by ownership at the same time. These are removals,
 not aliases:
 
 | Removed top-level API | Replacement |
 | --- | --- |
-| `atom.onWillDestroy(callback)` | `atom.window.onWillDestroy(callback)` |
-| `atom.whenWindowLoaded(callback)` | `await atom.window.whenLoaded()` |
-| `atom.inDevMode()`, `atom.inSafeMode()`, `atom.inSpecMode()` | `atom.window.isDevMode()`, `isSafeMode()`, `isSpecMode()` |
-| `atom.getWindowLoadTime()` | `atom.window.getLoadTime()` |
-| `atom.getStartupMarkers()` | `atom.window.getStartupMarkers()` |
-| `atom.confirm(options)` | `await atom.window.confirm(options)` |
-| `atom.getAppName()` | `atom.app.getName()` |
-| `atom.getVersion()`, `versionSatisfies()`, `getReleaseChannel()`, `isReleasedVersion()` | The same methods on `atom.app` |
-| `atom.open(params)` | `atom.app.openWindow(params)` |
-| `atom.trashItem()`, `showItemInFolder()`, `openPath()`, `openExternal()` | The same methods on `atom.shell` |
-| `atom.onWillThrowError()`, `onDidThrowError()` | The same subscriptions on `atom.runtime` |
-| `atom.whenShellEnvironmentLoaded(callback)` | `await atom.runtime.whenShellEnvironmentLoaded()` |
-| `atom.beep()`, `atom.onDidBeep()` | `atom.notifications.beep()`, `atom.notifications.onDidBeep()` |
-| `atom.getLoadSettings()` | No replacement. Use the typed cached methods on `atom.app`, `atom.window`, and `atom.runtime`. |
+| `lumine.onWillDestroy(callback)` | `lumine.window.onWillDestroy(callback)` |
+| `lumine.whenWindowLoaded(callback)` | `await lumine.window.whenLoaded()` |
+| `lumine.inDevMode()`, `lumine.inSafeMode()`, `lumine.inSpecMode()` | `lumine.window.isDevMode()`, `isSafeMode()`, `isSpecMode()` |
+| `lumine.getWindowLoadTime()` | `lumine.window.getLoadTime()` |
+| `lumine.getStartupMarkers()` | `lumine.window.getStartupMarkers()` |
+| `lumine.confirm(options)` | `await lumine.window.confirm(options)` |
+| `lumine.getAppName()` | `lumine.app.getName()` |
+| `lumine.getVersion()`, `versionSatisfies()`, `getReleaseChannel()`, `isReleasedVersion()` | The same methods on `lumine.app` |
+| `lumine.open(params)` | `lumine.app.openWindow(params)` |
+| `lumine.trashItem()`, `showItemInFolder()`, `openPath()`, `openExternal()` | The same methods on `lumine.shell` |
+| `lumine.onWillThrowError()`, `onDidThrowError()` | The same subscriptions on `lumine.runtime` |
+| `lumine.whenShellEnvironmentLoaded(callback)` | `await lumine.runtime.whenShellEnvironmentLoaded()` |
+| `lumine.beep()`, `lumine.onDidBeep()` | `lumine.notifications.beep()`, `lumine.notifications.onDidBeep()` |
+| `lumine.getLoadSettings()` | No replacement. Use the typed cached methods on `lumine.app`, `lumine.window`, and `lumine.runtime`. |
 
 ## Window operations
 
-`atom.window.getId()` is synchronous because the ID is captured before renderer
+`lumine.window.getId()` is synchronous because the ID is captured before renderer
 initialization. All state queries and actions that cross into the main process
 are asynchronous:
 
 ```js
-const state = await atom.window.getState();
-if (!state.maximized) await atom.window.maximize();
+const state = await lumine.window.getState();
+if (!state.maximized) await lumine.window.maximize();
 
-const subscription = atom.window.onDidMaximize(() => updateTitleBar());
+const subscription = lumine.window.onDidMaximize(() => updateTitleBar());
 // Later:
 subscription.dispose();
 ```
@@ -66,27 +66,27 @@ window IDs when an event is intended for one peer, and send only
 structured-cloneable data:
 
 ```js
-const sourceWindowId = atom.window.getId();
-await atom.window.broadcast("my-package:item-dropped", {
+const sourceWindowId = lumine.window.getId();
+await lumine.window.broadcast("my-package:item-dropped", {
   sourceWindowId,
   targetWindowId,
   itemId,
 });
 
-const subscription = atom.window.onDidReceive("my-package:item-dropped", (payload) => {
-  if (payload.targetWindowId !== atom.window.getId()) return;
+const subscription = lumine.window.onDidReceive("my-package:item-dropped", (payload) => {
+  if (payload.targetWindowId !== lumine.window.getId()) return;
   receiveItem(payload);
 });
 ```
 
 ## Dialogs and menus
 
-`atom.window.confirm()` now requires a string array in `buttons`, uses `detail` for the
+`lumine.window.confirm()` now requires a string array in `buttons`, uses `detail` for the
 secondary message, and resolves to the selected index. Callback forms and
 object-button maps are removed:
 
 ```js
-const response = await atom.window.confirm({
+const response = await lumine.window.confirm({
   message: "Discard changes?",
   detail: filePath,
   buttons: ["Discard", "Cancel"],
@@ -99,7 +99,7 @@ a serializable menu template. Lumine creates command click handlers in the main
 process and dispatches the selected command back to that target:
 
 ```js
-await atom.contextMenu.show(element, [
+await lumine.contextMenu.show(element, [
   { label: "Refresh", command: "my-package:refresh" },
 ]);
 ```
