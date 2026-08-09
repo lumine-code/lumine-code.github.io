@@ -900,7 +900,7 @@ const api = {
 
 const rendered = {
   "api.json": `${JSON.stringify(api, null, 2)}\n`,
-  "index.html": renderHtml(api),
+  "index.html": renderHtml(api).replace(/[ \t]+$/gm, ""),
 };
 const summary = `${api.classes.length} classes and ${api.memberCount} documented members`;
 
