@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-09T16:46:12.335Z",
+  "generatedAt": "2026-08-09T20:51:04.740Z",
   "classes": [
     {
       "name": "LumineEnvironment",
@@ -12,28 +12,6 @@
       "repository": "https://github.com/lumine-code/lumine",
       "line": 74,
       "members": [
-        {
-          "name": "clipboard",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::clipboard",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {Clipboard} instance",
-          "line": 92
-        },
-        {
-          "name": "window",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::window",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {WindowService} instance",
-          "line": 97
-        },
         {
           "name": "app",
           "kind": "property",
@@ -46,26 +24,48 @@
           "line": 99
         },
         {
-          "name": "shell",
+          "name": "clipboard",
           "kind": "property",
           "static": false,
           "async": false,
-          "signature": "::shell",
+          "signature": "::clipboard",
           "category": "Properties",
           "visibility": "Public",
-          "description": "A {ShellService} instance",
-          "line": 101
+          "description": "A {Clipboard} instance",
+          "line": 92
         },
         {
-          "name": "runtime",
+          "name": "commands",
           "kind": "property",
           "static": false,
           "async": false,
-          "signature": "::runtime",
+          "signature": "::commands",
           "category": "Properties",
           "visibility": "Public",
-          "description": "A {RuntimeService} instance",
-          "line": 103
+          "description": "A {CommandRegistry} instance",
+          "line": 161
+        },
+        {
+          "name": "config",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::config",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Config} instance",
+          "line": 133
+        },
+        {
+          "name": "contextMenu",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::contextMenu",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ContextMenuManager} instance",
+          "line": 201
         },
         {
           "name": "deserializers",
@@ -90,83 +90,6 @@
           "line": 124
         },
         {
-          "name": "views",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::views",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {ViewRegistry} instance",
-          "line": 127
-        },
-        {
-          "name": "notifications",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::notifications",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {NotificationManager} instance",
-          "line": 130
-        },
-        {
-          "name": "config",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::config",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {Config} instance",
-          "line": 133
-        },
-        {
-          "name": "keymaps",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::keymaps",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {KeymapManager} instance",
-          "line": 150
-        },
-        {
-          "name": "tooltips",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::tooltips",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {TooltipManager} instance",
-          "line": 155
-        },
-        {
-          "name": "commands",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::commands",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {CommandRegistry} instance",
-          "line": 161
-        },
-        {
-          "name": "uriHandlers",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::uriHandlers",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {URIHandlerRegistry} instance",
-          "line": 164
-        },
-        {
           "name": "grammars",
           "kind": "property",
           "static": false,
@@ -176,138 +99,6 @@
           "visibility": "Public",
           "description": "A {GrammarRegistry} instance",
           "line": 167
-        },
-        {
-          "name": "styles",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::styles",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {StyleManager} instance",
-          "line": 170
-        },
-        {
-          "name": "packages",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::packages",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {PackageManager} instance",
-          "line": 173
-        },
-        {
-          "name": "themes",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::themes",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {ThemeManager} instance",
-          "line": 186
-        },
-        {
-          "name": "menu",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::menu",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {MenuManager} instance",
-          "line": 195
-        },
-        {
-          "name": "contextMenu",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::contextMenu",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {ContextMenuManager} instance",
-          "line": 201
-        },
-        {
-          "name": "icons",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::icons",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {IconRegistry} instance",
-          "line": 216
-        },
-        {
-          "name": "repositories",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::repositories",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {RepositoryRegistry} instance",
-          "line": 224
-        },
-        {
-          "name": "secrets",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::secrets",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {SecretStore} instance",
-          "line": 241
-        },
-        {
-          "name": "project",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::project",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {Project} instance",
-          "line": 247
-        },
-        {
-          "name": "textEditors",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::textEditors",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {TextEditorRegistry} instance",
-          "line": 264
-        },
-        {
-          "name": "pasteProviders",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::pasteProviders",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {PasteProviderRegistry} instance",
-          "line": 271
-        },
-        {
-          "name": "workspace",
-          "kind": "property",
-          "static": false,
-          "async": false,
-          "signature": "::workspace",
-          "category": "Properties",
-          "visibility": "Public",
-          "description": "A {Workspace} instance",
-          "line": 275
         },
         {
           "name": "history",
@@ -321,6 +112,160 @@
           "line": 307
         },
         {
+          "name": "icons",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::icons",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {IconRegistry} instance",
+          "line": 216
+        },
+        {
+          "name": "keymaps",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::keymaps",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {KeymapManager} instance",
+          "line": 150
+        },
+        {
+          "name": "menu",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::menu",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {MenuManager} instance",
+          "line": 195
+        },
+        {
+          "name": "notifications",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::notifications",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {NotificationManager} instance",
+          "line": 130
+        },
+        {
+          "name": "packages",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::packages",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {PackageManager} instance",
+          "line": 173
+        },
+        {
+          "name": "pasteProviders",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::pasteProviders",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {PasteProviderRegistry} instance",
+          "line": 271
+        },
+        {
+          "name": "project",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::project",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Project} instance",
+          "line": 247
+        },
+        {
+          "name": "repositories",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::repositories",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {RepositoryRegistry} instance",
+          "line": 224
+        },
+        {
+          "name": "runtime",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::runtime",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {RuntimeService} instance",
+          "line": 103
+        },
+        {
+          "name": "secrets",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::secrets",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {SecretStore} instance",
+          "line": 241
+        },
+        {
+          "name": "shell",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::shell",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ShellService} instance",
+          "line": 101
+        },
+        {
+          "name": "styles",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::styles",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {StyleManager} instance",
+          "line": 170
+        },
+        {
+          "name": "textEditors",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::textEditors",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {TextEditorRegistry} instance",
+          "line": 264
+        },
+        {
+          "name": "themes",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::themes",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ThemeManager} instance",
+          "line": 186
+        },
+        {
           "name": "tools",
           "kind": "property",
           "static": false,
@@ -330,6 +275,61 @@
           "visibility": "Public",
           "description": "Editor utilities a package can reuse instead of vendoring its own:\n`markdown`, `fuzzyMatcher`, and `removeDiacritics`.",
           "line": 327
+        },
+        {
+          "name": "tooltips",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::tooltips",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {TooltipManager} instance",
+          "line": 155
+        },
+        {
+          "name": "uriHandlers",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::uriHandlers",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {URIHandlerRegistry} instance",
+          "line": 164
+        },
+        {
+          "name": "views",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::views",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {ViewRegistry} instance",
+          "line": 127
+        },
+        {
+          "name": "window",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::window",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {WindowService} instance",
+          "line": 97
+        },
+        {
+          "name": "workspace",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::workspace",
+          "category": "Properties",
+          "visibility": "Public",
+          "description": "A {Workspace} instance",
+          "line": 275
         }
       ]
     },
@@ -4223,7 +4223,7 @@
           "category": "Event Subscription",
           "visibility": "Essential",
           "description": "Invoke the given callback when all packages have been activated.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 69
+          "line": 70
         },
         {
           "name": "isCompatible",
@@ -4234,7 +4234,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.\n\nReturns a {Boolean}, true if compatible, false if incompatible.",
-          "line": 1092
+          "line": 1146
         },
         {
           "name": "rebuild",
@@ -4245,7 +4245,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "Rebuild native modules in this package's dependencies for the\ncurrent version of Lumine.\n\nReturns a {Promise} that resolves with an object containing `code`,\n`stdout`, and `stderr` properties based on the results of running\n`lumine -p rebuild` on the package.",
-          "line": 1110
+          "line": 1164
         },
         {
           "name": "getBuildFailureOutput",
@@ -4256,7 +4256,7 @@
           "category": "Native Module Compatibility",
           "visibility": "Extended",
           "description": "If a previous rebuild failed, get the contents of stderr.\n\nReturns a {String} or null if no previous build failure occurred.",
-          "line": 1128
+          "line": 1182
         }
       ]
     },
@@ -4278,7 +4278,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all packages have been loaded.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 115
+          "line": 119
         },
         {
           "name": "onDidActivateInitialPackages",
@@ -4289,7 +4289,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all packages have been activated.\n\n* `callback` {Function}\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 124
+          "line": 128
         },
         {
           "name": "onDidActivatePackage",
@@ -4300,7 +4300,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is activated.\n\n* `callback` A {Function} to be invoked when a package is activated.\n  * `package` The {Package} that was activated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 142
+          "line": 146
         },
         {
           "name": "onDidDeactivatePackage",
@@ -4311,7 +4311,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is deactivated.\n\n* `callback` A {Function} to be invoked when a package is deactivated.\n  * `package` The {Package} that was deactivated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 152
+          "line": 156
         },
         {
           "name": "onDidLoadPackage",
@@ -4322,7 +4322,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is loaded.\n\n* `callback` A {Function} to be invoked when a package is loaded.\n  * `package` The {Package} that was loaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 162
+          "line": 166
         },
         {
           "name": "onDidUnloadPackage",
@@ -4333,7 +4333,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a package is unloaded.\n\n* `callback` A {Function} to be invoked when a package is unloaded.\n  * `package` The {Package} that was unloaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 172
+          "line": 176
         },
         {
           "name": "getPackageDirPaths",
@@ -4344,7 +4344,7 @@
           "category": "Package system data",
           "visibility": "Public",
           "description": "Get the paths being used to look for packages.\n\nReturns an {Array} of {String} directory paths.",
-          "line": 183
+          "line": 187
         },
         {
           "name": "resolvePackagePath",
@@ -4355,7 +4355,7 @@
           "category": "General package data",
           "visibility": "Public",
           "description": "Resolve the given package name to a path on disk.\n\n* `name` - The {String} package name.\n\nReturn a {String} folder path or undefined if it could not be resolved.",
-          "line": 196
+          "line": 200
         },
         {
           "name": "isBundledPackage",
@@ -4366,7 +4366,7 @@
           "category": "General package data",
           "visibility": "Public",
           "description": "Is the package with the given name bundled with Lumine?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 252
+          "line": 257
         },
         {
           "name": "enablePackage",
@@ -4377,7 +4377,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Enable the package with the given name.\n\n* `name` - The {String} package name.\n\nReturns the {Package} that was enabled or null if it isn't loaded.",
-          "line": 265
+          "line": 270
         },
         {
           "name": "disablePackage",
@@ -4388,7 +4388,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Disable the package with the given name.\n\n* `name` - The {String} package name.\n\nReturns the {Package} that was disabled or null if it isn't loaded.",
-          "line": 278
+          "line": 283
         },
         {
           "name": "isPackageDisabled",
@@ -4399,7 +4399,7 @@
           "category": "Enabling and disabling packages",
           "visibility": "Public",
           "description": "Is the package with the given name disabled?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 291
+          "line": 296
         },
         {
           "name": "getActivePackages",
@@ -4410,7 +4410,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Get an {Array} of all the active {Package}s.",
-          "line": 300
+          "line": 305
         },
         {
           "name": "getActivePackage",
@@ -4421,7 +4421,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Get the active {Package} with the given name.\n\n* `name` - The {String} package name.\n\nReturns a {Package} or undefined.",
-          "line": 309
+          "line": 314
         },
         {
           "name": "isPackageActive",
@@ -4432,7 +4432,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Is the {Package} with the given name active?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 318
+          "line": 323
         },
         {
           "name": "hasActivatedInitialPackages",
@@ -4443,7 +4443,7 @@
           "category": "Accessing active packages",
           "visibility": "Public",
           "description": "Returns a {Boolean} indicating whether package activation has occurred.",
-          "line": 323
+          "line": 328
         },
         {
           "name": "getLoadedPackages",
@@ -4454,7 +4454,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Get an {Array} of all the loaded {Package}s",
-          "line": 332
+          "line": 337
         },
         {
           "name": "getLoadedPackage",
@@ -4465,7 +4465,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Get the loaded {Package} with the given name.\n\n* `name` - The {String} package name.\n\nReturns a {Package} or undefined.",
-          "line": 348
+          "line": 353
         },
         {
           "name": "isPackageLoaded",
@@ -4476,7 +4476,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Is the package with the given name loaded?\n\n* `name` - The {String} package name.\n\nReturns a {Boolean}.",
-          "line": 357
+          "line": 362
         },
         {
           "name": "hasLoadedInitialPackages",
@@ -4487,7 +4487,7 @@
           "category": "Accessing loaded packages",
           "visibility": "Public",
           "description": "Returns a {Boolean} indicating whether package loading has occurred.",
-          "line": 362
+          "line": 367
         },
         {
           "name": "getAvailablePackagePaths",
@@ -4498,7 +4498,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package paths.",
-          "line": 371
+          "line": 376
         },
         {
           "name": "getAvailablePackageNames",
@@ -4509,7 +4509,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package names.",
-          "line": 376
+          "line": 381
         },
         {
           "name": "getAvailablePackageMetadata",
@@ -4520,7 +4520,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns an {Array} of {String}s of all the available package metadata.",
-          "line": 381
+          "line": 386
         },
         {
           "name": "getAvailablePackages",
@@ -4531,7 +4531,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Returns the available packages that own their name.\n\n* `options` (optional) {Object}\n  * `includeShadowed` When `true`, also returns the copies whose name is\n    owned by another directory. Those never load; they exist so the UI can\n    list every directory on disk.\n\nReturns an {Array} of package descriptors sorted by name.",
-          "line": 400
+          "line": 405
         },
         {
           "name": "getAvailablePackage",
@@ -4542,7 +4542,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Get the available package that owns the given name.\n\nReturns a package descriptor or undefined.",
-          "line": 410
+          "line": 415
         },
         {
           "name": "refreshPackageIndex",
@@ -4553,7 +4553,7 @@
           "category": "Accessing available packages",
           "visibility": "Public",
           "description": "Forget everything read from package manifests.\n\nThe directory scan itself always runs fresh, so this only has to be called\nwhen a manifest changes on disk — after an install, update, or uninstall.",
-          "line": 418
+          "line": 426
         }
       ]
     },

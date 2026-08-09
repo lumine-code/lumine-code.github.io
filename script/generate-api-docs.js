@@ -333,7 +333,7 @@ function constructorProperties(classNode) {
       line: statement.loc.start.line,
     });
   }
-  return properties;
+  return properties.sort((left, right) => left.name.localeCompare(right.name));
 }
 
 function parseDoc(comments) {
