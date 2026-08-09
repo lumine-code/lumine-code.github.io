@@ -9536,7 +9536,7 @@ stylesheets, keymaps, grammar, editor properties, and menus.</p>
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-ondiddeactivate" aria-label="Link to ::onDidDeactivate(callback)">#</a><code>::onDidDeactivate(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L69" title="src/package.js:69">L69</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L70" title="src/package.js:70">L70</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when all packages have been activated.</p>
 <ul>
@@ -9558,7 +9558,7 @@ incompatible packages cannot be activated.
 returns a {boolean}, true if compatible, false if incompatible.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-iscompatible" aria-label="Link to ::isCompatible()">#</a><code>::isCompatible()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1092" title="src/package.js:1092">L1092</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1146" title="src/package.js:1146">L1146</a></div>
                       </div>
                       <div class="api-description-body"><p>Are all native modules depended on by this package correctly
 compiled against the current version of Lumine?</p>
@@ -9575,7 +9575,7 @@ returns a {promise} that resolves with an object containing `code`,
 `lumine -p rebuild` on the package.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-rebuild" aria-label="Link to ::rebuild()">#</a><code>::rebuild()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1110" title="src/package.js:1110">L1110</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1164" title="src/package.js:1164">L1164</a></div>
                       </div>
                       <div class="api-description-body"><p>Rebuild native modules in this package’s dependencies for the
 current version of Lumine.</p>
@@ -9590,7 +9590,7 @@ current version of Lumine.</p>
 returns a {string} or null if no previous build failure occurred.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-getbuildfailureoutput" aria-label="Link to ::getBuildFailureOutput()">#</a><code>::getBuildFailureOutput()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1128" title="src/package.js:1128">L1128</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1182" title="src/package.js:1182">L1182</a></div>
                       </div>
                       <div class="api-description-body"><p>If a previous rebuild failed, get the contents of stderr.</p>
 <p>Returns a <code class="api-type">String</code> or null if no previous build failure occurred.</p>
@@ -9642,7 +9642,7 @@ settings and also by calling <code>enablePackage()/disablePackage()</code>.</p>
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ondidloadinitialpackages" aria-label="Link to ::onDidLoadInitialPackages(callback)">#</a><code>::onDidLoadInitialPackages(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L115" title="src/package-manager.js:115">L115</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L119" title="src/package-manager.js:119">L119</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when all packages have been loaded.</p>
 <ul>
@@ -9659,7 +9659,7 @@ returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ondidactivateinitialpackages" aria-label="Link to ::onDidActivateInitialPackages(callback)">#</a><code>::onDidActivateInitialPackages(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L124" title="src/package-manager.js:124">L124</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L128" title="src/package-manager.js:128">L128</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when all packages have been activated.</p>
 <ul>
@@ -9677,7 +9677,7 @@ returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ondidactivatepackage" aria-label="Link to ::onDidActivatePackage(callback)">#</a><code>::onDidActivatePackage(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L142" title="src/package-manager.js:142">L142</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L146" title="src/package-manager.js:146">L146</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a package is activated.</p>
 <ul>
@@ -9699,7 +9699,7 @@ returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ondiddeactivatepackage" aria-label="Link to ::onDidDeactivatePackage(callback)">#</a><code>::onDidDeactivatePackage(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L152" title="src/package-manager.js:152">L152</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L156" title="src/package-manager.js:156">L156</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a package is deactivated.</p>
 <ul>
@@ -9721,7 +9721,7 @@ returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ondidloadpackage" aria-label="Link to ::onDidLoadPackage(callback)">#</a><code>::onDidLoadPackage(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L162" title="src/package-manager.js:162">L162</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L166" title="src/package-manager.js:166">L166</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a package is loaded.</p>
 <ul>
@@ -9743,7 +9743,7 @@ returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
 returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ondidunloadpackage" aria-label="Link to ::onDidUnloadPackage(callback)">#</a><code>::onDidUnloadPackage(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L172" title="src/package-manager.js:172">L172</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L176" title="src/package-manager.js:176">L176</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a package is unloaded.</p>
 <ul>
@@ -9766,7 +9766,7 @@ returns a {disposable} on which `.dispose()` can be called to unsubscribe.">
 returns an {array} of {string} directory paths.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getpackagedirpaths" aria-label="Link to ::getPackageDirPaths()">#</a><code>::getPackageDirPaths()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L183" title="src/package-manager.js:183">L183</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L187" title="src/package-manager.js:187">L187</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the paths being used to look for packages.</p>
 <p>Returns an <code class="api-type">Array</code> of <code class="api-type">String</code> directory paths.</p>
@@ -9784,7 +9784,7 @@ returns an {array} of {string} directory paths.">
 return a {string} folder path or undefined if it could not be resolved.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-resolvepackagepath" aria-label="Link to ::resolvePackagePath(name)">#</a><code>::resolvePackagePath(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L196" title="src/package-manager.js:196">L196</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L200" title="src/package-manager.js:200">L200</a></div>
                       </div>
                       <div class="api-description-body"><p>Resolve the given package name to a path on disk.</p>
 <ul>
@@ -9801,7 +9801,7 @@ return a {string} folder path or undefined if it could not be resolved.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-isbundledpackage" aria-label="Link to ::isBundledPackage(name)">#</a><code>::isBundledPackage(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L252" title="src/package-manager.js:252">L252</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L257" title="src/package-manager.js:257">L257</a></div>
                       </div>
                       <div class="api-description-body"><p>Is the package with the given name bundled with Lumine?</p>
 <ul>
@@ -9822,7 +9822,7 @@ returns a {boolean}.">
 returns the {package} that was enabled or null if it isn't loaded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-enablepackage" aria-label="Link to ::enablePackage(name)">#</a><code>::enablePackage(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L265" title="src/package-manager.js:265">L265</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L270" title="src/package-manager.js:270">L270</a></div>
                       </div>
                       <div class="api-description-body"><p>Enable the package with the given name.</p>
 <ul>
@@ -9839,7 +9839,7 @@ returns the {package} that was enabled or null if it isn't loaded.">
 returns the {package} that was disabled or null if it isn't loaded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-disablepackage" aria-label="Link to ::disablePackage(name)">#</a><code>::disablePackage(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L278" title="src/package-manager.js:278">L278</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L283" title="src/package-manager.js:283">L283</a></div>
                       </div>
                       <div class="api-description-body"><p>Disable the package with the given name.</p>
 <ul>
@@ -9856,7 +9856,7 @@ returns the {package} that was disabled or null if it isn't loaded.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ispackagedisabled" aria-label="Link to ::isPackageDisabled(name)">#</a><code>::isPackageDisabled(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L291" title="src/package-manager.js:291">L291</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L296" title="src/package-manager.js:296">L296</a></div>
                       </div>
                       <div class="api-description-body"><p>Is the package with the given name disabled?</p>
 <ul>
@@ -9873,7 +9873,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-getactivepackages" data-api-entry="packagemanager getactivepackages ::getactivepackages() get an {array} of all the active {package}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getactivepackages" aria-label="Link to ::getActivePackages()">#</a><code>::getActivePackages()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L300" title="src/package-manager.js:300">L300</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L305" title="src/package-manager.js:305">L305</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code class="api-type">Array</code> of all the active <a class="api-type" href="#class-package">Packages</a>.</p>
 </div>
@@ -9886,7 +9886,7 @@ returns a {boolean}.">
 returns a {package} or undefined.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getactivepackage" aria-label="Link to ::getActivePackage(name)">#</a><code>::getActivePackage(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L309" title="src/package-manager.js:309">L309</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L314" title="src/package-manager.js:314">L314</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the active <a class="api-type" href="#class-package">Package</a> with the given name.</p>
 <ul>
@@ -9903,7 +9903,7 @@ returns a {package} or undefined.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ispackageactive" aria-label="Link to ::isPackageActive(name)">#</a><code>::isPackageActive(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L318" title="src/package-manager.js:318">L318</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L323" title="src/package-manager.js:323">L323</a></div>
                       </div>
                       <div class="api-description-body"><p>Is the <a class="api-type" href="#class-package">Package</a> with the given name active?</p>
 <ul>
@@ -9916,7 +9916,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-hasactivatedinitialpackages" data-api-entry="packagemanager hasactivatedinitialpackages ::hasactivatedinitialpackages() returns a {boolean} indicating whether package activation has occurred.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-hasactivatedinitialpackages" aria-label="Link to ::hasActivatedInitialPackages()">#</a><code>::hasActivatedInitialPackages()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L323" title="src/package-manager.js:323">L323</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L328" title="src/package-manager.js:328">L328</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns a <code class="api-type">Boolean</code> indicating whether package activation has occurred.</p>
 </div>
@@ -9929,7 +9929,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-getloadedpackages" data-api-entry="packagemanager getloadedpackages ::getloadedpackages() get an {array} of all the loaded {package}s">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getloadedpackages" aria-label="Link to ::getLoadedPackages()">#</a><code>::getLoadedPackages()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L332" title="src/package-manager.js:332">L332</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L337" title="src/package-manager.js:337">L337</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code class="api-type">Array</code> of all the loaded <a class="api-type" href="#class-package">Packages</a></p>
 </div>
@@ -9942,7 +9942,7 @@ returns a {boolean}.">
 returns a {package} or undefined.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getloadedpackage" aria-label="Link to ::getLoadedPackage(name)">#</a><code>::getLoadedPackage(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L348" title="src/package-manager.js:348">L348</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L353" title="src/package-manager.js:353">L353</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the loaded <a class="api-type" href="#class-package">Package</a> with the given name.</p>
 <ul>
@@ -9959,7 +9959,7 @@ returns a {package} or undefined.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-ispackageloaded" aria-label="Link to ::isPackageLoaded(name)">#</a><code>::isPackageLoaded(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L357" title="src/package-manager.js:357">L357</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L362" title="src/package-manager.js:362">L362</a></div>
                       </div>
                       <div class="api-description-body"><p>Is the package with the given name loaded?</p>
 <ul>
@@ -9972,7 +9972,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-hasloadedinitialpackages" data-api-entry="packagemanager hasloadedinitialpackages ::hasloadedinitialpackages() returns a {boolean} indicating whether package loading has occurred.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-hasloadedinitialpackages" aria-label="Link to ::hasLoadedInitialPackages()">#</a><code>::hasLoadedInitialPackages()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L362" title="src/package-manager.js:362">L362</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L367" title="src/package-manager.js:367">L367</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns a <code class="api-type">Boolean</code> indicating whether package loading has occurred.</p>
 </div>
@@ -9985,7 +9985,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-getavailablepackagepaths" data-api-entry="packagemanager getavailablepackagepaths ::getavailablepackagepaths() returns an {array} of {string}s of all the available package paths.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getavailablepackagepaths" aria-label="Link to ::getAvailablePackagePaths()">#</a><code>::getAvailablePackagePaths()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L371" title="src/package-manager.js:371">L371</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L376" title="src/package-manager.js:376">L376</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns an <code class="api-type">Array</code> of <code class="api-type">Strings</code> of all the available package paths.</p>
 </div>
@@ -9994,7 +9994,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-getavailablepackagenames" data-api-entry="packagemanager getavailablepackagenames ::getavailablepackagenames() returns an {array} of {string}s of all the available package names.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getavailablepackagenames" aria-label="Link to ::getAvailablePackageNames()">#</a><code>::getAvailablePackageNames()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L376" title="src/package-manager.js:376">L376</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L381" title="src/package-manager.js:381">L381</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns an <code class="api-type">Array</code> of <code class="api-type">Strings</code> of all the available package names.</p>
 </div>
@@ -10003,7 +10003,7 @@ returns a {boolean}.">
                     <article class="api-member" id="packagemanager-instance-getavailablepackagemetadata" data-api-entry="packagemanager getavailablepackagemetadata ::getavailablepackagemetadata() returns an {array} of {string}s of all the available package metadata.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getavailablepackagemetadata" aria-label="Link to ::getAvailablePackageMetadata()">#</a><code>::getAvailablePackageMetadata()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L381" title="src/package-manager.js:381">L381</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L386" title="src/package-manager.js:386">L386</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns an <code class="api-type">Array</code> of <code class="api-type">Strings</code> of all the available package metadata.</p>
 </div>
@@ -10019,7 +10019,7 @@ returns a {boolean}.">
 returns an {array} of package descriptors sorted by name.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getavailablepackages" aria-label="Link to ::getAvailablePackages(options)">#</a><code>::getAvailablePackages(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L400" title="src/package-manager.js:400">L400</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L405" title="src/package-manager.js:405">L405</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns the available packages that own their name.</p>
 <ul>
@@ -10040,7 +10040,7 @@ list every directory on disk.</li>
 returns a package descriptor or undefined.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-getavailablepackage" aria-label="Link to ::getAvailablePackage(name)">#</a><code>::getAvailablePackage(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L410" title="src/package-manager.js:410">L410</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L415" title="src/package-manager.js:415">L415</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the available package that owns the given name.</p>
 <p>Returns a package descriptor or undefined.</p>
@@ -10053,7 +10053,7 @@ the directory scan itself always runs fresh, so this only has to be called
 when a manifest changes on disk — after an install, update, or uninstall.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#packagemanager-instance-refreshpackageindex" aria-label="Link to ::refreshPackageIndex()">#</a><code>::refreshPackageIndex()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L418" title="src/package-manager.js:418">L418</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package-manager.js#L426" title="src/package-manager.js:426">L426</a></div>
                       </div>
                       <div class="api-description-body"><p>Forget everything read from package manifests.</p>
 <p>The directory scan itself always runs fresh, so this only has to be called
