@@ -12,6 +12,10 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **navigation-panel** — a document outline with click-to-navigate headers.
 - **minimap** — a canvas overview of the whole buffer beside the scrollbar.
 - **highlight-selected** — highlight other occurrences of the selected word.
+- **cursor-history** — navigate backward and forward through recent cursor positions.
+- **spell-check** — highlight misspelled words and offer contextual corrections.
+- **toolbar** — provide an extensible toolbar docked to the workspace edge.
+- **build** — run project build targets and surface their output and diagnostics.
 - **sort-lines** — sort, reverse, shuffle, and deduplicate selected text lines.
 - **calc-inline** — evaluate selected JavaScript expressions, reuse earlier results, and number selections.
 - **regex-aligner**, **sequence-creator**, **super-select**, **cursor-leader**, **quick-layout**, **invert-colors**, **word-map** — small editing and workspace utilities.
@@ -46,6 +50,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 
 - **language-latex**, **language-typst**, **language-log**, **language-tasklist**, **language-ahkpp**, **language-sofistik** — grammars and language support.
 - **autocomplete-jedi** — Python completions and go-to-definition via jedi.
+- **autocomplete-paths** — complete file paths from cached project contents.
 - **autocomplete-sofistik** — completions for SOFiSTiK input files.
 - **latex-tools**, **typst-tools**, **sofistik-tools**, **tasklist-tools**, **bib-finder** — build, preview, and navigation tooling for those ecosystems.
 
@@ -87,3 +92,7 @@ The tree view, tabs, search results, and fuzzy finders show a generic icon per f
 ## Editor integration for AI
 
 - **lumine-mcp** — expose editor tools over the Model Context Protocol.
+
+## Package development
+
+- **package-generator** — generate ready-to-edit packages, languages, and syntax themes.
