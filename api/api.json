@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-10T12:21:45.579Z",
+  "generatedAt": "2026-08-10T17:04:22.762Z",
   "classes": [
     {
       "name": "LumineEnvironment",
@@ -3860,7 +3860,7 @@
       "source": "src/marker-layer.js",
       "sourcePath": "src/marker-layer.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 12,
+      "line": 18,
       "members": [
         {
           "name": "copy",
@@ -3871,7 +3871,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Create a copy of this layer with markers in the same state and\nlocations.",
-          "line": 67
+          "line": 78
         },
         {
           "name": "destroy",
@@ -3882,7 +3882,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Destroy this layer.",
-          "line": 82
+          "line": 93
         },
         {
           "name": "clear",
@@ -3893,7 +3893,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Remove all markers from this layer.",
-          "line": 100
+          "line": 111
         },
         {
           "name": "isDestroyed",
@@ -3904,7 +3904,7 @@
           "category": "Lifecycle",
           "visibility": "Public",
           "description": "Determine whether this layer has been destroyed.",
-          "line": 115
+          "line": 127
         },
         {
           "name": "getMarker",
@@ -3915,7 +3915,7 @@
           "category": "Querying",
           "visibility": "Public",
           "description": "Get an existing marker by its id.\nReturns a {Marker}.",
-          "line": 129
+          "line": 141
         },
         {
           "name": "getMarkers",
@@ -3926,7 +3926,7 @@
           "category": "Querying",
           "visibility": "Public",
           "description": "Get all existing markers on the marker layer.\nReturns an {Array} of {Marker}s.",
-          "line": 136
+          "line": 148
         },
         {
           "name": "getMarkerCount",
@@ -3937,7 +3937,7 @@
           "category": "Querying",
           "visibility": "Public",
           "description": "Get the number of markers in the marker layer.\nReturns a {Number}.",
-          "line": 143
+          "line": 155
         },
         {
           "name": "findMarkers",
@@ -3948,7 +3948,7 @@
           "category": "Querying",
           "visibility": "Public",
           "description": "Find markers in the layer conforming to the given parameters.\nSee the documentation for {TextBuffer::findMarkers}.",
-          "line": 150
+          "line": 162
         },
         {
           "name": "getRole",
@@ -3959,7 +3959,7 @@
           "category": "Querying",
           "visibility": "Public",
           "description": "Get the role of the marker layer e.g. `lumine.selection`.\nReturns a {String}.",
-          "line": 235
+          "line": 247
         },
         {
           "name": "markRange",
@@ -3970,7 +3970,7 @@
           "category": "Marker creation",
           "visibility": "Public",
           "description": "Create a marker with the given range.\n\n* `range` A {Range} or range-compatible {Array}\n* `options` A hash of key-value pairs to associate with the marker. There\n  are also reserved property names that have marker-specific meaning.\n  * `reversed` (optional) {Boolean} Creates the marker in a reversed\n    orientation. (default: false)\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n  * `exclusive` {Boolean} indicating whether insertions at the start or end\n    of the marked range should be interpreted as happening *outside* the\n    marker. Defaults to `false`, except when using the `inside`\n    invalidation strategy or when the marker has no tail, in which\n    case it defaults to true. Explicitly assigning this option overrides\n    behavior in all circumstances.\nReturns a {Marker}.",
-          "line": 271
+          "line": 283
         },
         {
           "name": "markPosition",
@@ -3981,7 +3981,7 @@
           "category": "Marker creation",
           "visibility": "Public",
           "description": "Create a marker at with its head at the given position with no tail.\n\n* `position` {Point} or point-compatible {Array}\n* `options` (optional) An {Object} with the following keys:\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n  * `exclusive` {Boolean} indicating whether insertions at the start or end\n    of the marked range should be interpreted as happening *outside* the\n    marker. Defaults to `false`, except when using the `inside`\n    invalidation strategy or when the marker has no tail, in which\n    case it defaults to true. Explicitly assigning this option overrides\n    behavior in all circumstances.\nReturns a {Marker}.",
-          "line": 301
+          "line": 313
         },
         {
           "name": "onDidUpdate",
@@ -3992,7 +3992,7 @@
           "category": "Event subscription",
           "visibility": "Public",
           "description": "Subscribe to be notified whenever markers are created, updated,\nor destroyed on this layer. *Prefer this method for optimal performance\nwhen interacting with layers that could contain large numbers of markers.*\n\n* `callback` A {Function} that will be called with no arguments when changes\n  occur on this layer.\n\nChanges made within a {TextBuffer::transact} block are batched: subscribers\nare notified once, at the end of the transaction. Changes made outside a\ntransaction notify subscribers synchronously per change. Either way, you\nshould re-query the layer to determine the state of markers in which you're\ninterested in. It may be counter-intuitive, but this is much more efficient\nthan subscribing to events on individual markers, which are expensive to\ndeliver.\nReturns a {Disposable}.",
-          "line": 327
+          "line": 339
         },
         {
           "name": "onDidCreateMarker",
@@ -4003,7 +4003,7 @@
           "category": "Event subscription",
           "visibility": "Public",
           "description": "Subscribe to be notified synchronously whenever markers are created\non this layer. *Avoid this method for optimal performance when interacting\nwith layers that could contain large numbers of markers.*\n\n* `callback` A {Function} that will be called with a {Marker} whenever a\n  new marker is created.\n\nYou should prefer {::onDidUpdate} when synchronous notifications aren't\nabsolutely necessary.\nReturns a {Disposable}.",
-          "line": 342
+          "line": 354
         },
         {
           "name": "onDidDestroy",
@@ -4014,7 +4014,7 @@
           "category": "Event subscription",
           "visibility": "Public",
           "description": "Subscribe to be notified synchronously when this layer is destroyed.\nReturns a {Disposable}.",
-          "line": 350
+          "line": 362
         }
       ]
     },
@@ -7743,7 +7743,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback synchronously _before_ the content of the\nbuffer changes.\n\nBecause observers are invoked synchronously, it's important not to perform\nany expensive operations via this method.\n\n* `callback` {Function} to be called when the buffer changes.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 322
+          "line": 335
         },
         {
           "name": "onDidChange",
@@ -7754,7 +7754,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback synchronously when a transaction\nfinishes with a list of all the changes in the transaction.\n\n* `callback` {Function} to be called when a transaction in which textual\n  changes occurred is completed.\n  * `event` {Object} with the following keys:\n    * `oldRange` The smallest combined {Range} containing all of the old\n      text.\n    * `newRange` The smallest combined {Range} containing all of the new\n      text.\n    * `changes` {Array} of {Object}s summarizing the aggregated changes\n      that occurred during the transaction. See *Working With Aggregated\n      Changes* in the description of the {TextBuffer} class for details.\n      * `oldRange` The {Range} of the deleted text in the contents of the\n        buffer as it existed *before* the batch of changes reported by\n        this event.\n      * `newRange`: The {Range} of the inserted text in the current\n        contents of the buffer.\n      * `oldText`: A {String} representing the deleted text.\n      * `newText`: A {String} representing the inserted text.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 348
+          "line": 361
         },
         {
           "name": "onDidChangeText",
@@ -7765,7 +7765,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "This is now identical to {::onDidChange}.",
-          "line": 353
+          "line": 366
         },
         {
           "name": "onDidStopChanging",
@@ -7776,7 +7776,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback asynchronously following one or more\nchanges after {::getStoppedChangingDelay} milliseconds elapse without an\nadditional change.\n\nThis method can be used to perform potentially expensive operations that\ndon't need to be performed synchronously. If you need to run your callback\nsynchronously, use {::onDidChange} instead.\n\n* `callback` {Function} to be called when the buffer stops changing.\n  * `event` {Object} with the following keys:\n    * `changes` An {Array} containing {Object}s summarizing the aggregated\n      changes. See *Working With Aggregated Changes* in the description of\n      the {TextBuffer} class for details.\n      * `oldRange` The {Range} of the deleted text in the contents of the\n        buffer as it existed *before* the batch of changes reported by\n        this event.\n      * `newRange`: The {Range} of the inserted text in the current\n        contents of the buffer.\n      * `oldText`: A {String} representing the deleted text.\n      * `newText`: A {String} representing the inserted text.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 379
+          "line": 392
         },
         {
           "name": "onDidConflict",
@@ -7787,7 +7787,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the in-memory contents of the\nbuffer become in conflict with the contents of the file on disk.\n\n* `callback` {Function} to be called when the buffer enters conflict.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 389
+          "line": 402
         },
         {
           "name": "onDidChangeModified",
@@ -7798,7 +7798,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback if the value of {::isModified} changes.\n\n* `callback` {Function} to be called when {::isModified} changes.\n  * `modified` {Boolean} indicating whether the buffer is modified.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 399
+          "line": 412
         },
         {
           "name": "onDidUpdateMarkers",
@@ -7809,7 +7809,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when all marker `::onDidChange`\nobservers have been notified following a change to the buffer.\n\nThe order of events following a buffer change is as follows:\n\n* The text of the buffer is changed\n* All markers are updated accordingly, but their `::onDidChange` observers\n  are not notified.\n* `TextBuffer::onDidChange` observers are notified.\n* `Marker::onDidChange` observers are notified.\n* `TextBuffer::onDidUpdateMarkers` observers are notified.\n\nBasically, this method gives you a way to take action after both a buffer\nchange and all associated marker changes.\n\n* `callback` {Function} to be called after markers are updated.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 421
+          "line": 434
         },
         {
           "name": "onDidCreateMarker",
@@ -7820,7 +7820,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when a marker is created.\n\n* `callback` {Function} to be called when a marker is created.\n  * `marker` {Marker} that was created.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 431
+          "line": 444
         },
         {
           "name": "onDidChangePath",
@@ -7831,7 +7831,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the value of {::getPath} changes.\n\n* `callback` {Function} to be called when the path changes.\n  * `path` {String} representing the buffer's current path on disk.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 441
+          "line": 454
         },
         {
           "name": "onDidChangeEncoding",
@@ -7842,7 +7842,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the value of {::getEncoding} changes.\n\n* `callback` {Function} to be called when the encoding changes.\n  * `encoding` {String} character set encoding of the buffer.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 451
+          "line": 464
         },
         {
           "name": "onWillSave",
@@ -7853,7 +7853,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback before the buffer is saved to disk.\n\n* `callback` {Function} to be called before the buffer is saved. If this function returns\n  a {Promise}, then the buffer will not be saved until the promise resolves.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 461
+          "line": 474
         },
         {
           "name": "onDidSave",
@@ -7864,7 +7864,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback after the buffer is saved to disk.\n\n* `callback` {Function} to be called after the buffer is saved.\n  * `event` {Object} with the following keys:\n    * `path` The path to which the buffer was saved.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 472
+          "line": 485
         },
         {
           "name": "onDidDelete",
@@ -7875,7 +7875,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback after the file backing the buffer is\ndeleted.\n\n* `callback` {Function} to be called after the buffer is deleted.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 482
+          "line": 495
         },
         {
           "name": "onWillReload",
@@ -7886,7 +7886,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback before the buffer is reloaded from the\ncontents of its file on disk.\n\n* `callback` {Function} to be called before the buffer is reloaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 492
+          "line": 505
         },
         {
           "name": "onDidReload",
@@ -7897,7 +7897,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback after the buffer is reloaded from the\ncontents of its file on disk.\n\n* `callback` {Function} to be called after the buffer is reloaded.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 502
+          "line": 515
         },
         {
           "name": "onDidDestroy",
@@ -7908,7 +7908,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when the buffer is destroyed.\n\n* `callback` {Function} to be called when the buffer is destroyed.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 511
+          "line": 524
         },
         {
           "name": "onWillThrowWatchError",
@@ -7919,7 +7919,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Invoke the given callback when there is an error in watching the\nfile.\n\n* `callback` {Function} callback\n  * `errorObject` {Object}\n    * `error` {Object} the error object\n    * `handle` {Function} call this to indicate you have handled the error.\n      The error will not be thrown if this function is called.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 525
+          "line": 538
         },
         {
           "name": "getStoppedChangingDelay",
@@ -7930,7 +7930,7 @@
           "category": "Event Subscription",
           "visibility": "Public",
           "description": "Get the number of milliseconds that will elapse without a change\nbefore {::onDidStopChanging} observers are invoked following a change.\n\nReturns a {Number}.",
-          "line": 533
+          "line": 546
         },
         {
           "name": "isModified",
@@ -7941,7 +7941,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Determine if the in-memory contents of the buffer differ from its\ncontents on disk.\n\nIf the buffer is unsaved, always returns `true` unless the buffer is empty.\n\nReturns a {Boolean}.",
-          "line": 547
+          "line": 560
         },
         {
           "name": "isDeleted",
@@ -7952,7 +7952,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Determine if the buffer is in a deleted state — meaning that it\nwas previously backed by a file on disk, but is no longer.",
-          "line": 568
+          "line": 581
         },
         {
           "name": "isInConflict",
@@ -7963,7 +7963,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Determine if the in-memory contents of the buffer conflict with\nthe on-disk contents of its associated file.\n\nThis happens if the contents of a buffer’s backing file change while the\neditor has uncommitted changes. Those uncommitted changes build upon a\nstate that is now stale; if those changes were committed to disk, it could\nclobber the changes made by the external program.\n\nReturns a {Boolean}.",
-          "line": 582
+          "line": 595
         },
         {
           "name": "getPath",
@@ -7974,7 +7974,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Get the path of the associated file.\n\nReturns a {String}.",
-          "line": 591
+          "line": 604
         },
         {
           "name": "setPath",
@@ -7985,7 +7985,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Set the path for the buffer's associated file.\n\n* `filePath` A {String} representing the new file path",
-          "line": 598
+          "line": 611
         },
         {
           "name": "setFile",
@@ -7996,7 +7996,7 @@
           "category": "File Details",
           "visibility": "Experimental",
           "description": "Set a custom {File} object as the buffer's backing store.\n\n* `file` An {Object} with the following properties:\n  * `getPath` A {Function} that returns the {String} path to the file.\n  * `createReadStream` A {Function} that returns a `Readable` stream\n    that can be used to load the file's content.\n  * `createWriteStream` A {Function} that returns a `Writable` stream\n    that can be used to save content to the file.\n  * `existsSync` A {Function} that returns a {Boolean}, true if the file exists, false otherwise.\n  * `onDidChange` (optional) A {Function} that invokes its callback argument\n    when the file changes. The method should return a {Disposable} that\n    can be used to prevent further calls to the callback.\n  * `onDidDelete` (optional) A {Function} that invokes its callback argument\n    when the file is deleted. The method should return a {Disposable} that\n    can be used to prevent further calls to the callback.\n  * `onDidRename` (optional) A {Function} that invokes its callback argument\n    when the file is renamed. The method should return a {Disposable} that\n    can be used to prevent further calls to the callback.",
-          "line": 621
+          "line": 634
         },
         {
           "name": "setEncoding",
@@ -8007,7 +8007,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Sets the character set encoding for this buffer.\n\n* `encoding` The {String} encoding to use (default: 'utf8').",
-          "line": 639
+          "line": 652
         },
         {
           "name": "getEncoding",
@@ -8018,7 +8018,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Returns the {String} encoding of this buffer.",
-          "line": 657
+          "line": 670
         },
         {
           "name": "getUri",
@@ -8029,7 +8029,7 @@
           "category": "File Details",
           "visibility": "Public",
           "description": "Get the path of the associated file.\n\nReturns a {String}.",
-          "line": 672
+          "line": 685
         },
         {
           "name": "isEmpty",
@@ -8040,7 +8040,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Determine whether the buffer is empty.\n\nReturns a {Boolean}.",
-          "line": 693
+          "line": 706
         },
         {
           "name": "getText",
@@ -8051,7 +8051,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the entire text of the buffer. Avoid using this unless you know that the\nbuffer's text is reasonably short.\n\nReturns a {String}.",
-          "line": 701
+          "line": 714
         },
         {
           "name": "getTextInRange",
@@ -8062,7 +8062,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the text in a range.\n\n* `range` A {Range}\n\nReturns a {String}",
-          "line": 715
+          "line": 728
         },
         {
           "name": "getLines",
@@ -8073,7 +8073,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the text of all lines in the buffer, without their line endings.\n\nReturns an {Array} of {String}s.",
-          "line": 722
+          "line": 735
         },
         {
           "name": "getLastLine",
@@ -8084,7 +8084,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the text of the last line of the buffer, without its line\nending.\n\nReturns a {String}.",
-          "line": 730
+          "line": 743
         },
         {
           "name": "lineForRow",
@@ -8095,7 +8095,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the text of the line at the given 0-indexed row, without its\nline ending.\n\n* `row` A {Number} representing the row.\n\nReturns a {String}.",
-          "line": 740
+          "line": 753
         },
         {
           "name": "lineEndingForRow",
@@ -8106,7 +8106,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the line ending for the given 0-indexed row.\n\n* `row` A {Number} indicating the row.\n\nReturns a {String}. The returned newline is represented as a literal string:\n`'\\n'`, `'\\r\\n'`, or `''` for the last line of the buffer, which\ndoesn't end in a newline.",
-          "line": 751
+          "line": 764
         },
         {
           "name": "lineLengthForRow",
@@ -8117,7 +8117,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Get the length of the line for the given 0-indexed row, without its\nline ending.\n\n* `row` A {Number} indicating the row.\n\nReturns a {Number}.",
-          "line": 761
+          "line": 774
         },
         {
           "name": "isRowBlank",
@@ -8128,7 +8128,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Determine if the given row contains only whitespace.\n\n* `row` A {Number} representing a 0-indexed row.\n\nReturns a {Boolean}.",
-          "line": 770
+          "line": 783
         },
         {
           "name": "previousNonBlankRow",
@@ -8139,7 +8139,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Given a row, find the first preceding row that's not blank.\n\n* `startRow` A {Number} identifying the row to start checking at.\n\nReturns a {Number} or `null` if there's no preceding non-blank row.",
-          "line": 779
+          "line": 792
         },
         {
           "name": "nextNonBlankRow",
@@ -8150,7 +8150,7 @@
           "category": "Reading Text",
           "visibility": "Public",
           "description": "Given a row, find the next row that's not blank.\n\n* `startRow` A {Number} identifying the row to start checking at.\n\nReturns a {Number} or `null` if there's no next non-blank row.",
-          "line": 793
+          "line": 806
         },
         {
           "name": "hasAstral",
@@ -8161,7 +8161,7 @@
           "category": "Reading Text",
           "visibility": "Extended",
           "description": "Return true if the buffer contains any astral-plane Unicode characters that\nare encoded as surrogate pairs.\n\nReturns a {Boolean}.",
-          "line": 807
+          "line": 820
         },
         {
           "name": "setText",
@@ -8172,7 +8172,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Replace the entire contents of the buffer with the given text.\n\n* `text` A {String}\n\nReturns a {Range} spanning the new buffer contents.",
-          "line": 825
+          "line": 838
         },
         {
           "name": "setTextViaDiff",
@@ -8183,7 +8183,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Replace the current buffer contents by applying a diff based on the\ngiven text.\n\n* `text` A {String} containing the new buffer contents.",
-          "line": 833
+          "line": 846
         },
         {
           "name": "setTextInRange",
@@ -8194,7 +8194,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Set the text in the given range.\n\n* `range` A {Range}\n* `newText` A {String}\n* `options` (optional) {Object}\n  * `normalizeLineEndings` (optional) {Boolean} (default: true)\n  * `undo` (optional) *Deprecated* {String} 'skip' will cause this change\n    to be grouped with the preceding change for the purposes of undo and\n    redo. This property is deprecated. Call groupLastChanges() on the\n    buffer after instead.\n\nReturns the {Range} of the inserted text.",
-          "line": 915
+          "line": 928
         },
         {
           "name": "insert",
@@ -8205,7 +8205,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Insert text at the given position.\n\n* `position` A {Point} representing the insertion location. The position is\n  clipped before insertion.\n* `text` A {String} representing the text to insert.\n* `options` (optional) {Object}\n  * `normalizeLineEndings` (optional) {Boolean} (default: true)\n  * `undo` (optional) *Deprecated* {String} 'skip' will skip the undo\n    system. This property is deprecated. Call groupLastChanges() on the\n    {TextBuffer} afterward instead.\n\nReturns the {Range} of the inserted text.",
-          "line": 971
+          "line": 984
         },
         {
           "name": "append",
@@ -8216,7 +8216,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Append text to the end of the buffer.\n\n* `text` A {String} representing the text to append.\n* `options` (optional) {Object}\n  * `normalizeLineEndings` (optional) {Boolean} (default: true)\n  * `undo` (optional) *Deprecated* {String} 'skip' will skip the undo\n    system. This property is deprecated. Call groupLastChanges() on the\n    {TextBuffer} afterward instead.\n\nReturns the {Range} of the inserted text",
-          "line": 985
+          "line": 998
         },
         {
           "name": "delete",
@@ -8227,7 +8227,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Delete the text in the given range.\n\n* `range` A {Range} in which to delete. The range is clipped before deleting.\n\nReturns an empty {Range} starting at the start of deleted range.",
-          "line": 1074
+          "line": 1087
         },
         {
           "name": "deleteRow",
@@ -8238,7 +8238,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Delete the line associated with a specified 0-indexed row.\n\n* `row` A {Number} representing the row to delete.\n\nReturns the {Range} of the deleted text.",
-          "line": 1083
+          "line": 1096
         },
         {
           "name": "deleteRows",
@@ -8249,7 +8249,7 @@
           "category": "Mutating Text",
           "visibility": "Public",
           "description": "Delete the lines associated with the specified 0-indexed row range.\n\nIf the row range is out of bounds, it will be clipped. If the `startRow` is\ngreater than the `endRow`, they will be reordered.\n\n* `startRow` A {Number} representing the first row to delete.\n* `endRow` A {Number} representing the last row to delete, inclusive.\n\nReturns the {Range} of the deleted text.",
-          "line": 1096
+          "line": 1109
         },
         {
           "name": "addMarkerLayer",
@@ -8260,7 +8260,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Create a layer to contain a set of related markers.\n\n* `options` (optional) An {Object} containing the following keys:\n  * `maintainHistory` (optional) A {Boolean} indicating whether or not the\n    state of this layer should be restored on undo/redo operations. Defaults\n    to `false`.\n  * `persistent` (optional) A {Boolean} indicating whether or not this\n    marker layer should be serialized and deserialized along with the rest\n    of the buffer. Defaults to `false`. If `true`, the marker layer's id\n    will be maintained across the serialization boundary, allowing you to\n    retrieve it via {::getMarkerLayer}.\n  * `role` (optional) A {String} indicating role of this marker layer\n\nReturns a {MarkerLayer}.",
-          "line": 1148
+          "line": 1161
         },
         {
           "name": "getMarkerLayer",
@@ -8271,7 +8271,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Get a {MarkerLayer} by id.\n\n* `id` The id of the marker layer to retrieve.\n\nReturns a {MarkerLayer} or `undefined` if no layer exists with the given\nid.",
-          "line": 1160
+          "line": 1173
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -8282,7 +8282,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Get the default {MarkerLayer}.\n\nAll {Marker} APIs not tied to an explicit layer interact with this default\nlayer.\n\nReturns a {MarkerLayer}.",
-          "line": 1170
+          "line": 1183
         },
         {
           "name": "markRange",
@@ -8293,7 +8293,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Create a {Marker} with the given range in the default {MarkerLayer}.\nThis marker will maintain its logical location as the buffer is changed,\nso if you mark a particular word, the marker will remain over that word\neven if the word's location in the buffer changes.\n\n* `range` A {Range} or range-compatible {Array}\n* `properties` (optional) A hash of key-value pairs to associate with the\n  marker. There are also reserved property names that have marker-specific\n  meaning.\n  * `reversed` (optional) {Boolean} Creates the marker in a reversed\n    orientation. (default: false)\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n  * `exclusive` (optional) {Boolean} indicating whether insertions at the\n    start or end of the marked range should be interpreted as happening\n    *outside* the marker. Defaults to `false`, except when using the\n    `inside` invalidation strategy or when the marker has no tail, in\n    which case it defaults to true. Explicitly assigning this option\n    overrides behavior in all circumstances.\n\nReturns a {Marker}.",
-          "line": 1207
+          "line": 1220
         },
         {
           "name": "markPosition",
@@ -8304,7 +8304,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Create a {Marker} at the given position with no tail in the default\nmarker layer.\n\n* `position` {Point} or point-compatible {Array}\n* `options` (optional) An {Object} with the following keys:\n  * `invalidate` (optional) {String} Determines the rules by which changes\n    to the buffer *invalidate* the marker. (default: 'overlap') It can be\n    any of the following strategies, in order of fragility:\n    * __never__: The marker is never marked as invalid. This is a good choice for\n      markers representing selections in an editor.\n    * __surround__: The marker is invalidated by changes that completely surround it.\n    * __overlap__: The marker is invalidated by changes that surround the\n      start or end of the marker. This is the default.\n    * __inside__: The marker is invalidated by changes that extend into the\n      inside of the marker. Changes that end at the marker's start or\n      start at the marker's end do not invalidate the marker.\n    * __touch__: The marker is invalidated by a change that touches the marked\n      region in any way, including changes that end at the marker's\n      start or start at the marker's end. This is the most fragile strategy.\n  * `exclusive` (optional) {Boolean} indicating whether insertions at the\n    start or end of the marked range should be interpreted as happening\n    *outside* the marker. Defaults to `false`, except when using the\n    `inside` invalidation strategy or when the marker has no tail, in\n    which case it defaults to true. Explicitly assigning this option\n    overrides behavior in all circumstances.\n\nReturns a {Marker}.",
-          "line": 1238
+          "line": 1251
         },
         {
           "name": "getMarkers",
@@ -8315,7 +8315,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Get all existing markers on the default marker layer.\n\nReturns an {Array} of {Marker}s.",
-          "line": 1245
+          "line": 1258
         },
         {
           "name": "getMarker",
@@ -8326,7 +8326,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Get an existing marker by its id from the default marker layer.\n\n* `id` {Number} id of the marker to retrieve\n\nReturns a {Marker}.",
-          "line": 1254
+          "line": 1267
         },
         {
           "name": "findMarkers",
@@ -8337,7 +8337,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Find markers conforming to the given parameters in the default\nmarker layer.\n\nMarkers are sorted based on their position in the buffer. If two markers\nstart at the same position, the larger marker comes first.\n\n* `params` A hash of key-value pairs constraining the set of returned markers. You\n  can query against custom marker properties by listing the desired\n  key-value pairs here. In addition, the following keys are reserved and\n  have special semantics:\n  * `startPosition` Only include markers that start at the given {Point}.\n  * `endPosition` Only include markers that end at the given {Point}.\n  * `startsInRange` Only include markers that start inside the given {Range}.\n  * `endsInRange` Only include markers that end inside the given {Range}.\n  * `containsPoint` Only include markers that contain the given {Point}, inclusive.\n  * `containsRange` Only include markers that contain the given {Range}, inclusive.\n  * `startRow` Only include markers that start at the given row {Number}.\n  * `endRow` Only include markers that end at the given row {Number}.\n  * `intersectsRow` Only include markers that intersect the given row {Number}.\n\nReturns an {Array} of {Marker}s.",
-          "line": 1279
+          "line": 1292
         },
         {
           "name": "getMarkerCount",
@@ -8348,7 +8348,7 @@
           "category": "Markers",
           "visibility": "Public",
           "description": "Get the number of markers in the default marker layer.\n\nReturns a {Number}.",
-          "line": 1286
+          "line": 1299
         },
         {
           "name": "undo",
@@ -8359,7 +8359,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Undo the last operation. If a transaction is in progress, aborts it.\n\n* `options` (optional) {Object}\n  * `selectionsMarkerLayer` (optional)\n    Restore snapshot of selections marker layer to given selectionsMarkerLayer.\n\nReturns a {Boolean} of whether or not a change was made.",
-          "line": 1343
+          "line": 1356
         },
         {
           "name": "redo",
@@ -8370,7 +8370,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Redo the last operation\n\n* `options` (optional) {Object}\n  * `selectionsMarkerLayer` (optional)\n    Restore snapshot of selections marker layer to given selectionsMarkerLayer.\n\nReturns a {Boolean} of whether or not a change was made.",
-          "line": 1369
+          "line": 1382
         },
         {
           "name": "transact",
@@ -8381,7 +8381,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Batch multiple operations as a single undo/redo step.\n\nAny group of operations that are logically grouped from the perspective of\nundoing and redoing should be performed in a transaction. If you want to\nabort the transaction, call {::abortTransaction} to terminate the function's\nexecution and revert any changes performed up to the abortion.\n\n* `options` (optional) {Object}\n  * `groupingInterval` (optional) The {Number} of milliseconds for which this\n    transaction should be considered 'open for grouping' after it begins. If\n    a transaction with a positive `groupingInterval` is committed while the\n    previous transaction is still open for grouping, the two transactions\n    are merged with respect to undo and redo.\n  * `selectionsMarkerLayer` (optional)\n    When provided, skip taking snapshot for other selections markerLayers except given one.\n* `groupingInterval` (optional) The {Number} of milliseconds for which this\n  transaction should be considered 'open for grouping' after it begins. If a\n  transaction with a positive `groupingInterval` is committed while the previous\n  transaction is still open for grouping, the two transactions are merged with\n  respect to undo and redo.\n* `fn` A {Function} to call inside the transaction.",
-          "line": 1409
+          "line": 1422
         },
         {
           "name": "abortTransaction",
@@ -8392,7 +8392,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Abort the currently running transaction\n\nOnly intended to be called within the `fn` option to {::transact}",
-          "line": 1455
+          "line": 1468
         },
         {
           "name": "clearUndoStack",
@@ -8403,7 +8403,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Clear the undo stack.",
-          "line": 1460
+          "line": 1473
         },
         {
           "name": "createCheckpoint",
@@ -8414,7 +8414,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Create a pointer to the current state of the buffer for use\nwith {::revertToCheckpoint} and {::groupChangesSinceCheckpoint}.\n\n* `options` (optional) {Object}\n  * `selectionsMarkerLayer` (optional)\n    When provided, skip taking snapshot for other selections markerLayers except given one.\n\nReturns a checkpoint id value.",
-          "line": 1472
+          "line": 1485
         },
         {
           "name": "revertToCheckpoint",
@@ -8425,7 +8425,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Revert the buffer to the state it was in when the given\ncheckpoint was created.\n\nThe redo stack will be empty following this operation, so changes since the\ncheckpoint will be lost. If the given checkpoint is no longer present in the\nundo history, no changes will be made to the buffer and this method will\nreturn `false`.\n\n* `checkpoint` {Number} id of the checkpoint to revert to.\n* `options` (optional) {Object}\n  * `selectionsMarkerLayer` (optional)\n    Restore snapshot of selections marker layer to given selectionsMarkerLayer.\n\nReturns a {Boolean} indicating whether the operation succeeded.",
-          "line": 1493
+          "line": 1506
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -8436,7 +8436,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Group all changes since the given checkpoint into a single\ntransaction for purposes of undo/redo.\n\nIf the given checkpoint is no longer present in the undo history, no\ngrouping will be performed and this method will return `false`.\n\n* `checkpoint` {Number} id of the checkpoint to group changes since.\n* `options` (optional) {Object}\n  * `selectionsMarkerLayer` (optional)\n    When provided, skip taking snapshot for other selections markerLayers except given one.\n\nReturns a {Boolean} indicating whether the operation succeeded.",
-          "line": 1524
+          "line": 1537
         },
         {
           "name": "groupLastChanges",
@@ -8447,7 +8447,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Group the last two text changes for purposes of undo/redo.\n\nThis operation will only succeed if there are two changes on the undo\nstack. It will not group past the beginning of an open transaction.\n\nReturns a {Boolean} indicating whether the operation succeeded.",
-          "line": 1537
+          "line": 1550
         },
         {
           "name": "getChangesSinceCheckpoint",
@@ -8458,7 +8458,7 @@
           "category": "History",
           "visibility": "Public",
           "description": "Returns a list of changes since the given checkpoint.\n\nIf the given checkpoint is no longer present in the undo history, this\nmethod will return an empty {Array}.\n\n* `checkpoint` {Number} id of the checkpoint to get changes since.\n\nReturns an {Array} of {Object}s with the following fields that summarize\n the aggregated changes since the checkpoint. See *Working With Aggregated\nChanges* in the description of the {TextBuffer} class for details.\n* `oldRange` The {Range} of the deleted text in the text as it existed when\n  the checkpoint was created.\n* `newRange`: The {Range} of the inserted text in the current text.\n* `oldText`: A {String} representing the deleted text.\n* `newText`: A {String} representing the inserted text.",
-          "line": 1556
+          "line": 1569
         },
         {
           "name": "scan",
@@ -8469,7 +8469,7 @@
           "category": "Search And Replace",
           "visibility": "Public",
           "description": "Scan regular expression matches in the entire buffer, calling the\ngiven iterator function on each match.\n\nIf you're programmatically modifying the results, you may want to try\n{::backwardsScan} to avoid tripping over your own changes.\n\n* `regex` A {RegExp} to search for.\n* `options` (optional) {Object}\n  * `leadingContextLineCount` {Number} default `0`; The number of lines before the\n     matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines after the\n     matched line to include in the results object.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.\n  * `leadingContextLines` An {Array} with `leadingContextLineCount` lines before the match.\n  * `trailingContextLines` An {Array} with `trailingContextLineCount` lines after the match.",
-          "line": 1590
+          "line": 1603
         },
         {
           "name": "backwardsScan",
@@ -8480,7 +8480,7 @@
           "category": "Search And Replace",
           "visibility": "Public",
           "description": "Scan regular expression matches in the entire buffer in reverse\norder, calling the given iterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `options` (optional) {Object}\n  * `leadingContextLineCount` {Number} default `0`; The number of lines before the\n     matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines after the\n     matched line to include in the results object.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.\n  * `leadingContextLines` An {Array} with `leadingContextLineCount` lines before the match.\n  * `trailingContextLines` An {Array} with `trailingContextLineCount` lines after the match.",
-          "line": 1617
+          "line": 1630
         },
         {
           "name": "scanInRange",
@@ -8491,7 +8491,7 @@
           "category": "Search And Replace",
           "visibility": "Public",
           "description": "Scan regular expression matches in a given range , calling the given\niterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} in which to search.\n* `options` (optional) {Object}\n  * `leadingContextLineCount` {Number} default `0`; The number of lines before the\n     matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines after the\n     matched line to include in the results object.\n* `callback` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.\n  * `leadingContextLines` An {Array} with `leadingContextLineCount` lines before the match.\n  * `trailingContextLines` An {Array} with `trailingContextLineCount` lines after the match.",
-          "line": 1645
+          "line": 1658
         },
         {
           "name": "backwardsScanInRange",
@@ -8502,7 +8502,7 @@
           "category": "Search And Replace",
           "visibility": "Public",
           "description": "Scan regular expression matches in a given range in reverse order,\ncalling the given iterator function on each match.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} in which to search.\n* `options` (optional) {Object}\n  * `leadingContextLineCount` {Number} default `0`; The number of lines before the\n     matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines after the\n     matched line to include in the results object.\n* `iterator` A {Function} that's called on each match with an {Object}\n  containing the following keys:\n  * `match` The current regular expression match.\n  * `matchText` A {String} with the text of the match.\n  * `range` The {Range} of the match.\n  * `stop` Call this {Function} to terminate the scan.\n  * `replace` Call this {Function} with a {String} to replace the match.",
-          "line": 1708
+          "line": 1721
         },
         {
           "name": "replace",
@@ -8513,7 +8513,7 @@
           "category": "Search And Replace",
           "visibility": "Public",
           "description": "Replace all regular expression matches in the entire buffer.\n\n* `regex` A {RegExp} representing the matches to be replaced.\n* `replacementText` A {String} representing the text to replace each match.\n\nReturns a {Number} representing the number of replacements made.",
-          "line": 1723
+          "line": 1736
         },
         {
           "name": "find",
@@ -8524,7 +8524,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Asynchronously search the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n\nReturns a {Promise} that resolves with the first {Range} of text that\nmatches the given regex.",
-          "line": 1747
+          "line": 1760
         },
         {
           "name": "findInRange",
@@ -8535,7 +8535,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Asynchronously search a given range of the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} to search within.\n\nReturns a {Promise} that resolves with the first {Range} of text that\nmatches the given regex.",
-          "line": 1758
+          "line": 1771
         },
         {
           "name": "findSync",
@@ -8546,7 +8546,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Search the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n\nReturns the first {Range} of text that matches the given regex.",
-          "line": 1767
+          "line": 1780
         },
         {
           "name": "findInRangeSync",
@@ -8557,7 +8557,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Search a given range of the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} to search within.\n\nReturns the first {Range} of text that matches the given regex.",
-          "line": 1777
+          "line": 1790
         },
         {
           "name": "findAll",
@@ -8568,7 +8568,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Asynchronously search the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n\nReturns a {Promise} that resolves with an {Array} containing every\n{Range} of text that matches the given regex.",
-          "line": 1787
+          "line": 1800
         },
         {
           "name": "findAllInRange",
@@ -8579,7 +8579,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Asynchronously search a given range of the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} to search within.\n\nReturns a {Promise} that resolves with an {Array} containing every\n{Range} of text that matches the given regex.",
-          "line": 1798
+          "line": 1811
         },
         {
           "name": "findAllSync",
@@ -8590,7 +8590,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Run an regexp search on the buffer\n\n* `regex` A {RegExp} to search for.\n\nReturns an {Array} containing every {Range} of text that matches the given\nregex.",
-          "line": 1808
+          "line": 1821
         },
         {
           "name": "findAllInRangeSync",
@@ -8601,7 +8601,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Search a given range of the buffer for a given regex.\n\n* `regex` A {RegExp} to search for.\n* `range` A {Range} to search within.\n\nReturns an {Array} containing every {Range} of text that matches the given\nregex.",
-          "line": 1819
+          "line": 1832
         },
         {
           "name": "findAndMarkAllInRangeSync",
@@ -8612,7 +8612,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Search a given range of the buffer for a given regex. Store\nthe matching ranges in the given marker layer.\n\n* `markerLayer` A {MarkerLayer} to populate.\n* `regex` A {RegExp} to search for.\n* `range` A {Range} to search within.\n\nReturns an {Array} of {Marker}s representing the matches.",
-          "line": 1831
+          "line": 1844
         },
         {
           "name": "findWordsWithSubsequence",
@@ -8623,7 +8623,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Find fuzzy match suggestions in the buffer\n\n* `query` A {String} to search for.\n* `extraWordCharacters` A {String} of additional word characters to use when\n   deciphering word boundaries\n* `maxCount` A {Number} that limits the number of matches returned\n\nReturns an {Array} containing every {SubsequenceMatch} of text that matches the given\nquery.",
-          "line": 1859
+          "line": 1872
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -8634,7 +8634,7 @@
           "category": "Search And Replace",
           "visibility": "Experimental",
           "description": "Find fuzzy match suggestions in the buffer in a given range\n\n* `query` A {String} to search for.\n* `extraWordCharacters` A {String} of additional word characters to use when\n   deciphering word boundaries\n* `maxCount` A {Number} that limits the number of matches returned\n* `range` A {Range} that specifies the portion of the buffer to search\n\nReturns an {Array} containing every {SubsequenceMatch} of text that matches the given\nquery in the given range.",
-          "line": 1873
+          "line": 1886
         },
         {
           "name": "getRange",
@@ -8645,7 +8645,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the range spanning from `[0, 0]` to {::getEndPosition}.\n\nReturns a {Range}.",
-          "line": 1884
+          "line": 1897
         },
         {
           "name": "getLineCount",
@@ -8656,7 +8656,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the number of lines in the buffer.\n\nReturns a {Number}.",
-          "line": 1891
+          "line": 1904
         },
         {
           "name": "getLastRow",
@@ -8667,7 +8667,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the last 0-indexed row in the buffer.\n\nReturns a {Number}.",
-          "line": 1898
+          "line": 1911
         },
         {
           "name": "getFirstPosition",
@@ -8678,7 +8678,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the first position in the buffer, which is always `[0, 0]`.\n\nReturns a {Point}.",
-          "line": 1905
+          "line": 1918
         },
         {
           "name": "getEndPosition",
@@ -8689,7 +8689,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the maximal position in the buffer, where new text would be\nappended.\n\nReturns a {Point}.",
-          "line": 1913
+          "line": 1926
         },
         {
           "name": "getLength",
@@ -8700,7 +8700,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the length of the buffer's text.",
-          "line": 1918
+          "line": 1931
         },
         {
           "name": "getMaxCharacterIndex",
@@ -8711,7 +8711,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the length of the buffer in characters.\n\nReturns a {Number}.",
-          "line": 1925
+          "line": 1938
         },
         {
           "name": "rangeForRow",
@@ -8722,7 +8722,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Get the range for the given row\n\n* `row` A {Number} representing a 0-indexed row.\n* `includeNewline` A {Boolean} indicating whether or not to include the\n  newline, which results in a range that extends to the start\n  of the next line. (default: `false`)\n\nReturns a {Range}.",
-          "line": 1937
+          "line": 1950
         },
         {
           "name": "characterIndexForPosition",
@@ -8733,7 +8733,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Convert a position in the buffer in row/column coordinates to an\nabsolute character offset, inclusive of line ending characters.\n\nThe position is clipped prior to translating.\n\n* `position` A {Point} or point-compatible {Array}.\n\nReturns a {Number}.",
-          "line": 1955
+          "line": 1968
         },
         {
           "name": "positionForCharacterIndex",
@@ -8744,7 +8744,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Convert an absolute character offset, inclusive of newlines, to a\nposition in the buffer in row/column coordinates.\n\nThe offset is clipped prior to translating.\n\n* `offset` A {Number}.\n\nReturns a {Point}.",
-          "line": 1967
+          "line": 1980
         },
         {
           "name": "clipRange",
@@ -8755,7 +8755,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Clip the given range so it starts and ends at valid positions.\n\nFor example, the position `[1, 100]` is out of bounds if the line at row 1 is\nonly 10 characters long, and it would be clipped to `(1, 10)`.\n\n* `range` A {Range} or range-compatible {Array} to clip.\n\nReturns the given {Range} if it is already in bounds, or a new clipped\n{Range} if the given range is out-of-bounds.",
-          "line": 1980
+          "line": 1993
         },
         {
           "name": "clipPosition",
@@ -8766,7 +8766,7 @@
           "category": "Buffer Range Details",
           "visibility": "Public",
           "description": "Clip the given point so it is at a valid position in the buffer.\n\nFor example, the position (1, 100) is out of bounds if the line at row 1 is\nonly 10 characters long, and it would be clipped to (1, 10)\n\n* `position` A {Point} or point-compatible {Array}.\n\nReturns a new {Point} if the given position is invalid, otherwise returns\nthe given position.",
-          "line": 2000
+          "line": 2013
         },
         {
           "name": "save",
@@ -8777,7 +8777,7 @@
           "category": "Buffer Operations",
           "visibility": "Public",
           "description": "Save the buffer.\n\nReturns a {Promise} that resolves when the save has completed.",
-          "line": 2034
+          "line": 2047
         },
         {
           "name": "saveAs",
@@ -8788,7 +8788,7 @@
           "category": "Buffer Operations",
           "visibility": "Public",
           "description": "Save the buffer at a specific path.\n\n* `filePath` The path to save at.\n\nReturns a {Promise} that resolves when the save has completed.",
-          "line": 2043
+          "line": 2056
         },
         {
           "name": "reload",
@@ -8799,7 +8799,7 @@
           "category": "Buffer Operations",
           "visibility": "Public",
           "description": "Reload the file's content from disk.\n\nReturns a {Promise} that resolves when the load is complete.",
-          "line": 2119
+          "line": 2132
         },
         {
           "name": "getLanguageMode",
@@ -8810,7 +8810,7 @@
           "category": "Display Layers",
           "visibility": "Experimental",
           "description": "Get the language mode associated with this buffer.\n\nReturns a language mode {Object} (See {TextBuffer::setLanguageMode} for its interface).",
-          "line": 2150
+          "line": 2163
         },
         {
           "name": "setLanguageMode",
@@ -8821,7 +8821,7 @@
           "category": "Display Layers",
           "visibility": "Experimental",
           "description": "Set the language mode for this buffer.\n\n* `languageMode` - an {Object} with the following methods:\n  * `getLanguageId` - A {Function} that returns a {String} identifying the language.\n  * `bufferDidChange` - A {Function} that is called whenever the buffer changes.\n    * `change` An {Object} with the following fields:\n      * `oldText` {String} The deleted text\n      * `oldRange` The {Range} of the deleted text before the change took place.\n      * `newText` {String} The inserted text\n      * `newRange` The {Range} of the inserted text after the change took place.\n  * `onDidChangeHighlighting` - A {Function} that takes a callback {Function} and calls it with\n    a {Range} argument whenever the syntax of a given part of the buffer is updated.\n  * `buildHighlightIterator` - A function that returns an iterator object with the following\n    methods:\n    * `seek` A {Function} that takes a {Point} and resets the iterator to that position.\n    * `moveToSuccessor` A {Function} that advances the iterator to the next token\n    * `getPosition` A {Function} that returns a {Point} representing the iterator's current\n      position in the buffer.\n    * `getCloseTags` A {Function} that returns an {Array} of {Number}s representing tokens\n       that end at the current position.\n    * `getOpenTags` A {Function} that returns an {Array} of {Number}s representing tokens\n       that begin at the current position.",
-          "line": 2176
+          "line": 2189
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -8832,7 +8832,7 @@
           "category": "Display Layers",
           "visibility": "Experimental",
           "description": "Call the given callback whenever the buffer's language mode changes.\n\n* `callback` - A {Function} to call when the language mode changes.\n  * `languageMode` - The buffer's new language mode {Object}. See {TextBuffer::setLanguageMode}\n    for its interface.\n  * `oldLanguageMode` - The buffer's old language mode {Object}. See {TextBuffer::setLanguageMode}\n    for its interface.\n\nReturns a {Disposable} that can be used to stop the callback from being called.",
-          "line": 2203
+          "line": 2216
         },
         {
           "name": "getFileWatchStartPromise",
@@ -8843,7 +8843,7 @@
           "category": "Private Utility Methods",
           "visibility": "Experimental",
           "description": "Return a {Promise} that resolves once this buffer's file\nwatcher has been armed and is delivering external-change events. Watching is\nserved asynchronously by the file-watcher worker; this lets callers wait for\nit before relying on external-change detection. Resolves immediately when the\nbuffer has no path or a custom data source that watches synchronously.",
-          "line": 2605
+          "line": 2618
         }
       ]
     },
@@ -13120,8 +13120,8 @@
           "signature": "::buildSelectList(props)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a fuzzy-searchable list shown in a modal panel.\n\nThe editor ships the implementation, so a package neither depends on it nor\npins it, and a window holds exactly one copy of it. This is a factory, not a\nshared instance: every call returns a list that owns its own panel, so a\nrenderer that throws takes down one package's list rather than all of them.\n\nThe list owns its panel. Do not call {::addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n* `props` An {Object} describing the list. The two that matter most:\n  * `items` An {Array} of the objects to show.\n  * `elementForItem` A {Function} called as `(item, options)` to render a\n    row. Return an {HTMLElement}, or an {Object} with `primary` and an\n    optional `secondary`, `icon`, `className` and `trailing` to have a row\n    built for you. `options` carries `selected`, `index`, `filterKey`,\n    `visible`, a lazily computed `matchIndices`, and `highlight(text,\n    indices)` — which wraps the matched characters of `text` in\n    `span.character-match`, defaulting to this item's own indices.\n\nReturns a {SelectListView}.",
-          "line": 1678
+          "description": "Create a fuzzy-searchable list shown in a modal panel.\n\nThe editor ships the implementation, so a package neither depends on it nor\npins it, and a window holds exactly one copy of it. This is a factory, not a\nshared instance: every call returns a list that owns its own panel, so a\nrenderer that throws takes down one package's list rather than all of them.\n\nThe list owns its panel. Do not call {::addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n* `props` An {Object} describing the list. The two that matter most:\n  * `items` An {Array} of the objects to show.\n  * `elementForItem` A {Function} called as `(item, options)` to render a\n    row. Return an {HTMLElement}, or an {Object} with `primary` and an\n    optional `secondary`, `icon`, `className` and `trailing` to have a row\n    built for you. `options` carries `selected`, `index`, `filterKey`,\n    `visible`, a lazily computed `matchIndices`, and `highlight(text,\n    indices)` — which wraps the matched characters of `text` in\n    `span.character-match`, defaulting to this item's own indices.\n\nThe list shows one message at a time above the rows, from three props in\nprecedence order — `loadingMessage` (rendered with a spinner, and with\n`loadingBadge` beside it), then `status`, then `infoMessage`. A `status` is\n`{type, message, duration, sticky}`: `type` is `'info'`, `'warning'` or\n`'error'`, `duration` clears it after that many milliseconds, and it is\ncleared on the next query change unless `sticky`. It covers the resting\n`infoMessage` rather than replacing it, so clearing it needs nothing put\nback. `emptyMessage` stands in for the rows when there are none, and stands\ndown while a loading or status message is showing.\n\nReturns a {SelectListView}.",
+          "line": 1688
         },
         {
           "name": "buildInputDialog",
@@ -13131,8 +13131,8 @@
           "signature": "::buildInputDialog(props)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {::buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `lumine.config`.\n\nPanel ownership is the same as {::buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n* `props` An {Object} describing the dialog, including `didConfirm(query)`,\n  `didCancel()` and `didChangeQuery(query)`.\n\nReturns an {InputDialogView}.",
-          "line": 1696
+          "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {::buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `lumine.config`.\n\nPanel ownership is the same as {::buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n* `props` An {Object} describing the dialog, including `didConfirm(query)`,\n  `didCancel()` and `didChangeQuery(query)`.\n\nThe message line works exactly as in {::buildSelectList}, minus\n`emptyMessage`: a validation failure is `status: {type: 'error', message}`,\nand the dialog clears it on the next keystroke by itself.\n\nReturns an {InputDialogView}.",
+          "line": 1710
         },
         {
           "name": "popModal",
@@ -13143,7 +13143,7 @@
           "category": "Modal flow",
           "visibility": "Essential",
           "description": "Go back one step in the modal breadcrumb trail.\n\nA trail exists while a modal shown with {Panel::show}'s `crumb` option is\non screen. Going back hides the current step — without cancelling it —\nand re-shows the previous panel with its state intact. Bound to\nShift-Escape as `modal:go-back`; Escape still cancels the visible modal,\nwhich ends the whole trail.\n\nReturns a {Boolean} — `false` when there is no step to go back to.",
-          "line": 1723
+          "line": 1737
         },
         {
           "name": "popModalTo",
@@ -13154,7 +13154,7 @@
           "category": "Modal flow",
           "visibility": "Essential",
           "description": "Jump back to an earlier step of the modal breadcrumb trail.\n\n* `index` The zero-based trail position to return to, as reported by\n  {::getModalTrail}. The breadcrumb strip wires its crumbs to this.\n\nReturns a {Boolean} — `false` when the index is not an earlier step.",
-          "line": 1733
+          "line": 1747
         },
         {
           "name": "getModalTrail",
@@ -13165,7 +13165,7 @@
           "category": "Modal flow",
           "visibility": "Essential",
           "description": "The current modal breadcrumb trail.\n\nReturns an {Array} of {String} labels, root first; empty when no flow is\nactive.",
-          "line": 1741
+          "line": 1755
         },
         {
           "name": "onDidChangeModalTrail",
@@ -13176,7 +13176,7 @@
           "category": "Modal flow",
           "visibility": "Extended",
           "description": "Invoke the given callback whenever the modal breadcrumb trail\nchanges — a step is entered, the flow goes back, or the trail ends.\n\n* `callback` {Function} receiving the trail as {::getModalTrail} reports\n  it.\n\nReturns a {Disposable} on which `.dispose()` can be called to unsubscribe.",
-          "line": 1752
+          "line": 1766
         },
         {
           "name": "reopenItem",
@@ -13187,7 +13187,7 @@
           "category": "Modal flow",
           "visibility": "Public",
           "description": "Asynchronously reopens the last-closed item's URI if it hasn't already been\nreopened.\n\nReturns a {Promise} that is resolved when the item is opened",
-          "line": 1760
+          "line": 1774
         },
         {
           "name": "addOpener",
@@ -13198,7 +13198,7 @@
           "category": "Modal flow",
           "visibility": "Public",
           "description": "Register an opener for a uri.\n\nWhen a URI is opened via {Workspace::open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {ViewRegistry}.\nA {TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\nlumine.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n* `opener` A {Function} to be called when a path is being opened.\n\nReturns a {Disposable} on which `.dispose()` can be called to remove the\nopener.\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{Workspace::open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json` containing an array of URL\nstrings.",
-          "line": 1802
+          "line": 1816
         },
         {
           "name": "getPaneItems",
@@ -13209,7 +13209,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all pane items in the workspace.\n\nReturns an {Array} of items.",
-          "line": 1820
+          "line": 1834
         },
         {
           "name": "getActivePaneItem",
@@ -13220,7 +13220,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the active {Pane}'s active item.\n\nReturns a pane item {Object}.",
-          "line": 1827
+          "line": 1841
         },
         {
           "name": "getTextEditors",
@@ -13231,7 +13231,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get all text editors in the workspace, if they are pane items.\n\nReturns an {Array} of {TextEditor}s.",
-          "line": 1834
+          "line": 1848
         },
         {
           "name": "getActiveTextEditor",
@@ -13242,7 +13242,7 @@
           "category": "Pane Items",
           "visibility": "Essential",
           "description": "Get the workspace center's active item if it is a {TextEditor}.\n\nReturns a {TextEditor} or `undefined` if the workspace center's current\nactive item is not a {TextEditor}.",
-          "line": 1859
+          "line": 1873
         },
         {
           "name": "saveActivePaneItem",
@@ -13253,7 +13253,7 @@
           "category": "Pane Items",
           "visibility": "Extended",
           "description": "Save the workspace center's active pane item.\n\nIf the item has a URI according to its `.getURI` method, calls `.save` on\nit; otherwise {::saveActivePaneItemAs} is called instead. Does nothing when\nthe item implements no `.save` method.\n\nTargets the center rather than the focused pane container, for the reason\ngiven on {::destroyActivePaneItem}.",
-          "line": 1885
+          "line": 1899
         },
         {
           "name": "saveActivePaneItemAs",
@@ -13264,7 +13264,7 @@
           "category": "Pane Items",
           "visibility": "Extended",
           "description": "Prompt for a path and save the workspace center's active pane\nitem to it.\n\nOpens a native dialog where the user selects a path on disk, then calls\n`.saveAs` on the item with the selected path. Does nothing when the item\nimplements no `.saveAs` method.\n\nTargets the center rather than the focused pane container, for the reason\ngiven on {::destroyActivePaneItem}.",
-          "line": 1898
+          "line": 1912
         },
         {
           "name": "destroyActivePaneItem",
@@ -13275,7 +13275,7 @@
           "category": "Pane Items",
           "visibility": "Extended",
           "description": "Destroy (close) the active pane item.\n\nRemoves the active pane item and calls its `.destroy` method if it has one.\n\nThis one resolves through the *active pane container*, so it closes the\nfocused dock's item while a dock has focus. That pairs it with\n{::getActivePaneItem} and {::getActivePane}, which resolve the same way, and\nis what a package wants when it has already inspected the active item and\ndecided to close it.\n\nIts neighbours here deliberately differ: {::saveActivePaneItem},\n{::saveActivePaneItemAs} and {::closeActivePaneItemOrEmptyPaneOrWindow} are\npinned to the workspace center. They back `core:save`, `core:save-as` and\n`core:close`, whose keystrokes fire from anywhere in the window, so\nfollowing focus would make Ctrl-S in a search field or a dock try to save\nthat instead of the document being edited.",
-          "line": 1918
+          "line": 1932
         },
         {
           "name": "getActivePaneContainer",
@@ -13286,7 +13286,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the most recently focused pane container.\n\nReturns a {Dock} or the {WorkspaceCenter}.",
-          "line": 1929
+          "line": 1943
         },
         {
           "name": "getPanes",
@@ -13297,7 +13297,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get all panes in the workspace.\n\nReturns an {Array} of {Pane}s.",
-          "line": 1936
+          "line": 1950
         },
         {
           "name": "getActivePane",
@@ -13308,7 +13308,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the active {Pane}.\n\nReturns a {Pane}.",
-          "line": 1947
+          "line": 1961
         },
         {
           "name": "activateNextPane",
@@ -13319,7 +13319,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the next pane active.",
-          "line": 1952
+          "line": 1966
         },
         {
           "name": "activatePreviousPane",
@@ -13330,7 +13330,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Make the previous pane active.",
-          "line": 1957
+          "line": 1971
         },
         {
           "name": "paneContainerForURI",
@@ -13341,7 +13341,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains an item with the given\nURI.\n\n* `uri` {String} uri\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no item exists\nwith the given URI.",
-          "line": 1968
+          "line": 1982
         },
         {
           "name": "paneContainerForItem",
@@ -13352,7 +13352,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first pane container that contains the given item.\n\n* `item` the Item that the returned pane container must contain.\n\nReturns a {Dock}, the {WorkspaceCenter}, or `undefined` if no pane container\ncontains the given item.",
-          "line": 1978
+          "line": 1992
         },
         {
           "name": "paneForURI",
@@ -13363,7 +13363,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the first {Pane} that contains an item with the given URI.\n\n* `uri` {String} uri\n\nReturns a {Pane} or `undefined` if no item exists with the given URI.",
-          "line": 1987
+          "line": 2001
         },
         {
           "name": "paneForItem",
@@ -13374,7 +13374,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Get the {Pane} containing the given item.\n\n* `item` the Item that the returned pane must contain.\n\nReturns a {Pane} or `undefined` if no pane exists for the given item.",
-          "line": 2001
+          "line": 2015
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -13385,7 +13385,7 @@
           "category": "Panes",
           "visibility": "Extended",
           "description": "Close the workspace center's active pane item, or its active pane\nif that pane is empty, or the window if only the empty root pane is left.\n\nTargets the center rather than the focused pane container, for the reason\ngiven on {::destroyActivePaneItem}.",
-          "line": 2023
+          "line": 2037
         },
         {
           "name": "getCenter",
@@ -13396,7 +13396,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {WorkspaceCenter} at the center of the editor window.",
-          "line": 2098
+          "line": 2112
         },
         {
           "name": "getLeftDock",
@@ -13407,7 +13407,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the left of the editor window.",
-          "line": 2103
+          "line": 2117
         },
         {
           "name": "getRightDock",
@@ -13418,7 +13418,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} to the right of the editor window.",
-          "line": 2108
+          "line": 2122
         },
         {
           "name": "getBottomDock",
@@ -13429,7 +13429,7 @@
           "category": "Pane Locations",
           "visibility": "Essential",
           "description": "Get the {Dock} below the editor window.",
-          "line": 2113
+          "line": 2127
         },
         {
           "name": "getBottomPanels",
@@ -13440,7 +13440,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the bottom of the editor window.",
-          "line": 2148
+          "line": 2162
         },
         {
           "name": "addBottomPanel",
@@ -13451,7 +13451,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the bottom of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2164
+          "line": 2178
         },
         {
           "name": "getLeftPanels",
@@ -13462,7 +13462,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the left of the editor window.",
-          "line": 2169
+          "line": 2183
         },
         {
           "name": "addLeftPanel",
@@ -13473,7 +13473,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the left of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2185
+          "line": 2199
         },
         {
           "name": "getRightPanels",
@@ -13484,7 +13484,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items to the right of the editor window.",
-          "line": 2190
+          "line": 2204
         },
         {
           "name": "addRightPanel",
@@ -13495,7 +13495,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the right of the editor window.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2206
+          "line": 2220
         },
         {
           "name": "getTopPanels",
@@ -13506,7 +13506,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items at the top of the editor window.",
-          "line": 2211
+          "line": 2225
         },
         {
           "name": "addTopPanel",
@@ -13517,7 +13517,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the top of the editor window above the tabs.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2227
+          "line": 2241
         },
         {
           "name": "getHeaderPanels",
@@ -13528,7 +13528,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the header.",
-          "line": 2232
+          "line": 2246
         },
         {
           "name": "addHeaderPanel",
@@ -13539,7 +13539,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the header.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2248
+          "line": 2262
         },
         {
           "name": "getFooterPanels",
@@ -13550,7 +13550,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the panel items in the footer.",
-          "line": 2253
+          "line": 2267
         },
         {
           "name": "addFooterPanel",
@@ -13561,7 +13561,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item to the footer.\n\n* `options` {Object}\n  * `item` Your panel content. It can be DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    latter. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n\nReturns a {Panel}",
-          "line": 2269
+          "line": 2283
         },
         {
           "name": "getModalPanels",
@@ -13572,7 +13572,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Get an {Array} of all the modal panel items",
-          "line": 2274
+          "line": 2288
         },
         {
           "name": "addModalPanel",
@@ -13583,7 +13583,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Adds a panel item as a modal dialog.\n\n* `options` {Object}\n  * `item` Your panel content. It can be a DOM element, a jQuery element, or\n    a model with a view registered via {ViewRegistry::addViewProvider}. We recommend the\n    model option. See {ViewRegistry::addViewProvider} for more information.\n  * `visible` (optional) {Boolean} false if you want the panel to initially be hidden\n    (default: true)\n  * `priority` (optional) {Number} Determines stacking order. Lower priority items are\n    forced closer to the edges of the window. (default: 100)\n  * `autoFocus` (optional) {Boolean|Element} true if you want modal focus managed for you by Lumine.\n    Lumine will automatically focus on this element or your modal panel's first tabbable element when the modal\n    opens and will restore the previously selected element when the modal closes. Lumine will\n    also automatically restrict user tab focus within your modal while it is open.\n    (default: false)\n  * `restoreFocus` (optional) {Boolean} false if you want to manage focus restoration\n    yourself. By default, when a modal panel is hidden, focus returns to the element\n    that was focused before the modal opened — or, for chained modals, before the\n    first modal in the chain opened. (default: true)\n  * `crumb` (optional) {String} the label this panel carries on the modal\n    breadcrumb trail. Used when the panel is shown as a flow step without\n    an explicit label — `panel.show({crumb: true})` — and when a step\n    shown on top of this panel adopts it as the trail root. See\n    {Panel::show}.\n\nReturns a {Panel}",
-          "line": 2304
+          "line": 2318
         },
         {
           "name": "panelForItem",
@@ -13594,7 +13594,7 @@
           "category": "Panels",
           "visibility": "Essential",
           "description": "Returns the {Panel} associated with the given item. Returns\n`null` when the item has no panel.\n\n* `item` Item the panel contains",
-          "line": 2312
+          "line": 2326
         },
         {
           "name": "scan",
@@ -13605,7 +13605,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a search across all files in the workspace.\n\n* `regex` {RegExp} to search with.\n* `options` (optional) {Object}\n  * `paths` An {Array} of glob patterns to search within. (See note below for multi-root projects.)\n  * `includeVcsIgnoredPaths` {Boolean} default `false`; Whether to include\n    paths excluded by VCS ignore files, regardless of the core preference.\n  * `onPathsSearched` (optional) {Function} to be periodically called\n    with number of paths searched.\n  * `leadingContextLineCount` {Number} default `0`; The number of lines\n     before the matched line to include in the results object.\n  * `trailingContextLineCount` {Number} default `0`; The number of lines\n     after the matched line to include in the results object.\n* `iterator` {Function} callback on each file found.\n\nReturns a {Promise} with a `cancel()` method that will cancel all\nof the underlying searches that were started as part of this scan.\n\n#### Caveats\n\nWhen a project has multiple roots, the patterns in `options.paths` may opt\ninto or out of specific roots.\n\nFor instance: when only one root is present, `'foo/bar.js'` is construed\nas a glob meant to match `<root>/foo/bar.js`; when multiple roots are\npresent and at least one project root has a base directory name of `foo`,\nthen `foo/bar.js` is construed as a glob meant only for root `foo` and\nmeant to match `bar.js`.",
-          "line": 2372
+          "line": 2386
         },
         {
           "name": "replace",
@@ -13616,7 +13616,7 @@
           "category": "Searching and Replacing",
           "visibility": "Public",
           "description": "Performs a replace across all the specified files in the project.\n\n* `regex` A {RegExp} to search with.\n* `replacementText` {String} to replace all matches of regex with.\n* `filePaths` An {Array} of file path strings to run the replace on.\n* `iterator` A {Function} callback on each file with replacements:\n  * `options` {Object} with keys `filePath` and `replacements`.\n\nReturns a {Promise}.",
-          "line": 2689
+          "line": 2703
         },
         {
           "name": "filePathMatchesPatterns",
@@ -13627,7 +13627,7 @@
           "category": "Searching and Replacing",
           "visibility": "Experimental",
           "description": "Tests the path of a file in the project against a set of\nglobs (using the same semantics as {::scan}) and reports whether the file\nsatisfies the patterns.\n\nInternally, this method is used to decide if a search result should be\nadded to a list of project-wide search results.\n\n* `filePath` {String} representing the absolute path to a file in the\n  project. (Any external path will automatically return `false`.)\n* `rawPatterns` {Array} of strings that describe glob patterns. Identical to\n  (and uses the same glob semantics as) the `options.paths` argument of\n  {::scan}.\n\nReturns a boolean indicating whether the given file path would be included\nin a project-wide search if the given path patterns were specified.",
-          "line": 2760
+          "line": 2774
         }
       ]
     },
