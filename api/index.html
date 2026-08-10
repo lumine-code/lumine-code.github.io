@@ -20846,12 +20846,29 @@ the following are the supported decorations types:
   * `avoidoverflow` (optional) only applicable to decorations of type
      `overlay`. determines whether the decoration adjusts its horizontal or
      vertical position to remain fully visible when it would otherwise
-     overflow the editor. defaults to `true`.
+     overflow the editor. defaults to `true`. an overlay that opts out is
+     neither moved by nor an obstacle to the placement described below.
+  * `side` (optional) only applicable to decorations of type `overlay`. the
+     side of the line the overlay asks for, `'above'` or `'below'` (the
+     default). it is a request, not a guarantee: an overlay takes the other
+     side when the one it asked for will not fit the window or is already
+     taken, and the side it ended up on is reported back on the wrapper as
+     `data-overlay-position`.
+  * `priority` (optional) only applicable to decorations of type `overlay`.
+     when several overlays want the same side of the same line, the higher
+     priority chooses first and the others work around it; it also decides
+     which one paints on top. defaults to `0`. the convention across the
+     bundled packages is `autocomplete` 2, `intentions` 1, `hover` 0.
+
+     an overlay that can have neither side — the one it asked for is taken,
+     the other will not fit — is pushed clear of whatever is in its way
+     rather than drawn over it, and the wrapper is marked
+     `data-overlay-displaced` to say it is no longer touching its line.
 
 returns the created {decoration} object.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-decoratemarker" aria-label="Link to ::decorateMarker(marker, decorationParams)">#</a><code>::decorateMarker(marker, decorationParams)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2846" title="src/text-editor.js:2846">L2846</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2863" title="src/text-editor.js:2863">L2863</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a decoration that tracks a <a class="api-type" href="#class-displaymarker">DisplayMarker</a>. When the
 marker moves, is invalidated, or is destroyed, the decoration will be
@@ -20893,40 +20910,82 @@ exist in the model by passing a marker that isn’t associated with a real curso
 <li><code>decorationParams</code> An <code class="api-type">Object</code> representing the decoration e.g.
 <code>{type: 'line-number', class: 'linter-error'}</code>
 <ul>
-<li><code>type</code> Determines the behavior and appearance of this <a class="api-type" href="#class-decoration">Decoration</a>. Supported decoration types
-and their uses are listed above.</li>
-<li><code>class</code> This CSS class will be applied to the decorated line number,
-line, text spans, highlight regions, cursors, or overlay.</li>
-<li><code>style</code> An <code class="api-type">Object</code> containing CSS style properties to apply to the
+<li>
+<p><code>type</code> Determines the behavior and appearance of this <a class="api-type" href="#class-decoration">Decoration</a>. Supported decoration types
+and their uses are listed above.</p>
+</li>
+<li>
+<p><code>class</code> This CSS class will be applied to the decorated line number,
+line, text spans, highlight regions, cursors, or overlay.</p>
+</li>
+<li>
+<p><code>style</code> An <code class="api-type">Object</code> containing CSS style properties to apply to the
 relevant DOM node. Currently this only works with a <code>type</code> of <code>cursor</code>
-or <code>text</code>.</li>
-<li><code>item</code> (optional) An <code class="api-type">HTMLElement</code> or a model <code class="api-type">Object</code> with a
+or <code>text</code>.</p>
+</li>
+<li>
+<p><code>item</code> (optional) An <code class="api-type">HTMLElement</code> or a model <code class="api-type">Object</code> with a
 corresponding view registered. Only applicable to the <code>gutter</code>,
-<code>overlay</code> and <code>block</code> decoration types.</li>
-<li><code>onlyHead</code> (optional) If <code>true</code>, the decoration will only be applied to
+<code>overlay</code> and <code>block</code> decoration types.</p>
+</li>
+<li>
+<p><code>onlyHead</code> (optional) If <code>true</code>, the decoration will only be applied to
 the head of the <code>DisplayMarker</code>. Only applicable to the <code>line</code> and
-<code>line-number</code> decoration types.</li>
-<li><code>onlyEmpty</code> (optional) If <code>true</code>, the decoration will only be applied if
+<code>line-number</code> decoration types.</p>
+</li>
+<li>
+<p><code>onlyEmpty</code> (optional) If <code>true</code>, the decoration will only be applied if
 the associated <code>DisplayMarker</code> is empty. Only applicable to the <code>gutter</code>,
-<code>line</code>, and <code>line-number</code> decoration types.</li>
-<li><code>onlyNonEmpty</code> (optional) If <code>true</code>, the decoration will only be applied
+<code>line</code>, and <code>line-number</code> decoration types.</p>
+</li>
+<li>
+<p><code>onlyNonEmpty</code> (optional) If <code>true</code>, the decoration will only be applied
 if the associated <code>DisplayMarker</code> is non-empty. Only applicable to the
-<code>gutter</code>, <code>line</code>, and <code>line-number</code> decoration types.</li>
-<li><code>omitEmptyLastRow</code> (optional) If <code>false</code>, the decoration will be applied
+<code>gutter</code>, <code>line</code>, and <code>line-number</code> decoration types.</p>
+</li>
+<li>
+<p><code>omitEmptyLastRow</code> (optional) If <code>false</code>, the decoration will be applied
 to the last row of a non-empty range, even if it ends at column 0.
 Defaults to <code>true</code>. Only applicable to the <code>gutter</code>, <code>line</code>, and
-<code>line-number</code> decoration types.</li>
-<li><code>position</code> (optional) Only applicable to decorations of type <code>overlay</code> and <code>block</code>.
+<code>line-number</code> decoration types.</p>
+</li>
+<li>
+<p><code>position</code> (optional) Only applicable to decorations of type <code>overlay</code> and <code>block</code>.
 Controls where the view is positioned relative to the <code>TextEditorMarker</code>.
 Values can be <code>'head'</code> (the default) or <code>'tail'</code> for overlay decorations, and
-<code>'before'</code> (the default) or <code>'after'</code> for block decorations.</li>
-<li><code>order</code> (optional) Only applicable to decorations of type <code>block</code>. Controls
+<code>'before'</code> (the default) or <code>'after'</code> for block decorations.</p>
+</li>
+<li>
+<p><code>order</code> (optional) Only applicable to decorations of type <code>block</code>. Controls
 where the view is positioned relative to other block decorations at the
-same screen row. If unspecified, block decorations render oldest to newest.</li>
-<li><code>avoidOverflow</code> (optional) Only applicable to decorations of type
+same screen row. If unspecified, block decorations render oldest to newest.</p>
+</li>
+<li>
+<p><code>avoidOverflow</code> (optional) Only applicable to decorations of type
 <code>overlay</code>. Determines whether the decoration adjusts its horizontal or
 vertical position to remain fully visible when it would otherwise
-overflow the editor. Defaults to <code>true</code>.</li>
+overflow the editor. Defaults to <code>true</code>. An overlay that opts out is
+neither moved by nor an obstacle to the placement described below.</p>
+</li>
+<li>
+<p><code>side</code> (optional) Only applicable to decorations of type <code>overlay</code>. The
+side of the line the overlay asks for, <code>'above'</code> or <code>'below'</code> (the
+default). It is a request, not a guarantee: an overlay takes the other
+side when the one it asked for will not fit the window or is already
+taken, and the side it ended up on is reported back on the wrapper as
+<code>data-overlay-position</code>.</p>
+</li>
+<li>
+<p><code>priority</code> (optional) Only applicable to decorations of type <code>overlay</code>.
+When several overlays want the same side of the same line, the higher
+priority chooses first and the others work around it; it also decides
+which one paints on top. Defaults to <code>0</code>. The convention across the
+bundled packages is <code>autocomplete</code> 2, <code>intentions</code> 1, <code>hover</code> 0.</p>
+<p>An overlay that can have neither side — the one it asked for is taken,
+the other will not fit — is pushed clear of whatever is in its way
+rather than drawn over it, and the wrapper is marked
+<code>data-overlay-displaced</code> to say it is no longer touching its line.</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -20945,7 +21004,7 @@ manage many individual decorations.
 returns a {layerdecoration}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-decoratemarkerlayer" aria-label="Link to ::decorateMarkerLayer(markerLayer, decorationParams)">#</a><code>::decorateMarkerLayer(markerLayer, decorationParams)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2859" title="src/text-editor.js:2859">L2859</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2876" title="src/text-editor.js:2876">L2876</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a decoration to every marker in the given marker layer. Can
 be used to decorate a large number of markers without having to create and
@@ -20967,7 +21026,7 @@ manage many individual decorations.</p>
 returns an {array} of {decoration}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getdecorations" aria-label="Link to ::getDecorations(propertyFilter)">#</a><code>::getDecorations(propertyFilter)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2888" title="src/text-editor.js:2888">L2888</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2905" title="src/text-editor.js:2905">L2905</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all decorations.</p>
 <ul>
@@ -20986,7 +21045,7 @@ the returned decorations’ properties must match.</li>
 returns an {array} of {decoration}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getlinedecorations" aria-label="Link to ::getLineDecorations(propertyFilter)">#</a><code>::getLineDecorations(propertyFilter)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2898" title="src/text-editor.js:2898">L2898</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2915" title="src/text-editor.js:2915">L2915</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all decorations of type ‘line’.</p>
 <ul>
@@ -21005,7 +21064,7 @@ the returned decorations’ properties must match.</li>
 returns an {array} of {decoration}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getlinenumberdecorations" aria-label="Link to ::getLineNumberDecorations(propertyFilter)">#</a><code>::getLineNumberDecorations(propertyFilter)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2908" title="src/text-editor.js:2908">L2908</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2925" title="src/text-editor.js:2925">L2925</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all decorations of type ‘line-number’.</p>
 <ul>
@@ -21024,7 +21083,7 @@ the returned decorations’ properties must match.</li>
 returns an {array} of {decoration}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-gethighlightdecorations" aria-label="Link to ::getHighlightDecorations(propertyFilter)">#</a><code>::getHighlightDecorations(propertyFilter)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2918" title="src/text-editor.js:2918">L2918</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2935" title="src/text-editor.js:2935">L2935</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all decorations of type ‘highlight’.</p>
 <ul>
@@ -21043,7 +21102,7 @@ the returned decorations’ properties must match.</li>
 returns an {array} of {decoration}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getoverlaydecorations" aria-label="Link to ::getOverlayDecorations(propertyFilter)">#</a><code>::getOverlayDecorations(propertyFilter)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2928" title="src/text-editor.js:2928">L2928</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2945" title="src/text-editor.js:2945">L2945</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all decorations of type ‘overlay’.</p>
 <ul>
@@ -21090,7 +21149,7 @@ over that word even if the word's location in the buffer changes.
 returns a {displaymarker}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-markbufferrange" aria-label="Link to ::markBufferRange(bufferRange, options)">#</a><code>::markBufferRange(bufferRange, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2966" title="src/text-editor.js:2966">L2966</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L2983" title="src/text-editor.js:2983">L2983</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a marker on the default marker layer with the given range
 in buffer coordinates. This marker will maintain its logical location as the
@@ -21163,7 +21222,7 @@ over that word even if the word's location in the buffer changes.
 returns a {displaymarker}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-markscreenrange" aria-label="Link to ::markScreenRange(screenRange, options)">#</a><code>::markScreenRange(screenRange, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3000" title="src/text-editor.js:3000">L3000</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3017" title="src/text-editor.js:3017">L3017</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a marker on the default marker layer with the given range
 in screen coordinates. This marker will maintain its logical location as the
@@ -21228,7 +21287,7 @@ private layer, see {::addmarkerlayer}.
 returns a {displaymarker}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-markbufferposition" aria-label="Link to ::markBufferPosition(bufferPosition, options)">#</a><code>::markBufferPosition(bufferPosition, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3026" title="src/text-editor.js:3026">L3026</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3043" title="src/text-editor.js:3043">L3043</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a marker on the default marker layer with the given buffer
 position and no tail. To group multiple markers together in their own
@@ -21290,7 +21349,7 @@ private layer, see {::addmarkerlayer}.
 returns a {displaymarker}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-markscreenposition" aria-label="Link to ::markScreenPosition(screenPosition, options)">#</a><code>::markScreenPosition(screenPosition, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3057" title="src/text-editor.js:3057">L3057</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3074" title="src/text-editor.js:3074">L3074</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a marker on the default marker layer with the given screen
 position and no tail. To group multiple markers together in their own
@@ -21352,7 +21411,7 @@ with the range of the markers rather than their properties.
 returns an {array} of {displaymarker}s">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-findmarkers" aria-label="Link to ::findMarkers(params)">#</a><code>::findMarkers(params)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3083" title="src/text-editor.js:3083">L3083</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3100" title="src/text-editor.js:3100">L3100</a></div>
                       </div>
                       <div class="api-description-body"><p>Find all <a class="api-type" href="#class-displaymarker">DisplayMarkers</a> on the default marker layer that
 match the given properties.</p>
@@ -21387,7 +21446,7 @@ marker id.
 * `id` {number} id of the marker">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getmarker" aria-label="Link to ::getMarker(id)">#</a><code>::getMarker(id)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3091" title="src/text-editor.js:3091">L3091</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3108" title="src/text-editor.js:3108">L3108</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-displaymarker">DisplayMarker</a> on the default layer for the given
 marker id.</p>
@@ -21401,7 +21460,7 @@ marker id.</p>
 using {::findmarkers}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getmarkers" aria-label="Link to ::getMarkers()">#</a><code>::getMarkers()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3097" title="src/text-editor.js:3097">L3097</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3114" title="src/text-editor.js:3114">L3114</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all <a class="api-type" href="#class-displaymarker">DisplayMarkers</a> on the default marker layer. Consider
 using <a class="api-ref" href="#texteditor-instance-findmarkers">::findMarkers</a></p>
@@ -21413,7 +21472,7 @@ using <a class="api-ref" href="#texteditor-instance-findmarkers">::findMarkers</
 returns a {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getmarkercount" aria-label="Link to ::getMarkerCount()">#</a><code>::getMarkerCount()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3104" title="src/text-editor.js:3104">L3104</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3121" title="src/text-editor.js:3121">L3121</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the number of markers in the default marker layer.</p>
 <p>Returns a <code class="api-type">Number</code>.</p>
@@ -21434,7 +21493,7 @@ returns a {number}.">
 returns a {displaymarkerlayer}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-addmarkerlayer" aria-label="Link to ::addMarkerLayer(options)">#</a><code>::addMarkerLayer(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3125" title="src/text-editor.js:3125">L3125</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3142" title="src/text-editor.js:3142">L3142</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a marker layer to group related markers.</p>
 <ul>
@@ -21462,7 +21521,7 @@ returns a {displaymarkerlayer} or `undefined` if no layer exists with the
 given id.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getmarkerlayer" aria-label="Link to ::getMarkerLayer(id)">#</a><code>::getMarkerLayer(id)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3135" title="src/text-editor.js:3135">L3135</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3152" title="src/text-editor.js:3152">L3152</a></div>
                       </div>
                       <div class="api-description-body"><p>Get a <a class="api-type" href="#class-displaymarkerlayer">DisplayMarkerLayer</a> by id.</p>
 <ul>
@@ -21481,7 +21540,7 @@ layer.
 returns a {displaymarkerlayer}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getdefaultmarkerlayer" aria-label="Link to ::getDefaultMarkerLayer()">#</a><code>::getDefaultMarkerLayer()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3145" title="src/text-editor.js:3145">L3145</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3162" title="src/text-editor.js:3162">L3162</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the default <a class="api-type" href="#class-displaymarkerlayer">DisplayMarkerLayer</a>.</p>
 <p>All marker APIs not tied to an explicit layer interact with this default
@@ -21500,7 +21559,7 @@ coordinates.
 returns a {point}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursorbufferposition" aria-label="Link to ::getCursorBufferPosition()">#</a><code>::getCursorBufferPosition()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3157" title="src/text-editor.js:3157">L3157</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3174" title="src/text-editor.js:3174">L3174</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the position of the most recently added cursor in buffer
 coordinates.</p>
@@ -21513,7 +21572,7 @@ coordinates.</p>
 returns {array} of {point}s in the order they were added">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursorbufferpositions" aria-label="Link to ::getCursorBufferPositions()">#</a><code>::getCursorBufferPositions()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3164" title="src/text-editor.js:3164">L3164</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3181" title="src/text-editor.js:3181">L3181</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the position of all the cursor positions in buffer coordinates.</p>
 <p>Returns <code class="api-type">Array</code> of <a class="api-type" href="#class-point">Points</a> in the order they were added</p>
@@ -21530,7 +21589,7 @@ if there are multiple cursors, they will be consolidated to a single cursor.
     position. defaults to true.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setcursorbufferposition" aria-label="Link to ::setCursorBufferPosition(position, options)">#</a><code>::setCursorBufferPosition(position, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3176" title="src/text-editor.js:3176">L3176</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3193" title="src/text-editor.js:3193">L3193</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor to the given position in buffer coordinates.</p>
 <p>If there are multiple cursors, they will be consolidated to a single cursor.</p>
@@ -21553,7 +21612,7 @@ position. Defaults to true.</li>
 returns the first matched {cursor} or undefined">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursoratscreenposition" aria-label="Link to ::getCursorAtScreenPosition(position)">#</a><code>::getCursorAtScreenPosition(position)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3185" title="src/text-editor.js:3185">L3185</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3202" title="src/text-editor.js:3202">L3202</a></div>
                       </div>
                       <div class="api-description-body"><p>Get a <a class="api-type" href="#class-cursor">Cursor</a> at given screen coordinates <a class="api-type" href="#class-point">Point</a></p>
 <ul>
@@ -21569,7 +21628,7 @@ coordinates.
 returns a {point}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursorscreenposition" aria-label="Link to ::getCursorScreenPosition()">#</a><code>::getCursorScreenPosition()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3196" title="src/text-editor.js:3196">L3196</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3213" title="src/text-editor.js:3213">L3213</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the position of the most recently added cursor in screen
 coordinates.</p>
@@ -21582,7 +21641,7 @@ coordinates.</p>
 returns {array} of {point}s in the order the cursors were added">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursorscreenpositions" aria-label="Link to ::getCursorScreenPositions()">#</a><code>::getCursorScreenPositions()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3203" title="src/text-editor.js:3203">L3203</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3220" title="src/text-editor.js:3220">L3220</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the position of all the cursor positions in screen coordinates.</p>
 <p>Returns <code class="api-type">Array</code> of <a class="api-type" href="#class-point">Points</a> in the order the cursors were added</p>
@@ -21599,7 +21658,7 @@ if there are multiple cursors, they will be consolidated to a single cursor.
     position. defaults to true.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setcursorscreenposition" aria-label="Link to ::setCursorScreenPosition(position, options)">#</a><code>::setCursorScreenPosition(position, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3215" title="src/text-editor.js:3215">L3215</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3232" title="src/text-editor.js:3232">L3232</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor to the given position in screen coordinates.</p>
 <p>If there are multiple cursors, they will be consolidated to a single cursor.</p>
@@ -21622,7 +21681,7 @@ position. Defaults to true.</li>
 returns a {cursor}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-addcursoratbufferposition" aria-label="Link to ::addCursorAtBufferPosition(bufferPosition, options)">#</a><code>::addCursorAtBufferPosition(bufferPosition, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3224" title="src/text-editor.js:3224">L3224</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3241" title="src/text-editor.js:3241">L3241</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a cursor at the given position in buffer coordinates.</p>
 <ul>
@@ -21639,7 +21698,7 @@ returns a {cursor}.">
 returns a {cursor}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-addcursoratscreenposition" aria-label="Link to ::addCursorAtScreenPosition(screenPosition, options)">#</a><code>::addCursorAtScreenPosition(screenPosition, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3237" title="src/text-editor.js:3237">L3237</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3254" title="src/text-editor.js:3254">L3254</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a cursor at the position in screen coordinates.</p>
 <ul>
@@ -21652,7 +21711,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-hasmultiplecursors" data-api-entry="texteditor hasmultiplecursors ::hasmultiplecursors() returns {boolean} indicating whether or not there are multiple cursors.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-hasmultiplecursors" aria-label="Link to ::hasMultipleCursors()">#</a><code>::hasMultipleCursors()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3246" title="src/text-editor.js:3246">L3246</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3263" title="src/text-editor.js:3263">L3263</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns <code class="api-type">Boolean</code> indicating whether or not there are multiple cursors.</p>
 </div>
@@ -21663,7 +21722,7 @@ returns a {cursor}.">
 * `linecount` (optional) {number} number of lines to move">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-moveup" aria-label="Link to ::moveUp(lineCount)">#</a><code>::moveUp(lineCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3253" title="src/text-editor.js:3253">L3253</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3270" title="src/text-editor.js:3270">L3270</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor up one row in screen coordinates.</p>
 <ul>
@@ -21677,7 +21736,7 @@ returns a {cursor}.">
 * `linecount` (optional) {number} number of lines to move">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movedown" aria-label="Link to ::moveDown(lineCount)">#</a><code>::moveDown(lineCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3260" title="src/text-editor.js:3260">L3260</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3277" title="src/text-editor.js:3277">L3277</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor down one row in screen coordinates.</p>
 <ul>
@@ -21691,7 +21750,7 @@ returns a {cursor}.">
 * `columncount` (optional) {number} number of columns to move (default: 1)">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-moveleft" aria-label="Link to ::moveLeft(columnCount)">#</a><code>::moveLeft(columnCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3267" title="src/text-editor.js:3267">L3267</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3284" title="src/text-editor.js:3284">L3284</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor left one column.</p>
 <ul>
@@ -21705,7 +21764,7 @@ returns a {cursor}.">
 * `columncount` (optional) {number} number of columns to move (default: 1)">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-moveright" aria-label="Link to ::moveRight(columnCount)">#</a><code>::moveRight(columnCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3276" title="src/text-editor.js:3276">L3276</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3293" title="src/text-editor.js:3293">L3293</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor right one column.</p>
 <ul>
@@ -21717,7 +21776,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetobeginningofline" data-api-entry="texteditor movetobeginningofline ::movetobeginningofline() move every cursor to the beginning of its line in buffer coordinates.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobeginningofline" aria-label="Link to ::moveToBeginningOfLine()">#</a><code>::moveToBeginningOfLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3283" title="src/text-editor.js:3283">L3283</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3300" title="src/text-editor.js:3300">L3300</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the beginning of its line in buffer coordinates.</p>
 </div>
@@ -21726,7 +21785,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetobeginningofscreenline" data-api-entry="texteditor movetobeginningofscreenline ::movetobeginningofscreenline() move every cursor to the beginning of its line in screen coordinates.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobeginningofscreenline" aria-label="Link to ::moveToBeginningOfScreenLine()">#</a><code>::moveToBeginningOfScreenLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3288" title="src/text-editor.js:3288">L3288</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3305" title="src/text-editor.js:3305">L3305</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the beginning of its line in screen coordinates.</p>
 </div>
@@ -21735,7 +21794,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetofirstcharacterofline" data-api-entry="texteditor movetofirstcharacterofline ::movetofirstcharacterofline() move every cursor to the first non-whitespace character of its line.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetofirstcharacterofline" aria-label="Link to ::moveToFirstCharacterOfLine()">#</a><code>::moveToFirstCharacterOfLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3293" title="src/text-editor.js:3293">L3293</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3310" title="src/text-editor.js:3310">L3310</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the first non-whitespace character of its line.</p>
 </div>
@@ -21744,7 +21803,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetoendofline" data-api-entry="texteditor movetoendofline ::movetoendofline() move every cursor to the end of its line in buffer coordinates.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetoendofline" aria-label="Link to ::moveToEndOfLine()">#</a><code>::moveToEndOfLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3298" title="src/text-editor.js:3298">L3298</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3315" title="src/text-editor.js:3315">L3315</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the end of its line in buffer coordinates.</p>
 </div>
@@ -21753,7 +21812,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetoendofscreenline" data-api-entry="texteditor movetoendofscreenline ::movetoendofscreenline() move every cursor to the end of its line in screen coordinates.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetoendofscreenline" aria-label="Link to ::moveToEndOfScreenLine()">#</a><code>::moveToEndOfScreenLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3303" title="src/text-editor.js:3303">L3303</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3320" title="src/text-editor.js:3320">L3320</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the end of its line in screen coordinates.</p>
 </div>
@@ -21762,7 +21821,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetobeginningofword" data-api-entry="texteditor movetobeginningofword ::movetobeginningofword() move every cursor to the beginning of its surrounding word.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobeginningofword" aria-label="Link to ::moveToBeginningOfWord()">#</a><code>::moveToBeginningOfWord()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3308" title="src/text-editor.js:3308">L3308</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3325" title="src/text-editor.js:3325">L3325</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the beginning of its surrounding word.</p>
 </div>
@@ -21771,7 +21830,7 @@ returns a {cursor}.">
                     <article class="api-member" id="texteditor-instance-movetoendofword" data-api-entry="texteditor movetoendofword ::movetoendofword() move every cursor to the end of its surrounding word.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetoendofword" aria-label="Link to ::moveToEndOfWord()">#</a><code>::moveToEndOfWord()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3313" title="src/text-editor.js:3313">L3313</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3330" title="src/text-editor.js:3330">L3330</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the end of its surrounding word.</p>
 </div>
@@ -21782,7 +21841,7 @@ returns a {cursor}.">
 if there are multiple cursors, they will be merged into a single cursor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetotop" aria-label="Link to ::moveToTop()">#</a><code>::moveToTop()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3322" title="src/text-editor.js:3322">L3322</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3339" title="src/text-editor.js:3339">L3339</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the top of the buffer.</p>
 <p>If there are multiple cursors, they will be merged into a single cursor.</p>
@@ -21794,7 +21853,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
 if there are multiple cursors, they will be merged into a single cursor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobottom" aria-label="Link to ::moveToBottom()">#</a><code>::moveToBottom()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3329" title="src/text-editor.js:3329">L3329</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3346" title="src/text-editor.js:3346">L3346</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the bottom of the buffer.</p>
 <p>If there are multiple cursors, they will be merged into a single cursor.</p>
@@ -21804,7 +21863,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetobeginningofnextword" data-api-entry="texteditor movetobeginningofnextword ::movetobeginningofnextword() move every cursor to the beginning of the next word.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobeginningofnextword" aria-label="Link to ::moveToBeginningOfNextWord()">#</a><code>::moveToBeginningOfNextWord()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3334" title="src/text-editor.js:3334">L3334</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3351" title="src/text-editor.js:3351">L3351</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the beginning of the next word.</p>
 </div>
@@ -21813,7 +21872,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetopreviouswordboundary" data-api-entry="texteditor movetopreviouswordboundary ::movetopreviouswordboundary() move every cursor to the previous word boundary.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetopreviouswordboundary" aria-label="Link to ::moveToPreviousWordBoundary()">#</a><code>::moveToPreviousWordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3339" title="src/text-editor.js:3339">L3339</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3356" title="src/text-editor.js:3356">L3356</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the previous word boundary.</p>
 </div>
@@ -21822,7 +21881,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetonextwordboundary" data-api-entry="texteditor movetonextwordboundary ::movetonextwordboundary() move every cursor to the next word boundary.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetonextwordboundary" aria-label="Link to ::moveToNextWordBoundary()">#</a><code>::moveToNextWordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3344" title="src/text-editor.js:3344">L3344</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3361" title="src/text-editor.js:3361">L3361</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the next word boundary.</p>
 </div>
@@ -21831,7 +21890,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetoprevioussubwordboundary" data-api-entry="texteditor movetoprevioussubwordboundary ::movetoprevioussubwordboundary() move every cursor to the previous subword boundary.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetoprevioussubwordboundary" aria-label="Link to ::moveToPreviousSubwordBoundary()">#</a><code>::moveToPreviousSubwordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3349" title="src/text-editor.js:3349">L3349</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3366" title="src/text-editor.js:3366">L3366</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the previous subword boundary.</p>
 </div>
@@ -21840,7 +21899,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetonextsubwordboundary" data-api-entry="texteditor movetonextsubwordboundary ::movetonextsubwordboundary() move every cursor to the next subword boundary.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetonextsubwordboundary" aria-label="Link to ::moveToNextSubwordBoundary()">#</a><code>::moveToNextSubwordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3354" title="src/text-editor.js:3354">L3354</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3371" title="src/text-editor.js:3371">L3371</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the next subword boundary.</p>
 </div>
@@ -21849,7 +21908,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetobeginningofnextparagraph" data-api-entry="texteditor movetobeginningofnextparagraph ::movetobeginningofnextparagraph() move every cursor to the beginning of the next paragraph.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobeginningofnextparagraph" aria-label="Link to ::moveToBeginningOfNextParagraph()">#</a><code>::moveToBeginningOfNextParagraph()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3359" title="src/text-editor.js:3359">L3359</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3376" title="src/text-editor.js:3376">L3376</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the beginning of the next paragraph.</p>
 </div>
@@ -21858,7 +21917,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-movetobeginningofpreviousparagraph" data-api-entry="texteditor movetobeginningofpreviousparagraph ::movetobeginningofpreviousparagraph() move every cursor to the beginning of the previous paragraph.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-movetobeginningofpreviousparagraph" aria-label="Link to ::moveToBeginningOfPreviousParagraph()">#</a><code>::moveToBeginningOfPreviousParagraph()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3364" title="src/text-editor.js:3364">L3364</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3381" title="src/text-editor.js:3381">L3381</a></div>
                       </div>
                       <div class="api-description-body"><p>Move every cursor to the beginning of the previous paragraph.</p>
 </div>
@@ -21867,7 +21926,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-getlastcursor" data-api-entry="texteditor getlastcursor ::getlastcursor() returns the most recently added {cursor}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getlastcursor" aria-label="Link to ::getLastCursor()">#</a><code>::getLastCursor()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3369" title="src/text-editor.js:3369">L3369</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3386" title="src/text-editor.js:3386">L3386</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns the most recently added <a class="api-type" href="#class-cursor">Cursor</a></p>
 </div>
@@ -21878,7 +21937,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
 * `options` (optional) see {cursor::getbeginningofcurrentwordbufferposition}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getwordundercursor" aria-label="Link to ::getWordUnderCursor(options)">#</a><code>::getWordUnderCursor(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3377" title="src/text-editor.js:3377">L3377</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3394" title="src/text-editor.js:3394">L3394</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns the word surrounding the most recently added cursor.</p>
 <ul>
@@ -21890,7 +21949,7 @@ if there are multiple cursors, they will be merged into a single cursor.">
                     <article class="api-member" id="texteditor-instance-getcursors" data-api-entry="texteditor getcursors ::getcursors() get an array of all {cursor}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursors" aria-label="Link to ::getCursors()">#</a><code>::getCursors()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3382" title="src/text-editor.js:3382">L3382</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3399" title="src/text-editor.js:3399">L3399</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an Array of all <a class="api-type" href="#class-cursor">Cursors</a>.</p>
 </div>
@@ -21902,7 +21961,7 @@ instead of the order in which they were added.
 returns an {array} of {selection}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcursorsorderedbybufferposition" aria-label="Link to ::getCursorsOrderedByBufferPosition()">#</a><code>::getCursorsOrderedByBufferPosition()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3391" title="src/text-editor.js:3391">L3391</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3408" title="src/text-editor.js:3408">L3408</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all <a class="api-type" href="#class-cursor">Cursors</a>, ordered by their position in the buffer
 instead of the order in which they were added.</p>
@@ -21919,7 +21978,7 @@ instead of the order in which they were added.</p>
 returns a {string}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselectedtext" aria-label="Link to ::getSelectedText()">#</a><code>::getSelectedText()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3448" title="src/text-editor.js:3448">L3448</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3465" title="src/text-editor.js:3465">L3465</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the selected text of the most recently added selection.</p>
 <p>Returns a <code class="api-type">String</code>.</p>
@@ -21932,7 +21991,7 @@ coordinates.
 returns a {range}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselectedbufferrange" aria-label="Link to ::getSelectedBufferRange()">#</a><code>::getSelectedBufferRange()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3456" title="src/text-editor.js:3456">L3456</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3473" title="src/text-editor.js:3473">L3473</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-range">Range</a> of the most recently added selection in buffer
 coordinates.</p>
@@ -21947,7 +22006,7 @@ the ranges are sorted by when the selections were added. most recent at the end.
 returns an {array} of {range}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselectedbufferranges" aria-label="Link to ::getSelectedBufferRanges()">#</a><code>::getSelectedBufferRanges()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3465" title="src/text-editor.js:3465">L3465</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3482" title="src/text-editor.js:3482">L3482</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-range">Ranges</a> of all selections in buffer coordinates.</p>
 <p>The ranges are sorted by when the selections were added. Most recent at the end.</p>
@@ -21966,7 +22025,7 @@ selections, they are reduced to a single selection with the given range.
     selection is set.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setselectedbufferrange" aria-label="Link to ::setSelectedBufferRange(bufferRange, options)">#</a><code>::setSelectedBufferRange(bufferRange, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3478" title="src/text-editor.js:3478">L3478</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3495" title="src/text-editor.js:3495">L3495</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the selected range in buffer coordinates. If there are multiple
 selections, they are reduced to a single selection with the given range.</p>
@@ -21995,7 +22054,7 @@ selections, they are replaced by new selections with the given ranges.
     selection is set.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setselectedbufferranges" aria-label="Link to ::setSelectedBufferRanges(bufferRanges, options = {})">#</a><code>::setSelectedBufferRanges(bufferRanges, options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3491" title="src/text-editor.js:3491">L3491</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3508" title="src/text-editor.js:3508">L3508</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the selected ranges in buffer coordinates. If there are multiple
 selections, they are replaced by new selections with the given ranges.</p>
@@ -22019,7 +22078,7 @@ coordinates.
 returns a {range}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselectedscreenrange" aria-label="Link to ::getSelectedScreenRange()">#</a><code>::getSelectedScreenRange()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3516" title="src/text-editor.js:3516">L3516</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3533" title="src/text-editor.js:3533">L3533</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-range">Range</a> of the most recently added selection in screen
 coordinates.</p>
@@ -22034,7 +22093,7 @@ the ranges are sorted by when the selections were added. most recent at the end.
 returns an {array} of {range}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselectedscreenranges" aria-label="Link to ::getSelectedScreenRanges()">#</a><code>::getSelectedScreenRanges()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3525" title="src/text-editor.js:3525">L3525</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3542" title="src/text-editor.js:3542">L3542</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-range">Ranges</a> of all selections in screen coordinates.</p>
 <p>The ranges are sorted by when the selections were added. Most recent at the end.</p>
@@ -22051,7 +22110,7 @@ selections, they are reduced to a single selection with the given range.
     reversed orientation.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setselectedscreenrange" aria-label="Link to ::setSelectedScreenRange(screenRange, options)">#</a><code>::setSelectedScreenRange(screenRange, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3536" title="src/text-editor.js:3536">L3536</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3553" title="src/text-editor.js:3553">L3553</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the selected range in screen coordinates. If there are multiple
 selections, they are reduced to a single selection with the given range.</p>
@@ -22076,7 +22135,7 @@ selections, they are replaced by new selections with the given ranges.
     reversed orientation.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setselectedscreenranges" aria-label="Link to ::setSelectedScreenRanges(screenRanges, options = {})">#</a><code>::setSelectedScreenRanges(screenRanges, options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3550" title="src/text-editor.js:3550">L3550</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3567" title="src/text-editor.js:3567">L3567</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the selected ranges in screen coordinates. If there are multiple
 selections, they are replaced by new selections with the given ranges.</p>
@@ -22104,7 +22163,7 @@ reversed orientation.</li>
 returns the added {selection}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-addselectionforbufferrange" aria-label="Link to ::addSelectionForBufferRange(bufferRange, options = {})">#</a><code>::addSelectionForBufferRange(bufferRange, options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3581" title="src/text-editor.js:3581">L3581</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3598" title="src/text-editor.js:3598">L3598</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a selection for the given range in buffer coordinates.</p>
 <ul>
@@ -22133,7 +22192,7 @@ selection is set.</li>
 returns the added {selection}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-addselectionforscreenrange" aria-label="Link to ::addSelectionForScreenRange(screenRange, options = {})">#</a><code>::addSelectionForScreenRange(screenRange, options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3606" title="src/text-editor.js:3606">L3606</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3623" title="src/text-editor.js:3623">L3623</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a selection for the given range in screen coordinates.</p>
 <ul>
@@ -22159,7 +22218,7 @@ this method may merge selections that end up intersecting.
 * `position` an instance of {point}, with a given `row` and `column`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobufferposition" aria-label="Link to ::selectToBufferPosition(position)">#</a><code>::selectToBufferPosition(position)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3616" title="src/text-editor.js:3616">L3616</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3633" title="src/text-editor.js:3633">L3633</a></div>
                       </div>
                       <div class="api-description-body"><p>Select from the current cursor position to the given position in
 buffer coordinates.</p>
@@ -22178,7 +22237,7 @@ this method may merge selections that end up intersecting.
 * `position` an instance of {point}, with a given `row` and `column`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttoscreenposition" aria-label="Link to ::selectToScreenPosition(position, options)">#</a><code>::selectToScreenPosition(position, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3630" title="src/text-editor.js:3630">L3630</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3647" title="src/text-editor.js:3647">L3647</a></div>
                       </div>
                       <div class="api-description-body"><p>Select from the current cursor position to the given position in
 screen coordinates.</p>
@@ -22197,7 +22256,7 @@ preserving the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectup" aria-label="Link to ::selectUp(rowCount)">#</a><code>::selectUp(rowCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3646" title="src/text-editor.js:3646">L3646</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3663" title="src/text-editor.js:3663">L3663</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection one character upward while
 preserving the selection’s tail position.</p>
@@ -22216,7 +22275,7 @@ preserving the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectdown" aria-label="Link to ::selectDown(rowCount)">#</a><code>::selectDown(rowCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3656" title="src/text-editor.js:3656">L3656</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3673" title="src/text-editor.js:3673">L3673</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection one character downward while
 preserving the selection’s tail position.</p>
@@ -22235,7 +22294,7 @@ preserving the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectleft" aria-label="Link to ::selectLeft(columnCount)">#</a><code>::selectLeft(columnCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3666" title="src/text-editor.js:3666">L3666</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3683" title="src/text-editor.js:3683">L3683</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection one character leftward while
 preserving the selection’s tail position.</p>
@@ -22254,7 +22313,7 @@ preserving the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectright" aria-label="Link to ::selectRight(columnCount)">#</a><code>::selectRight(columnCount)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3676" title="src/text-editor.js:3676">L3676</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3693" title="src/text-editor.js:3693">L3693</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection one character rightward while
 preserving the selection’s tail position.</p>
@@ -22271,7 +22330,7 @@ in the buffer.
 this method merges multiple selections into a single selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttotop" aria-label="Link to ::selectToTop()">#</a><code>::selectToTop()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3684" title="src/text-editor.js:3684">L3684</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3701" title="src/text-editor.js:3701">L3701</a></div>
                       </div>
                       <div class="api-description-body"><p>Select from the top of the buffer to the end of the last selection
 in the buffer.</p>
@@ -22285,7 +22344,7 @@ of the buffer.
 this method merges multiple selections into a single selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobottom" aria-label="Link to ::selectToBottom()">#</a><code>::selectToBottom()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3692" title="src/text-editor.js:3692">L3692</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3709" title="src/text-editor.js:3709">L3709</a></div>
                       </div>
                       <div class="api-description-body"><p>Selects from the top of the first selection in the buffer to the end
 of the buffer.</p>
@@ -22298,7 +22357,7 @@ of the buffer.</p>
 this method merges multiple selections into a single selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectall" aria-label="Link to ::selectAll()">#</a><code>::selectAll()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3699" title="src/text-editor.js:3699">L3699</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3716" title="src/text-editor.js:3716">L3716</a></div>
                       </div>
                       <div class="api-description-body"><p>Select all text in the buffer.</p>
 <p>This method merges multiple selections into a single selection.</p>
@@ -22311,7 +22370,7 @@ while preserving the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobeginningofline" aria-label="Link to ::selectToBeginningOfLine()">#</a><code>::selectToBeginningOfLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3707" title="src/text-editor.js:3707">L3707</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3724" title="src/text-editor.js:3724">L3724</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection to the beginning of its line
 while preserving the selection’s tail position.</p>
@@ -22327,7 +22386,7 @@ beginning of the line.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttofirstcharacterofline" aria-label="Link to ::selectToFirstCharacterOfLine()">#</a><code>::selectToFirstCharacterOfLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3717" title="src/text-editor.js:3717">L3717</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3734" title="src/text-editor.js:3734">L3734</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection to the first non-whitespace
 character of its line while preserving the selection’s tail position. If the
@@ -22343,7 +22402,7 @@ preserving the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttoendofline" aria-label="Link to ::selectToEndOfLine()">#</a><code>::selectToEndOfLine()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3725" title="src/text-editor.js:3725">L3725</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3742" title="src/text-editor.js:3742">L3742</a></div>
                       </div>
                       <div class="api-description-body"><p>Move the cursor of each selection to the end of its line while
 preserving the selection’s tail position.</p>
@@ -22357,7 +22416,7 @@ operates on all selections. moves the cursor to the beginning of the
 containing word while preserving the selection's tail position.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobeginningofword" aria-label="Link to ::selectToBeginningOfWord()">#</a><code>::selectToBeginningOfWord()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3733" title="src/text-editor.js:3733">L3733</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3750" title="src/text-editor.js:3750">L3750</a></div>
                       </div>
                       <div class="api-description-body"><p>Expand selections to the beginning of their containing word.</p>
 <p>Operates on all selections. Moves the cursor to the beginning of the
@@ -22371,7 +22430,7 @@ operates on all selections. moves the cursor to the end of the containing
 word while preserving the selection's tail position.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttoendofword" aria-label="Link to ::selectToEndOfWord()">#</a><code>::selectToEndOfWord()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3741" title="src/text-editor.js:3741">L3741</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3758" title="src/text-editor.js:3758">L3758</a></div>
                       </div>
                       <div class="api-description-body"><p>Expand selections to the end of their containing word.</p>
 <p>Operates on all selections. Moves the cursor to the end of the containing
@@ -22385,7 +22444,7 @@ boundary while maintaining the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttoprevioussubwordboundary" aria-label="Link to ::selectToPreviousSubwordBoundary()">#</a><code>::selectToPreviousSubwordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3749" title="src/text-editor.js:3749">L3749</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3766" title="src/text-editor.js:3766">L3766</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, move its cursor to the preceding subword
 boundary while maintaining the selection’s tail position.</p>
@@ -22399,7 +22458,7 @@ while maintaining the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttonextsubwordboundary" aria-label="Link to ::selectToNextSubwordBoundary()">#</a><code>::selectToNextSubwordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3759" title="src/text-editor.js:3759">L3759</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3776" title="src/text-editor.js:3776">L3776</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, move its cursor to the next subword boundary
 while maintaining the selection’s tail position.</p>
@@ -22412,7 +22471,7 @@ while maintaining the selection’s tail position.</p>
 this method merges selections on successive lines.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectlinescontainingcursors" aria-label="Link to ::selectLinesContainingCursors()">#</a><code>::selectLinesContainingCursors()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3766" title="src/text-editor.js:3766">L3766</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3783" title="src/text-editor.js:3783">L3783</a></div>
                       </div>
                       <div class="api-description-body"><p>For each cursor, select the containing line.</p>
 <p>This method merges selections on successive lines.</p>
@@ -22422,7 +22481,7 @@ this method merges selections on successive lines.">
                     <article class="api-member" id="texteditor-instance-selectwordscontainingcursors" data-api-entry="texteditor selectwordscontainingcursors ::selectwordscontainingcursors() select the word surrounding each cursor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectwordscontainingcursors" aria-label="Link to ::selectWordsContainingCursors()">#</a><code>::selectWordsContainingCursors()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3771" title="src/text-editor.js:3771">L3771</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3788" title="src/text-editor.js:3788">L3788</a></div>
                       </div>
                       <div class="api-description-body"><p>Select the word surrounding each cursor.</p>
 </div>
@@ -22431,7 +22490,7 @@ this method merges selections on successive lines.">
                     <article class="api-member" id="texteditor-instance-selectsubwordscontainingcursors" data-api-entry="texteditor selectsubwordscontainingcursors ::selectsubwordscontainingcursors() select the subword surrounding each cursor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectsubwordscontainingcursors" aria-label="Link to ::selectSubwordsContainingCursors()">#</a><code>::selectSubwordsContainingCursors()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3776" title="src/text-editor.js:3776">L3776</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3793" title="src/text-editor.js:3793">L3793</a></div>
                       </div>
                       <div class="api-description-body"><p>Select the subword surrounding each cursor.</p>
 </div>
@@ -22443,7 +22502,7 @@ while maintaining the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttopreviouswordboundary" aria-label="Link to ::selectToPreviousWordBoundary()">#</a><code>::selectToPreviousWordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3786" title="src/text-editor.js:3786">L3786</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3803" title="src/text-editor.js:3803">L3803</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, move its cursor to the preceding word boundary
 while maintaining the selection’s tail position.</p>
@@ -22457,7 +22516,7 @@ maintaining the selection's tail position.
 this method may merge selections that end up intersecting.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttonextwordboundary" aria-label="Link to ::selectToNextWordBoundary()">#</a><code>::selectToNextWordBoundary()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3794" title="src/text-editor.js:3794">L3794</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3811" title="src/text-editor.js:3811">L3811</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, move its cursor to the next word boundary while
 maintaining the selection’s tail position.</p>
@@ -22471,7 +22530,7 @@ operates on all selections. moves the cursor to the beginning of the next
 word while preserving the selection's tail position.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobeginningofnextword" aria-label="Link to ::selectToBeginningOfNextWord()">#</a><code>::selectToBeginningOfNextWord()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3802" title="src/text-editor.js:3802">L3802</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3819" title="src/text-editor.js:3819">L3819</a></div>
                       </div>
                       <div class="api-description-body"><p>Expand selections to the beginning of the next word.</p>
 <p>Operates on all selections. Moves the cursor to the beginning of the next
@@ -22485,7 +22544,7 @@ operates on all selections. moves the cursor to the beginning of the next
 paragraph while preserving the selection's tail position.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobeginningofnextparagraph" aria-label="Link to ::selectToBeginningOfNextParagraph()">#</a><code>::selectToBeginningOfNextParagraph()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3810" title="src/text-editor.js:3810">L3810</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3827" title="src/text-editor.js:3827">L3827</a></div>
                       </div>
                       <div class="api-description-body"><p>Expand selections to the beginning of the next paragraph.</p>
 <p>Operates on all selections. Moves the cursor to the beginning of the next
@@ -22499,7 +22558,7 @@ operates on all selections. moves the cursor to the beginning of the next
 paragraph while preserving the selection's tail position.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selecttobeginningofpreviousparagraph" aria-label="Link to ::selectToBeginningOfPreviousParagraph()">#</a><code>::selectToBeginningOfPreviousParagraph()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3820" title="src/text-editor.js:3820">L3820</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3837" title="src/text-editor.js:3837">L3837</a></div>
                       </div>
                       <div class="api-description-body"><p>Expand selections to the beginning of the next paragraph.</p>
 <p>Operates on all selections. Moves the cursor to the beginning of the next
@@ -22511,7 +22570,7 @@ paragraph while preserving the selection’s tail position.</p>
 that selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectlargersyntaxnode" aria-label="Link to ::selectLargerSyntaxNode()">#</a><code>::selectLargerSyntaxNode()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3828" title="src/text-editor.js:3828">L3828</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3845" title="src/text-editor.js:3845">L3845</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, select the syntax node that contains
 that selection.</p>
@@ -22521,7 +22580,7 @@ that selection.</p>
                     <article class="api-member" id="texteditor-instance-selectsmallersyntaxnode" data-api-entry="texteditor selectsmallersyntaxnode ::selectsmallersyntaxnode() undo the effect of a preceding call to {::selectlargersyntaxnode}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectsmallersyntaxnode" aria-label="Link to ::selectSmallerSyntaxNode()">#</a><code>::selectSmallerSyntaxNode()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3844" title="src/text-editor.js:3844">L3844</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3861" title="src/text-editor.js:3861">L3861</a></div>
                       </div>
                       <div class="api-description-body"><p>Undo the effect of a preceding call to <a class="api-ref" href="#texteditor-instance-selectlargersyntaxnode">::selectLargerSyntaxNode</a>.</p>
 </div>
@@ -22534,7 +22593,7 @@ that selection.</p>
 returns the selected {range} or `undefined` if the marker is invalid.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectmarker" aria-label="Link to ::selectMarker(marker)">#</a><code>::selectMarker(marker)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3861" title="src/text-editor.js:3861">L3861</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3878" title="src/text-editor.js:3878">L3878</a></div>
                       </div>
                       <div class="api-description-body"><p>Select the range of the given marker if it is valid.</p>
 <ul>
@@ -22549,7 +22608,7 @@ returns the selected {range} or `undefined` if the marker is invalid.">
 returns a {selection}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getlastselection" aria-label="Link to ::getLastSelection()">#</a><code>::getLastSelection()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3872" title="src/text-editor.js:3872">L3872</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3889" title="src/text-editor.js:3889">L3889</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the most recently added <a class="api-type" href="#class-selection">Selection</a>.</p>
 <p>Returns a <a class="api-type" href="#class-selection">Selection</a>.</p>
@@ -22561,7 +22620,7 @@ returns a {selection}.">
 returns: an {array} of {selection}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselections" aria-label="Link to ::getSelections()">#</a><code>::getSelections()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3887" title="src/text-editor.js:3887">L3887</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3904" title="src/text-editor.js:3904">L3904</a></div>
                       </div>
                       <div class="api-description-body"><p>Get current <a class="api-type" href="#class-selection">Selections</a>.</p>
 <p>Returns: An <code class="api-type">Array</code> of <a class="api-type" href="#class-selection">Selections</a>.</p>
@@ -22574,7 +22633,7 @@ instead of the order in which they were added.
 returns an {array} of {selection}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getselectionsorderedbybufferposition" aria-label="Link to ::getSelectionsOrderedByBufferPosition()">#</a><code>::getSelectionsOrderedByBufferPosition()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3896" title="src/text-editor.js:3896">L3896</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3913" title="src/text-editor.js:3913">L3913</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all <a class="api-type" href="#class-selection">Selections</a>, ordered by their position in the buffer
 instead of the order in which they were added.</p>
@@ -22590,7 +22649,7 @@ selection.
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-selectionintersectsbufferrange" aria-label="Link to ::selectionIntersectsBufferRange(bufferRange)">#</a><code>::selectionIntersectsBufferRange(bufferRange)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3906" title="src/text-editor.js:3906">L3906</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L3923" title="src/text-editor.js:3923">L3923</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine if a given range in buffer coordinates intersects a
 selection.</p>
@@ -22628,7 +22687,7 @@ if you're programmatically modifying the results, you may want to try
     * `replace` call this {function} with a {string} to replace the match.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scan" aria-label="Link to ::scan(regex, options = {}, iterator)">#</a><code>::scan(regex, options = {}, iterator)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4109" title="src/text-editor.js:4109">L4109</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4126" title="src/text-editor.js:4126">L4126</a></div>
                       </div>
                       <div class="api-description-body"><p>Scan regular expression matches in the entire buffer, calling the
 given iterator function on each match.</p>
@@ -22676,7 +22735,7 @@ iterator function on each match.
   * `replace` call this {function} with a {string} to replace the match.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scaninbufferrange" aria-label="Link to ::scanInBufferRange(regex, range, iterator)">#</a><code>::scanInBufferRange(regex, range, iterator)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4130" title="src/text-editor.js:4130">L4130</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4147" title="src/text-editor.js:4147">L4147</a></div>
                       </div>
                       <div class="api-description-body"><p>Scan regular expression matches in a given range, calling the given
 iterator function on each match.</p>
@@ -22711,7 +22770,7 @@ calling the given iterator function on each match.
   * `replace` call this {function} with a {string} to replace the match.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-backwardsscaninbufferrange" aria-label="Link to ::backwardsScanInBufferRange(regex, range, iterator)">#</a><code>::backwardsScanInBufferRange(regex, range, iterator)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4146" title="src/text-editor.js:4146">L4146</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4163" title="src/text-editor.js:4163">L4163</a></div>
                       </div>
                       <div class="api-description-body"><p>Scan regular expression matches in a given range in reverse order,
 calling the given iterator function on each match.</p>
@@ -22740,7 +22799,7 @@ containing the following keys:
 editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getsofttabs" aria-label="Link to ::getSoftTabs()">#</a><code>::getSoftTabs()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4156" title="src/text-editor.js:4156">L4156</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4173" title="src/text-editor.js:4173">L4173</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns a <code class="api-type">Boolean</code> indicating whether softTabs are enabled for this
 editor.</p>
@@ -22752,7 +22811,7 @@ editor.</p>
 * `softtabs` a {boolean}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setsofttabs" aria-label="Link to ::setSoftTabs(softTabs)">#</a><code>::setSoftTabs(softTabs)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4163" title="src/text-editor.js:4163">L4163</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4180" title="src/text-editor.js:4180">L4180</a></div>
                       </div>
                       <div class="api-description-body"><p>Enable or disable soft tabs for this editor.</p>
 <ul>
@@ -22764,7 +22823,7 @@ editor.</p>
                     <article class="api-member" id="texteditor-instance-togglesofttabs" data-api-entry="texteditor togglesofttabs ::togglesofttabs() toggle soft tabs for this editor">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-togglesofttabs" aria-label="Link to ::toggleSoftTabs()">#</a><code>::toggleSoftTabs()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4174" title="src/text-editor.js:4174">L4174</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4191" title="src/text-editor.js:4191">L4191</a></div>
                       </div>
                       <div class="api-description-body"><p>Toggle soft tabs for this editor</p>
 </div>
@@ -22775,7 +22834,7 @@ editor.</p>
 returns a {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-gettablength" aria-label="Link to ::getTabLength()">#</a><code>::getTabLength()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4181" title="src/text-editor.js:4181">L4181</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4198" title="src/text-editor.js:4198">L4198</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the on-screen length of tab characters.</p>
 <p>Returns a <code class="api-type">Number</code>.</p>
@@ -22789,7 +22848,7 @@ returns a {number}.">
   fallback to using the `language.tablength` config setting">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-settablength" aria-label="Link to ::setTabLength(tabLength)">#</a><code>::setTabLength(tabLength)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4190" title="src/text-editor.js:4190">L4190</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4207" title="src/text-editor.js:4207">L4207</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the on-screen length of tab characters. Setting this to a
 <code class="api-type">Number</code> This will override the <code>language.tabLength</code> setting.</p>
@@ -22809,7 +22868,7 @@ returns a {boolean} or undefined if no non-comment lines had leading
 whitespace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-usessofttabs" aria-label="Link to ::usesSoftTabs()">#</a><code>::usesSoftTabs()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4217" title="src/text-editor.js:4217">L4217</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4234" title="src/text-editor.js:4234">L4234</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine if the buffer uses hard or soft tabs.</p>
 <p>Returns <code>true</code> if the first non-comment line with leading whitespace starts
@@ -22827,7 +22886,7 @@ tab length. otherwise the text is a tab character (`\t`).
 returns a {string}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-gettabtext" aria-label="Link to ::getTabText()">#</a><code>::getTabText()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4238" title="src/text-editor.js:4238">L4238</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4255" title="src/text-editor.js:4255">L4255</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the text representing a single level of indent.</p>
 <p>If soft tabs are enabled, the text is composed of N spaces, where N is the
@@ -22845,7 +22904,7 @@ tab length. Otherwise the text is a tab character (<code>\t</code>).</p>
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-issoftwrapped" aria-label="Link to ::isSoftWrapped()">#</a><code>::isSoftWrapped()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4258" title="src/text-editor.js:4258">L4258</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4275" title="src/text-editor.js:4275">L4275</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether lines in this editor are soft-wrapped.</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -22859,7 +22918,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setsoftwrapped" aria-label="Link to ::setSoftWrapped(softWrapped)">#</a><code>::setSoftWrapped(softWrapped)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4267" title="src/text-editor.js:4267">L4267</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4284" title="src/text-editor.js:4284">L4284</a></div>
                       </div>
                       <div class="api-description-body"><p>Enable or disable soft wrapping for this editor.</p>
 <ul>
@@ -22874,7 +22933,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-togglesoftwrapped" aria-label="Link to ::toggleSoftWrapped()">#</a><code>::toggleSoftWrapped()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4279" title="src/text-editor.js:4279">L4279</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4296" title="src/text-editor.js:4296">L4296</a></div>
                       </div>
                       <div class="api-description-body"><p>Toggle soft wrapping for this editor</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -22888,7 +22947,7 @@ instead of inserting before it.
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isovertypemode" aria-label="Link to ::isOvertypeMode()">#</a><code>::isOvertypeMode()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4288" title="src/text-editor.js:4288">L4288</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4305" title="src/text-editor.js:4305">L4305</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether overtype (overwrite) mode is enabled for this
 editor. In overtype mode, typing replaces the character following the cursor
@@ -22904,7 +22963,7 @@ instead of inserting before it.</p>
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setovertypemode" aria-label="Link to ::setOvertypeMode(overtypeMode)">#</a><code>::setOvertypeMode(overtypeMode)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4297" title="src/text-editor.js:4297">L4297</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4314" title="src/text-editor.js:4314">L4314</a></div>
                       </div>
                       <div class="api-description-body"><p>Enable or disable overtype (overwrite) mode for this editor.</p>
 <ul>
@@ -22919,7 +22978,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-toggleovertypemode" aria-label="Link to ::toggleOvertypeMode()">#</a><code>::toggleOvertypeMode()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4309" title="src/text-editor.js:4309">L4309</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4326" title="src/text-editor.js:4326">L4326</a></div>
                       </div>
                       <div class="api-description-body"><p>Toggle overtype (overwrite) mode for this editor.</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -22935,7 +22994,7 @@ called by the editor component immediately before inserting genuinely typed
 text; it has no effect unless {::isovertypemode} is `true`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-applyovertype" aria-label="Link to ::applyOvertype()">#</a><code>::applyOvertype()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4320" title="src/text-editor.js:4320">L4320</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4337" title="src/text-editor.js:4337">L4337</a></div>
                       </div>
                       <div class="api-description-body"><p>When overtype mode is active, expand each empty selection one
 character to the right (except at the end of a line) so that the text about
@@ -22949,7 +23008,7 @@ text; it has no effect unless <a class="api-ref" href="#texteditor-instance-isov
                     <article class="api-member" id="texteditor-instance-getsoftwrapcolumn" data-api-entry="texteditor getsoftwrapcolumn ::getsoftwrapcolumn() gets the column at which column will soft wrap">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getsoftwrapcolumn" aria-label="Link to ::getSoftWrapColumn()">#</a><code>::getSoftWrapColumn()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4330" title="src/text-editor.js:4330">L4330</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4347" title="src/text-editor.js:4347">L4347</a></div>
                       </div>
                       <div class="api-description-body"><p>Gets the column at which column will soft wrap</p>
 </div>
@@ -22971,7 +23030,7 @@ level of 2.
 returns a {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-indentationforbufferrow" aria-label="Link to ::indentationForBufferRow(bufferRow)">#</a><code>::indentationForBufferRow(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4356" title="src/text-editor.js:4356">L4356</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4373" title="src/text-editor.js:4373">L4373</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the indentation level of the given buffer row.</p>
 <p>Determines how deeply the given row is indented based on the soft tabs and
@@ -22999,7 +23058,7 @@ leading spaces would have an indentation level of 2.
      the beginning of the line (default: false).">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setindentationforbufferrow" aria-label="Link to ::setIndentationForBufferRow(bufferRow, newLevel, { preserveLeadingWhitespace } = {})">#</a><code>::setIndentationForBufferRow(bufferRow, newLevel, { preserveLeadingWhitespace } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4372" title="src/text-editor.js:4372">L4372</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4389" title="src/text-editor.js:4389">L4389</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the indentation level for the given buffer row.</p>
 <p>Inserts or removes hard tabs or spaces based on the soft tabs and tab length
@@ -23025,7 +23084,7 @@ the beginning of the line (default: false).</li>
   * `bypassreadonly` (optional) {boolean} must be `true` to modify a read-only editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-indentselectedrows" aria-label="Link to ::indentSelectedRows(options = {})">#</a><code>::indentSelectedRows(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4393" title="src/text-editor.js:4393">L4393</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4410" title="src/text-editor.js:4410">L4410</a></div>
                       </div>
                       <div class="api-description-body"><p>Indent rows intersecting selections by one level.</p>
 <ul>
@@ -23044,7 +23103,7 @@ the beginning of the line (default: false).</li>
   * `bypassreadonly` (optional) {boolean} must be `true` to modify a read-only editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-outdentselectedrows" aria-label="Link to ::outdentSelectedRows(options = {})">#</a><code>::outdentSelectedRows(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4402" title="src/text-editor.js:4402">L4402</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4419" title="src/text-editor.js:4419">L4419</a></div>
                       </div>
                       <div class="api-description-body"><p>Outdent rows intersecting selections by one level.</p>
 <ul>
@@ -23069,7 +23128,7 @@ level of 2.
 returns a {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-indentlevelforline" aria-label="Link to ::indentLevelForLine(line)">#</a><code>::indentLevelForLine(line)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4417" title="src/text-editor.js:4417">L4417</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4434" title="src/text-editor.js:4434">L4434</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the indentation level of the given line of text.</p>
 <p>Determines how deeply the given line is indented based on the soft tabs and
@@ -23090,7 +23149,7 @@ indent level.
   * `bypassreadonly` (optional) {boolean} must be `true` to modify a read-only editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-autoindentselectedrows" aria-label="Link to ::autoIndentSelectedRows(options = {})">#</a><code>::autoIndentSelectedRows(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4438" title="src/text-editor.js:4438">L4438</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4455" title="src/text-editor.js:4455">L4455</a></div>
                       </div>
                       <div class="api-description-body"><p>Indent rows intersecting selections based on the grammar’s suggested
 indent level.</p>
@@ -23111,7 +23170,7 @@ indent level.</p>
                     <article class="api-member" id="texteditor-instance-getgrammar" data-api-entry="texteditor getgrammar ::getgrammar() get the current {grammar} of this editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getgrammar" aria-label="Link to ::getGrammar()">#</a><code>::getGrammar()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4473" title="src/text-editor.js:4473">L4473</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4490" title="src/text-editor.js:4490">L4490</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the current <code class="api-type">Grammar</code> of this editor.</p>
 </div>
@@ -23120,7 +23179,7 @@ indent level.</p>
                     <article class="api-member" id="texteditor-instance-ondidtokenize" data-api-entry="texteditor ondidtokenize ::ondidtokenize(callback) get a notification when async tokenization is completed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-ondidtokenize" aria-label="Link to ::onDidTokenize(callback)">#</a><code>::onDidTokenize(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4490" title="src/text-editor.js:4490">L4490</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4507" title="src/text-editor.js:4507">L4507</a></div>
                       </div>
                       <div class="api-description-body"><p>Get a notification when async tokenization is completed.</p>
 </div>
@@ -23135,7 +23194,7 @@ e.g. `['.source.ruby']`, or `['.source.coffee']`. you can use this with
 {config::get} to get language specific config values.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getrootscopedescriptor" aria-label="Link to ::getRootScopeDescriptor()">#</a><code>::getRootScopeDescriptor()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4501" title="src/text-editor.js:4501">L4501</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4518" title="src/text-editor.js:4518">L4518</a></div>
                       </div>
                       <div class="api-description-body"><p>Returns a <a class="api-type" href="#class-scopedescriptor">ScopeDescriptor</a> that includes this editor’s language.
 e.g. <code>['.source.ruby']</code>, or <code>['.source.coffee']</code>. You can use this with
@@ -23156,7 +23215,7 @@ the following scopes array:
 returns a {scopedescriptor}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scopedescriptorforbufferposition" aria-label="Link to ::scopeDescriptorForBufferPosition(bufferPosition)">#</a><code>::scopeDescriptorForBufferPosition(bufferPosition)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4516" title="src/text-editor.js:4516">L4516</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4533" title="src/text-editor.js:4533">L4533</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the syntactic <a class="api-type" href="#class-scopedescriptor">ScopeDescriptor</a> for the given position in buffer
 coordinates. Useful with <a class="api-ref" href="#config-instance-get">Config::get</a>.</p>
@@ -23188,7 +23247,7 @@ if textmate is used
 returns a {scopedescriptor}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-syntaxtreescopedescriptorforbufferposition" aria-label="Link to ::syntaxTreeScopeDescriptorForBufferPosition(bufferPosition)">#</a><code>::syntaxTreeScopeDescriptorForBufferPosition(bufferPosition)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4538" title="src/text-editor.js:4538">L4538</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4555" title="src/text-editor.js:4555">L4555</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the syntactic tree <a class="api-type" href="#class-scopedescriptor">ScopeDescriptor</a> for the given position in buffer
 coordinates or the syntactic <a class="api-type" href="#class-scopedescriptor">ScopeDescriptor</a> for TextMate language mode</p>
@@ -23218,7 +23277,7 @@ could call `editor.bufferrangeforscopeatcursor(&quot;.string.quoted&quot;)`.
 returns a {range}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-bufferrangeforscopeatcursor" aria-label="Link to ::bufferRangeForScopeAtCursor(scopeSelector)">#</a><code>::bufferRangeForScopeAtCursor(scopeSelector)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4554" title="src/text-editor.js:4554">L4554</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4571" title="src/text-editor.js:4571">L4571</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the range in buffer coordinates of all tokens surrounding the
 cursor that match the given scope selector.</p>
@@ -23243,7 +23302,7 @@ could call `editor.bufferrangeforscopeatposition(&quot;.string.quoted&quot;, thi
 returns a {range}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-bufferrangeforscopeatposition" aria-label="Link to ::bufferRangeForScopeAtPosition(scopeSelector, bufferPosition)">#</a><code>::bufferRangeForScopeAtPosition(scopeSelector, bufferPosition)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4568" title="src/text-editor.js:4568">L4568</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4585" title="src/text-editor.js:4585">L4585</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the range in buffer coordinates of all tokens surrounding the
 given position in buffer coordinates that match the given scope selector.</p>
@@ -23260,7 +23319,7 @@ could call <code>editor.bufferRangeForScopeAtPosition(&quot;.string.quoted&quot;
                     <article class="api-member" id="texteditor-instance-isbufferrowcommented" data-api-entry="texteditor isbufferrowcommented ::isbufferrowcommented(bufferrow) determine if the given row is entirely a comment">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isbufferrowcommented" aria-label="Link to ::isBufferRowCommented(bufferRow)">#</a><code>::isBufferRowCommented(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4575" title="src/text-editor.js:4575">L4575</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4592" title="src/text-editor.js:4592">L4592</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine if the given row is entirely a comment</p>
 </div>
@@ -23273,7 +23332,7 @@ could call <code>editor.bufferRangeForScopeAtPosition(&quot;.string.quoted&quot;
                     <article class="api-member" id="texteditor-instance-copyselectedtext" data-api-entry="texteditor copyselectedtext ::copyselectedtext(clipboard = this.constructor.clipboard) for each selection, copy the selected text.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-copyselectedtext" aria-label="Link to ::copySelectedText(clipboard = this.constructor.clipboard)">#</a><code>::copySelectedText(clipboard = this.constructor.clipboard)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4605" title="src/text-editor.js:4605">L4605</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4622" title="src/text-editor.js:4622">L4622</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, copy the selected text.</p>
 </div>
@@ -23285,7 +23344,7 @@ could call <code>editor.bufferRangeForScopeAtPosition(&quot;.string.quoted&quot;
   * `bypassreadonly` (optional) {boolean} must be `true` to modify a read-only editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-cutselectedtext" aria-label="Link to ::cutSelectedText(options = {})">#</a><code>::cutSelectedText(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4635" title="src/text-editor.js:4635">L4635</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4652" title="src/text-editor.js:4652">L4652</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, cut the selected text.</p>
 <ul>
@@ -23308,7 +23367,7 @@ corresponding clipboard selection text.
 * `options` (optional) see {selection::inserttext}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-pastetext" aria-label="Link to ::pasteText(options = {})">#</a><code>::pasteText(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4658" title="src/text-editor.js:4658">L4658</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4675" title="src/text-editor.js:4675">L4675</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, replace the selected text with the contents of
 the clipboard.</p>
@@ -23329,7 +23388,7 @@ text.
   * `bypassreadonly` (optional) {boolean} must be `true` to modify a read-only editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-cuttoendofline" aria-label="Link to ::cutToEndOfLine(options = {})">#</a><code>::cutToEndOfLine(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4752" title="src/text-editor.js:4752">L4752</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4769" title="src/text-editor.js:4769">L4769</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, if the selection is empty, cut all characters
 of the containing screen line following the cursor. Otherwise cut the selected
@@ -23352,7 +23411,7 @@ selected text.
   * `bypassreadonly` (optional) {boolean} must be `true` to modify a read-only editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-cuttoendofbufferline" aria-label="Link to ::cutToEndOfBufferLine(options = {})">#</a><code>::cutToEndOfBufferLine(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4767" title="src/text-editor.js:4767">L4767</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4784" title="src/text-editor.js:4784">L4784</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, if the selection is empty, cut all characters
 of the containing buffer line following the cursor. Otherwise cut the
@@ -23378,7 +23437,7 @@ indentation level up to the nearest following row with a lower indentation
 level.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-foldcurrentrow" aria-label="Link to ::foldCurrentRow()">#</a><code>::foldCurrentRow()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4785" title="src/text-editor.js:4785">L4785</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4802" title="src/text-editor.js:4802">L4802</a></div>
                       </div>
                       <div class="api-description-body"><p>Fold the most recent cursor’s row based on its indentation level.</p>
 <p>The fold will extend from the nearest preceding line with a lower
@@ -23390,7 +23449,7 @@ level.</p>
                     <article class="api-member" id="texteditor-instance-unfoldcurrentrow" data-api-entry="texteditor unfoldcurrentrow ::unfoldcurrentrow() unfold the most recent cursor's row by one level.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-unfoldcurrentrow" aria-label="Link to ::unfoldCurrentRow()">#</a><code>::unfoldCurrentRow()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4795" title="src/text-editor.js:4795">L4795</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4812" title="src/text-editor.js:4812">L4812</a></div>
                       </div>
                       <div class="api-description-body"><p>Unfold the most recent cursor’s row by one level.</p>
 </div>
@@ -23405,7 +23464,7 @@ begin at the first foldable row preceding the given row.
 * `bufferrow` a {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-foldbufferrow" aria-label="Link to ::foldBufferRow(bufferRow)">#</a><code>::foldBufferRow(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4807" title="src/text-editor.js:4807">L4807</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4824" title="src/text-editor.js:4824">L4824</a></div>
                       </div>
                       <div class="api-description-body"><p>Fold the given row in buffer coordinates based on its indentation
 level.</p>
@@ -23422,7 +23481,7 @@ begin at the first foldable row preceding the given row.</p>
 * `bufferrow` a {number}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-unfoldbufferrow" aria-label="Link to ::unfoldBufferRow(bufferRow)">#</a><code>::unfoldBufferRow(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4835" title="src/text-editor.js:4835">L4835</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4852" title="src/text-editor.js:4852">L4852</a></div>
                       </div>
                       <div class="api-description-body"><p>Unfold all folds containing the given row in buffer coordinates.</p>
 <ul>
@@ -23434,7 +23493,7 @@ begin at the first foldable row preceding the given row.</p>
                     <article class="api-member" id="texteditor-instance-foldselectedlines" data-api-entry="texteditor foldselectedlines ::foldselectedlines() for each selection, fold the rows it intersects.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-foldselectedlines" aria-label="Link to ::foldSelectedLines()">#</a><code>::foldSelectedLines()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4841" title="src/text-editor.js:4841">L4841</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4858" title="src/text-editor.js:4858">L4858</a></div>
                       </div>
                       <div class="api-description-body"><p>For each selection, fold the rows it intersects.</p>
 </div>
@@ -23443,7 +23502,7 @@ begin at the first foldable row preceding the given row.</p>
                     <article class="api-member" id="texteditor-instance-foldall" data-api-entry="texteditor foldall ::foldall() fold all foldable lines.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-foldall" aria-label="Link to ::foldAll()">#</a><code>::foldAll()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4848" title="src/text-editor.js:4848">L4848</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4865" title="src/text-editor.js:4865">L4865</a></div>
                       </div>
                       <div class="api-description-body"><p>Fold all foldable lines.</p>
 </div>
@@ -23452,7 +23511,7 @@ begin at the first foldable row preceding the given row.</p>
                     <article class="api-member" id="texteditor-instance-unfoldall" data-api-entry="texteditor unfoldall ::unfoldall() unfold all existing folds.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-unfoldall" aria-label="Link to ::unfoldAll()">#</a><code>::unfoldAll()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4859" title="src/text-editor.js:4859">L4859</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4876" title="src/text-editor.js:4876">L4876</a></div>
                       </div>
                       <div class="api-description-body"><p>Unfold all existing folds.</p>
 </div>
@@ -23463,7 +23522,7 @@ begin at the first foldable row preceding the given row.</p>
 * `level` a {number} starting at 0.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-foldallatindentlevel" aria-label="Link to ::foldAllAtIndentLevel(level)">#</a><code>::foldAllAtIndentLevel(level)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4868" title="src/text-editor.js:4868">L4868</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4885" title="src/text-editor.js:4885">L4885</a></div>
                       </div>
                       <div class="api-description-body"><p>Fold all foldable lines at the given indent level.</p>
 <ul>
@@ -23481,7 +23540,7 @@ a *foldable* row is a row that *starts* a row range that can be folded.
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isfoldableatbufferrow" aria-label="Link to ::isFoldableAtBufferRow(bufferRow)">#</a><code>::isFoldableAtBufferRow(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4886" title="src/text-editor.js:4886">L4886</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4903" title="src/text-editor.js:4903">L4903</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether the given row in buffer coordinates is foldable.</p>
 <p>A <em>foldable</em> row is a row that <em>starts</em> a row range that can be folded.</p>
@@ -23501,7 +23560,7 @@ a *foldable* row is a row that *starts* a row range that can be folded.
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isfoldableatscreenrow" aria-label="Link to ::isFoldableAtScreenRow(screenRow)">#</a><code>::isFoldableAtScreenRow(screenRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4898" title="src/text-editor.js:4898">L4898</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4915" title="src/text-editor.js:4915">L4915</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether the given row in screen coordinates is foldable.</p>
 <p>A <em>foldable</em> row is a row that <em>starts</em> a row range that can be folded.</p>
@@ -23516,7 +23575,7 @@ returns a {boolean}.">
 it otherwise.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-togglefoldatbufferrow" aria-label="Link to ::toggleFoldAtBufferRow(bufferRow)">#</a><code>::toggleFoldAtBufferRow(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4904" title="src/text-editor.js:4904">L4904</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4921" title="src/text-editor.js:4921">L4921</a></div>
                       </div>
                       <div class="api-description-body"><p>Fold the given buffer row if it isn’t currently folded, and unfold
 it otherwise.</p>
@@ -23528,7 +23587,7 @@ it otherwise.</p>
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isfoldedatcursorrow" aria-label="Link to ::isFoldedAtCursorRow()">#</a><code>::isFoldedAtCursorRow()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4915" title="src/text-editor.js:4915">L4915</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4932" title="src/text-editor.js:4932">L4932</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether the most recently added cursor’s row is folded.</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -23542,7 +23601,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isfoldedatbufferrow" aria-label="Link to ::isFoldedAtBufferRow(bufferRow)">#</a><code>::isFoldedAtBufferRow(bufferRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4924" title="src/text-editor.js:4924">L4924</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4941" title="src/text-editor.js:4941">L4941</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether the given row in buffer coordinates is folded.</p>
 <ul>
@@ -23559,7 +23618,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-isfoldedatscreenrow" aria-label="Link to ::isFoldedAtScreenRow(screenRow)">#</a><code>::isFoldedAtScreenRow(screenRow)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4937" title="src/text-editor.js:4937">L4937</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L4954" title="src/text-editor.js:4954">L4954</a></div>
                       </div>
                       <div class="api-description-body"><p>Determine whether the given row in screen coordinates is folded.</p>
 <ul>
@@ -23609,7 +23668,7 @@ returns a {boolean}.">
 returns the newly-created {gutter}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-addgutter" aria-label="Link to ::addGutter(options)">#</a><code>::addGutter(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5006" title="src/text-editor.js:5006">L5006</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5023" title="src/text-editor.js:5023">L5023</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a custom <a class="api-type" href="#class-gutter">Gutter</a>.</p>
 <ul>
@@ -23674,7 +23733,7 @@ within this <code>type: 'line-number'</code> <a class="api-type" href="#class-gu
 returns an {array} of {gutter}s.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getgutters" aria-label="Link to ::getGutters()">#</a><code>::getGutters()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5013" title="src/text-editor.js:5013">L5013</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5030" title="src/text-editor.js:5030">L5030</a></div>
                       </div>
                       <div class="api-description-body"><p>Get this editor’s gutters.</p>
 <p>Returns an <code class="api-type">Array</code> of <a class="api-type" href="#class-gutter">Gutters</a>.</p>
@@ -23686,7 +23745,7 @@ returns an {array} of {gutter}s.">
 returns a {gutter}, or `null` if no gutter exists for the given name.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-gutterwithname" aria-label="Link to ::gutterWithName(name)">#</a><code>::gutterWithName(name)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5024" title="src/text-editor.js:5024">L5024</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5041" title="src/text-editor.js:5041">L5041</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the gutter with the given name.</p>
 <p>Returns a <a class="api-type" href="#class-gutter">Gutter</a>, or <code>null</code> if no gutter exists for the given name.</p>
@@ -23709,7 +23768,7 @@ off-screen.
     centering it. see {::scrolltoscreenrange}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scrolltocursorposition" aria-label="Link to ::scrollToCursorPosition(options)">#</a><code>::scrollToCursorPosition(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5042" title="src/text-editor.js:5042">L5042</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5059" title="src/text-editor.js:5059">L5059</a></div>
                       </div>
                       <div class="api-description-body"><p>Scroll the editor to reveal the most recently added cursor if it is
 off-screen.</p>
@@ -23738,7 +23797,7 @@ centering it. See <a class="api-ref" href="#texteditor-instance-scrolltoscreenra
     {::scrolltoscreenrange}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scrolltobufferposition" aria-label="Link to ::scrollToBufferPosition(bufferPosition, options)">#</a><code>::scrollToBufferPosition(bufferPosition, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5058" title="src/text-editor.js:5058">L5058</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5075" title="src/text-editor.js:5075">L5075</a></div>
                       </div>
                       <div class="api-description-body"><p>Scrolls the editor to the given buffer position.</p>
 <ul>
@@ -23765,7 +23824,7 @@ an <code class="api-type">Object</code> (<code>{row, column}</code>), <code clas
     {::scrolltoscreenrange}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scrolltoscreenposition" aria-label="Link to ::scrollToScreenPosition(screenPosition, options)">#</a><code>::scrollToScreenPosition(screenPosition, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5073" title="src/text-editor.js:5073">L5073</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5090" title="src/text-editor.js:5090">L5090</a></div>
                       </div>
                       <div class="api-description-body"><p>Scrolls the editor to the given screen position.</p>
 <ul>
@@ -23803,7 +23862,7 @@ an <code class="api-type">Object</code> (<code>{row, column}</code>), <code clas
   * `clip` clip the range to the editor's contents first. (default: true)">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-scrolltoscreenrange" aria-label="Link to ::scrollToScreenRange(screenRange, options = {})">#</a><code>::scrollToScreenRange(screenRange, options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5096" title="src/text-editor.js:5096">L5096</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5113" title="src/text-editor.js:5113">L5113</a></div>
                       </div>
                       <div class="api-description-body"><p>Scrolls the editor to the given screen range.</p>
 <ul>
@@ -23840,7 +23899,7 @@ are off-screen. (default: true)</li>
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-shouldautoindent" aria-label="Link to ::shouldAutoIndent()">#</a><code>::shouldAutoIndent()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5138" title="src/text-editor.js:5138">L5138</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5155" title="src/text-editor.js:5155">L5155</a></div>
                       </div>
                       <div class="api-description-body"><p>Is auto-indentation enabled for this editor?</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -23852,7 +23911,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-shouldautoindentonpaste" aria-label="Link to ::shouldAutoIndentOnPaste()">#</a><code>::shouldAutoIndentOnPaste()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5145" title="src/text-editor.js:5145">L5145</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5162" title="src/text-editor.js:5162">L5162</a></div>
                       </div>
                       <div class="api-description-body"><p>Is auto-indentation on paste enabled for this editor?</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -23864,7 +23923,7 @@ returns a {boolean}.">
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getscrollpastend" aria-label="Link to ::getScrollPastEnd()">#</a><code>::getScrollPastEnd()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5152" title="src/text-editor.js:5152">L5152</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5169" title="src/text-editor.js:5169">L5169</a></div>
                       </div>
                       <div class="api-description-body"><p>Does this editor allow scrolling past the last line?</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -23877,7 +23936,7 @@ movements?
 returns a positive {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getscrollsensitivity" aria-label="Link to ::getScrollSensitivity()">#</a><code>::getScrollSensitivity()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5164" title="src/text-editor.js:5164">L5164</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5181" title="src/text-editor.js:5181">L5181</a></div>
                       </div>
                       <div class="api-description-body"><p>How fast does the editor scroll in response to mouse wheel
 movements?</p>
@@ -23890,7 +23949,7 @@ movements?</p>
 returns a {boolean}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getsmoothscrolling" aria-label="Link to ::getSmoothScrolling()">#</a><code>::getSmoothScrolling()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5171" title="src/text-editor.js:5171">L5171</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5188" title="src/text-editor.js:5188">L5188</a></div>
                       </div>
                       <div class="api-description-body"><p>Are mouse wheel and scroll command movements animated?</p>
 <p>Returns a <code class="api-type">Boolean</code>.</p>
@@ -23903,7 +23962,7 @@ position when scrolling with the mouse wheel?
 returns a positive {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getwheelsmoothness" aria-label="Link to ::getWheelSmoothness()">#</a><code>::getWheelSmoothness()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5180" title="src/text-editor.js:5180">L5180</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5197" title="src/text-editor.js:5197">L5197</a></div>
                       </div>
                       <div class="api-description-body"><p>How gradually does the editor glide toward the target
 position when scrolling with the mouse wheel?</p>
@@ -23917,7 +23976,7 @@ scroll commands?
 returns a positive {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcommandsmoothness" aria-label="Link to ::getCommandSmoothness()">#</a><code>::getCommandSmoothness()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5189" title="src/text-editor.js:5189">L5189</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5206" title="src/text-editor.js:5206">L5206</a></div>
                       </div>
                       <div class="api-description-body"><p>How gradually does the editor glide when scrolling via the
 scroll commands?</p>
@@ -23931,7 +23990,7 @@ scroll commands?</p>
 returns a positive {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getaltwheelmultiplier" aria-label="Link to ::getAltWheelMultiplier()">#</a><code>::getAltWheelMultiplier()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5198" title="src/text-editor.js:5198">L5198</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5215" title="src/text-editor.js:5215">L5215</a></div>
                       </div>
                       <div class="api-description-body"><p>Speed multiplier applied to wheel scrolling while holding
 <code>alt</code>.</p>
@@ -23946,7 +24005,7 @@ distance commands adjust it per editor.
 returns a positive {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getscrollcommanddistance" aria-label="Link to ::getScrollCommandDistance()">#</a><code>::getScrollCommandDistance()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5207" title="src/text-editor.js:5207">L5207</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5224" title="src/text-editor.js:5224">L5224</a></div>
                       </div>
                       <div class="api-description-body"><p>Distance scrolled by the scroll commands, as a fraction of
 the editor height. Seeded from config; the increase/decrease scroll
@@ -23961,7 +24020,7 @@ settle before re-wrapping soft-wrapped lines. `0` re-wraps immediately.
 returns a non-negative {number}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getsoftwrapdebounceinterval" aria-label="Link to ::getSoftWrapDebounceInterval()">#</a><code>::getSoftWrapDebounceInterval()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5215" title="src/text-editor.js:5215">L5215</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5232" title="src/text-editor.js:5232">L5232</a></div>
                       </div>
                       <div class="api-description-body"><p>How long (in milliseconds) to wait for the editor width to
 settle before re-wrapping soft-wrapped lines. <code>0</code> re-wraps immediately.</p>
@@ -23974,7 +24033,7 @@ settle before re-wrapping soft-wrapped lines. <code>0</code> re-wraps immediatel
 returns a {boolean}">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-doesshowlinenumbers" aria-label="Link to ::doesShowLineNumbers()">#</a><code>::doesShowLineNumbers()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5222" title="src/text-editor.js:5222">L5222</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5239" title="src/text-editor.js:5239">L5239</a></div>
                       </div>
                       <div class="api-description-body"><p>Are line numbers enabled for this editor?</p>
 <p>Returns a <code class="api-type">Boolean</code></p>
@@ -23987,7 +24046,7 @@ are grouped together in the editor's undo history.
 returns the time interval {number} in milliseconds.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getundogroupinginterval" aria-label="Link to ::getUndoGroupingInterval()">#</a><code>::getUndoGroupingInterval()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5230" title="src/text-editor.js:5230">L5230</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5247" title="src/text-editor.js:5247">L5247</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the time interval within which text editing operations
 are grouped together in the editor’s undo history.</p>
@@ -24001,7 +24060,7 @@ for the purpose of word-based cursor movements.
 returns a {string} containing the non-word characters.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getnonwordcharacters" aria-label="Link to ::getNonWordCharacters(position)">#</a><code>::getNonWordCharacters(position)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5238" title="src/text-editor.js:5238">L5238</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5255" title="src/text-editor.js:5255">L5255</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the characters that are <em>not</em> considered part of words,
 for the purpose of word-based cursor movements.</p>
@@ -24018,7 +24077,7 @@ for the purpose of word-based cursor movements.</p>
 returns a {string}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getplaceholdertext" aria-label="Link to ::getPlaceholderText()">#</a><code>::getPlaceholderText()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5298" title="src/text-editor.js:5298">L5298</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5315" title="src/text-editor.js:5315">L5315</a></div>
                       </div>
                       <div class="api-description-body"><p>Retrieves the greyed out placeholder of a mini editor.</p>
 <p>Returns a <code class="api-type">String</code>.</p>
@@ -24031,7 +24090,7 @@ will be displayed when the editor has no content.
 * `placeholdertext` {string} text that is displayed when the editor has no content.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-setplaceholdertext" aria-label="Link to ::setPlaceholderText(placeholderText)">#</a><code>::setPlaceholderText(placeholderText)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5306" title="src/text-editor.js:5306">L5306</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5323" title="src/text-editor.js:5323">L5323</a></div>
                       </div>
                       <div class="api-description-body"><p>Set the greyed out placeholder of a mini editor. Placeholder text
 will be displayed when the editor has no content.</p>
@@ -24075,7 +24134,7 @@ returns an {object} with the following properties:
   buffer position.)">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditor-instance-getcommentdelimitersforbufferposition" aria-label="Link to ::getCommentDelimitersForBufferPosition(point)">#</a><code>::getCommentDelimitersForBufferPosition(point)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5774" title="src/text-editor.js:5774">L5774</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor.js#L5791" title="src/text-editor.js:5791">L5791</a></div>
                       </div>
                       <div class="api-description-body"><p>Return information about the appropriate comment delimiters to use
 at a given point in the buffer.</p>
