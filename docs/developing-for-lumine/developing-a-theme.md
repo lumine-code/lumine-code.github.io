@@ -137,6 +137,23 @@ editor.element.setAttribute("input", "");
 
 Size stays the widget's business — a field that should grow with its content and one that should scroll after ten lines are both legitimate, so the editor ships neither.
 
+## A bar tile is the element the bar marks
+
+The status bar and the title bar each host elements packages hand them, and each stamps a class on what it hosts: `.status-bar-item` on a status-bar tile, `.title-bar-item` on a title-bar control tile. That class is the tile, and it is removed again when the tile is destroyed. Key padding, height, rounding and hover feedback on it:
+
+```css
+.status-bar .status-bar-item:hover {
+}
+.title-bar .control-tiles .title-bar-item:hover {
+}
+```
+
+What a theme must never do is treat `.inline-block` as the tile. It is a layout utility from the editor's base stylesheet — `display: inline-block` plus a right margin — and packages use it _inside_ a tile to lay out a row of labels, so it says nothing about where a tile starts. Styling it gives a nested block the tile's padding and a second hover rectangle inset within the tile's own, which is invisible while the hover colour is opaque and obvious the moment it is translucent.
+
+The tile class also reaches the cases a descendant selector misses. `git-panel` and `github-panel` render into a host element and portal their contents in, so the tile is that host rather than anything recognisable inside it — the bar marks whatever it was handed, so a theme does not have to know.
+
+The two bars supply the tile's box and leave its look to the theme: flex centring, strip height and the panel's spacing come from the package, colour and feedback do not. A theme that paints a title-bar tile is not overriding the package, it is filling in the half it owns.
+
 ## Icon geometry belongs to the editor
 
 Every icon in the interface — tree-view rows, tabs, lists, the status bar — renders in one frame, defined once by the editor's base stylesheet: a square of `--component-icon-size` whose `line-height` equals its height, aligned `vertical-align: text-bottom`. The box centers itself in any line, and each font's ink centers inside the box, so the same glyph sits at the same height in every surface without per-surface tuning.

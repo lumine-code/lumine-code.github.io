@@ -33,6 +33,17 @@ lumine-text-editor[input] {
 }
 ```
 
+The status bar and title bar mark what they hold the same way. Every item in the status bar carries `.status-bar-item`, and every control tile beside the window buttons carries `.title-bar-item`, whichever package put it there:
+
+```css
+/* Round every status-bar item a little harder. */
+.status-bar .status-bar-item {
+  border-radius: 8px;
+}
+```
+
+Reach for those rather than `.inline-block`, which is a general layout class packages also use inside an item — targeting it restyles the parts of an item as well as the item itself.
+
 ## Using theme colors
 
 Rather than hardcoding colors, reference the active theme's **CSS custom properties** so your tweaks adapt to light and dark themes automatically:
