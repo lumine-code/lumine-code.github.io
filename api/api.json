@@ -1,7 +1,7 @@
 {
   "name": "Lumine",
   "version": "1.0.0",
-  "generatedAt": "2026-08-09T22:49:22.018Z",
+  "generatedAt": "2026-08-10T01:08:05.524Z",
   "classes": [
     {
       "name": "LumineEnvironment",
@@ -567,11 +567,11 @@
     {
       "name": "Clipboard",
       "visibility": "Extended",
-      "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `lumine.clipboard` global.\n\nThis class owns what the clipboard holds, not what a paste does with it. To\nintercept a paste before the editor inserts it as text — to handle an image,\nsay — register a provider with {PasteProviderRegistry} through\n`lumine.pasteProviders`.\n\n## Examples\n\n```js\nlumine.clipboard.write('hello')\n\nconsole.log(lumine.clipboard.read()) // 'hello'\n```",
+      "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `lumine.clipboard` global.\n\nThis class owns what the clipboard holds, not what a paste does with it. To\nintercept a paste before the editor inserts it as text — to handle an image,\nsay — register a provider with {PasteProviderRegistry} through\n`lumine.pasteProviders`.\n\nIt is also the only supported route to the native clipboard from a package:\nElectron deprecated `require('electron').clipboard` in a renderer, so every\nread and write here goes to the main process instead (see\n`src/clipboard-bridge.js`).\n\n## Examples\n\n```js\nlumine.clipboard.write('hello')\n\nconsole.log(lumine.clipboard.read()) // 'hello'\n```",
       "source": "src/clipboard.js",
       "sourcePath": "src/clipboard.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 24,
+      "line": 29,
       "members": [
         {
           "name": "write",
@@ -582,7 +582,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Write the given text to the clipboard.\n\nThe metadata associated with the text is available by calling\n{::readWithMetadata}.\n\n* `text` The {String} to store.\n* `metadata` (optional) The additional info to associate with the text.",
-          "line": 58
+          "line": 63
         },
         {
           "name": "writeNativeData",
@@ -593,7 +593,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Write text plus a JSON payload for a custom format to the system\nclipboard through the async Clipboard API.\n\nChromium registers `web `-prefixed custom formats with the operating\nsystem, so any window can read the payload back with {::readNativeData}.\nCustom formats written through a DataTransfer during a copy event are only\nreadable inside paste ClipboardEvents, and renderer-initiated\n`execCommand(\"paste\")` never fires one, so this is the only way to\nround-trip a custom format without a native paste keystroke.\n\n* `text` The plain-text {String} to store alongside the payload.\n* `format` The MIME-style format {String}, without the `web ` prefix.\n* `data` The JSON-serializable payload.\n\nReturns a {Promise} that resolves to `true` when the payload was written,\nor `false` when only the plain text could be written.",
-          "line": 178
+          "line": 183
         },
         {
           "name": "readNativeData",
@@ -604,7 +604,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read a JSON payload written by {::writeNativeData} in this or any\nother window.\n\n* `format` The MIME-style format {String}, without the `web ` prefix.\n\nReturns a {Promise} that resolves to the parsed payload {Object}, or\n`null` when the clipboard holds no valid payload for the format.",
-          "line": 201
+          "line": 206
         },
         {
           "name": "read",
@@ -615,7 +615,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the clipboard.\n\nReturns a {String}.",
-          "line": 243
+          "line": 248
         },
         {
           "name": "writeFindText",
@@ -626,7 +626,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Write the given text to the macOS find pasteboard",
-          "line": 248
+          "line": 253
         },
         {
           "name": "readFindText",
@@ -637,7 +637,51 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the macOS find pasteboard.\n\nReturns a {String}.",
-          "line": 255
+          "line": 260
+        },
+        {
+          "name": "readImage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::readImage()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Read the image on the clipboard.\n\nThe image crosses the process boundary as PNG bytes, so its scale factor\ndoes not survive the trip.\n\nReturns a {NativeImage}, empty when the clipboard holds no image.",
+          "line": 270
+        },
+        {
+          "name": "writeImage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::writeImage(image)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Write an image to the clipboard, replacing whatever it held.\n\n* `image` A {NativeImage}, or the PNG bytes of one as a {Buffer}.",
+          "line": 277
+        },
+        {
+          "name": "readSelectionText",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::readSelectionText()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Read the text from the Linux primary selection.\n\nReturns a {String}, always empty on the platforms that have no primary\nselection.",
+          "line": 285
+        },
+        {
+          "name": "writeSelectionText",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::writeSelectionText(text)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Write the given text to the Linux primary selection.\n\nUnlike every other method here this one does not wait for the main\nprocess: it runs on each selection change, and a drag cannot afford a\nround trip per mouse move.\n\n* `text` The {String} to store.",
+          "line": 296
         },
         {
           "name": "readWithMetadata",
@@ -648,7 +692,7 @@
           "category": "Methods",
           "visibility": "Public",
           "description": "Read the text from the clipboard and return both the text and the\nassociated metadata.\n\nMetadata copied in another window only flows through paste\nClipboardEvents (see {::createDataTransferClipboard}): Chromium stores\nDataTransfer custom formats in a private bundle that Electron's clipboard\nAPI cannot read back, so there is no native-format fallback here.\n\nReturns an {Object} with the following keys:\n* `text` The {String} clipboard text.\n* `metadata` The metadata stored by an earlier call to {::write}.",
-          "line": 270
+          "line": 311
         }
       ]
     },
@@ -13934,5 +13978,5 @@
       "line": 1033
     }
   ],
-  "memberCount": 1210
+  "memberCount": 1214
 }
