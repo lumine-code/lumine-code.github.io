@@ -51,7 +51,7 @@ A package can expose several independently selectable themes through a `themes` 
     {
       "name": "my-day-syntax",
       "theme": "syntax",
-      "styles": "styles/day-syntax"
+      "styles": ["styles/syntax", "styles/day-syntax"]
     },
     {
       "name": "my-night-ui",
@@ -61,7 +61,7 @@ A package can expose several independently selectable themes through a `themes` 
     {
       "name": "my-night-syntax",
       "theme": "syntax",
-      "styles": "styles/night-syntax"
+      "styles": ["styles/syntax", "styles/night-syntax"]
     }
   ],
   "engines": { "lumine": "^1.0.0" }
@@ -69,6 +69,8 @@ A package can expose several independently selectable themes through a `themes` 
 ```
 
 Each entry becomes its own virtual theme package. Its `name` is what users select, `theme` is either `ui` or `syntax`, and `styles` is a package-relative directory or an ordered list of directories. The containing package still owns shared JavaScript and configuration, but those are not copied into its virtual themes.
+
+The list is what keeps a family from duplicating itself. Put the rules in a shared directory and the colors in a per-variant one, and the light and dark members of a pair differ only in the `variables.css` they load last — a syntax theme's scope-to-color mapping is written once, not once per variant.
 
 ## Extend another theme's styles
 
