@@ -23,7 +23,8 @@ There is no compatibility alias for the removed APIs.
 | `remote.dialog.showSaveDialog()` | `await lumine.window.showSaveDialog(options)` |
 | `remote.BrowserWindow.fromId()` or renderer-to-renderer access | `lumine.window.broadcast()` and `lumine.window.onDidReceive()` |
 | `remote.shell.openExternal()` | `await lumine.shell.openExternal()` |
-| `remote.clipboard` or `remote.nativeImage` | Import renderer-safe `clipboard` or `nativeImage` from `electron` |
+| `remote.clipboard` or `require('electron').clipboard` | `lumine.clipboard` |
+| `remote.nativeImage` | Import `nativeImage` from `electron`; it is still renderer-safe |
 | Renderer-side safe-storage calls | The asynchronous `lumine.secrets` API |
 
 The global API was split by ownership at the same time. These are removals,
@@ -78,6 +79,30 @@ const subscription = lumine.window.onDidReceive("my-package:item-dropped", (payl
   receiveItem(payload);
 });
 ```
+
+## The clipboard
+
+Electron deprecated `require('electron').clipboard` in the renderer — the module
+reached the platform clipboard from whichever process asked, and site isolation
+is taking that away. `lumine.clipboard` is the replacement, and it covers
+everything the Electron module did that a package has any use for:
+
+```js
+lumine.clipboard.write("some text");
+lumine.clipboard.read();
+
+const image = lumine.clipboard.readImage(); // a NativeImage, empty when there is none
+lumine.clipboard.writeImage(image); // a NativeImage, or the PNG bytes of one
+```
+
+`nativeImage` is unaffected, so build and inspect images in the renderer as
+before — only the clipboard itself moved. An image crosses the process boundary
+as PNG bytes, so its scale factor does not survive the trip.
+
+Text written with `write()` carries metadata that `readWithMetadata()` gives
+back, which is how the editor knows a paste came from a full-line copy. To claim
+a paste before the editor turns it into text, register a provider with
+`lumine.pasteProviders` rather than reading the clipboard yourself.
 
 ## Dialogs and menus
 
