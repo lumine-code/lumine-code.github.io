@@ -61,7 +61,7 @@ Declare the server's options in your manifest's `configSchema`, in the same shap
 
 Declare a `features` object in `configSchema` naming the capabilities your server implements. `ide-client` reads `<your adapter id>.features.<name>` and refuses a switched-off feature before it asks the server, so the request goes to the next server covering that file instead. This is what lets a user choose between two servers on one language.
 
-The vocabulary is `diagnostics`, `autocomplete`, `hover`, `signature`, `definition`, `references`, `symbols`, `outline`, `format`, `rename`, `codeActions`, `inlayHints`, `codeLens`, and `semanticTokens`.
+The vocabulary is `diagnostics`, `autocomplete`, `hover`, `signature`, `definition`, `references`, `callHierarchy`, `typeHierarchy`, `symbols`, `outline`, `format`, `rename`, `codeActions`, `inlayHints`, `codeLens`, and `semanticTokens`.
 
 List **only what your server advertises** — read its `initialize` response rather than its documentation, since the two disagree more often than you would expect. A switch for a capability the server never had is a control that does nothing.
 

@@ -12,7 +12,7 @@ All of them work the same way: `ide-client` provides the data, the UI package re
 | Rename a symbol across the project        | `refactor`        |
 | Formatting, on demand or on save          | `code-format`     |
 | References to the symbol under the cursor | `find-references` |
-| Callers and callees of a symbol           | `call-hierarchy`  |
+| Callers, callees, supertypes and subtypes | `hierarchy-view`  |
 
 Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/<name>`.
 
@@ -48,9 +48,15 @@ The `find-references` package answers "where is this used?". Rest the cursor on 
 
 The panel keeps up as you edit, and a new lookup reuses it unless you pin the current results. When a provider reports an implausible number of hits — a token that appears on half the lines — the highlight is skipped rather than painting the whole file. Install the companion `marker-references` package to also mark the occurrences on the scrollbar or the minimap.
 
-## Call hierarchy
+## Call and type hierarchies
 
-The `call-hierarchy` package answers the same question one level up: who calls this, and what does it call? Run `call-hierarchy:incoming-calls` or `call-hierarchy:outgoing-calls` on a symbol and the dock shows it as the root of a tree. Expanding an entry queries the next level, so you can walk a chain of callers as deep as you need, and a header button flips the whole tree to the other direction. Choosing an entry opens that call site.
+The `hierarchy-view` package answers the same question one level up: who calls this, and what does it call? Run `hierarchy-view:incoming-calls` or `hierarchy-view:outgoing-calls` on a symbol and the dock shows it as the root of a tree. Expanding an entry queries the next level, so you can walk a chain of callers as deep as you need, and a header button flips the whole tree to the other direction. Choosing an entry opens that call site.
+
+`hierarchy-view:supertypes` and `hierarchy-view:subtypes` do the same for inheritance — what a type derives from, and what derives from it. Both hierarchies share the one dock item, so running a type command over a displayed call tree replaces it and retitles the tab.
+
+Type hierarchy is served by fewer language servers than call hierarchy is. clangd, jdtls and Metals implement it; of the adapters shipped here, none do — Pyright, typescript-language-server, texlab and tinymist all offer call hierarchy only. Where a server does not serve the hierarchy you asked for, the command says so and does nothing.
+
+Whichever hierarchy is on screen, every request in the tree goes to the server that prepared its root. Where a file has more than one server attached — a type checker beside a linter — the one that answers is the one that says it can, not whichever happened to start first.
 
 ## Formatting
 

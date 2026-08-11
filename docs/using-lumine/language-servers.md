@@ -28,7 +28,7 @@ Keeping your own copy is a reasonable choice, and sometimes the right one: a pro
 
 ## Features
 
-Every adapter's settings page has a **Features** group listing what its server does — diagnostics, autocomplete, hover, signature help, go-to-definition, references, symbols, outline, formatting, rename, code actions, inlay hints, code lens, semantic tokens. Each is a switch, and only the ones that server actually implements are shown: Pyright has no formatter, and Ruff has neither completions nor navigation, so neither offers a switch for them.
+Every adapter's settings page has a **Features** group listing what its server does — diagnostics, autocomplete, hover, signature help, go-to-definition, references, call hierarchy, type hierarchy, symbols, outline, formatting, rename, code actions, inlay hints, code lens, semantic tokens. Each is a switch, and only the ones that server actually implements are shown: Pyright has no formatter, and Ruff has neither completions nor navigation, so neither offers a switch for them.
 
 Turning one off is how you choose between two servers covering one language. With Pyright and Ruff both serving Python, turning **Format** off for Pyright hands formatting to Ruff; turning **Hover** off for Ruff leaves the tooltip to the type checker alone. A switched-off feature is never requested, so it costs nothing rather than being computed and discarded — and where a server can be told to stop the work itself, it is: turning Ruff's **Diagnostics** off stops it linting, and turning Tinymist's **Semantic Tokens** off stops it classifying.
 

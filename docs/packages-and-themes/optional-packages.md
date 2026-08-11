@@ -38,7 +38,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 - **refactor** — rename symbols across the project.
 - **code-format** — format on demand or on save through registered providers.
 - **find-references** — highlight and list references to the symbol under the cursor.
-- **call-hierarchy** — explore incoming and outgoing calls for a symbol.
+- **hierarchy-view** — explore the callers, callees, supertypes and subtypes of a symbol.
 
 ## Linting and formatting
 
