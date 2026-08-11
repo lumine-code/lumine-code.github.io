@@ -49,7 +49,7 @@ focus back to the editor. The letter is the package's own initial:
 
 |                                           |                                             |                                       |                                             |
 | ----------------------------------------- | ------------------------------------------- | ------------------------------------- | ------------------------------------------- |
-| <kbd>Alt</kbd><kbd>T</kbd> tree view      | <kbd>Alt</kbd><kbd>L</kbd> linter           | <kbd>Alt</kbd><kbd>N</kbd> navigation | <kbd>Alt</kbd><kbd>O</kbd> outline          |
+| <kbd>Alt</kbd><kbd>T</kbd> tree view      | <kbd>Alt</kbd><kbd>L</kbd> linter-panel     | <kbd>Alt</kbd><kbd>N</kbd> navigation | <kbd>Alt</kbd><kbd>O</kbd> outline          |
 | <kbd>Alt</kbd><kbd>E</kbd> explorer       | <kbd>Alt</kbd><kbd>P</kbd> projects         | <kbd>Alt</kbd><kbd>R</kbd> recent     | <kbd>Alt</kbd><kbd>M</kbd> scrollmap layers |
 | <kbd>Alt</kbd><kbd>K</kbd> hierarchy view | <kbd>Alt</kbd><kbd>`</kbd> spawn a terminal |                                       |                                             |
 

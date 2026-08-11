@@ -66,7 +66,7 @@ The same list sits in the status bar: an item counting the running servers, with
 
 ## Commands
 
-`ide-client:servers` lists the running servers. `ide-client:manage-servers` lists the servers the editor can install. `ide-client:restart` restarts every server serving the active editor. `ide-client:format` formats the active document through the server. `ide-client:toggle-problems` opens the linter panel with the server's diagnostics. `ide-client:show-log` opens the active server's log in an editor.
+`ide-client:servers` lists the running servers. `ide-client:manage-servers` lists the servers the editor can install. `ide-client:restart` restarts every server serving the active editor. `ide-client:format` formats the active document through the server. `ide-client:toggle-problems` opens the [linter panel](linter-panel.md) with the server's diagnostics, when that package is installed. `ide-client:show-log` opens the active server's log in an editor.
 
 ## Troubleshooting
 
