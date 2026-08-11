@@ -8515,7 +8515,7 @@ is somewhere a paste can land: the tree-view does, so that pasting onto a
 directory row reaches the same providers an editor paste would.</p>
 </div>
                       <section class="api-structured-docs"><h5>Parameters</h5><dl><dt><code>context</code></dt><dd><p>An <code>Object</code> describing the paste, with the following keys:</p>
-</dd><dt><code>context.target</code></dt><dd><p>An <code>Object</code> naming where the paste lands. Today that is <code>{type: 'text-editor', editor}</code> or <code>{type: 'directory', path}</code>. Always branch on <code>type</code> and return <code>false</code> for one you do not recognize — the set grows as more of the workspace offers its pastes here.</p>
+</dd><dt><code>context.target</code></dt><dd><p>An <code>Object</code> naming where the paste lands. Today that is <code>{type: 'text-editor', editor}</code>, <code>{type: 'directory', path}</code>, or <code>{type: 'terminal', model, path}</code> — where <code>path</code> is the directory the terminal was launched in. Always branch on <code>type</code> and return <code>false</code> for one you do not recognize — the set grows as more of the workspace offers its pastes here.</p>
 </dd><dt><code>context.clipboard</code><span class="api-structured-flags">optional</span></dt><dd><p>The <a class="api-type" href="#class-clipboard">Clipboard</a> to read the paste from. Inside a native paste event this is a DataTransfer-backed clipboard, so <code>readWithMetadata()</code> sees the metadata of the window that did the copy; outside one it is <code>lumine.clipboard</code>. Absent when the caller is not a text editor.</p>
 </dd><dt><code>context.clipboardData</code><span class="api-structured-flags">optional</span></dt><dd><p>The event’s <code>DataTransfer</code>, or <code>null</code> when the paste did not arrive as a native paste event. Custom formats and non-text items such as files and images are readable only from here.</p>
 </dd><dt><code>context.options</code><span class="api-structured-flags">optional</span></dt><dd><p>An <code>Object</code> of the paste options the editor would otherwise have used, such as <code>autoIndent</code> and <code>normalizeLineEndings</code>.</p>
@@ -9773,7 +9773,7 @@ implementation through {@link #addoperationprovider}, and everything under
 the capability. ask {@link #canperformoperation} before offering an action, since
 a window with no provider installed can answer nothing.">
           <p class="eyebrow">Public API</p>
-          <h2>RepositoryRegistry<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L167">src/repository-registry.js:167</a></h2>
+          <h2>RepositoryRegistry<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L145">src/repository-registry.js:145</a></h2>
           <div class="api-description-body api-class-description"><p>Every Git repository this window knows about, available as
 <code>lumine.repositories</code>.</p>
 <p>Project roots are where repositories are discovered and what keeps them
@@ -9813,7 +9813,7 @@ the active pane item unless a consumer pinned a selection with
 clears it; only path-less items keep the current selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getactiverepository" aria-label="Link to ::getActiveRepository()">#</a><code>::getActiveRepository()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L293" title="src/repository-registry.js:293">L293</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L271" title="src/repository-registry.js:271">L271</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository the window is currently working in. It follows
 the active pane item unless a consumer pinned a selection with
@@ -9837,7 +9837,7 @@ clone into — its containing project root, or the item's own directory.
 * `pinned` a `boolean`, `true` while a manual selection holds.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getactiverepositorycontext" aria-label="Link to ::getActiveRepositoryContext()">#</a><code>::getActiveRepositoryContext()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L314" title="src/repository-registry.js:314">L314</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L292" title="src/repository-registry.js:292">L292</a></div>
                       </div>
                       <div class="api-description-body"><p>The active repository together with the directory it applies to.</p>
 <p>The working directory is always present while a file-backed item is
@@ -9858,7 +9858,7 @@ clone into — its containing project root, or the item’s own directory.</p>
                     <article class="api-member" id="repositoryregistry-instance-isactiverepositorypinned" data-api-entry="repositoryregistry isactiverepositorypinned ::isactiverepositorypinned() whether the active repository is pinned to a manual selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-isactiverepositorypinned" aria-label="Link to ::isActiveRepositoryPinned()">#</a><code>::isActiveRepositoryPinned()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L329" title="src/repository-registry.js:329">L329</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L307" title="src/repository-registry.js:307">L307</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether the active repository is pinned to a manual selection.</p>
 </div>
@@ -9871,7 +9871,7 @@ it fires for moves between out-of-repository directories too, while the
 repository itself stays `null`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidchangeactiverepository" aria-label="Link to ::onDidChangeActiveRepository(callback)">#</a><code>::onDidChangeActiveRepository(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L344" title="src/repository-registry.js:344">L344</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L322" title="src/repository-registry.js:322">L322</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback whenever the active repository context changes.</p>
 <p>It fires for moves between out-of-repository directories too, while the
@@ -9889,7 +9889,7 @@ this is what a status bar or a panel wants: it is called once on
 subscription, so there is no gap to fill in by hand.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-observeactiverepository" aria-label="Link to ::observeActiveRepository(callback)">#</a><code>::observeActiveRepository(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L360" title="src/repository-registry.js:360">L360</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L338" title="src/repository-registry.js:338">L338</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback with the current context immediately, and
 again on every change.</p>
@@ -9906,7 +9906,7 @@ subscription, so there is no gap to fill in by hand.</p>
 throws a `typeerror` if the repository is unregistered or destroyed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-setactiverepository" aria-label="Link to ::setActiveRepository(repository, { pin = false } = {})">#</a><code>::setActiveRepository(repository, { pin = false } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L377" title="src/repository-registry.js:377">L377</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L355" title="src/repository-registry.js:355">L355</a></div>
                       </div>
                       <div class="api-description-body"><p>Select the active repository manually.</p>
 <p>Throws a <code>TypeError</code> if the repository is unregistered or destroyed.</p>
@@ -9923,7 +9923,7 @@ unlike {@link #setactiverepository} this discovers a repository that was not
 registered yet, so it is asynchronous.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-setactiverepositoryforpath" aria-label="Link to ::setActiveRepositoryForPath(filePath, { pin = false } = {})">#</a><code>::setActiveRepositoryForPath(filePath, { pin = false } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L407" title="src/repository-registry.js:407">L407</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L385" title="src/repository-registry.js:385">L385</a></div>
                       </div>
                       <div class="api-description-body"><p>Resolve the repository for a path and make it the active one.</p>
 <p>Unlike <a class="api-ref" href="#repositoryregistry-instance-setactiverepository">#setActiveRepository</a> this discovers a repository that was not
@@ -9950,7 +9950,7 @@ can tell whether its copy is still current without diffing.
 * `repositories` a frozen `array` of {@link gitrepository}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getsnapshot" aria-label="Link to ::getSnapshot()">#</a><code>::getSnapshot()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L622" title="src/repository-registry.js:622">L622</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L600" title="src/repository-registry.js:600">L600</a></div>
                       </div>
                       <div class="api-description-body"><p>The registered repositories together with the version they were
 read at.</p>
@@ -9971,7 +9971,7 @@ this is a snapshot. use {@link #observerepositories} to keep up with the ones
 registered later.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getrepositories" aria-label="Link to ::getRepositories()">#</a><code>::getRepositories()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L639" title="src/repository-registry.js:639">L639</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L617" title="src/repository-registry.js:617">L617</a></div>
                       </div>
                       <div class="api-description-body"><p>Every registered repository.</p>
 <p>This is a snapshot. Use <a class="api-ref" href="#repositoryregistry-instance-observerepositories">#observeRepositories</a> to keep up with the ones
@@ -9984,7 +9984,7 @@ registered later.</p>
                     <article class="api-member" id="repositoryregistry-instance-getbyid" data-api-entry="repositoryregistry getbyid ::getbyid(id) look a repository up by the id the registry gave it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getbyid" aria-label="Link to ::getById(id)">#</a><code>::getById(id)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L651" title="src/repository-registry.js:651">L651</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L629" title="src/repository-registry.js:629">L629</a></div>
                       </div>
                       <div class="api-description-body"><p>Look a repository up by the id the registry gave it.</p>
 </div>
@@ -10001,7 +10001,7 @@ registered later.</p>
 the future.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-observerepositories" aria-label="Link to ::observeRepositories(callback)">#</a><code>::observeRepositories(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L668" title="src/repository-registry.js:668">L668</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L646" title="src/repository-registry.js:646">L646</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback with every registered repository, now and in
 the future.</p>
@@ -10014,7 +10014,7 @@ the future.</p>
                     <article class="api-member" id="repositoryregistry-instance-ondidaddrepository" data-api-entry="repositoryregistry ondidaddrepository ::ondidaddrepository(callback) invoke the callback when a repository is registered.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidaddrepository" aria-label="Link to ::onDidAddRepository(callback)">#</a><code>::onDidAddRepository(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L681" title="src/repository-registry.js:681">L681</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L659" title="src/repository-registry.js:659">L659</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a repository is registered.</p>
 </div>
@@ -10029,7 +10029,7 @@ release anything keyed on the repository here: it is destroyed once nothing
 holds it any more.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidremoverepository" aria-label="Link to ::onDidRemoveRepository(callback)">#</a><code>::onDidRemoveRepository(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L696" title="src/repository-registry.js:696">L696</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L674" title="src/repository-registry.js:674">L674</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a repository is removed.</p>
 <p>Release anything keyed on the repository here: it is destroyed once nothing
@@ -10047,7 +10047,7 @@ cheaper than the individual events when a consumer rebuilds derived state,
 since adding a project root registers many repositories at once.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidchange" aria-label="Link to ::onDidChange(callback)">#</a><code>::onDidChange(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L719" title="src/repository-registry.js:719">L719</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L697" title="src/repository-registry.js:697">L697</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback once per batch of changes to the registered
 set, with everything that changed together.</p>
@@ -10069,7 +10069,7 @@ since adding a project root registers many repositories at once.</p>
                     <article class="api-member" id="repositoryregistry-instance-ondidstartrescan" data-api-entry="repositoryregistry ondidstartrescan ::ondidstartrescan(callback) invoke the callback when a rescan of the project roots begins.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidstartrescan" aria-label="Link to ::onDidStartRescan(callback)">#</a><code>::onDidStartRescan(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L732" title="src/repository-registry.js:732">L732</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L710" title="src/repository-registry.js:710">L710</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a rescan of the project roots begins.</p>
 </div>
@@ -10083,7 +10083,7 @@ since adding a project root registers many repositories at once.</p>
 succeeded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidfinishrescan" aria-label="Link to ::onDidFinishRescan(callback)">#</a><code>::onDidFinishRescan(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L748" title="src/repository-registry.js:748">L748</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L726" title="src/repository-registry.js:726">L726</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a rescan finishes, whether or not it
 succeeded.</p>
@@ -10100,7 +10100,7 @@ succeeded.</p>
 the same repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidqueueoperation" aria-label="Link to ::onDidQueueOperation(callback)">#</a><code>::onDidQueueOperation(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L761" title="src/repository-registry.js:761">L761</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L739" title="src/repository-registry.js:739">L739</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when an operation is queued behind another on
 the same repository.</p>
@@ -10113,7 +10113,7 @@ the same repository.</p>
                     <article class="api-member" id="repositoryregistry-instance-ondidstartoperation" data-api-entry="repositoryregistry ondidstartoperation ::ondidstartoperation(callback) invoke the callback when an operation starts running.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidstartoperation" aria-label="Link to ::onDidStartOperation(callback)">#</a><code>::onDidStartOperation(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L773" title="src/repository-registry.js:773">L773</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L751" title="src/repository-registry.js:751">L751</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when an operation starts running.</p>
 </div>
@@ -10126,7 +10126,7 @@ the same repository.</p>
 succeeded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidfinishoperation" aria-label="Link to ::onDidFinishOperation(callback)">#</a><code>::onDidFinishOperation(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L786" title="src/repository-registry.js:786">L786</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L764" title="src/repository-registry.js:764">L764</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when an operation finishes, whether or not it
 succeeded.</p>
@@ -10150,7 +10150,7 @@ or a nested checkout should do. use {@link #resolveforpath} when the path may
 belong to a repository nobody has discovered yet.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getforpath" aria-label="Link to ::getForPath(filePath)">#</a><code>::getForPath(filePath)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L809" title="src/repository-registry.js:809">L809</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L787" title="src/repository-registry.js:787">L787</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository a path belongs to, from what is already
 registered.</p>
@@ -10169,7 +10169,7 @@ belong to a repository nobody has discovered yet.</p>
 if it is not known yet.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolveforpath" aria-label="Link to ::resolveForPath(filePath)">#</a><code>::resolveForPath(filePath)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L858" title="src/repository-registry.js:858">L858</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L836" title="src/repository-registry.js:836">L836</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository a path belongs to, discovering and registering one
 if it is not known yet.</p>
@@ -10186,7 +10186,7 @@ discovery reads the filesystem, so this blocks the renderer. prefer
 {@link #resolveforpath} when it is not.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolveforpathsync" aria-label="Link to ::resolveForPathSync(filePath)">#</a><code>::resolveForPathSync(filePath)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L878" title="src/repository-registry.js:878">L878</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L856" title="src/repository-registry.js:856">L856</a></div>
                       </div>
                       <div class="api-description-body"><p><a class="api-ref" href="#repositoryregistry-instance-resolveforpath">#resolveForPath</a>, synchronously.</p>
 <p>Discovery reads the filesystem, so this blocks the renderer. Prefer
@@ -10202,7 +10202,7 @@ discovery reads the filesystem, so this blocks the renderer. prefer
 if it is not known yet.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolvedirectory" aria-label="Link to ::resolveDirectory(directory)">#</a><code>::resolveDirectory(directory)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L895" title="src/repository-registry.js:895">L895</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L873" title="src/repository-registry.js:873">L873</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository for a <code>Directory</code>, discovering and registering one
 if it is not known yet.</p>
@@ -10215,7 +10215,7 @@ if it is not known yet.</p>
                     <article class="api-member" id="repositoryregistry-instance-resolvedirectorysync" data-api-entry="repositoryregistry resolvedirectorysync ::resolvedirectorysync(directory) {@link #resolvedirectory}, synchronously. reads the filesystem.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolvedirectorysync" aria-label="Link to ::resolveDirectorySync(directory)">#</a><code>::resolveDirectorySync(directory)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L908" title="src/repository-registry.js:908">L908</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L886" title="src/repository-registry.js:886">L886</a></div>
                       </div>
                       <div class="api-description-body"><p><a class="api-ref" href="#repositoryregistry-instance-resolvedirectory">#resolveDirectory</a>, synchronously. Reads the filesystem.</p>
 </div>
@@ -10236,7 +10236,7 @@ across those changes, and dispose the result when you are done, or it will
 outlive its usefulness.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-retain" aria-label="Link to ::retain(repository, source = &quot;pin&quot;)">#</a><code>::retain(repository, source = &quot;pin&quot;)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L931" title="src/repository-registry.js:931">L931</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L909" title="src/repository-registry.js:909">L909</a></div>
                       </div>
                       <div class="api-description-body"><p>Keep a repository alive for as long as you hold the result.</p>
 <p>A repository is destroyed once nothing owns it — no project root contains
@@ -10259,7 +10259,7 @@ duration.
 throws an `error` if the repository cannot be registered.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-runoperation" aria-label="Link to ::runOperation(repository, operation)">#</a><code>::runOperation(repository, operation)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L958" title="src/repository-registry.js:958">L958</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L936" title="src/repository-registry.js:936">L936</a></div>
                       </div>
                       <div class="api-description-body"><p>Run your own work against a repository, holding it alive for the
 duration.</p>
@@ -10282,7 +10282,7 @@ window reloads.
 * `dispose` a `function` that releases it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-add" aria-label="Link to ::add(filePath, { persist = true } = {})">#</a><code>::add(filePath, { persist = true } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1585" title="src/repository-registry.js:1585">L1585</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1563" title="src/repository-registry.js:1563">L1563</a></div>
                       </div>
                       <div class="api-description-body"><p>Register the repository containing a path, and keep it.</p>
 <p>For a repository the user chose that no project root covers. It is held
@@ -10306,7 +10306,7 @@ the repository stays registered while a project root or an open buffer
 still owns it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-forget" aria-label="Link to ::forget(repository)">#</a><code>::forget(repository)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1615" title="src/repository-registry.js:1615">L1615</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1593" title="src/repository-registry.js:1593">L1593</a></div>
                       </div>
                       <div class="api-description-body"><p>Drop every manual hold <a class="api-ref" href="#repositoryregistry-instance-add">#add</a> placed on a repository.</p>
 <p>The repository stays registered while a project root or an open buffer
@@ -10332,7 +10332,7 @@ throws a `typeerror` if the provider implements none of those methods, and
 an `error` if the registry has been destroyed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-addoperationprovider" aria-label="Link to ::addOperationProvider(provider, { fallback = false } = {})">#</a><code>::addOperationProvider(provider, { fallback = false } = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L995" title="src/repository-registry.js:995">L995</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L973" title="src/repository-registry.js:973">L973</a></div>
                       </div>
                       <div class="api-description-body"><p>Supply the Git implementation behind the registry’s operations.</p>
 <p>The registry routes work but performs none of it. A provider implements at
@@ -10352,7 +10352,7 @@ an <code>Error</code> if the registry has been destroyed.</p>
                     <article class="api-member" id="repositoryregistry-instance-getoperations" data-api-entry="repositoryregistry getoperations ::getoperations(repository) the operations available on a repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getoperations" aria-label="Link to ::getOperations(repository)">#</a><code>::getOperations(repository)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1036" title="src/repository-registry.js:1036">L1036</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1014" title="src/repository-registry.js:1014">L1014</a></div>
                       </div>
                       <div class="api-description-body"><p>The operations available on a repository.</p>
 </div>
@@ -10368,7 +10368,7 @@ answer nothing, and the honest response is to hide the command rather than
 to fail when it is invoked.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-canperformoperation" aria-label="Link to ::canPerformOperation(repository, operationName)">#</a><code>::canPerformOperation(repository, operationName)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1053" title="src/repository-registry.js:1053">L1053</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1031" title="src/repository-registry.js:1031">L1031</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether an operation can be performed on a repository right now.</p>
 <p>Ask before offering an action. A window where no package provides Git can
@@ -10383,7 +10383,7 @@ to fail when it is invoked.</p>
                     <article class="api-member" id="repositoryregistry-instance-getoperationcapabilities" data-api-entry="repositoryregistry getoperationcapabilities ::getoperationcapabilities(repository) every operation any provider can perform on a repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getoperationcapabilities" aria-label="Link to ::getOperationCapabilities(repository)">#</a><code>::getOperationCapabilities(repository)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1065" title="src/repository-registry.js:1065">L1065</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1043" title="src/repository-registry.js:1043">L1043</a></div>
                       </div>
                       <div class="api-description-body"><p>Every operation any provider can perform on a repository.</p>
 </div>
@@ -10406,7 +10406,7 @@ next one queued. this is what a progress indicator reads.
 * `startedat` the `number` timestamp it started at, or `null`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getpendingoperations" aria-label="Link to ::getPendingOperations(repository)">#</a><code>::getPendingOperations(repository)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1106" title="src/repository-registry.js:1106">L1106</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1084" title="src/repository-registry.js:1084">L1084</a></div>
                       </div>
                       <div class="api-description-body"><p>The operations queued or running right now.</p>
 <p>Operations on one repository run one at a time, so a long fetch leaves the
@@ -10435,7 +10435,7 @@ these belong to no repository — they are what creates one — so they are
 asked for separately from {@link #getoperationcapabilities}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getworkspaceoperationcapabilities" aria-label="Link to ::getWorkspaceOperationCapabilities()">#</a><code>::getWorkspaceOperationCapabilities()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1139" title="src/repository-registry.js:1139">L1139</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1117" title="src/repository-registry.js:1117">L1117</a></div>
                       </div>
                       <div class="api-description-body"><p>Which of <code>initialize</code> and <code>clone</code> a provider can perform.</p>
 <p>These belong to no repository — they are what creates one — so they are
@@ -10448,7 +10448,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member" id="repositoryregistry-instance-canperformworkspaceoperation" data-api-entry="repositoryregistry canperformworkspaceoperation ::canperformworkspaceoperation(operationname) whether a repository-creating operation can be performed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-canperformworkspaceoperation" aria-label="Link to ::canPerformWorkspaceOperation(operationName)">#</a><code>::canPerformWorkspaceOperation(operationName)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1154" title="src/repository-registry.js:1154">L1154</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1132" title="src/repository-registry.js:1132">L1132</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether a repository-creating operation can be performed.</p>
 </div>
@@ -10459,7 +10459,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member" id="repositoryregistry-instance-initialize" data-api-entry="repositoryregistry initialize ::initialize(directorypath, options) create a repository in a directory and register it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-initialize" aria-label="Link to ::initialize(directoryPath, options)">#</a><code>::initialize(directoryPath, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1228" title="src/repository-registry.js:1228">L1228</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1206" title="src/repository-registry.js:1206">L1206</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a repository in a directory and register it.</p>
 </div>
@@ -10472,7 +10472,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member" id="repositoryregistry-instance-clone" data-api-entry="repositoryregistry clone ::clone(remoteurl, destinationpath, options) clone a remote into a directory and register the result.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-clone" aria-label="Link to ::clone(remoteUrl, destinationPath, options)">#</a><code>::clone(remoteUrl, destinationPath, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1242" title="src/repository-registry.js:1242">L1242</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1220" title="src/repository-registry.js:1220">L1220</a></div>
                       </div>
                       <div class="api-description-body"><p>Clone a remote into a directory and register the result.</p>
 </div>
@@ -10490,7 +10490,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member" id="repositoryregistry-instance-canexecutegitcommands" data-api-entry="repositoryregistry canexecutegitcommands ::canexecutegitcommands() whether any provider can run raw git commands.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-canexecutegitcommands" aria-label="Link to ::canExecuteGitCommands()">#</a><code>::canExecuteGitCommands()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1169" title="src/repository-registry.js:1169">L1169</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1147" title="src/repository-registry.js:1147">L1147</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether any provider can run raw Git commands.</p>
 </div>
@@ -10504,7 +10504,7 @@ operation where one exists — it is the part a provider can implement
 without shelling out.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-executegit" aria-label="Link to ::executeGit(args, workingDirectory, options)">#</a><code>::executeGit(args, workingDirectory, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1187" title="src/repository-registry.js:1187">L1187</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1165" title="src/repository-registry.js:1165">L1165</a></div>
                       </div>
                       <div class="api-description-body"><p>Run a Git command through whichever provider offers one.</p>
 <p>The escape hatch for what the operation set does not cover. Prefer a named
@@ -10521,7 +10521,7 @@ without shelling out.</p>
                     <article class="api-member" id="repositoryregistry-instance-getgitexecutablepath" data-api-entry="repositoryregistry getgitexecutablepath ::getgitexecutablepath() the git binary the active provider runs.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getgitexecutablepath" aria-label="Link to ::getGitExecutablePath()">#</a><code>::getGitExecutablePath()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1211" title="src/repository-registry.js:1211">L1211</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1189" title="src/repository-registry.js:1189">L1189</a></div>
                       </div>
                       <div class="api-description-body"><p>The Git binary the active provider runs.</p>
 </div>
@@ -17550,7 +17550,7 @@ this can be useful when you've made a change to the model and need to
 be sure this change has been flushed to the dom.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-getnextupdatepromise" aria-label="Link to ::getNextUpdatePromise()">#</a><code>::getNextUpdatePromise()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L63" title="src/text-editor-element.js:63">L63</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L68" title="src/text-editor-element.js:68">L68</a></div>
                       </div>
                       <div class="api-description-body"><p>Get a promise that resolves the next time the element’s DOM
 is updated in any way.</p>
@@ -17563,7 +17563,7 @@ be sure this change has been flushed to the DOM.</p>
                     <article class="api-member" id="texteditorelement-instance-getbasecharacterwidth" data-api-entry="texteditorelement getbasecharacterwidth ::getbasecharacterwidth() get the width of an `x` character displayed in this element.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-getbasecharacterwidth" aria-label="Link to ::getBaseCharacterWidth()">#</a><code>::getBaseCharacterWidth()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L160" title="src/text-editor-element.js:160">L160</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L165" title="src/text-editor-element.js:165">L165</a></div>
                       </div>
                       <div class="api-description-body"><p>get the width of an <code>x</code> character displayed in this element.</p>
 </div>
@@ -17574,7 +17574,7 @@ be sure this change has been flushed to the DOM.</p>
                     <article class="api-member" id="texteditorelement-instance-scrolltotop" data-api-entry="texteditorelement scrolltotop ::scrolltotop() scrolls the editor to the top.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-scrolltotop" aria-label="Link to ::scrollToTop()">#</a><code>::scrollToTop()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L226" title="src/text-editor-element.js:226">L226</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L231" title="src/text-editor-element.js:231">L231</a></div>
                       </div>
                       <div class="api-description-body"><p>Scrolls the editor to the top.</p>
 </div>
@@ -17584,7 +17584,7 @@ be sure this change has been flushed to the DOM.</p>
                     <article class="api-member" id="texteditorelement-instance-scrolltobottom" data-api-entry="texteditorelement scrolltobottom ::scrolltobottom() scrolls the editor to the bottom.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-scrolltobottom" aria-label="Link to ::scrollToBottom()">#</a><code>::scrollToBottom()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L236" title="src/text-editor-element.js:236">L236</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L241" title="src/text-editor-element.js:241">L241</a></div>
                       </div>
                       <div class="api-description-body"><p>Scrolls the editor to the bottom.</p>
 </div>
@@ -17600,7 +17600,7 @@ measure the requested horizontal pixel position if it isn't already
 cached.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-pixelpositionforbufferposition" aria-label="Link to ::pixelPositionForBufferPosition(bufferPosition)">#</a><code>::pixelPositionForBufferPosition(bufferPosition)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L258" title="src/text-editor-element.js:258">L258</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L263" title="src/text-editor-element.js:263">L263</a></div>
                       </div>
                       <div class="api-description-body"><p>Converts a buffer position to a pixel position.</p>
 <p>Be aware that calling this method with a column that does not translate
@@ -17621,7 +17621,7 @@ cause a synchronous dom update in order to measure the requested
 horizontal pixel position if it isn't already cached.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-pixelpositionforscreenposition" aria-label="Link to ::pixelPositionForScreenPosition(screenPosition)">#</a><code>::pixelPositionForScreenPosition(screenPosition)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L276" title="src/text-editor-element.js:276">L276</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L281" title="src/text-editor-element.js:281">L281</a></div>
                       </div>
                       <div class="api-description-body"><p>Converts a screen position to a pixel position.</p>
 <p>Be aware that calling this method with a non-zero column value could
@@ -17638,7 +17638,7 @@ forcing them to be recalculated and the surrounding content to be adjusted
 on the next animation frame.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#texteditorelement-instance-invalidateblockdecorationdimensions" aria-label="Link to ::invalidateBlockDecorationDimensions(blockDecoration)">#</a><code>::invalidateBlockDecorationDimensions(blockDecoration)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L342" title="src/text-editor-element.js:342">L342</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/text-editor-element.js#L347" title="src/text-editor-element.js:347">L347</a></div>
                       </div>
                       <div class="api-description-body"><p>Invalidate the passed block <a class="api-type" href="#class-decoration">Decoration</a>'s dimensions,
 forcing them to be recalculated and the surrounding content to be adjusted
@@ -19648,7 +19648,7 @@ nothing is prompted for — the caller decides whether the items may go,
 which is why this is not {@link pane#destroyitems} on every pane.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-clear" aria-label="Link to ::clear(options = {})">#</a><code>::clear(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L609" title="src/workspace.js:609">L609</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L613" title="src/workspace.js:613">L613</a></div>
                       </div>
                       <div class="api-description-body"><p>Destroy every item in the given pane container locations,
 leaving each of them with a single empty pane.</p>
@@ -19669,7 +19669,7 @@ which is why this is not <a class="api-ref" href="#pane-instance-destroyitems">P
 editors in the workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-observetexteditors" aria-label="Link to ::observeTextEditors(callback)">#</a><code>::observeTextEditors(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L911" title="src/workspace.js:911">L911</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L915" title="src/workspace.js:915">L915</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback with all current and future text
 editors in the workspace.</p>
@@ -19684,7 +19684,7 @@ editors in the workspace.</p>
 in the workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-observepaneitems" aria-label="Link to ::observePaneItems(callback)">#</a><code>::observePaneItems(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L928" title="src/workspace.js:928">L928</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L932" title="src/workspace.js:932">L932</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback with all current and future panes items
 in the workspace.</p>
@@ -19703,7 +19703,7 @@ any expensive operations via this method. consider
 stop occurring.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidchangeactivepaneitem" aria-label="Link to ::onDidChangeActivePaneItem(callback)">#</a><code>::onDidChangeActivePaneItem(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L948" title="src/workspace.js:948">L948</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L952" title="src/workspace.js:952">L952</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when the active pane item changes.</p>
 <p>Because observers are invoked synchronously, it’s important not to perform
@@ -19727,7 +19727,7 @@ changing or closing tabs and ensures critical ui feedback, like changing the
 highlighted tab, gets priority over work that can be done asynchronously.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidstopchangingactivepaneitem" aria-label="Link to ::onDidStopChangingActivePaneItem(callback)">#</a><code>::onDidStopChangingActivePaneItem(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L968" title="src/workspace.js:968">L968</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L972" title="src/workspace.js:972">L972</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when the active pane item stops
 changing.</p>
@@ -19747,7 +19747,7 @@ highlighted tab, gets priority over work that can be done asynchronously.</p>
 text editor and when there is no longer an active text editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidchangeactivetexteditor" aria-label="Link to ::onDidChangeActiveTextEditor(callback)">#</a><code>::onDidChangeActiveTextEditor(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L982" title="src/workspace.js:982">L982</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L986" title="src/workspace.js:986">L986</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a text editor becomes the active
 text editor and when there is no longer an active text editor.</p>
@@ -19762,7 +19762,7 @@ text editor and when there is no longer an active text editor.</p>
 with all future active pane items in the workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-observeactivepaneitem" aria-label="Link to ::observeActivePaneItem(callback)">#</a><code>::observeActivePaneItem(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L996" title="src/workspace.js:996">L996</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1000" title="src/workspace.js:1000">L1000</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback with the current active pane item and
 with all future active pane items in the workspace.</p>
@@ -19778,7 +19778,7 @@ with all future active pane items in the workspace.</p>
 an active text editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-observeactivetexteditor" aria-label="Link to ::observeActiveTextEditor(callback)">#</a><code>::observeActiveTextEditor(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1012" title="src/workspace.js:1012">L1012</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1016" title="src/workspace.js:1016">L1016</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback with the current active text editor
 (if any), with all future active text editors, and when there is no longer
@@ -19795,7 +19795,7 @@ an active text editor.</p>
 present in the workspace when they are reopened.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidopen" aria-label="Link to ::onDidOpen(callback)">#</a><code>::onDidOpen(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1033" title="src/workspace.js:1033">L1033</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1037" title="src/workspace.js:1037">L1037</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback whenever an item is opened. Unlike
 <a class="api-ref" href="#workspace-instance-ondidaddpaneitem">#onDidAddPaneItem</a>, observers will be notified for items that are already
@@ -19814,7 +19814,7 @@ present in the workspace when they are reopened.</p>
                     <article class="api-member" id="workspace-instance-ondidaddpane" data-api-entry="workspace ondidaddpane ::ondidaddpane(callback) invoke the given callback when a pane is added to the workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidaddpane" aria-label="Link to ::onDidAddPane(callback)">#</a><code>::onDidAddPane(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1047" title="src/workspace.js:1047">L1047</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1051" title="src/workspace.js:1051">L1051</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a pane is added to the workspace.</p>
 </div>
@@ -19829,7 +19829,7 @@ present in the workspace when they are reopened.</p>
 workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-onwilldestroypane" aria-label="Link to ::onWillDestroyPane(callback)">#</a><code>::onWillDestroyPane(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1064" title="src/workspace.js:1064">L1064</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1068" title="src/workspace.js:1068">L1068</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback before a pane is destroyed in the
 workspace.</p>
@@ -19845,7 +19845,7 @@ workspace.</p>
 workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondiddestroypane" aria-label="Link to ::onDidDestroyPane(callback)">#</a><code>::onDidDestroyPane(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1081" title="src/workspace.js:1081">L1081</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1085" title="src/workspace.js:1085">L1085</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a pane is destroyed in the
 workspace.</p>
@@ -19861,7 +19861,7 @@ workspace.</p>
 workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-observepanes" aria-label="Link to ::observePanes(callback)">#</a><code>::observePanes(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1097" title="src/workspace.js:1097">L1097</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1101" title="src/workspace.js:1101">L1101</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback with all current and future panes in the
 workspace.</p>
@@ -19875,7 +19875,7 @@ workspace.</p>
                     <article class="api-member" id="workspace-instance-ondidchangeactivepane" data-api-entry="workspace ondidchangeactivepane ::ondidchangeactivepane(callback) invoke the given callback when the active pane changes.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidchangeactivepane" aria-label="Link to ::onDidChangeActivePane(callback)">#</a><code>::onDidChangeActivePane(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1112" title="src/workspace.js:1112">L1112</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1116" title="src/workspace.js:1116">L1116</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when the active pane changes.</p>
 </div>
@@ -19889,7 +19889,7 @@ workspace.</p>
 the active pane changes.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-observeactivepane" aria-label="Link to ::observeActivePane(callback)">#</a><code>::observeActivePane(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1126" title="src/workspace.js:1126">L1126</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1130" title="src/workspace.js:1130">L1130</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback with the current active pane and when
 the active pane changes.</p>
@@ -19904,7 +19904,7 @@ the active pane changes.</p>
 workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidaddpaneitem" aria-label="Link to ::onDidAddPaneItem(callback)">#</a><code>::onDidAddPaneItem(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1144" title="src/workspace.js:1144">L1144</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1148" title="src/workspace.js:1148">L1148</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a pane item is added to the
 workspace.</p>
@@ -19922,7 +19922,7 @@ workspace.</p>
 destroyed, before the user is prompted to save it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-onwilldestroypaneitem" aria-label="Link to ::onWillDestroyPaneItem(callback)">#</a><code>::onWillDestroyPaneItem(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1163" title="src/workspace.js:1163">L1163</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1167" title="src/workspace.js:1167">L1167</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a pane item is about to be
 destroyed, before the user is prompted to save it.</p>
@@ -19939,7 +19939,7 @@ destroyed, before the user is prompted to save it.</p>
                     <article class="api-member" id="workspace-instance-ondiddestroypaneitem" data-api-entry="workspace ondiddestroypaneitem ::ondiddestroypaneitem(callback) invoke the given callback when a pane item is destroyed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondiddestroypaneitem" aria-label="Link to ::onDidDestroyPaneItem(callback)">#</a><code>::onDidDestroyPaneItem(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1181" title="src/workspace.js:1181">L1181</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1185" title="src/workspace.js:1185">L1185</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a pane item is destroyed.</p>
 </div>
@@ -19956,7 +19956,7 @@ destroyed, before the user is prompted to save it.</p>
 workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidaddtexteditor" aria-label="Link to ::onDidAddTextEditor(callback)">#</a><code>::onDidAddTextEditor(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1200" title="src/workspace.js:1200">L1200</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1204" title="src/workspace.js:1204">L1204</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a text editor is added to the
 workspace.</p>
@@ -19980,7 +19980,7 @@ activated. if no uri is given, or no registered opener can open
 the uri, a new empty {@link texteditor} will be created.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-open" aria-label="Link to ::open(itemOrURI, options = {})">#</a><code>::open(itemOrURI, options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1228" title="src/workspace.js:1228">L1228</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1232" title="src/workspace.js:1232">L1232</a></div>
                       </div>
                       <div class="api-description-body"><p>Opens the given URI in Lumine asynchronously.
 If the URI is already open, the existing item for that URI will be
@@ -20003,7 +20003,7 @@ the URI, a new empty <a class="api-type" href="#class-texteditor">TextEditor</a>
                     <article class="api-member" id="workspace-instance-hide" data-api-entry="workspace hide ::hide(itemoruri) search the workspace for items matching the given uri and hide them.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-hide" aria-label="Link to ::hide(itemOrURI)">#</a><code>::hide(itemOrURI)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1456" title="src/workspace.js:1456">L1456</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1460" title="src/workspace.js:1460">L1460</a></div>
                       </div>
                       <div class="api-description-body"><p>Search the workspace for items matching the given URI and hide them.</p>
 </div>
@@ -20016,7 +20016,7 @@ the URI, a new empty <a class="api-type" href="#class-texteditor">TextEditor</a>
 otherwise, open the url.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-toggle" aria-label="Link to ::toggle(itemOrURI)">#</a><code>::toggle(itemOrURI)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1494" title="src/workspace.js:1494">L1494</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1498" title="src/workspace.js:1498">L1498</a></div>
                       </div>
                       <div class="api-description-body"><p>Search the workspace for items matching the given URI. If any are found, hide them.
 Otherwise, open the URL.</p>
@@ -20032,7 +20032,7 @@ if no uri is given, or no registered opener can open the uri, a new empty
 {@link texteditor} will be created.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-createitemforuri" aria-label="Link to ::createItemForURI(uri, options)">#</a><code>::createItemForURI(uri, options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1615" title="src/workspace.js:1615">L1615</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1619" title="src/workspace.js:1619">L1619</a></div>
                       </div>
                       <div class="api-description-body"><p>Creates a new item that corresponds to the provided URI.</p>
 <p>If no URI is given, or no registered opener can open the URI, a new empty
@@ -20046,7 +20046,7 @@ if no uri is given, or no registered opener can open the uri, a new empty
                     <article class="api-member" id="workspace-instance-istexteditor" data-api-entry="workspace istexteditor ::istexteditor(object) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-istexteditor" aria-label="Link to ::isTextEditor(object)">#</a><code>::isTextEditor(object)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1703" title="src/workspace.js:1703">L1703</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1707" title="src/workspace.js:1707">L1707</a></div>
                       </div>
 
                       <section class="api-structured-docs"><h5>Parameters</h5><dl><dt><code>object</code></dt><dd><p>An <code>Object</code> you want to perform the check against.</p>
@@ -20057,7 +20057,7 @@ if no uri is given, or no registered opener can open the uri, a new empty
                     <article class="api-member" id="workspace-instance-buildtexteditor" data-api-entry="workspace buildtexteditor ::buildtexteditor(params) create a new text editor.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-buildtexteditor" aria-label="Link to ::buildTextEditor(params)">#</a><code>::buildTextEditor(params)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1714" title="src/workspace.js:1714">L1714</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1718" title="src/workspace.js:1718">L1718</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a new text editor.</p>
 </div>
@@ -20087,7 +20087,7 @@ back. `emptymessage` stands in for the rows when there are none, and stands
 down while a loading or status message is showing.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-buildselectlist" aria-label="Link to ::buildSelectList(props)">#</a><code>::buildSelectList(props)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1751" title="src/workspace.js:1751">L1751</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1755" title="src/workspace.js:1755">L1755</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a fuzzy-searchable list shown in a modal panel.</p>
 <p>The editor ships the implementation, so a package neither depends on it nor
@@ -20129,7 +20129,7 @@ the message line works exactly as in {@link #buildselectlist}, minus
 and the dialog clears it on the next keystroke by itself.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-buildinputdialog" aria-label="Link to ::buildInputDialog(props)">#</a><code>::buildInputDialog(props)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1776" title="src/workspace.js:1776">L1776</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1780" title="src/workspace.js:1780">L1780</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a modal dialog whose query editor is the value.</p>
 <p>The base of <a class="api-ref" href="#workspace-instance-buildselectlist">#buildSelectList</a> without the list: a modal panel with a mini
@@ -20159,7 +20159,7 @@ shift-escape as `modal:go-back`; escape still cancels the visible modal,
 which ends the whole trail.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-popmodal" aria-label="Link to ::popModal()">#</a><code>::popModal()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1807" title="src/workspace.js:1807">L1807</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1811" title="src/workspace.js:1811">L1811</a></div>
                       </div>
                       <div class="api-description-body"><p>Go back one step in the modal breadcrumb trail.</p>
 <p>A trail exists while a modal shown with <a class="api-ref" href="#panel-instance-show">Panel#show</a>'s <code>crumb</code> option is
@@ -20175,7 +20175,7 @@ which ends the whole trail.</p>
                     <article class="api-member" id="workspace-instance-popmodalto" data-api-entry="workspace popmodalto ::popmodalto(index) jump back to an earlier step of the modal breadcrumb trail.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-popmodalto" aria-label="Link to ::popModalTo(index)">#</a><code>::popModalTo(index)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1819" title="src/workspace.js:1819">L1819</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1823" title="src/workspace.js:1823">L1823</a></div>
                       </div>
                       <div class="api-description-body"><p>Jump back to an earlier step of the modal breadcrumb trail.</p>
 </div>
@@ -20187,7 +20187,7 @@ which ends the whole trail.</p>
                     <article class="api-member" id="workspace-instance-getmodaltrail" data-api-entry="workspace getmodaltrail ::getmodaltrail() the current modal breadcrumb trail.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getmodaltrail" aria-label="Link to ::getModalTrail()">#</a><code>::getModalTrail()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1830" title="src/workspace.js:1830">L1830</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1834" title="src/workspace.js:1834">L1834</a></div>
                       </div>
                       <div class="api-description-body"><p>The current modal breadcrumb trail.</p>
 </div>
@@ -20199,7 +20199,7 @@ which ends the whole trail.</p>
 changes — a step is entered, the flow goes back, or the trail ends.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-ondidchangemodaltrail" aria-label="Link to ::onDidChangeModalTrail(callback)">#</a><code>::onDidChangeModalTrail(callback)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1843" title="src/workspace.js:1843">L1843</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1847" title="src/workspace.js:1847">L1847</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback whenever the modal breadcrumb trail
 changes — a step is entered, the flow goes back, or the trail ends.</p>
@@ -20213,7 +20213,7 @@ changes — a step is entered, the flow goes back, or the trail ends.</p>
 reopened.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-reopenitem" aria-label="Link to ::reopenItem()">#</a><code>::reopenItem()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1855" title="src/workspace.js:1855">L1855</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1859" title="src/workspace.js:1859">L1859</a></div>
                       </div>
                       <div class="api-description-body"><p>Asynchronously reopens the last-closed item’s URI if it hasn’t already been
 reopened.</p>
@@ -20254,7 +20254,7 @@ to defer your package's activation until a specific url is opened, add a
 strings.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addopener" aria-label="Link to ::addOpener(opener)">#</a><code>::addOpener(opener)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1901" title="src/workspace.js:1901">L1901</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1905" title="src/workspace.js:1905">L1905</a></div>
                       </div>
                       <div class="api-description-body"><p>Register an opener for a uri.</p>
 <p>When a URI is opened via <a class="api-ref" href="#workspace-instance-open">Workspace#open</a>, Lumine loops through its registered
@@ -20291,7 +20291,7 @@ strings.</p>
                     <article class="api-member" id="workspace-instance-getpaneitems" data-api-entry="workspace getpaneitems ::getpaneitems() get all pane items in the workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getpaneitems" aria-label="Link to ::getPaneItems()">#</a><code>::getPaneItems()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1923" title="src/workspace.js:1923">L1923</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1927" title="src/workspace.js:1927">L1927</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all pane items in the workspace.</p>
 </div>
@@ -20302,7 +20302,7 @@ strings.</p>
                     <article class="api-member" id="workspace-instance-getactivepaneitem" data-api-entry="workspace getactivepaneitem ::getactivepaneitem() get the active {@link pane}'s active item.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getactivepaneitem" aria-label="Link to ::getActivePaneItem()">#</a><code>::getActivePaneItem()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1934" title="src/workspace.js:1934">L1934</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1938" title="src/workspace.js:1938">L1938</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the active <a class="api-type" href="#class-pane">Pane</a>'s active item.</p>
 </div>
@@ -20313,7 +20313,7 @@ strings.</p>
                     <article class="api-member" id="workspace-instance-gettexteditors" data-api-entry="workspace gettexteditors ::gettexteditors() get all text editors in the workspace, if they are pane items.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-gettexteditors" aria-label="Link to ::getTextEditors()">#</a><code>::getTextEditors()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1945" title="src/workspace.js:1945">L1945</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1949" title="src/workspace.js:1949">L1949</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all text editors in the workspace, if they are pane items.</p>
 </div>
@@ -20324,7 +20324,7 @@ strings.</p>
                     <article class="api-member" id="workspace-instance-getactivetexteditor" data-api-entry="workspace getactivetexteditor ::getactivetexteditor() get the workspace center's active item if it is a {@link texteditor}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getactivetexteditor" aria-label="Link to ::getActiveTextEditor()">#</a><code>::getActiveTextEditor()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1973" title="src/workspace.js:1973">L1973</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L1977" title="src/workspace.js:1977">L1977</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the workspace center’s active item if it is a <a class="api-type" href="#class-texteditor">TextEditor</a>.</p>
 </div>
@@ -20342,7 +20342,7 @@ targets the center rather than the focused pane container, for the reason
 given on {@link #destroyactivepaneitem}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-saveactivepaneitem" aria-label="Link to ::saveActivePaneItem()">#</a><code>::saveActivePaneItem()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2004" title="src/workspace.js:2004">L2004</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2008" title="src/workspace.js:2008">L2008</a></div>
                       </div>
                       <div class="api-description-body"><p>Save the workspace center’s active pane item.</p>
 <p>If the item has a URI according to its <code>.getURI</code> method, calls <code>.save</code> on
@@ -20365,7 +20365,7 @@ targets the center rather than the focused pane container, for the reason
 given on {@link #destroyactivepaneitem}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-saveactivepaneitemas" aria-label="Link to ::saveActivePaneItemAs()">#</a><code>::saveActivePaneItemAs()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2022" title="src/workspace.js:2022">L2022</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2026" title="src/workspace.js:2026">L2026</a></div>
                       </div>
                       <div class="api-description-body"><p>Prompt for a path and save the workspace center’s active pane
 item to it.</p>
@@ -20396,7 +20396,7 @@ following focus would make ctrl-s in a search field or a dock try to save
 that instead of the document being edited.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-destroyactivepaneitem" aria-label="Link to ::destroyActivePaneItem()">#</a><code>::destroyActivePaneItem()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2047" title="src/workspace.js:2047">L2047</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2051" title="src/workspace.js:2051">L2051</a></div>
                       </div>
                       <div class="api-description-body"><p>Destroy (close) the active pane item.</p>
 <p>Removes the active pane item and calls its <code>.destroy</code> method if it has one.</p>
@@ -20422,7 +20422,7 @@ that instead of the document being edited.</p>
                     <article class="api-member" id="workspace-instance-getactivepanecontainer" data-api-entry="workspace getactivepanecontainer ::getactivepanecontainer() get the most recently focused pane container.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getactivepanecontainer" aria-label="Link to ::getActivePaneContainer()">#</a><code>::getActivePaneContainer()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2062" title="src/workspace.js:2062">L2062</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2066" title="src/workspace.js:2066">L2066</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the most recently focused pane container.</p>
 </div>
@@ -20433,7 +20433,7 @@ that instead of the document being edited.</p>
                     <article class="api-member" id="workspace-instance-getpanes" data-api-entry="workspace getpanes ::getpanes() get all panes in the workspace.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getpanes" aria-label="Link to ::getPanes()">#</a><code>::getPanes()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2073" title="src/workspace.js:2073">L2073</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2077" title="src/workspace.js:2077">L2077</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all panes in the workspace.</p>
 </div>
@@ -20444,7 +20444,7 @@ that instead of the document being edited.</p>
                     <article class="api-member" id="workspace-instance-getactivepane" data-api-entry="workspace getactivepane ::getactivepane() get the active {@link pane}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getactivepane" aria-label="Link to ::getActivePane()">#</a><code>::getActivePane()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2088" title="src/workspace.js:2088">L2088</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2092" title="src/workspace.js:2092">L2092</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the active <a class="api-type" href="#class-pane">Pane</a>.</p>
 </div>
@@ -20454,7 +20454,7 @@ that instead of the document being edited.</p>
                     <article class="api-member" id="workspace-instance-activatenextpane" data-api-entry="workspace activatenextpane ::activatenextpane() make the next pane active.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-activatenextpane" aria-label="Link to ::activateNextPane()">#</a><code>::activateNextPane()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2098" title="src/workspace.js:2098">L2098</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2102" title="src/workspace.js:2102">L2102</a></div>
                       </div>
                       <div class="api-description-body"><p>Make the next pane active.</p>
 </div>
@@ -20464,7 +20464,7 @@ that instead of the document being edited.</p>
                     <article class="api-member" id="workspace-instance-activatepreviouspane" data-api-entry="workspace activatepreviouspane ::activatepreviouspane() make the previous pane active.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-activatepreviouspane" aria-label="Link to ::activatePreviousPane()">#</a><code>::activatePreviousPane()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2108" title="src/workspace.js:2108">L2108</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2112" title="src/workspace.js:2112">L2112</a></div>
                       </div>
                       <div class="api-description-body"><p>Make the previous pane active.</p>
 </div>
@@ -20475,7 +20475,7 @@ that instead of the document being edited.</p>
 uri.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-panecontainerforuri" aria-label="Link to ::paneContainerForURI(uri)">#</a><code>::paneContainerForURI(uri)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2121" title="src/workspace.js:2121">L2121</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2125" title="src/workspace.js:2125">L2125</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the first pane container that contains an item with the given
 URI.</p>
@@ -20488,7 +20488,7 @@ URI.</p>
                     <article class="api-member" id="workspace-instance-panecontainerforitem" data-api-entry="workspace panecontainerforitem ::panecontainerforitem(item) get the first pane container that contains the given item.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-panecontainerforitem" aria-label="Link to ::paneContainerForItem(item)">#</a><code>::paneContainerForItem(item)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2133" title="src/workspace.js:2133">L2133</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2137" title="src/workspace.js:2137">L2137</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the first pane container that contains the given item.</p>
 </div>
@@ -20500,7 +20500,7 @@ URI.</p>
                     <article class="api-member" id="workspace-instance-paneforuri" data-api-entry="workspace paneforuri ::paneforuri(uri) get the first {@link pane} that contains an item with the given uri.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-paneforuri" aria-label="Link to ::paneForURI(uri)">#</a><code>::paneForURI(uri)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2145" title="src/workspace.js:2145">L2145</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2149" title="src/workspace.js:2149">L2149</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the first <a class="api-type" href="#class-pane">Pane</a> that contains an item with the given URI.</p>
 </div>
@@ -20512,7 +20512,7 @@ URI.</p>
                     <article class="api-member" id="workspace-instance-paneforitem" data-api-entry="workspace paneforitem ::paneforitem(item) get the {@link pane} containing the given item.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-paneforitem" aria-label="Link to ::paneForItem(item)">#</a><code>::paneForItem(item)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2162" title="src/workspace.js:2162">L2162</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2166" title="src/workspace.js:2166">L2166</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-pane">Pane</a> containing the given item.</p>
 </div>
@@ -20528,7 +20528,7 @@ targets the center rather than the focused pane container, for the reason
 given on {@link #destroyactivepaneitem}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-closeactivepaneitemoremptypaneorwindow" aria-label="Link to ::closeActivePaneItemOrEmptyPaneOrWindow()">#</a><code>::closeActivePaneItemOrEmptyPaneOrWindow()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2189" title="src/workspace.js:2189">L2189</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2193" title="src/workspace.js:2193">L2193</a></div>
                       </div>
                       <div class="api-description-body"><p>Close the workspace center’s active pane item, or its active pane
 if that pane is empty, or the window if only the empty root pane is left.</p>
@@ -20545,7 +20545,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getcenter" data-api-entry="workspace getcenter ::getcenter() get the {@link workspacecenter} at the center of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getcenter" aria-label="Link to ::getCenter()">#</a><code>::getCenter()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2269" title="src/workspace.js:2269">L2269</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2274" title="src/workspace.js:2274">L2274</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-workspacecenter">WorkspaceCenter</a> at the center of the editor window.</p>
 </div>
@@ -20555,7 +20555,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getleftdock" data-api-entry="workspace getleftdock ::getleftdock() get the {@link dock} to the left of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getleftdock" aria-label="Link to ::getLeftDock()">#</a><code>::getLeftDock()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2279" title="src/workspace.js:2279">L2279</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2284" title="src/workspace.js:2284">L2284</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-dock">Dock</a> to the left of the editor window.</p>
 </div>
@@ -20565,7 +20565,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getrightdock" data-api-entry="workspace getrightdock ::getrightdock() get the {@link dock} to the right of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getrightdock" aria-label="Link to ::getRightDock()">#</a><code>::getRightDock()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2289" title="src/workspace.js:2289">L2289</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2294" title="src/workspace.js:2294">L2294</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-dock">Dock</a> to the right of the editor window.</p>
 </div>
@@ -20575,7 +20575,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getbottomdock" data-api-entry="workspace getbottomdock ::getbottomdock() get the {@link dock} below the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getbottomdock" aria-label="Link to ::getBottomDock()">#</a><code>::getBottomDock()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2299" title="src/workspace.js:2299">L2299</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2304" title="src/workspace.js:2304">L2304</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the <a class="api-type" href="#class-dock">Dock</a> below the editor window.</p>
 </div>
@@ -20589,7 +20589,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getbottompanels" data-api-entry="workspace getbottompanels ::getbottompanels() get an `array` of all the panel items at the bottom of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getbottompanels" aria-label="Link to ::getBottomPanels()">#</a><code>::getBottomPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2329" title="src/workspace.js:2329">L2329</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2334" title="src/workspace.js:2334">L2334</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the panel items at the bottom of the editor window.</p>
 </div>
@@ -20599,7 +20599,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addbottompanel" data-api-entry="workspace addbottompanel ::addbottompanel(options) adds a panel item to the bottom of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addbottompanel" aria-label="Link to ::addBottomPanel(options)">#</a><code>::addBottomPanel(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2344" title="src/workspace.js:2344">L2344</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2349" title="src/workspace.js:2349">L2349</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item to the bottom of the editor window.</p>
 </div>
@@ -20612,7 +20612,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getleftpanels" data-api-entry="workspace getleftpanels ::getleftpanels() get an `array` of all the panel items to the left of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getleftpanels" aria-label="Link to ::getLeftPanels()">#</a><code>::getLeftPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2354" title="src/workspace.js:2354">L2354</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2359" title="src/workspace.js:2359">L2359</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the panel items to the left of the editor window.</p>
 </div>
@@ -20622,7 +20622,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addleftpanel" data-api-entry="workspace addleftpanel ::addleftpanel(options) adds a panel item to the left of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addleftpanel" aria-label="Link to ::addLeftPanel(options)">#</a><code>::addLeftPanel(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2369" title="src/workspace.js:2369">L2369</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2374" title="src/workspace.js:2374">L2374</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item to the left of the editor window.</p>
 </div>
@@ -20635,7 +20635,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getrightpanels" data-api-entry="workspace getrightpanels ::getrightpanels() get an `array` of all the panel items to the right of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getrightpanels" aria-label="Link to ::getRightPanels()">#</a><code>::getRightPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2379" title="src/workspace.js:2379">L2379</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2384" title="src/workspace.js:2384">L2384</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the panel items to the right of the editor window.</p>
 </div>
@@ -20645,7 +20645,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addrightpanel" data-api-entry="workspace addrightpanel ::addrightpanel(options) adds a panel item to the right of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addrightpanel" aria-label="Link to ::addRightPanel(options)">#</a><code>::addRightPanel(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2394" title="src/workspace.js:2394">L2394</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2399" title="src/workspace.js:2399">L2399</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item to the right of the editor window.</p>
 </div>
@@ -20658,7 +20658,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-gettoppanels" data-api-entry="workspace gettoppanels ::gettoppanels() get an `array` of all the panel items at the top of the editor window.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-gettoppanels" aria-label="Link to ::getTopPanels()">#</a><code>::getTopPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2404" title="src/workspace.js:2404">L2404</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2409" title="src/workspace.js:2409">L2409</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the panel items at the top of the editor window.</p>
 </div>
@@ -20668,7 +20668,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addtoppanel" data-api-entry="workspace addtoppanel ::addtoppanel(options) adds a panel item to the top of the editor window above the tabs.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addtoppanel" aria-label="Link to ::addTopPanel(options)">#</a><code>::addTopPanel(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2419" title="src/workspace.js:2419">L2419</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2424" title="src/workspace.js:2424">L2424</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item to the top of the editor window above the tabs.</p>
 </div>
@@ -20681,7 +20681,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getheaderpanels" data-api-entry="workspace getheaderpanels ::getheaderpanels() get an `array` of all the panel items in the header.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getheaderpanels" aria-label="Link to ::getHeaderPanels()">#</a><code>::getHeaderPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2429" title="src/workspace.js:2429">L2429</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2434" title="src/workspace.js:2434">L2434</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the panel items in the header.</p>
 </div>
@@ -20691,7 +20691,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addheaderpanel" data-api-entry="workspace addheaderpanel ::addheaderpanel(options) adds a panel item to the header.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addheaderpanel" aria-label="Link to ::addHeaderPanel(options)">#</a><code>::addHeaderPanel(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2444" title="src/workspace.js:2444">L2444</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2449" title="src/workspace.js:2449">L2449</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item to the header.</p>
 </div>
@@ -20704,7 +20704,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getfooterpanels" data-api-entry="workspace getfooterpanels ::getfooterpanels() get an `array` of all the panel items in the footer.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getfooterpanels" aria-label="Link to ::getFooterPanels()">#</a><code>::getFooterPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2454" title="src/workspace.js:2454">L2454</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2459" title="src/workspace.js:2459">L2459</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the panel items in the footer.</p>
 </div>
@@ -20714,7 +20714,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addfooterpanel" data-api-entry="workspace addfooterpanel ::addfooterpanel(options) adds a panel item to the footer.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addfooterpanel" aria-label="Link to ::addFooterPanel(options)">#</a><code>::addFooterPanel(options)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2469" title="src/workspace.js:2469">L2469</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2474" title="src/workspace.js:2474">L2474</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item to the footer.</p>
 </div>
@@ -20727,7 +20727,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-getmodalpanels" data-api-entry="workspace getmodalpanels ::getmodalpanels() get an `array` of all the modal panel items">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-getmodalpanels" aria-label="Link to ::getModalPanels()">#</a><code>::getModalPanels()</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2479" title="src/workspace.js:2479">L2479</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2484" title="src/workspace.js:2484">L2484</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all the modal panel items</p>
 </div>
@@ -20737,7 +20737,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-addmodalpanel" data-api-entry="workspace addmodalpanel ::addmodalpanel(options = {}) adds a panel item as a modal dialog.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-addmodalpanel" aria-label="Link to ::addModalPanel(options = {})">#</a><code>::addModalPanel(options = {})</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2497" title="src/workspace.js:2497">L2497</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2502" title="src/workspace.js:2502">L2502</a></div>
                       </div>
                       <div class="api-description-body"><p>Adds a panel item as a modal dialog.</p>
 </div>
@@ -20753,7 +20753,7 @@ given on <a class="api-ref" href="#workspace-instance-destroyactivepaneitem">#de
                     <article class="api-member" id="workspace-instance-panelforitem" data-api-entry="workspace panelforitem ::panelforitem(item) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-panelforitem" aria-label="Link to ::panelForItem(item)">#</a><code>::panelForItem(item)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2507" title="src/workspace.js:2507">L2507</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2512" title="src/workspace.js:2512">L2512</a></div>
                       </div>
 
                       <section class="api-structured-docs"><h5>Parameters</h5><dl><dt><code>item</code></dt><dd><p>Item the panel contains</p>
@@ -20781,7 +20781,7 @@ then `foo/bar.js` is construed as a glob meant only for root `foo` and
 meant to match `bar.js`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-scan" aria-label="Link to ::scan(regex, options = {}, iterator)">#</a><code>::scan(regex, options = {}, iterator)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2567" title="src/workspace.js:2567">L2567</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2572" title="src/workspace.js:2572">L2572</a></div>
                       </div>
                       <div class="api-description-body"><p>Performs a search across all files in the workspace.</p>
 <h4>Caveats</h4>
@@ -20807,7 +20807,7 @@ meant to match <code>bar.js</code>.</p>
                     <article class="api-member" id="workspace-instance-replace" data-api-entry="workspace replace ::replace(regex, replacementtext, filepaths, iterator) performs a replace across all the specified files in the project.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-replace" aria-label="Link to ::replace(regex, replacementText, filePaths, iterator)">#</a><code>::replace(regex, replacementText, filePaths, iterator)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2887" title="src/workspace.js:2887">L2887</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2892" title="src/workspace.js:2892">L2892</a></div>
                       </div>
                       <div class="api-description-body"><p>Performs a replace across all the specified files in the project.</p>
 </div>
@@ -20827,7 +20827,7 @@ internally, this method is used to decide if a search result should be
 added to a list of project-wide search results.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#workspace-instance-filepathmatchespatterns" aria-label="Link to ::filePathMatchesPatterns(filePath, rawPatterns)">#</a><code>::filePathMatchesPatterns(filePath, rawPatterns)</code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2957" title="src/workspace.js:2957">L2957</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-experimental">Experimental</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2962" title="src/workspace.js:2962">L2962</a></div>
                       </div>
                       <div class="api-description-body"><p>Tests the path of a file in the project against a set of
 globs (using the same semantics as <a class="api-ref" href="#workspace-instance-scan">#scan</a>) and reports whether the file
