@@ -50,6 +50,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 ## Languages and completion
 
 - **language-latex**, **language-typst**, **language-log**, **language-tasklist**, **language-ahkpp**, **language-sofistik** — grammars and language support.
+- **language-vue**, **language-blade** — single-file components and Laravel views, each highlighting the languages embedded in it.
 - **autocomplete-jedi** — Python completions and go-to-definition via jedi.
 - **autocomplete-paths** — complete file paths from cached project contents.
 - **autocomplete-sofistik** — completions for SOFiSTiK input files.
