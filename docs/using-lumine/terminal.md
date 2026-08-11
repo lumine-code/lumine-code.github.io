@@ -18,6 +18,14 @@ A focused terminal handles most keystrokes itself, so move focus out of it with 
 
 The terminal keeps 10,000 lines of scrollback by default; adjust **Scrollback** in the package settings.
 
+## Images
+
+The terminal draws images written with SIXEL or iTerm's inline image protocol in place, so `imgcat`, `chafa` and matplotlib's sixel backend render in the terminal instead of opening a window. Turn it off under **Inline Images**, and cap how much memory each terminal spends on decoded images under **Inline Image Memory Limit** — past the cap the oldest images are dropped and leave a placeholder in the scrollback.
+
+Pasting an image goes the other way. A clipboard holding an image has no text to paste, so instead of writing nothing the terminal hands the paste to Lumine's paste providers. With the [`image-paste`](https://github.com/lumine-code/image-paste) package installed, the normal paste command — or `terminal:paste-image` — asks where to save the image, writes it relative to the terminal's working directory, and types the saved file's absolute path onto the input line. Nothing is submitted for you, and the path is quoted only if it contains a space.
+
+That is how you hand a screenshot to a command-line program, including the coding agents that accept an image by path. Agents that read the clipboard themselves keep working too: the terminal claims no bare `alt-` letter, so a binding like `alt-v` reaches the program rather than Lumine.
+
 ## Shell integration
 
 When your shell emits OSC 133 shell-integration sequences, the terminal marks each command's prompt in the left gutter — tinted red when the command exited non-zero — and `terminal:previous-command` / `terminal:next-command` jump between them. This is off until your shell sources the matching script from the package's `shell-integration/` folder:
