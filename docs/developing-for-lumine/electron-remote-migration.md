@@ -10,42 +10,42 @@ There is no compatibility alias for the removed APIs.
 
 ## API mapping
 
-| Removed API or import | Replacement |
-| --- | --- |
-| `remote.getCurrentWindow()` or `lumine.getCurrentWindow()` | `lumine.window` |
-| `lumine.close()` and top-level size, position, visibility, fullscreen, and DevTools methods | The corresponding `lumine.window` method |
-| `lumine.restartApplication()` | `await lumine.app.restart()` |
-| `remote.app.getPath(name)` | `lumine.app.getPath(name)` |
-| `remote.app.getLocale()` | `lumine.app.getLocale()` |
-| `remote.app.getFileIcon(path)` | `await lumine.app.getFileIcon(path)`; the result is a data URL |
-| Protocol-client and user-default calls on `remote.app` or `remote.systemPreferences` | The asynchronous `lumine.app` methods |
-| `remote.dialog.showOpenDialog()` for folders | `await lumine.window.pickFolder()` |
-| `remote.dialog.showSaveDialog()` | `await lumine.window.showSaveDialog(options)` |
-| `remote.BrowserWindow.fromId()` or renderer-to-renderer access | `lumine.window.broadcast()` and `lumine.window.onDidReceive()` |
-| `remote.shell.openExternal()` | `await lumine.shell.openExternal()` |
-| `remote.clipboard` or `require('electron').clipboard` | `lumine.clipboard` |
-| `remote.nativeImage` | Import `nativeImage` from `electron`; it is still renderer-safe |
-| Renderer-side safe-storage calls | The asynchronous `lumine.secrets` API |
+| Removed API or import                                                                       | Replacement                                                     |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `remote.getCurrentWindow()` or `lumine.getCurrentWindow()`                                  | `lumine.window`                                                 |
+| `lumine.close()` and top-level size, position, visibility, fullscreen, and DevTools methods | The corresponding `lumine.window` method                        |
+| `lumine.restartApplication()`                                                               | `await lumine.app.restart()`                                    |
+| `remote.app.getPath(name)`                                                                  | `lumine.app.getPath(name)`                                      |
+| `remote.app.getLocale()`                                                                    | `lumine.app.getLocale()`                                        |
+| `remote.app.getFileIcon(path)`                                                              | `await lumine.app.getFileIcon(path)`; the result is a data URL  |
+| Protocol-client and user-default calls on `remote.app` or `remote.systemPreferences`        | The asynchronous `lumine.app` methods                           |
+| `remote.dialog.showOpenDialog()` for folders                                                | `await lumine.window.pickFolder()`                              |
+| `remote.dialog.showSaveDialog()`                                                            | `await lumine.window.showSaveDialog(options)`                   |
+| `remote.BrowserWindow.fromId()` or renderer-to-renderer access                              | `lumine.window.broadcast()` and `lumine.window.onDidReceive()`  |
+| `remote.shell.openExternal()`                                                               | `await lumine.shell.openExternal()`                             |
+| `remote.clipboard` or `require('electron').clipboard`                                       | `lumine.clipboard`                                              |
+| `remote.nativeImage`                                                                        | Import `nativeImage` from `electron`; it is still renderer-safe |
+| Renderer-side safe-storage calls                                                            | The asynchronous `lumine.secrets` API                           |
 
 The global API was split by ownership at the same time. These are removals,
 not aliases:
 
-| Removed top-level API | Replacement |
-| --- | --- |
-| `lumine.onWillDestroy(callback)` | `lumine.window.onWillDestroy(callback)` |
-| `lumine.whenWindowLoaded(callback)` | `await lumine.window.whenLoaded()` |
-| `lumine.inDevMode()`, `lumine.inSafeMode()`, `lumine.inSpecMode()` | `lumine.window.isDevMode()`, `isSafeMode()`, `isSpecMode()` |
-| `lumine.getWindowLoadTime()` | `lumine.window.getLoadTime()` |
-| `lumine.getStartupMarkers()` | `lumine.window.getStartupMarkers()` |
-| `lumine.confirm(options)` | `await lumine.window.confirm(options)` |
-| `lumine.getAppName()` | `lumine.app.getName()` |
-| `lumine.getVersion()`, `versionSatisfies()`, `getReleaseChannel()`, `isReleasedVersion()` | The same methods on `lumine.app` |
-| `lumine.open(params)` | `lumine.app.openWindow(params)` |
-| `lumine.trashItem()`, `showItemInFolder()`, `openPath()`, `openExternal()` | The same methods on `lumine.shell` |
-| `lumine.onWillThrowError()`, `onDidThrowError()` | The same subscriptions on `lumine.runtime` |
-| `lumine.whenShellEnvironmentLoaded(callback)` | `await lumine.runtime.whenShellEnvironmentLoaded()` |
-| `lumine.beep()`, `lumine.onDidBeep()` | `lumine.notifications.beep()`, `lumine.notifications.onDidBeep()` |
-| `lumine.getLoadSettings()` | No replacement. Use the typed cached methods on `lumine.app`, `lumine.window`, and `lumine.runtime`. |
+| Removed top-level API                                                                     | Replacement                                                                                          |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `lumine.onWillDestroy(callback)`                                                          | `lumine.window.onWillDestroy(callback)`                                                              |
+| `lumine.whenWindowLoaded(callback)`                                                       | `await lumine.window.whenLoaded()`                                                                   |
+| `lumine.inDevMode()`, `lumine.inSafeMode()`, `lumine.inSpecMode()`                        | `lumine.window.isDevMode()`, `isSafeMode()`, `isSpecMode()`                                          |
+| `lumine.getWindowLoadTime()`                                                              | `lumine.window.getLoadTime()`                                                                        |
+| `lumine.getStartupMarkers()`                                                              | `lumine.window.getStartupMarkers()`                                                                  |
+| `lumine.confirm(options)`                                                                 | `await lumine.window.confirm(options)`                                                               |
+| `lumine.getAppName()`                                                                     | `lumine.app.getName()`                                                                               |
+| `lumine.getVersion()`, `versionSatisfies()`, `getReleaseChannel()`, `isReleasedVersion()` | The same methods on `lumine.app`                                                                     |
+| `lumine.open(params)`                                                                     | `lumine.app.openWindow(params)`                                                                      |
+| `lumine.trashItem()`, `showItemInFolder()`, `openPath()`, `openExternal()`                | The same methods on `lumine.shell`                                                                   |
+| `lumine.onWillThrowError()`, `onDidThrowError()`                                          | The same subscriptions on `lumine.runtime`                                                           |
+| `lumine.whenShellEnvironmentLoaded(callback)`                                             | `await lumine.runtime.whenShellEnvironmentLoaded()`                                                  |
+| `lumine.beep()`, `lumine.onDidBeep()`                                                     | `lumine.notifications.beep()`, `lumine.notifications.onDidBeep()`                                    |
+| `lumine.getLoadSettings()`                                                                | No replacement. Use the typed cached methods on `lumine.app`, `lumine.window`, and `lumine.runtime`. |
 
 ## Window operations
 
@@ -74,10 +74,13 @@ await lumine.window.broadcast("my-package:item-dropped", {
   itemId,
 });
 
-const subscription = lumine.window.onDidReceive("my-package:item-dropped", (payload) => {
-  if (payload.targetWindowId !== lumine.window.getId()) return;
-  receiveItem(payload);
-});
+const subscription = lumine.window.onDidReceive(
+  "my-package:item-dropped",
+  (payload) => {
+    if (payload.targetWindowId !== lumine.window.getId()) return;
+    receiveItem(payload);
+  },
+);
 ```
 
 ## The clipboard

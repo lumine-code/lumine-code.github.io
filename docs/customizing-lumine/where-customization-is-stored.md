@@ -4,17 +4,17 @@ All of your personal customization lives in one **configuration directory**: `~/
 
 ## The configuration directory
 
-| Path            | What it holds                                                                 |
-| --------------- | ----------------------------------------------------------------------------- |
-| `config.json`   | All settings (see [Configuration](configuration.md)).                         |
-| `keymap.json`   | Your personal keybindings (see [Keybindings](keybindings.md)).                |
-| `snippets.json` | Your snippets (see [Snippets](snippets.md)).                                  |
-| `styles.css`    | Your UI/style tweaks (see [Style tweaks](style-tweaks.md)).                   |
-| `init.js`       | Startup script run when Lumine loads (see [The init file](the-init-file.md)). |
-| `packages/`     | Installed packages, one directory per package.                      |
-| `packages-dev/` | Packages loaded only in development mode.                                     |
+| Path                               | What it holds                                                                 |
+| ---------------------------------- | ----------------------------------------------------------------------------- |
+| `config.json` / `config.jsonc`     | All settings (see [Configuration](configuration.md)).                         |
+| `keymap.json` / `keymap.jsonc`     | Your personal keybindings (see [Keybindings](keybindings.md)).                |
+| `snippets.json` / `snippets.jsonc` | Your snippets (see [Snippets](snippets.md)).                                  |
+| `styles.css`                       | Your UI/style tweaks (see [Style tweaks](style-tweaks.md)).                   |
+| `init.js`                          | Startup script run when Lumine loads (see [The init file](the-init-file.md)). |
+| `packages/`                        | Installed packages, one directory per package.                                |
+| `packages-dev/`                    | Packages loaded only in development mode.                                     |
 
-These are the only formats Lumine reads. A `config.cson`, `keymap.cson`, `snippets.cson`, `styles.less` or `init.coffee` left over from Atom or Pulsar is ignored; rename it to the matching file above and convert its contents.
+Lumine does not load `config.cson`, `keymap.cson`, `styles.less`, or `init.coffee`; convert those files to the matching format above. The bundled snippets package is the one migration exception: it can still read an existing `snippets.cson`, although new snippet files are JSON.
 
 Each of the personal files has an "open your…" command (`application:open-your-config`, `application:open-your-keymap`, `application:open-your-snippets`, `application:open-your-stylesheet`, `application:open-your-init-script`), which creates the file if it does not exist yet.
 

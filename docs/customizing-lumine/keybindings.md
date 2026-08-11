@@ -8,7 +8,7 @@ Open **Settings → Keybindings** to browse every active binding and search by c
 
 ## Your keymap file
 
-Personal bindings live in **`keymap.json`**, opened with `application:open-your-keymap`. It is grouped by selector:
+Personal bindings live in **`keymap.json`** (or a manually created `keymap.jsonc`), opened with `application:open-your-keymap`. It is grouped by selector:
 
 ```json
 {
@@ -24,7 +24,7 @@ Personal bindings live in **`keymap.json`**, opened with `application:open-your-
 - The **selector** (`lumine-text-editor`, `lumine-workspace`, a package's root class, and so on) decides where the binding is active.
 - The **keystroke** is on the left; the **command** it runs is on the right.
 - Later bindings win over earlier ones, and your `keymap.json` is loaded last — so it overrides package and core bindings.
-- A legacy `keymap.cson` is still read if you already have one, but new keymaps are created as JSON.
+- A legacy `keymap.cson` is not loaded; convert it to JSON or JSONC first.
 
 ## Cross-platform bindings
 

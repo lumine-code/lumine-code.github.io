@@ -8,7 +8,7 @@ Open **Settings** (the bundled `settings-view` package) to configure the editor 
 
 ## The config file
 
-Settings are stored in **`config.json`** in your configuration directory (`~/.lumine`). Open it with the `application:open-your-config` command. It is written as JSON, but Lumine parses it leniently, so comments and trailing commas are allowed:
+Settings are stored in **`config.json`** in your configuration directory (`~/.lumine`). A manually created `config.jsonc` works too. Open the active file with the `application:open-your-config` command. Lumine accepts JSON comments and trailing commas:
 
 ```json
 {
@@ -26,7 +26,7 @@ Settings are stored in **`config.json`** in your configuration directory (`~/.lu
 
 The top-level `"*"` key holds settings that apply everywhere. Settings you change in the Settings view are written here automatically, so you can use whichever approach you prefer.
 
-Lumine still reads a legacy **`config.cson`** ([CSON](https://github.com/bevry/cson)) file if you already have one, but new configuration is created as JSON.
+A legacy `config.cson` is not loaded. Convert it to `config.json` or `config.jsonc` before moving it into your Lumine configuration directory.
 
 ## Scoped settings
 

@@ -4,15 +4,15 @@ Once a [language server](language-servers.md) is running, the bundled **`ide-cli
 
 All of them work the same way: `ide-client` provides the data, the UI package renders it. None of them is specific to language servers — any package can provide the same services — but a language server is what makes them all light up at once. When several servers cover a file, their answers are combined: one list of completions, one set of code actions, one tooltip.
 
-| Feature | Package |
-| --- | --- |
-| Documentation tooltips and signature help | `hover` |
-| Symbol outline of the active file | `outline-view` |
-| Code actions and quick fixes | `intentions` |
-| Rename a symbol across the project | `refactor` |
-| Formatting, on demand or on save | `code-format` |
+| Feature                                   | Package           |
+| ----------------------------------------- | ----------------- |
+| Documentation tooltips and signature help | `hover`           |
+| Symbol outline of the active file         | `outline-view`    |
+| Code actions and quick fixes              | `intentions`      |
+| Rename a symbol across the project        | `refactor`        |
+| Formatting, on demand or on save          | `code-format`     |
 | References to the symbol under the cursor | `find-references` |
-| Callers and callees of a symbol | `call-hierarchy` |
+| Callers and callees of a symbol           | `call-hierarchy`  |
 
 Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/<name>`.
 

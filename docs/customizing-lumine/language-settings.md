@@ -16,15 +16,15 @@ Language settings are **scoped**: they apply only to editors whose grammar match
 {
   "*": {
     "editor": {
-      "tabLength": 2
-    }
+      "tabLength": 2,
+    },
   },
   ".source.makefile": {
     "editor": {
       // Makefiles require real tabs
-      "tabLength": 4
-    }
-  }
+      "tabLength": 4,
+    },
+  },
 }
 ```
 

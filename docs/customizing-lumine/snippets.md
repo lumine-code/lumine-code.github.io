@@ -4,7 +4,7 @@ Snippets expand a short prefix into a larger piece of text with tab stops you ca
 
 ## Your snippets file
 
-Personal snippets live in **`snippets.json`**, opened with `application:open-your-snippets`. Entries are grouped by the **scope** they apply to, so a snippet can be global or limited to one language:
+Personal snippets live in **`snippets.json`** (or a manually created `snippets.jsonc`), opened with `application:open-your-snippets`. Entries are grouped by the **scope** they apply to, so a snippet can be global or limited to one language:
 
 ```json
 {

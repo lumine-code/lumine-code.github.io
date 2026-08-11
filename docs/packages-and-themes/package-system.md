@@ -10,13 +10,13 @@ Every package is identified by the **name** in its `package.json`. That name is 
 
 Packages are looked for in three places, and a package found in an earlier one takes precedence over a package of the same name found in a later one:
 
-| Place                    | What it holds                                                    |
-| ------------------------ | ---------------------------------------------------------------- |
-| `~/.lumine/packages-dev` | Packages you are working on. Only loaded in dev mode (`--dev`).  |
-| `~/.lumine/packages`     | Packages you installed.                                          |
-| Bundled with Lumine      | The packages Lumine ships with.                                  |
+| Place                    | What it holds                                                   |
+| ------------------------ | --------------------------------------------------------------- |
+| `~/.lumine/packages-dev` | Packages you are working on. Only loaded in dev mode (`--dev`). |
+| `~/.lumine/packages`     | Packages you installed.                                         |
+| Bundled with Lumine      | The packages Lumine ships with.                                 |
 
-**Only one copy of a package name is ever loaded.** Every other copy stays on disk untouched and does nothing: it registers no commands, no settings, and no keymaps. When two directories in the *same* place provide one name, the one whose directory name comes first alphabetically is the one that loads.
+**Only one copy of a package name is ever loaded.** Every other copy stays on disk untouched and does nothing: it registers no commands, no settings, and no keymaps. When two directories in the _same_ place provide one name, the one whose directory name comes first alphabetically is the one that loads.
 
 Bundled packages ship with Lumine and are not removed by the Install tab, but a package of the same name in `~/.lumine/packages` shadows one, and a package in `~/.lumine/packages-dev` shadows both.
 
@@ -120,7 +120,11 @@ Several dots can show at once. A card whose catalog record is broken but whose p
 A **catalog** is an `index.json` file: a plain JSON array of Git source strings, in the same syntax as an install source (a bare repo, `@tag`, `~branch`, `#commit`, or a full URL with an explicit selector). It carries no package metadata — Lumine fetches that itself.
 
 ```json
-["owner/repo", "owner/another@2.0.0", "https://git.example.com/team/pkg.git#branch:main"]
+[
+  "owner/repo",
+  "owner/another@2.0.0",
+  "https://git.example.com/team/pkg.git#branch:main"
+]
 ```
 
 > `index.json` is the array-of-sources format above. The **old metadata catalog format** (a `schemaVersion` object with a `packages` array of pre-baked names, versions, and descriptions) is **no longer supported** and fails with a readable error; convert it to a plain array of Git sources.
@@ -158,13 +162,13 @@ Opening a package's **details** shows everything it has in one scrolling list �
 
 The action a card offers depends on what is already installed under its package's name:
 
-| What holds the name                       | Action                                                        |
-| ----------------------------------------- | ------------------------------------------------------------- |
-| Nothing                                   | **Install**                                                   |
-| The **same** origin                       | **Installed** / **Update**                                    |
-| A **different** origin                    | **Replace** (swaps the installed package for this one)        |
-| A **bundled** package                     | **Override** (the installed package shadows the bundled one)  |
-| A package in `~/.lumine/packages-dev`     | **Install**, with a note that your dev copy keeps loading     |
+| What holds the name                   | Action                                                       |
+| ------------------------------------- | ------------------------------------------------------------ |
+| Nothing                               | **Install**                                                  |
+| The **same** origin                   | **Installed** / **Update**                                   |
+| A **different** origin                | **Replace** (swaps the installed package for this one)       |
+| A **bundled** package                 | **Override** (the installed package shadows the bundled one) |
+| A package in `~/.lumine/packages-dev` | **Install**, with a note that your dev copy keeps loading    |
 
 A package in `~/.lumine/packages` takes precedence over a bundled package of the same name, including virtual bundled themes; a _disabled_ package still holds the name. Uninstalling the copy that loads hands the name to whichever copy is left — the bundled package, a dev checkout, a second directory — without a restart, and any `core.disabledPackages` entry for that name is preserved as long as some copy of it remains.
 

@@ -51,12 +51,16 @@ const server = http.createServer((request, response) => {
 
     fs.readFile(filePath, (readError, contents) => {
       if (readError) {
-        response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+        response.writeHead(404, {
+          "Content-Type": "text/plain; charset=utf-8",
+        });
         response.end("404 Not Found");
         return;
       }
 
-      const contentType = mimeTypes[path.extname(filePath).toLowerCase()] || "application/octet-stream";
+      const contentType =
+        mimeTypes[path.extname(filePath).toLowerCase()] ||
+        "application/octet-stream";
       response.writeHead(200, { "Content-Type": contentType });
       response.end(contents);
     });
@@ -71,7 +75,10 @@ function openBrowser(url) {
       : process.platform === "darwin"
         ? { command: "open", args: [url] }
         : { command: "xdg-open", args: [url] };
-  spawn(opener.command, opener.args, { stdio: "ignore", detached: true }).unref();
+  spawn(opener.command, opener.args, {
+    stdio: "ignore",
+    detached: true,
+  }).unref();
 }
 
 // Try `port`; if it is taken, walk upward until a free one is found. Each
@@ -83,7 +90,9 @@ function listen(port, attemptsLeft) {
       console.log(`Port ${port} is in use, trying ${port + 1}...`);
       listen(port + 1, attemptsLeft - 1);
     } else if (error.code === "EADDRINUSE") {
-      console.error(`No free port found in ${startPort}-${startPort + maxPortAttempts}.`);
+      console.error(
+        `No free port found in ${startPort}-${startPort + maxPortAttempts}.`,
+      );
       process.exit(1);
     } else {
       console.error(error.message);
