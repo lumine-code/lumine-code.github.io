@@ -14,6 +14,9 @@
   --muted: #9aa6b5;
   --soft: #c7d0dc;
   --code-bg: #0d1117;
+  --scrollbar-track: #0b0d10;
+  --scrollbar-thumb: #344052;
+  --scrollbar-thumb-hover: #5b687b;
   --radius: 8px;
   --maxw: 1120px;
   --font:
@@ -528,28 +531,39 @@ pre code {
    container (sidebars, code blocks, etc.). */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--surface-3) transparent;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--surface-3);
+*::-webkit-scrollbar-thumb {
+  min-height: 36px;
+  background: var(--scrollbar-thumb);
   border-radius: 999px;
-  border: 3px solid transparent;
+  border: 2px solid var(--scrollbar-track);
   background-clip: padding-box;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
   background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .doc-sidebar [data-nav] {

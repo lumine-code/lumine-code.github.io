@@ -302,12 +302,6 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
     );
   }
 
-  if (presentation.propertyType) {
-    sections.push(
-      `<section class="api-detail-section"><h5>Type</h5><div class="api-detail-body">${renderType(presentation.propertyType, classNames)}</div></section>`,
-    );
-  }
-
   if (presentation.returnType || presentation.returnDescription) {
     const type = renderType(presentation.returnType, classNames);
     let returnDescription = presentation.returnDescription.trim();
@@ -316,13 +310,7 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
       returnDescription = returnDescription
         .slice(punctuation.length)
         .trimStart();
-    const separator = punctuation
-      ? `${punctuation} `
-      : returnDescription && /^[A-Z]/.test(returnDescription)
-        ? ". "
-        : returnDescription
-          ? " "
-          : ".";
+    const separator = returnDescription ? " — " : "";
     const description = returnDescription
       ? `<span class="api-return-copy">${renderInlineDoc(
           returnDescription,
@@ -331,15 +319,8 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
           currentClass,
         )}</span>`
       : "";
-    const article =
-      presentation.returnType &&
-      !/^(?:\*|void|undefined|null)(?:$|[|<])/i.test(presentation.returnType)
-        ? /^[aeiou]/i.test(presentation.returnType)
-          ? " an"
-          : " a"
-        : "";
     sections.push(
-      `<section class="api-detail-section api-return-section"><h5>Return values</h5><p class="api-detail-body api-return-value"><span class="api-return-prefix">Returns${article} </span>${type}<span class="api-return-separator">${separator}</span>${description}</p></section>`,
+      `<section class="api-return-section"><h5>Returns</h5><p class="api-return-value">${type}<span class="api-return-separator">${separator}</span>${description}</p></section>`,
     );
   }
 
@@ -436,29 +417,29 @@ function renderHtml(api) {
       const members = byCategory(item.members)
         .map(
           ([category, entries]) => `
-            <section class="api-group" id="${groupId(item.name, category)}">
-              <h3>${escapeHtml(category)}</h3>
-              ${entries
+            <section class="api-group api-group-${slug(category)}" id="${groupId(item.name, category)}">
+              <h3><span>${escapeHtml(category)}</span><span class="api-group-count">${entries.length}</span></h3>
+              <div class="api-group-entries">${entries
                 .map(
                   (member) => `
-                    <article class="api-member" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
+                    <article class="api-member api-member-${member.kind}" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>${renderSignature(member.signature)}</h4>
+                        <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>${renderSignature(member.signature)}${member.propertyType ? `<span class="api-property-type">${renderType(member.propertyType, classNames)}</span>` : ""}</h4>
                         <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge api-badge-${slug(member.visibility)}">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
                       </div>
                       ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : ""}
                       ${renderEntryDetails(member, classNames, memberAnchors, item.name) || (!member.description ? '<p class="api-empty">No description.</p>' : "")}
                     </article>`,
                 )
-                .join("\n")}
+                .join("\n")}</div>
             </section>`,
         )
         .join("\n");
       return `
         <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}">
-          <p class="eyebrow">${escapeHtml(item.visibility)} API</p>
+          <header class="api-class-header"><p class="eyebrow">${escapeHtml(item.visibility)} API</p>
           <h2>${escapeHtml(item.name)}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></h2>
-          ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}
+          ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}</header>
           ${members || '<p class="api-empty">No documented public members.</p>'}
         </section>`;
     })
@@ -518,9 +499,12 @@ function renderHtml(api) {
       .api-nav-member.active { border-left-color: var(--gold-strong); color: var(--text); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+      .api-content { min-width: 0; }
       .api-class { margin-bottom: 48px; scroll-margin-top: 88px; }
-      .api-class > h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 4px 0 10px; font-size: 1.95rem; }
-      .api-description-body { margin: 12px 0 0; max-width: 82ch; font-size: .94rem; }
+      .api-class-header { padding: 22px 24px 24px; border: 1px solid var(--border); border-radius: 12px; background: linear-gradient(135deg, rgba(229, 173, 45, .08), rgba(255, 255, 255, .025) 42%, rgba(98, 213, 208, .035)); box-shadow: 0 18px 44px rgba(0, 0, 0, .14); }
+      .api-class-header .eyebrow { margin: 0 0 5px; }
+      .api-class-header h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 0; font-size: clamp(1.7rem, 3vw, 2.15rem); }
+      .api-description-body { margin: 10px 0 0; max-width: 82ch; font-size: .94rem; }
       .api-description-body > :first-child { margin-top: 0; }
       .api-description-body > :last-child { margin-bottom: 0; }
       .api-description-body p { margin: 11px 0 0; }
@@ -536,38 +520,45 @@ function renderHtml(api) {
       :is(.api-description-body, .api-argument-copy, .api-return-copy) a:is(.api-type, .api-ref):hover { text-decoration: underline; }
       .api-description-body li > code:first-child:not(.api-type):not(.api-ref) { color: var(--text); font-weight: 600; }
       .api-description-body pre { margin: 10px 0 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
-      .api-description-body pre code { padding: 0; background: none; font-size: .82rem; }
+      .api-description-body pre code { padding: 0; border: 0; border-radius: 0; background: none; font-size: .82rem; }
       .api-description-body a { color: var(--green); }
-      .api-class-description { max-width: 78ch; margin: 8px 0 0; font-size: 1rem; }
-      .api-argument-table-wrap { max-width: 82ch; margin-top: 24px; overflow-x: auto; }
+      .api-class-description { max-width: 76ch; margin: 9px 0 0; font-size: .98rem; }
+      .api-argument-table-wrap { margin-top: 16px; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: rgba(0, 0, 0, .12); }
       .api-argument-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-      .api-argument-table th { padding: 0 14px 8px 0; border-bottom: 1px solid var(--border); color: var(--soft); font-weight: 700; text-align: left; }
-      .api-argument-table th:first-child { width: 12rem; }
-      .api-argument-table td { padding: 8px 14px 8px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); color: var(--soft); line-height: 1.55; vertical-align: top; }
+      .api-argument-table th { padding: 8px 12px; border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, .025); color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
+      .api-argument-table th:first-child { width: 11rem; }
+      .api-argument-table td { padding: 9px 12px; border-bottom: 1px solid rgba(255, 255, 255, .055); color: var(--soft); line-height: 1.5; vertical-align: top; }
+      .api-argument-table tr:last-child td { border-bottom: 0; }
       .api-argument-name { display: flex; align-items: baseline; gap: 7px; margin-left: calc(var(--api-argument-depth) * 1rem); white-space: nowrap; }
-      .api-argument-name code { padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--text); font-size: .86rem; }
-      .api-argument-note { color: var(--muted); font-size: .7rem; }
+      .api-argument-name code { padding: 1px 5px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 4px; background: rgba(255, 255, 255, .035); color: var(--text); font-size: .84rem; }
+      .api-argument-note { color: var(--muted); font-size: .67rem; }
       .api-argument-description { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; }
       .api-argument-copy { min-width: 12rem; flex: 1 1 20rem; }
       .api-type-expression { padding: 0; border: 0; background: none; color: var(--green); font-size: .9rem; white-space: nowrap; }
       .api-type-expression a { color: inherit; }
       .api-type-expression a:hover { text-decoration: underline; }
-      .api-detail-section { max-width: 82ch; margin-top: 26px; }
-      .api-detail-section h5 { margin: 0; padding-bottom: 7px; border-bottom: 1px solid var(--border); color: var(--soft); font-size: .9rem; font-weight: 700; line-height: 1.5; }
-      .api-detail-body { padding-top: 11px; }
-      .api-return-value { margin: 0; color: var(--soft); line-height: 1.6; }
-      .api-return-prefix { color: var(--soft); }
+      .api-return-section { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 12px; align-items: baseline; margin-top: 14px; padding-top: 13px; border-top: 1px solid rgba(255, 255, 255, .07); }
+      .api-return-section h5 { margin: 0; color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      .api-return-value { margin: 0; color: var(--soft); line-height: 1.55; }
       .api-source { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 400; white-space: nowrap; transition: color .15s ease; }
       .api-source:hover { color: var(--gold-strong); }
-      .api-group { margin-top: 28px; scroll-margin-top: 88px; }
-      .api-group > h3 { margin: 0; padding-bottom: 7px; border-bottom: 1px solid var(--border); font-size: 1.02rem; }
-      .api-member { padding: 19px 0 24px; border-bottom: 1px solid var(--border); scroll-margin-top: 88px; }
-      .api-member:last-child { border-bottom: 0; }
-      .api-member-heading { display: flex; gap: 14px; align-items: baseline; justify-content: space-between; }
-      .api-member h4 { display: flex; align-items: baseline; gap: 8px; min-width: 0; margin: 0; font-size: .95rem; overflow-wrap: anywhere; }
+      .api-group { margin-top: 34px; scroll-margin-top: 88px; }
+      .api-group > h3 { display: flex; align-items: center; gap: 9px; margin: 0 0 11px; color: var(--text); font-size: 1rem; }
+      .api-group-count { display: inline-flex; align-items: center; justify-content: center; min-width: 1.55rem; height: 1.25rem; padding: 0 6px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .64rem; font-weight: 600; }
+      .api-group-entries { display: grid; gap: 10px; }
+      .api-group-properties .api-group-entries { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .api-member { min-width: 0; padding: 18px 20px; border: 1px solid rgba(255, 255, 255, .075); border-radius: 10px; background: rgba(255, 255, 255, .018); scroll-margin-top: 88px; transition: border-color .15s ease, background .15s ease; }
+      .api-member:target { border-color: rgba(229, 173, 45, .5); background: rgba(229, 173, 45, .045); }
+      .api-member:hover { border-color: rgba(255, 255, 255, .13); }
+      .api-member-property { padding: 15px 16px 16px; }
+      .api-member-heading { display: flex; gap: 14px; align-items: flex-start; justify-content: space-between; }
+      .api-member h4 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; margin: 0; font-size: .95rem; overflow-wrap: anywhere; }
       .api-signature { font-weight: 500; }
       .api-signature-name { color: var(--green); }
       .api-signature-parameters { color: var(--muted); font-weight: 400; }
+      .api-property-type { display: inline-flex; align-items: baseline; gap: 7px; color: var(--muted); font-size: .78rem; font-weight: 400; }
+      .api-property-type::before { content: "→"; color: var(--muted); }
+      .api-property-type .api-type-expression { font-size: inherit; }
       .api-anchor { flex: none; color: var(--border); font-weight: 400; text-decoration: none; opacity: 0; transition: opacity .15s ease, color .15s ease; }
       .api-member:hover .api-anchor, .api-anchor:focus { opacity: 1; }
       .api-anchor:hover { color: var(--gold-strong); }
@@ -579,25 +570,32 @@ function renderHtml(api) {
       .api-badge-extended { color: #5d6878; border-color: rgba(255, 255, 255, .07); }
       .api-badge-experimental { color: var(--green); border-color: rgba(135, 211, 124, .34); }
       .api-badge-async { color: var(--cyan); border-color: rgba(98, 213, 208, .4); }
-      .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--soft); line-height: 1.6; }
+      .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--soft); line-height: 1.58; }
+      .api-member-property .api-description-body { margin-top: 7px; font-size: .88rem; }
       .api-member pre, .api-description pre { overflow: auto; }
       .api-empty { margin: 6px 0 0; color: var(--muted); font-style: italic; font-size: .9rem; }
       [hidden] { display: none !important; }
       @media (max-width: 1040px) {
         .api-layout { grid-template-columns: 1fr; }
-        .api-sidebar { flex-direction: column; gap: 20px; }
-        /* Stacked, the rails size to their content: a zero flex-basis in a
-           column with no free space to hand out would collapse them outright. */
-        .api-tree, .api-tree:first-child { flex: 0 0 auto; }
+        .api-sidebar { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(0, 2fr); gap: 24px; max-height: 22rem; padding: 16px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255, 255, 255, .018); overflow: hidden; }
+        .api-tree, .api-tree:first-child { min-width: 0; overflow-y: auto; scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
+      }
+      @media (max-width: 760px) {
+        .api-main { width: min(100% - 30px, 1400px); padding-top: 34px; }
+        .api-group-properties .api-group-entries { grid-template-columns: 1fr; }
       }
       @media (max-width: 620px) {
+        .api-sidebar { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; max-height: 18rem; padding: 12px; }
+        .api-class-header { padding: 18px; }
+        .api-member { padding: 16px; }
         .api-member-heading { align-items: flex-start; }
         .api-member-meta { flex-wrap: wrap; justify-content: flex-end; }
         .api-argument-table thead { display: none; }
         .api-argument-table, .api-argument-table tbody, .api-argument-table tr, .api-argument-table td { display: block; width: 100%; }
         .api-argument-table tr { padding: 9px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); }
-        .api-argument-table td { padding: 0; border: 0; }
-        .api-argument-table td + td { padding-top: 6px; }
+        .api-argument-table td { padding: 0 10px; border: 0; }
+        .api-argument-table td + td { padding-top: 6px; padding-bottom: 8px; }
+        .api-return-section { grid-template-columns: 1fr; gap: 5px; }
       }
     </style>
   </head>
@@ -608,7 +606,7 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p class="api-rail-heading">Classes</p><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article>${classes}${functions}</article></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p class="api-rail-heading">Classes</p><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article class="api-content">${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
