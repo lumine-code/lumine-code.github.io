@@ -17,16 +17,6 @@ function optionValue(name) {
   return value;
 }
 
-function positionalArguments() {
-  const positional = [];
-  for (let index = 2; index < process.argv.length; index += 1) {
-    const argument = process.argv[index];
-    if (argument === "--editor") index += 1;
-    else if (!argument.startsWith("--")) positional.push(argument);
-  }
-  return positional;
-}
-
 // --check renders everything and compares it with what is committed instead
 // of writing.
 const checkOnly = process.argv.includes("--check");
@@ -37,33 +27,74 @@ if (!editorOption) {
   );
 }
 const editorRoot = path.resolve(editorOption);
-const positional = positionalArguments();
-const sourceManifestPath = path.resolve(
-  positional[0] || path.join(siteRoot, "api-sources.json"),
+const outputRoot = path.resolve(
+  optionValue("--output") || path.join(siteRoot, "api"),
 );
-const outputRoot = path.resolve(positional[1] || path.join(siteRoot, "api"));
-const sourceManifest = require(sourceManifestPath);
-const lumineSource = sourceManifest.sources.find(
-  ({ packageMetadata }) => packageMetadata,
-);
-if (!lumineSource)
-  throw new Error("One API source must provide a packageMetadata path.");
-const packageMetadata = require(
-  path.resolve(editorRoot, lumineSource.packageMetadata),
-);
+const extractorPath = path.join(editorRoot, "script", "api-extractor.js");
+if (!fs.existsSync(extractorPath)) {
+  throw new Error(
+    `The editor checkout has no canonical API extractor: ${extractorPath}`,
+  );
+}
+const { SCHEMA_VERSION, extractApi } = require(extractorPath);
 // Enough of a lexer to colour an example, in every language the doc comments
 // actually use. A parser would be exact and would also refuse the fragments
 // half of these examples are, so this reads the shapes that are the same
 // everywhere: a comment, a string, a number, a word.
 const CODE_KEYWORDS = new Set([
-  "async", "await", "break", "case", "catch", "class", "const", "continue",
-  "debugger", "default", "delete", "do", "else", "export", "extends", "false",
-  "finally", "for", "from", "function", "if", "import", "in", "instanceof",
-  "let", "new", "null", "of", "return", "static", "super", "switch", "this",
-  "throw", "try", "typeof", "undefined", "var", "void", "while", "yield",
+  "async",
+  "await",
+  "break",
+  "case",
+  "catch",
+  "class",
+  "const",
+  "continue",
+  "debugger",
+  "default",
+  "delete",
+  "do",
+  "else",
+  "export",
+  "extends",
+  "false",
+  "finally",
+  "for",
+  "from",
+  "function",
+  "if",
+  "import",
+  "in",
+  "instanceof",
+  "let",
+  "new",
+  "null",
+  "of",
+  "return",
+  "static",
+  "super",
+  "switch",
+  "this",
+  "throw",
+  "try",
+  "typeof",
+  "undefined",
+  "var",
+  "void",
+  "while",
+  "yield",
   // CoffeeScript adds these; the ones that double as ordinary identifiers
   // (`is`, `on`, `by`) are left out rather than colour `emitter.on`.
-  "and", "loop", "not", "or", "then", "unless", "until", "when", "yes", "no",
+  "and",
+  "loop",
+  "not",
+  "or",
+  "then",
+  "unless",
+  "until",
+  "when",
+  "yes",
+  "no",
 ]);
 
 const HASH_COMMENT_LANGUAGES =
@@ -119,389 +150,6 @@ const markdown = new MarkdownIt({
   highlight: highlightCode,
 });
 
-function walk(directory) {
-  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const fullPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) return walk(fullPath);
-    return entry.isFile() && entry.name.endsWith(".js") ? [fullPath] : [];
-  });
-}
-
-function visit(node, ancestors, callback) {
-  if (!node || typeof node !== "object") return;
-  callback(node, ancestors.at(-1), ancestors);
-  for (const [key, value] of Object.entries(node)) {
-    if (
-      [
-        "loc",
-        "start",
-        "end",
-        "leadingComments",
-        "trailingComments",
-        "innerComments",
-      ].includes(key)
-    ) {
-      continue;
-    }
-    if (Array.isArray(value))
-      value.forEach((child) => visit(child, [...ancestors, node], callback));
-    else visit(value, [...ancestors, node], callback);
-  }
-}
-
-function cleanBlockComment(value) {
-  return value
-    .replace(/^\*+/, "")
-    .split(/\r?\n/)
-    .map((line) => line.replace(/^\s*\* ?/, ""))
-    .join("\n")
-    .trim();
-}
-
-function commentText(comments = []) {
-  return comments
-    .map((comment) =>
-      comment.type === "CommentBlock"
-        ? cleanBlockComment(comment.value)
-        : comment.value.startsWith(" ")
-          ? comment.value.slice(1)
-          : comment.value,
-    )
-    .join("\n")
-    .trim();
-}
-
-function commentsFor(node, ancestors = []) {
-  for (const candidate of [node, ...ancestors.toReversed()]) {
-    if (candidate?.leadingComments?.length) return candidate.leadingComments;
-  }
-  return [];
-}
-
-// The comment a reader would take as the class's own: the one on the class, or
-// on the statement that exports it. commentsFor() keeps walking all the way to
-// the Program, which is fine when a visibility marker has to be found but would
-// otherwise hand an undocumented class the file's header comment.
-function ownComments(node, ancestors = []) {
-  for (const candidate of [node, ...ancestors.toReversed().slice(0, 2)]) {
-    if (candidate?.leadingComments?.length) return candidate.leadingComments;
-  }
-  return [];
-}
-
-// Tooling directives are not prose.
-function isDirective(raw) {
-  return /^\s*(eslint|prettier|ts-|@ts-|istanbul|globals?|jshint)\b/.test(raw);
-}
-
-// The strongest visibility any member claims, for a class that never stated one.
-function inferredVisibility(members) {
-  for (const rank of ["Essential", "Public", "Extended", "Experimental"]) {
-    if (members.some((member) => member.visibility === rank)) return rank;
-  }
-  return "Public";
-}
-
-function legacyDoc(raw) {
-  const matches = [
-    ...raw.matchAll(
-      /(?:^|\n)(Essential|Extended|Public|Private|Experimental):\s*/g,
-    ),
-  ];
-  if (!matches.length) return null;
-  const match = matches[matches.length - 1];
-  const visibility = match[1];
-  if (visibility === "Private") return null;
-  return {
-    visibility,
-    markdown: raw.slice(match.index + match[0].length).trim(),
-  };
-}
-
-function jsdocTag(raw, tag) {
-  const match = raw.match(new RegExp(`(?:^|\\n)@${tag}(?:\\s+([^\\n]*))?`));
-  return match?.[1]?.trim() || "";
-}
-
-function jsdocDescription(raw) {
-  const explicit = raw.match(
-    /(?:^|\n)@(classdesc|desc)\s+([\s\S]*?)(?=\n@\w+|$)/,
-  );
-  if (explicit) return explicit[2].trim();
-  return raw
-    .slice(
-      0,
-      raw.search(/(?:^|\n)@\w+/) < 0 ? raw.length : raw.search(/(?:^|\n)@\w+/),
-    )
-    .trim();
-}
-
-function jsdocDoc(raw) {
-  if (
-    !/(?:^|\n)@(?:class|classdesc|desc|param|returns?|category|function|public)\b/.test(
-      raw,
-    )
-  ) {
-    return null;
-  }
-  if (/(?:^|\n)@private\b/.test(raw)) return null;
-
-  const parts = [];
-  const description = jsdocDescription(raw);
-  if (description) parts.push(description);
-
-  // The type and the name stay on the tag's own line — `\s` would match the
-  // newline, so a `@param` with no description swallowed the `@returns` beneath
-  // it. The description runs on until the next tag, since JSDoc wraps freely
-  // and taking only the first line truncated mid-sentence.
-  const params = [
-    ...raw.matchAll(
-      /(?:^|\n)@param[ \t]+(?:\{([^}]+)\}[ \t]*)?([^\s-]+)[ \t]*(?:-[ \t]*)?([\s\S]*?)(?=\n@|$)/g,
-    ),
-  ];
-  if (params.length) {
-    parts.push(
-      params
-        .map(
-          (match) =>
-            `* \`${match[2]}\`${match[1] ? ` {${match[1]}}` : ""} ${match[3].replace(/\s+/g, " ").trim()}`,
-        )
-        .join("\n"),
-    );
-  }
-
-  const returns = raw.match(/(?:^|\n)@returns?\s+(?:\{([^}]+)\}\s*)?([^\n]*)/);
-  if (returns)
-    parts.push(
-      `Returns${returns[1] ? ` {${returns[1]}}` : ""}${returns[2] ? ` ${returns[2]}` : ""}.`,
-    );
-
-  return {
-    visibility: "Public",
-    markdown: parts.join("\n\n").trim(),
-    category: jsdocTag(raw, "category"),
-  };
-}
-
-// The contiguous run of comments sitting directly above a statement. Babel hands
-// the same comment to the preceding statement as a trailing one and to this one
-// as a leading one, so anything separated by a blank line documents something
-// else and is dropped.
-function adjacentComments(statement) {
-  const kept = [];
-  let nextLine = statement.loc.start.line;
-  for (const comment of (statement.leadingComments || []).toReversed()) {
-    if (comment.loc.end.line < nextLine - 1) break;
-    kept.unshift(comment);
-    nextLine = comment.loc.start.line;
-  }
-  return kept;
-}
-
-// A constructor assignment such as `this.workspace = …` is not a class-body
-// member, so it needs its own doc reader. Atomdoc ("Public: A {Workspace}
-// instance") describes one outright; a bare `@type` annotation carries no prose,
-// so the sentence is synthesized from the type it names.
-function propertyDoc(comments) {
-  if (!comments.length) return null;
-  const last = comments.at(-1);
-  // A `@type` annotation documents the property by itself. Comments above it are
-  // implementation notes written for a reader of the source, not API prose.
-  const annotated = /(?:^|\n)@type\b/.test(commentText([last])) ? [last] : comments;
-  const raw = commentText(annotated);
-  if (!raw || /(?:^|\n)@private\b/.test(raw)) return null;
-
-  const legacy = legacyDoc(raw);
-  if (legacy) return legacy;
-
-  const type = raw.match(/(?:^|\n)@type\s*\{([^}]+)\}[ \t]*([^\n]*)/);
-  if (!type) return null;
-  return {
-    visibility: "Public",
-    markdown: jsdocDescription(raw) || type[2].trim() || `A {${type[1]}} instance`,
-    category: jsdocTag(raw, "category"),
-  };
-}
-
-function constructorProperties(classNode) {
-  const constructorNode = classNode.body.body.find(
-    (member) => member.type === "ClassMethod" && member.kind === "constructor",
-  );
-  if (!constructorNode) return [];
-
-  const properties = [];
-  for (const statement of constructorNode.body.body) {
-    if (statement.type !== "ExpressionStatement") continue;
-    const assignment = statement.expression;
-    if (assignment.type !== "AssignmentExpression") continue;
-    const target = assignment.left;
-    if (
-      target.type !== "MemberExpression" ||
-      target.object.type !== "ThisExpression" ||
-      target.computed ||
-      target.property.type !== "Identifier"
-    ) {
-      continue;
-    }
-    const doc = propertyDoc(adjacentComments(statement));
-    if (!doc) continue;
-    properties.push({
-      name: target.property.name,
-      kind: "property",
-      static: false,
-      async: false,
-      signature: `::${target.property.name}`,
-      category: doc.category || "Properties",
-      visibility: doc.visibility,
-      description: doc.markdown,
-      line: statement.loc.start.line,
-    });
-  }
-  return properties.sort((left, right) => left.name.localeCompare(right.name));
-}
-
-function parseDoc(comments) {
-  const raw = commentText(comments);
-  if (!raw) return null;
-  const doc = legacyDoc(raw) || jsdocDoc(raw);
-  if (!doc) return null;
-  const sections = [...raw.matchAll(/(?:^|\n)Section:\s*([^\n]+)/g)];
-  if (!doc.category && sections.length)
-    doc.category = sections[sections.length - 1][1].trim();
-  return doc;
-}
-
-function propertyName(node) {
-  if (!node) return "unknown";
-  if (node.type === "Identifier" || node.type === "PrivateName")
-    return node.name || node.id?.name;
-  if (node.type === "StringLiteral" || node.type === "NumericLiteral")
-    return String(node.value);
-  return "computed";
-}
-
-function classNameFromFile(filePath) {
-  return path
-    .basename(filePath, ".js")
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
-}
-
-function signatureFor(node, source, className) {
-  const params = (node.params || [])
-    .map((param) => source.slice(param.start, param.end))
-    .join(", ");
-  if (node.kind === "constructor") return `new ${className}(${params})`;
-  const name = propertyName(node.key);
-  const prefix = node.static ? "." : "::";
-  if (node.kind === "get") return `${prefix}${name}`;
-  if (node.kind === "set") return `${prefix}${name} = value`;
-  return `${prefix}${name}(${params})`;
-}
-
-function parseFile(filePath, sourceInput) {
-  // Normalize line endings so a CRLF working copy generates byte-identical
-  // output to the LF checkout CI compares against.
-  const source = fs.readFileSync(filePath, "utf8").replace(/\r\n/g, "\n");
-  let ast;
-  try {
-    ast = parser.parse(source, {
-      sourceType: "unambiguous",
-      errorRecovery: true,
-      plugins: [
-        "classProperties",
-        "classPrivateProperties",
-        "classPrivateMethods",
-        "jsx",
-      ],
-    });
-  } catch (error) {
-    throw new Error(`Unable to parse ${filePath}: ${error.message}`, {
-      cause: error,
-    });
-  }
-
-  const classes = [];
-  const functions = [];
-  visit(ast, [], (node, parent, ancestors) => {
-    if (node.type === "ClassDeclaration" || node.type === "ClassExpression") {
-      const doc = parseDoc(commentsFor(node, ancestors));
-      const own = commentText(ownComments(node, ancestors));
-      // Private is a decision; a missing marker is only an omission. The class
-      // is read from its members below, and kept when they are documented even
-      // though it never introduced itself.
-      if (!doc && /(?:^|\n)Private:|(?:^|\n)@private\b/.test(own)) return;
-      const name = node.id?.name || classNameFromFile(filePath);
-      const members = [];
-      let category = "Methods";
-
-      for (const member of node.body.body) {
-        if (!["ClassMethod", "ClassPrivateMethod"].includes(member.type))
-          continue;
-        const rawComments = member.leadingComments || [];
-        const raw = commentText(rawComments);
-        const sections = [...raw.matchAll(/(?:^|\n)Section:\s*([^\n]+)/g)];
-        if (sections.length) category = sections[sections.length - 1][1].trim();
-        const memberDoc = parseDoc(rawComments);
-        if (!memberDoc) continue;
-        if (memberDoc.category) category = memberDoc.category;
-        const memberName =
-          member.kind === "constructor"
-            ? "constructor"
-            : propertyName(member.key);
-        members.push({
-          name: memberName,
-          kind: member.kind,
-          static: Boolean(member.static),
-          async: Boolean(member.async),
-          signature: signatureFor(member, source, name),
-          category,
-          visibility: memberDoc.visibility,
-          description: memberDoc.markdown,
-          line: member.loc.start.line,
-        });
-      }
-
-      // Properties lead the class, the way the section marker used to order them.
-      members.unshift(...constructorProperties(node));
-
-      if (!doc && !members.length) return;
-
-      classes.push({
-        name,
-        visibility: doc ? doc.visibility : inferredVisibility(members),
-        description: doc ? doc.markdown : isDirective(own) ? "" : own,
-        source: `${sourceInput.label}/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
-        sourcePath: `src/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
-        repository: sourceInput.repository,
-        line: node.loc.start.line,
-        members,
-      });
-    }
-
-    if (node.type === "FunctionDeclaration" && parent?.type === "Program") {
-      const doc = parseDoc(node.leadingComments || []);
-      if (!doc) return;
-      const params = node.params
-        .map((param) => source.slice(param.start, param.end))
-        .join(", ");
-      functions.push({
-        name: node.id.name,
-        signature: `${node.id.name}(${params})`,
-        visibility: doc.visibility,
-        description: doc.markdown,
-        source: `${sourceInput.label}/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
-        sourcePath: `src/${path.relative(sourceInput.root, filePath).replaceAll("\\", "/")}`,
-        repository: sourceInput.repository,
-        line: node.loc.start.line,
-      });
-    }
-  });
-
-  return { classes, functions };
-}
-
 function slug(value) {
   return value
     .toLowerCase()
@@ -516,19 +164,16 @@ function memberId(className, member) {
 
 function linkReferences(text, classNames, memberAnchors, currentClass) {
   if (!text) return "";
-  // A {Foo} is one of two things and they read differently: a type the value
-  // has, or a reference to another entry in the reference. Both are marked so
-  // the page can colour them apart, and both keep the same shape whether or not
-  // the target happens to be documented — a reader should not have to notice
-  // that {String} is not a class here and {Range} is.
   const token = (kind, label, href) =>
     href
       ? `<a class="api-${kind}" href="${href}">${escapeHtml(label)}</a>`
       : `<code class="api-${kind}">${escapeHtml(label)}</code>`;
 
   const linkFor = (target, label = target) => {
-    const normalized = target.replace(/^::/, `${currentClass || ""}::`);
-    const match = normalized.match(/^([^:.]+)(::|\.)(.+)$/);
+    const normalized = target
+      .replace(/^#/, `${currentClass || ""}#`)
+      .replace(/^\./, `${currentClass || ""}.`);
+    const match = normalized.match(/^([^#.]+)(#|\.)(.+)$/);
     if (match && classNames.has(match[1])) {
       const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
       return token("ref", label, memberAnchors.has(id) ? `#${id}` : null);
@@ -539,19 +184,11 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
   };
 
   const rewrite = (prose) =>
-    prose
-      .replace(/\[([^\]]+)\]\{([^}]+)\}/g, (_all, label, target) =>
-        linkFor(target, label),
-      )
-      .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_all, target, label) =>
-        linkFor(target, label || target),
-      )
-      // `{TextEditor}s` is a plural, and the source writes some eighty of them.
-      // The `s` goes inside the token, or it reads as "TextEditor s" once the
-      // token is a chip with padding of its own.
-      .replace(/\{([^{}]+)\}(s\b)?/g, (_all, target, plural) =>
-        linkFor(target, `${target}${plural || ""}`),
-      );
+    prose.replace(
+      /\{@link\s+([^}\s|]+)(?:\|([^}]+)|\s+([^}]+))?\}/g,
+      (_all, target, pipeLabel, spaceLabel) =>
+        linkFor(target, pipeLabel || spaceLabel || target),
+    );
 
   // Only prose. Braces inside a fenced block or a code span are the example's
   // own — an object literal, a destructured argument, a template placeholder —
@@ -574,6 +211,68 @@ function escapeHtml(value) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+function renderStructuredDocs(entry, classNames, memberAnchors, currentClass) {
+  const sections = [];
+  const parameters = (entry.parameters || []).filter(
+    (parameter) =>
+      parameter.name &&
+      (parameter.type ||
+        parameter.description ||
+        parameter.optional ||
+        parameter.defaultValue != null),
+  );
+  if (parameters.length) {
+    const rows = parameters
+      .map((parameter) => {
+        const flags = [
+          parameter.optional ? "optional" : null,
+          parameter.rest ? "rest" : null,
+          parameter.defaultValue != null
+            ? `default: ${parameter.defaultValue}`
+            : null,
+        ].filter(Boolean);
+        const metadata = [
+          parameter.type
+            ? `<code class="api-structured-type">${escapeHtml(parameter.type)}</code>`
+            : "",
+          flags.length
+            ? `<span class="api-structured-flags">${escapeHtml(flags.join(", "))}</span>`
+            : "",
+        ].join("");
+        const description = parameter.description
+          ? renderDoc(
+              parameter.description,
+              classNames,
+              memberAnchors,
+              currentClass,
+            )
+          : '<p class="api-empty">No description.</p>';
+        return `<dt><code>${escapeHtml(parameter.name)}</code>${metadata}</dt><dd>${description}</dd>`;
+      })
+      .join("");
+    sections.push(
+      `<section class="api-structured-docs"><h5>Parameters</h5><dl>${rows}</dl></section>`,
+    );
+  }
+  if (entry.propertyType) {
+    sections.push(
+      `<section class="api-structured-docs"><h5>Type</h5><p><code class="api-structured-type">${escapeHtml(entry.propertyType)}</code></p></section>`,
+    );
+  }
+  if (entry.returnType || entry.returnDescription) {
+    const type = entry.returnType
+      ? `<code class="api-structured-type">${escapeHtml(entry.returnType)}</code>`
+      : "";
+    const description = entry.returnDescription
+      ? `<div>${renderDoc(entry.returnDescription, classNames, memberAnchors, currentClass)}</div>`
+      : "";
+    sections.push(
+      `<section class="api-structured-docs"><h5>Returns</h5><div class="api-return-value">${type}${description}</div></section>`,
+    );
+  }
+  return sections.join("");
 }
 
 // The article and the member rail split a class the same way, so they read the
@@ -668,7 +367,8 @@ function renderHtml(api) {
                         <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a><code>${escapeHtml(member.signature)}</code></h4>
                         <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge api-badge-${slug(member.visibility)}">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
                       </div>
-                      ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : '<p class="api-empty">No description.</p>'}
+                      ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : ""}
+                      ${renderStructuredDocs(member, classNames, memberAnchors, item.name) || (!member.description ? '<p class="api-empty">No description.</p>' : "")}
                     </article>`,
                 )
                 .join("\n")}
@@ -689,7 +389,7 @@ function renderHtml(api) {
     ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
         .map(
           (item) =>
-            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}</article>`,
+            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}${renderStructuredDocs(item, classNames, memberAnchors)}</article>`,
         )
         .join("\n")}</section>`
     : "";
@@ -763,6 +463,16 @@ function renderHtml(api) {
       .api-description-body pre code { padding: 0; background: none; font-size: .82rem; }
       .api-description-body a { color: var(--gold-strong); }
       .api-class-description { max-width: 78ch; margin: 8px 0 0; font-size: 1rem; }
+      .api-structured-docs { margin-top: 12px; max-width: 82ch; }
+      .api-structured-docs h5 { margin: 0 0 5px; color: var(--text); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
+      .api-structured-docs dl { display: grid; grid-template-columns: minmax(9rem, max-content) minmax(0, 1fr); gap: 5px 14px; margin: 0; }
+      .api-structured-docs dt, .api-structured-docs dd { margin: 0; }
+      .api-structured-docs dt { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; color: var(--text); }
+      .api-structured-docs dd > :first-child, .api-return-value > div > :first-child { margin-top: 0; }
+      .api-structured-docs dd > :last-child, .api-return-value > div > :last-child { margin-bottom: 0; }
+      .api-structured-type { color: var(--cyan); }
+      .api-structured-flags { color: var(--muted); font-size: .72rem; }
+      .api-return-value { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
       .api-source { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 400; white-space: nowrap; transition: color .15s ease; }
       .api-source:hover { color: var(--gold-strong); }
       .api-group { margin-top: 28px; scroll-margin-top: 88px; }
@@ -802,7 +512,7 @@ function renderHtml(api) {
       <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></nav>
     </header>
     <main class="api-main">
-      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s Atomdoc and JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
+      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
       <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p class="api-rail-heading">Classes</p><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article>${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
@@ -885,50 +595,13 @@ function renderHtml(api) {
 </html>`;
 }
 
-const sourceInputs = sourceManifest.sources.map((source) => ({
-  ...source,
-  root: path.resolve(editorRoot, source.path),
-}));
-for (const source of sourceInputs) {
-  if (!fs.existsSync(source.root)) {
-    throw new Error(`API source does not exist: ${source.root}`);
-  }
+const api = extractApi({ editorRoot, parser });
+if (api.schemaVersion !== SCHEMA_VERSION) {
+  throw new Error(
+    `Unsupported API schema ${api.schemaVersion}; expected ${SCHEMA_VERSION}.`,
+  );
 }
-const parsed = sourceInputs.flatMap((sourceInput) =>
-  walk(sourceInput.root).map((filePath) => parseFile(filePath, sourceInput)),
-);
-const compareApiClasses = (left, right) => {
-  if (left.name === "LumineEnvironment") return -1;
-  if (right.name === "LumineEnvironment") return 1;
-  return left.name.localeCompare(right.name);
-};
-const classes = parsed
-  .flatMap(({ classes: items }) => items)
-  .filter(
-    (item, index, all) =>
-      all.findIndex(({ name }) => name === item.name) === index,
-  )
-  .sort(compareApiClasses);
-if (classes[0]?.name !== "LumineEnvironment") {
-  throw new Error("LumineEnvironment must be the first generated API class.");
-}
-const functions = parsed
-  .flatMap(({ functions: items }) => items)
-  .filter(
-    (item, index, all) =>
-      all.findIndex(({ name }) => name === item.name) === index,
-  )
-  .sort((left, right) => left.name.localeCompare(right.name));
-const api = {
-  name: packageMetadata.productName || packageMetadata.name,
-  version: packageMetadata.version,
-  generatedAt: new Date().toISOString(),
-  classes,
-  functions,
-  memberCount:
-    classes.reduce((count, item) => count + item.members.length, 0) +
-    functions.length,
-};
+api.generatedAt = new Date().toISOString();
 
 const rendered = {
   "api.json": `${JSON.stringify(api, null, 2)}\n`,
@@ -953,8 +626,12 @@ if (checkOnly) {
       ? fs.readFileSync(committed, "utf8")
       : null;
     if (before === null) stale.push(`${file} has never been generated`);
-    else if (withoutTimestamp(before, file) !== withoutTimestamp(contents, file))
-      stale.push(`${file} does not match the editor source it is generated from`);
+    else if (
+      withoutTimestamp(before, file) !== withoutTimestamp(contents, file)
+    )
+      stale.push(
+        `${file} does not match the editor source it is generated from`,
+      );
   }
 
   for (const line of stale) console.error(`error: ${line}`);
