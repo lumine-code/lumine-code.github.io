@@ -13,7 +13,7 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **minimap** — a canvas overview of the whole buffer beside the scrollbar.
 - **highlight-selected** — highlight other occurrences of the selected word.
 - **cursor-history** — navigate backward and forward through recent cursor positions.
-- **spell-check** — highlight misspelled words and offer contextual corrections.
+- **spell-check** — report misspelled words as linter diagnostics with contextual corrections. Needs **linter** to show them.
 - **toolbar** — provide an extensible toolbar docked to the workspace edge.
 - **build** — run project build targets and surface their output and diagnostics.
 - **sort-lines** — sort, reverse, shuffle, and deduplicate selected text lines.
