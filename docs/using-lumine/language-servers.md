@@ -10,9 +10,9 @@ More than one server can serve the same file, which is how these tools are norma
 
 ## Adapter packages
 
-An adapter package tells `ide-client` how to launch a server for a language. Install one for each language you work in, for example `lumine --install lumine-code/ide-typescript` for TypeScript and JavaScript, or `lumine-code/ide-pyright` and `lumine-code/ide-ruff` for Python types and linting side by side — or search for *ide* in the Install pane in **Settings**.
+An adapter package tells `ide-client` how to launch a server for a language. Install one for each language you work in, for example `lumine --install lumine-code/ide-typescript` for TypeScript and JavaScript, `lumine-code/ide-html` for HTML and template documents, `lumine-code/ide-yaml` for schema-aware YAML, or `lumine-code/ide-pyright` and `lumine-code/ide-ruff` for Python types and linting side by side — or search for *ide* in the Install pane in **Settings**.
 
-Each adapter's settings page is where its server is configured. **Server Path** points at a specific binary, and the rest of the page is that server's own options in the editor's settings UI rather than in a configuration file: where Pyright looks for imports and stubs, which fonts Tinymist loads, the formatter Texlab runs and the width it wraps at, the quote style the TypeScript server writes an import with. A setting left empty means "no opinion" and the server keeps its own default, so a project that configures itself through `pyrightconfig.json`, `ruff.toml`, or `tsconfig.json` is not overruled by a setting you never touched.
+Each adapter's settings page is where its server is configured. **Server Path** points at a specific binary, and the rest of the page is that server's own options in the editor's settings UI rather than in a configuration file: where Pyright looks for imports and stubs, which schemas YAML files use, how HTML attributes wrap, which fonts Tinymist loads, the formatter Texlab runs and the width it wraps at, the quote style the TypeScript server writes an import with. A setting left empty means "no opinion" and the server keeps its own default, so a project that configures itself through `pyrightconfig.json`, `ruff.toml`, or `tsconfig.json` is not overruled by a setting you never touched.
 
 ## Features
 
