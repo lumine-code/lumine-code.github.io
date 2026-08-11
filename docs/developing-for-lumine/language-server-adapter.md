@@ -22,7 +22,11 @@ module.exports = {
       displayName: "Example Language Server",
       grammarScopes: ["source.example"],
       async resolveServer({ rootPath }) {
-        return { command: "/absolute/path/to/example-ls", args: ["--stdio"], cwd: rootPath };
+        return {
+          command: "/absolute/path/to/example-ls",
+          args: ["--stdio"],
+          cwd: rootPath,
+        };
       },
     });
   },
@@ -65,8 +69,29 @@ Where the server can be told to stop the work itself, map the switch onto its ow
 
 ## Resolving the server binary
 
-Follow the convention of the `ide-*` adapter packages, in priority order: a `serverPath` setting always wins when set; otherwise use a server distributed as an npm dependency of the adapter (launch Node-based servers with `process.execPath` and `env: { ELECTRON_RUN_AS_NODE: "1" }`); otherwise look the binary up on `PATH` and raise one actionable notification when it is missing.
+Follow the convention of the `ide-*` adapter packages, in priority order: a `serverPath` setting always wins when set; then a copy the editor installed, handed to you on `context.managedServer`; then a server distributed as an npm dependency of the adapter (launch Node-based servers with `process.execPath` and `env: { ELECTRON_RUN_AS_NODE: "1" }`); then the binary on `PATH`. Raise one actionable notification when nothing resolves, and return `null` rather than throwing.
+
+## Letting the editor install the server
+
+Declare a `managedServer` descriptor and the editor can fetch, update and remove the server, and your adapter appears in `ide-client:manage-servers`. The descriptor is data — `resolveServer` stays the only thing that decides what runs:
+
+```js
+managedServer: {
+  source: "github-release",
+  displayName: "Ruff",
+  repository: "astral-sh/ruff",
+  assetFor: ({ platform, arch }) => "ruff-x86_64-pc-windows-msvc.zip",
+  checksum: "sha256-sidecar",
+  binary: "ruff.exe",
+}
+```
+
+`assetFor` returns an **exact file name**, never a pattern — releases often carry other archives sharing a prefix, and `null` says this platform has no build. `checksum` is stated rather than inferred, so `"none"` records a source that publishes nothing to verify against instead of a step being skipped silently. `binary` is a base name, located wherever it sits in the archive.
+
+For a server that already ships as an npm dependency, use `source: "npm"` with `bundled: true` and keep the dependency. The pinned copy stays the floor, so the managed one is an upgrade and removing it can never leave the user with nothing. `ide-pyright` works this way; `ide-typescript` deliberately has no descriptor at all, since `typescript-language-server` already prefers the project's own TypeScript.
+
+The full contract is in `ide-client`'s own documentation, under **Managed servers**.
 
 ## Specs
 
-Unit-test the resolver (the configured path wins; the bundled module resolves). For an end-to-end smoke test, gate a real-server spec on the binary being present so continuous integration stays green without the toolchain.
+Unit-test the resolver: the configured path wins, a managed install beats `PATH`, and the bundled module resolves. Assert `assetFor` returns the exact asset name for each platform you support and `null` for the rest — that is the part a release rename breaks. For an end-to-end smoke test, gate a real-server spec on the binary being present so continuous integration stays green without the toolchain.

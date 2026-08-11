@@ -14,6 +14,18 @@ An adapter package tells `ide-client` how to launch a server for a language. Ins
 
 Each adapter's settings page is where its server is configured. **Server Path** points at a specific binary, and the rest of the page is that server's own options in the editor's settings UI rather than in a configuration file: where Pyright looks for imports and stubs, which schemas YAML files use, how HTML attributes wrap, which fonts Tinymist loads, the formatter Texlab runs and the width it wraps at, the quote style the TypeScript server writes an import with. A setting left empty means "no opinion" and the server keeps its own default, so a project that configures itself through `pyrightconfig.json`, `ruff.toml`, or `tsconfig.json` is not overruled by a setting you never touched.
 
+## Installing a server
+
+Some servers ship with their adapter and work the moment it is installed — Pyright and the TypeScript server are npm packages the adapter depends on. Others are standalone binaries you would otherwise fetch yourself: ruff, texlab and tinymist are Rust programs, and without one on your PATH the adapter has nothing to run.
+
+`ide-client:manage-servers` lists every server the editor can fetch, what is installed, and what the newest release is. Choosing one installs it, or updates it when a copy is already there; **Check for Updates** looks up every server at once. The same offer appears the moment it matters — an adapter that cannot find its server says so with an **Install** button on the notification.
+
+Installed servers live in `language-servers/` in your configuration directory, one folder per adapter. Each download is checked against the checksum its source publishes before anything is unpacked, and a mismatch is discarded rather than installed. Texlab publishes no checksums, so its download cannot be verified; every other source can.
+
+Which copy runs is settled in a fixed order: the **Server Path** setting if you set one, then the copy the editor installed, then whatever is on your PATH. Removing a managed copy therefore falls back rather than breaking — to the PATH binary for the Rust servers, and to the version that ships with the package for Pyright. Only what the editor installed is removed; a ruff you installed with `uv` or `brew` is never touched.
+
+Keeping your own copy is a reasonable choice, and sometimes the right one: a project that pins `ruff` in its dev dependencies expects that exact version, and a managed copy at a different version reports different violations. Set **Server Path**, or simply do not install one.
+
 ## Features
 
 Every adapter's settings page has a **Features** group listing what its server does — diagnostics, autocomplete, hover, signature help, go-to-definition, references, symbols, outline, formatting, rename, code actions, inlay hints, code lens, semantic tokens. Each is a switch, and only the ones that server actually implements are shown: Pyright has no formatter, and Ruff has neither completions nor navigation, so neither offers a switch for them.
@@ -54,7 +66,7 @@ The same list sits in the status bar: an item counting the running servers, with
 
 ## Commands
 
-`ide-client:servers` lists the running servers. `ide-client:restart` restarts every server serving the active editor. `ide-client:format` formats the active document through the server. `ide-client:toggle-problems` opens the linter panel with the server's diagnostics. `ide-client:show-log` opens the active server's log in an editor.
+`ide-client:servers` lists the running servers. `ide-client:manage-servers` lists the servers the editor can install. `ide-client:restart` restarts every server serving the active editor. `ide-client:format` formats the active document through the server. `ide-client:toggle-problems` opens the linter panel with the server's diagnostics. `ide-client:show-log` opens the active server's log in an editor.
 
 ## Troubleshooting
 
