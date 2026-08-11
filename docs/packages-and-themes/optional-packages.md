@@ -31,7 +31,7 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 Language-server backends for the bundled `ide-client` package, and the user interfaces for what they report (see [Code intelligence](../using-lumine/code-intelligence.md)):
 
 - **ide-typescript**, **ide-pyright**, **ide-ruff**, **ide-texlab**, **ide-tinymist** — language-server adapters for TypeScript and JavaScript, Python types, Python linting and formatting, LaTeX, and Typst.
-- **ide-bash**, **ide-html**, **ide-yaml** — bundled-server adapters for Bash, HTML, and schema-aware YAML editing.
+- **ide-bash**, **ide-css**, **ide-html**, **ide-json**, **ide-yaml** — bundled-server adapters for Bash, CSS/SCSS/Less, HTML, JSON/JSONC, and schema-aware YAML editing.
 - **hover** — documentation tooltips and signature help at the cursor.
 - **outline-view** — a hierarchical symbol outline of the active editor.
 - **intentions** — code actions and quick fixes at the cursor.
