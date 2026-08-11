@@ -19,6 +19,8 @@ Behavior — the activation delay, whether to auto-confirm a single suggestion, 
 
 Installed packages can add more providers (for a framework, a data source, and so on); install them like any other package. See [The package system](../packages-and-themes/package-system.md). The bundled `ide-client` package is a provider too, so installing a [language-server adapter](language-servers.md) puts your server's completions in the same list.
 
+Not every provider completes what you are typing. [`spell-check`](linting.md) puts its corrections here, above the buffer's own words, and picking one replaces the misspelled word rather than extending it — so this list is where a spelling fix is chosen too. Corrections appear only when the list is asked for, never while typing.
+
 ## Matching and ordering
 
 Typing narrows the list by subsequence, not just by prefix: `sfn` finds `setFontName`. The matched characters are highlighted in each entry.
