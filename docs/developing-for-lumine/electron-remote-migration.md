@@ -1,7 +1,7 @@
 # Migrating away from `@electron/remote`
 
 Lumine no longer initializes or bundles `@electron/remote`. Packages must use
-the documented `lumine.window` and `lumine.app` services for main-process work. The
+the documented `lumine.window` and `lumine.application` services for main-process work. The
 services return plain serializable values and promises; they never expose an
 Electron `BrowserWindow`, `WebContents`, `NativeImage`, function, or process
 stream to renderer code.
@@ -14,11 +14,11 @@ There is no compatibility alias for the removed APIs.
 | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | `remote.getCurrentWindow()` or `lumine.getCurrentWindow()`                                  | `lumine.window`                                                 |
 | `lumine.close()` and top-level size, position, visibility, fullscreen, and DevTools methods | The corresponding `lumine.window` method                        |
-| `lumine.restartApplication()`                                                               | `await lumine.app.restart()`                                    |
-| `remote.app.getPath(name)`                                                                  | `lumine.app.getPath(name)`                                      |
-| `remote.app.getLocale()`                                                                    | `lumine.app.getLocale()`                                        |
-| `remote.app.getFileIcon(path)`                                                              | `await lumine.app.getFileIcon(path)`; the result is a data URL  |
-| Protocol-client and user-default calls on `remote.app` or `remote.systemPreferences`        | The asynchronous `lumine.app` methods                           |
+| `lumine.restartApplication()`                                                               | `await lumine.application.restart()`                                    |
+| `remote.app.getPath(name)`                                                                  | `lumine.application.getPath(name)`                                      |
+| `remote.app.getLocale()`                                                                    | `lumine.application.getLocale()`                                        |
+| `remote.app.getFileIcon(path)`                                                              | `await lumine.application.getFileIcon(path)`; the result is a data URL  |
+| Protocol-client and user-default calls on `remote.app` or `remote.systemPreferences`        | The asynchronous `lumine.application` methods                           |
 | `remote.dialog.showOpenDialog()` for folders                                                | `await lumine.window.pickFolder()`                              |
 | `remote.dialog.showSaveDialog()`                                                            | `await lumine.window.showSaveDialog(options)`                   |
 | `remote.BrowserWindow.fromId()` or renderer-to-renderer access                              | `lumine.window.broadcast()` and `lumine.window.onDidReceive()`  |
@@ -38,14 +38,14 @@ not aliases:
 | `lumine.getWindowLoadTime()`                                                              | `lumine.window.getLoadTime()`                                                                        |
 | `lumine.getStartupMarkers()`                                                              | `lumine.window.getStartupMarkers()`                                                                  |
 | `lumine.confirm(options)`                                                                 | `await lumine.window.confirm(options)`                                                               |
-| `lumine.getAppName()`                                                                     | `lumine.app.getName()`                                                                               |
-| `lumine.getVersion()`, `versionSatisfies()`, `getReleaseChannel()`, `isReleasedVersion()` | The same methods on `lumine.app`                                                                     |
-| `lumine.open(params)`                                                                     | `lumine.app.openWindow(params)`                                                                      |
+| `lumine.getAppName()`                                                                     | `lumine.application.getName()`                                                                               |
+| `lumine.getVersion()`, `versionSatisfies()`, `getReleaseChannel()`, `isReleasedVersion()` | The same methods on `lumine.application`                                                                     |
+| `lumine.open(params)`                                                                     | `lumine.application.openWindow(params)`                                                                      |
 | `lumine.trashItem()`, `showItemInFolder()`, `openPath()`, `openExternal()`                | The same methods on `lumine.shell`                                                                   |
 | `lumine.onWillThrowError()`, `onDidThrowError()`                                          | The same subscriptions on `lumine.runtime`                                                           |
 | `lumine.whenShellEnvironmentLoaded(callback)`                                             | `await lumine.runtime.whenShellEnvironmentLoaded()`                                                  |
 | `lumine.beep()`, `lumine.onDidBeep()`                                                     | `lumine.notifications.beep()`, `lumine.notifications.onDidBeep()`                                    |
-| `lumine.getLoadSettings()`                                                                | No replacement. Use the typed cached methods on `lumine.app`, `lumine.window`, and `lumine.runtime`. |
+| `lumine.getLoadSettings()`                                                                | No replacement. Use the typed cached methods on `lumine.application`, `lumine.window`, and `lumine.runtime`. |
 
 ## Window operations
 
