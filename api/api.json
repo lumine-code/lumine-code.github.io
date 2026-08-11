@@ -14487,12 +14487,12 @@
     {
       "name": "PathWatcher",
       "visibility": "Extended",
-      "description": "Manage a subscription to filesystem events that occur beneath a\nroot directory. Construct these by calling `watchPath`. To watch for events\nwithin active project directories, use {@link Project#onDidChangeFiles} instead.\n\nMultiple PathWatchers may be backed by a single native watcher to conserve\noperating-system resources.\n\nCall {@link #dispose} to stop receiving events and, if possible, release\nunderlying resources. A PathWatcher may be added to a `CompositeDisposable`\nto manage its lifetime along with other `Disposable` resources like event\nsubscriptions.\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to\n // subscribe to these events.\n disposable.dispose()\n```\n\n`watchPath` accepts the following arguments:\n\n* `rootPath` `String` specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior. Currently a placeholder.\n* `eventCallback` `Function` to be called each time a batch of filesystem\n  events is observed. Each event object has the keys:\n  * `action`, a `String` describing the filesystem action that occurred, one\n    of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`;\n  * `path`, a `String` containing the absolute path to the filesystem entry\n    that was acted upon;\n  * `oldPath` (for `renamed` events only), a `String` containing the\n    filesystem entry's former absolute path.",
+      "description": "Manage a subscription to filesystem events that occur beneath a\nroot directory. Construct these by calling `watchPath`. To watch for events\nwithin active project directories, use {@link Project#onDidChangeFiles} instead.\n\nMultiple PathWatchers may be backed by a single native watcher to conserve\noperating-system resources.\n\nCall {@link #dispose} to stop receiving events and, if possible, release\nunderlying resources. A PathWatcher may be added to a `CompositeDisposable`\nto manage its lifetime along with other `Disposable` resources like event\nsubscriptions.\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"updated\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to\n // subscribe to these events.\n disposable.dispose()\n```\n\n`watchPath` accepts the following arguments:\n\n* `rootPath` `String` specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior:\n  * `realPaths` `Boolean` whether to report the real path on disk for each\n    event. Default `true`; `false` reports paths that descend from\n    `rootPath` even where symlinks point elsewhere.\n* `eventCallback` `Function` to be called each time a batch of filesystem\n  events is observed. Each event object has the keys:\n  * `action`, a `String` describing the filesystem action that occurred, one\n    of `\"created\"`, `\"updated\"`, `\"deleted\"`, or `\"renamed\"`;\n  * `path`, a `String` containing the absolute path to the filesystem entry\n    that was acted upon;\n  * `oldPath` (for `renamed` events only), a `String` containing the\n    filesystem entry's former absolute path.",
       "summary": "Manage a subscription to filesystem events that occur beneath a root directory. Construct these by calling `watchPath`. To watch for events within active project directories, use {@link Project#onDidChangeFiles} instead.",
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 662,
+      "line": 665,
       "members": [
         {
           "name": "getStartPromise",
@@ -14508,7 +14508,7 @@
           "returnType": "Promise",
           "returnDescription": "that will resolve when the underlying native watcher is ready to begin sending events. When testing filesystem watchers, it's important to await this promise before making filesystem changes that you intend to assert about because there will be a delay between the instantiation of the watcher and the activation of the underlying OS resources that feed its events.",
           "propertyType": null,
-          "line": 764
+          "line": 767
         },
         {
           "name": "onDidError",
@@ -14544,7 +14544,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 806
+          "line": 809
         },
         {
           "name": "dispose",
@@ -14560,7 +14560,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 989
+          "line": 997
         }
       ]
     },
@@ -15090,7 +15090,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 207
+          "line": 217
         },
         {
           "name": "onDidAddBuffer",
@@ -15126,7 +15126,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 222
+          "line": 232
         },
         {
           "name": "observeBuffers",
@@ -15162,7 +15162,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 237
+          "line": 247
         },
         {
           "name": "onDidChangeFiles",
@@ -15172,7 +15172,7 @@
           "signature": "::onDidChangeFiles(callback)",
           "category": "Event Subscription",
           "visibility": "Extended",
-          "description": "Invoke a callback when a filesystem change occurs within any open\nproject path.\n\n```js\nconst disposable = lumine.project.onDidChangeFiles(events => {\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", or \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\ndisposable.dispose()\n```\n\nTo watch paths outside of open projects, use the `watchPaths` function instead; see {@link PathWatcher}.\n\nWhen writing tests against functionality that uses this method, be sure to wait for the\n`Promise` returned by {@link #getWatcherPromise} before manipulating the filesystem to ensure that\nthe watcher is receiving events.",
+          "description": "Invoke a callback when a filesystem change occurs within any open\nproject path.\n\n```js\nconst disposable = lumine.project.onDidChangeFiles(events => {\n  for (const event of events) {\n    // \"created\", \"updated\", or \"deleted\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n  }\n})\n\ndisposable.dispose()\n```\n\nProject roots are watched recursively, and the recursive backend reports a\nmove as a `\"deleted\"` followed by a `\"created\"` — it never emits\n`\"renamed\"` and never sets `oldPath`. Handle the move as the two events it\narrives as; a `\"renamed\"` branch written against this method is dead code.\nOnly the non-recursive watchers behind {@link PathWatcher} report renames.\n\nPaths are absolute and spelled the way the root was registered, matching\n{@link #getPaths} and {@link #relativizePath}, so an event path can be\ncompared against a stored one directly.\n\nTo watch paths outside of open projects, use the `watchPaths` function instead; see {@link PathWatcher}.\n\nWhen writing tests against functionality that uses this method, be sure to wait for the\n`Promise` returned by {@link #getWatcherPromise} before manipulating the filesystem to ensure that\nthe watcher is receiving events.",
           "summary": "Invoke a callback when a filesystem change occurs within any open project path.",
           "parameters": [
             {
@@ -15197,7 +15197,7 @@
             {
               "name": "callback.events.action",
               "type": "String",
-              "description": "describing the filesystem action that occurred. One of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`.",
+              "description": "describing the filesystem action that occurred. One of `\"created\"`, `\"updated\"`, or `\"deleted\"`.",
               "optional": false,
               "defaultValue": null,
               "source": "callback.events.action",
@@ -15213,22 +15213,12 @@
               "source": "callback.events.path",
               "rest": false,
               "nested": true
-            },
-            {
-              "name": "callback.events.oldPath",
-              "type": null,
-              "description": "For rename events, `String` containing the filesystem entry's former absolute path.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.events.oldPath",
-              "rest": false,
-              "nested": true
             }
           ],
           "returnType": "Disposable",
           "returnDescription": "to manage this event subscription.",
           "propertyType": null,
-          "line": 282
+          "line": 297
         },
         {
           "name": "repositoryForDirectory",
@@ -15254,7 +15244,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with either: * {@link GitRepository} if a repository can be created for the given directory",
           "propertyType": null,
-          "line": 302
+          "line": 317
         },
         {
           "name": "repositoryForPath",
@@ -15280,7 +15270,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with either: * {@link GitRepository} if a repository can be created for the given path",
           "propertyType": null,
-          "line": 324
+          "line": 339
         },
         {
           "name": "getPaths",
@@ -15296,7 +15286,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 375
+          "line": 390
         },
         {
           "name": "setPaths",
@@ -15351,7 +15341,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 396
+          "line": 411
         },
         {
           "name": "setState",
@@ -15377,7 +15367,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to `true` once the new state is in place, or to `false` if the window was left as it was — because the paths were already open, none was given, or the user cancelled at the save prompt.",
           "propertyType": null,
-          "line": 468
+          "line": 483
         },
         {
           "name": "addPath",
@@ -15432,7 +15422,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 485
+          "line": 500
         },
         {
           "name": "addPaths",
@@ -15467,7 +15457,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 562
+          "line": 585
         },
         {
           "name": "getWatcherPromise",
@@ -15493,7 +15483,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the {@link PathWatcher} associated with this project root once it has initialized and is ready to start sending events. The Promise will reject with an error instead if `projectPath` is not currently a root directory.",
           "propertyType": null,
-          "line": 610
+          "line": 633
         },
         {
           "name": "removePath",
@@ -15519,7 +15509,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 625
+          "line": 648
         },
         {
           "name": "getDirectories",
@@ -15535,7 +15525,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 663
+          "line": 686
         },
         {
           "name": "relativizePath",
@@ -15561,7 +15551,7 @@
           "returnType": "Array",
           "returnDescription": "with two elements:",
           "propertyType": null,
-          "line": 710
+          "line": 733
         },
         {
           "name": "contains",
@@ -15587,7 +15577,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether the path is inside the project's root directory.",
           "propertyType": null,
-          "line": 754
+          "line": 777
         },
         {
           "name": "crawl",
@@ -15683,7 +15673,199 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that resolves the crawl early.",
           "propertyType": null,
-          "line": 791
+          "line": 814
+        },
+        {
+          "name": "observeFilePaths",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observeFilePaths(callback)",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Invoke the given callback with the project's file paths, now and whenever\nthey change.\n\nWhere {@link #crawl} answers \"what is there right now\" once, the file index\nkeeps the answer, streams it as it arrives, and maintains it against the\nfilesystem watcher. Prefer these methods over crawling on a timer or\nrebuilding on {@link #onDidChangeFiles} by hand: a package that does either\nis reimplementing this one, and the ignore semantics are easy to get subtly\nwrong.\n\nThe first call is synchronous and reports everything currently indexed as\n`added`, so a consumer has exactly one code path: apply `removed`, then\napply `added`.\n\n```js\nconst disposable = lumine.project.observeFilePaths(({ added, removed, indexing }) => {\n  for (const filePath of removed) this.items.delete(filePath);\n  for (const filePath of added) this.items.set(filePath, this.build(filePath));\n  this.setLoading(indexing);\n});\n```\n\nChanges are coalesced, so one call can carry a whole batch, and during the\nfirst crawl the callback fires repeatedly with partial results — check\n`indexing` rather than assuming the first call is complete. A deleted\ndirectory reports every file that was under it, so no consumer needs its own\nprefix sweep.\n\nThe whole-index array is deliberately not passed: rebuilding derived state\nfrom it on every call is quadratic over a progressive crawl. Call\n{@link #getFilePaths} if you want it — that is memoized, so asking on every\ncallback costs nothing extra.",
+          "summary": "Invoke the given callback with the project's file paths, now and whenever they change.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called with each batch of changes.",
+              "defaultValue": null
+            },
+            {
+              "name": "callback.added",
+              "type": null,
+              "description": "An `Array` of `String` absolute paths new to the index.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.added",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.removed",
+              "type": null,
+              "description": "An `Array` of `String` absolute paths no longer in it.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.removed",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.indexing",
+              "type": null,
+              "description": "A `Boolean`, `true` while a crawl is still running.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.indexing",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 877
+        },
+        {
+          "name": "getFilePaths",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFilePaths()",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Every file under the project's root directories.\n\nFiles only, and project roots only — for a glob subset, a directory listing,\nor anywhere outside the project, use {@link #crawl}. The index applies core\npolicy only (`core.ignoredNames`, `core.excludeVcsIgnoredPaths`,\n`core.followSymlinks`), so it is a superset of what any one consumer wants\nand a package's own exclusions stay a cheap filter over it.\n\nPaths are absolute and spelled from the registered root, matching\n{@link #getPaths} and {@link #relativizePath}. They are not sorted: sorting\ncosts the crawl its parallel walk, and only one consumer has ever observed\nthe order, so it sorts for itself.\n\nThe array is memoized and shared, rebuilt only when the index changes.\n**Do not mutate it** — like {@link #getDirectories}, this hands back the\nindex's own array rather than copying six figures' worth of strings per call.\n\nThe first call to any file-path method builds the index and starts the\ncrawl, so this returns an empty array until that settles; see\n{@link #isIndexing}. Ask when the feature that needs it is first used rather\nthan during package activation, or the crawl happens in every window whether\nanything wanted it or not.",
+          "summary": "Every file under the project's root directories.",
+          "parameters": [],
+          "returnType": "Array",
+          "returnDescription": "of `String` absolute paths.",
+          "propertyType": null,
+          "line": 910
+        },
+        {
+          "name": "getFilePathsForRoot",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFilePathsForRoot(root)",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Every indexed file under one project root.\n\nA file reachable through two nested roots is listed under both, because each\nroot is crawled independently. Memoized and shared on the same terms as\n{@link #getFilePaths}.",
+          "summary": "Every indexed file under one project root.",
+          "parameters": [
+            {
+              "name": "root",
+              "source": "root",
+              "optional": false,
+              "rest": false,
+              "type": "String|Directory",
+              "description": "a project root path, or its `Directory`.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Array",
+          "returnDescription": "of `String` absolute paths, empty for a path that is not a project root.",
+          "propertyType": null,
+          "line": 927
+        },
+        {
+          "name": "hasFilePath",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hasFilePath(filePath)",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Whether a path is in the file index.\n\nConstant time, where scanning {@link #getFilePaths} is not. The path must be\nspelled the way the index spells it: absolute, from the registered root.\n\nThis is a different question from {@link #contains}, which asks only whether\na path lies under a root and answers for a file that is ignored, or that\ndoes not exist at all.",
+          "summary": "Whether a path is in the file index.",
+          "parameters": [
+            {
+              "name": "filePath",
+              "source": "filePath",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "an absolute path.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 947
+        },
+        {
+          "name": "getFilePathCount",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFilePathCount()",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "How many files are indexed.\n\nCheaper than `getFilePaths().length`, which materializes the array.",
+          "summary": "How many files are indexed.",
+          "parameters": [],
+          "returnType": "Number",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 961
+        },
+        {
+          "name": "isIndexing",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isIndexing()",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Whether the file index is crawling.\n\nTrue for the first crawl and for every later refresh alike, so a spinner\ndriven by this shows during background reindexing too.",
+          "summary": "Whether the file index is crawling.",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 976
+        },
+        {
+          "name": "refreshFilePaths",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::refreshFilePaths(options = {})",
+          "category": "Crawling files",
+          "visibility": "Public",
+          "description": "Crawl the project again and update the file index.\n\nRarely needed: the index follows {@link #onDidChangeFiles} and re-crawls a\nroot by itself when the evidence says it must. Reach for this to back a\nuser-facing \"reindex\" command, or after changing something on disk that the\nwatcher cannot see. The index is shared, so this re-crawls for every\nconsumer, not just the caller.\n\nExisting contents stay readable and are replaced when the crawl completes,\nso a refresh does not empty a list the user is looking at.",
+          "summary": "Crawl the project again and update the file index.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.rootPaths",
+              "type": null,
+              "description": "An `Array` of `String` roots to re-crawl. Defaults to all of them.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.rootPaths",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise",
+          "returnDescription": "that resolves when the crawl settles.",
+          "propertyType": null,
+          "line": 999
         }
       ]
     },
@@ -38295,13 +38477,13 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 1176
+      "line": 1184
     },
     {
       "name": "watchPath",
       "signature": "watchPath(rootPath, options, eventCallback, options.realPaths, eventCallback.events, eventCallback.events.action, eventCallback.events.path, eventCallback.events.oldPath)",
       "visibility": "Extended",
-      "description": "Invoke a callback with each filesystem event that occurs beneath a\nspecified path. If you only need to watch events within the project's root\npaths, use {@link Project#onDidChangeFiles} instead.\n\nwatchPath handles the efficient re-use of operating system resources across\nliving watchers. Watching the same path more than once, or the child of a\nwatched path, will re-use the existing native watcher.\n\n\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"modified\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to subscribe\n // to these events.\n disposable.dispose()\n```",
+      "description": "Invoke a callback with each filesystem event that occurs beneath a\nspecified path. If you only need to watch events within the project's root\npaths, use {@link Project#onDidChangeFiles} instead.\n\nwatchPath handles the efficient re-use of operating system resources across\nliving watchers. Watching the same path more than once, or the child of a\nwatched path, will re-use the existing native watcher.\n\n\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"updated\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to subscribe\n // to these events.\n disposable.dispose()\n```",
       "summary": "Invoke a callback with each filesystem event that occurs beneath a specified path. If you only need to watch events within the project's root paths, use {@link Project#onDidChangeFiles} instead.",
       "parameters": [
         {
@@ -38354,7 +38536,7 @@
         {
           "name": "eventCallback.events.action",
           "type": "String",
-          "description": "describing the filesystem action that occurred. One of `\"created\"`, `\"modified\"`, `\"deleted\"`, or `\"renamed\"`.",
+          "description": "describing the filesystem action that occurred. One of `\"created\"`, `\"updated\"`, `\"deleted\"`, or `\"renamed\"`. A recursive watch never reports `\"renamed\"`: it reports a move as a `\"deleted\"` and a `\"created\"`.",
           "optional": false,
           "defaultValue": null,
           "source": "eventCallback.events.action",
@@ -38387,9 +38569,9 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 1147
+      "line": 1155
     }
   ],
-  "memberCount": 1214,
-  "generatedAt": "2026-08-11T22:40:53.377Z"
+  "memberCount": 1221,
+  "generatedAt": "2026-08-11T23:10:08.625Z"
 }
