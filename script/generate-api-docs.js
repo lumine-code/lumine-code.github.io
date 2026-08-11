@@ -205,6 +205,12 @@ function renderDoc(text, classNames, memberAnchors, currentClass) {
   );
 }
 
+function renderInlineDoc(text, classNames, memberAnchors, currentClass) {
+  return markdown.renderInline(
+    linkReferences(text, classNames, memberAnchors, currentClass),
+  );
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -213,66 +219,139 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-function renderStructuredDocs(entry, classNames, memberAnchors, currentClass) {
-  const sections = [];
-  const parameters = (entry.parameters || []).filter(
-    (parameter) =>
-      parameter.name &&
-      (parameter.type ||
-        parameter.description ||
-        parameter.optional ||
-        parameter.defaultValue != null),
-  );
-  if (parameters.length) {
-    const rows = parameters
-      .map((parameter) => {
-        const flags = [
+function renderType(type, classNames) {
+  if (!type) return "";
+
+  let html = "";
+  let offset = 0;
+  for (const match of type.matchAll(/[A-Za-z_$][A-Za-z0-9_$]*/g)) {
+    html += escapeHtml(type.slice(offset, match.index));
+    const token = match[0];
+    html += classNames.has(token)
+      ? `<a href="#class-${slug(token)}">${escapeHtml(token)}</a>`
+      : escapeHtml(token);
+    offset = match.index + token.length;
+  }
+  html += escapeHtml(type.slice(offset));
+  return `<code class="api-type-expression">${html}</code>`;
+}
+
+// The extractor owns the stable machine-readable schema. The website derives
+// a deliberately human-oriented view from it: Atomdoc's compact argument
+// table, nested option indentation and prose-like return value. Keeping this
+// projection here prevents presentation choices from leaking into api.json or
+// the autocomplete consumer.
+function presentEntry(entry) {
+  const parameters = (entry.parameters || [])
+    .filter(
+      (parameter) =>
+        parameter.name &&
+        (parameter.type ||
+          parameter.description ||
+          parameter.optional ||
+          parameter.rest ||
+          parameter.defaultValue != null),
+    )
+    .map((parameter) => {
+      const parts = parameter.name.split(".");
+      return {
+        ...parameter,
+        depth: Math.max(0, parts.length - 1),
+        displayName: `${parameter.rest ? "..." : ""}${parts.at(-1)}`,
+        notes: [
           parameter.optional ? "optional" : null,
-          parameter.rest ? "rest" : null,
           parameter.defaultValue != null
             ? `default: ${parameter.defaultValue}`
             : null,
-        ].filter(Boolean);
-        const metadata = [
-          parameter.type
-            ? `<code class="api-structured-type">${escapeHtml(parameter.type)}</code>`
-            : "",
-          flags.length
-            ? `<span class="api-structured-flags">${escapeHtml(flags.join(", "))}</span>`
-            : "",
-        ].join("");
+        ].filter(Boolean),
+      };
+    });
+
+  return {
+    parameters,
+    propertyType: entry.propertyType || "",
+    returnType: entry.returnType || "",
+    returnDescription: entry.returnDescription || "",
+  };
+}
+
+function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
+  const presentation = presentEntry(entry);
+  const sections = [];
+
+  if (presentation.parameters.length) {
+    const rows = presentation.parameters
+      .map((parameter) => {
         const description = parameter.description
-          ? renderDoc(
+          ? `<div class="api-argument-copy">${renderInlineDoc(
               parameter.description,
               classNames,
               memberAnchors,
               currentClass,
-            )
-          : '<p class="api-empty">No description.</p>';
-        return `<dt><code>${escapeHtml(parameter.name)}</code>${metadata}</dt><dd>${description}</dd>`;
+            )}</div>`
+          : "";
+        const type = renderType(parameter.type, classNames);
+        const notes = parameter.notes.length
+          ? `<span class="api-argument-note">${escapeHtml(parameter.notes.join(", "))}</span>`
+          : "";
+        return `<tr><td><span class="api-argument-name" style="--api-argument-depth:${parameter.depth}"><code>${escapeHtml(parameter.displayName)}</code>${notes}</span></td><td><div class="api-argument-description">${type}${description || (!type ? '<span class="api-empty">No description.</span>' : "")}</div></td></tr>`;
       })
       .join("");
     sections.push(
-      `<section class="api-structured-docs"><h5>Parameters</h5><dl>${rows}</dl></section>`,
+      `<div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody>${rows}</tbody></table></div>`,
     );
   }
-  if (entry.propertyType) {
+
+  if (presentation.propertyType) {
     sections.push(
-      `<section class="api-structured-docs"><h5>Type</h5><p><code class="api-structured-type">${escapeHtml(entry.propertyType)}</code></p></section>`,
+      `<section class="api-detail-section"><h5>Type</h5><div class="api-detail-body">${renderType(presentation.propertyType, classNames)}</div></section>`,
     );
   }
-  if (entry.returnType || entry.returnDescription) {
-    const type = entry.returnType
-      ? `<code class="api-structured-type">${escapeHtml(entry.returnType)}</code>`
+
+  if (presentation.returnType || presentation.returnDescription) {
+    const type = renderType(presentation.returnType, classNames);
+    let returnDescription = presentation.returnDescription.trim();
+    const punctuation = returnDescription.match(/^[,.;:]\s*/)?.[0].trim();
+    if (punctuation)
+      returnDescription = returnDescription
+        .slice(punctuation.length)
+        .trimStart();
+    const separator = punctuation
+      ? `${punctuation} `
+      : returnDescription && /^[A-Z]/.test(returnDescription)
+        ? ". "
+        : returnDescription
+          ? " "
+          : ".";
+    const description = returnDescription
+      ? `<span class="api-return-copy">${renderInlineDoc(
+          returnDescription,
+          classNames,
+          memberAnchors,
+          currentClass,
+        )}</span>`
       : "";
-    const description = entry.returnDescription
-      ? `<div>${renderDoc(entry.returnDescription, classNames, memberAnchors, currentClass)}</div>`
-      : "";
+    const article =
+      presentation.returnType &&
+      !/^(?:\*|void|undefined|null)(?:$|[|<])/i.test(presentation.returnType)
+        ? /^[aeiou]/i.test(presentation.returnType)
+          ? " an"
+          : " a"
+        : "";
     sections.push(
-      `<section class="api-structured-docs"><h5>Returns</h5><div class="api-return-value">${type}${description}</div></section>`,
+      `<section class="api-detail-section api-return-section"><h5>Return values</h5><p class="api-detail-body api-return-value"><span class="api-return-prefix">Returns${article} </span>${type}<span class="api-return-separator">${separator}</span>${description}</p></section>`,
     );
   }
+
   return sections.join("");
+}
+
+function renderSignature(signature) {
+  const openingParen = signature.indexOf("(");
+  if (openingParen === -1) {
+    return `<code class="api-signature"><span class="api-signature-name">${escapeHtml(signature)}</span></code>`;
+  }
+  return `<code class="api-signature"><span class="api-signature-name">${escapeHtml(signature.slice(0, openingParen))}</span><span class="api-signature-parameters">${escapeHtml(signature.slice(openingParen))}</span></code>`;
 }
 
 // The article and the member rail split a class the same way, so they read the
@@ -364,11 +443,11 @@ function renderHtml(api) {
                   (member) => `
                     <article class="api-member" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a><code>${escapeHtml(member.signature)}</code></h4>
+                        <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>${renderSignature(member.signature)}</h4>
                         <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge api-badge-${slug(member.visibility)}">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
                       </div>
                       ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : ""}
-                      ${renderStructuredDocs(member, classNames, memberAnchors, item.name) || (!member.description ? '<p class="api-empty">No description.</p>' : "")}
+                      ${renderEntryDetails(member, classNames, memberAnchors, item.name) || (!member.description ? '<p class="api-empty">No description.</p>' : "")}
                     </article>`,
                 )
                 .join("\n")}
@@ -389,7 +468,7 @@ function renderHtml(api) {
     ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
         .map(
           (item) =>
-            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a><code>${escapeHtml(item.signature)}</code></h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}${renderStructuredDocs(item, classNames, memberAnchors)}</article>`,
+            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a>${renderSignature(item.signature)}</h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}${renderEntryDetails(item, classNames, memberAnchors)}</article>`,
         )
         .join("\n")}</section>`
     : "";
@@ -441,47 +520,54 @@ function renderHtml(api) {
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
       .api-class { margin-bottom: 48px; scroll-margin-top: 88px; }
       .api-class > h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 4px 0 10px; font-size: 1.95rem; }
-      .api-description-body { margin: 6px 0 0; max-width: 82ch; font-size: .94rem; }
+      .api-description-body { margin: 12px 0 0; max-width: 82ch; font-size: .94rem; }
       .api-description-body > :first-child { margin-top: 0; }
       .api-description-body > :last-child { margin-bottom: 0; }
-      .api-description-body p { margin: 8px 0 0; }
-      .api-description-body ul, .api-description-body ol { margin: 6px 0 0; padding-left: 18px; }
+      .api-description-body p { margin: 11px 0 0; }
+      .api-description-body ul, .api-description-body ol { margin: 9px 0 0; padding-left: 20px; }
       .api-description-body li { margin: 2px 0 0; }
       .api-description-body :is(h1, h2, h3, h4, h5, h6) { margin: 16px 0 0; font-size: 1.02rem; line-height: 1.35; }
       .api-description-body :is(h4, h5, h6) { font-size: .95rem; }
-      .api-description-body code { padding: 1px 5px; border-radius: 5px; background: rgba(255, 255, 255, .05); font-size: .88em; }
-      /* Three things carry colour, and only three: the type a value has, a
-         reference to another entry, and the name of a parameter. Everything
-         else in the prose stays prose, or the page reads as confetti. A type
-         and a reference look the same whether or not they link anywhere. */
-      .api-description-body .api-type, .api-description-body .api-ref { padding: 1px 5px; border-radius: 5px; font-family: "JetBrains Mono", monospace; font-size: .84em; white-space: nowrap; }
-      .api-description-body .api-type { color: var(--cyan); background: rgba(98, 213, 208, .1); }
-      .api-description-body .api-ref { color: var(--gold-strong); background: rgba(229, 173, 45, .1); }
-      .api-description-body a.api-type:hover, .api-description-body a.api-ref:hover { text-decoration: underline; }
+      :is(.api-description-body, .api-argument-copy, .api-return-copy) code { padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); font-size: .88em; }
+      /* References read like links, not selected tags. Types use the same green
+         accent as the old Atom reference, while ordinary inline code stays
+         neutral and boxed. */
+      :is(.api-description-body, .api-argument-copy, .api-return-copy) :is(.api-type, .api-ref) { padding: 0; border: 0; border-radius: 0; background: none; color: var(--green); font-family: "JetBrains Mono", monospace; font-size: .88em; white-space: nowrap; }
+      :is(.api-description-body, .api-argument-copy, .api-return-copy) a:is(.api-type, .api-ref):hover { text-decoration: underline; }
       .api-description-body li > code:first-child:not(.api-type):not(.api-ref) { color: var(--text); font-weight: 600; }
       .api-description-body pre { margin: 10px 0 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
       .api-description-body pre code { padding: 0; background: none; font-size: .82rem; }
-      .api-description-body a { color: var(--gold-strong); }
+      .api-description-body a { color: var(--green); }
       .api-class-description { max-width: 78ch; margin: 8px 0 0; font-size: 1rem; }
-      .api-structured-docs { margin-top: 12px; max-width: 82ch; }
-      .api-structured-docs h5 { margin: 0 0 5px; color: var(--text); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
-      .api-structured-docs dl { display: grid; grid-template-columns: minmax(9rem, max-content) minmax(0, 1fr); gap: 5px 14px; margin: 0; }
-      .api-structured-docs dt, .api-structured-docs dd { margin: 0; }
-      .api-structured-docs dt { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; color: var(--text); }
-      .api-structured-docs dd > :first-child, .api-return-value > div > :first-child { margin-top: 0; }
-      .api-structured-docs dd > :last-child, .api-return-value > div > :last-child { margin-bottom: 0; }
-      .api-structured-type { color: var(--cyan); }
-      .api-structured-flags { color: var(--muted); font-size: .72rem; }
-      .api-return-value { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+      .api-argument-table-wrap { max-width: 82ch; margin-top: 24px; overflow-x: auto; }
+      .api-argument-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+      .api-argument-table th { padding: 0 14px 8px 0; border-bottom: 1px solid var(--border); color: var(--soft); font-weight: 700; text-align: left; }
+      .api-argument-table th:first-child { width: 12rem; }
+      .api-argument-table td { padding: 8px 14px 8px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); color: var(--soft); line-height: 1.55; vertical-align: top; }
+      .api-argument-name { display: flex; align-items: baseline; gap: 7px; margin-left: calc(var(--api-argument-depth) * 1rem); white-space: nowrap; }
+      .api-argument-name code { padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--text); font-size: .86rem; }
+      .api-argument-note { color: var(--muted); font-size: .7rem; }
+      .api-argument-description { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; }
+      .api-argument-copy { min-width: 12rem; flex: 1 1 20rem; }
+      .api-type-expression { padding: 0; border: 0; background: none; color: var(--green); font-size: .9rem; white-space: nowrap; }
+      .api-type-expression a { color: inherit; }
+      .api-type-expression a:hover { text-decoration: underline; }
+      .api-detail-section { max-width: 82ch; margin-top: 26px; }
+      .api-detail-section h5 { margin: 0; padding-bottom: 7px; border-bottom: 1px solid var(--border); color: var(--soft); font-size: .9rem; font-weight: 700; line-height: 1.5; }
+      .api-detail-body { padding-top: 11px; }
+      .api-return-value { margin: 0; color: var(--soft); line-height: 1.6; }
+      .api-return-prefix { color: var(--soft); }
       .api-source { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 400; white-space: nowrap; transition: color .15s ease; }
       .api-source:hover { color: var(--gold-strong); }
       .api-group { margin-top: 28px; scroll-margin-top: 88px; }
       .api-group > h3 { margin: 0; padding-bottom: 7px; border-bottom: 1px solid var(--border); font-size: 1.02rem; }
-      .api-member { padding: 11px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 88px; }
+      .api-member { padding: 19px 0 24px; border-bottom: 1px solid var(--border); scroll-margin-top: 88px; }
       .api-member:last-child { border-bottom: 0; }
       .api-member-heading { display: flex; gap: 14px; align-items: baseline; justify-content: space-between; }
       .api-member h4 { display: flex; align-items: baseline; gap: 8px; min-width: 0; margin: 0; font-size: .95rem; overflow-wrap: anywhere; }
-      .api-member h4 code { color: var(--gold-strong); }
+      .api-signature { font-weight: 500; }
+      .api-signature-name { color: var(--green); }
+      .api-signature-parameters { color: var(--muted); font-weight: 400; }
       .api-anchor { flex: none; color: var(--border); font-weight: 400; text-decoration: none; opacity: 0; transition: opacity .15s ease, color .15s ease; }
       .api-member:hover .api-anchor, .api-anchor:focus { opacity: 1; }
       .api-anchor:hover { color: var(--gold-strong); }
@@ -503,6 +589,15 @@ function renderHtml(api) {
         /* Stacked, the rails size to their content: a zero flex-basis in a
            column with no free space to hand out would collapse them outright. */
         .api-tree, .api-tree:first-child { flex: 0 0 auto; }
+      }
+      @media (max-width: 620px) {
+        .api-member-heading { align-items: flex-start; }
+        .api-member-meta { flex-wrap: wrap; justify-content: flex-end; }
+        .api-argument-table thead { display: none; }
+        .api-argument-table, .api-argument-table tbody, .api-argument-table tr, .api-argument-table td { display: block; width: 100%; }
+        .api-argument-table tr { padding: 9px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); }
+        .api-argument-table td { padding: 0; border: 0; }
+        .api-argument-table td + td { padding-top: 6px; }
       }
     </style>
   </head>
