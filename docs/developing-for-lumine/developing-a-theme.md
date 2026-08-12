@@ -34,6 +34,8 @@ Lumine's theming is built on **CSS custom properties**. Define your palette as p
 
 The bundled **`one-theme`** package is the reference implementation: a single package that ships light and dark variants for both UI and syntax (**one-day-ui** / **one-night-ui** and **one-day-syntax** / **one-night-syntax**). Reading it is the best way to see how a complete theme is structured.
 
+Define the accent group — `--accent-color`, `--accent-text-color`, `--accent-bg-color`, `--accent-bg-text-color`, `--accent-only-text-color` — as you would any other palette entry. A user who sets **Accent Source** to `system` replaces the two fill colors with the operating system's accent and derives the text on them from it, so pick foregrounds that read against your own accent and let that setting handle the rest. `--accent-only-text-color`, which puts the accent on your background rather than under it, is always yours.
+
 ## Provide a family of themes
 
 A package can expose several independently selectable themes through a `themes` array. This is useful when light and dark UI and syntax themes belong to one family:

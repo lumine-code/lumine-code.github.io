@@ -56,3 +56,16 @@ Rather than hardcoding colors, reference the active theme's **CSS custom propert
 ```
 
 Many packages document a root selector and the properties they expose; targeting those keeps your tweaks working across theme changes. For deeper visual changes, consider [developing a theme](../developing-for-lumine/developing-a-theme.md) instead.
+
+## The accent color
+
+`--accent-color` and its companions — the color behind focus rings, checkboxes, progress bars and tooltips — come from the active theme by default. Set **Accent Source** to `system` in Settings and they follow the operating system's accent color instead, falling back to the theme's own on a platform that reports none.
+
+Your `styles.css` wins over both, so you can pin the accent to whatever you like regardless of that setting:
+
+```css
+:root {
+  --accent-color: #b4637a;
+  --accent-bg-color: #b4637a;
+}
+```
