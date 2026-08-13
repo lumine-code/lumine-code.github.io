@@ -16,13 +16,17 @@ Each adapter's settings page is where its server is configured. **Server Path** 
 
 ## Installing a server
 
-Some servers ship with their adapter and work the moment it is installed — the Bash, CSS, ESLint, HTML, JSON, Pyright, TypeScript, and YAML servers are npm packages their adapters depend on. The ESLint server uses the ESLint library, parsers, and plugins installed in each project, so the project still needs its normal `eslint` development dependency. Others are standalone binaries you would otherwise fetch yourself: Ruff, Texlab, Tinymist, and Marksman. Without one on your PATH or in the editor's managed server directory, its adapter has nothing to run. Bash diagnostics and formatting additionally use `shellcheck` and `shfmt` when those tools are on your PATH.
+Some servers ship with their adapter and work the moment it is installed — the Bash, CSS, Dockerfile, ESLint, GraphQL, HTML, JSON, Pyright, TypeScript, Vue, and YAML servers are npm packages their adapters depend on. The ESLint server uses the ESLint library, parsers, and plugins installed in each project, so the project still needs its normal `eslint` development dependency. Others are standalone binaries you would otherwise fetch yourself: Ruff, Texlab, Tinymist, and Marksman. Without one on your PATH or in the editor's managed server directory, its adapter has nothing to run.
+
+**Every adapter can be installed and updated the same way**, whichever of those it is. That is the point: you should never need to know that Ruff arrives as a release binary, YAML as an npm package with a dependency tree, and Bash as a server plus two separate tools. The list shows one row per language, with the same actions and the same reported state.
 
 `ide-client:manage-servers` lists every server the editor can fetch, what is installed, and what the newest release is. Choosing one installs it, or updates it when a copy is already there; **Check for Updates** looks up every server at once. The same offer appears the moment it matters — an adapter that cannot find its server says so with an **Install** button on the notification.
 
 Installed servers live in `language-servers/` in your configuration directory, one folder per adapter. Each download is checked against the checksum its source publishes before anything is installed, and a mismatch is discarded. Texlab and Marksman publish no checksums, so their downloads cannot be independently verified; the other managed sources can.
 
-Which copy runs is settled in a fixed order: the **Server Path** setting if you set one, then the copy the editor installed, then whatever is on your PATH. Removing a managed copy therefore falls back rather than breaking — to the PATH binary for standalone servers, and to the version that ships with the package for Pyright. Only what the editor installed is removed; a Ruff you installed with `uv` or `brew` is never touched.
+Which copy runs is settled in a fixed order: the **Server Path** setting if you set one, then the copy the editor installed, then whatever is on your PATH. Removing a managed copy therefore falls back rather than breaking — to the PATH binary for standalone servers, and to the version that ships with the package for the npm-based ones. Only what the editor installed is removed; a Ruff you installed with `uv` or `brew` is never touched.
+
+Bash is the one adapter that installs more than a server: it fetches `shellcheck` and `shfmt` alongside it, since its diagnostics and formatting shell out to those. Paths you set by hand still win, and without either the server simply searches your PATH as before.
 
 Keeping your own copy is a reasonable choice, and sometimes the right one: a project that pins `ruff` in its dev dependencies expects that exact version, and a managed copy at a different version reports different violations. Set **Server Path**, or simply do not install one.
 

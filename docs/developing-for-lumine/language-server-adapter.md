@@ -92,6 +92,27 @@ For a server that already ships as an npm dependency, use `source: "npm"` with `
 
 The full contract is in `ide-client`'s own documentation, under **Managed servers**.
 
+### When a descriptor cannot say it
+
+A descriptor is one server per adapter. If yours needs something else — several binaries, a release layout nobody anticipated — implement `installServer` instead and use the primitives the hub hands you. This is the model Zed's extension API uses, and the names mirror it: `latestGithubRelease`, `githubReleaseByTag`, `npmPackageLatestVersion`, `npmPackageInstalledVersion`, `npmInstallPackage`, `downloadFile`, `makeFileExecutable` and `setServerInstallationStatus`.
+
+```js
+async installServer({ storagePath, api }) {
+  api.setServerInstallationStatus("downloading");
+  const release = await api.latestGithubRelease("owner/tool");
+  const asset = release.assets.find((a) => a.name === assetForThisPlatform());
+  await api.downloadFile(asset.url, storagePath, { type: "gzip-tar" });
+  await api.makeFileExecutable(`${storagePath}/tool`);
+  return { version: release.version, binary: "tool" };
+}
+```
+
+Fill `storagePath`, return `{ version, binary }` or `{ version, module }`, and the hub does the rest — the same staging, atomic swap, rollback, install record and session ordering as the declarative path. `ide-bash` is the fleet example: it fetches its server through npm and `shellcheck` and `shfmt` beside it.
+
+Two caveats. `managedServer` and `installServer` are mutually exclusive, and declaring both is rejected at registration. And `downloadFile` does not verify checksums — the descriptor path does that for you, so an adapter reaching for the primitive owns its own verification.
+
+Whichever path you take, report through `setServerInstallationStatus`. That is the only place uniformity is enforced, and it is what lets one list show every language the same way.
+
 ## Specs
 
 Unit-test the resolver: the configured path wins, a managed install beats `PATH`, and the bundled module resolves. Assert `assetFor` returns the exact asset name for each platform you support and `null` for the rest — that is the part a release rename breaks. For an end-to-end smoke test, gate a real-server spec on the binary being present so continuous integration stays green without the toolchain.
