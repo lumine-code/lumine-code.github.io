@@ -139,6 +139,23 @@ editor.element.setAttribute("input", "");
 
 Size stays the widget's business — a field that should grow with its content and one that should scroll after ten lines are both legitimate, so the editor ships neither.
 
+## The gutter reads at two weights
+
+A line number carries `selected-line` on every row a selection covers, and `cursor-line` on the row each caret sits on. Those are different questions, and they are meant to disagree: a selection dragged to the very start of a row selects nothing on that row, so it keeps the `cursor-line` its caret earns without the `selected-line` its neighbours get.
+
+The editor supplies the emphasis itself, by modulating the number's own opacity rather than by naming a colour — dim at rest, brighter across the selection, full at the caret. A theme that styles no gutter colours at all still shows both weights. Those defaults sit inside `:where()`, at zero specificity, so anything a theme writes outranks them:
+
+```css
+.gutter .line-number.selected-line {
+}
+.gutter .line-number.cursor-line {
+}
+```
+
+Write them in that order. The head row of a selection carries both classes, so whichever rule comes last decides how the caret's own row looks.
+
+What a theme must never do is style `cursor-line-no-selection`. It named the caret's row back when the gutter had a single weight, nothing emits it any more, and a rule naming it is simply dead — a theme whose only gutter rule spelled it that way lost its gutter highlight altogether.
+
 ## A bar tile is the element the bar marks
 
 The status bar and the title bar each host elements packages hand them, and each stamps a class on what it hosts: `.status-bar-item` on a status-bar tile, `.title-bar-item` on a title-bar control tile. That class is the tile, and it is removed again when the tile is destroyed. Key padding, height, rounding and hover feedback on it:
