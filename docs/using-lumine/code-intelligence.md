@@ -54,7 +54,7 @@ The `hierarchy-view` package answers the same question one level up: who calls t
 
 `hierarchy-view:supertypes` and `hierarchy-view:subtypes` do the same for inheritance — what a type derives from, and what derives from it. Both hierarchies share the one dock item, so running a type command over a displayed call tree replaces it and retitles the tab.
 
-Type hierarchy is served by fewer language servers than call hierarchy is. clangd, jdtls and Metals implement it; of the adapters shipped here, none do — Pyright, typescript-language-server, texlab and tinymist all offer call hierarchy only. Where a server does not serve the hierarchy you asked for, the command says so and does nothing.
+Type hierarchy is served by fewer language servers than call hierarchy is. clangd, jdtls and Metals implement it; of the adapters shipped here, none do — Basedpyright, typescript-language-server, texlab and tinymist all offer call hierarchy only. Where a server does not serve the hierarchy you asked for, the command says so and does nothing.
 
 Whichever hierarchy is on screen, every request in the tree goes to the server that prepared its root. Where a file has more than one server attached — a type checker beside a linter — the one that answers is the one that says it can, not whichever happened to start first.
 
