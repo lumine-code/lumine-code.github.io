@@ -34916,7 +34916,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once they are empty.",
           "propertyType": null,
-          "line": 614
+          "line": 624
         },
         {
           "name": "observeTextEditors",
@@ -34952,7 +34952,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 917
+          "line": 970
         },
         {
           "name": "observePaneItems",
@@ -34988,7 +34988,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 935
+          "line": 988
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -35024,7 +35024,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 956
+          "line": 1009
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -35060,7 +35060,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 977
+          "line": 1030
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -35096,7 +35096,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 992
+          "line": 1045
         },
         {
           "name": "observeActivePaneItem",
@@ -35132,7 +35132,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1007
+          "line": 1060
         },
         {
           "name": "observeActiveTextEditor",
@@ -35168,7 +35168,151 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1024
+          "line": 1077
+        },
+        {
+          "name": "onDidChangeActiveFileTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeActiveFileTextEditor(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the given callback when the editor holding the active item's file\ncontent changes. See {@link #getActiveFileTextEditor}.",
+          "summary": "Invoke the given callback when the editor holding the active item's file content changes. See {@link #getActiveFileTextEditor}.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called when the resolved editor changes.",
+              "defaultValue": null
+            },
+            {
+              "name": "callback.editor",
+              "type": null,
+              "description": "The resolved {@link TextEditor} or `undefined`.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.editor",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 1094
+        },
+        {
+          "name": "observeActiveFileTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observeActiveFileTextEditor(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the given callback with the current and all future editors holding\nthe active item's file content. See {@link #getActiveFileTextEditor}.",
+          "summary": "Invoke the given callback with the current and all future editors holding the active item's file content. See {@link #getActiveFileTextEditor}.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called when the resolved editor changes.",
+              "defaultValue": null
+            },
+            {
+              "name": "callback.editor",
+              "type": null,
+              "description": "The resolved {@link TextEditor} or `undefined`.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.editor",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 1109
+        },
+        {
+          "name": "onDidChangeActiveEmbeddedTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeActiveEmbeddedTextEditor(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the given callback when the editor being edited inside the active\nitem changes. See {@link #getActiveEmbeddedTextEditor}.",
+          "summary": "Invoke the given callback when the editor being edited inside the active item changes. See {@link #getActiveEmbeddedTextEditor}.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called when the resolved editor changes.",
+              "defaultValue": null
+            },
+            {
+              "name": "callback.editor",
+              "type": null,
+              "description": "The resolved {@link TextEditor} or `undefined`.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.editor",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 1126
+        },
+        {
+          "name": "observeActiveEmbeddedTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observeActiveEmbeddedTextEditor(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the given callback with the current and all future editors being\nedited inside the active item. See {@link #getActiveEmbeddedTextEditor}.",
+          "summary": "Invoke the given callback with the current and all future editors being edited inside the active item. See {@link #getActiveEmbeddedTextEditor}.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called when the resolved editor changes.",
+              "defaultValue": null
+            },
+            {
+              "name": "callback.editor",
+              "type": null,
+              "description": "The resolved {@link TextEditor} or `undefined`.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.editor",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 1141
         },
         {
           "name": "onDidOpen",
@@ -35244,7 +35388,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1046
+          "line": 1163
         },
         {
           "name": "onDidAddPane",
@@ -35290,7 +35434,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1061
+          "line": 1178
         },
         {
           "name": "onWillDestroyPane",
@@ -35336,7 +35480,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1079
+          "line": 1196
         },
         {
           "name": "onDidDestroyPane",
@@ -35382,7 +35526,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1097
+          "line": 1214
         },
         {
           "name": "observePanes",
@@ -35418,7 +35562,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1114
+          "line": 1231
         },
         {
           "name": "onDidChangeActivePane",
@@ -35454,7 +35598,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1130
+          "line": 1247
         },
         {
           "name": "observeActivePane",
@@ -35490,7 +35634,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1145
+          "line": 1262
         },
         {
           "name": "onDidAddPaneItem",
@@ -35556,7 +35700,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1164
+          "line": 1281
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -35622,7 +35766,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1184
+          "line": 1301
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -35688,7 +35832,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1203
+          "line": 1320
         },
         {
           "name": "onDidAddTextEditor",
@@ -35754,7 +35898,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1223
+          "line": 1340
         },
         {
           "name": "open",
@@ -35869,7 +36013,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} for the file URI.",
           "propertyType": null,
-          "line": 1252
+          "line": 1369
         },
         {
           "name": "hide",
@@ -35895,7 +36039,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether any items were found (and hidden).",
           "propertyType": null,
-          "line": 1481
+          "line": 1598
         },
         {
           "name": "toggle",
@@ -35921,7 +36065,7 @@
           "returnType": "Promise",
           "returnDescription": "Promise that resolves when the item is shown or hidden.",
           "propertyType": null,
-          "line": 1520
+          "line": 1637
         },
         {
           "name": "createItemForURI",
@@ -35956,7 +36100,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "propertyType": null,
-          "line": 1642
+          "line": 1759
         },
         {
           "name": "isTextEditor",
@@ -35982,7 +36126,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 1731
+          "line": 1848
         },
         {
           "name": "buildTextEditor",
@@ -36008,7 +36152,7 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1743
+          "line": 1860
         },
         {
           "name": "buildSelectList",
@@ -36054,7 +36198,7 @@
           "returnType": "SelectListView",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1781
+          "line": 1898
         },
         {
           "name": "buildInputDialog",
@@ -36080,7 +36224,7 @@
           "returnType": "InputDialogView",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1807
+          "line": 1924
         },
         {
           "name": "popModal",
@@ -36096,7 +36240,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 1839
+          "line": 1956
         },
         {
           "name": "popModalTo",
@@ -36122,7 +36266,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 1852
+          "line": 1969
         },
         {
           "name": "getModalTrail",
@@ -36138,7 +36282,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 1864
+          "line": 1981
         },
         {
           "name": "onDidChangeModalTrail",
@@ -36164,7 +36308,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1878
+          "line": 1995
         },
         {
           "name": "reopenItem",
@@ -36180,7 +36324,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 1891
+          "line": 2008
         },
         {
           "name": "addOpener",
@@ -36206,7 +36350,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 1938
+          "line": 2055
         },
         {
           "name": "getPaneItems",
@@ -36222,7 +36366,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 1961
+          "line": 2078
         },
         {
           "name": "getActivePaneItem",
@@ -36238,7 +36382,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 1973
+          "line": 2090
         },
         {
           "name": "getTextEditors",
@@ -36254,7 +36398,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 1985
+          "line": 2102
         },
         {
           "name": "getActiveTextEditor",
@@ -36270,7 +36414,39 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2014
+          "line": 2131
+        },
+        {
+          "name": "getActiveFileTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActiveFileTextEditor()",
+          "category": "Pane Items",
+          "visibility": "Extended",
+          "description": "Get the {@link TextEditor} holding the active item's file content.\n\nThe workspace center's active item itself when it is a text editor;\notherwise the editor the item names through its `getFileTextEditor()`\nmethod — a notebook names its backing source editor. File-identity status\ntiles (encoding, line ending) describe this editor, so they stay truthful\nwhile a richer view of the file is open.",
+          "summary": "Get the {@link TextEditor} holding the active item's file content.",
+          "parameters": [],
+          "returnType": "TextEditor",
+          "returnDescription": "or `undefined` when the active item holds no file content.",
+          "propertyType": null,
+          "line": 2152
+        },
+        {
+          "name": "getActiveEmbeddedTextEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActiveEmbeddedTextEditor()",
+          "category": "Pane Items",
+          "visibility": "Extended",
+          "description": "Get the {@link TextEditor} being edited inside the active item.\n\nThe workspace center's active item itself when it is a text editor;\notherwise the editor the item names through its\n`getActiveEmbeddedTextEditor()` method — a notebook names its active\ncell's editor. Editing-state status tiles (the grammar tile) describe\nthis editor. An item reporting embedded editors emits its\n`onDidChangeActiveTextEditors` signal whenever either resolution may have\nchanged; the workspace dedupes and re-emits through\n{@link #onDidChangeActiveEmbeddedTextEditor}.",
+          "summary": "Get the {@link TextEditor} being edited inside the active item.",
+          "parameters": [],
+          "returnType": "TextEditor",
+          "returnDescription": "or `undefined` when nothing editable is active.",
+          "propertyType": null,
+          "line": 2181
         },
         {
           "name": "saveActivePaneItem",
@@ -36286,7 +36462,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2045
+          "line": 2219
         },
         {
           "name": "saveActivePaneItemAs",
@@ -36302,7 +36478,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2063
+          "line": 2237
         },
         {
           "name": "destroyActivePaneItem",
@@ -36318,7 +36494,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2088
+          "line": 2262
         },
         {
           "name": "getActivePaneContainer",
@@ -36334,7 +36510,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2104
+          "line": 2278
         },
         {
           "name": "getPanes",
@@ -36350,7 +36526,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2116
+          "line": 2290
         },
         {
           "name": "getActivePane",
@@ -36366,7 +36542,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2132
+          "line": 2306
         },
         {
           "name": "activateNextPane",
@@ -36382,7 +36558,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2142
+          "line": 2316
         },
         {
           "name": "activatePreviousPane",
@@ -36398,7 +36574,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2152
+          "line": 2326
         },
         {
           "name": "paneContainerForURI",
@@ -36424,7 +36600,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2166
+          "line": 2340
         },
         {
           "name": "paneContainerForItem",
@@ -36450,7 +36626,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2179
+          "line": 2353
         },
         {
           "name": "paneForURI",
@@ -36476,7 +36652,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2192
+          "line": 2366
         },
         {
           "name": "paneForItem",
@@ -36502,7 +36678,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2210
+          "line": 2384
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -36518,7 +36694,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2237
+          "line": 2411
         },
         {
           "name": "getCenter",
@@ -36534,7 +36710,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2318
+          "line": 2492
         },
         {
           "name": "getLeftDock",
@@ -36550,7 +36726,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2328
+          "line": 2502
         },
         {
           "name": "getRightDock",
@@ -36566,7 +36742,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2338
+          "line": 2512
         },
         {
           "name": "getBottomDock",
@@ -36582,7 +36758,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2348
+          "line": 2522
         },
         {
           "name": "getBottomPanels",
@@ -36598,7 +36774,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2378
+          "line": 2552
         },
         {
           "name": "addBottomPanel",
@@ -36654,7 +36830,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2394
+          "line": 2568
         },
         {
           "name": "getLeftPanels",
@@ -36670,7 +36846,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2404
+          "line": 2578
         },
         {
           "name": "addLeftPanel",
@@ -36726,7 +36902,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2420
+          "line": 2594
         },
         {
           "name": "getRightPanels",
@@ -36742,7 +36918,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2430
+          "line": 2604
         },
         {
           "name": "addRightPanel",
@@ -36798,7 +36974,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2446
+          "line": 2620
         },
         {
           "name": "getTopPanels",
@@ -36814,7 +36990,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2456
+          "line": 2630
         },
         {
           "name": "addTopPanel",
@@ -36870,7 +37046,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2472
+          "line": 2646
         },
         {
           "name": "getHeaderPanels",
@@ -36886,7 +37062,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2482
+          "line": 2656
         },
         {
           "name": "addHeaderPanel",
@@ -36942,7 +37118,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2498
+          "line": 2672
         },
         {
           "name": "getFooterPanels",
@@ -36958,7 +37134,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2508
+          "line": 2682
         },
         {
           "name": "addFooterPanel",
@@ -37014,7 +37190,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2524
+          "line": 2698
         },
         {
           "name": "getModalPanels",
@@ -37030,7 +37206,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2534
+          "line": 2708
         },
         {
           "name": "addModalPanel",
@@ -37116,7 +37292,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2553
+          "line": 2727
         },
         {
           "name": "panelForItem",
@@ -37142,7 +37318,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 2564
+          "line": 2738
         },
         {
           "name": "scan",
@@ -37236,7 +37412,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 2625
+          "line": 2799
         },
         {
           "name": "replace",
@@ -37299,7 +37475,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2946
+          "line": 3120
         },
         {
           "name": "filePathMatchesPatterns",
@@ -37334,7 +37510,7 @@
           "returnType": "Boolean",
           "returnDescription": "boolean indicating whether the given file path would be included in a project-wide search if the given path patterns were specified.",
           "propertyType": null,
-          "line": 3017
+          "line": 3191
         }
       ]
     },
@@ -38668,6 +38844,6 @@
       "line": 1155
     }
   ],
-  "memberCount": 1224,
-  "generatedAt": "2026-08-13T01:23:42.814Z"
+  "memberCount": 1230,
+  "generatedAt": "2026-08-13T12:47:28.028Z"
 }
