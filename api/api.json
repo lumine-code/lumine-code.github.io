@@ -11333,6 +11333,121 @@
           "line": 85
         },
         {
+          "name": "addHint",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addHint(message, options)",
+          "category": "Adding Notifications",
+          "visibility": "Public",
+          "description": "Add a hint notification.\n\nA hint is the quietest thing this API can say: something the user may want\nto know, that does not report a failure and asks nothing of them. It is\nrendered without a severity color, so it reads as an aside rather than as a\nsmaller warning. Hints are expected to be transient — leave `dismissable`\nunset unless the hint carries a button worth waiting for.\n\nPrefer a warning when something the user asked for did not happen.",
+          "summary": "Add a hint notification.",
+          "parameters": [
+            {
+              "name": "message",
+              "source": "message",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A `String` message",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "An `Object` with the following keys:",
+              "defaultValue": null
+            },
+            {
+              "name": "options.buttons",
+              "type": null,
+              "description": "An `Array` of `Object` where each `Object` has the following options:",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.buttons",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.buttons.className",
+              "type": "String",
+              "description": "a class name to add to the button's default class name (`btn`).",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.buttons.className",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.buttons.onDidClick",
+              "type": "Function",
+              "description": "callback to call when the button has been clicked. The context will be set to the `NotificationElement` instance.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.buttons.onDidClick",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.buttons.text",
+              "type": "String",
+              "description": "inner text for the button",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.buttons.text",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.description",
+              "type": null,
+              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.description",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.detail",
+              "type": null,
+              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.detail",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.dismissable",
+              "type": null,
+              "description": "A `Boolean` indicating whether this notification can be dismissed by the user. Defaults to `false`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.dismissable",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.icon",
+              "type": null,
+              "description": "A `String` name of an icon from Octicons to display in the notification header. Defaults to `'light-bulb'`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.icon",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Notification",
+          "returnDescription": "that was added.",
+          "propertyType": null,
+          "line": 115
+        },
+        {
           "name": "addInfo",
           "kind": "method",
           "static": false,
@@ -11445,7 +11560,7 @@
           "returnType": "Notification",
           "returnDescription": "that was added.",
           "propertyType": null,
-          "line": 107
+          "line": 137
         },
         {
           "name": "addWarning",
@@ -11560,7 +11675,7 @@
           "returnType": "Notification",
           "returnDescription": "that was added.",
           "propertyType": null,
-          "line": 129
+          "line": 159
         },
         {
           "name": "addError",
@@ -11685,7 +11800,7 @@
           "returnType": "Notification",
           "returnDescription": "that was added.",
           "propertyType": null,
-          "line": 152
+          "line": 182
         },
         {
           "name": "addFatalError",
@@ -11810,7 +11925,7 @@
           "returnType": "Notification",
           "returnDescription": "that was added.",
           "propertyType": null,
-          "line": 175
+          "line": 205
         },
         {
           "name": "beep",
@@ -11826,7 +11941,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 195
+          "line": 225
         },
         {
           "name": "getNotifications",
@@ -11842,7 +11957,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Notification Notifications}.",
           "propertyType": null,
-          "line": 211
+          "line": 241
         },
         {
           "name": "clear",
@@ -11858,7 +11973,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 225
+          "line": 255
         }
       ]
     },
@@ -38844,6 +38959,6 @@
       "line": 1155
     }
   ],
-  "memberCount": 1230,
-  "generatedAt": "2026-08-13T18:43:02.527Z"
+  "memberCount": 1231,
+  "generatedAt": "2026-08-13T21:08:46.016Z"
 }
