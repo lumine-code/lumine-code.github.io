@@ -143,18 +143,18 @@ Size stays the widget's business — a field that should grow with its content a
 
 A line number carries `selected-line` on every row a selection covers, and `cursor-line` on the row each caret sits on. Those are different questions, and they are meant to disagree: a selection dragged to the very start of a row selects nothing on that row, so it keeps the `cursor-line` its caret earns without the `selected-line` its neighbours get.
 
-The editor lifts the selected rows to full ink and leaves the caret's row at the resting opacity. That split is deliberate, and it decides what is left for a theme to do. Nothing but the editor marks `selected-line`, so the whole distance from the resting opacity is the signal — the extent of a selection has to be readable at a glance, including the part of it scrolled off screen. The caret's row is the opposite case: a theme that styles the gutter already marks it by swapping its colour, and lifting the row as well only renders that mark harder, which is two emphases where the theme asked for one.
+The editor lifts the selected rows to full ink, skips the head row, and leaves the caret's row at the resting opacity. That split is deliberate, and it decides what is left for a theme to do. Nothing but the editor marks `selected-line`, so the whole distance from the resting opacity is the signal — the extent of a selection has to be readable at a glance, including the part of it scrolled off screen. The caret's row is the opposite case: a theme that styles the gutter already marks it by swapping its colour, and lifting the row as well only renders that mark harder, which is two emphases where the theme asked for one.
 
 So `cursor-line` is the theme's to own outright, and a theme that styles no gutter colours at all still gets the selection for free. The default sits inside `:where()`, at zero specificity, so anything a theme writes outranks it:
 
 ```css
-.gutter .line-number.selected-line {
+.gutter .line-number.selected-line:not(.cursor-line) {
 }
 .gutter .line-number.cursor-line {
 }
 ```
 
-Write them in that order. The head row of a selection carries both classes, so whichever rule comes last decides how the caret's own row looks.
+The `:not()` is not decoration. A selection's head row carries **both** classes — always, and it is the only row a single-line selection has — so a rule written against `selected-line` alone also lands on the caret's row, stacking with whatever `cursor-line` does there. Scope the selection's rule away from the head and the two partition cleanly: the caret's row is yours to show, the selection's rule marks the rows around it.
 
 What a theme must never do is style `cursor-line-no-selection`. It named the caret's row back when the gutter had a single weight, nothing emits it any more, and a rule naming it is simply dead — a theme whose only gutter rule spelled it that way lost its gutter highlight altogether.
 
