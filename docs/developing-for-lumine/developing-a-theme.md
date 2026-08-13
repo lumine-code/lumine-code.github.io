@@ -143,7 +143,7 @@ Size stays the widget's business — a field that should grow with its content a
 
 A line number carries `selected-line` on every row a selection covers, and `cursor-line` on the row each caret sits on. Those are different questions, and they are meant to disagree: a selection dragged to the very start of a row selects nothing on that row, so it keeps the `cursor-line` its caret earns without the `selected-line` its neighbours get.
 
-The editor supplies the emphasis itself, by modulating the number's own opacity rather than by naming a colour — dim at rest, brighter across the selection, full at the caret. A theme that styles no gutter colours at all still shows both weights. Those defaults sit inside `:where()`, at zero specificity, so anything a theme writes outranks them:
+The editor supplies the emphasis itself, by modulating the number's own opacity rather than by naming a colour — dim at rest, a little brighter across the selection, brighter again at the caret. The steps are deliberately small, because a theme that styles the gutter is already swapping the caret row's colour and the two emphases would otherwise stack on one row. A theme that styles no gutter colours at all still gets three separable states. Those defaults sit inside `:where()`, at zero specificity, so anything a theme writes outranks them:
 
 ```css
 .gutter .line-number.selected-line {
