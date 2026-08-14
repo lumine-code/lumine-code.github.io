@@ -1,10 +1,6 @@
 # Migrating away from `@electron/remote`
 
-Lumine no longer initializes or bundles `@electron/remote`. Packages must use
-the documented `lumine.window` and `lumine.application` services for main-process work. The
-services return plain serializable values and promises; they never expose an
-Electron `BrowserWindow`, `WebContents`, `NativeImage`, function, or process
-stream to renderer code.
+Lumine no longer initializes or bundles `@electron/remote`. Packages must use the documented `lumine.window` and `lumine.application` services for main-process work. The services return plain serializable values and promises; they never expose an Electron `BrowserWindow`, `WebContents`, `NativeImage`, function, or process stream to renderer code.
 
 There is no compatibility alias for the removed APIs.
 
@@ -27,8 +23,7 @@ There is no compatibility alias for the removed APIs.
 | `remote.nativeImage`                                                                        | Import `nativeImage` from `electron`; it is still renderer-safe |
 | Renderer-side safe-storage calls                                                            | The asynchronous `lumine.secrets` API                           |
 
-The global API was split by ownership at the same time. These are removals,
-not aliases:
+The global API was split by ownership at the same time. These are removals, not aliases:
 
 | Removed top-level API                                                                     | Replacement                                                                                          |
 | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -49,9 +44,7 @@ not aliases:
 
 ## Window operations
 
-`lumine.window.getId()` is synchronous because the ID is captured before renderer
-initialization. All state queries and actions that cross into the main process
-are asynchronous:
+`lumine.window.getId()` is synchronous because the ID is captured before renderer initialization. All state queries and actions that cross into the main process are asynchronous:
 
 ```js
 const state = await lumine.window.getState();
@@ -62,9 +55,7 @@ const subscription = lumine.window.onDidMaximize(() => updateTitleBar());
 subscription.dispose();
 ```
 
-Use named broadcasts for cross-window coordination. Include source and target
-window IDs when an event is intended for one peer, and send only
-structured-cloneable data:
+Use named broadcasts for cross-window coordination. Include source and target window IDs when an event is intended for one peer, and send only structured-cloneable data:
 
 ```js
 const sourceWindowId = lumine.window.getId();
@@ -85,10 +76,7 @@ const subscription = lumine.window.onDidReceive(
 
 ## The clipboard
 
-Electron deprecated `require('electron').clipboard` in the renderer — the module
-reached the platform clipboard from whichever process asked, and site isolation
-is taking that away. `lumine.clipboard` is the replacement, and it covers
-everything the Electron module did that a package has any use for:
+Electron deprecated `require('electron').clipboard` in the renderer — the module reached the platform clipboard from whichever process asked, and site isolation is taking that away. `lumine.clipboard` is the replacement, and it covers everything the Electron module did that a package has any use for:
 
 ```js
 lumine.clipboard.write("some text");
@@ -98,20 +86,13 @@ const image = lumine.clipboard.readImage(); // a NativeImage, empty when there i
 lumine.clipboard.writeImage(image); // a NativeImage, or the PNG bytes of one
 ```
 
-`nativeImage` is unaffected, so build and inspect images in the renderer as
-before — only the clipboard itself moved. An image crosses the process boundary
-as PNG bytes, so its scale factor does not survive the trip.
+`nativeImage` is unaffected, so build and inspect images in the renderer as before — only the clipboard itself moved. An image crosses the process boundary as PNG bytes, so its scale factor does not survive the trip.
 
-Text written with `write()` carries metadata that `readWithMetadata()` gives
-back, which is how the editor knows a paste came from a full-line copy. To claim
-a paste before the editor turns it into text, register a provider with
-`lumine.pasteProviders` rather than reading the clipboard yourself.
+Text written with `write()` carries metadata that `readWithMetadata()` gives back, which is how the editor knows a paste came from a full-line copy. To claim a paste before the editor turns it into text, register a provider with `lumine.pasteProviders` rather than reading the clipboard yourself.
 
 ## Dialogs and menus
 
-`lumine.window.confirm()` now requires a string array in `buttons`, uses `detail` for the
-secondary message, and resolves to the selected index. Callback forms and
-object-button maps are removed:
+`lumine.window.confirm()` now requires a string array in `buttons`, uses `detail` for the secondary message, and resolves to the selected index. Callback forms and object-button maps are removed:
 
 ```js
 const response = await lumine.window.confirm({
@@ -122,9 +103,7 @@ const response = await lumine.window.confirm({
 if (response !== 0) return;
 ```
 
-To show a native context menu, keep its DOM target in the renderer and send only
-a serializable menu template. Lumine creates command click handlers in the main
-process and dispatches the selected command back to that target:
+To show a native context menu, keep its DOM target in the renderer and send only a serializable menu template. Lumine creates command click handlers in the main process and dispatches the selected command back to that target:
 
 ```js
 await lumine.contextMenu.show(element, [
@@ -132,5 +111,4 @@ await lumine.contextMenu.show(element, [
 ]);
 ```
 
-Informational dialogs that are intentionally not awaited should still handle a
-rejected promise explicitly.
+Informational dialogs that are intentionally not awaited should still handle a rejected promise explicitly.

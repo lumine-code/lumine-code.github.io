@@ -28,10 +28,7 @@ Open the developer tools (`window:toggle-dev-tools`) and check the **Console** f
 
 ## "Unable to watch path" on Linux
 
-Lumine watches your config files and project directories for changes. On Linux each
-watched path consumes an inotify watch, and the per-user limit is low enough that a
-large project can exhaust it — at which point Lumine reports **Unable to watch path**
-and stops noticing edits made outside the editor.
+Lumine watches your config files and project directories for changes. On Linux each watched path consumes an inotify watch, and the per-user limit is low enough that a large project can exhaust it — at which point Lumine reports **Unable to watch path** and stops noticing edits made outside the editor.
 
 Check the current limit:
 
@@ -51,8 +48,7 @@ To make it persist across reboots, write it to a sysctl config file:
 echo 'fs.inotify.max_user_watches=524288' | sudo tee /etc/sysctl.d/60-inotify.conf
 ```
 
-If the message names a single file rather than a project directory, the cause is more
-likely permissions — confirm you can write to the path it names.
+If the message names a single file rather than a project directory, the cause is more likely permissions — confirm you can write to the path it names.
 
 ## Start fresh
 

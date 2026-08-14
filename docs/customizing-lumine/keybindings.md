@@ -44,8 +44,7 @@ Lumine's own bundled bindings use this convention: shared bindings live in a bas
 
 Bundled packages follow one rule, so you can usually guess a key rather than look it up.
 
-**<kbd>Alt</kbd> + a letter brings up a surface** — a panel or a picker — and pressing it again hands
-focus back to the editor. The letter is the package's own initial:
+**<kbd>Alt</kbd> + a letter brings up a surface** — a panel or a picker — and pressing it again hands focus back to the editor. The letter is the package's own initial:
 
 |                                           |                                             |                                       |                                             |
 | ----------------------------------------- | ------------------------------------------- | ------------------------------------- | ------------------------------------------- |
@@ -53,20 +52,11 @@ focus back to the editor. The letter is the package's own initial:
 | <kbd>Alt</kbd><kbd>E</kbd> explorer       | <kbd>Alt</kbd><kbd>P</kbd> projects         | <kbd>Alt</kbd><kbd>R</kbd> recent     | <kbd>Alt</kbd><kbd>M</kbd> scrollmap layers |
 | <kbd>Alt</kbd><kbd>K</kbd> hierarchy view | <kbd>Alt</kbd><kbd>`</kbd> spawn a terminal |                                       |                                             |
 
-Where several packages share a domain the letter becomes a **prefix** instead: <kbd>Alt</kbd><kbd>G</kbd>
-for git (<kbd>Alt</kbd><kbd>G</kbd> <kbd>G</kbd> the git panel, <kbd>Alt</kbd><kbd>G</kbd> <kbd>H</kbd>
-the GitHub panel, and the rest for opening the current file on your host), and <kbd>Alt</kbd><kbd>J</kbd>
-for Jupyter.
+Where several packages share a domain the letter becomes a **prefix** instead: <kbd>Alt</kbd><kbd>G</kbd> for git (<kbd>Alt</kbd><kbd>G</kbd> <kbd>G</kbd> the git panel, <kbd>Alt</kbd><kbd>G</kbd> <kbd>H</kbd> the GitHub panel, and the rest for opening the current file on your host), and <kbd>Alt</kbd><kbd>J</kbd> for Jupyter.
 
-**Once a surface has focus, its own keys are unmodified** — single letters, function keys, arrows and
-<kbd>Esc</kbd>. In the git panel <kbd>U</kbd> and <kbd>S</kbd> move between unstaged and staged and
-<kbd>F5</kbd>–<kbd>F8</kbd> fetch, pull and push; in the tree view <kbd>A</kbd> adds a file and
-<kbd>F2</kbd> renames one. None of those keys does anything while you are editing.
+**Once a surface has focus, its own keys are unmodified** — single letters, function keys, arrows and <kbd>Esc</kbd>. In the git panel <kbd>U</kbd> and <kbd>S</kbd> move between unstaged and staged and <kbd>F5</kbd>–<kbd>F8</kbd> fetch, pull and push; in the tree view <kbd>A</kbd> adds a file and <kbd>F2</kbd> renames one. None of those keys does anything while you are editing.
 
-A handful of keystrokes ignore all of this because you already know them from somewhere else:
-<kbd>Ctrl</kbd><kbd>`</kbd> for the terminal, <kbd>Ctrl</kbd><kbd>P</kbd> for files,
-<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> for the command palette, <kbd>Ctrl</kbd><kbd>F</kbd> for
-find, <kbd>F2</kbd> for rename.
+A handful of keystrokes ignore all of this because you already know them from somewhere else: <kbd>Ctrl</kbd><kbd>`</kbd> for the terminal, <kbd>Ctrl</kbd><kbd>P</kbd> for files, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> for the command palette, <kbd>Ctrl</kbd><kbd>F</kbd> for find, <kbd>F2</kbd> for rename.
 
 ## Debugging a keystroke
 
