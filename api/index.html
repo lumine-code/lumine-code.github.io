@@ -6173,7 +6173,7 @@ an instance of this class is always available as the `lumine.menu` global.
 ## menu object format
 
 here is an example from lumine's bundled
-[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view-plus.json):
+[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view.json):
 
 ```json
 [
@@ -6224,7 +6224,7 @@ application menu.</p>
 <p>An instance of this class is always available as the <code>lumine.menu</code> global.</p>
 <h2>Menu Object Format</h2>
 <p>Here is an example from Lumine’s bundled
-<a href="https://github.com/lumine-code/tree-view/blob/master/menus/tree-view-plus.json">tree-view</a>:</p>
+<a href="https://github.com/lumine-code/tree-view/blob/master/menus/tree-view.json">tree-view</a>:</p>
 <pre><code class="language-json">[
   {
     <span class="tok-key">&quot;label&quot;</span>: <span class="tok-string">&quot;View&quot;</span>,
@@ -7802,7 +7802,7 @@ const disposable = await watchpath('/var/log', {}, events =&gt; {
   * `oldpath` (for `renamed` events only), a `string` containing the
     filesystem entry's former absolute path.">
           <header class="api-class-header"><p class="eyebrow">Extended API</p>
-          <h2>PathWatcher<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L665">src/path-watcher.js:665</a></h2>
+          <h2>PathWatcher<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L671">src/path-watcher.js:671</a></h2>
           <div class="api-description-body api-class-description"><p>Manage a subscription to filesystem events that occur beneath a
 root directory. Construct these by calling <code>watchPath</code>. To watch for events
 within active project directories, use <a class="api-ref" href="#project-instance-ondidchangefiles">Project#onDidChangeFiles</a> instead.</p>
@@ -7882,7 +7882,7 @@ describe('something', function () {
 ```">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#pathwatcher-instance-getstartpromise" aria-label="Link to ::getStartPromise()">#</a><code class="api-signature"><span class="api-signature-name">::getStartPromise</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L767" title="src/path-watcher.js:767">L767</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L773" title="src/path-watcher.js:773">L773</a></div>
                       </div>
                       <div class="api-description-body"><p>PathWatchers acquired through <code>watchPath</code> are already started.</p>
 <pre><code class="language-js"><span class="tok-keyword">const</span> {watchPath} = <span class="tok-fn">require</span>(<span class="tok-string">'lumine'</span>)
@@ -7908,7 +7908,7 @@ describe('something', function () {
 reported.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#pathwatcher-instance-ondiderror" aria-label="Link to ::onDidError(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidError</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L809" title="src/path-watcher.js:809">L809</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L815" title="src/path-watcher.js:815">L815</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke a <code>Function</code> when any errors related to this watcher are
 reported.</p>
@@ -7921,7 +7921,7 @@ resources will be released asynchronously, but this watcher will stop
 broadcasting events immediately.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#pathwatcher-instance-dispose" aria-label="Link to ::dispose()">#</a><code class="api-signature"><span class="api-signature-name">::dispose</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L997" title="src/path-watcher.js:997">L997</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L1003" title="src/path-watcher.js:1003">L1003</a></div>
                       </div>
                       <div class="api-description-body"><p>Unsubscribe all subscribers from filesystem events. Native
 resources will be released asynchronously, but this watcher will stop
@@ -16578,7 +16578,7 @@ the same cross-fade a theme switch uses and notifies those consumers from
 within it, so they repaint as part of the same transition.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#thememanager-instance-updateappearance" aria-label="Link to ::updateAppearance(mutate)">#</a><code class="api-signature"><span class="api-signature-name">::updateAppearance</span><span class="api-signature-parameters">(mutate)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/theme-manager.js#L839" title="src/theme-manager.js:839">L839</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/theme-manager.js#L843" title="src/theme-manager.js:843">L843</a></div>
                       </div>
                       <div class="api-description-body"><p>Apply an appearance change that restyles the window without
 changing which themes are active — a theme package toggling a variant
@@ -19489,7 +19489,7 @@ very first change should `await handle.getstartpromise()` before writing.
 * `ondidrename(callback)` invoke `callback` with the new path when the file
   is renamed onto a sibling path. returns a `disposable`.
 * `getstartpromise()` a `promise` that resolves once the watcher is armed.
-* `dispose()` stop watching and release the subscription."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-watchfile" aria-label="Link to watchFile">#</a><code class="api-signature"><span class="api-signature-name">watchFile</span><span class="api-signature-parameters">(filePath)</span></code></h4><div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L1184">src/path-watcher.js:1184</a></div></div><div class="api-description-body"><p>Watch a single file for changes, deletion, and renaming. This is
+* `dispose()` stop watching and release the subscription."><div class="api-member-heading"><h4><a class="api-anchor" href="#function-watchfile" aria-label="Link to watchFile">#</a><code class="api-signature"><span class="api-signature-name">watchFile</span><span class="api-signature-parameters">(filePath)</span></code></h4><div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L1195">src/path-watcher.js:1195</a></div></div><div class="api-description-body"><p>Watch a single file for changes, deletion, and renaming. This is
 the replacement for the old <code>File</code> watching API: it exposes just the change
 notifications, backed by <code>watchPath</code>.</p>
 <p>Subscriptions register synchronously, but the underlying watcher is armed
@@ -19536,7 +19536,7 @@ const disposable = await watchpath('/var/log', {}, events =&gt; {
  // watcher, asynchronously release any os resources required to subscribe
  // to these events.
  disposable.dispose()
-```"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-watchpath" aria-label="Link to watchPath">#</a><code class="api-signature"><span class="api-signature-name">watchPath</span><span class="api-signature-parameters">(rootPath, options, eventCallback, options.realPaths, eventCallback.events, eventCallback.events.action, eventCallback.events.path, eventCallback.events.oldPath)</span></code></h4><div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L1155">src/path-watcher.js:1155</a></div></div><div class="api-description-body"><p>Invoke a callback with each filesystem event that occurs beneath a
+```"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-watchpath" aria-label="Link to watchPath">#</a><code class="api-signature"><span class="api-signature-name">watchPath</span><span class="api-signature-parameters">(rootPath, options, eventCallback, options.realPaths, eventCallback.events, eventCallback.events.action, eventCallback.events.path, eventCallback.events.oldPath)</span></code></h4><div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/path-watcher.js#L1166">src/path-watcher.js:1166</a></div></div><div class="api-description-body"><p>Invoke a callback with each filesystem event that occurs beneath a
 specified path. If you only need to watch events within the project’s root
 paths, use <a class="api-ref" href="#project-instance-ondidchangefiles">Project#onDidChangeFiles</a> instead.</p>
 <p>watchPath handles the efficient re-use of operating system resources across

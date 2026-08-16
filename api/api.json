@@ -10916,7 +10916,7 @@
     {
       "name": "MenuManager",
       "visibility": "Extended",
-      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `lumine.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view-plus.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n      ]\n    }\n  ]\n}\n```\n\nSee {@link #add} for more information about adding menus directly.",
+      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `lumine.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/tree-view.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n      ]\n    }\n  ]\n}\n```\n\nSee {@link #add} for more information about adding menus directly.",
       "summary": "Provides a registry for menu items that you'd like to appear in the application menu.",
       "source": "src/menu-manager.js",
       "sourcePath": "src/menu-manager.js",
@@ -14677,7 +14677,7 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 665,
+      "line": 671,
       "members": [
         {
           "name": "getStartPromise",
@@ -14693,7 +14693,7 @@
           "returnType": "Promise",
           "returnDescription": "that will resolve when the underlying native watcher is ready to begin sending events. When testing filesystem watchers, it's important to await this promise before making filesystem changes that you intend to assert about because there will be a delay between the instantiation of the watcher and the activation of the underlying OS resources that feed its events.",
           "propertyType": null,
-          "line": 767
+          "line": 773
         },
         {
           "name": "onDidError",
@@ -14729,7 +14729,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 809
+          "line": 815
         },
         {
           "name": "dispose",
@@ -14745,7 +14745,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 997
+          "line": 1003
         }
       ]
     },
@@ -33241,7 +33241,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once the change has been applied.",
           "propertyType": null,
-          "line": 839
+          "line": 843
         }
       ]
     },
@@ -38864,7 +38864,7 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 1184
+      "line": 1195
     },
     {
       "name": "watchPath",
@@ -38956,9 +38956,9 @@
       "source": "src/path-watcher.js",
       "sourcePath": "src/path-watcher.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 1155
+      "line": 1166
     }
   ],
   "memberCount": 1231,
-  "generatedAt": "2026-08-15T03:18:12.262Z"
+  "generatedAt": "2026-08-16T19:27:33.314Z"
 }
