@@ -77,12 +77,12 @@ A formatter that stalls never holds up a save for more than half a second, and a
 
 The `code-lens` package renders a provider's actionable links — run this test, show these implementations, jump to the schema — on their own line above the code they describe, and clicking one runs it. A language server is the usual source, but any package can provide lenses, and everything claiming a line is shown side by side on it.
 
-It is off by default, because those lines shift the text down. The setting is read per language, so turn it on where the server offers something worth the space:
+It is on by default; those lines shift the text down, and the setting is read per language, so turn it off where nothing offers anything worth the space:
 
 ```json
 ".source.ts": {
   "code-lens": {
-    "enabled": true
+    "enabled": false
   }
 }
 ```
