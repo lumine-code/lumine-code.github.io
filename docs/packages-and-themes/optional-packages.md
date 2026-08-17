@@ -39,6 +39,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 - **code-format** — format on demand or on save through registered providers.
 - **find-references** — highlight and list references to the symbol under the cursor.
 - **hierarchy-view** — explore the callers, callees, supertypes and subtypes of a symbol.
+- **code-lens** — actionable command links rendered above the code they describe.
 
 ## Linting and formatting
 

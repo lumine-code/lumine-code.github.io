@@ -13,6 +13,7 @@ All of them work the same way: `ide-client` provides the data, the UI package re
 | Formatting, on demand or on save          | `code-format`     |
 | References to the symbol under the cursor | `find-references` |
 | Callers, callees, supertypes and subtypes | `hierarchy-view`  |
+| Actionable links above the code           | `code-lens`       |
 
 Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/<name>`.
 
@@ -72,9 +73,25 @@ The `code-format` package runs whatever formatter a provider offers: `code-forma
 
 A formatter that stalls never holds up a save for more than half a second, and a format always lands as one undo step. Enable at most one on-save formatter per language: the `prettier` package has its own opt-in list, so do not point both at the same files.
 
+## Code lens
+
+The `code-lens` package renders a provider's actionable links — run this test, show these implementations, jump to the schema — on their own line above the code they describe, and clicking one runs it. A language server is the usual source, but any package can provide lenses, and everything claiming a line is shown side by side on it.
+
+It is off by default, because those lines shift the text down. The setting is read per language, so turn it on where the server offers something worth the space:
+
+```json
+".source.ts": {
+  "code-lens": {
+    "enabled": true
+  }
+}
+```
+
+A lens whose label is expensive to compute — a reference count, say — appears as `…` and fills itself in once you scroll to it, so opening a large file never waits on lenses you are not looking at. `code-lens:toggle` turns the whole thing off and on, and `code-lens:refresh` asks for the active file's lenses again.
+
 ## Annotations in the text
 
-Three more features render inside the editor itself, so they need no package — they are settings of `ide-client`. Each is read per language, so a scoped block can enable one for a single grammar:
+Two more features render inside the editor itself, so they need no package — they are settings of `ide-client`. Each is read per language, so a scoped block can enable one for a single grammar:
 
 ```json
 ".source.ts": {
@@ -85,7 +102,5 @@ Three more features render inside the editor itself, so they need no package —
 ```
 
 **Inlay hints** are on by default. They print what the code leaves implicit — inferred types, parameter names at call sites — as small labels between the characters, for the part of the file you are looking at. They are labels, not text: the buffer is untouched, and clicking one puts the cursor where it is anchored. Long labels are truncated at **Maximum Label Length**.
-
-**Code lens** is off by default. It renders a server's actionable links — run this test, show these implementations — on their own line above the symbol they describe, and clicking one runs the command. It is off because those lines shift the text down; turn it on per language where the server offers something worth the space.
 
 **Semantic tokens** are off by default too. A language server classifies identifiers more precisely than a grammar can — telling a parameter from a local, a namespace from a class — and this setting layers that classification over the Tree-sitter highlighting your theme already provides. Tree-sitter highlighting is good on its own, so treat this as a refinement to enable per language. Very large files fall back to highlighting only the visible region, or skip it when the server cannot serve one.
