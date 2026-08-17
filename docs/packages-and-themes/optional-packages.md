@@ -72,7 +72,7 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 
 ## Scrollbar markers
 
-- **marker** — the hub that computes each marker layer once per editor; **scrollmap** draws the layers on the vertical scrollbar and **minimap** draws the same layers over the code. The layers themselves come from: **marker-cursors**, **marker-brackets**, **marker-highlight**, **marker-git-diff**, **marker-diff-view**, **marker-linter**, **marker-navigation**, **marker-search-panel**, **marker-jupyter-cells**, **marker-references**.
+- **marker** — the hub that computes each marker layer once per editor; **scrollmap** draws the layers on the vertical scrollbar and **minimap** draws the same layers over the code. The hub ships a built-in cursors layer, and every other layer comes with the package that owns the data: **git-diff**, **linter**, **bracket-matcher**, **search-panel**, **diff-view**, **highlight-selected**, **find-references**, **navigation-panel**, **jupyter-cells**. Each host exposes its layer's settings under its own `marker` group, starting with `enabled`.
 
 ## File icons
 

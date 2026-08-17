@@ -8,7 +8,7 @@ Without a selection, `jupyter-repl:run` detects what to execute from the cursor 
 
 ## Jupyter cells
 
-The **jupyter-cells** package owns the `# %%` cell structure of plain files: `jupyter-cells:run-cell` and `jupyter-cells:run-all` run cells through jupyter-repl's kernels, `jupyter-cells:go-to-next-cell` and its siblings navigate, select, reorder and fold them, a setting draws a boundary line on every marker row, and the [code-lens](code-intelligence.md#code-lens) package can render Run Cell links above each marker. It also converts between marker files and `.ipynb` notebooks (`jupyter-cells:import-notebook`, `jupyter-cells:export-notebook`). The **marker-jupyter-cells** layer shows the cell boundaries on the scrollbar and minimap.
+The **jupyter-cells** package owns the `# %%` cell structure of plain files: `jupyter-cells:run-cell` and `jupyter-cells:run-all` run cells through jupyter-repl's kernels, `jupyter-cells:go-to-next-cell` and its siblings navigate, select, reorder and fold them, a setting draws a boundary line on every marker row, and the [code-lens](code-intelligence.md#code-lens) package can render Run Cell links above each marker. It also converts between marker files and `.ipynb` notebooks (`jupyter-cells:import-notebook`, `jupyter-cells:export-notebook`). Its marker layer shows the cell boundaries on the scrollbar and minimap, controlled by the `jupyter-cells.marker` settings.
 
 ## Exec panel
 

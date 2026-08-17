@@ -20,4 +20,4 @@ The status-bar item shows a count per severity. The hint count appears only once
 
 ## Another front end
 
-The panel is one `linter.ui` consumer among however many are installed — [`marker-linter`](../packages-and-themes/optional-packages.md) puts the same messages on the scrollbar overview, and a package of your own can display them any way it likes. Each is handed every message change and a handle to ask the linter about them: which messages belong to the item on screen, where one is, what the severity tiers are.
+The panel is one `linter.ui` consumer among however many are installed — the linter's own marker layer puts the same messages on the scrollbar overview, and a package of your own can display them any way it likes. Each is handed every message change and a handle to ask the linter about them: which messages belong to the item on screen, where one is, what the severity tiers are.
