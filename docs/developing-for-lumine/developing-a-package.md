@@ -12,10 +12,15 @@ my-package/
   lib/
     my-package.js
   keymaps/
+    main.json
   menus/
+    main.json
   styles/
+    main.css
   spec/
 ```
+
+`keymaps/`, `menus/`, `styles/`, `snippets/` and `settings/` are each loaded by a directory scan, so the file name is free — the editor identifies every file it finds by its full path. A directory holding exactly one file names it `main`; a directory holding several keeps descriptive names for all of them, because alphabetical order there is load order.
 
 Key `package.json` fields:
 
