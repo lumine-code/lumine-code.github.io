@@ -1,4 +1,4 @@
-# PDF viewer
+# PDF view
 
 Lumine's **`pdf-view`** package opens PDF files directly in the workspace, rendered with Mozilla's PDF.js. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/pdf-view`. Once installed, opening any `.pdf` file — from the tree view, a fuzzy finder, or a link — shows it in an editor pane.
 
