@@ -85,7 +85,7 @@ The tree view, tabs, search results, and fuzzy finders show a generic icon per f
 
 ## Desktop integration
 
-- **windows-clip** — Explorer-compatible file cut/copy/paste in the tree view.
+- **native-clip** — file cut, copy and paste between the tree view and the system file manager.
 - **open-in-totalcmd** — reveal paths in Total Commander.
 - **terminal-spawn** — launch external terminals in project folders.
 - **tree-view-favourite** — pin files and folders into sections above the project folders, where a pinned folder expands in place.
