@@ -40,6 +40,8 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 - **find-references** — highlight and list references to the symbol under the cursor.
 - **hierarchy-view** — explore the callers, callees, supertypes and subtypes of a symbol.
 - **code-lens** — actionable command links rendered above the code they describe.
+- **inlay-hints** — inferred types and parameter names as inline labels.
+- **semantic-tokens** — semantic highlighting layered over the grammar's own.
 
 ## Linting and formatting
 

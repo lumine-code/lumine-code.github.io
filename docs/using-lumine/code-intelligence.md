@@ -14,6 +14,8 @@ All of them work the same way: `ide-client` provides the data, the UI package re
 | References to the symbol under the cursor | `find-references` |
 | Callers, callees, supertypes and subtypes | `hierarchy-view`  |
 | Actionable links above the code           | `code-lens`       |
+| Inferred types and parameter names inline | `inlay-hints`     |
+| Semantic highlighting over the grammar's  | `semantic-tokens` |
 
 Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/<name>`.
 
@@ -89,18 +91,34 @@ It is on by default; those lines shift the text down, and the setting is read pe
 
 A lens whose label is expensive to compute — a reference count, say — appears as `…` and fills itself in once you scroll to it, so opening a large file never waits on lenses you are not looking at. `code-lens:toggle` turns the whole thing off and on, and `code-lens:refresh` asks for the active file's lenses again.
 
-## Annotations in the text
+## Inlay hints
 
-Two more features render inside the editor itself, so they need no package — they are settings of `ide-client`. Each is read per language, so a scoped block can enable one for a single grammar:
+The `inlay-hints` package prints what the code leaves implicit — inferred types, parameter names at call sites — as small labels between the characters, for the part of the file you are looking at. They are labels, not text: the buffer is untouched, and clicking one puts the cursor where it is anchored.
+
+It is on by default once installed, and the setting is read per language:
 
 ```json
 ".source.ts": {
-  "ide-client": {
-    "semanticTokens": { "enabled": true }
+  "inlay-hints": {
+    "enabled": false
   }
 }
 ```
 
-**Inlay hints** are on by default. They print what the code leaves implicit — inferred types, parameter names at call sites — as small labels between the characters, for the part of the file you are looking at. They are labels, not text: the buffer is untouched, and clicking one puts the cursor where it is anchored. Long labels are truncated at **Maximum Label Length**.
+Only the rows on screen are asked for, so a long file costs one small request per screen rather than a pass over the whole thing, and scrolling fills in what comes into view. A label longer than **Maximum Label Length** is cut with an ellipsis, which keeps a wide generic type from pushing the code off screen. `inlay-hints:toggle` turns the labels off and on, and `inlay-hints:refresh` asks for the active file's hints again.
 
-**Semantic tokens** are off by default too. A language server classifies identifiers more precisely than a grammar can — telling a parameter from a local, a namespace from a class — and this setting layers that classification over the Tree-sitter highlighting your theme already provides. Tree-sitter highlighting is good on its own, so treat this as a refinement to enable per language. Very large files fall back to highlighting only the visible region, or skip it when the server cannot serve one.
+## Semantic tokens
+
+A language server classifies identifiers more precisely than a grammar can — telling a parameter from a local, a namespace from a class — and the `semantic-tokens` package layers that classification over the Tree-sitter highlighting your theme already provides. It decorates with the same `syntax--*` classes a grammar scope would, so your theme colors semantic tokens without knowing they exist, and an identifier the server has no opinion about keeps the color it had.
+
+It is on by default once installed, and the setting is read per language, so a grammar whose Tree-sitter highlighting you prefer can opt out:
+
+```json
+".source.ts": {
+  "semantic-tokens": {
+    "enabled": false
+  }
+}
+```
+
+Very large files fall back to classifying only the visible region — past 5000 lines, or once a whole-document answer comes back with more than 20000 tokens — and skip the feature entirely when the server cannot serve a region. Once a file falls back it stays that way, since the whole-document request would only run into the same budget again. `semantic-tokens:toggle` turns the layer off and on, and `semantic-tokens:refresh` asks for the active file's tokens again.
