@@ -20,18 +20,35 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **calc-inline** — evaluate selected JavaScript expressions, reuse earlier results, and number selections.
 - **regex-aligner**, **sequence-creator**, **super-select**, **cursor-leader**, **quick-layout**, **invert-colors**, **word-map** — small editing and workspace utilities.
 
+- **fuzzy-files** — quickly find and take an action over project files.
+- **markdown-preview** — open a live, rendered preview of the Markdown in the current editor.
+- **bracket-matcher** — highlight and jump between matching brackets, and autocomplete brackets and quotes.
+- **bookmarks** — mark lines in the editor and jump back to them.
+- **column-selection** — create rectangular selections across lines by dragging.
+- **overtype-mode** — replace existing text as you type instead of inserting.
+- **archive-view** — browse the files and folders inside archive files.
+- **link** — open the http(s) link under the cursor in your default browser.
+- **open-external** — open files and directories with their system applications.
+
 ## Git and GitHub
 
 - **git-command** — run common Git workflows from a searchable select list in Lumine's modal pane zone.
 - **git-panel** — stage, commit, and manage your repository.
 - **github-panel** — pull requests, issues, and reviews.
 
+- **git-center** — show the active Git repository, branch, and working-tree status in the status bar.
+- **git-diff** — mark lines in the editor gutter that have been added, edited, or deleted since the last commit.
+
 ## Code intelligence
 
-Language-server backends for the bundled `ide-client` package, and the user interfaces for what they report (see [Code intelligence](../using-lumine/code-intelligence.md)):
+Language-server backends for the `ide-client` package, and the user interfaces for what they report (see [Code intelligence](../using-lumine/code-intelligence.md)):
 
 - **ide-typescript**, **ide-eslint**, **ide-pyright**, **ide-ruff**, **ide-texlab**, **ide-tinymist**, **ide-marksman** — language-server adapters for TypeScript and JavaScript intelligence, ESLint diagnostics/fixes/formatting, Python types via Basedpyright, Python linting and formatting, LaTeX, Typst, and Markdown links and notes.
 - **ide-bash**, **ide-css**, **ide-html**, **ide-json**, **ide-yaml** — bundled-server adapters for Bash, CSS/SCSS/Less, HTML, JSON/JSONC, and schema-aware YAML editing.
+- **ide-dockerfile**, **ide-graphql**, **ide-vue** — adapters for Dockerfile, GraphQL, and Vue.
+- **ide-client** — the Language Server Protocol client every adapter above plugs into.
+- **symbol** — jump to a function, method, or symbol in the current editor or across the project, with **symbol-tree-sitter** answering from the active grammar and **symbol-ctags** from universal-ctags.
+- **hyperclick** — follow the symbol under the pointer to its definition with a click.
 - **hover** — documentation tooltips and signature help at the cursor.
 - **outline-view** — a hierarchical symbol outline of the active editor.
 - **intentions** — code actions and quick fixes at the cursor.
@@ -55,6 +72,13 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 
 - **language-latex**, **language-typst**, **language-log**, **language-tasklist**, **language-ahkpp**, **language-sofistik** — grammars and language support.
 - **language-vue**, **language-blade** — single-file components and Laravel views, each highlighting the languages embedded in it.
+- **language-go**, **language-rust**, **language-java**, **language-php**, **language-ruby**, **language-perl**, **language-lua**, **language-r**, **language-csharp**, **language-coffee-script** — grammars for languages the default install does not ship.
+- **language-less**, **language-sass** — Less, and Sass and SCSS.
+- **language-cmake**, **language-make**, **language-dockerfile**, **language-ini**, **language-graphql** — build, container, and configuration formats.
+- **autocomplete** — display possible completions while you type; the hub every provider below feeds.
+- **autocomplete-css**, **autocomplete-html** — CSS property and value, and HTML element and attribute completions.
+- **autocomplete-snippets** — add snippets to autocomplete suggestions.
+- **autocomplete-lumine** — completions for the Lumine API.
 - **autocomplete-jedi** — Python completions and go-to-definition via jedi.
 - **autocomplete-paths** — complete file paths from cached project contents.
 - **autocomplete-sofistik** — completions for SOFiSTiK input files.
@@ -75,6 +99,16 @@ Language-server backends for the bundled `ide-client` package, and the user inte
 ## Scrollbar markers
 
 - **marker** — the hub that computes each marker layer once per editor; **scrollmap** draws the layers on the vertical scrollbar and **minimap** draws the same layers over the code. The hub ships a built-in cursors layer, and every other layer comes with the package that owns the data: **git-diff**, **linter**, **bracket-matcher**, **search-panel**, **diff-view**, **highlight-selected**, **find-references**, **navigation-panel**, **jupyter-cells**. Each host exposes its layer's settings under its own `marker` group, starting with `enabled`.
+
+## Themes
+
+The default install ships **one-theme** alone. Each package below registers a day and a night pack, and the theme mode in **Settings** picks between them.
+
+- **atom-theme** — the classic Atom day and night UI and syntax themes.
+- **aura-theme** — a modern, brighter day and deeper night take on the One UI and syntax themes.
+- **nova-theme** — the Nova day and night UI and syntax themes.
+- **vscode-theme** — the VS Code day and night UI and syntax themes following the VS Code Modern look.
+- **theme-selector** — preview and select registered light/dark theme packs.
 
 ## File icons
 

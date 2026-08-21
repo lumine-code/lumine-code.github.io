@@ -1,6 +1,6 @@
 # Autocomplete
 
-The bundled **`autocomplete`** package shows a list of possible completions as you type.
+The **`autocomplete`** package shows a list of possible completions as you type.
 
 ## How it works
 
@@ -17,7 +17,7 @@ Behavior — the activation delay, whether to auto-confirm a single suggestion, 
 - **`autocomplete-snippets`** — your [snippets](../customizing-lumine/snippets.md), offered as completions.
 - **`autocomplete-lumine`** — the editor API, for package and init-script development.
 
-Installed packages can add more providers (for a framework, a data source, and so on); install them like any other package. See [The package system](../packages-and-themes/package-system.md). The bundled `ide-client` package is a provider too, so installing a [language-server adapter](language-servers.md) puts your server's completions in the same list.
+Installed packages can add more providers (for a framework, a data source, and so on); install them like any other package. See [The package system](../packages-and-themes/package-system.md). The `ide-client` package is a provider too, so installing a [language-server adapter](language-servers.md) puts your server's completions in the same list.
 
 Not every provider completes what you are typing. [`spell-check`](linting.md) puts its corrections here, above the buffer's own words, and picking one replaces the misspelled word rather than extending it — so this list is where a spelling fix is chosen too. Corrections appear only when the list is asked for, never while typing.
 

@@ -4,7 +4,7 @@ Lumine has built-in Git awareness. Rather than a single large integration, it bu
 
 ## Diff markers in the gutter
 
-The bundled **`git-diff`** package marks lines in the editor gutter that have been added, edited, or deleted since the last commit. You can:
+The **`git-diff`** package marks lines in the editor gutter that have been added, edited, or deleted since the last commit. You can:
 
 - move between changes with `git-diff:move-to-next-diff` and `git-diff:move-to-previous-diff`, and
 - open a searchable list of every change in the file with `git-diff:toggle-diff-list`.
@@ -23,7 +23,7 @@ File names in the tree view and on tabs are colored by their Git status (green f
 
 ## The repository, branch, and worktree tiles
 
-The bundled **`git-center`** package puts the window's active repository and its branch in the status bar. Both are buttons: clicking one opens a filterable picker, and each picker also has a command — `git-center:select-repository` and `git-center:select-branch`.
+The **`git-center`** package puts the window's active repository and its branch in the status bar. Both are buttons: clicking one opens a filterable picker, and each picker also has a command — `git-center:select-repository` and `git-center:select-branch`.
 
 The active repository normally follows whatever you are editing. `git-center:toggle-lock` pins it in place so it stops following, and the repository picker's `Auto` row hands it back.
 

@@ -14,13 +14,13 @@ Lumine splits fuzzy finding into focused packages:
 - **`fuzzy-workspace`** (`fuzzy-workspace:toggle`) — jump to any _already open_ item across the workspace center and the left, right, and bottom docks; confirming reveals its dock and focuses it.
 - **`fuzzy-explorer`** (`fuzzy-explorer:toggle`) — fuzzy-search files across your own list of directories, defined in an `explorer.json` config file (open it with `fuzzy-explorer:edit`; a legacy `explorer.cson` is also read).
 
-`fuzzy-files` ships with the editor. Install the other two from the Install pane in **Settings**, or with `lumine --install lumine-code/fuzzy-workspace` and `lumine --install lumine-code/fuzzy-explorer`.
+Install any of the three from the Install pane in **Settings**, or with `lumine --install lumine-code/fuzzy-files`, `lumine --install lumine-code/fuzzy-workspace` and `lumine --install lumine-code/fuzzy-explorer`.
 
 ## Symbols
 
-The bundled **`symbol`** package jumps to functions, methods, and other symbols. Use `symbol:toggle-file-symbols` for the active editor and `symbol:toggle-project-symbols` across the project. Follow a symbol with `symbol:go-to-declaration` and return with `symbol:return-from-declaration`. Symbols are provided by `symbol-tree-sitter` (from the active grammar) and `symbol-ctags`.
+The **`symbol`** package jumps to functions, methods, and other symbols. Use `symbol:toggle-file-symbols` for the active editor and `symbol:toggle-project-symbols` across the project. Follow a symbol with `symbol:go-to-declaration` and return with `symbol:return-from-declaration`. Symbols are provided by `symbol-tree-sitter` (from the active grammar) and `symbol-ctags`.
 
-The bundled **`hyperclick`** package makes the same jump with the pointer: hold Alt and symbols that something can resolve are underlined, and clicking one follows it. The modifier is configurable, and `hyperclick:confirm-cursor` does the same for whatever the cursor is on. Any package can answer for the words it understands by providing `hyperclick.provider`.
+The **`hyperclick`** package makes the same jump with the pointer: hold Alt and symbols that something can resolve are underlined, and clicking one follows it. The modifier is configurable, and `hyperclick:confirm-cursor` does the same for whatever the cursor is on. Any package can answer for the words it understands by providing `hyperclick.provider`.
 
 ## Other navigators
 

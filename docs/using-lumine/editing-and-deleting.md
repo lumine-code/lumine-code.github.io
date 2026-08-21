@@ -33,4 +33,4 @@ The `autoflow` package re-wraps a selection of prose or comments to your preferr
 ## Whitespace and overtype
 
 - The bundled `whitespace` package can trim trailing whitespace and ensure a trailing newline on save; configure it in its settings.
-- The bundled `overtype-mode` package toggles overtype (replace) editing, where typing overwrites the character under the cursor instead of inserting.
+- The `overtype-mode` package toggles overtype (replace) editing, where typing overwrites the character under the cursor instead of inserting.

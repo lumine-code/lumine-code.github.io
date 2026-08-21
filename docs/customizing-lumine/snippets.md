@@ -29,4 +29,4 @@ Type a prefix and run `snippets:expand` to expand it. Move forward and backward 
 
 ## Snippets in autocomplete
 
-With the bundled `autocomplete-snippets` package, matching snippets also appear in the [autocomplete](../using-lumine/autocomplete.md) suggestion list and expand — tab stops included — when you confirm one.
+With the `autocomplete-snippets` package, matching snippets also appear in the [autocomplete](../using-lumine/autocomplete.md) suggestion list and expand — tab stops included — when you confirm one.

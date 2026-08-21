@@ -22,7 +22,7 @@ The bundled `go-to-line` package jumps straight to a line (and optionally a colu
 
 ## Bookmarks
 
-The bundled `bookmarks` package marks lines you want to return to. Toggle a bookmark on the current line, then cycle through your bookmarks to jump between them — useful for holding your place across a large file. See its commands in the Command Palette (search "bookmarks") or in **Settings → Keybindings**.
+The `bookmarks` package marks lines you want to return to. Toggle a bookmark on the current line, then cycle through your bookmarks to jump between them — useful for holding your place across a large file. See its commands in the Command Palette (search "bookmarks") or in **Settings → Keybindings**.
 
 ## Next
 

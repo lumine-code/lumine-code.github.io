@@ -1,6 +1,6 @@
 # Writing a language-server adapter
 
-An adapter package teaches the bundled `ide-client` package how to launch and configure a language server. The adapter stays small: it resolves the server binary and describes its settings, while `ide-client` owns the protocol, document synchronization, and every editor integration.
+An adapter package teaches the `ide-client` package how to launch and configure a language server. The adapter stays small: it resolves the server binary and describes its settings, while `ide-client` owns the protocol, document synchronization, and every editor integration.
 
 ## Registering
 
