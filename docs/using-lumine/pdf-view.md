@@ -4,7 +4,9 @@ Lumine's **`pdf-view`** package opens PDF files directly in the workspace, rende
 
 ## Moving around
 
-A focused PDF handles its own keys. Step through the document with `pdf-view:next-page` / `pdf-view:previous-page` (also bound to `n` / `p` and `j` / `k`), jump to the ends with `pdf-view:first-page` / `pdf-view:last-page`, and scroll with the arrow keys or `pdf-view:page-up` / `pdf-view:page-down`. Zoom with `pdf-view:zoom-in`, `pdf-view:zoom-out`, and `pdf-view:zoom-reset`, and rotate with `pdf-view:rotate-clockwise` / `pdf-view:rotate-counterclockwise`.
+A focused PDF handles its own keys. Step through the document with `pdf-view:next-page` / `pdf-view:previous-page` (also bound to `n` / `p` and `j` / `k`), jump to the ends with `pdf-view:first-page` / `pdf-view:last-page`, and scroll with the arrow keys or `pdf-view:page-up` / `pdf-view:page-down` (`space`, `shift-space` and `backspace`).
+
+Zoom with `pdf-view:zoom-in` / `pdf-view:zoom-out` (also bound to `+` and `-`, which need no modifier — PDF.js zooms on Ctrl alone, so the bare keys are free), or `pdf-view:zoom-reset` to return to automatic zoom. `pdf-view:page-fit` (`f`) fits a whole page in the viewer and `pdf-view:page-width` (`w`) fits its width, while `pdf-view:page-actual` shows the size the page would print at. Rotate with `pdf-view:rotate-clockwise` / `pdf-view:rotate-counterclockwise`. Changing the zoom or the rotation clears any text you had selected.
 
 `pdf-view:find` searches the document, with `pdf-view:find-next` and `pdf-view:find-previous` to step through matches. `pdf-view:toggle-sidebar` shows the thumbnail, outline, and attachment panes, and `pdf-view:presentation-mode` fills the screen.
 
