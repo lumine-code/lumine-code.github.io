@@ -4370,11 +4370,11 @@ console.<span class="tok-fn">log</span>(git.<span class="tok-fn">getOriginURL</s
                     <article class="api-member api-member-method" id="gitrepository-static-open" data-api-entry="gitrepository open .open(path, options) creates a new gitrepository instance.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-static-open" aria-label="Link to .open(path, options)">#</a><code class="api-signature"><span class="api-signature-name">.open</span><span class="api-signature-parameters">(path, options)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L118" title="src/git-repository.js:118">L118</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L119" title="src/git-repository.js:119">L119</a></div>
                       </div>
                       <div class="api-description-body"><p>Creates a new GitRepository instance.</p>
 </div>
-                      <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>path</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The <code>String</code> path to the Git repository to open.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>options</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">An optional <code>Object</code> with the following keys:</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>refreshOnWindowFocus</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">A <code>Boolean</code>, <code>true</code> to refresh the index and statuses when the window is focused.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression"><a href="#class-gitrepository">GitRepository</a></code><span class="api-return-separator"> — </span><span class="api-return-copy">instance or <code>null</code> if the repository could not be opened.</span></p></section>
+                      <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>path</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The <code>String</code> path to the Git repository to open.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>options</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">An optional <code>Object</code> with the following keys:</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>project</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">A <a class="api-type" href="#class-project">Project</a> whose buffer saves keep this repository’s status snapshot fresh.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>config</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The config consulted for Git settings.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression"><a href="#class-gitrepository">GitRepository</a></code><span class="api-return-separator"> — </span><span class="api-return-copy">instance or <code>null</code> if the repository could not be opened.</span></p></section>
                     </article>
 
                     <article class="api-member api-member-method" id="gitrepository-instance-destroy" data-api-entry="gitrepository destroy ::destroy() destroy this {@link gitrepository} object.
@@ -4383,7 +4383,7 @@ this destroys any tasks and subscriptions and releases the underlying
 libgit2 repository handle. this method is idempotent.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-destroy" aria-label="Link to ::destroy()">#</a><code class="api-signature"><span class="api-signature-name">::destroy</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L210" title="src/git-repository.js:210">L210</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L203" title="src/git-repository.js:203">L203</a></div>
                       </div>
                       <div class="api-description-body"><p>Destroy this <a class="api-type" href="#class-gitrepository">GitRepository</a> object.</p>
 <p>This destroys any tasks and subscriptions and releases the underlying
@@ -4395,7 +4395,7 @@ libgit2 repository handle. This method is idempotent.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-isdestroyed" data-api-entry="gitrepository isdestroyed ::isdestroyed() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-isdestroyed" aria-label="Link to ::isDestroyed()">#</a><code class="api-signature"><span class="api-signature-name">::isDestroyed</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L249" title="src/git-repository.js:249">L249</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L242" title="src/git-repository.js:242">L242</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Boolean</code><span class="api-return-separator"> — </span><span class="api-return-copy">indicating if this repository has been destroyed.</span></p></section>
@@ -4404,7 +4404,7 @@ libgit2 repository handle. This method is idempotent.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-ispresent" data-api-entry="gitrepository ispresent ::ispresent() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ispresent" aria-label="Link to ::isPresent()">#</a><code class="api-signature"><span class="api-signature-name">::isPresent</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L259" title="src/git-repository.js:259">L259</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L252" title="src/git-repository.js:252">L252</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Boolean</code><span class="api-return-separator"> — </span><span class="api-return-copy">whether this repository’s Git directory still exists.</span></p></section>
@@ -4413,7 +4413,7 @@ libgit2 repository handle. This method is idempotent.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getoperations" data-api-entry="gitrepository getoperations ::getoperations() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getoperations" aria-label="Link to ::getOperations()">#</a><code class="api-signature"><span class="api-signature-name">::getOperations</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L269" title="src/git-repository.js:269">L269</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L262" title="src/git-repository.js:262">L262</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Object</code><span class="api-return-separator"> — </span><span class="api-return-copy">stable write facade assigned by lumine.repositories. Its methods are enabled by repositories.operations-provider services.</span></p></section>
@@ -4423,7 +4423,7 @@ libgit2 repository handle. This method is idempotent.</p>
 is invoked.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ondiddestroy" aria-label="Link to ::onDidDestroy(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidDestroy</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L287" title="src/git-repository.js:287">L287</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L280" title="src/git-repository.js:280">L280</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when this GitRepository’s destroy() method
 is invoked.</p>
@@ -4444,7 +4444,7 @@ note: prefer {@link #ondidchangestatussnapshot}, which fires for every status
 change; this legacy per-path event is retained for api compatibility.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ondidchangestatus" aria-label="Link to ::onDidChangeStatus(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChangeStatus</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L313" title="src/git-repository.js:313">L313</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L306" title="src/git-repository.js:306">L306</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when a specific file’s status has
 changed. When a file is updated, reloaded, etc, and the status changes, this
@@ -4460,7 +4460,7 @@ changed. prefer {@link #ondidchangestatussnapshot}; this legacy event is retaine
 for api compatibility.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ondidchangestatuses" aria-label="Link to ::onDidChangeStatuses(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChangeStatuses</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L328" title="src/git-repository.js:328">L328</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L321" title="src/git-repository.js:321">L321</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when multiple files’ statuses have
 changed. Prefer <a class="api-ref" href="#gitrepository-instance-ondidchangestatussnapshot">#onDidChangeStatusSnapshot</a>; this legacy event is retained
@@ -4478,7 +4478,7 @@ least one subscriber exists. consumers never call
 {@link #refreshstatussnapshot} themselves.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ondidchangestatussnapshot" aria-label="Link to ::onDidChangeStatusSnapshot(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChangeStatusSnapshot</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L347" title="src/git-repository.js:347">L347</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L340" title="src/git-repository.js:340">L340</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when the detailed repository status
 snapshot changes.</p>
@@ -4496,7 +4496,7 @@ changes. subscribing declares interest exactly like
 and refs stay fresh with debounced background refreshes.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ondidchangerefssnapshot" aria-label="Link to ::onDidChangeRefsSnapshot(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChangeRefsSnapshot</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L372" title="src/git-repository.js:372">L372</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L365" title="src/git-repository.js:365">L365</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the given callback when the repository refs snapshot
 changes. Subscribing declares interest exactly like
@@ -4514,7 +4514,7 @@ and refs stay fresh with debounced background refreshes.</p>
 this repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-gettype" aria-label="Link to ::getType()">#</a><code class="api-signature"><span class="api-signature-name">::getType</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L398" title="src/git-repository.js:398">L398</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L391" title="src/git-repository.js:391">L391</a></div>
                       </div>
                       <div class="api-description-body"><p>A <code>String</code> indicating the type of version control system used by
 this repository.</p>
@@ -4525,7 +4525,7 @@ this repository.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getpath" data-api-entry="gitrepository getpath ::getpath() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getpath" aria-label="Link to ::getPath()">#</a><code class="api-signature"><span class="api-signature-name">::getPath</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L408" title="src/git-repository.js:408">L408</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L401" title="src/git-repository.js:401">L401</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">String</code><span class="api-return-separator"> — </span><span class="api-return-copy">path of the repository.</span></p></section>
@@ -4534,7 +4534,7 @@ this repository.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getworkingdirectory" data-api-entry="gitrepository getworkingdirectory ::getworkingdirectory() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getworkingdirectory" aria-label="Link to ::getWorkingDirectory()">#</a><code class="api-signature"><span class="api-signature-name">::getWorkingDirectory</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L422" title="src/git-repository.js:422">L422</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L415" title="src/git-repository.js:415">L415</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">String</code><span class="api-return-separator"> — </span><span class="api-return-copy">working directory path of the repository.</span></p></section>
@@ -4543,7 +4543,7 @@ this repository.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-isprojectatroot" data-api-entry="gitrepository isprojectatroot ::isprojectatroot() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-isprojectatroot" aria-label="Link to ::isProjectAtRoot()">#</a><code class="api-signature"><span class="api-signature-name">::isProjectAtRoot</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L432" title="src/git-repository.js:432">L432</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L425" title="src/git-repository.js:425">L425</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Boolean</code><span class="api-return-separator"> — </span><span class="api-return-copy">true if at the root, false if in a subfolder of the repository.</span></p></section>
@@ -4552,7 +4552,7 @@ this repository.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-relativize" data-api-entry="gitrepository relativize ::relativize(path) makes a path relative to the repository's working directory.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-relativize" aria-label="Link to ::relativize(path)">#</a><code class="api-signature"><span class="api-signature-name">::relativize</span><span class="api-signature-parameters">(path)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L446" title="src/git-repository.js:446">L446</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L439" title="src/git-repository.js:439">L439</a></div>
                       </div>
                       <div class="api-description-body"><p>Makes a path relative to the repository’s working directory.</p>
 </div>
@@ -4562,7 +4562,7 @@ this repository.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-hasbranch" data-api-entry="gitrepository hasbranch ::hasbranch(branch) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-hasbranch" aria-label="Link to ::hasBranch(branch)">#</a><code class="api-signature"><span class="api-signature-name">::hasBranch</span><span class="api-signature-parameters">(branch)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L461" title="src/git-repository.js:461">L461</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L454" title="src/git-repository.js:454">L454</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Boolean</code><span class="api-return-separator"> — </span><span class="api-return-copy">true if the given branch exists.</span></p></section>
@@ -4575,7 +4575,7 @@ this removes the leading segments of `refs/heads`, `refs/tags`, or
 characters.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getshorthead" aria-label="Link to ::getShortHead()">#</a><code class="api-signature"><span class="api-signature-name">::getShortHead</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L477" title="src/git-repository.js:477">L477</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L470" title="src/git-repository.js:470">L470</a></div>
                       </div>
                       <div class="api-description-body"><p>Retrieves a shortened version of the HEAD reference value.</p>
 <p>This removes the leading segments of <code>refs/heads</code>, <code>refs/tags</code>, or
@@ -4588,7 +4588,7 @@ characters.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-issubmodule" data-api-entry="gitrepository issubmodule ::issubmodule(filepath) is the given path a submodule in the repository?">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-issubmodule" aria-label="Link to ::isSubmodule(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::isSubmodule</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L502" title="src/git-repository.js:502">L502</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L495" title="src/git-repository.js:495">L495</a></div>
                       </div>
                       <div class="api-description-body"><p>Is the given path a submodule in the repository?</p>
 </div>
@@ -4598,7 +4598,7 @@ characters.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getaheadbehindcount" data-api-entry="gitrepository getaheadbehindcount ::getaheadbehindcount(reference) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getaheadbehindcount" aria-label="Link to ::getAheadBehindCount(reference)">#</a><code class="api-signature"><span class="api-signature-name">::getAheadBehindCount</span><span class="api-signature-parameters">(reference)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L514" title="src/git-repository.js:514">L514</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L507" title="src/git-repository.js:507">L507</a></div>
                       </div>
 
                       <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>reference</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The <code>String</code> branch reference name.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Object</code><span class="api-return-separator"> — </span><span class="api-return-copy">The <code>ahead</code> and <code>behind</code> commit counts.</span></p></section>
@@ -4611,7 +4611,7 @@ upstream branch.
   * `behind` the `number` of commits behind.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getcachedupstreamaheadbehindcount" aria-label="Link to ::getCachedUpstreamAheadBehindCount()">#</a><code class="api-signature"><span class="api-signature-name">::getCachedUpstreamAheadBehindCount</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L536" title="src/git-repository.js:536">L536</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L529" title="src/git-repository.js:529">L529</a></div>
                       </div>
                       <div class="api-description-body"><p>Get the cached ahead/behind commit counts for the current branch’s
 upstream branch.</p>
@@ -4628,7 +4628,7 @@ worker (`git config --get`), the off-thread replacement for the synchronous
 libgit2 config lookup. resolves to the value or `null` when unset.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getconfigvalueasync" aria-label="Link to ::getConfigValueAsync(key)">#</a><code class="api-signature"><span class="api-signature-name">::getConfigValueAsync</span><span class="api-signature-parameters">(key)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L557" title="src/git-repository.js:557">L557</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L550" title="src/git-repository.js:550">L550</a></div>
                       </div>
                       <div class="api-description-body"><p>Asynchronously read a git configuration value via the git-host
 worker (<code>git config --get</code>), the off-thread replacement for the synchronous
@@ -4640,7 +4640,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
                     <article class="api-member api-member-method" id="gitrepository-instance-getoriginurl" data-api-entry="gitrepository getoriginurl ::getoriginurl() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getoriginurl" aria-label="Link to ::getOriginURL()">#</a><code class="api-signature"><span class="api-signature-name">::getOriginURL</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L568" title="src/git-repository.js:568">L568</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L561" title="src/git-repository.js:561">L561</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">String|null</code><span class="api-return-separator"> — </span><span class="api-return-copy">origin url of the repository, read from the refs snapshot’s remotes. Returns <code>null</code> until the snapshot has loaded or when the repository has no <code>origin</code> remote.</span></p></section>
@@ -4649,7 +4649,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
                     <article class="api-member api-member-method" id="gitrepository-instance-getupstreambranch" data-api-entry="gitrepository getupstreambranch ::getupstreambranch() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getupstreambranch" aria-label="Link to ::getUpstreamBranch()">#</a><code class="api-signature"><span class="api-signature-name">::getUpstreamBranch</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L582" title="src/git-repository.js:582">L582</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L575" title="src/git-repository.js:575">L575</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">String|null</code><span class="api-return-separator"> — </span><span class="api-return-copy">The upstream branch, such as <code>refs/remotes/origin/master</code>, or <code>null</code> when HEAD has no upstream.</span></p></section>
@@ -4662,7 +4662,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
  * `tags`    an `array` of tag reference names.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getreferences" aria-label="Link to ::getReferences()">#</a><code class="api-signature"><span class="api-signature-name">::getReferences</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L602" title="src/git-repository.js:602">L602</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L595" title="src/git-repository.js:595">L595</a></div>
                       </div>
                       <div class="api-description-body"><p>Gets all the local and remote references.</p>
 <ul>
@@ -4677,7 +4677,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
                     <article class="api-member api-member-method" id="gitrepository-instance-getreferencetarget" data-api-entry="gitrepository getreferencetarget ::getreferencetarget(reference) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getreferencetarget" aria-label="Link to ::getReferenceTarget(reference)">#</a><code class="api-signature"><span class="api-signature-name">::getReferenceTarget</span><span class="api-signature-parameters">(reference)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L619" title="src/git-repository.js:619">L619</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L612" title="src/git-repository.js:612">L612</a></div>
                       </div>
 
                       <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>reference</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The <code>String</code> reference to get the target of.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">String|null</code><span class="api-return-separator"> — </span><span class="api-return-copy">The current SHA for the reference, or <code>null</code> when it is unavailable.</span></p></section>
@@ -4690,7 +4690,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
                     <article class="api-member api-member-method" id="gitrepository-instance-ispathmodified" data-api-entry="gitrepository ispathmodified ::ispathmodified(path) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ispathmodified" aria-label="Link to ::isPathModified(path)">#</a><code class="api-signature"><span class="api-signature-name">::isPathModified</span><span class="api-signature-parameters">(path)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L667" title="src/git-repository.js:667">L667</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L660" title="src/git-repository.js:660">L660</a></div>
                       </div>
 
                       <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>path</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The <code>String</code> path to check.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Boolean</code><span class="api-return-separator"> — </span><span class="api-return-copy">Whether the path is modified in the detailed status snapshot. Returns <code>false</code> until the snapshot loads.</span></p></section>
@@ -4699,7 +4699,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
                     <article class="api-member api-member-method" id="gitrepository-instance-ispathnew" data-api-entry="gitrepository ispathnew ::ispathnew(path) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ispathnew" aria-label="Link to ::isPathNew(path)">#</a><code class="api-signature"><span class="api-signature-name">::isPathNew</span><span class="api-signature-parameters">(path)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L679" title="src/git-repository.js:679">L679</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L672" title="src/git-repository.js:672">L672</a></div>
                       </div>
 
                       <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>path</code></span></td><td><div class="api-argument-description"><div class="api-argument-copy">The <code>String</code> path to check.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Boolean</code><span class="api-return-separator"> — </span><span class="api-return-copy">Whether the path is new in the detailed status snapshot. Returns <code>false</code> until the snapshot loads.</span></p></section>
@@ -4709,7 +4709,7 @@ libgit2 config lookup. Resolves to the value or <code>null</code> when unset.</p
 snapshot's ignored entries; returns false until the snapshot has loaded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ispathignored" aria-label="Link to ::isPathIgnored(path)">#</a><code class="api-signature"><span class="api-signature-name">::isPathIgnored</span><span class="api-signature-parameters">(path)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L694" title="src/git-repository.js:694">L694</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L687" title="src/git-repository.js:687">L687</a></div>
                       </div>
                       <div class="api-description-body"><p>Is the given path ignored? Resolved from the detailed status
 snapshot’s ignored entries; returns false until the snapshot has loaded.</p>
@@ -4722,7 +4722,7 @@ git status snapshot's ignored entries. returns false until the first
 snapshot loads.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ispathignoredcached" aria-label="Link to ::isPathIgnoredCached(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::isPathIgnoredCached</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L709" title="src/git-repository.js:709">L709</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L702" title="src/git-repository.js:702">L702</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether the given path is ignored, resolved synchronously from the
 Git status snapshot’s ignored entries. Returns false until the first
@@ -4734,7 +4734,7 @@ snapshot loads.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getstatussnapshot" data-api-entry="gitrepository getstatussnapshot ::getstatussnapshot() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getstatussnapshot" aria-label="Link to ::getStatusSnapshot()">#</a><code class="api-signature"><span class="api-signature-name">::getStatusSnapshot</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L725" title="src/git-repository.js:725">L725</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L718" title="src/git-repository.js:718">L718</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Object</code><span class="api-return-separator"> — </span><span class="api-return-copy">latest immutable detailed status snapshot. It contains <code>head</code>, <code>upstream</code>, per-file staged/unstaged/conflict state, aggregate <code>counts</code>, and a monotonic <code>generation</code>. The initial snapshot has <code>initialized: false</code>; subscribe with <a class="api-ref" href="#gitrepository-instance-ondidchangestatussnapshot">#onDidChangeStatusSnapshot</a> or call <a class="api-ref" href="#gitrepository-instance-ensurestatussnapshot">#ensureStatusSnapshot</a> to load it.</span></p></section>
@@ -4744,7 +4744,7 @@ snapshot loads.</p>
 call. concurrent callers share one in-flight refresh.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ensurestatussnapshot" aria-label="Link to ::ensureStatusSnapshot(options = {})">#</a><code class="api-signature"><span class="api-signature-name">::ensureStatusSnapshot</span><span class="api-signature-parameters">(options = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L738" title="src/git-repository.js:738">L738</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L731" title="src/git-repository.js:731">L731</a></div>
                       </div>
                       <div class="api-description-body"><p>Resolve with an initialized status snapshot, loading it on first
 call. Concurrent callers share one in-flight refresh.</p>
@@ -4755,7 +4755,7 @@ call. Concurrent callers share one in-flight refresh.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getstatusentry" data-api-entry="gitrepository getstatusentry ::getstatusentry(filepath) ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getstatusentry" aria-label="Link to ::getStatusEntry(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::getStatusEntry</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L767" title="src/git-repository.js:767">L767</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L760" title="src/git-repository.js:760">L760</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Object|null</code><span class="api-return-separator"> — </span><span class="api-return-copy">detailed cached status for a repository path, or <code>null</code>.</span></p></section>
@@ -4766,7 +4766,7 @@ concurrent calls coalesce into at most one in-flight and one trailing
 subprocess; see `coalescesnapshotrefresh`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-refreshstatussnapshot" aria-label="Link to ::refreshStatusSnapshot(options = {})">#</a><code class="api-signature"><span class="api-signature-name">::refreshStatusSnapshot</span><span class="api-signature-parameters">(options = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L828" title="src/git-repository.js:828">L828</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L821" title="src/git-repository.js:821">L821</a></div>
                       </div>
                       <div class="api-description-body"><p>Refresh the detailed branch and file status snapshot with Git.
 Concurrent calls coalesce into at most one in-flight and one trailing
@@ -4779,7 +4779,7 @@ subprocess; see <code>coalesceSnapshotRefresh</code>.</p>
 snapshot.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getpathstatussummary" aria-label="Link to ::getPathStatusSummary(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::getPathStatusSummary</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L929" title="src/git-repository.js:929">L929</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L922" title="src/git-repository.js:922">L922</a></div>
                       </div>
                       <div class="api-description-body"><p>Classified status for one path, read from the detailed status
 snapshot.</p>
@@ -4793,7 +4793,7 @@ repository root. same sourcing and shape as {@link #getpathstatussummary}
 a reportable status.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getdirectorystatussummary" aria-label="Link to ::getDirectoryStatusSummary(directoryPath)">#</a><code class="api-signature"><span class="api-signature-name">::getDirectoryStatusSummary</span><span class="api-signature-parameters">(directoryPath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L946" title="src/git-repository.js:946">L946</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L939" title="src/git-repository.js:939">L939</a></div>
                       </div>
                       <div class="api-description-body"><p>Aggregate classified status for a directory, including the
 repository root. Same sourcing and shape as <a class="api-ref" href="#gitrepository-instance-getpathstatussummary">#getPathStatusSummary</a>
@@ -4806,7 +4806,7 @@ a reportable status.</p>
                     <article class="api-member api-member-method" id="gitrepository-instance-getrefssnapshot" data-api-entry="gitrepository getrefssnapshot ::getrefssnapshot() ">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getrefssnapshot" aria-label="Link to ::getRefsSnapshot()">#</a><code class="api-signature"><span class="api-signature-name">::getRefsSnapshot</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L969" title="src/git-repository.js:969">L969</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L962" title="src/git-repository.js:962">L962</a></div>
                       </div>
 
                       <section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Object</code><span class="api-return-separator"> — </span><span class="api-return-copy">latest immutable refs snapshot. It contains <code>head</code>, local <code>branches</code> with upstream tracking, <code>remoteBranches</code>, <code>tags</code>, <code>remotes</code> with fetch and push URLs, <code>worktrees</code>, and a monotonic <code>generation</code>. Branch and tag entries include <code>lastCommit</code> metadata for their target commit. The initial snapshot has <code>initialized: false</code>; subscribe with <a class="api-ref" href="#gitrepository-instance-ondidchangerefssnapshot">#onDidChangeRefsSnapshot</a> or call <a class="api-ref" href="#gitrepository-instance-ensurerefssnapshot">#ensureRefsSnapshot</a> to load it.</span></p></section>
@@ -4816,7 +4816,7 @@ a reportable status.</p>
 call. concurrent callers share one in-flight refresh.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-ensurerefssnapshot" aria-label="Link to ::ensureRefsSnapshot(options = {})">#</a><code class="api-signature"><span class="api-signature-name">::ensureRefsSnapshot</span><span class="api-signature-parameters">(options = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L982" title="src/git-repository.js:982">L982</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L975" title="src/git-repository.js:975">L975</a></div>
                       </div>
                       <div class="api-description-body"><p>Resolve with an initialized refs snapshot, loading it on first
 call. Concurrent callers share one in-flight refresh.</p>
@@ -4829,7 +4829,7 @@ at most one in-flight and one trailing refresh; see
 `coalescesnapshotrefresh`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-refreshrefssnapshot" aria-label="Link to ::refreshRefsSnapshot(options = {})">#</a><code class="api-signature"><span class="api-signature-name">::refreshRefsSnapshot</span><span class="api-signature-parameters">(options = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1010" title="src/git-repository.js:1010">L1010</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1003" title="src/git-repository.js:1003">L1003</a></div>
                       </div>
                       <div class="api-description-body"><p>Refresh the refs snapshot with Git. Concurrent calls coalesce into
 at most one in-flight and one trailing refresh; see
@@ -4871,7 +4871,7 @@ at most one in-flight and one trailing refresh; see
     maxBytes = 10 * 1024 * 1024,
     signal,
   } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1069" title="src/git-repository.js:1069">L1069</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1062" title="src/git-repository.js:1062">L1062</a></div>
                       </div>
                       <div class="api-description-body"><p>Compute a structured diff between two endpoints.</p>
 </div>
@@ -4899,7 +4899,7 @@ at most one in-flight and one trailing refresh; see
     cursor = null,
     signal,
   } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1134" title="src/git-repository.js:1134">L1134</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1127" title="src/git-repository.js:1127">L1127</a></div>
                       </div>
                       <div class="api-description-body"><p>Read paginated commit history.</p>
 </div>
@@ -4909,7 +4909,7 @@ at most one in-flight and one trailing refresh; see
                     <article class="api-member api-member-method" id="gitrepository-instance-getcommit" data-api-entry="gitrepository getcommit ::getcommit(sha, { signal } = {}) read one commit with its changed-file summary.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getcommit" aria-label="Link to ::getCommit(sha, { signal } = {})">#</a><code class="api-signature"><span class="api-signature-name">::getCommit</span><span class="api-signature-parameters">(sha, { signal } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1177" title="src/git-repository.js:1177">L1177</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1170" title="src/git-repository.js:1170">L1170</a></div>
                       </div>
                       <div class="api-description-body"><p>Read one commit with its changed-file summary.</p>
 </div>
@@ -4919,7 +4919,7 @@ at most one in-flight and one trailing refresh; see
                     <article class="api-member api-member-method" id="gitrepository-instance-getfileatrevision" data-api-entry="gitrepository getfileatrevision ::getfileatrevision(filepath, revision, { encoding = &quot;utf8&quot;, signal } = {}) read a file's contents at a revision.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getfileatrevision" aria-label="Link to ::getFileAtRevision(filePath, revision, { encoding = &quot;utf8&quot;, signal } = {})">#</a><code class="api-signature"><span class="api-signature-name">::getFileAtRevision</span><span class="api-signature-parameters">(filePath, revision, { encoding = &quot;utf8&quot;, signal } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1207" title="src/git-repository.js:1207">L1207</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1200" title="src/git-repository.js:1200">L1200</a></div>
                       </div>
                       <div class="api-description-body"><p>Read a file’s contents at a revision.</p>
 </div>
@@ -4929,7 +4929,7 @@ at most one in-flight and one trailing refresh; see
                     <article class="api-member api-member-method" id="gitrepository-instance-getblob" data-api-entry="gitrepository getblob ::getblob(oid, { encoding = &quot;utf8&quot;, signal } = {}) read a blob's contents by object id (`git cat-file -p &lt;oid&gt;`).">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getblob" aria-label="Link to ::getBlob(oid, { encoding = &quot;utf8&quot;, signal } = {})">#</a><code class="api-signature"><span class="api-signature-name">::getBlob</span><span class="api-signature-parameters">(oid, { encoding = &quot;utf8&quot;, signal } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1230" title="src/git-repository.js:1230">L1230</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1223" title="src/git-repository.js:1223">L1223</a></div>
                       </div>
                       <div class="api-description-body"><p>Read a blob’s contents by object id (<code>git cat-file -p &lt;oid&gt;</code>).</p>
 </div>
@@ -4941,7 +4941,7 @@ at most one in-flight and one trailing refresh; see
 `&quot;&quot;` when the branch is unborn.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getdescription" aria-label="Link to ::getDescription()">#</a><code class="api-signature"><span class="api-signature-name">::getDescription</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1246" title="src/git-repository.js:1246">L1246</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1239" title="src/git-repository.js:1239">L1239</a></div>
                       </div>
                       <div class="api-description-body"><p>Describe HEAD as a ref name (<code>git describe --contains --all --always</code>). Returns a <code>Promise</code> resolving to the <code>String</code> description, or
 <code>&quot;&quot;</code> when the branch is unborn.</p>
@@ -4953,7 +4953,7 @@ at most one in-flight and one trailing refresh; see
 (`git branch --contains`).">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getbranchescontaining" aria-label="Link to ::getBranchesContaining(commit, { showLocal = false, showRemote = false, pattern = null } = {})">#</a><code class="api-signature"><span class="api-signature-name">::getBranchesContaining</span><span class="api-signature-parameters">(commit, { showLocal = false, showRemote = false, pattern = null } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1266" title="src/git-repository.js:1266">L1266</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1259" title="src/git-repository.js:1259">L1259</a></div>
                       </div>
                       <div class="api-description-body"><p>The fully-qualified refnames of branches that contain a commit
 (<code>git branch --contains</code>).</p>
@@ -4964,7 +4964,7 @@ at most one in-flight and one trailing refresh; see
                     <article class="api-member api-member-method" id="gitrepository-instance-getfilemode" data-api-entry="gitrepository getfilemode ::getfilemode(filepath) the index mode of a path (`git ls-files --stage`).">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getfilemode" aria-label="Link to ::getFileMode(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::getFileMode</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1285" title="src/git-repository.js:1285">L1285</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1278" title="src/git-repository.js:1278">L1278</a></div>
                       </div>
                       <div class="api-description-body"><p>The index mode of a path (<code>git ls-files --stage</code>).</p>
 </div>
@@ -4975,7 +4975,7 @@ at most one in-flight and one trailing refresh; see
 (`git submodule status`).">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getsubmodulepaths" aria-label="Link to ::getSubmodulePaths()">#</a><code class="api-signature"><span class="api-signature-name">::getSubmodulePaths</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1300" title="src/git-repository.js:1300">L1300</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1293" title="src/git-repository.js:1293">L1293</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository-relative paths of the repository’s submodules
 (<code>git submodule status</code>).</p>
@@ -4986,7 +4986,7 @@ at most one in-flight and one trailing refresh; see
                     <article class="api-member api-member-method" id="gitrepository-instance-getblame" data-api-entry="gitrepository getblame ::getblame(filepath, { revision = null, ignorewhitespace = false, signal } = {}) read line-by-line blame for a file.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getblame" aria-label="Link to ::getBlame(filePath, { revision = null, ignoreWhitespace = false, signal } = {})">#</a><code class="api-signature"><span class="api-signature-name">::getBlame</span><span class="api-signature-parameters">(filePath, { revision = null, ignoreWhitespace = false, signal } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1319" title="src/git-repository.js:1319">L1319</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1312" title="src/git-repository.js:1312">L1312</a></div>
                       </div>
                       <div class="api-description-body"><p>Read line-by-line blame for a file.</p>
 </div>
@@ -5002,7 +5002,7 @@ git-host worker (fetching and caching the head blob, diffing in js) instead
 of synchronously via libgit2.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-getlinediffsasync" aria-label="Link to ::getLineDiffsAsync(filePath, text)">#</a><code class="api-signature"><span class="api-signature-name">::getLineDiffsAsync</span><span class="api-signature-parameters">(filePath, text)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1346" title="src/git-repository.js:1346">L1346</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1339" title="src/git-repository.js:1339">L1339</a></div>
                       </div>
                       <div class="api-description-body"><p>Computes gutter line diffs off the renderer thread via the
 git-host worker (fetching and caching the HEAD blob, diffing in JS) instead
@@ -5020,7 +5020,7 @@ to the version at `head`, via the repository operation provider
 (`git checkout head -- &lt;path&gt;`).">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-checkouthead" aria-label="Link to ::checkoutHead(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::checkoutHead</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1376" title="src/git-repository.js:1376">L1376</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1369" title="src/git-repository.js:1369">L1369</a></div>
                       </div>
                       <div class="api-description-body"><p>Restore the contents of a path in the working directory and index
 to the version at <code>HEAD</code>, via the repository operation provider
@@ -5033,7 +5033,7 @@ to the version at <code>HEAD</code>, via the repository operation provider
 provider.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#gitrepository-instance-checkoutreference" aria-label="Link to ::checkoutReference(reference, create)">#</a><code class="api-signature"><span class="api-signature-name">::checkoutReference</span><span class="api-signature-parameters">(reference, create)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1398" title="src/git-repository.js:1398">L1398</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/git-repository.js#L1391" title="src/git-repository.js:1391">L1391</a></div>
                       </div>
                       <div class="api-description-body"><p>Checks out a branch in your repository via the repository operation
 provider.</p>
@@ -5468,14 +5468,25 @@ object describing what the caller already knows about the path — see
                       <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>options</code><span class="api-argument-note">optional, default: {}</span></span></td><td><div class="api-argument-description"><span class="api-empty">No description.</span></div></td></tr></tbody></table></div>
                     </article>
 
-                    <article class="api-member api-member-method" id="iconregistry-instance-applyto" data-api-entry="iconregistry applyto ::applyto(element, target, options = {}) render `target`'s icon into `element` and keep it current.">
+                    <article class="api-member api-member-method" id="iconregistry-instance-applyto" data-api-entry="iconregistry applyto ::applyto(element, target, options = {}) render `target`'s icon into `element` and keep it current.
+
+current with respect to providers, not to the target: `live` re-renders as
+icon providers come and go, but the target — its hints included — is read
+once. a caller whose hints can change (a repository registered after
+startup, say) calls `applyto` again with fresh hints; the new application
+replaces the old one on the element wholesale.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#iconregistry-instance-applyto" aria-label="Link to ::applyTo(element, target, options = {})">#</a><code class="api-signature"><span class="api-signature-name">::applyTo</span><span class="api-signature-parameters">(element, target, options = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L443" title="src/icon-registry.js:443">L443</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L449" title="src/icon-registry.js:449">L449</a></div>
                       </div>
                       <div class="api-description-body"><p>Render <code>target</code>’s icon into <code>element</code> and keep it current.</p>
+<p>Current with respect to providers, not to the target: <code>live</code> re-renders as
+icon providers come and go, but the target — its hints included — is read
+once. A caller whose hints can change (a repository registered after
+startup, say) calls <code>applyTo</code> again with fresh hints; the new application
+replaces the old one on the element wholesale.</p>
 </div>
-                      <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>element</code></span></td><td><div class="api-argument-description"><code class="api-type-expression">Element</code><div class="api-argument-copy">The element that receives the icon.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>target</code></span></td><td><div class="api-argument-description"><code class="api-type-expression">Object</code><div class="api-argument-copy">The icon target.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>options</code><span class="api-argument-note">optional</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Object</code><div class="api-argument-copy">Rendering options.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>classes</code><span class="api-argument-note">optional</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Array&lt;String&gt;</code><div class="api-argument-copy">Extra classes to add.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>name</code><span class="api-argument-note">optional</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">String</code><div class="api-argument-copy">An explicit <code>data-name</code>.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>setData</code><span class="api-argument-note">optional, default: true</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Set <code>data-name</code> and <code>data-path</code>.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>live</code><span class="api-argument-note">optional, default: true</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Re-render when the icon changes.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>render</code><span class="api-argument-note">optional, default: true</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Render children and styles in addition to applying classes.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>skipFallback</code><span class="api-argument-note">optional, default: false</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Render nothing unless a provider above the built-in answers.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Disposable</code><span class="api-return-separator"> — </span><span class="api-return-copy">that removes everything the call added.</span></p></section>
+                      <div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>element</code></span></td><td><div class="api-argument-description"><code class="api-type-expression">Element</code><div class="api-argument-copy">The element that receives the icon.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>target</code></span></td><td><div class="api-argument-description"><code class="api-type-expression">Object</code><div class="api-argument-copy">The icon target.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:0"><code>options</code><span class="api-argument-note">optional</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Object</code><div class="api-argument-copy">Rendering options.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>classes</code><span class="api-argument-note">optional</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Array&lt;String&gt;</code><div class="api-argument-copy">Extra classes to add.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>name</code><span class="api-argument-note">optional</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">String</code><div class="api-argument-copy">An explicit <code>data-name</code>.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>setData</code><span class="api-argument-note">optional, default: true</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Set <code>data-name</code> and <code>data-path</code>.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>live</code><span class="api-argument-note">optional, default: true</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Re-render when a provider change alters the icon.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>render</code><span class="api-argument-note">optional, default: true</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Render children and styles in addition to applying classes.</div></div></td></tr><tr><td><span class="api-argument-name" style="--api-argument-depth:1"><code>skipFallback</code><span class="api-argument-note">optional, default: false</span></span></td><td><div class="api-argument-description"><code class="api-type-expression">Boolean</code><div class="api-argument-copy">Render nothing unless a provider above the built-in answers.</div></div></td></tr></tbody></table></div><section class="api-return-section"><h5>Returns</h5><p class="api-return-value"><code class="api-type-expression">Disposable</code><span class="api-return-separator"> — </span><span class="api-return-copy">that removes everything the call added.</span></p></section>
                     </article>
 
                     <article class="api-member api-member-method" id="iconregistry-instance-invalidate" data-api-entry="iconregistry invalidate ::invalidate(scope) drop cached answers and repaint what they were rendered into.
@@ -5486,7 +5497,7 @@ provider that resolves one file extension asynchronously should repaint the
 rows showing that extension, not every row in the tree.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#iconregistry-instance-invalidate" aria-label="Link to ::invalidate(scope)">#</a><code class="api-signature"><span class="api-signature-name">::invalidate</span><span class="api-signature-parameters">(scope)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L507" title="src/icon-registry.js:507">L507</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L513" title="src/icon-registry.js:513">L513</a></div>
                       </div>
                       <div class="api-description-body"><p>Drop cached answers and repaint what they were rendered into.</p>
 <p><code>scope</code> is undefined or null for everything, or an object narrowing it to
@@ -5502,7 +5513,7 @@ rows showing that extension, not every row in the tree.</p>
 name renders no icon.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#iconregistry-instance-definenames" aria-label="Link to ::defineNames(entries)">#</a><code class="api-signature"><span class="api-signature-name">::defineNames</span><span class="api-signature-parameters">(entries)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L585" title="src/icon-registry.js:585">L585</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L591" title="src/icon-registry.js:591">L591</a></div>
                       </div>
                       <div class="api-description-body"><p>Override the icon for one or more semantic names. Returns a
 <code>Disposable</code> that restores the previous mapping. A <code>null</code> value means the
@@ -5514,7 +5525,7 @@ name renders no icon.</p>
                     <article class="api-member api-member-method" id="iconregistry-instance-definekinds" data-api-entry="iconregistry definekinds ::definekinds(entries) override the icon for one or more kinds. returns a `disposable`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#iconregistry-instance-definekinds" aria-label="Link to ::defineKinds(entries)">#</a><code class="api-signature"><span class="api-signature-name">::defineKinds</span><span class="api-signature-parameters">(entries)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L595" title="src/icon-registry.js:595">L595</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L601" title="src/icon-registry.js:601">L601</a></div>
                       </div>
                       <div class="api-description-body"><p>Override the icon for one or more kinds. Returns a <code>Disposable</code>.</p>
 </div>
@@ -5524,7 +5535,7 @@ name renders no icon.</p>
                     <article class="api-member api-member-method" id="iconregistry-instance-ondidchange" data-api-entry="iconregistry ondidchange ::ondidchange(callback) invoke `callback` when any icon may have changed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#iconregistry-instance-ondidchange" aria-label="Link to ::onDidChange(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChange</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L625" title="src/icon-registry.js:625">L625</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/icon-registry.js#L631" title="src/icon-registry.js:631">L631</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke <code>callback</code> when any icon may have changed.</p>
 </div>
@@ -9150,7 +9161,7 @@ the active pane item unless a consumer pinned a selection with
 clears it; only path-less items keep the current selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getactiverepository" aria-label="Link to ::getActiveRepository()">#</a><code class="api-signature"><span class="api-signature-name">::getActiveRepository</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L272" title="src/repository-registry.js:272">L272</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L282" title="src/repository-registry.js:282">L282</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository the window is currently working in. It follows
 the active pane item unless a consumer pinned a selection with
@@ -9173,7 +9184,7 @@ clone into — its containing project root, or the item's own directory.
 * `pinned` a `boolean`, `true` while a manual selection holds.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getactiverepositorycontext" aria-label="Link to ::getActiveRepositoryContext()">#</a><code class="api-signature"><span class="api-signature-name">::getActiveRepositoryContext</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L294" title="src/repository-registry.js:294">L294</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L304" title="src/repository-registry.js:304">L304</a></div>
                       </div>
                       <div class="api-description-body"><p>The active repository together with the directory it applies to.</p>
 <p>The working directory is always present while a file-backed item is
@@ -9193,7 +9204,7 @@ clone into — its containing project root, or the item’s own directory.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-isactiverepositorypinned" data-api-entry="repositoryregistry isactiverepositorypinned ::isactiverepositorypinned() whether the active repository is pinned to a manual selection.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-isactiverepositorypinned" aria-label="Link to ::isActiveRepositoryPinned()">#</a><code class="api-signature"><span class="api-signature-name">::isActiveRepositoryPinned</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L310" title="src/repository-registry.js:310">L310</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L320" title="src/repository-registry.js:320">L320</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether the active repository is pinned to a manual selection.</p>
 </div>
@@ -9206,7 +9217,7 @@ it fires for moves between out-of-repository directories too, while the
 repository itself stays `null`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidchangeactiverepository" aria-label="Link to ::onDidChangeActiveRepository(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChangeActiveRepository</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L326" title="src/repository-registry.js:326">L326</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L336" title="src/repository-registry.js:336">L336</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback whenever the active repository context changes.</p>
 <p>It fires for moves between out-of-repository directories too, while the
@@ -9222,7 +9233,7 @@ this is what a status bar or a panel wants: it is called once on
 subscription, so there is no gap to fill in by hand.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-observeactiverepository" aria-label="Link to ::observeActiveRepository(callback)">#</a><code class="api-signature"><span class="api-signature-name">::observeActiveRepository</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L343" title="src/repository-registry.js:343">L343</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L353" title="src/repository-registry.js:353">L353</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback with the current context immediately, and
 again on every change.</p>
@@ -9237,7 +9248,7 @@ subscription, so there is no gap to fill in by hand.</p>
 throws a `typeerror` if the repository is unregistered or destroyed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-setactiverepository" aria-label="Link to ::setActiveRepository(repository, { pin = false } = {})">#</a><code class="api-signature"><span class="api-signature-name">::setActiveRepository</span><span class="api-signature-parameters">(repository, { pin = false } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L361" title="src/repository-registry.js:361">L361</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L371" title="src/repository-registry.js:371">L371</a></div>
                       </div>
                       <div class="api-description-body"><p>Select the active repository manually.</p>
 <p>Throws a <code>TypeError</code> if the repository is unregistered or destroyed.</p>
@@ -9251,7 +9262,7 @@ unlike {@link #setactiverepository} this discovers a repository that was not
 registered yet, so it is asynchronous.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-setactiverepositoryforpath" aria-label="Link to ::setActiveRepositoryForPath(filePath, { pin = false } = {})">#</a><code class="api-signature"><span class="api-signature-name">::setActiveRepositoryForPath</span><span class="api-signature-parameters">(filePath, { pin = false } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L392" title="src/repository-registry.js:392">L392</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L402" title="src/repository-registry.js:402">L402</a></div>
                       </div>
                       <div class="api-description-body"><p>Resolve the repository for a path and make it the active one.</p>
 <p>Unlike <a class="api-ref" href="#repositoryregistry-instance-setactiverepository">#setActiveRepository</a> this discovers a repository that was not
@@ -9274,7 +9285,7 @@ can tell whether its copy is still current without diffing.
 * `repositories` a frozen `array` of {@link gitrepository}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getsnapshot" aria-label="Link to ::getSnapshot()">#</a><code class="api-signature"><span class="api-signature-name">::getSnapshot</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L608" title="src/repository-registry.js:608">L608</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L618" title="src/repository-registry.js:618">L618</a></div>
                       </div>
                       <div class="api-description-body"><p>The registered repositories together with the version they were
 read at.</p>
@@ -9294,7 +9305,7 @@ this is a snapshot. use {@link #observerepositories} to keep up with the ones
 registered later.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getrepositories" aria-label="Link to ::getRepositories()">#</a><code class="api-signature"><span class="api-signature-name">::getRepositories</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L626" title="src/repository-registry.js:626">L626</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L636" title="src/repository-registry.js:636">L636</a></div>
                       </div>
                       <div class="api-description-body"><p>Every registered repository.</p>
 <p>This is a snapshot. Use <a class="api-ref" href="#repositoryregistry-instance-observerepositories">#observeRepositories</a> to keep up with the ones
@@ -9306,7 +9317,7 @@ registered later.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-getbyid" data-api-entry="repositoryregistry getbyid ::getbyid(id) look a repository up by the id the registry gave it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getbyid" aria-label="Link to ::getById(id)">#</a><code class="api-signature"><span class="api-signature-name">::getById</span><span class="api-signature-parameters">(id)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L639" title="src/repository-registry.js:639">L639</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L649" title="src/repository-registry.js:649">L649</a></div>
                       </div>
                       <div class="api-description-body"><p>Look a repository up by the id the registry gave it.</p>
 </div>
@@ -9321,7 +9332,7 @@ registered later.</p>
 the future.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-observerepositories" aria-label="Link to ::observeRepositories(callback)">#</a><code class="api-signature"><span class="api-signature-name">::observeRepositories</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L657" title="src/repository-registry.js:657">L657</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L667" title="src/repository-registry.js:667">L667</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback with every registered repository, now and in
 the future.</p>
@@ -9332,7 +9343,7 @@ the future.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-ondidaddrepository" data-api-entry="repositoryregistry ondidaddrepository ::ondidaddrepository(callback) invoke the callback when a repository is registered.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidaddrepository" aria-label="Link to ::onDidAddRepository(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidAddRepository</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L671" title="src/repository-registry.js:671">L671</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L681" title="src/repository-registry.js:681">L681</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a repository is registered.</p>
 </div>
@@ -9345,7 +9356,7 @@ release anything keyed on the repository here: it is destroyed once nothing
 holds it any more.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidremoverepository" aria-label="Link to ::onDidRemoveRepository(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidRemoveRepository</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L687" title="src/repository-registry.js:687">L687</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L697" title="src/repository-registry.js:697">L697</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a repository is removed.</p>
 <p>Release anything keyed on the repository here: it is destroyed once nothing
@@ -9361,7 +9372,7 @@ cheaper than the individual events when a consumer rebuilds derived state,
 since adding a project root registers many repositories at once.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidchange" aria-label="Link to ::onDidChange(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChange</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L711" title="src/repository-registry.js:711">L711</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L721" title="src/repository-registry.js:721">L721</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback once per batch of changes to the registered
 set, with everything that changed together.</p>
@@ -9374,7 +9385,7 @@ since adding a project root registers many repositories at once.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-ondidstartrescan" data-api-entry="repositoryregistry ondidstartrescan ::ondidstartrescan(callback) invoke the callback when a rescan of the project roots begins.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidstartrescan" aria-label="Link to ::onDidStartRescan(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidStartRescan</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L725" title="src/repository-registry.js:725">L725</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L735" title="src/repository-registry.js:735">L735</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a rescan of the project roots begins.</p>
 </div>
@@ -9385,7 +9396,7 @@ since adding a project root registers many repositories at once.</p>
 succeeded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidfinishrescan" aria-label="Link to ::onDidFinishRescan(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidFinishRescan</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L742" title="src/repository-registry.js:742">L742</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L752" title="src/repository-registry.js:752">L752</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when a rescan finishes, whether or not it
 succeeded.</p>
@@ -9397,7 +9408,7 @@ succeeded.</p>
 the same repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidqueueoperation" aria-label="Link to ::onDidQueueOperation(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidQueueOperation</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L756" title="src/repository-registry.js:756">L756</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L766" title="src/repository-registry.js:766">L766</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when an operation is queued behind another on
 the same repository.</p>
@@ -9408,7 +9419,7 @@ the same repository.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-ondidstartoperation" data-api-entry="repositoryregistry ondidstartoperation ::ondidstartoperation(callback) invoke the callback when an operation starts running.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidstartoperation" aria-label="Link to ::onDidStartOperation(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidStartOperation</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L769" title="src/repository-registry.js:769">L769</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L779" title="src/repository-registry.js:779">L779</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when an operation starts running.</p>
 </div>
@@ -9419,7 +9430,7 @@ the same repository.</p>
 succeeded.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-ondidfinishoperation" aria-label="Link to ::onDidFinishOperation(callback)">#</a><code class="api-signature"><span class="api-signature-name">::onDidFinishOperation</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L783" title="src/repository-registry.js:783">L783</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L793" title="src/repository-registry.js:793">L793</a></div>
                       </div>
                       <div class="api-description-body"><p>Invoke the callback when an operation finishes, whether or not it
 succeeded.</p>
@@ -9441,7 +9452,7 @@ or a nested checkout should do. use {@link #resolveforpath} when the path may
 belong to a repository nobody has discovered yet.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getforpath" aria-label="Link to ::getForPath(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::getForPath</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L807" title="src/repository-registry.js:807">L807</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L817" title="src/repository-registry.js:817">L817</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository a path belongs to, from what is already
 registered.</p>
@@ -9458,7 +9469,7 @@ belong to a repository nobody has discovered yet.</p>
 if it is not known yet.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolveforpath" aria-label="Link to ::resolveForPath(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::resolveForPath</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L857" title="src/repository-registry.js:857">L857</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L867" title="src/repository-registry.js:867">L867</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository a path belongs to, discovering and registering one
 if it is not known yet.</p>
@@ -9473,7 +9484,7 @@ discovery reads the filesystem, so this blocks the renderer. prefer
 {@link #resolveforpath} when it is not.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolveforpathsync" aria-label="Link to ::resolveForPathSync(filePath)">#</a><code class="api-signature"><span class="api-signature-name">::resolveForPathSync</span><span class="api-signature-parameters">(filePath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L878" title="src/repository-registry.js:878">L878</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L888" title="src/repository-registry.js:888">L888</a></div>
                       </div>
                       <div class="api-description-body"><p><a class="api-ref" href="#repositoryregistry-instance-resolveforpath">#resolveForPath</a>, synchronously.</p>
 <p>Discovery reads the filesystem, so this blocks the renderer. Prefer
@@ -9487,7 +9498,7 @@ discovery reads the filesystem, so this blocks the renderer. prefer
 if it is not known yet.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolvedirectory" aria-label="Link to ::resolveDirectory(directory)">#</a><code class="api-signature"><span class="api-signature-name">::resolveDirectory</span><span class="api-signature-parameters">(directory)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L896" title="src/repository-registry.js:896">L896</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L906" title="src/repository-registry.js:906">L906</a></div>
                       </div>
                       <div class="api-description-body"><p>The repository for a <code>Directory</code>, discovering and registering one
 if it is not known yet.</p>
@@ -9498,7 +9509,7 @@ if it is not known yet.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-resolvedirectorysync" data-api-entry="repositoryregistry resolvedirectorysync ::resolvedirectorysync(directory) {@link #resolvedirectory}, synchronously. reads the filesystem.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-resolvedirectorysync" aria-label="Link to ::resolveDirectorySync(directory)">#</a><code class="api-signature"><span class="api-signature-name">::resolveDirectorySync</span><span class="api-signature-parameters">(directory)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L910" title="src/repository-registry.js:910">L910</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L920" title="src/repository-registry.js:920">L920</a></div>
                       </div>
                       <div class="api-description-body"><p><a class="api-ref" href="#repositoryregistry-instance-resolvedirectory">#resolveDirectory</a>, synchronously. Reads the filesystem.</p>
 </div>
@@ -9517,7 +9528,7 @@ across those changes, and dispose the result when you are done, or it will
 outlive its usefulness.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-retain" aria-label="Link to ::retain(repository, source = &quot;pin&quot;)">#</a><code class="api-signature"><span class="api-signature-name">::retain</span><span class="api-signature-parameters">(repository, source = &quot;pin&quot;)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L934" title="src/repository-registry.js:934">L934</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L944" title="src/repository-registry.js:944">L944</a></div>
                       </div>
                       <div class="api-description-body"><p>Keep a repository alive for as long as you hold the result.</p>
 <p>A repository is destroyed once nothing owns it — no project root contains
@@ -9537,7 +9548,7 @@ duration.
 throws an `error` if the repository cannot be registered.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-runoperation" aria-label="Link to ::runOperation(repository, operation)">#</a><code class="api-signature"><span class="api-signature-name">::runOperation</span><span class="api-signature-parameters">(repository, operation)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L962" title="src/repository-registry.js:962">L962</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L972" title="src/repository-registry.js:972">L972</a></div>
                       </div>
                       <div class="api-description-body"><p>Run your own work against a repository, holding it alive for the
 duration.</p>
@@ -9557,7 +9568,7 @@ window reloads.
 * `dispose` a `function` that releases it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-add" aria-label="Link to ::add(filePath, { persist = true } = {})">#</a><code class="api-signature"><span class="api-signature-name">::add</span><span class="api-signature-parameters">(filePath, { persist = true } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1602" title="src/repository-registry.js:1602">L1602</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-async">async</span><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1612" title="src/repository-registry.js:1612">L1612</a></div>
                       </div>
                       <div class="api-description-body"><p>Register the repository containing a path, and keep it.</p>
 <p>For a repository the user chose that no project root covers. It is held
@@ -9577,7 +9588,7 @@ the repository stays registered while a project root or an open buffer
 still owns it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-forget" aria-label="Link to ::forget(repository)">#</a><code class="api-signature"><span class="api-signature-name">::forget</span><span class="api-signature-parameters">(repository)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1633" title="src/repository-registry.js:1633">L1633</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1643" title="src/repository-registry.js:1643">L1643</a></div>
                       </div>
                       <div class="api-description-body"><p>Drop every manual hold <a class="api-ref" href="#repositoryregistry-instance-add">#add</a> placed on a repository.</p>
 <p>The repository stays registered while a project root or an open buffer
@@ -9601,7 +9612,7 @@ throws a `typeerror` if the provider implements none of those methods, and
 an `error` if the registry has been destroyed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-addoperationprovider" aria-label="Link to ::addOperationProvider(provider, { fallback = false } = {})">#</a><code class="api-signature"><span class="api-signature-name">::addOperationProvider</span><span class="api-signature-parameters">(provider, { fallback = false } = {})</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1000" title="src/repository-registry.js:1000">L1000</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1010" title="src/repository-registry.js:1010">L1010</a></div>
                       </div>
                       <div class="api-description-body"><p>Supply the Git implementation behind the registry’s operations.</p>
 <p>The registry routes work but performs none of it. A provider implements at
@@ -9617,7 +9628,7 @@ an <code>Error</code> if the registry has been destroyed.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-getoperations" data-api-entry="repositoryregistry getoperations ::getoperations(repository) the operations available on a repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getoperations" aria-label="Link to ::getOperations(repository)">#</a><code class="api-signature"><span class="api-signature-name">::getOperations</span><span class="api-signature-parameters">(repository)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1042" title="src/repository-registry.js:1042">L1042</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1052" title="src/repository-registry.js:1052">L1052</a></div>
                       </div>
                       <div class="api-description-body"><p>The operations available on a repository.</p>
 </div>
@@ -9631,7 +9642,7 @@ answer nothing, and the honest response is to hide the command rather than
 to fail when it is invoked.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-canperformoperation" aria-label="Link to ::canPerformOperation(repository, operationName)">#</a><code class="api-signature"><span class="api-signature-name">::canPerformOperation</span><span class="api-signature-parameters">(repository, operationName)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1060" title="src/repository-registry.js:1060">L1060</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1070" title="src/repository-registry.js:1070">L1070</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether an operation can be performed on a repository right now.</p>
 <p>Ask before offering an action. A window where no package provides Git can
@@ -9644,7 +9655,7 @@ to fail when it is invoked.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-getoperationcapabilities" data-api-entry="repositoryregistry getoperationcapabilities ::getoperationcapabilities(repository) every operation any provider can perform on a repository.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getoperationcapabilities" aria-label="Link to ::getOperationCapabilities(repository)">#</a><code class="api-signature"><span class="api-signature-name">::getOperationCapabilities</span><span class="api-signature-parameters">(repository)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1073" title="src/repository-registry.js:1073">L1073</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1083" title="src/repository-registry.js:1083">L1083</a></div>
                       </div>
                       <div class="api-description-body"><p>Every operation any provider can perform on a repository.</p>
 </div>
@@ -9665,7 +9676,7 @@ next one queued. this is what a progress indicator reads.
 * `startedat` the `number` timestamp it started at, or `null`.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getpendingoperations" aria-label="Link to ::getPendingOperations(repository)">#</a><code class="api-signature"><span class="api-signature-name">::getPendingOperations</span><span class="api-signature-parameters">(repository)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1115" title="src/repository-registry.js:1115">L1115</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1125" title="src/repository-registry.js:1125">L1125</a></div>
                       </div>
                       <div class="api-description-body"><p>The operations queued or running right now.</p>
 <p>Operations on one repository run one at a time, so a long fetch leaves the
@@ -9692,7 +9703,7 @@ these belong to no repository — they are what creates one — so they are
 asked for separately from {@link #getoperationcapabilities}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getworkspaceoperationcapabilities" aria-label="Link to ::getWorkspaceOperationCapabilities()">#</a><code class="api-signature"><span class="api-signature-name">::getWorkspaceOperationCapabilities</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1149" title="src/repository-registry.js:1149">L1149</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1159" title="src/repository-registry.js:1159">L1159</a></div>
                       </div>
                       <div class="api-description-body"><p>Which of <code>initialize</code> and <code>clone</code> a provider can perform.</p>
 <p>These belong to no repository — they are what creates one — so they are
@@ -9704,7 +9715,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member api-member-method" id="repositoryregistry-instance-canperformworkspaceoperation" data-api-entry="repositoryregistry canperformworkspaceoperation ::canperformworkspaceoperation(operationname) whether a repository-creating operation can be performed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-canperformworkspaceoperation" aria-label="Link to ::canPerformWorkspaceOperation(operationName)">#</a><code class="api-signature"><span class="api-signature-name">::canPerformWorkspaceOperation</span><span class="api-signature-parameters">(operationName)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1165" title="src/repository-registry.js:1165">L1165</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1175" title="src/repository-registry.js:1175">L1175</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether a repository-creating operation can be performed.</p>
 </div>
@@ -9714,7 +9725,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member api-member-method" id="repositoryregistry-instance-initialize" data-api-entry="repositoryregistry initialize ::initialize(directorypath, options) create a repository in a directory and register it.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-initialize" aria-label="Link to ::initialize(directoryPath, options)">#</a><code class="api-signature"><span class="api-signature-name">::initialize</span><span class="api-signature-parameters">(directoryPath, options)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1243" title="src/repository-registry.js:1243">L1243</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1253" title="src/repository-registry.js:1253">L1253</a></div>
                       </div>
                       <div class="api-description-body"><p>Create a repository in a directory and register it.</p>
 </div>
@@ -9724,7 +9735,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member api-member-method" id="repositoryregistry-instance-clone" data-api-entry="repositoryregistry clone ::clone(remoteurl, destinationpath, options) clone a remote into a directory and register the result.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-clone" aria-label="Link to ::clone(remoteUrl, destinationPath, options)">#</a><code class="api-signature"><span class="api-signature-name">::clone</span><span class="api-signature-parameters">(remoteUrl, destinationPath, options)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1258" title="src/repository-registry.js:1258">L1258</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1268" title="src/repository-registry.js:1268">L1268</a></div>
                       </div>
                       <div class="api-description-body"><p>Clone a remote into a directory and register the result.</p>
 </div>
@@ -9738,7 +9749,7 @@ asked for separately from <a class="api-ref" href="#repositoryregistry-instance-
                     <article class="api-member api-member-method" id="repositoryregistry-instance-canexecutegitcommands" data-api-entry="repositoryregistry canexecutegitcommands ::canexecutegitcommands() whether any provider can run raw git commands.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-canexecutegitcommands" aria-label="Link to ::canExecuteGitCommands()">#</a><code class="api-signature"><span class="api-signature-name">::canExecuteGitCommands</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1181" title="src/repository-registry.js:1181">L1181</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-public">Public</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1191" title="src/repository-registry.js:1191">L1191</a></div>
                       </div>
                       <div class="api-description-body"><p>Whether any provider can run raw Git commands.</p>
 </div>
@@ -9752,7 +9763,7 @@ operation where one exists — it is the part a provider can implement
 without shelling out.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-executegit" aria-label="Link to ::executeGit(args, workingDirectory, options)">#</a><code class="api-signature"><span class="api-signature-name">::executeGit</span><span class="api-signature-parameters">(args, workingDirectory, options)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1200" title="src/repository-registry.js:1200">L1200</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1210" title="src/repository-registry.js:1210">L1210</a></div>
                       </div>
                       <div class="api-description-body"><p>Run a Git command through whichever provider offers one.</p>
 <p>The escape hatch for what the operation set does not cover. Prefer a named
@@ -9765,7 +9776,7 @@ without shelling out.</p>
                     <article class="api-member api-member-method" id="repositoryregistry-instance-getgitexecutablepath" data-api-entry="repositoryregistry getgitexecutablepath ::getgitexecutablepath() the git binary the active provider runs.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#repositoryregistry-instance-getgitexecutablepath" aria-label="Link to ::getGitExecutablePath()">#</a><code class="api-signature"><span class="api-signature-name">::getGitExecutablePath</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1225" title="src/repository-registry.js:1225">L1225</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/repository-registry.js#L1235" title="src/repository-registry.js:1235">L1235</a></div>
                       </div>
                       <div class="api-description-body"><p>The Git binary the active provider runs.</p>
 </div>
