@@ -2,6 +2,8 @@
 
 Lumine's **`sqlite-view`** package opens `.sqlite`, `.sqlite3`, `.db`, and `.db3` databases in a dedicated workspace tab. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/sqlite-view`. The package opens every database read-only: browsing data and running a query cannot change the file.
 
+Use **Additional Database Extensions** in the package settings for databases with another filename suffix. Entries may include or omit the leading dot; a matching file is opened only when its header identifies it as SQLite.
+
 ## Browse a database
 
 The schema explorer lists the database's tables, views, indexes, triggers, and columns. Selecting a table or view loads its columns and the first page of rows; enable the system-object toggle when you also need SQLite's internal `sqlite_*` objects. Refresh reloads both the schema and the visible result after another program changes the database.
