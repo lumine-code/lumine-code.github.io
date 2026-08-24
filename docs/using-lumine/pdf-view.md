@@ -12,7 +12,7 @@ Zoom with `pdf-view:zoom-in` / `pdf-view:zoom-out` (also bound to `+` and `-`, w
 
 ## Auto-reload
 
-The viewer watches the file on disk and reloads it when it changes, so a PDF re-rendered by an external tool refreshes in place. Toggle this per-viewer with `pdf-view:toggle-refreshing`, force a reload with `pdf-view:refresh`, or reload every open viewer with `pdf-view:reload-all`. The auto-reload delay and whether the viewer closes when its file is deleted are configurable in the package settings.
+The viewer watches the file on disk and reloads it when it changes, so a PDF re-rendered by an external tool refreshes in place. Toggle this per-viewer with `pdf-view:toggle-refreshing`, force a reload with `pdf-view:refresh`, or reload every open viewer with `pdf-view:reload-all`. The auto-reload delay and whether the viewer closes when its file is deleted are configurable in the package settings. A load that catches the file mid-write — restoring a window while a build is still running, say — retries by itself once the file settles.
 
 ## LaTeX and Typst
 
