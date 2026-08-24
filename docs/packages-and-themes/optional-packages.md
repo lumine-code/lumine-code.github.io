@@ -27,6 +27,7 @@ Lumine ships lean: many features live in optional packages maintained in the `lu
 - **column-selection** — create rectangular selections across lines by dragging.
 - **overtype-mode** — replace existing text as you type instead of inserting.
 - **archive-view** — browse the files and folders inside archive files.
+- **sqlite-view** — browse SQLite databases and run read-only queries in a keyboard-driven grid.
 - **link** — open the http(s) link under the cursor in your default browser.
 - **open-external** — open files and directories with their system applications.
 
