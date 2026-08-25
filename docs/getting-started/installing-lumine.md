@@ -8,6 +8,8 @@ Lumine is currently **source-first**: downloads and platform packages are still 
 - **Node.js** — the exact version is pinned in the repository's `.nvmrc` (currently Node 24). Using [nvm](https://github.com/nvm-sh/nvm) is the easiest way to match it. npm ships with Node, so there is nothing else to install for the package manager.
 - **A C/C++ build toolchain** — some native modules are compiled during install. On Windows this means the Visual Studio Build Tools; on macOS the Xcode command-line tools; on Linux the usual `build-essential`/Python toolchain.
 
+Electron 44 provides only 64-bit builds, so Lumine requires an x64 or arm64 system. The macOS minimum is macOS 13 Ventura; Windows builds require 64-bit Windows 10 or later. Linux builds target current 64-bit distributions and no longer include special Unity desktop integration.
+
 ## Build from source
 
 ```sh

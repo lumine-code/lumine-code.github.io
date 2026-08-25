@@ -6,7 +6,7 @@ Lumine is easy to use out of the box and just as easy to shape to your needs —
 
 ## Built on web technology
 
-Lumine is a desktop application built on **Electron 43** and **Node 24**. The interface is HTML and CSS and the editor is scriptable in JavaScript, so the same tools you use to build for the web are the tools you use to customize and extend the editor. The full application programming interface is exposed to packages and to your own init script through the global `lumine` object.
+Lumine is a desktop application built on **Electron 44**, **Chromium 152**, and **Node 24**. The interface is HTML and CSS and the editor is scriptable in JavaScript, so the same tools you use to build for the web are the tools you use to customize and extend the editor. The full application programming interface is exposed to packages and to your own init script through the global `lumine` object.
 
 ## Hackable by design
 

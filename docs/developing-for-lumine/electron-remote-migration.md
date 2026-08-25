@@ -76,19 +76,19 @@ const subscription = lumine.window.onDidReceive(
 
 ## The clipboard
 
-Electron deprecated `require('electron').clipboard` in the renderer — the module reached the platform clipboard from whichever process asked, and site isolation is taking that away. `lumine.clipboard` is the replacement, and it covers everything the Electron module did that a package has any use for:
+Electron 44 removed `require('electron').clipboard` from renderers and changed the main-process clipboard to the Promise-based W3C model. `lumine.clipboard` is the renderer-safe replacement; its programmatic reads and writes are asynchronous because they cross to the main process:
 
 ```js
-lumine.clipboard.write("some text");
-lumine.clipboard.read();
+await lumine.clipboard.write("some text");
+const text = await lumine.clipboard.read();
 
-const image = lumine.clipboard.readImage(); // a NativeImage, empty when there is none
-lumine.clipboard.writeImage(image); // a NativeImage, or the PNG bytes of one
+const image = await lumine.clipboard.readImage(); // a NativeImage, empty when there is none
+await lumine.clipboard.writeImage(image); // a NativeImage, or the PNG bytes of one
 ```
 
 `nativeImage` is unaffected, so build and inspect images in the renderer as before — only the clipboard itself moved. An image crosses the process boundary as PNG bytes, so its scale factor does not survive the trip.
 
-Text written with `write()` carries metadata that `readWithMetadata()` gives back, which is how the editor knows a paste came from a full-line copy. To claim a paste before the editor turns it into text, register a provider with `lumine.pasteProviders` rather than reading the clipboard yourself.
+Text written with `write()` carries metadata that `await readWithMetadata()` gives back, which is how the editor knows a paste came from a full-line copy. Native copy and paste events still expose synchronous `DataTransfer` data while the event is running. To claim a paste before the editor turns it into text, register a provider with `lumine.pasteProviders`; a provider may return a Promise, but it must copy anything it needs from `clipboardData` before its first asynchronous step.
 
 ## Dialogs and menus
 
