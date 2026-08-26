@@ -6,7 +6,9 @@ Lumine's **`terminal`** package is a terminal emulator built into the workspace,
 
 `terminal:open` opens a new terminal in the default location. To choose where it goes, use `terminal:open-center`, `terminal:open-bottom-dock`, `terminal:open-left-dock`, `terminal:open-right-dock`, or split the active pane with `terminal:open-split-up` / `-down` / `-left` / `-right`. `terminal:focus` focuses the active terminal, or creates one if none is open. Cycle between open terminals with `terminal:focus-next` and `terminal:focus-previous`.
 
-A focused terminal handles most keystrokes itself, so move focus out of it with `terminal:unfocus` before a Lumine keybinding will fire.
+The default `ctrl-backquote` binding focuses the active terminal, creates one if needed, and returns focus to the editor when the terminal already has it. `backquote` names the physical key rather than the character printed by the active keyboard layout. Terminal chords begin with `ctrl-shift-backquote`: press `n` for a new terminal, an arrow for a split, `b` / `l` / `r` for a dock, `x` / `i` in an editor to run or insert its selection, and `w` / `s` in a terminal to close or restart it.
+
+A focused terminal handles most other keystrokes itself, so use `terminal:unfocus` — bound to the same `ctrl-backquote` shortcut — before another Lumine keybinding will fire.
 
 ## Running editor text
 
