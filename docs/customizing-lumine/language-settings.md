@@ -1,16 +1,16 @@
-# Language-specific settings
+# Scoped settings
 
-Most editor settings can be overridden per language, so different file types can have their own indentation, wrapping, and other behavior while everything else keeps your global defaults.
+Any setting can be stored under a scope selector. Packages decide whether they read the base value or resolve it for an editor or syntax position, so scoped values are most useful for settings documented as language- or syntax-aware.
 
-## The Language tab
+## The scope selector
 
-The easiest way is **Settings → Language**. Pick a language from the list and adjust its settings; Lumine stores them under the **`language`** namespace, scoped to that language's grammar. There is also a **Defaults** entry for the settings applied to files that have no specific language.
+Every configuration page in **Settings** has an editable scope field directly below its heading. An empty field means **Default** and edits the base values stored under `"*"`; enter a custom selector or use the field's arrow to choose a known selector from the list.
 
-Each installed language grammar appears here, identified by its scope name (for example `source.python` or `source.js`).
+An inherited setting is grey and has an unchecked override checkbox in the left margin. Checking it copies the inherited value into that selector; unchecking it removes only that override. The UI describes what is stored, while the package owning the setting decides which scope descriptor it uses at runtime.
 
 ## How scoping works
 
-Language settings are **scoped**: they apply only to editors whose grammar matches. In [`config.json`](configuration.md) a scoped block is keyed by the language's scope selector rather than by `"*"`:
+In [`config.json`](configuration.md) a scoped block is keyed by its selector rather than by `"*"`:
 
 ```jsonc
 {
@@ -28,7 +28,7 @@ Language settings are **scoped**: they apply only to editors whose grammar match
 }
 ```
 
-Here every file uses two-space indentation except Makefiles, which use a four-wide real tab. The Language tab writes these scoped blocks for you.
+Here every file uses two-space indentation except Makefiles, which use a four-wide tab. The Settings scope selector writes these blocks for you. Custom selectors may also address nested syntax, for example `.source.js .meta.block.jsx.js`.
 
 ## Choosing a grammar for a file
 

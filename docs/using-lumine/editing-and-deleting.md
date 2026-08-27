@@ -17,7 +17,7 @@ Beyond typing, Lumine has commands for the line- and word-level edits you make c
 ## Indentation
 
 - `editor:indent` / `editor:indent-selected-rows` / `editor:outdent-selected-rows` adjust indentation.
-- Indentation width and whether to use tabs or spaces are configurable globally and per language — see [Language-specific settings](../customizing-lumine/language-settings.md).
+- Indentation width and whether to use tabs or spaces are configurable globally and per language — see [Scoped settings](../customizing-lumine/language-settings.md).
 
 ## Case, comments, and text tools
 

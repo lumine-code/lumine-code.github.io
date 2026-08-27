@@ -13,7 +13,7 @@ Run **`timecop:view`** (the bundled `timecop` package). It breaks down where tim
 
 ## Large files
 
-Very large files stress any editor. Turning off expensive per-line features for those files — soft wrap, some decorations, and heavy packages — helps. You can apply lighter settings to specific languages via [Language-specific settings](../customizing-lumine/language-settings.md).
+Very large files stress any editor. Turning off expensive per-line features for those files — soft wrap, some decorations, and heavy packages — helps. You can apply lighter settings to specific languages via [Scoped settings](../customizing-lumine/language-settings.md).
 
 ## Graphics issues
 

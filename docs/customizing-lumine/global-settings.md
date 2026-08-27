@@ -1,6 +1,6 @@
 # Global settings
 
-Global settings apply everywhere in the editor. They are the defaults you can later override per language.
+Global settings apply everywhere in the editor. They are the defaults a scoped configuration can inherit.
 
 ## Editing them
 
@@ -30,4 +30,4 @@ Values you set here appear in the Settings view and vice versa — they are the 
 
 ## Overriding per language
 
-Any editor setting can be overridden for a specific language so, for instance, Makefiles use real tabs while everything else uses spaces. That is covered in [Language-specific settings](language-settings.md).
+Settings can be stored under a grammar or syntax selector so, for instance, Makefiles use real tabs while everything else uses spaces. That is covered in [Scoped settings](language-settings.md).

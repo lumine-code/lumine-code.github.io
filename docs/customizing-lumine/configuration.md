@@ -30,7 +30,7 @@ A legacy `config.cson` is not loaded. Convert it to `config.json` or `config.jso
 
 ## Scoped settings
 
-Below `"*"`, settings can be **scoped** to a language so they only apply to files of that type. This is how per-language indentation, soft wrap, and similar options work — see [Language-specific settings](language-settings.md).
+Below `"*"`, settings can be stored under grammar or syntax selectors. Settings exposes the same selector on every configuration page — see [Scoped settings](language-settings.md).
 
 ## The rest of your customization
 
