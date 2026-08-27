@@ -1730,7 +1730,7 @@ above.
 
 * don't depend on (or write to) configuration keys outside of your keypath.">
           <header class="api-class-header"><p class="eyebrow">Essential API</p>
-          <h2>Config<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L430">src/config.js:430</a></h2>
+          <h2>Config<a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L431">src/config.js:431</a></h2>
           <div class="api-description-body api-class-description"><p>Used to access all of Lumine’s configuration details.</p>
 <p>An instance of this class is always available as the <code>lumine.config</code> global.</p>
 <h2>Getting and setting config settings.</h2>
@@ -2067,7 +2067,7 @@ lumine.config.observe('theme.mode', (value) =&gt; {
 ```">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-observe" aria-label="Link to ::observe(...args)">#</a><code class="api-signature"><span class="api-signature-name">::observe</span><span class="api-signature-parameters">(...args)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L543" title="src/config.js:543">L543</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L544" title="src/config.js:544">L544</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a listener for changes to a given key path. This is different
 than <a class="api-ref" href="#config-instance-ondidchange">#onDidChange</a> in that it will immediately call your callback with the
@@ -2087,7 +2087,7 @@ current value of the config entry.</p>
 not specified, your callback will be called on changes to any key.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-ondidchange" aria-label="Link to ::onDidChange(...args)">#</a><code class="api-signature"><span class="api-signature-name">::onDidChange</span><span class="api-signature-parameters">(...args)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L588" title="src/config.js:588">L588</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L589" title="src/config.js:589">L589</a></div>
                       </div>
                       <div class="api-description-body"><p>Add a listener for changes to a given key path. If <code>keyPath</code> is
 not specified, your callback will be called on changes to any key.</p>
@@ -2140,7 +2140,7 @@ lumine.config.get('editor.tablength', { scope: scopedescriptor }) // =&gt; 2
 ```">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-get" aria-label="Link to ::get(...args)">#</a><code class="api-signature"><span class="api-signature-name">::get</span><span class="api-signature-parameters">(...args)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L680" title="src/config.js:680">L680</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L681" title="src/config.js:681">L681</a></div>
                       </div>
                       <div class="api-description-body"><p>Retrieves the setting for the given key.</p>
 <h3>Examples</h3>
@@ -2173,7 +2173,7 @@ lumine.config.<span class="tok-fn">get</span>(<span class="tok-string">'editor.t
 associated scope selector.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-getall" aria-label="Link to ::getAll(keyPath, options)">#</a><code class="api-signature"><span class="api-signature-name">::getAll</span><span class="api-signature-parameters">(keyPath, options)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L722" title="src/config.js:722">L722</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L723" title="src/config.js:723">L723</a></div>
                       </div>
                       <div class="api-description-body"><p>Get all of the values for the given key-path, along with their
 associated scope selector.</p>
@@ -2211,7 +2211,7 @@ lumine.config.get('editor.tablength', { scope: ['source.js'] }) // =&gt; 4
 ```">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-set" aria-label="Link to ::set(...args)">#</a><code class="api-signature"><span class="api-signature-name">::set</span><span class="api-signature-parameters">(...args)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L804" title="src/config.js:804">L804</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L805" title="src/config.js:805">L805</a></div>
                       </div>
                       <div class="api-description-body"><p>Sets the value for a configuration setting.</p>
 <p>This value is stored in Lumine’s internal configuration file.</p>
@@ -2240,7 +2240,7 @@ lumine.config.<span class="tok-fn">get</span>(<span class="tok-string">'editor.t
                     <article class="api-member api-member-method" id="config-instance-unset" data-api-entry="config unset ::unset(keypath, options) restore the setting at `keypath` to its default value.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-unset" aria-label="Link to ::unset(keyPath, options)">#</a><code class="api-signature"><span class="api-signature-name">::unset</span><span class="api-signature-parameters">(keyPath, options)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L858" title="src/config.js:858">L858</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-essential">Essential</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L859" title="src/config.js:859">L859</a></div>
                       </div>
                       <div class="api-description-body"><p>Restore the setting at <code>keyPath</code> to its default value.</p>
 </div>
@@ -2251,7 +2251,7 @@ lumine.config.<span class="tok-fn">get</span>(<span class="tok-string">'editor.t
 settings have been added via {@link #set}.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-getsources" aria-label="Link to ::getSources()">#</a><code class="api-signature"><span class="api-signature-name">::getSources</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L917" title="src/config.js:917">L917</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L918" title="src/config.js:918">L918</a></div>
                       </div>
                       <div class="api-description-body"><p>Get an <code>Array</code> of all of the <code>source</code> <code>Strings</code> with which
 settings have been added via <a class="api-ref" href="#config-instance-set">#set</a>.</p>
@@ -2264,7 +2264,7 @@ you what type the keypath expects, and other metadata about the config
 option.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-getschema" aria-label="Link to ::getSchema(keyPath)">#</a><code class="api-signature"><span class="api-signature-name">::getSchema</span><span class="api-signature-parameters">(keyPath)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L1029" title="src/config.js:1029">L1029</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L1030" title="src/config.js:1030">L1030</a></div>
                       </div>
                       <div class="api-description-body"><p>Retrieve the schema for a specific key path. The schema will tell
 you what type the keyPath expects, and other metadata about the config
@@ -2278,7 +2278,7 @@ and {@link #observe} for the duration of `callback`. after `callback` executes,
 handlers will be called once if the value for their key-path has changed.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#config-instance-transact" aria-label="Link to ::transact(callback)">#</a><code class="api-signature"><span class="api-signature-name">::transact</span><span class="api-signature-parameters">(callback)</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L1067" title="src/config.js:1067">L1067</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/config.js#L1068" title="src/config.js:1068">L1068</a></div>
                       </div>
                       <div class="api-description-body"><p>Suppress calls to handler functions registered with <a class="api-ref" href="#config-instance-ondidchange">#onDidChange</a>
 and <a class="api-ref" href="#config-instance-observe">#observe</a> for the duration of <code>callback</code>. After <code>callback</code> executes,
@@ -6632,7 +6632,7 @@ compiled against the current version of lumine?
 incompatible packages cannot be activated.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-iscompatible" aria-label="Link to ::isCompatible()">#</a><code class="api-signature"><span class="api-signature-name">::isCompatible</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1160" title="src/package.js:1160">L1160</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1157" title="src/package.js:1157">L1157</a></div>
                       </div>
                       <div class="api-description-body"><p>Are all native modules depended on by this package correctly
 compiled against the current version of Lumine?</p>
@@ -6645,7 +6645,7 @@ compiled against the current version of Lumine?</p>
 current version of lumine.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-rebuild" aria-label="Link to ::rebuild()">#</a><code class="api-signature"><span class="api-signature-name">::rebuild</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1181" title="src/package.js:1181">L1181</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1178" title="src/package.js:1178">L1178</a></div>
                       </div>
                       <div class="api-description-body"><p>Rebuild native modules in this package’s dependencies for the
 current version of Lumine.</p>
@@ -6656,7 +6656,7 @@ current version of Lumine.</p>
                     <article class="api-member api-member-method" id="package-instance-getbuildfailureoutput" data-api-entry="package getbuildfailureoutput ::getbuildfailureoutput() if a previous rebuild failed, get the contents of stderr.">
                       <div class="api-member-heading">
                         <h4><a class="api-anchor" href="#package-instance-getbuildfailureoutput" aria-label="Link to ::getBuildFailureOutput()">#</a><code class="api-signature"><span class="api-signature-name">::getBuildFailureOutput</span><span class="api-signature-parameters">()</span></code></h4>
-                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1204" title="src/package.js:1204">L1204</a></div>
+                        <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/package.js#L1201" title="src/package.js:1201">L1201</a></div>
                       </div>
                       <div class="api-description-body"><p>If a previous rebuild failed, get the contents of stderr.</p>
 </div>

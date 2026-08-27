@@ -28,7 +28,7 @@ Key `package.json` fields:
 - **`main`** — the entry module (for example `./lib/my-package`).
 - **`version`** and **`engines`** — `"engines": { "lumine": "^1.0.0" }`; the `lumine` key is also what marks the manifest as a package.
 - **`activationCommands`** / **`activationHooks`** — let Lumine load the package lazily, only when it is first needed.
-- **`configSchema`** — declares the package's settings so they appear in the Settings view.
+- **`configSchema`** — declares the package's settings so they appear in the Settings view; add `scopeResolution` (`grammar` or `syntax`) to an individual entry when its consumer resolves contextually. Omit it for the usual `base` behavior; an explicit `base` remains valid when useful for overriding inherited schema metadata.
 - **`providedServices`** / **`consumedServices`** — how packages offer and use functionality from one another.
 
 The entry module exports lifecycle methods — most importantly `activate()`, where you register commands, open UI, and subscribe to events, and `deactivate()`, where you dispose of them.

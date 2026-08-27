@@ -8,6 +8,26 @@ Every configuration page in **Settings** has an editable scope field directly be
 
 An inherited setting is grey and has an unchecked override checkbox in the left margin. Checking it copies the inherited value into that selector; unchecking it removes only that override. The UI describes what is stored, while the package owning the setting decides which scope descriptor it uses at runtime.
 
+In a scoped view the override checkbox also describes that consumer contract: grey means `base` (read without a scope), green means `grammar`, and purple means the full `syntax` scope at a position. Hover or focus the checkbox for its explanation. This metadata is descriptive rather than enforcing — Config still permits a scoped value for every key.
+
+Package manifests declare a default and may override individual settings:
+
+```json
+{
+  "configSchema": {
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "extraWordCharacters": {
+      "type": "string",
+      "default": "",
+      "scopeResolution": "syntax"
+    }
+  }
+}
+```
+
 ## How scoping works
 
 In [`config.json`](configuration.md) a scoped block is keyed by its selector rather than by `"*"`:
