@@ -4,7 +4,7 @@ Any setting can be stored under a scope selector. Packages decide whether they r
 
 ## The scope selector
 
-Every configuration page in **Settings** has an editable scope field directly below its heading. An empty field means **Default** and edits the base values stored under `"*"`; enter a custom selector or use the field's arrow to choose a known selector from the list.
+Every configuration page in **Settings** has an editable scope field beside its heading, wrapping below it when the panel is narrow. An empty field means **Default** and edits the base values stored under `"*"`; enter a custom selector or use the field's arrow to choose a known selector from the list.
 
 An inherited setting is grey and has an unchecked override checkbox in the left margin. Checking it copies the inherited value into that selector; unchecking it removes only that override. The UI describes what is stored, while the package owning the setting decides which scope descriptor it uses at runtime.
 
