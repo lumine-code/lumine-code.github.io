@@ -38,7 +38,10 @@
 
     <main id="top" class="doc-main doc-manual">
       <aside class="doc-sidebar" aria-label="Documentation navigation">
-        <nav data-nav></nav>
+        <details class="doc-tree">
+          <summary class="doc-tree-summary">Browse docs</summary>
+          <nav data-nav></nav>
+        </details>
       </aside>
 
       <div class="doc-content">
@@ -86,6 +89,25 @@
         const article = document.querySelector("[data-doc]");
         const navEl = document.querySelector("[data-nav]");
         const pagerEl = document.querySelector("[data-pager]");
+        const docTree = document.querySelector(".doc-tree");
+        const compactNavigation = matchMedia("(max-width: 900px)");
+
+        const syncNavigationMode = () => {
+          docTree.open = !compactNavigation.matches;
+          docTree.querySelector("summary").tabIndex = compactNavigation.matches
+            ? 0
+            : -1;
+        };
+        compactNavigation.addEventListener("change", syncNavigationMode);
+        syncNavigationMode();
+        navEl.addEventListener("click", (event) => {
+          if (
+            compactNavigation.matches &&
+            event.target.closest("a[data-route]")
+          ) {
+            docTree.open = false;
+          }
+        });
 
         const fail = (message) => {
           article.innerHTML =
