@@ -275,6 +275,18 @@ function presentEntry(entry) {
   };
 }
 
+// Some legacy parameter docs encode a Markdown list inline as
+// `...: * __first__: ... * __second__: ...`. Restore only that unambiguous
+// pattern to block Markdown so long option definitions keep a readable shape.
+function restoreInlineDefinitionList(text) {
+  let first = true;
+  return text.replace(/\s+\*\s+(__[\w-]+__:\s*)/g, (_, label) => {
+    const prefix = first ? "\n\n" : "\n";
+    first = false;
+    return `${prefix}* ${label}`;
+  });
+}
+
 function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
   const presentation = presentEntry(entry);
   const sections = [];
@@ -282,23 +294,35 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
   if (presentation.parameters.length) {
     const rows = presentation.parameters
       .map((parameter) => {
+        const restoredDescription = restoreInlineDefinitionList(
+          parameter.description || "",
+        );
         const description = parameter.description
-          ? `<div class="api-argument-copy">${renderInlineDoc(
-              parameter.description,
-              classNames,
-              memberAnchors,
-              currentClass,
-            )}</div>`
+          ? `<div class="api-argument-copy">${
+              restoredDescription === parameter.description
+                ? renderInlineDoc(
+                    parameter.description,
+                    classNames,
+                    memberAnchors,
+                    currentClass,
+                  )
+                : renderDoc(
+                    restoredDescription,
+                    classNames,
+                    memberAnchors,
+                    currentClass,
+                  )
+            }</div>`
           : "";
         const type = renderType(parameter.type, classNames);
         const notes = parameter.notes.length
           ? `<span class="api-argument-note">${escapeHtml(parameter.notes.join(", "))}</span>`
           : "";
-        return `<tr><td><span class="api-argument-name" style="--api-argument-depth:${parameter.depth}"><code>${escapeHtml(parameter.displayName)}</code>${notes}</span></td><td><div class="api-argument-description">${type}${description || (!type ? '<span class="api-empty">No description.</span>' : "")}</div></td></tr>`;
+        return `<tr><td><span class="api-argument-name" style="--api-argument-depth:${parameter.depth}"><code>${escapeHtml(parameter.displayName)}</code>${notes}</span></td><td class="api-argument-type">${type}</td><td><div class="api-argument-description">${description || (!type ? '<span class="api-empty">No description.</span>' : "")}</div></td></tr>`;
       })
       .join("");
     sections.push(
-      `<div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Description</th></tr></thead><tbody>${rows}</tbody></table></div>`,
+      `<div class="api-argument-table-wrap"><table class="api-argument-table"><thead><tr><th scope="col">Argument</th><th scope="col">Type</th><th scope="col">Description</th></tr></thead><tbody>${rows}</tbody></table></div>`,
     );
   }
 
@@ -544,13 +568,22 @@ function renderHtml(api) {
       .api-argument-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
       .api-argument-table th { padding: 9px 12px; border-bottom: 1px solid var(--api-divider); background: rgba(255, 255, 255, .035); color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
       .api-argument-table th:first-child { width: 11rem; }
+      .api-argument-table th:nth-child(2) { width: 6rem; }
       .api-argument-table td { padding: 10px 12px; border-bottom: 1px solid var(--api-divider); color: var(--soft); line-height: 1.5; vertical-align: top; }
       .api-argument-table tr:last-child td { border-bottom: 0; }
       .api-argument-name { display: flex; align-items: baseline; gap: 7px; margin-left: calc(var(--api-argument-depth) * 1rem); white-space: nowrap; }
       .api-argument-name code { padding: 1px 5px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 4px; background: transparent; color: var(--text); font-size: .84rem; }
       .api-argument-note { color: var(--muted); font-size: .67rem; }
-      .api-argument-description { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; }
-      .api-argument-copy { min-width: 12rem; flex: 1 1 20rem; }
+      .api-argument-type { color: var(--green); }
+      .api-argument-type .api-type-expression { white-space: normal; overflow-wrap: anywhere; }
+      .api-argument-description { min-width: 0; }
+      .api-argument-copy { min-width: 0; }
+      .api-argument-copy > :first-child { margin-top: 0; }
+      .api-argument-copy > :last-child { margin-bottom: 0; }
+      .api-argument-copy p { margin: 0; }
+      .api-argument-copy ul { margin: 8px 0 0; padding-left: 18px; }
+      .api-argument-copy li { margin-top: 3px; }
+      .api-argument-copy li::marker { color: var(--gold-strong); }
       .api-type-expression { padding: 0; border: 0; background: none; color: var(--green); font-size: .9rem; white-space: nowrap; }
       .api-type-expression a { color: inherit; }
       .api-type-expression a:hover { text-decoration: underline; }
@@ -642,7 +675,10 @@ function renderHtml(api) {
         .api-argument-table, .api-argument-table tbody, .api-argument-table tr, .api-argument-table td { display: block; width: 100%; }
         .api-argument-table tr { padding: 9px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); }
         .api-argument-table td { padding: 0 10px; border: 0; }
-        .api-argument-table td + td { padding-top: 6px; padding-bottom: 8px; }
+        .api-argument-table td.api-argument-type { padding-top: 6px; }
+        .api-argument-table td.api-argument-type:empty { display: none; }
+        .api-argument-table td.api-argument-type:not(:empty)::before { content: "Type"; margin-right: 8px; color: var(--muted); font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+        .api-argument-table td.api-argument-type + td { padding-top: 5px; padding-bottom: 8px; }
         .api-return-section { grid-template-columns: 1fr; gap: 5px; }
       }
       @media (max-width: 360px) {
