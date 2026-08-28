@@ -10,7 +10,7 @@ Installing a package clones its repository and runs an install step, so Lumine n
 Some packages include **native modules** (compiled C/C++). Building those also needs a compiler toolchain:
 
 - **Windows** — the Visual Studio Build Tools (C++ workload).
-- **macOS** — the Xcode command-line tools (`xcode-select --install`).
+- **macOS** — install the Xcode command-line tools with `xcode-select --install`.
 - **Linux** — `make`, a C/C++ compiler, and Python (for example the `build-essential` package plus Python).
 
 ## Incompatible native modules

@@ -48,6 +48,6 @@ Never combine `async` with Jasmine's `done` argument. A spec body that declares 
 
 ## Tips
 
-- Activate the package under test explicitly (`lumine.packages.activatePackage`) rather than assuming it is loaded.
+- Activate the package under test explicitly with `lumine.packages.activatePackage` rather than assuming it is loaded.
 - Dispatch commands through `lumine.commands.dispatch` against the right view to test behavior the way a user triggers it.
 - Keep specs isolated — undo any config or workspace changes, since specs share one editor environment.

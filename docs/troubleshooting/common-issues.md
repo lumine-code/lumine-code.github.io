@@ -24,7 +24,7 @@ If a bundled package behaves unexpectedly, check whether an installed package of
 
 ## Look at the console
 
-Open the developer tools (`window:toggle-dev-tools`) and check the **Console** for errors and warnings — they usually name the package or file at fault. See [Developer tools](developer-tools.md).
+Run `window:toggle-dev-tools` to open the developer tools, then check the **Console** for errors and warnings — they usually name the package or file at fault. See [Developer tools](developer-tools.md).
 
 ## "Unable to watch path" on Linux
 

@@ -10,9 +10,9 @@ The bundled **`tree-view`** package shows your project's directories and files. 
 
 Lumine splits fuzzy finding into focused packages:
 
-- **`fuzzy-files`** (`fuzzy-files:toggle`) — find and open a file anywhere in the open projects, ranked by match quality and proximity to the active file. It supports `file.js:42` line syntax to jump straight to a line, and can copy, insert, or reveal a path, open files externally, or reveal them in the tree view.
-- **`fuzzy-workspace`** (`fuzzy-workspace:toggle`) — jump to any _already open_ item across the workspace center and the left, right, and bottom docks; confirming reveals its dock and focuses it.
-- **`fuzzy-explorer`** (`fuzzy-explorer:toggle`) — fuzzy-search files across your own list of directories, defined in an `explorer.json` config file (open it with `fuzzy-explorer:edit`; a legacy `explorer.cson` is also read).
+- **`fuzzy-files`** — run `fuzzy-files:toggle` to find and open a file anywhere in the open projects, ranked by match quality and proximity to the active file. It supports `file.js:42` line syntax to jump straight to a line, and can copy, insert, or reveal a path, open files externally, or reveal them in the tree view.
+- **`fuzzy-workspace`** — run `fuzzy-workspace:toggle` to jump to any _already open_ item across the workspace center and the left, right, and bottom docks; confirming reveals its dock and focuses it.
+- **`fuzzy-explorer`** — run `fuzzy-explorer:toggle` to fuzzy-search files across your own list of directories, defined in an `explorer.json` config file (open it with `fuzzy-explorer:edit`; a legacy `explorer.cson` is also read).
 
 Install any of the three from the Install pane in **Settings**, or with `lumine --install lumine-code/fuzzy-files`, `lumine --install lumine-code/fuzzy-workspace` and `lumine --install lumine-code/fuzzy-explorer`.
 

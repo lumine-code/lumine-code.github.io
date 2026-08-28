@@ -1,6 +1,6 @@
 # Resetting to defaults
 
-Because all of your customization lives in one [configuration directory](../customizing-lumine/where-customization-is-stored.md) (`~/.lumine`), returning to a clean state is straightforward. Work from the least destructive option to the most.
+Because all of your customization lives in one [configuration directory](../customizing-lumine/where-customization-is-stored.md) at `~/.lumine`, returning to a clean state is straightforward. Work from the least destructive option to the most.
 
 ## Start without packages
 

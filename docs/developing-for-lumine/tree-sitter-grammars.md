@@ -1,6 +1,6 @@
 # Tree-sitter grammars
 
-Each bundled Tree-sitter grammar is three things: a **pre-built parser** (a `.wasm` file compiled from an upstream `tree-sitter-*` repository), a set of **query files** (`.scm`) that turn syntax nodes into scopes, and a **grammar config** (`.json`) that ties them together. This page covers how those pieces fit and how to build, update, and validate them in a Lumine source checkout.
+Each bundled Tree-sitter grammar combines three things: a **pre-built parser** compiled from an upstream `tree-sitter-*` repository into a `.wasm` file, **query files** with the `.scm` extension that turn syntax nodes into scopes, and a **grammar config** in `.json` that ties them together. This page covers how those pieces fit and how to build, update, and validate them in a Lumine source checkout.
 
 ## The grammar config
 

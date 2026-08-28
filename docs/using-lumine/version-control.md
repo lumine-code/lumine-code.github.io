@@ -37,7 +37,7 @@ Git allows a branch to be checked out in only one worktree at a time. The branch
 
 ## Opening on your Git host
 
-The **`open-repository`** package opens the current file or repository on its Git host's website. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/open-repository`. It supports GitHub, GitLab, and Bitbucket (and falls back to GitHub-style URLs for other hosts). It can open the file (`open-repository:file`), its blame or history, the repository, its issues or pull/merge requests, the branch compare page, and can copy a URL for the current file and selected lines (`open-repository:copy-url`).
+The **`open-repository`** package opens the current file or repository on its Git host's website. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/open-repository`. It supports GitHub, GitLab, and Bitbucket (and falls back to GitHub-style URLs for other hosts). Run `open-repository:file` to open the file, its blame or history, the repository, its issues or pull/merge requests, or the branch compare page; run `open-repository:copy-url` to copy a URL for the current file and selected lines.
 
 ## Going further
 

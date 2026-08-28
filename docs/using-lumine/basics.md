@@ -4,7 +4,7 @@ This section covers the everyday mechanics of editing in Lumine. Most actions ar
 
 ## The Command Palette
 
-The Command Palette is the fastest way to find and run anything. Toggle it with the bundled `command-palette` package (`command-palette:toggle`) and start typing the name of a command. The palette fuzzy-matches command names, descriptions, and tags, and shows the keybinding bound to each one, so it doubles as a way to learn shortcuts.
+The Command Palette is the fastest way to find and run anything. Run `command-palette:toggle` from the bundled `command-palette` package and start typing the name of a command. The palette fuzzy-matches command names, descriptions, and tags, and shows the keybinding bound to each one, so it doubles as a way to learn shortcuts.
 
 While the query is empty, your recently used commands are listed on top, so re-running the last few actions takes a single confirm. Forget them with `command-palette:clear-recent`. To see commands that are normally hidden, run `command-palette:show-hidden-commands`.
 

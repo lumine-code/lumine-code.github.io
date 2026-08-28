@@ -52,4 +52,4 @@ Here every file uses two-space indentation except Makefiles, which use a four-wi
 
 ## Choosing a grammar for a file
 
-The active language is chosen automatically from the file's name and contents. To change it for the current editor, use the bundled `grammar-selector` package (`grammar-selector:show`) and pick a grammar. See [Creating a grammar](../developing-for-lumine/creating-a-grammar.md) for how grammars work.
+The active language is chosen automatically from the file's name and contents. To change it for the current editor, run `grammar-selector:show` from the bundled `grammar-selector` package and pick a grammar. See [Creating a grammar](../developing-for-lumine/creating-a-grammar.md) for how grammars work.

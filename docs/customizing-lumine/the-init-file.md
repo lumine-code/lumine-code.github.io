@@ -29,6 +29,6 @@ When an idea in your init file grows, move it into a real package — see [Devel
 
 ## Reloading
 
-Changes to the init file take effect after you reload the window (`window:reload`) or restart Lumine.
+Changes to the init file take effect after you run `window:reload` or restart Lumine.
 
 > The full editor API — every class and method reachable through `lumine` — is documented in the [Lumine API reference](https://lumine-code.github.io/api/).

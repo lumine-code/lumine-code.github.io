@@ -6,13 +6,13 @@ A catalog does **not** provide names, versions, descriptions, compatibility, or 
 
 ## Where packages live
 
-Every package is identified by the **name** in its `package.json`. That name is the prefix for its commands (`<name>:command`), its configuration namespace (`<name>.*`), and how it is required, enabled, and activated. **The directory a package lives in does not have to be named after it** — rename it, clone a repository into a folder named after the repository, or keep several checkouts side by side; the manifest decides what the package is called.
+Every package is identified by the **name** in its `package.json`. That name prefixes commands such as `<name>:command` and configuration keys such as `<name>.*`, and determines how the package is required, enabled, and activated. **The directory a package lives in does not have to be named after it** — rename it, clone a repository into a folder named after the repository, or keep several checkouts side by side; the manifest decides what the package is called.
 
 Packages are looked for in three places, and a package found in an earlier one takes precedence over a package of the same name found in a later one:
 
 | Place                    | What it holds                                                   |
 | ------------------------ | --------------------------------------------------------------- |
-| `~/.lumine/packages-dev` | Packages you are working on. Only loaded in dev mode (`--dev`). |
+| `~/.lumine/packages-dev` | Packages you are working on. Only loaded when using `--dev`. |
 | `~/.lumine/packages`     | Packages you installed.                                         |
 | Bundled with Lumine      | The packages Lumine ships with.                                 |
 
@@ -37,11 +37,11 @@ Two invariants follow for what the Install tab puts on disk:
 - At most **one installation per origin** at a time.
 - At most **one installed package per name** at a time — an update or a reinstall replaces the directory that package already occupies, whatever it is called.
 
-The name shown on a browse card is the repository's project name until a valid manifest is fetched for the selected commit; afterwards it is the real `package.json` name, which may differ (the repository `pulsar-invert-colors` ships a package named `invert-colors`). A card is keyed internally by its origin (`origin:<origin>`) or, for a bundled package, by its name (`builtin:<name>`) — never by name alone — so two repositories that publish the same name never collide in the UI.
+The name shown on a browse card is the repository's project name until a valid manifest is fetched for the selected commit; afterwards it is the real `package.json` name, which may differ (the repository `pulsar-invert-colors` ships a package named `invert-colors`). A card is keyed internally by an origin key such as `origin:<origin>` or, for a bundled package, by a name key such as `builtin:<name>` — never by name alone — so two repositories that publish the same name never collide in the UI.
 
 ## Installing a package
 
-Open **Settings → Install** (`settings-view:install-packages-and-themes`).
+Run `settings-view:install-packages-and-themes` to open **Settings → Install**.
 
 - Type a search term to find packages across your configured catalogs. Filter the results with **All / Packages / Themes / Updates**.
 - Or type an install source directly (for example `owner/repo`) and press Enter to get an install card for that exact repository.

@@ -21,7 +21,7 @@ To start a Tree-sitter grammar package from scratch, `new-grammar-package.js`, i
 
 ## Choosing which grammar applies
 
-The grammar for an editor is picked from the file name and contents. Users can override it per file with the bundled `grammar-selector` package (`grammar-selector:show`), and set per-language options under [Scoped settings](../customizing-lumine/language-settings.md).
+The grammar for an editor is picked from the file name and contents. Users can override it per file by running `grammar-selector:show` from the bundled `grammar-selector` package, and set per-language options under [Scoped settings](../customizing-lumine/language-settings.md).
 
 ## Symbols and more
 
