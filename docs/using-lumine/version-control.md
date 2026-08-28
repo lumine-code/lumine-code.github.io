@@ -31,7 +31,7 @@ The active repository normally follows whatever you are editing. `git-center:tog
 
 A Git worktree is a second checkout of the same repository in its own folder, so you can have two branches open at once without stashing or switching. `git-center:select-worktree` lists every worktree of the active repository, with its branch, its working-tree counts, and whether it is locked or waiting to be pruned.
 
-Confirming a worktree opens it in this window. The picker's actions list — press <kbd>F12</kbd> — has the rest: open it in a new window or alongside the current project, create a worktree on a new branch, and move, lock, unlock, or remove one. Removing runs unforced, so Git refuses to discard a worktree with uncommitted work; the failure offers to force it if that is what you meant.
+Confirming a worktree opens it in this window. The picker's actions list — press <kbd>Shift</kbd><kbd>F10</kbd> — has the rest: open it in a new window or alongside the current project, create a worktree on a new branch, and move, lock, unlock, or remove one. Removing runs unforced, so Git refuses to discard a worktree with uncommitted work; the failure offers to force it if that is what you meant.
 
 Git allows a branch to be checked out in only one worktree at a time. The branch picker marks any branch that is open elsewhere with the name of the worktree holding it, and choosing that branch offers to open that worktree rather than attempting a checkout Git would refuse.
 
