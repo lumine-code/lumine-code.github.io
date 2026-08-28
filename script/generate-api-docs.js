@@ -353,6 +353,9 @@ function groupId(className, category) {
 }
 
 function renderHtml(api) {
+  const [overviewClass, ...otherClasses] = api.classes;
+  if (!overviewClass) throw new Error("The generated API has no overview class.");
+  const overviewId = `class-${slug(overviewClass.name)}`;
   const classNames = new Set(api.classes.map(({ name }) => name));
   const memberAnchors = new Set(
     api.classes.flatMap((item) =>
@@ -361,9 +364,7 @@ function renderHtml(api) {
   );
   const byName = (left, right) =>
     left.name.localeCompare(right.name, "en", { sensitivity: "base" });
-  const sortedClasses = [...api.classes]
-    .filter((item) => item.name !== "LumineEnvironment")
-    .sort(byName);
+  const sortedClasses = otherClasses.sort(byName);
   const sortedFunctions = [...api.functions].sort(byName);
   const apiIndex = [
     ...sortedClasses.map((item) => ({
@@ -380,7 +381,7 @@ function renderHtml(api) {
         `<a class="api-nav-link" href="${item.href}" data-api-nav>${escapeHtml(item.name)}</a>`,
     )
     .join("\n");
-  const apiIndexList = `<a class="api-nav-link api-nav-link-featured" href="#class-lumineenvironment" data-api-nav>Overview</a>${apiIndex}`;
+  const apiIndexList = `<a class="api-nav-link api-nav-link-featured" href="#${overviewId}" data-api-nav>Overview</a>${apiIndex}`;
   // Every member of a class comes from the file named beside the class heading,
   // so each row carries only its line number; the full path stays in the link's
   // title. Functions are gathered from across the tree and keep theirs.
@@ -689,7 +690,7 @@ function renderHtml(api) {
         if (sectionIds.has(hash)) return hash;
         const el = hash && document.getElementById(hash);
         const parent = el && el.closest('.api-class');
-        return parent ? parent.id : 'class-lumineenvironment';
+        return parent ? parent.id : '${overviewId}';
       };
 
       const setMemberExpanded = (member, expanded) => {

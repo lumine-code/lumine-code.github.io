@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "classes": [
     {
-      "name": "LumineEnvironment",
+      "name": "Environment",
       "visibility": "Public",
       "description": "Lumine global for dealing with packages, themes, menus, and the window.\n\nAn instance of this class is always available as the `lumine` global.",
       "summary": "Lumine global for dealing with packages, themes, menus, and the window.",
-      "source": "src/lumine-environment.js",
-      "sourcePath": "src/lumine-environment.js",
+      "source": "src/environment.js",
+      "sourcePath": "src/environment.js",
       "repository": "https://github.com/lumine-code/lumine",
       "line": 84,
       "members": [
@@ -4263,7 +4263,7 @@
               "optional": false,
               "rest": true,
               "type": null,
-              "description": "One or more deserializers to register. A deserializer can be any object with a `.name` property and a `.deserialize()` method. A common approach is to register a *constructor* as the deserializer for its instances by adding a `.deserialize()` class method. When your method is called, it will be passed serialized state as the first argument and the {@link LumineEnvironment} object as the second argument, which is useful if you wish to avoid referencing the `lumine` global.",
+              "description": "One or more deserializers to register. A deserializer can be any object with a `.name` property and a `.deserialize()` method. A common approach is to register a *constructor* as the deserializer for its instances by adding a `.deserialize()` class method. When your method is called, it will be passed serialized state as the first argument and the {@link Environment} object as the second argument, which is useful if you wish to avoid referencing the `lumine` global.",
               "defaultValue": null
             }
           ],
@@ -15638,7 +15638,7 @@
           "signature": "::setState(projectPaths)",
           "category": "Managing Paths",
           "visibility": "Public",
-          "description": "Open a different project in this window.\n\n\nWhere {@link #setPaths} changes the folders and leaves everything else alone —\nso the editors open on the old project stay open on the new one — this\nchanges the whole state: the current folders and the editors open on them\nare saved together, and whatever was last saved for `projectPaths` is\nrestored in their place. No new window is opened, so packages, themes and\ngrammars stay loaded.\n\nOnly the workspace center is restored. Docks belong to the window rather\nthan to the project it has open, so a tree view, a terminal or a panel\nkeeps running across the change — as does anything a package put there.\n\nThree things are worth knowing before reaching for this:\n\n* Development and safe mode belong to the window, so they cannot change\n  here. Use `LumineEnvironment.open` with `newWindow` for those.\n* State is keyed by the set of folders, so a project already open in\n  another window shares one saved state with it and the last window to\n  save wins.\n* Package state is not re-applied. A package that follows the project\n  observes {@link #onDidChangePaths} and rebuilds itself.",
+          "description": "Open a different project in this window.\n\n\nWhere {@link #setPaths} changes the folders and leaves everything else alone —\nso the editors open on the old project stay open on the new one — this\nchanges the whole state: the current folders and the editors open on them\nare saved together, and whatever was last saved for `projectPaths` is\nrestored in their place. No new window is opened, so packages, themes and\ngrammars stay loaded.\n\nOnly the workspace center is restored. Docks belong to the window rather\nthan to the project it has open, so a tree view, a terminal or a panel\nkeeps running across the change — as does anything a package put there.\n\nThree things are worth knowing before reaching for this:\n\n* Development and safe mode belong to the window, so they cannot change\n  here. Use `Environment.open` with `newWindow` for those.\n* State is keyed by the set of folders, so a project already open in\n  another window shares one saved state with it and the last window to\n  save wins.\n* Package state is not re-applied. A package that follows the project\n  observes {@link #onDidChangePaths} and rebuilds itself.",
           "summary": "Open a different project in this window.",
           "parameters": [
             {
@@ -39005,5 +39005,5 @@
     }
   ],
   "memberCount": 1232,
-  "generatedAt": "2026-08-28T00:57:55.040Z"
+  "generatedAt": "2026-08-28T03:20:39.809Z"
 }
