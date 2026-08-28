@@ -328,11 +328,13 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
 }
 
 function renderSignature(signature) {
+  const renderIdentifier = (identifier) =>
+    escapeHtml(identifier).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
   const openingParen = signature.indexOf("(");
   if (openingParen === -1) {
-    return `<code class="api-signature"><span class="api-signature-name">${escapeHtml(signature)}</span></code>`;
+    return `<code class="api-signature"><span class="api-signature-name">${renderIdentifier(signature)}</span></code>`;
   }
-  return `<code class="api-signature"><span class="api-signature-name">${escapeHtml(signature.slice(0, openingParen))}</span><span class="api-signature-parameters">${escapeHtml(signature.slice(openingParen))}</span></code>`;
+  return `<code class="api-signature"><span class="api-signature-name">${renderIdentifier(signature.slice(0, openingParen))}</span><span class="api-signature-parameters">${escapeHtml(signature.slice(openingParen))}</span></code>`;
 }
 
 // The article and the member rail split a class the same way, so they read the
@@ -357,58 +359,28 @@ function renderHtml(api) {
       item.members.map((member) => memberId(item.name, member)),
     ),
   );
-  // The rail is width-starved, and every instance member would otherwise open
-  // with the same two colons. The article carries the full signature, so the
-  // rail keeps only what tells entries apart — the leading `.` of a static one.
-  const memberShort = (member) => {
-    const short = member.signature.includes("(")
-      ? `${member.signature.slice(0, member.signature.indexOf("("))}()`
-      : member.signature;
-    return short.startsWith("::") ? short.slice(2) : short;
-  };
-  // Left rail: a flat list of class links.
-  const classNav = api.classes
+  const byName = (left, right) =>
+    left.name.localeCompare(right.name, "en", { sensitivity: "base" });
+  const sortedClasses = [...api.classes]
+    .filter((item) => item.name !== "LumineEnvironment")
+    .sort(byName);
+  const sortedFunctions = [...api.functions].sort(byName);
+  const apiIndex = [
+    ...sortedClasses.map((item) => ({
+      href: `#class-${slug(item.name)}`,
+      name: item.name,
+    })),
+    ...(sortedFunctions.length
+      ? [{ href: "#functions", name: "Functions" }]
+      : []),
+  ]
+    .sort(byName)
     .map(
       (item) =>
-        `<a class="api-nav-link" href="#class-${slug(item.name)}" data-api-nav>${escapeHtml(item.name)}</a>`,
+        `<a class="api-nav-link" href="${item.href}" data-api-nav>${escapeHtml(item.name)}</a>`,
     )
     .join("\n");
-  // Everything the reference holds that is not a class sits under its own
-  // chapter heading, so the class list is not asked to end with something that
-  // is not a class.
-  const functionNav = api.functions.length
-    ? '<p class="api-rail-heading">Others</p><a class="api-nav-link" href="#functions" data-api-nav>Functions</a>'
-    : "";
-  const classList = `${classNav}${functionNav}`;
-  // Right rail: one "On this page" group of members per class; only the group
-  // for the class you are reading is shown (toggled by the scroll spy). The rail
-  // carries the class's own section names as its headings, so it needs no
-  // heading of its own.
-  const memberToc = api.classes
-    .map((item) => {
-      const memberNav = byCategory(item.members)
-        .map(
-          ([category, entries]) =>
-            `<a class="api-toc-heading" href="#${groupId(item.name, category)}">${escapeHtml(category)}</a>${entries
-              .map(
-                (member) =>
-                  `<a class="api-nav-member" href="#${memberId(item.name, member)}" data-api-nav-member="${memberId(item.name, member)}">${escapeHtml(memberShort(member))}</a>`,
-              )
-              .join("")}`,
-        )
-        .join("");
-      return `<div class="api-toc-group" data-toc-group="class-${slug(item.name)}">${memberNav || '<p class="api-toc-empty">No members.</p>'}</div>`;
-    })
-    .join("\n");
-  const functionToc = api.functions.length
-    ? `<div class="api-toc-group" data-toc-group="functions"><a class="api-toc-heading" href="#functions">Functions</a>${api.functions
-        .map(
-          (item) =>
-            `<a class="api-nav-member" href="#function-${slug(item.name)}" data-api-nav-member="function-${slug(item.name)}">${escapeHtml(item.name)}()</a>`,
-        )
-        .join("")}</div>`
-    : "";
-  const tocList = `${memberToc}${functionToc}`;
+  const apiIndexList = `<a class="api-nav-link api-nav-link-featured" href="#class-lumineenvironment" data-api-nav>Overview</a>${apiIndex}`;
   // Every member of a class comes from the file named beside the class heading,
   // so each row carries only its line number; the full path stays in the link's
   // title. Functions are gathered from across the tree and keep theirs.
@@ -416,23 +388,68 @@ function renderHtml(api) {
     .map((item) => {
       const members = byCategory(item.members)
         .map(
-          ([category, entries]) => `
+          ([category, entries]) => {
+            return `
             <section class="api-group api-group-${slug(category)}" id="${groupId(item.name, category)}">
               <h3><span>${escapeHtml(category)}</span><span class="api-group-count">${entries.length}</span></h3>
               <div class="api-group-entries">${entries
-                .map(
-                  (member) => `
-                    <article class="api-member api-member-${member.kind}" id="${memberId(item.name, member)}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}">
+                .map((member) => {
+                  // Properties form a compact index: name, type and source.
+                  // Their full descriptions stay in api.json and data-api-entry
+                  // for downstream consumers and search without making three
+                  // exceptional rows visually unlike the other properties.
+                  const hideDescription = member.kind === "property";
+                  const description =
+                    member.description && !hideDescription
+                      ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>`
+                      : "";
+                  const details = renderEntryDetails(
+                    member,
+                    classNames,
+                    memberAnchors,
+                    item.name,
+                  );
+                  const displaySignature = member.signature.replace(/^::/, "");
+                  const displayPropertyType = (member.propertyType || "").replace(
+                    /^Object<.+>$/,
+                    "Object",
+                  );
+                  const memberBadge =
+                    member.kind === "property"
+                      ? ""
+                      : `<span class="api-badge api-badge-${slug(member.visibility)}">${escapeHtml(member.visibility)}</span>`;
+                  const descriptionClass = description
+                    ? " api-member-has-description"
+                    : " api-member-compact";
+                  const entryId = memberId(item.name, member);
+                  const signature = `${renderSignature(displaySignature)}${member.propertyType ? `<span class="api-property-type">${renderType(displayPropertyType, classNames)}</span>` : ""}`;
+                  const permalink = `<a class="api-anchor" href="#${entryId}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>`;
+                  const sourceMeta = `${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}${memberBadge}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}" aria-label="View source for ${escapeHtml(displaySignature)}, line ${member.line}">L${member.line}</a>`;
+                  const meta = `${sourceMeta}${permalink}`;
+                  const body = `${description}${details || (!member.description && !member.propertyType ? '<p class="api-empty">No description.</p>' : "")}`;
+                  const attributes = `id="${entryId}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}"`;
+                  if (member.kind !== "property") {
+                    return `
+                    <article class="api-member api-member-${member.kind}${descriptionClass}" ${attributes} data-api-expandable>
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#${memberId(item.name, member)}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>${renderSignature(member.signature)}${member.propertyType ? `<span class="api-property-type">${renderType(member.propertyType, classNames)}</span>` : ""}</h4>
-                        <div class="api-member-meta">${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}<span class="api-badge api-badge-${slug(member.visibility)}">${escapeHtml(member.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}">L${member.line}</a></div>
+                        <h4><button class="api-member-toggle" id="${entryId}-toggle" type="button" aria-expanded="false" aria-controls="${entryId}-panel"><span class="api-member-disclosure" aria-hidden="true"></span>${signature}</button></h4>
+                        <div class="api-member-meta">${meta}</div>
                       </div>
-                      ${member.description ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>` : ""}
-                      ${renderEntryDetails(member, classNames, memberAnchors, item.name) || (!member.description ? '<p class="api-empty">No description.</p>' : "")}
-                    </article>`,
-                )
+                      <div class="api-member-panel" id="${entryId}-panel" aria-labelledby="${entryId}-toggle" hidden="until-found">${body}</div>
+                    </article>`;
+                  }
+                  return `
+                    <article class="api-member api-member-${member.kind}${descriptionClass}" ${attributes}>
+                      <div class="api-member-heading">
+                        <h4>${permalink}${signature}</h4>
+                        <div class="api-member-meta">${sourceMeta}</div>
+                      </div>
+                      ${body}
+                    </article>`;
+                })
                 .join("\n")}</div>
-            </section>`,
+            </section>`;
+          },
         )
         .join("\n");
       return `
@@ -446,12 +463,16 @@ function renderHtml(api) {
     .join("\n");
 
   const functions = api.functions.length
-    ? `<section class="api-class" id="functions"><p class="eyebrow">Public API</p><h2>Functions</h2>${api.functions
-        .map(
-          (item) =>
-            `<article class="api-member" id="function-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}"><div class="api-member-heading"><h4><a class="api-anchor" href="#function-${slug(item.name)}" aria-label="Link to ${escapeHtml(item.name)}">#</a>${renderSignature(item.signature)}</h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></div></div>${item.description ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>` : ""}${renderEntryDetails(item, classNames, memberAnchors)}</article>`,
-        )
-        .join("\n")}</section>`
+    ? `<section class="api-class" id="functions" data-api-entry="functions standalone exports"><header class="api-class-header"><p class="eyebrow">Public API</p><h2>Functions</h2><div class="api-description-body api-class-description"><p>Standalone functions exported by Lumine.</p></div></header><section class="api-group"><h3><span>Exports</span><span class="api-group-count">${sortedFunctions.length}</span></h3><div class="api-group-entries api-function-entries">${sortedFunctions
+        .map((item) => {
+          const entryId = `function-${slug(item.name)}`;
+          const description = item.description
+            ? `<div class="api-description-body">${renderDoc(item.description, classNames, memberAnchors)}</div>`
+            : "";
+          const details = renderEntryDetails(item, classNames, memberAnchors);
+          return `<article class="api-member${description ? " api-member-has-description" : " api-member-compact"}" id="${entryId}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}" data-api-expandable><div class="api-member-heading"><h4><button class="api-member-toggle" id="${entryId}-toggle" type="button" aria-expanded="false" aria-controls="${entryId}-panel"><span class="api-member-disclosure" aria-hidden="true"></span>${renderSignature(item.signature)}</button></h4><div class="api-member-meta"><span class="api-badge api-badge-${slug(item.visibility)}">${escapeHtml(item.visibility)}</span><a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}" aria-label="View source for ${escapeHtml(item.signature)}, line ${item.line}">${escapeHtml(item.source)}:${item.line}</a><a class="api-anchor" href="#${entryId}" aria-label="Link to ${escapeHtml(item.name)}">#</a></div></div><div class="api-member-panel" id="${entryId}-panel" aria-labelledby="${entryId}-toggle" hidden="until-found">${description}${details}</div></article>`;
+        })
+        .join("\n")}</div></section></section>`
     : "";
 
   return `<!doctype html>
@@ -468,43 +489,37 @@ function renderHtml(api) {
     <link rel="stylesheet" href="../styles.css" />
     <style>
       html { scroll-behavior: auto; }
-      .api-main { width: min(1400px, calc(100% - 48px)); margin: 0 auto; padding: 52px 0 72px; }
-      .api-header { max-width: 780px; margin-bottom: 30px; }
-      .api-header h1 { margin: 8px 0 10px; font-size: clamp(2.1rem, 5vw, 3.4rem); }
-      .api-header p:not(.eyebrow) { margin: 0; color: var(--soft); }
-      .api-header .api-meta { margin-top: 6px; color: var(--muted); font-size: .88rem; }
-      .api-layout { display: grid; grid-template-columns: 450px minmax(0, 1fr); gap: 40px; align-items: start; }
-      .api-sidebar { display: flex; gap: 24px; }
-      .api-tree { flex: 1 1 0; min-width: 0; }
-      /* Class names are short and known; member signatures are neither, so the
-         fixed width goes to the classes and the slack to the members. */
-      .api-tree:first-child { flex: 0 0 172px; }
+      .api-main { --border: #364253; --muted: #aeb9c8; --soft: #d2d9e2; --green: #9be391; --cyan: #75ddd8; --api-panel: rgba(17, 22, 28, .88); --api-panel-raised: rgba(24, 30, 38, .9); --api-divider: rgba(174, 185, 200, .17); width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 48px 0 76px; }
+      .api-main a:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 3px; border-radius: 3px; }
+      .api-header { width: min(100%, 1132px); margin: 0 auto 38px; }
+      .api-header h1 { margin: 7px 0 8px; font-size: clamp(2.1rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -.025em; }
+      .api-header p:not(.eyebrow) { max-width: 780px; margin: 0; color: var(--soft); }
+      .api-header .api-meta { margin-top: 8px; color: var(--muted); font-size: .86rem; }
+      .api-layout { display: grid; grid-template-columns: minmax(270px, 300px) minmax(0, 800px); grid-template-areas: "sidebar content"; gap: 32px; align-items: start; justify-content: center; }
+      .api-sidebar { grid-area: sidebar; display: block; align-self: stretch; padding-right: 30px; border-right: 1px solid var(--api-divider); }
+      .api-tree { min-width: 0; }
+      .api-tree > summary { display: none; list-style: none; pointer-events: none; }
+      .api-tree > summary::-webkit-details-marker { display: none; }
+      .api-tree-scroll { min-height: 0; }
       /* One heading treatment for both rails, so the two columns start on the
          same line and their entries stay level. */
-      .api-rail-heading, .api-toc-heading { margin: 24px 0 6px; color: var(--soft); font-size: .72rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; }
-      .api-tree > .api-rail-heading { margin-top: 0; }
-      .api-nav-link { display: block; padding: 4px 0 4px 10px; border-left: 2px solid transparent; color: var(--muted); font-size: .86rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
-      .api-nav-link:hover { color: var(--gold-strong); }
-      .api-nav-link.active { border-left-color: var(--gold-strong); color: var(--gold-strong); font-weight: 600; }
-      .api-toc-group { display: none; }
-      .api-toc-group.active { display: block; }
-      /* A section name is the rail's structure, so it wraps rather than
-         truncates — "Managing Cursor Position" must stay readable. */
-      .api-toc-heading { display: block; transition: color .15s ease; }
-      .api-toc-heading:first-child { margin-top: 0; }
-      .api-toc-heading:hover { color: var(--gold-strong); }
-      .api-toc-empty { margin: 0; color: var(--muted); font-style: italic; font-size: .8rem; }
-      .api-nav-member { display: block; padding: 3px 0 3px 10px; border-left: 2px solid transparent; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color .15s ease, color .15s ease; }
-      .api-nav-member:hover { color: var(--gold-strong); }
-      .api-nav-member.active { border-left-color: var(--gold-strong); color: var(--text); }
+      .api-rail-heading { margin: 23px 0 7px; color: var(--soft); font-size: .7rem; font-weight: 700; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; }
+      .api-tree > .api-rail-heading { flex: none; margin: 0 0 9px; }
+      .api-nav-link { position: relative; display: block; margin: 1px 0; padding: 5px 8px 5px 15px; border: 0; color: var(--muted); font-size: .84rem; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .15s ease; }
+      .api-nav-link::before { content: ""; position: absolute; top: 50%; left: 3px; width: 4px; height: 4px; border-radius: 50%; background: var(--gold-strong); opacity: 0; transform: translateY(-50%); }
+      .api-nav-link:hover { color: var(--text); }
+      .api-nav-link.active { background: none; color: var(--text); font-weight: 600; }
+      .api-nav-link.active::before { opacity: 1; }
+      .api-nav-link-featured { position: relative; margin-bottom: 12px; }
+      .api-nav-link-featured::after { content: ""; position: absolute; right: 0; bottom: -7px; left: 0; height: 1px; background: var(--border); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-      .api-content { min-width: 0; }
-      .api-class { margin-bottom: 48px; scroll-margin-top: 88px; }
-      .api-class-header { padding: 22px 24px 24px; border: 1px solid var(--border); border-radius: 12px; background: linear-gradient(135deg, rgba(229, 173, 45, .08), rgba(255, 255, 255, .025) 42%, rgba(98, 213, 208, .035)); box-shadow: 0 18px 44px rgba(0, 0, 0, .14); }
-      .api-class-header .eyebrow { margin: 0 0 5px; }
-      .api-class-header h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 0; font-size: clamp(1.7rem, 3vw, 2.15rem); }
-      .api-description-body { margin: 10px 0 0; max-width: 82ch; font-size: .94rem; }
+      .api-content { grid-area: content; width: 100%; min-width: 0; max-width: 800px; }
+      .api-class { margin-bottom: 52px; scroll-margin-top: 88px; }
+      .api-class-header { padding: 0 0 28px; border: 0; border-radius: 0; background: transparent; }
+      .api-class-header .eyebrow { margin: 0 0 6px; color: var(--cyan); }
+      .api-class-header h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 0; font-size: clamp(1.7rem, 3vw, 2.15rem); line-height: 1.2; letter-spacing: -.018em; }
+      .api-description-body { margin: 10px 0 0; max-width: 72ch; font-size: .96rem; }
       .api-description-body > :first-child { margin-top: 0; }
       .api-description-body > :last-child { margin-bottom: 0; }
       .api-description-body p { margin: 11px 0 0; }
@@ -512,7 +527,8 @@ function renderHtml(api) {
       .api-description-body li { margin: 2px 0 0; }
       .api-description-body :is(h1, h2, h3, h4, h5, h6) { margin: 16px 0 0; font-size: 1.02rem; line-height: 1.35; }
       .api-description-body :is(h4, h5, h6) { font-size: .95rem; }
-      :is(.api-description-body, .api-argument-copy, .api-return-copy) code { padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); font-size: .88em; }
+      :is(.api-description-body, .api-argument-copy, .api-return-copy) code { padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: transparent; font-size: .88em; }
+      .api-description-body :is(h4, h5, h6) > code:only-child { display: inline-block; padding: 0; border: 0; border-radius: 0; color: var(--cyan); font-size: .94rem; font-weight: 500; line-height: 1.4; }
       /* References read like links, not selected tags. Types use the same green
          accent as the old Atom reference, while ordinary inline code stays
          neutral and boxed. */
@@ -522,80 +538,117 @@ function renderHtml(api) {
       .api-description-body pre { margin: 10px 0 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
       .api-description-body pre code { padding: 0; border: 0; border-radius: 0; background: none; font-size: .82rem; }
       .api-description-body a { color: var(--green); }
-      .api-class-description { max-width: 76ch; margin: 9px 0 0; font-size: .98rem; }
-      .api-argument-table-wrap { margin-top: 16px; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: rgba(0, 0, 0, .12); }
+      .api-class-description { max-width: none; margin: 10px 0 0; font-size: .98rem; }
+      .api-argument-table-wrap { margin-top: 16px; overflow: hidden; border: 1px solid var(--api-divider); border-radius: 8px; background: rgba(7, 10, 13, .24); }
       .api-argument-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-      .api-argument-table th { padding: 8px 12px; border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, .025); color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
+      .api-argument-table th { padding: 9px 12px; border-bottom: 1px solid var(--api-divider); background: rgba(255, 255, 255, .035); color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
       .api-argument-table th:first-child { width: 11rem; }
-      .api-argument-table td { padding: 9px 12px; border-bottom: 1px solid rgba(255, 255, 255, .055); color: var(--soft); line-height: 1.5; vertical-align: top; }
+      .api-argument-table td { padding: 10px 12px; border-bottom: 1px solid var(--api-divider); color: var(--soft); line-height: 1.5; vertical-align: top; }
       .api-argument-table tr:last-child td { border-bottom: 0; }
       .api-argument-name { display: flex; align-items: baseline; gap: 7px; margin-left: calc(var(--api-argument-depth) * 1rem); white-space: nowrap; }
-      .api-argument-name code { padding: 1px 5px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 4px; background: rgba(255, 255, 255, .035); color: var(--text); font-size: .84rem; }
+      .api-argument-name code { padding: 1px 5px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 4px; background: transparent; color: var(--text); font-size: .84rem; }
       .api-argument-note { color: var(--muted); font-size: .67rem; }
       .api-argument-description { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; }
       .api-argument-copy { min-width: 12rem; flex: 1 1 20rem; }
       .api-type-expression { padding: 0; border: 0; background: none; color: var(--green); font-size: .9rem; white-space: nowrap; }
       .api-type-expression a { color: inherit; }
       .api-type-expression a:hover { text-decoration: underline; }
-      .api-return-section { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 12px; align-items: baseline; margin-top: 14px; padding-top: 13px; border-top: 1px solid rgba(255, 255, 255, .07); }
+      .api-return-section { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 12px; align-items: baseline; margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--api-divider); }
       .api-return-section h5 { margin: 0; color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
       .api-return-value { margin: 0; color: var(--soft); line-height: 1.55; }
       .api-source { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 400; white-space: nowrap; transition: color .15s ease; }
       .api-source:hover { color: var(--gold-strong); }
-      .api-group { margin-top: 34px; scroll-margin-top: 88px; }
+      .api-group { margin-top: 36px; scroll-margin-top: 88px; }
       .api-group > h3 { display: flex; align-items: center; gap: 9px; margin: 0 0 11px; color: var(--text); font-size: 1rem; }
-      .api-group-count { display: inline-flex; align-items: center; justify-content: center; min-width: 1.55rem; height: 1.25rem; padding: 0 6px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .64rem; font-weight: 600; }
-      .api-group-entries { display: grid; gap: 10px; }
+      .api-group-count { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6rem; height: 1.3rem; padding: 0 6px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .66rem; font-weight: 700; }
+      .api-group-entries { display: grid; gap: 0; overflow: visible; border: 0; border-radius: 0; background: none; }
       .api-group-properties .api-group-entries { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .api-member { min-width: 0; padding: 18px 20px; border: 1px solid rgba(255, 255, 255, .075); border-radius: 10px; background: rgba(255, 255, 255, .018); scroll-margin-top: 88px; transition: border-color .15s ease, background .15s ease; }
-      .api-member:target { border-color: rgba(229, 173, 45, .5); background: rgba(229, 173, 45, .045); }
-      .api-member:hover { border-color: rgba(255, 255, 255, .13); }
-      .api-member-property { padding: 15px 16px 16px; }
+      .api-member { min-width: 0; padding: 0; border: 0; border-top: 1px solid var(--api-divider); border-radius: 0; background: transparent; scroll-margin-top: 88px; transition: background .15s ease; }
+      .api-member:last-child { border-bottom: 1px solid var(--api-divider); }
+      .api-member:target { background: transparent; box-shadow: none; }
+      .api-member:hover, .api-member.is-expanded { background: rgba(255, 255, 255, .025); }
+      .api-member-property { padding: 13px 15px 14px; }
+      .api-group-properties .api-member:nth-child(even) { border-left: 1px solid var(--api-divider); }
+      .api-group-properties .api-member:nth-last-child(-n+2) { border-bottom: 1px solid var(--api-divider); }
+      .api-group-properties .api-member-has-description { grid-column: 1 / -1; }
       .api-member-heading { display: flex; gap: 14px; align-items: flex-start; justify-content: space-between; }
-      .api-member h4 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; margin: 0; font-size: .95rem; overflow-wrap: anywhere; }
+      .api-member[data-api-expandable] .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 14px 18px; cursor: pointer; }
+      .api-member-property .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; }
+      .api-member-property .api-member-meta { margin-left: 0; }
+      .api-member[data-api-expandable] h4 { min-width: 0; }
+      .api-member-toggle { display: flex; gap: 11px; align-items: baseline; width: 100%; min-width: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+      .api-member-toggle:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 4px; border-radius: 3px; }
+      .api-member-disclosure { flex: none; width: 12px; margin-top: 1px; color: var(--muted); font-size: 1.05rem; line-height: 1; transition: color .15s ease, transform .15s ease; }
+      .api-member-disclosure::before { content: "›"; }
+      .api-member.is-expanded .api-member-disclosure { color: var(--cyan); transform: rotate(90deg); }
+      .api-member-panel { padding: 0 20px 18px 41px; }
+      .api-member-panel[hidden="until-found"] { padding-block: 0; contain-intrinsic-size: 0 0; }
+      .api-member h4 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; min-width: 0; margin: 0; font-size: .92rem; overflow-wrap: anywhere; }
       .api-signature { font-weight: 500; }
-      .api-signature-name { color: var(--green); }
+      .api-signature-name { color: var(--cyan); white-space: normal; }
       .api-signature-parameters { color: var(--muted); font-weight: 400; }
       .api-property-type { display: inline-flex; align-items: baseline; gap: 7px; color: var(--muted); font-size: .78rem; font-weight: 400; }
-      .api-property-type::before { content: "→"; color: var(--muted); }
+      .api-property-type::before { content: ":"; color: var(--muted); }
       .api-property-type .api-type-expression { font-size: inherit; }
       .api-anchor { flex: none; color: var(--border); font-weight: 400; text-decoration: none; opacity: 0; transition: opacity .15s ease, color .15s ease; }
       .api-member:hover .api-anchor, .api-anchor:focus { opacity: 1; }
       .api-anchor:hover { color: var(--gold-strong); }
-      .api-member-meta { display: flex; flex: none; align-items: baseline; gap: 10px; }
-      .api-badge { padding: 1px 8px; border: 1px solid var(--border); border-radius: 999px; color: #6f7c8d; font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+      .api-member-meta { display: flex; flex: none; align-items: baseline; gap: 10px; margin-left: auto; }
+      .api-badge { padding: 1px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .67rem; font-weight: 700; letter-spacing: .055em; line-height: 1.45; text-transform: uppercase; white-space: nowrap; }
       /* Visibility is a reading order, so it is worth seeing at a glance which
          members are the ones to start with. */
       .api-badge-essential { color: var(--gold-strong); border-color: rgba(229, 173, 45, .38); }
-      .api-badge-extended { color: #5d6878; border-color: rgba(255, 255, 255, .07); }
+      .api-badge-extended { color: var(--muted); border-color: var(--api-divider); }
       .api-badge-experimental { color: var(--green); border-color: rgba(135, 211, 124, .34); }
       .api-badge-async { color: var(--cyan); border-color: rgba(98, 213, 208, .4); }
+      .api-member[data-api-expandable] .api-badge:not(.api-badge-async) { padding: 0; border: 0; border-radius: 0; background: none; }
+      .api-member[data-api-expandable] .api-source { opacity: .58; }
+      .api-member.is-expanded .api-source, .api-member[data-api-expandable] .api-member-heading:hover .api-source, .api-member:focus-within .api-source { opacity: 1; }
       .api-member p, .api-member li, .api-description-body p, .api-description-body li { color: var(--soft); line-height: 1.58; }
       .api-member-property .api-description-body { margin-top: 7px; font-size: .88rem; }
       .api-member pre, .api-description pre { overflow: auto; }
       .api-empty { margin: 6px 0 0; color: var(--muted); font-style: italic; font-size: .9rem; }
-      [hidden] { display: none !important; }
-      @media (max-width: 1040px) {
-        .api-layout { grid-template-columns: 1fr; }
-        .api-sidebar { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(0, 2fr); gap: 24px; max-height: 22rem; padding: 16px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255, 255, 255, .018); overflow: hidden; }
-        .api-tree, .api-tree:first-child { min-width: 0; overflow-y: auto; scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
+      [hidden]:not([hidden="until-found"]) { display: none !important; }
+      @media (max-width: 1180px) {
+        .api-layout { grid-template-columns: 1fr; grid-template-areas: "sidebar" "content"; }
+        .api-sidebar { display: block; width: 100%; padding: 16px; border: 1px solid var(--api-divider); border-radius: 12px; background: rgba(14, 18, 23, .82); box-shadow: none; }
+        .api-tree { min-width: 0; }
+        .api-tree > summary { display: flex; align-items: center; justify-content: space-between; min-height: 42px; margin: 0; padding: 0 12px; border: 1px solid var(--api-divider); border-radius: 7px; background: rgba(255, 255, 255, .035); cursor: pointer; pointer-events: auto; }
+        .api-tree > summary::after { content: "+"; color: var(--muted); font-size: 1rem; }
+        .api-tree[open] > summary::after { content: "−"; }
+        .api-tree:not([open]) > .api-tree-scroll { display: none; }
+        .api-tree[open] > .api-tree-scroll { display: block; padding: 12px 4px 2px; }
       }
       @media (max-width: 760px) {
-        .api-main { width: min(100% - 30px, 1400px); padding-top: 34px; }
+        .api-main { width: min(100% - 30px, 1440px); padding-top: 34px; }
         .api-group-properties .api-group-entries { grid-template-columns: 1fr; }
+        .api-group-properties .api-member-has-description { grid-column: auto; }
       }
       @media (max-width: 620px) {
-        .api-sidebar { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; max-height: 18rem; padding: 12px; }
-        .api-class-header { padding: 18px; }
-        .api-member { padding: 16px; }
-        .api-member-heading { align-items: flex-start; }
-        .api-member-meta { flex-wrap: wrap; justify-content: flex-end; }
+        .api-header { margin-bottom: 28px; }
+        .api-sidebar { padding: 12px; }
+        .api-class-header { padding: 0 0 24px; }
+        .api-class-header h2 .api-source { flex-basis: 100%; }
+        .api-member-property { padding: 14px; }
+        .api-member[data-api-expandable] .api-member-heading { padding: 14px 16px; }
+        .api-member-panel { padding: 0 16px 16px 39px; }
+        .api-member-heading { flex-wrap: wrap; align-items: flex-start; }
+        .api-member[data-api-expandable] .api-member-heading { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+        .api-member[data-api-expandable] .api-member-meta { margin-left: 23px; }
+        .api-member-meta { flex-wrap: wrap; justify-content: flex-start; }
+        .api-function-entries .api-member-meta .api-source { max-width: 5rem; overflow: hidden; text-overflow: ellipsis; }
         .api-argument-table thead { display: none; }
         .api-argument-table, .api-argument-table tbody, .api-argument-table tr, .api-argument-table td { display: block; width: 100%; }
         .api-argument-table tr { padding: 9px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); }
         .api-argument-table td { padding: 0 10px; border: 0; }
         .api-argument-table td + td { padding-top: 6px; padding-bottom: 8px; }
         .api-return-section { grid-template-columns: 1fr; gap: 5px; }
+      }
+      @media (max-width: 360px) {
+        :is(.api-description-body, .api-argument-copy, .api-return-copy) :is(.api-type, .api-ref) { white-space: normal; overflow-wrap: anywhere; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .api-main * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
       }
     </style>
   </head>
@@ -606,69 +659,95 @@ function renderHtml(api) {
     </header>
     <main class="api-main">
       <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><div class="api-tree"><p class="api-rail-heading">Classes</p><div class="api-tree-list">${classList}</div></div><div class="api-tree"><div class="api-tree-list">${tocList}</div></div></aside><article class="api-content">${classes}${functions}</article></div>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><details class="api-tree"><summary class="api-rail-heading">Browse API</summary><nav class="api-tree-scroll" aria-label="API index">${apiIndexList}</nav></details></aside><article class="api-content">${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
     <script>
       const navLinks = [...document.querySelectorAll('[data-api-nav]')];
-      const tocGroups = [...document.querySelectorAll('.api-toc-group')];
-      const memberNav = [...document.querySelectorAll('[data-api-nav-member]')];
+      const expandableMembers = [...document.querySelectorAll('[data-api-expandable]')];
+      const navigationTrees = [...document.querySelectorAll('details.api-tree')];
       const sections = [...document.querySelectorAll('.api-class')];
       const toast = document.querySelector('[data-api-toast]');
       const sectionIds = new Set(sections.map(section => section.id));
-      let trackingFrame, toastTimer;
+      const compactNavigation = matchMedia('(max-width: 1180px)');
+      let toastTimer;
+
+      const syncNavigationMode = () => {
+        for (const tree of navigationTrees) {
+          tree.open = !compactNavigation.matches;
+          tree.querySelector('summary').tabIndex = compactNavigation.matches ? 0 : -1;
+        }
+      };
+      compactNavigation.addEventListener('change', syncNavigationMode);
+      syncNavigationMode();
 
       // The class selected by the hash: a class id, or the parent class of a
-      // member id. Falls back to the first class.
+      // member id. Falls back to the global environment overview.
       const currentKey = () => {
         const hash = location.hash.slice(1);
         if (sectionIds.has(hash)) return hash;
         const el = hash && document.getElementById(hash);
         const parent = el && el.closest('.api-class');
-        return parent ? parent.id : (sections[0] && sections[0].id);
+        return parent ? parent.id : 'class-lumineenvironment';
       };
 
-      // Highlight the member you are reading within the shown class.
-      const syncMember = () => {
-        trackingFrame = null;
-        const group = tocGroups.find(g => g.dataset.tocGroup === currentKey());
-        let current = null;
-        for (const link of memberNav) {
-          if (!group || link.closest('.api-toc-group') !== group) continue;
-          const section = document.getElementById(link.dataset.apiNavMember);
-          if (section && section.getBoundingClientRect().top <= 160) current = link;
-        }
-        for (const link of memberNav) link.classList.toggle('active', link === current);
+      const setMemberExpanded = (member, expanded) => {
+        const toggle = member.querySelector('.api-member-toggle');
+        const panel = member.querySelector('.api-member-panel');
+        member.classList.toggle('is-expanded', expanded);
+        toggle.setAttribute('aria-expanded', String(expanded));
+        if (expanded) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', 'until-found');
       };
-      const requestMemberSync = () => {
-        if (!trackingFrame) trackingFrame = requestAnimationFrame(syncMember);
-      };
+
+      for (const member of expandableMembers) {
+        const toggle = member.querySelector('.api-member-toggle');
+        const panel = member.querySelector('.api-member-panel');
+        toggle.addEventListener('click', () => {
+          setMemberExpanded(member, toggle.getAttribute('aria-expanded') !== 'true');
+        });
+        panel.addEventListener('beforematch', () => setMemberExpanded(member, true));
+      }
 
       // Split-pane router: show one class at a time, driven by the hash.
       const showClass = () => {
         const key = currentKey();
         for (const section of sections) section.hidden = section.id !== key;
+        const hash = location.hash.slice(1);
+        const navigationTarget = hash.startsWith('function-') ? 'functions' : key;
         for (const link of navLinks) {
-          const on = link.hash.slice(1) === key;
+          const on = link.hash.slice(1) === navigationTarget;
           link.classList.toggle('active', on);
           if (on) link.setAttribute('aria-current', 'page');
           else link.removeAttribute('aria-current');
         }
-        for (const group of tocGroups) group.classList.toggle('active', group.dataset.tocGroup === key);
-        const hash = location.hash.slice(1);
+        const target = hash ? document.getElementById(hash) : null;
+        const targetMember = target?.matches('[data-api-expandable]') ? target : null;
+        if (targetMember) setMemberExpanded(targetMember, true);
         if (hash && !sectionIds.has(hash)) {
-          const el = document.getElementById(hash);
-          if (el) el.scrollIntoView({ behavior: 'auto' });
+          if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'auto' }));
         } else {
           window.scrollTo(0, 0);
         }
-        syncMember();
       };
 
-      // Clicking the # anchor copies a deep link (and still navigates).
+      // Compact navigation closes after a choice. A # anchor copies its deep
+      // link as well as navigating to it.
       document.addEventListener('click', (event) => {
+        const memberHeading = event.target.closest('[data-api-expandable] .api-member-heading');
+        if (memberHeading && !event.target.closest('a, button')) {
+          memberHeading.querySelector('.api-member-toggle').click();
+          return;
+        }
+        const navigationLink = event.target.closest('[data-api-sidebar] a');
+        if (navigationLink && compactNavigation.matches) {
+          navigationLink.closest('details')?.removeAttribute('open');
+        }
         const anchor = event.target.closest('.api-anchor');
+        if ((navigationLink || anchor)?.hash === location.hash) {
+          requestAnimationFrame(showClass);
+        }
         if (!anchor || !navigator.clipboard) return;
         navigator.clipboard
           .writeText(location.origin + location.pathname + anchor.getAttribute('href'))
@@ -681,7 +760,6 @@ function renderHtml(api) {
       });
 
       window.addEventListener('hashchange', showClass);
-      window.addEventListener('scroll', requestMemberSync, { passive: true });
       showClass();
     </script>
   </body>
