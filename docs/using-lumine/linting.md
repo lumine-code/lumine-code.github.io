@@ -1,6 +1,6 @@
 # Linting
 
-Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and marks them in the editor. To read them all in one list, add [`linter-panel`](linter-panel.md).
+Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and marks them in the editor. To read them all in one list, add `linter-panel`.
 
 ## Inline messages
 
