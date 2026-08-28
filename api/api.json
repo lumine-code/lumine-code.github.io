@@ -1866,6 +1866,154 @@
       ]
     },
     {
+      "name": "CompositeDisposable",
+      "visibility": "Essential",
+      "description": "An object that aggregates multiple {@link Disposable} instances into a\nsingle disposable, so they can all be disposed as a group.\n\nThese are very useful when subscribing to multiple events.\n\n## Examples\n\n```js\nconst { CompositeDisposable } = require(\"lumine\");\n\nclass Something {\n  constructor() {\n    this.disposables = new CompositeDisposable();\n    const editor = lumine.workspace.getActiveTextEditor();\n    this.disposables.add(editor.onDidChange(() => {}));\n    this.disposables.add(editor.onDidChangePath(() => {}));\n  }\n\n  destroy() {\n    this.disposables.dispose();\n  }\n}\n```",
+      "summary": "An object that aggregates multiple {@link Disposable} instances into a single disposable, so they can all be disposed as a group.",
+      "source": "lib/composite-disposable.js",
+      "sourcePath": "lib/composite-disposable.js",
+      "repository": "https://github.com/lumine-code/event-kit",
+      "line": 31,
+      "members": [
+        {
+          "name": "constructor",
+          "kind": "constructor",
+          "static": false,
+          "async": false,
+          "signature": "new CompositeDisposable(...disposables)",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Construct an instance, optionally with one or more disposables.",
+          "summary": "Construct an instance, optionally with one or more disposables.",
+          "parameters": [
+            {
+              "name": "disposables",
+              "source": "...disposables",
+              "optional": false,
+              "rest": true,
+              "type": "...Disposable",
+              "description": "Disposables to add to the instance.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 44
+        },
+        {
+          "name": "dispose",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::dispose()",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Dispose all disposables added to this composite disposable.\n\nIf this object has already been disposed, this method has no effect.",
+          "summary": "Dispose all disposables added to this composite disposable.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 58
+        },
+        {
+          "name": "add",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::add(...disposables)",
+          "category": "Managing Disposables",
+          "visibility": "Public",
+          "description": "Add disposables to be disposed when the composite is disposed.\n\nIf this object has already been disposed, this method has no effect.",
+          "summary": "Add disposables to be disposed when the composite is disposed.",
+          "parameters": [
+            {
+              "name": "disposables",
+              "source": "...disposables",
+              "optional": false,
+              "rest": true,
+              "type": "...Disposable",
+              "description": "{@link Disposable} instances or any objects with `.dispose()` methods.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 83
+        },
+        {
+          "name": "remove",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::remove(disposable)",
+          "category": "Managing Disposables",
+          "visibility": "Public",
+          "description": "Remove a previously added disposable.",
+          "summary": "Remove a previously added disposable.",
+          "parameters": [
+            {
+              "name": "disposable",
+              "source": "disposable",
+              "optional": false,
+              "rest": false,
+              "type": "Disposable",
+              "description": "A {@link Disposable} instance or any object with a `.dispose()` method.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 101
+        },
+        {
+          "name": "delete",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::delete(disposable)",
+          "category": "Managing Disposables",
+          "visibility": "Public",
+          "description": "Alias for {@link CompositeDisposable#remove}.",
+          "summary": "Alias for {@link CompositeDisposable#remove}.",
+          "parameters": [
+            {
+              "name": "disposable",
+              "source": "disposable",
+              "optional": false,
+              "rest": false,
+              "type": "Disposable",
+              "description": "A {@link Disposable} instance or any object with a `.dispose()` method.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 116
+        },
+        {
+          "name": "clear",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clear()",
+          "category": "Managing Disposables",
+          "visibility": "Public",
+          "description": "Clear all disposables. They will not be disposed by the next call to\n{@link CompositeDisposable#dispose}.",
+          "summary": "Clear all disposables. They will not be disposed by the next call to {@link CompositeDisposable#dispose}.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 127
+        }
+      ]
+    },
+    {
       "name": "Config",
       "visibility": "Essential",
       "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `lumine.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\nlumine.config.get('my-package.myKey') // -> 'defaultValue'\n\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {@link #observe} to catch changes to the setting.\n\n```js\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {@link #onDidChange}.\n\n```js\nlumine.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\nlumine.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\nlumine.config.set('my-package.anInt', '123')\nlumine.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\nlumine.config.set('my-package.anInt', '-20')\nlumine.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\nlumine.config.set('my-package.thingVolume', '10')\nlumine.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\nlumine.config.set('my-package.thingVolume', '400')\nlumine.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\nlumine.config.set('my-package.thingVolume', 'cats')\nlumine.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\nlumine.config.set('my-package.someSetting', 'true')\nlumine.config.get('my-package.someSetting') // -> true\n\nlumine.config.set('my-package.someSetting', '12')\nlumine.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {@link Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\nlumine.config.set('my-package.someSetting', '2')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\nlumine.config.set('my-package.someSetting', '3')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\nlumine.config.set('my-package.someSetting', '4')\nlumine.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = lumine.config.get('some-package.otherSetting')\nlumine.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
@@ -5299,12 +5447,12 @@
     {
       "name": "DisplayMarkerLayer",
       "visibility": "Experimental",
-      "description": "A container for a related set of markers at the `DisplayLayer` level. Wraps\nan underlying {@link MarkerLayer} on the {@link TextBuffer}.\n\nThis API is experimental and subject to change on any release.",
+      "description": "A container for a related set of markers at the `DisplayLayer` level. Wraps\nan underlying {@link MarkerLayer} on the {@link TextBuffer}.",
       "summary": "A container for a related set of markers at the `DisplayLayer` level. Wraps an underlying {@link MarkerLayer} on the {@link TextBuffer}.",
       "source": "src/display-marker-layer.js",
       "sourcePath": "src/display-marker-layer.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 15,
+      "line": 13,
       "members": [
         {
           "name": "destroy",
@@ -5320,7 +5468,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 44
+          "line": 42
         },
         {
           "name": "clear",
@@ -5336,7 +5484,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 70
+          "line": 68
         },
         {
           "name": "isDestroyed",
@@ -5352,7 +5500,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 89
+          "line": 87
         },
         {
           "name": "onDidDestroy",
@@ -5378,7 +5526,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 105
+          "line": 103
         },
         {
           "name": "onDidUpdate",
@@ -5404,7 +5552,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 128
+          "line": 126
         },
         {
           "name": "onDidCreateMarker",
@@ -5430,7 +5578,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 147
+          "line": 145
         },
         {
           "name": "markScreenRange",
@@ -5505,7 +5653,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 178
+          "line": 176
         },
         {
           "name": "markScreenPosition",
@@ -5570,7 +5718,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 198
+          "line": 196
         },
         {
           "name": "markBufferRange",
@@ -5635,7 +5783,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 217
+          "line": 215
         },
         {
           "name": "markBufferPosition",
@@ -5690,7 +5838,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 235
+          "line": 233
         },
         {
           "name": "getMarker",
@@ -5716,7 +5864,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 253
+          "line": 251
         },
         {
           "name": "getMarkers",
@@ -5732,7 +5880,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}.",
           "propertyType": null,
-          "line": 275
+          "line": 273
         },
         {
           "name": "getMarkerCount",
@@ -5748,7 +5896,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 287
+          "line": 285
         },
         {
           "name": "findMarkers",
@@ -5974,7 +6122,87 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}",
           "propertyType": null,
-          "line": 325
+          "line": 323
+        }
+      ]
+    },
+    {
+      "name": "Disposable",
+      "visibility": "Essential",
+      "description": "A handle to a resource that can be disposed. For example,\n{@link Emitter#on} returns disposables representing subscriptions.",
+      "summary": "A handle to a resource that can be disposed. For example, {@link Emitter#on} returns disposables representing subscriptions.",
+      "source": "lib/disposable.js",
+      "sourcePath": "lib/disposable.js",
+      "repository": "https://github.com/lumine-code/event-kit",
+      "line": 8,
+      "members": [
+        {
+          "name": "isDisposable",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".isDisposable(object)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Ensure that `object` correctly implements the {@link Disposable} contract.",
+          "summary": "Ensure that `object` correctly implements the {@link Disposable} contract.",
+          "parameters": [
+            {
+              "name": "object",
+              "source": "object",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "The object to check.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "Whether `object` is a valid {@link Disposable}.",
+          "propertyType": null,
+          "line": 18
+        },
+        {
+          "name": "constructor",
+          "kind": "constructor",
+          "static": false,
+          "async": false,
+          "signature": "new Disposable(disposalAction)",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Construct a {@link Disposable}.",
+          "summary": "Construct a {@link Disposable}.",
+          "parameters": [
+            {
+              "name": "disposalAction",
+              "source": "disposalAction",
+              "optional": true,
+              "rest": false,
+              "type": "Function",
+              "description": "A function to call when {@link Disposable#dispose} is called for the first time.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 35
+        },
+        {
+          "name": "dispose",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::dispose()",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Perform the disposal action, indicating that the resource associated with\nthis disposable is no longer needed.\n\nYou can call this method more than once, but the disposal action will only\nbe performed the first time.",
+          "summary": "Perform the disposal action, indicating that the resource associated with this disposable is no longer needed.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 50
         }
       ]
     },
@@ -6859,6 +7087,224 @@
           "returnDescription": "",
           "propertyType": null,
           "line": 815
+        }
+      ]
+    },
+    {
+      "name": "Emitter",
+      "visibility": "Essential",
+      "description": "Utility class to be used when implementing event-based APIs that allows\nhandlers registered via {@link Emitter#on} to be invoked with calls to\n{@link Emitter#emit}. Instances of this class are intended to be used\ninternally by classes that expose an event-based API.\n\nFor example:\n\n```js\nclass User {\n  constructor() {\n    this.emitter = new Emitter();\n  }\n\n  onDidChangeName(callback) {\n    return this.emitter.on(\"did-change-name\", callback);\n  }\n\n  setName(name) {\n    if (name !== this.name) {\n      this.name = name;\n      this.emitter.emit(\"did-change-name\", name);\n    }\n\n    return this.name;\n  }\n}\n```",
+      "summary": "Utility class to be used when implementing event-based APIs that allows handlers registered via {@link Emitter#on} to be invoked with calls to {@link Emitter#emit}. Instances of this class are intended to be used internally by classes that expose an event-based API.",
+      "source": "lib/emitter.js",
+      "sourcePath": "lib/emitter.js",
+      "repository": "https://github.com/lumine-code/event-kit",
+      "line": 36,
+      "members": [
+        {
+          "name": "constructor",
+          "kind": "constructor",
+          "static": false,
+          "async": false,
+          "signature": "new Emitter()",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Construct an emitter.\n\n```js\nthis.emitter = new Emitter();\n```",
+          "summary": "Construct an emitter.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 79
+        },
+        {
+          "name": "clear",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clear()",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Clear out any existing subscribers.",
+          "summary": "Clear out any existing subscribers.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 90
+        },
+        {
+          "name": "dispose",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::dispose()",
+          "category": "Construction and Destruction",
+          "visibility": "Public",
+          "description": "Unsubscribe all handlers.",
+          "summary": "Unsubscribe all handlers.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 105
+        },
+        {
+          "name": "on",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::on(eventName, handler, unshift = false)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Register the given handler function to be invoked whenever events by the\ngiven name are emitted via {@link Emitter#emit}.",
+          "summary": "Register the given handler function to be invoked whenever events by the given name are emitted via {@link Emitter#emit}.",
+          "parameters": [
+            {
+              "name": "eventName",
+              "source": "eventName",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The name of the event that invokes the handler.",
+              "defaultValue": null
+            },
+            {
+              "name": "handler",
+              "source": "handler",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "The function to invoke when {@link Emitter#emit} is called with the given event name.",
+              "defaultValue": null
+            },
+            {
+              "name": "unshift",
+              "source": "unshift = false",
+              "optional": true,
+              "rest": false,
+              "type": "Boolean",
+              "description": "Whether to add the handler before the existing handlers.",
+              "defaultValue": "false"
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "A subscription on which {@link Disposable#dispose} can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 130
+        },
+        {
+          "name": "once",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::once(eventName, handler, unshift = false)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Register the given handler function to be invoked the next time an event\nwith the given name is emitted via {@link Emitter#emit}.",
+          "summary": "Register the given handler function to be invoked the next time an event with the given name is emitted via {@link Emitter#emit}.",
+          "parameters": [
+            {
+              "name": "eventName",
+              "source": "eventName",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The name of the event that invokes the handler.",
+              "defaultValue": null
+            },
+            {
+              "name": "handler",
+              "source": "handler",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "The function to invoke when {@link Emitter#emit} is called with the given event name.",
+              "defaultValue": null
+            },
+            {
+              "name": "unshift",
+              "source": "unshift = false",
+              "optional": true,
+              "rest": false,
+              "type": "Boolean",
+              "description": "Whether to add the handler before the existing handlers.",
+              "defaultValue": "false"
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "A subscription on which {@link Disposable#dispose} can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 179
+        },
+        {
+          "name": "preempt",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::preempt(eventName, handler)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Register the given handler function to be invoked *before* all other\nhandlers existing at the time of subscription whenever events by the given\nname are emitted via {@link Emitter#emit}.\n\nUse this method when you need to be the first to handle a given event. This\ncould be required when a data structure in a parent object needs to be\nupdated before third-party event handlers registered on a child object via\na public API are invoked. Your handler could itself be preempted via\nsubsequent calls to this method, but this can be controlled by keeping\nmethods based on {@link Emitter#preempt} private.",
+          "summary": "Register the given handler function to be invoked *before* all other handlers existing at the time of subscription whenever events by the given name are emitted via {@link Emitter#emit}.",
+          "parameters": [
+            {
+              "name": "eventName",
+              "source": "eventName",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The name of the event that invokes the handler.",
+              "defaultValue": null
+            },
+            {
+              "name": "handler",
+              "source": "handler",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "The function to invoke when {@link Emitter#emit} is called with the given event name.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "A subscription on which {@link Disposable#dispose} can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 210
+        },
+        {
+          "name": "emit",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::emit(eventName, value)",
+          "category": "Event Emission",
+          "visibility": "Public",
+          "description": "Invoke handlers registered via {@link Emitter#on} for the given event name.",
+          "summary": "Invoke handlers registered via {@link Emitter#on} for the given event name.",
+          "parameters": [
+            {
+              "name": "eventName",
+              "source": "eventName",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The name of the event to emit. Handlers registered with {@link Emitter#on} for the same name will be invoked.",
+              "defaultValue": null
+            },
+            {
+              "name": "value",
+              "source": "value",
+              "optional": false,
+              "rest": false,
+              "type": "*",
+              "description": "The value passed to each handler.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 253
         }
       ]
     },
@@ -8474,6 +8920,141 @@
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
           "line": 1391
+        }
+      ]
+    },
+    {
+      "name": "Grammar",
+      "visibility": "Extended",
+      "description": "Grammar that tokenizes lines of text.\n\nThis class should not be instantiated directly. Obtain one from a\n{@link GrammarRegistry} by calling {@link GrammarRegistry#loadGrammar}.",
+      "summary": "Grammar that tokenizes lines of text.",
+      "source": "lib/grammar.js",
+      "sourcePath": "lib/grammar.js",
+      "repository": "https://github.com/lumine-code/second-mate",
+      "line": 18,
+      "members": [
+        {
+          "name": "onDidUpdate",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidUpdate(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the given callback when this grammar is updated due to a grammar it\ndepends on being added or removed from the registry.",
+          "summary": "Invoke the given callback when this grammar is updated due to a grammar it depends on being added or removed from the registry.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "Function to call when this grammar is updated.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "A subscription on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 82
+        },
+        {
+          "name": "tokenizeLines",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::tokenizeLines(text, compatibilityMode)",
+          "category": "Tokenizing",
+          "visibility": "Public",
+          "description": "Tokenize all lines in the given text.",
+          "summary": "Tokenize all lines in the given text.",
+          "parameters": [
+            {
+              "name": "text",
+              "source": "text",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Text containing one or more lines.",
+              "defaultValue": null
+            },
+            {
+              "name": "compatibilityMode",
+              "source": "compatibilityMode",
+              "optional": true,
+              "rest": false,
+              "type": "Boolean",
+              "description": "Whether to use compatibility results while tokenizing each line.",
+              "defaultValue": "true"
+            }
+          ],
+          "returnType": "Array<Array<Object>>",
+          "returnDescription": "Token arrays for each tokenized line.",
+          "propertyType": null,
+          "line": 100
+        },
+        {
+          "name": "tokenizeLine",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::tokenizeLine(inputLine, ruleStack, firstLine, compatibilityMode, appendNewLine)",
+          "category": "Tokenizing",
+          "visibility": "Public",
+          "description": "Tokenize a line of text.\n\nThe returned object contains the following properties:\n\n* `line`: The `String` of text that was tokenized.\n* `tags`: An `Array` containing positive token lengths and negative scope\n  identifiers. Negative odd values begin scopes and negative even values\n  end them. Resolve identifiers with `scopeForId` on the\n  {@link GrammarRegistry}.\n* `tokens`: A lazily decoded `Array` of token objects with `value` and\n  `scopes` properties. Reading it incurs additional overhead. This property\n  is present when compatibility mode is enabled.\n* `ruleStack`: An `Array` of rules representing the tokenized state at the\n  end of the line. Pass it back to this method when tokenizing the next\n  line in the file.",
+          "summary": "Tokenize a line of text.",
+          "parameters": [
+            {
+              "name": "inputLine",
+              "source": "inputLine",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Text to tokenize.",
+              "defaultValue": null
+            },
+            {
+              "name": "ruleStack",
+              "source": "ruleStack",
+              "optional": true,
+              "rest": false,
+              "type": "Array<Object>|null",
+              "description": "Rules returned by the previous call, or `null` for the first line.",
+              "defaultValue": "null"
+            },
+            {
+              "name": "firstLine",
+              "source": "firstLine",
+              "optional": true,
+              "rest": false,
+              "type": "Boolean",
+              "description": "Whether this is the first line in the file.",
+              "defaultValue": "false"
+            },
+            {
+              "name": "compatibilityMode",
+              "source": "compatibilityMode",
+              "optional": true,
+              "rest": false,
+              "type": "Boolean",
+              "description": "Whether to expose the lazy `tokens` property.",
+              "defaultValue": "true"
+            },
+            {
+              "name": "appendNewLine",
+              "source": "appendNewLine",
+              "optional": true,
+              "rest": false,
+              "type": "Boolean",
+              "description": "Whether to include a terminating newline while matching.",
+              "defaultValue": "true"
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "The tokenization result described above.",
+          "propertyType": null,
+          "line": 146
         }
       ]
     },
@@ -10644,12 +11225,12 @@
     {
       "name": "MarkerLayer",
       "visibility": "Experimental",
-      "description": "A container for a related set of markers.\n\nThis API is experimental and subject to change on any release.",
+      "description": "A container for a related set of markers.",
       "summary": "A container for a related set of markers.",
       "source": "src/marker-layer.js",
       "sourcePath": "src/marker-layer.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 23,
+      "line": 21,
       "members": [
         {
           "name": "copy",
@@ -10665,7 +11246,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 88
+          "line": 86
         },
         {
           "name": "destroy",
@@ -10681,7 +11262,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 108
+          "line": 106
         },
         {
           "name": "clear",
@@ -10697,7 +11278,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 131
+          "line": 129
         },
         {
           "name": "isDestroyed",
@@ -10713,7 +11294,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 152
+          "line": 150
         },
         {
           "name": "getMarker",
@@ -10739,7 +11320,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 171
+          "line": 169
         },
         {
           "name": "getMarkers",
@@ -10755,7 +11336,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 183
+          "line": 181
         },
         {
           "name": "getMarkerCount",
@@ -10771,7 +11352,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 195
+          "line": 193
         },
         {
           "name": "findMarkers",
@@ -10797,7 +11378,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 206
+          "line": 204
         },
         {
           "name": "getRole",
@@ -10813,7 +11394,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 296
+          "line": 294
         },
         {
           "name": "markRange",
@@ -10878,7 +11459,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 317
+          "line": 315
         },
         {
           "name": "markPosition",
@@ -10933,7 +11514,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 334
+          "line": 332
         },
         {
           "name": "onDidUpdate",
@@ -10959,7 +11540,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 365
+          "line": 363
         },
         {
           "name": "onDidCreateMarker",
@@ -10985,7 +11566,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 385
+          "line": 383
         },
         {
           "name": "onDidDestroy",
@@ -11011,7 +11592,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 398
+          "line": 396
         }
       ]
     },
@@ -39004,6 +39585,6 @@
       "line": 1166
     }
   ],
-  "memberCount": 1232,
-  "generatedAt": "2026-08-28T03:20:39.809Z"
+  "memberCount": 1251,
+  "generatedAt": "2026-08-28T03:49:49.050Z"
 }

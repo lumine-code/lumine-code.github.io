@@ -17,7 +17,8 @@ jobs:
     name: API reference is current
     runs-on: ubuntu-latest
     steps:
-      # Check out both inputs and tell the generator where the editor source is.
+      # Check out the site, the editor, and the dependency files named by the
+      # editor's canonical API source registry.
       - uses: actions/checkout@v7
         with:
           path: lumine-code.github.io
@@ -25,18 +26,34 @@ jobs:
         with:
           repository: lumine-code/lumine
           path: lumine
-          # Source and package.json are all it reads — no install, no history.
           fetch-depth: 1
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: lumine-code.github.io/package-lock.json
+      - id: api-source-refs
+        name: Resolve pinned API source revisions
+        working-directory: lumine
+        shell: bash
+        run: |
+          node -e 'const dependencies = require("./package.json").dependencies; for (const [output, name] of Object.entries({ event_kit: "@lumine-code/event-kit", second_mate: "@lumine-code/second-mate" })) { const ref = dependencies[name]?.split("#")[1]; if (!ref) throw new Error(`Missing pinned dependency ${name}`); console.log(`${output}=${ref}`); }' >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v7
+        with:
+          repository: lumine-code/event-kit
+          path: event-kit
+          ref: ${{ steps.api-source-refs.outputs.event_kit }}
+          fetch-depth: 1
+      - uses: actions/checkout@v7
+        with:
+          repository: lumine-code/second-mate
+          path: second-mate
+          ref: ${{ steps.api-source-refs.outputs.second_mate }}
+          fetch-depth: 1
       - run: npm ci
         working-directory: lumine-code.github.io
-      # Fails when the committed api/ no longer matches the editor's documented
-      # source: a changed doc comment, a new member, or a moved line number that
-      # has left a reference link pointing at the wrong code.
+      # Fails when the committed api/ no longer matches any registered source:
+      # a changed doc comment, a new member, or a moved source line.
       - run: npm run docs:api:check -- --editor ../lumine
         working-directory: lumine-code.github.io
 

@@ -27,7 +27,7 @@ npm install
 npm run docs:api -- --editor /path/to/lumine
 ```
 
-The generator uses the canonical JSDoc extractor from the selected editor checkout, then rewrites `api/index.html` and `api/api.json`. `LUMINE_CORE_ROOT` may be set instead of passing `--editor`.
+The generator uses the canonical JSDoc extractor and source registry from the selected editor checkout, then rewrites `api/index.html` and `api/api.json`. Registered dependency sources are resolved from sibling repositories first and the editor's `node_modules` second, so a full workspace keeps `event-kit` and `second-mate` beside `lumine`. `LUMINE_CORE_ROOT` may be set instead of passing `--editor`.
 
 ## Local preview
 
