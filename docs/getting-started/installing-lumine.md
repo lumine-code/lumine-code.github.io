@@ -5,10 +5,10 @@ Lumine is currently **source-first**: downloads and platform packages are still 
 ## Prerequisites
 
 - **Git** — to clone the repository.
-- **Node.js** — the exact version is pinned in the repository's `.nvmrc` (currently Node 24). Using [nvm](https://github.com/nvm-sh/nvm) is the easiest way to match it. npm ships with Node, so there is nothing else to install for the package manager.
+- **Node.js** — install the exact version named in `.nvmrc`. On macOS and Linux, [nvm](https://github.com/nvm-sh/nvm) can select it with `nvm install`; on Windows, use the matching Node installer or a Windows-compatible version manager. npm ships with Node.
 - **A C/C++ build toolchain** — some native modules are compiled during install. On Windows this means the Visual Studio Build Tools; on macOS the Xcode command-line tools; on Linux the usual `build-essential`/Python toolchain.
 
-Electron 44 provides only 64-bit builds, so Lumine requires an x64 or arm64 system. The macOS minimum is macOS 13 Ventura; Windows builds require 64-bit Windows 10 or later. Linux builds target current 64-bit distributions and no longer include special Unity desktop integration.
+Lumine requires an x64 or arm64 system. The macOS minimum is macOS 13 Ventura; Windows builds require 64-bit Windows 10 or later; Linux builds target current 64-bit distributions.
 
 ## Build from source
 
@@ -17,9 +17,6 @@ Electron 44 provides only 64-bit builds, so Lumine requires an x64 or arm64 syst
 git clone https://github.com/lumine-code/lumine.git
 cd lumine
 
-# Use the project Node version from .nvmrc
-nvm install
-
 # Install dependencies, rebuild native modules, and launch
 npm install
 npm run build
@@ -27,6 +24,8 @@ npm start
 ```
 
 `npm install` installs dependencies, `npm run build` rebuilds the native modules against Lumine's Electron runtime, and `npm start` runs the editor you just built.
+
+To pass paths or options to a source build, place them after `--`, for example `npm start -- .`. The standalone `lumine` command described on the next page belongs to an installed binary.
 
 ## Building installable binaries
 

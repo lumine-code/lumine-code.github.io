@@ -10,7 +10,7 @@ The single most useful test is **safe mode**, which starts Lumine without loadin
 lumine --safe
 ```
 
-If the problem disappears in safe mode, a package is responsible. Re-enable packages a few at a time (**Settings → Packages → Disable**) until the culprit reappears.
+If the problem disappears, close the safe window, start normally, disable likely packages under **Settings → Packages**, and reload. For a large set, disable half, retest, and repeat with the failing half; re-enable packages after isolating the culprit.
 
 ## Check the diagnostics
 
@@ -20,11 +20,11 @@ Lumine bundles several diagnostic packages, each with a `:view` command:
 - **`deprecation-cop:view`** — lists deprecated API calls made by Lumine or your packages; useful when a package misbehaves after an update.
 - **`timecop:view`** — shows where time goes during startup. See [Performance](performance.md).
 
-If a bundled package behaves unexpectedly, check whether an installed package of the same name is overriding it: the **Packages** tab marks the shadowed bundled card as **Overridden**. See [Managing packages](../packages-and-themes/managing.md).
+If a bundled package behaves unexpectedly, check whether an installed package of the same name shadows it: the **Packages** tab marks the bundled card as **Shadowed**. See [Managing packages](../packages-and-themes/managing.md).
 
 ## Look at the console
 
-Run `window:toggle-dev-tools` to open the developer tools, then check the **Console** for errors and warnings — they usually name the package or file at fault. See [Developer tools](developer-tools.md).
+Check the console for errors that name the package or file at fault; see [Developer tools](developer-tools.md).
 
 ## "Unable to watch path" on Linux
 

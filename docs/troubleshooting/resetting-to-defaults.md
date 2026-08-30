@@ -4,7 +4,7 @@ Because all of your customization lives in one [configuration directory](../cust
 
 ## Start without packages
 
-`lumine --safe` launches without loading your installed or development packages. Nothing is deleted — it is a temporary clean environment for testing whether a package is at fault.
+`lumine --safe` changes nothing on disk and temporarily skips installed and development packages. See [Common issues](common-issues.md#is-it-a-package) for the isolation workflow.
 
 ## Clear saved window state
 

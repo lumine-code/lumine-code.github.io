@@ -140,6 +140,12 @@
           }
         }
         const byRoute = new Map(flat.map((p) => [p.route, p]));
+        const routeAliases = new Map([
+          [
+            "customizing-lumine/global-settings",
+            "customizing-lumine/configuration",
+          ],
+        ]);
 
         // Build the sidebar: a collapsible group per category, a link per page.
         for (const category of manifest.categories) {
@@ -225,7 +231,12 @@
 
         const cache = new Map();
         const render = async () => {
-          const route = currentRoute();
+          const requestedRoute = currentRoute();
+          const route = routeAliases.get(requestedRoute) || requestedRoute;
+          if (route !== requestedRoute) {
+            location.replace("#" + route);
+            return;
+          }
           const page = byRoute.get(route) || flat[0];
           if (!byRoute.get(route)) {
             location.replace("#" + flat[0].route);

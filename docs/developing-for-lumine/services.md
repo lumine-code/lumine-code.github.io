@@ -7,9 +7,11 @@ Packages extend one another through **services**: one package offers an object, 
 A provider declares what it offers in its `package.json`:
 
 ```json
-"providedServices": {
-  "status-bar": {
-    "versions": { "1.0.0": "provideStatusBar" }
+{
+  "providedServices": {
+    "status-bar": {
+      "versions": { "1.0.0": "provideStatusBar" }
+    }
   }
 }
 ```
@@ -17,9 +19,11 @@ A provider declares what it offers in its `package.json`:
 A consumer declares what it wants, with a semver range:
 
 ```json
-"consumedServices": {
-  "status-bar": {
-    "versions": { "^1.0.0": "consumeStatusBar" }
+{
+  "consumedServices": {
+    "status-bar": {
+      "versions": { "^1.0.0": "consumeStatusBar" }
+    }
   }
 }
 ```
@@ -53,11 +57,11 @@ A service name is an opaque string. The `.` in `linter.provider` groups related 
 
 ### Versions
 
-Every service in this catalog is at `1.0.0`, and consumers should ask for `^1.0.0`. A service that changes shape incompatibly gets a new _name_, not a new major version — a renamed service is a different contract, so both sides move in the same release rather than one supporting two names.
+Service versions follow semver. A provider declares exact versions and a consumer requests the range it implements; use `^1.0.0`, `^1.1.0`, `^2.0.0`, or another range according to the service's canonical contract. Add compatible capabilities in a minor release and use a new major version for an incompatible shape; rename the service only when its meaning or ownership changes.
 
 ## Naming
 
-If you are designing a service rather than consuming one, the workspace follows a single rule.
+If you are designing a service rather than consuming one, follow the workspace naming convention.
 
 A name is either bare or `namespace.capability`, both kebab-case:
 
@@ -69,4 +73,4 @@ The method is `provide`/`consume` plus the PascalCased name, dropping a trailing
 
 ## Contracts
 
-Each service's contract — the shape of the object, which fields are required, and a working example — is `docs/<service-name>.md` in the repository of the package that owns the service, so it is reviewed alongside the code it describes. The editor reads them too: Settings → the package → Documentation.
+Each service's canonical contract belongs in the repository of the package that owns it, normally as `docs/<service-name>.md` and, for core services, under `lumine/docs/services/`. This keeps the shape, required fields and example beside the implementation. The editor exposes package documentation under Settings → the package → Documentation.

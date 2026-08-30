@@ -1,6 +1,6 @@
 # Autocomplete
 
-The **`autocomplete`** package shows a list of possible completions as you type.
+The **`autocomplete`** package shows a list of possible completions as you type. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/autocomplete`.
 
 ## How it works
 
@@ -10,40 +10,30 @@ Behavior — the activation delay, whether to auto-confirm a single suggestion, 
 
 ## Providers
 
-`autocomplete` consumes suggestions from other packages, so completions get smarter as you install providers. Lumine bundles several:
+`autocomplete` consumes suggestions from provider packages. Common providers in the Install catalogue include:
 
 - **`autocomplete-css`** — CSS properties and values.
 - **`autocomplete-html`** — HTML tags and attributes.
 - **`autocomplete-snippets`** — your [snippets](../customizing-lumine/snippets.md), offered as completions.
 - **`autocomplete-lumine`** — the editor API, for package and init-script development.
 
-Installed packages can add more providers (for a framework, a data source, and so on); install them like any other package. See [The package system](../packages-and-themes/package-system.md). The `ide-client` package is a provider too, so installing a [language-server adapter](language-servers.md) puts your server's completions in the same list.
+Install the providers you need like any other package; none of the providers above is bundled. A [language-server setup](language-servers.md#installation) can also provide completions through `ide-client`.
 
-Not every provider completes what you are typing. [`spell-check`](linting.md) puts its corrections here, above the buffer's own words, and picking one replaces the misspelled word rather than extending it — so this list is where a spelling fix is chosen too. Corrections appear only when the list is asked for, never while typing.
+[`spell-check`](linting.md#providers) also offers corrections in this list when it is opened manually.
 
 ## Matching and ordering
 
-Typing narrows the list by subsequence, not just by prefix: `sfn` finds `setFontName`. The matched characters are highlighted in each entry.
-
-Ordering puts what you typed first. Entries whose text begins with the typed characters rank above those that merely contain them in order, and a provider's own preference — a language server's relevance ranking, for instance — decides only between entries that answer your typing equally well. A server can never push an unrelated entry above a literal match.
-
-A provider can also nominate which entry the list opens on, and can match an entry on something other than its visible label — useful where the label is decorated but the name you type is not.
+Typing narrows the list by subsequence, not just by prefix: `sfn` finds `setFontName`. Prefix matches rank above looser matches, matched characters are highlighted, and a provider's relevance breaks ties.
 
 ## Accepting an entry
 
-Tab and Enter accept the highlighted entry, as configured by **Keymap For Confirming A Suggestion**.
+**Keymap For Confirming A Suggestion** controls whether Tab, Enter, both, or neither accepts the highlighted entry.
 
-A provider may additionally nominate characters that accept an entry as you type them — typing `(` after a function name accepts it and then inserts the bracket. This is off by default; turn on **Commit Characters** to enable it. Only characters the provider nominates commit, so ordinary typing is unaffected.
-
-A provider can also declare characters that open the list, such as `.` after an object. These work even with auto-activation turned off, so you can keep the list quiet while still getting member completions where they matter.
+A provider may nominate characters that accept an entry, such as `(` after a function name; enable **Commit Characters** to use them. Provider trigger characters such as `.` can open the list even when automatic activation is off.
 
 ## Documentation and detail
 
-An entry can carry documentation, shown in a pane below the list and rendered as markdown when the provider supplies it — headings, emphasis, links, and syntax-highlighted code blocks. Language servers usually do.
-
-Beside an entry's name, a provider may add a dimmed signature, and to the right the module a symbol comes from. Deprecated symbols are struck through.
-
-Some detail is fetched only for the entry you have selected, so opening the list stays fast. When you confirm an entry whose detail is still arriving, the insertion waits briefly for it — that is how a completion can add an `import` line along with the symbol itself, in a single undo step.
+Providers can attach markdown documentation, a signature, a source module, deprecation state, and extra edits such as a required import. These appear with the selected entry when available.
 
 ## Snippet expansion
 

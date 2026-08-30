@@ -1,6 +1,6 @@
 # Version control
 
-Lumine has built-in Git awareness. Rather than a single large integration, it bundles focused packages for the most common needs.
+Lumine has built-in repository support and bundles `git-diff`; additional Git interfaces are optional packages.
 
 ## Diff markers in the gutter
 
@@ -17,23 +17,17 @@ The editor can revert an uncommitted change back to what is committed: `editor:c
 
 ## Status indicators
 
-Git status flows into other parts of the interface — for example the tree view and status bar reflect which files are new or modified — using the editor's built-in repository support and the bundled `language-git` grammar for Git files (commit messages, rebase todo lists, and so on).
-
-File names in the tree view and on tabs are colored by their Git status (green for added, orange for modified, faded for ignored, and so on). The `git:colorize-toggle` command switches this coloring off or back on for the current window only — handy when you want a calmer view without changing any settings or affecting other windows.
+The tree view and tabs color file names by Git status. `git:colorize-toggle` switches the coloring for the current window. The bundled `language-git` grammar highlights Git files such as commit messages and rebase todo lists.
 
 ## The repository, branch, and worktree tiles
 
-The **`git-center`** package puts the window's active repository and its branch in the status bar. Both are buttons: clicking one opens a filterable picker, and each picker also has a command — `git-center:select-repository` and `git-center:select-branch`.
+Install **`git-center`** to show the active repository, working-tree counts, and branch in the status bar. Its filterable pickers are also available through `git-center:select-repository` and `git-center:select-branch`.
 
 The active repository normally follows whatever you are editing. `git-center:toggle-lock` pins it in place so it stops following, and the repository picker's `Auto` row hands it back.
 
 ### Worktrees
 
-A Git worktree is a second checkout of the same repository in its own folder, so you can have two branches open at once without stashing or switching. `git-center:select-worktree` lists every worktree of the active repository, with its branch, its working-tree counts, and whether it is locked or waiting to be pruned.
-
-Confirming a worktree opens it in this window. The picker's actions list — press <kbd>Shift</kbd><kbd>F10</kbd> — has the rest: open it in a new window or alongside the current project, create a worktree on a new branch, and move, lock, unlock, or remove one. Removing runs unforced, so Git refuses to discard a worktree with uncommitted work; the failure offers to force it if that is what you meant.
-
-Git allows a branch to be checked out in only one worktree at a time. The branch picker marks any branch that is open elsewhere with the name of the worktree holding it, and choosing that branch offers to open that worktree rather than attempting a checkout Git would refuse.
+A Git worktree is another checkout of the repository. `git-center:select-worktree` lists worktrees and opens one in this window; its actions can open one elsewhere, create, move, lock, unlock, or remove it. The branch picker marks branches checked out in another worktree and offers to open that checkout.
 
 ## Opening on your Git host
 
@@ -43,8 +37,8 @@ The **`open-repository`** package opens the current file or repository on its Gi
 
 For richer workflows, install these `lumine-code` packages from the Install tab (see [The package system](../packages-and-themes/package-system.md)):
 
-- **[git-command](https://github.com/lumine-code/git-command)**: a searchable select list in Lumine's modal pane zone for common Git workflows — stage and unstage changes; preview and compose commits; check out, merge, rebase, and cherry-pick; fetch, pull, push, and manage stashes; inspect status, diffs, history, and blame; or run arbitrary Git arguments.
-- **[git-panel](https://github.com/lumine-code/git-panel)**: a full Git panel — stage, unstage, and discard changes per file, hunk, or line; compose commits and manage branches; fetch, pull, push, and force-push; view diffs with hunk/line/word-level highlighting; resolve merge conflicts in the editor; and initialize or clone repositories.
-- **[github-panel](https://github.com/lumine-code/github-panel)**: adds GitHub-specific features on top of `git-panel` — browse and review pull requests (with Overview, Build Status, Commits, and Files Changed tabs), see review comments as inline decorations, open issues or pull requests by URL, and create or publish GitHub repositories.
+- **[git-command](https://github.com/lumine-code/git-command)** — searchable modal workflows for staging, commits, branches, remotes, history, and stashes.
+- **[git-panel](https://github.com/lumine-code/git-panel)** — a full panel for changes, commits, branches, remotes, diffs, and conflicts.
+- **[github-panel](https://github.com/lumine-code/github-panel)** — pull requests, reviews, issues, and repository publishing on top of `git-panel`.
 
 Type `lumine-code/git-command`, `lumine-code/git-panel`, or `lumine-code/github-panel` directly into the Install tab's search box to find them.

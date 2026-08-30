@@ -1,123 +1,74 @@
 # Package system
 
-Lumine installs packages and themes directly from Git repositories. There is no central package server that Lumine depends on: the **Install** tab aggregates one or more _catalogs_ — untrusted lists of Git repositories that you control — and fetches every piece of package metadata itself. Installation puts the repository's files, at one exact commit, into `~/.lumine/packages/<name>`.
+Lumine installs packages and themes directly from Git repositories at an exact commit. **Settings → Install** combines one or more catalogs that you control; there is no central package server.
 
-A catalog does **not** provide names, versions, descriptions, compatibility, or READMEs. It is only a list of Git sources. Lumine resolves each source to an exact commit, reads that commit's `package.json`, and validates it before anything is installed.
+A catalog is an untrusted JSON array of Git source strings or validated, pre-resolved snapshots. Snapshots carry the resolved ref and manifest metadata to make browsing fast, while a malformed snapshot falls back to live Git and manifest hydration. Installation still fetches and validates the selected commit before package code can run.
 
 ## Where packages live
 
-Every package is identified by the **name** in its `package.json`. That name prefixes commands such as `<name>:command` and configuration keys such as `<name>.*`, and determines how the package is required, enabled, and activated. **The directory a package lives in does not have to be named after it** — rename it, clone a repository into a folder named after the repository, or keep several checkouts side by side; the manifest decides what the package is called.
+Every package is identified by the `name` in its `package.json`, not by its directory name. That name is used for activation, settings, and normally command prefixes.
 
-Packages are looked for in three places, and a package found in an earlier one takes precedence over a package of the same name found in a later one:
+Packages are searched in this order:
 
-| Place                    | What it holds                                                   |
-| ------------------------ | --------------------------------------------------------------- |
-| `~/.lumine/packages-dev` | Packages you are working on. Only loaded when using `--dev`. |
-| `~/.lumine/packages`     | Packages you installed.                                         |
-| Bundled with Lumine      | The packages Lumine ships with.                                 |
+| Place                    | What it holds                                               |
+| ------------------------ | ----------------------------------------------------------- |
+| `~/.lumine/packages-dev` | Development packages, loaded only when Lumine uses `--dev`. |
+| `~/.lumine/packages`     | Installed packages.                                         |
+| Bundled with Lumine      | Packages shipped with the editor.                           |
 
-**Only one copy of a package name is ever loaded.** Every other copy stays on disk untouched and does nothing: it registers no commands, no settings, and no keymaps. When two directories in the _same_ place provide one name, the one whose directory name comes first alphabetically is the one that loads.
+Only the first copy of a name loads. A dev copy therefore shadows an installed and bundled copy, while an installed copy shadows a bundled one. If two directories in the same place declare one name, the alphabetically first directory wins.
 
-Bundled packages ship with Lumine and are not removed by the Install tab, but a package of the same name in `~/.lumine/packages` shadows one, and a package in `~/.lumine/packages-dev` shadows both.
+**Settings → Packages** and **Settings → Themes** list every copy. A shadowed user or dev copy can be uninstalled; a shadowed bundled copy is informational because bundled files cannot be removed. Settings and enabled state belong to the loaded name, not to an inactive copy.
 
-The **Packages** and **Themes** tabs list every directory, one entry each. A copy that does not load is greyed out, carries a yellow dot naming the copy that loads instead of it, and offers nothing but **Uninstall** — its settings and its enabled state belong to the name, so they are the loaded copy's to change. Opening its details shows what a package that is not installed shows: its README, and nothing that would describe it as part of this install.
+## Origin, name, and directory
 
-## Package identity: origin vs. name
+Lumine uses three identifiers for different jobs:
 
-Two identities matter, and they are deliberately different:
+- The **origin** is the normalized Git repository identity used to merge catalog entries and track updates. HTTPS and SSH forms of the same repository share an origin.
+- The package **name** identifies what loads and prevents unrelated repositories from silently replacing one another.
+- The on-disk **directory** identifies a particular copy and is what Uninstall removes.
 
-- **For browsing and de-duplication**, a package is identified by its **origin** — a canonical, transport-independent key derived from the Git URL: `host[:port]/path`, with the credentials, transport (`https`, `ssh`, …), a trailing `.git`, and any ref selector stripped off. The host is lowercased; the path case is preserved on hosts other than GitHub, because Git servers may treat paths case-sensitively.
-- **For installation**, a package is identified by its **name** — what it is called once it loads.
-- **On disk**, a copy of a package is identified by its **directory**, which is what tells two copies of one name apart and the only thing that can be uninstalled.
-
-Because the origin is transport-independent, the HTTPS and SSH forms of the same `host/path` resolve to a **single** origin (`https://github.com/owner/repo.git` and `git@github.com:owner/repo.git` are the same package). A server-side **redirect is not** treated as an alias: identity is computed from the source string you provide, never from where a request happens to land.
-
-Two invariants follow for what the Install tab puts on disk:
-
-- At most **one installation per origin** at a time.
-- At most **one installed package per name** at a time — an update or a reinstall replaces the directory that package already occupies, whatever it is called.
-
-The name shown on a browse card is the repository's project name until a valid manifest is fetched for the selected commit; afterwards it is the real `package.json` name, which may differ (the repository `pulsar-invert-colors` ships a package named `invert-colors`). A card is keyed internally by an origin key such as `origin:<origin>` or, for a bundled package, by a name key such as `builtin:<name>` — never by name alone — so two repositories that publish the same name never collide in the UI.
+At most one installed package may occupy an origin or a name. Installing a different origin that declares an occupied name requires an explicit **Replace** action.
 
 ## Installing a package
 
-Run `settings-view:install-packages-and-themes` to open **Settings → Install**.
+Run `settings-view:install-packages-and-themes` to open **Settings → Install**. Search the configured catalogs and filter by **All**, **Packages**, or **Themes**, or enter an install source such as `owner/repo` directly.
 
-- Type a search term to find packages across your configured catalogs. Filter the results with **All / Packages / Themes / Updates**.
-- Or type an install source directly (for example `owner/repo`) and press Enter to get an install card for that exact repository.
+When you click **Install**, Lumine resolves the selected ref to a commit, validates its manifest, prepares the package and production dependencies in staging, and swaps it into `~/.lumine/packages` transactionally. A failed install, update, or replacement leaves the previous copy in place and reports the underlying Git or npm error in a notification.
 
-Click **Install** on a card. Lumine:
+The install receipt records the credential-free source, origin, selected ref, update policy, and installed SHA. Package updates use that receipt rather than a catalog; see [Updates](updates.md).
 
-1. resolves the selected ref to an exact commit SHA and reads that commit's manifest,
-2. validates the manifest (see [Validation](package-system.md#validation-before-install)),
-3. fetches that exact commit into a staging directory on the same volume — as an archive of the commit for a GitHub repository, or a shallow Git fetch for any other host — runs `npm install --omit=dev`, and records an install receipt, then
-4. atomically swaps the staged copy into `~/.lumine/packages/<name>`, or into the directory the package already occupies when it is already installed.
+### Validation
 
-Install, Update, and Replace are **transactional**: everything is prepared in staging first; the active copy is unloaded and backed up; the swap is atomic; and any failure rolls back to the backup and reloads the previous copy. Installs and uninstalls run asynchronously so the editor stays responsive, and the installed-package lists build off the render path so the **Packages** and **Themes** tabs open smoothly even with many packages installed. When an install, update, uninstall, or replace **fails**, the reason is reported as an editor notification, with the underlying `git` / `npm` output available under the notification's details.
+Before package-controlled installation steps run, Lumine checks that:
 
-The **install receipt** records a credential-free source, the origin, the ref you chose, the update policy, and the installed SHA. Updates read this receipt and never depend on any catalog.
+- the manifest parses as JSON, JSONC, or CSON;
+- `name` is unscoped, lowercase, and safe as a directory name;
+- the manifest's Git `repository` has the same origin as the source being installed;
+- `engines.lumine` exists and accepts the running Lumine version;
+- a semantic tag agrees with the manifest version; and
+- the origin and package name do not conflict with another install unless the user chose Replace.
 
-### Validation (before install)
+## Install sources and versions
 
-Nothing package-controlled runs before validation passes. Before `npm install`, Lumine checks the manifest fetched for the selected SHA:
+| Source                                  | Meaning                                                         |
+| --------------------------------------- | --------------------------------------------------------------- |
+| `owner/repo`                            | Highest stable tag, or the default branch when no stable tag exists. |
+| `owner/repo@1.2.3`                      | Pin tag `1.2.3` or `v1.2.3`.                                    |
+| `owner/repo~branch`                     | Track a branch.                                                 |
+| `owner/repo#<commit>`                   | Pin a commit.                                                   |
+| `https://host/owner/repo.git`           | Apply the same stable-tag/default-branch selection to a full Git URL. |
+| `https://host/owner/repo.git#tag:1.2.3` | Use an explicit `#tag:`, `#branch:`, or `#commit:` selector.    |
 
-- it parses as JSON, JSONC, or CSON;
-- the `name` is unscoped, lowercase, and safe to use as a directory name;
-- a Git `repository` is present, and its origin is a **syntactic variant of the same origin** you are installing from — a fork whose `repository` still points upstream, an old address, or a redirect is rejected;
-- `engines.lumine` is present and the running Lumine satisfies it;
-- when the ref is a semantic tag, it matches the manifest `version` (an optional leading `v` is ignored);
-- no other installed package has this name (unless it came from the same origin), and this origin is not already installed under another name.
+The version menu lists repository tags and the default branch. The initial choice is the highest stable tag, even when that tag is incompatible with the current Lumine version; in that case Install is disabled and another tag can be selected. Choosing a version re-fetches and validates its manifest.
 
-### Install sources and version selectors
+Browsing pins the exact SHA shown on the card so a moving ref cannot change during installation. A bare repository still records a policy that follows later stable releases, while a selected branch follows its HEAD. An explicit tag or commit stays pinned.
 
-An install source is either a GitHub shorthand or a full Git URL, optionally pinned to a specific ref:
-
-| Source                                  | Meaning                                                                       |
-| --------------------------------------- | ----------------------------------------------------------------------------- |
-| `owner/repo`                            | Latest stable tag (or the default branch if there are no tags).               |
-| `owner/repo@1.2.3`                      | The `1.2.3` tag (also matches a `v1.2.3` tag).                                |
-| `owner/repo~branch`                     | Track a branch.                                                               |
-| `owner/repo#<commit>`                   | A specific commit.                                                            |
-| `https://host/owner/repo.git#tag:1.2.3` | Generic Git URL with an explicit `#tag:`, `#branch:`, or `#commit:` selector. |
-
-Notes:
-
-- **Browsing then installing pins the exact commit you were looking at.** If a card shows `1.2.3`, exactly that SHA is installed even if `1.2.4` was published in between — but the recorded update policy still tracks new releases, so an update to `1.2.4` is offered afterward.
-- **Explicit selectors win.** Typing `owner/repo@0.4.0` installs `0.4.0` and keeps that selector; it is never silently upgraded.
-- Generic (non-GitHub) Git URLs must carry an explicit `#branch:`, `#tag:`, or `#commit:` selector so the ref is never ambiguous.
-- A **manually typed** install source may use SSH and private repositories. Sources that come from a catalog are held to a stricter safety allowlist (see [Catalog safety](package-system.md#catalog-safety)).
-
-### Choosing a version on the card
-
-The card's **version** is a dropdown. It lists every **tag** (SemVer-descending, then prereleases, then non-version text tags) plus the repository's **default branch**, each labelled in the same notation as an install selector: `@1.2.3` for a tag, `~branch` for a branch, and `#<commit>` for a bare commit. The version a package is **installed** from is labelled the same way, and an installed branch also shows its pinned commit as `#<commit>~branch`, because a new commit can arrive on that branch. Annotated tags resolve to their commit SHA. Catalog cards already have this list; on the **Packages**/**Themes** tabs an installed package fetches its tags the first time you open the dropdown.
-
-- Selecting a **tag** _pins_ that exact release.
-- Selecting the **default branch** _tracks_ it — updates follow the new branch HEAD.
-
-The default selection is the highest compatible stable tag (or the default branch when there are no tags). If the selected version's `engines.lumine` does not match your Lumine version, the card is **not** dropped from the list: it stays with a **disabled Install** (the reason shown on hover) and is **not** offered as an update, but you can still switch the dropdown to another tag, since a different release may declare a compatible range.
-
-On a browse (not-installed) card, changing the version re-fetches the manifest for the new commit and re-validates it; **Install** stays disabled until validation completes. On an installed card, choosing a different version turns the action into **Update to X** targeting that exact commit (choosing the installed version again clears the pending update); its **details** then show only the README fetched for the previewed commit, since the package's active settings, keybindings, and grammars still belong to the installed version.
-
-The repository reference is a link to the repo; **hover over it** to see the origin, resolved commit, selected ref, catalog provenance, and validation status. Next to the version the card names the package's **license** (its SPDX identifier, e.g. `MIT`).
-
-**Status dots** at the right edge of the card's name row say what is unusual about a package, each with its details in a hover tooltip. Every state has a colour of its own, and those colours are fixed rather than taken from the active theme — a dot means the same thing on every machine:
-
-| Dot    | State                                                                  |
-| ------ | ---------------------------------------------------------------------- |
-| red    | the package could not be read from its catalog                         |
-| orange | the newest fetch failed; the card is showing the last good data        |
-| yellow | another copy of this package's name loads instead of this one          |
-| pink   | where the package was installed from does not match its manifest       |
-| brown  | catalogs disagree about which version to track; the first one wins     |
-| blue   | a bundled package the editor is running out of its own source checkout |
-| cyan   | installed as a symlink; the tooltip names the link's target            |
-| grey   | the manifest is being fetched and validated                            |
-
-Several dots can show at once. A card whose catalog record is broken but whose package is installed still shows the installed version, description, and license from the local package.
+Manually entered sources may use SSH and private repositories. Catalog-driven sources are restricted to public HTTPS and GitHub shorthand because catalogs hydrate without an interactive trust decision.
 
 ## Catalog sources
 
-A **catalog** is an `index.json` file: a plain JSON array of Git source strings, in the same syntax as an install source (a bare repo, `@tag`, `~branch`, `#commit`, or a full URL with an explicit selector). It carries no package metadata — Lumine fetches that itself.
+An `index.json` is a JSON array whose entries are source strings, pre-resolved snapshots, or a mixture of both. A source-only catalog is enough:
 
 ```json
 [
@@ -127,62 +78,33 @@ A **catalog** is an `index.json` file: a plain JSON array of Git source strings,
 ]
 ```
 
-> `index.json` is the array-of-sources format above. The **old metadata catalog format** (a `schemaVersion` object with a `packages` array of pre-baked names, versions, and descriptions) is **no longer supported** and fails with a readable error; convert it to a plain array of Git sources.
+Snapshots are an optional optimization generated by a catalog maintainer; they include a source, resolved SHA and ref data, and validated manifest metadata. The old object format with `schemaVersion` and a `packages` array is not supported.
 
-Catalog sources are configured in **Settings → Install → Catalog Sources**, or via the `settings-view.packageCatalogs` setting (an ordered array). A source can be:
+Configure catalogs under **Settings → Install → Catalog Sources** or with `settings-view.packageCatalogs`. A source may be a GitHub `owner/repo` containing `index.json`, a public HTTP(S) URL, or a local absolute path or `file://` URL. Lumine's default catalog is `https://raw.githubusercontent.com/lumine-code/packages/HEAD/index.json`.
 
-- a GitHub shorthand `owner/repo` (resolves to that repo's `index.json` on its default branch),
-- a public HTTP(S) URL to a repository or directly to an `index.json`, or
-- a local absolute path (or `file://` URL) to a directory or `index.json`.
+When catalogs repeat an origin, the Install tab merges it into one card and records which catalogs supplied it. **Fetch** reloads the configured catalogs, shows progress and failures, and can be cancelled; otherwise the last persistent cache is shown immediately.
 
-The default source is Lumine's own catalog, which lists the packages `lumine-code` maintains: `https://raw.githubusercontent.com/lumine-code/packages/HEAD/index.json`. Adding catalogs beside it is expected — the Install tab merges them all.
+Catalog entries cannot automatically target local paths, private networks, credential-bearing URLs, SSH, `git://`, or `ext::`. Those restrictions do not apply to a source the user enters manually.
 
-When the same origin appears in more than one catalog, the entries are **merged** into a single card: the first catalog sets the initial ref selector, and the card shows the full provenance (which catalogs list it) and flags a **selector conflict** when the catalogs disagree on the ref. **Restore Defaults** clears your customizations back to the default source.
+## Install actions
 
-### Catalog safety
+| What already holds the package name     | Action                                              |
+| --------------------------------------- | --------------------------------------------------- |
+| Nothing                                 | **Install**                                         |
+| The same origin                         | **Installed** or **Update**                         |
+| A different installed origin            | **Replace**                                         |
+| A bundled package from another origin   | **Replace**, installing a copy that shadows it      |
+| A package in `~/.lumine/packages-dev`   | **Install**, with a note that the dev copy still loads |
 
-Catalogs are untrusted, so automatic hydration of a catalog entry is restricted to **public HTTPS** URLs and GitHub `owner/repo` shorthand. These are blocked in catalog entries: local paths, `file:`, `ext::`, `git://`, `localhost` and `*.local`, private network ranges, and any URL that embeds credentials. (You can still install from SSH or a private repository by typing the source in manually — the restriction applies only to catalog-driven hydration.)
+A disabled package still holds its name. Uninstalling the copy that loads hands the name to the next available copy, and its `core.disabledPackages` entry remains while any copy of that name exists.
 
-## Fetching, cache, and scale
+## Managing and commands
 
-The Install tab is built to handle roughly **1000** unique origins; a hard safety limit of **2000** entries applies after de-duplication.
-
-- **Nothing is fetched when you open the tab.** On startup the last cached index is shown immediately, with no automatic revalidation. The very first run with no cache starts indexing automatically.
-- **Fetch** (the refresh action) re-reads the catalogs. The visible list is **cleared first** and any notification left by a previous Fetch is dismissed, then cards are rebuilt incrementally as records hydrate, so you watch the index fill in rather than waiting for the whole set. A repository that fails to hydrate is recorded as an _error_ with a reason. The panel shows `processed / total / errors`, the time of the last Fetch, and a **Cancel** button; **hovering the progress counter lists the repositories that failed and why**, and the failures are also summarized in a single editor notification. Cancelling stops new work and leaves the cache consistent.
-- Fetching uses separate work queues — up to **8** concurrent Git operations and **16** HTTP requests, with a per-host cap, timeouts, `Retry-After` handling, and bounded backoff.
-- The cache is **persistent and versioned**, stored under `userData/Cache/settings-view`. It holds the catalog lists, provenance, tags, default branch, the default manifest, any branches fetched on demand, and the last Fetch time. Manifests are cached by origin + SHA (an unchanged SHA reuses its manifest on the next Fetch); READMEs use a small size-bounded LRU. The cache is written atomically and discarded on a schema change or corruption. Changing your catalog configuration drops the results of removed sources and marks new sources as pending a Fetch.
-
-All hydrated records participate in search, but the DOM renders **50 cards per page**. Changing the filter returns to the first page. While the first index is still building, search results are marked as incomplete.
-
-A package's README is fetched only when you open its details for the selected SHA. The content is sanitized, and external images are not loaded automatically.
-
-Opening a package's **details** shows everything it has in one scrolling list — its settings, keybindings, grammars, snippets, README, and documentation, in that order. The sidebar holds a **table of contents** for that list: one entry per section, with the README's and the documents' own headers nested underneath. Sections a package has nothing for are left out. The buttons above the list lead to the repository, the issue tracker, the CHANGELOG, and the **LICENSE** file on GitHub.
-
-## Install, Update, Replace, Override
-
-The action a card offers depends on what is already installed under its package's name:
-
-| What holds the name                   | Action                                                       |
-| ------------------------------------- | ------------------------------------------------------------ |
-| Nothing                               | **Install**                                                  |
-| The **same** origin                   | **Installed** / **Update**                                   |
-| A **different** origin                | **Replace** (swaps the installed package for this one)       |
-| A **bundled** package                 | **Override** (the installed package shadows the bundled one) |
-| A package in `~/.lumine/packages-dev` | **Install**, with a note that your dev copy keeps loading    |
-
-A package in `~/.lumine/packages` takes precedence over a bundled package of the same name, including virtual bundled themes; a _disabled_ package still holds the name. Uninstalling the copy that loads hands the name to whichever copy is left — the bundled package, a dev checkout, a second directory — without a restart, and any `core.disabledPackages` entry for that name is preserved as long as some copy of it remains.
-
-The origin of an installed package is read from its install receipt (what it was actually installed from), not from the `repository` field in its `package.json`, which in a fork often still points upstream. Older installs whose receipt has a missing or mismatched origin stay active with a warning, but their next update must pass strict origin validation.
-
-## Managing installed packages
-
-The **Settings → Packages** and **Settings → Themes** tabs list what is installed. From a package card you can open its **Settings**, **Disable / Enable** it, or **Uninstall** it. See [Managing packages and themes](managing.md).
-
-## Commands
+Use **Settings → Packages** and **Settings → Themes** to configure, enable, disable, or uninstall packages; see [Managing packages and themes](managing.md).
 
 Commands available in `lumine-workspace`:
 
-- `settings-view:install-packages-and-themes`: open the Install tab,
-- `settings-view:view-installed-packages`: open the Packages tab,
-- `settings-view:view-installed-themes`: open the Themes tab,
-- `settings-view:check-updates`: open the Install tab and check for updates (see [Updates](updates.md)).
+- `settings-view:install-packages-and-themes`: open Install,
+- `settings-view:view-installed-packages`: open Packages,
+- `settings-view:view-installed-themes`: open Themes,
+- `settings-view:check-updates`: open Update and check installed packages.

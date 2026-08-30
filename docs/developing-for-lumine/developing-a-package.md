@@ -86,20 +86,9 @@ The same pragmas and the same defaults apply to `.tsx`, which the editor compile
 
 ## Putting something in a bar
 
-The status bar and the title bar host elements you hand them, and both expect the same shape:
+The status bar and title bar host one element per control. Hand the bar a plain custom element, bind its click and tooltip there, and use a tile group when several controls belong together.
 
-```html
-<status-bar-tile class="my-package-status">
-  <span class="icon icon-alert"></span>
-  <span class="my-package-status-label">3</span>
-</status-bar-tile>
-```
-
-A plain custom element, deliberately not a `<button>` — it brings no widget padding, cursor or focus ring the bar would have to strip back out. One tile is one control: one click target, one tooltip, one hover rectangle, with the click bound to the tile itself. Content sits inline; a tile that composes several parts uses flex and a gap on the tile. Several related controls go in a `<status-bar-tile-group>`, which is a layout box rather than a tile, so each control keeps its own hover rectangle.
-
-The bar marks what it hosts — `.status-bar-item` or `.title-bar-item` — and that mark is what every theme styles, so your tile needs no styling of its own to match the bar. Never write it yourself, and never use `.inline-block` in its place: that is a layout utility, useful inside a tile, and inside a fixed-height tile it aligns on the baseline and hangs past the bottom edge.
-
-The full contracts, including tile priorities and the classes for read-only and icon-only tiles, are in the `status-bar` and `title-bar` packages' own documentation — Settings → the package → Documentation.
+The bar adds `.status-bar-item` or `.title-bar-item`; packages must not add those classes themselves. Tile priorities, grouping and styling contracts live in the [`status-bar`](https://github.com/lumine-code/status-bar/blob/master/docs/status-bar.md) and [`title-bar`](https://github.com/lumine-code/title-bar/blob/master/docs/title-bar.md) documentation, also available under Settings → the package → Documentation.
 
 ## Developing against a live editor
 
@@ -114,7 +103,7 @@ Dev-mode windows load packages from `~/.lumine/packages-dev`, enable developer t
 
 ## The API
 
-Everything you can do is reachable through the global `lumine` object. Its classes and methods are documented in the [Lumine API reference](https://lumine-code.github.io/api/), generated from Lumine's own source. The bundled `autocomplete-lumine` package completes this API as you type.
+Everything you can do is reachable through the global `lumine` object. Its classes and methods are documented in the [Lumine API reference](https://lumine-code.github.io/api/), generated from Lumine's own source. Install the optional [`autocomplete-lumine`](https://github.com/lumine-code/autocomplete-lumine) package to complete this API as you type.
 
 ## Next
 

@@ -1,59 +1,30 @@
 # Updates
 
-There are two independent kinds of updates in Lumine:
+Lumine handles package updates and editor releases separately:
 
-- **Package updates** — newer versions of the packages and themes you installed, handled by the **Install** tab.
-- **Editor updates** — new releases of Lumine itself, handled by the bundled `lumine-updater` package.
+- **Package updates** are checked under **Settings → Update**.
+- **Editor updates** are reported by the bundled `lumine-updater` package.
 
 ## Package updates
 
-A package is _updatable_ when it is installed and a newer version is available from the **same origin** it was installed from. "Same origin" matters: a newer version published by a _different_ repository that merely shares the name is not treated as an update. Updates are driven entirely by the package's install **receipt** (its recorded origin, ref, update policy, and SHA) and do not depend on any catalog.
+An installed Git package is checked against the origin and update policy in its install receipt, not against a catalog. A repository that merely publishes the same package name is not an update source.
 
-### What "a newer version" means
+The policy follows the selector used at installation:
 
-How Lumine looks for a newer version depends on the update policy recorded when you installed, which follows the ref you chose:
+- A bare repository selects the highest stable SemVer tag and follows newer stable releases. If no stable tag exists at installation, it follows the default branch without later switching to tags.
+- A selected branch follows that branch's HEAD.
+- An explicit tag or commit is pinned and is not checked for newer releases.
+- If a pinned tag is moved upstream, Lumine reports the suspicious change without replacing the installed commit.
 
-- **Latest stable** re-picks the highest stable SemVer tag.
-- A **branch** (or the **default branch**) resolves to the branch's new HEAD commit.
-- A **concrete tag** or **commit** is _pinned_ and does not move. If an already installed tag is later re-pointed to a different commit upstream, Lumine flags it as **suspicious** rather than silently updating to the new SHA.
+Open **Settings → Update** or run `settings-view:check-updates`. Lumine checks installed, non-shadowed Git packages and shows a card for each available update. Updating fetches and validates the exact new commit and uses the same transactional swap as installation; failure leaves the previous version in place.
 
-Both version-tracked updates (moving to a newer tag) and ref-tracked updates (following a moved branch to its new commit) are supported.
-
-### The Updates tab
-
-The Install tab's filter row includes an **Updates** view. Opening it — from the filter row, or with the `settings-view:check-updates` command — checks **only your installed packages** for a newer version. It does **not** re-read the catalogs: each installed Git package is checked directly against its own origin, using the receipt recorded at install time.
-
-Each installed package with a newer version available gets a card offering **Update to X**, which re-installs the package from the same origin at the new SHA — fetching that exact commit and re-validating the manifest before installing, using the same transactional swap as a fresh install. Both version-tracked updates (a newer tag, offered as `Update to v0.5.0`) and ref-tracked updates (a moved branch, offered as `Update to #<commit>`) are shown. A successful update shows a "Restart Lumine to complete the update" notification; a failed one reports its cause as an editor notification and leaves the package on its previous version.
-
-The results of an update check are written back to the persistent catalog cache, so a browse card for the same repository reflects the newer version without a full catalog Fetch.
-
-### Notes on version selection
-
-- A fresh install pins the exact SHA you browsed, while still recording a policy that tracks new releases — so an update can be offered right afterward.
-- An explicit selector you typed (for example `owner/repo@0.4.0`) installs and keeps that version; it is not auto-upgraded. The Updates tab will still show that a newer tag exists, because you pinned an older version rather than opting out of updates.
-- `packageUpdateConcurrency` (Settings, default `-1` = unlimited) limits how many update processes run at once. Lower it to `1` or `2` if updating many packages at once slows your machine.
-
-### Commands
-
-Commands available in `lumine-workspace`:
-
-- `settings-view:check-updates`: open the Install tab's Updates view and check the installed packages for updates.
+A browse card installs the exact SHA it displayed, while a bare source still records a policy that can follow a newer release afterward. Choosing an explicit version from the version menu pins that tag instead.
 
 ## Editor updates
 
-Lumine itself is **not** auto-updated. Rather than bundling Electron's `autoUpdater` (Squirrel on Windows/macOS), Lumine uses a notify-only model implemented by the bundled `lumine-updater` package.
-
-On launch, `lumine-updater`:
-
-- checks GitHub for newer Lumine releases,
-- shows a non-invasive notification if a newer version exists (it does **not** download or apply anything), and
-- tailors the "how to update" guidance to how Lumine was installed.
-
-Results are cached so it does not query GitHub on every launch.
-
-### Commands
+Lumine does not update itself automatically. The bundled `lumine-updater` package checks GitHub releases, caches the result, and shows a notification when a newer editor release exists. It does not download or apply the update, and its guidance depends on how Lumine was installed.
 
 Commands available in `lumine-workspace`:
 
-- `lumine-updater:check-for-update`: check for a new Lumine release now and notify if one is available,
-- `lumine-updater:clear-cache`: clear the cached update state and re-enable suppressed checks.
+- `lumine-updater:check-for-update`: check for a new editor release now,
+- `lumine-updater:clear-cache`: clear the remembered editor-update state.

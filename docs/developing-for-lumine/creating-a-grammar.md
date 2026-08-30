@@ -6,7 +6,7 @@ A grammar teaches Lumine to understand a language: it assigns **scopes** to piec
 
 Lumine supports two kinds of grammar, and a language package can ship both:
 
-- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: 'tree-sitter'` (or the older `type: 'tree-sitter'`). See [Tree-sitter grammars](tree-sitter-grammars.md) for how their parsers, queries, and build tooling work.
+- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: "tree-sitter"`. See [Tree-sitter grammars](tree-sitter-grammars.md) for how their parsers, queries, and build tooling work.
 - **TextMate grammars** match text with regular expressions. They are simpler and widely available. A TextMate grammar file has a `scopeName` and no `type` field.
 
 When both are present, Lumine prefers the Tree-sitter grammar and falls back to TextMate.
@@ -17,7 +17,7 @@ A grammar is a `.json` file under `grammars/`. Every grammar declares a **`scope
 
 The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
 
-To start a Tree-sitter grammar package from scratch, `new-grammar-package.js`, in the workspace `tools/grammar-authoring/` checkout, scaffolds the whole repository — config, specs, CI, and lint setup — and prints the build and registration steps. If you are adapting queries from upstream or nvim-treesitter, note that none of those files can be used unchanged: a capture name there is a highlight group, not a scope, so every one has to be rewritten. `npm run check:grammar-captures` fails the build on any that were not.
+To start a Tree-sitter grammar package from scratch, `.dev/grammar-authoring/new-grammar-package.js` scaffolds the repository — config, specs, CI, and lint setup — and prints the build and registration steps. Queries from upstream or nvim-treesitter cannot be used unchanged: their capture names are highlight groups rather than TextMate scopes, so rewrite them before running `npm run check:grammar-captures`.
 
 ## Choosing which grammar applies
 

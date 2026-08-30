@@ -1,37 +1,35 @@
 # Managing packages and themes
 
-Installed packages and themes are managed from **Settings** or from the command line. For how packages are found and where they come from, see [The package system](package-system.md); for keeping them current, see [Updates](updates.md).
+Use **Settings** for interactive management or the `lumine` command for scripts and terminal workflows. See [The package system](package-system.md) for install sources, precedence, and validation, and [Updates](updates.md) for newer versions.
 
 ## In Settings
 
-- **Settings → Packages** and **Settings → Themes** list what is installed. From a package card you can open its **Settings**, **Disable** / **Enable** it, or **Uninstall** it.
-- Disabling a package is the safe way to turn a feature off without removing it; the disabled list is stored under `core.disabledPackages` in your configuration.
-- Every directory holding a package is listed, one entry each. When more than one provides the same package name, only the first of them loads; the rest are greyed out, carry a yellow dot naming the copy that loads instead, and offer only **Uninstall** — their settings and enabled state belong to the name, so they are the loaded copy's to change. Uninstalling the copy that loads hands the name to whichever copy is left, and any `core.disabledPackages` entry for that name is kept as long as one remains. See [Where packages live](package-system.md#where-packages-live).
+**Settings → Packages** and **Settings → Themes** list every package directory. Use the loaded copy's card to open its settings, enable or disable it, or uninstall it; [package precedence](package-system.md#where-packages-live) explains the controls shown for inactive copies.
+
+Disabling a package turns its feature off without removing its files and records the name in `core.disabledPackages`. Uninstalling the loaded copy lets the next dev, installed, or bundled copy of that name take over.
 
 ## Choosing a theme
 
-Lumine bundles the **`one-theme`** package, which provides light and dark variants for both the interface and syntax: the **one-day-ui** / **one-night-ui** interface themes and the **one-day-syntax** / **one-night-syntax** syntax themes. Pick your UI theme and syntax theme in **Settings → Themes**. Install more themes the same way you install packages — see [The package system](package-system.md) — or build your own, described in [Developing a theme](../developing-for-lumine/developing-a-theme.md).
+The bundled **one-theme** package provides **one-day-ui** and **one-night-ui** for the interface and **one-day-syntax** and **one-night-syntax** for syntax. Choose the light and dark pairs under **Settings → Themes**; see [Developing a theme](../developing-for-lumine/developing-a-theme.md) to build another.
 
-## From the command line
-
-The `lumine` command manages installed packages without opening the editor:
+## Command line
 
 ```sh
-lumine --install owner/repo          # install (supports @tag, #commit, ~branch)
-lumine --uninstall <name>            # uninstall by package name
-lumine --list                        # list installed and dev packages
+lumine --install owner/repo          # supports @tag, #commit, and ~branch
+lumine --uninstall <name>
+lumine --list
 ```
 
-The install source accepts the same selectors as the Install tab — for example `lumine --install owner/repo@1.2.3`. See [Install sources and version selectors](package-system.md#install-sources-and-version-selectors).
+The install source uses the same selectors as Settings; see [Install sources and versions](package-system.md#install-sources-and-versions).
 
-## Linking a local package (development)
+## Linking a local package
 
-While developing a package, symlink your working copy into Lumine instead of installing it:
+Link a working copy instead of installing it:
 
 ```sh
-lumine --link .            # link into ~/.lumine/packages
-lumine --link . --dev      # link into ~/.lumine/packages-dev (loaded only in dev mode)
-lumine --unlink .          # remove the link
+lumine --link .            # ~/.lumine/packages
+lumine --link . --dev      # ~/.lumine/packages-dev; loaded only in dev mode
+lumine --unlink .
 ```
 
 See [Developing a package](../developing-for-lumine/developing-a-package.md).

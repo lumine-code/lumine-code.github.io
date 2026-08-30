@@ -1,6 +1,6 @@
 # Moving around
 
-Lumine gives you fine-grained control over cursor movement, from single characters to whole documents, plus bundled packages for jumping directly to a line or a bookmark.
+Lumine gives you fine-grained control over cursor movement, from single characters to whole documents, plus a bundled line jumper and optional bookmarks.
 
 ## Moving the cursor
 
@@ -22,7 +22,7 @@ The bundled `go-to-line` package jumps straight to a line (and optionally a colu
 
 ## Bookmarks
 
-The `bookmarks` package marks lines you want to return to. Toggle a bookmark on the current line, then cycle through your bookmarks to jump between them — useful for holding your place across a large file. See its commands in the Command Palette (search "bookmarks") or in **Settings → Keybindings**.
+Install `bookmarks` to mark lines and cycle between them. Its commands appear in the Command Palette and **Settings → Keybindings**.
 
 ## Next
 

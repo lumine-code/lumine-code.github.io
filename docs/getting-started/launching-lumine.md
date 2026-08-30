@@ -1,6 +1,6 @@
 # Launching Lumine
 
-You can start Lumine from your applications launcher, or from a terminal with the `lumine` command (available once Lumine is installed on your `PATH`). Running from a terminal lets you open files and folders and pass options.
+You can start an installed Lumine from your applications launcher or with the `lumine` command once it is on your `PATH`. For a source checkout, use `npm start -- [path ...]` from the repository instead.
 
 ## Opening files and folders
 
@@ -12,31 +12,29 @@ lumine file-a file-b     # open several paths
 
 ## Command-line options
 
-These are the options accepted by the `lumine` command:
+Common options are:
 
-| Option                      | Description                                                                 |
-| --------------------------- | --------------------------------------------------------------------------- |
-| `-d`, `--dev`               | Run in development mode.                                                    |
-| `-n`, `--new-window`        | Open a new window.                                                          |
-| `-a`, `--add`               | Open the given path as a new project in the last used window.               |
-| `-w`, `--wait`              | Wait for the window to close before returning (useful as a `$EDITOR`).      |
-| `--safe`                    | Do not load packages from `~/.lumine/packages` or `~/.lumine/packages-dev`. |
-| `-r <path>`                 | Set the path to the Lumine source directory and enable dev mode.            |
-| `-t`, `--test`              | Run the specs in the given path.                                            |
-| `--clear-window-state`      | Delete all saved window/environment state.                                  |
-| `--user-data-dir <path>`    | Use a custom Electron user-data directory.                                  |
-| `--enable-electron-logging` | Print low-level Electron logging.                                           |
-| `-v`, `--version`           | Print version information.                                                  |
-| `-h`, `--help`              | Print the usage message.                                                    |
+| Option                                  | Description                                                                 |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| `-d`, `--dev`                           | Run in development mode.                                                    |
+| `-n`, `--new-window`                    | Open a new window.                                                          |
+| `-a`, `--add`                           | Open the given path as a new project in the last used window.               |
+| `-w`, `--wait`                          | Wait for the window to close before returning (useful as a `$EDITOR`).      |
+| `--safe`                                | Do not load packages from `~/.lumine/packages` or `~/.lumine/packages-dev`. |
+| `-r <path>`, `--resource-path <path>`   | Use the given Lumine source directory in dev mode.                          |
+| `--clear-window-state`                  | Delete all saved window/environment state.                                  |
+| `--user-data-dir <path>`                | Use a custom Electron user-data directory.                                  |
+| `--enable-electron-logging`             | Print low-level Electron logging.                                           |
+| `-v`, `--version`                       | Print version information.                                                  |
+| `-h`, `--help`                          | Print the usage message.                                                    |
+
+Run `lumine --help` for the complete, current list, including test and profiling options.
 
 Lumine can also install and manage packages from the command line (`--install`, `--uninstall`, `--list`, `--link`, `--unlink`); those are covered in [Managing packages and themes](../packages-and-themes/managing.md).
 
 ## Development mode
 
-`--safe` and `--dev` are the two options you will reach for most while troubleshooting or building extensions:
-
-- **`--safe`** starts the editor without loading your installed or development packages — the quickest way to tell whether a problem comes from a package.
-- **`--dev`** opens a window in development mode, which loads packages from `~/.lumine/packages-dev` and enables extra developer tooling. See [Developing a package](../developing-for-lumine/developing-a-package.md).
+`--dev` opens a development window, loads packages from `~/.lumine/packages-dev`, and enables developer tooling. See [Developing a package](../developing-for-lumine/developing-a-package.md). For the safe-mode troubleshooting workflow, see [Common issues](../troubleshooting/common-issues.md#is-it-a-package).
 
 Set `LUMINE_DEV_MODE=1` to force development mode independently of command-line arguments:
 

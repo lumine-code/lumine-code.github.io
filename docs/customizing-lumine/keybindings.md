@@ -12,25 +12,25 @@ Personal bindings live in **`keymap.json`** (or a manually created `keymap.jsonc
 
 ```json
 {
-  "lumine-text-editor": {
+  "lumine-text-editor:not([mini])": {
     "ctrl-alt-r": "editor:duplicate-lines"
   },
   "lumine-workspace": {
-    "ctrl-shift-p": "command-palette:toggle"
+    "cmdorctrl-shift-p": "command-palette:toggle"
   }
 }
 ```
 
-- The **selector** (`lumine-text-editor`, `lumine-workspace`, a package's root class, and so on) decides where the binding is active.
+- The **selector** (`lumine-text-editor:not([mini])`, `lumine-workspace`, a package's root class, and so on) decides where the binding is active.
 - The **keystroke** is on the left; the **command** it runs is on the right.
-- Later bindings win over earlier ones, and your `keymap.json` is loaded last — so it overrides package and core bindings.
+- Lumine starts at the focused element and stops at the nearest element with a matching binding. On that element, priority wins first, then selector specificity, then recency; the user keymap has higher priority than package and core keymaps.
 - A legacy `keymap.cson` is not loaded; convert it to JSON or JSONC first.
 
 ## Keystroke spelling
 
-Write keystrokes in lowercase. Letter case is ignored rather than treated as a hidden modifier: `ctrl-N` and `ctrl-n` both mean <kbd>Ctrl</kbd><kbd>N</kbd>, while <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd> is written explicitly as `ctrl-shift-n`. Caps Lock never changes which binding matches, so pressing <kbd>Ctrl</kbd><kbd>N</kbd> with Caps Lock enabled still matches `ctrl-n`. Lumine may render the shortcut as **Ctrl+N** in menus and lists, but its keymap spelling remains lowercase.
+Write keystrokes in lowercase and spell Shift explicitly: `ctrl-N` and `ctrl-n` both normalize to `ctrl-n`, while <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd> is `ctrl-shift-n`. Caps Lock does not change which binding matches.
 
-`backquote` names the physical key above <kbd>Tab</kbd> and to the left of the number row on the common US layout. It remains the same key when another keyboard layout produces a section sign, dead accent, or another character there, so write `ctrl-backquote` for the terminal convention and `ctrl-shift-backquote` when Shift is part of the binding. A literal `` ` `` or `~` instead names the character produced by the active layout, not that physical position.
+`backquote` names the physical key above <kbd>Tab</kbd> on the common US layout, independently of the character produced by the active keyboard layout. A literal `` ` `` or `~` names the character instead.
 
 ```json
 {
@@ -56,25 +56,13 @@ Use the special **`cmdorctrl`** modifier to bind the natural key for each platfo
 }
 ```
 
-Lumine's own bundled bindings use this convention: shared bindings live in a base keymap and only genuinely platform-specific keys are split out.
+Core keeps shared bindings in a base keymap and splits out only genuine platform differences.
 
-## What the bundled keys look like
+## Key conventions
 
-Bundled packages follow one rule, so you can usually guess a key rather than look it up.
+<kbd>Alt</kbd> plus a letter normally focuses a panel or picker, and pressing it again returns focus to the editor. A shared domain uses the letter as a chord prefix instead: <kbd>Alt</kbd><kbd>G</kbd> groups Git commands and surfaces, while <kbd>Alt</kbd><kbd>J</kbd> groups Jupyter commands and surfaces. Once a surface has focus, its local actions use unmodified letters, function keys, arrows, and <kbd>Esc</kbd> without affecting text editing elsewhere.
 
-**<kbd>Alt</kbd> + a letter brings up a surface** — a panel or a picker — and pressing it again hands focus back to the editor. The letter is the package's own initial:
-
-|                                           |                                                    |                                       |                                             |
-| ----------------------------------------- | -------------------------------------------------- | ------------------------------------- | ------------------------------------------- |
-| <kbd>Alt</kbd><kbd>T</kbd> tree view      | <kbd>Alt</kbd><kbd>L</kbd> linter-panel            | <kbd>Alt</kbd><kbd>N</kbd> navigation | <kbd>Alt</kbd><kbd>O</kbd> outline          |
-| <kbd>Alt</kbd><kbd>E</kbd> explorer       | <kbd>Alt</kbd><kbd>P</kbd> projects                | <kbd>Alt</kbd><kbd>R</kbd> recent     | <kbd>Alt</kbd><kbd>M</kbd> scrollmap layers |
-| <kbd>Alt</kbd><kbd>K</kbd> hierarchy view | <kbd>Alt</kbd><kbd>Backquote</kbd> spawn a terminal |                                       |                                             |
-
-Where several packages share a domain the letter becomes a **prefix** instead: <kbd>Alt</kbd><kbd>G</kbd> for git (<kbd>Alt</kbd><kbd>G</kbd> <kbd>G</kbd> the git panel, <kbd>Alt</kbd><kbd>G</kbd> <kbd>H</kbd> the GitHub panel, and the rest for opening the current file on your host), and <kbd>Alt</kbd><kbd>J</kbd> for Jupyter.
-
-**Once a surface has focus, its own keys are unmodified** — single letters, function keys, arrows and <kbd>Esc</kbd>. In the git panel <kbd>U</kbd> and <kbd>S</kbd> move between unstaged and staged and <kbd>F5</kbd>–<kbd>F8</kbd> fetch, pull and push; in the tree view <kbd>A</kbd> adds a file and <kbd>F2</kbd> renames one. None of those keys does anything while you are editing.
-
-A handful of keystrokes ignore all of this because you already know them from somewhere else: <kbd>Ctrl</kbd><kbd>Backquote</kbd> for the terminal, <kbd>Ctrl</kbd><kbd>P</kbd> for files, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> for the command palette, <kbd>Ctrl</kbd><kbd>F</kbd> for find, <kbd>F2</kbd> for rename.
+Cross-editor conventions keep their familiar keys: <kbd>Ctrl</kbd><kbd>Backquote</kbd> for the terminal, <kbd>Cmd/Ctrl</kbd><kbd>P</kbd> for files, <kbd>Cmd/Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> for the command palette, <kbd>Cmd/Ctrl</kbd><kbd>F</kbd> for find, and <kbd>F2</kbd> for rename.
 
 ## Debugging a keystroke
 

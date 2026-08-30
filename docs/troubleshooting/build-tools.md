@@ -1,11 +1,11 @@
 # Build tools
 
-Installing a package clones its repository and runs an install step, so Lumine needs a couple of external tools on your `PATH`. Missing or mismatched build tools are the most common cause of install and load failures.
+Lumine fetches a package's source and runs its npm install step. A resolved GitHub commit is downloaded as an archive; other sources and unresolved refs may require Git.
 
 ## What is required
 
-- **Git** — packages are installed from Git repositories.
-- **npm / Node** — a package's dependencies are installed with npm during installation.
+- **npm / Node.js** — required to install a package's production dependencies.
+- **Git** — required for sources that cannot use a resolved GitHub archive, command-line source resolution, and some update checks.
 
 Some packages include **native modules** (compiled C/C++). Building those also needs a compiler toolchain:
 
@@ -19,11 +19,11 @@ A native module is compiled against a specific version of Lumine's runtime. Afte
 
 ## Checking your setup
 
-If installs fail, confirm the tools are visible from a terminal:
+If an install reports a missing command, confirm the relevant tools are visible from the environment that launches Lumine:
 
 ```sh
 git --version
 npm --version
 ```
 
-Lumine runs the same checks internally before installing, so if either command is missing here, installation will fail with a matching error.
+The installer invokes npm on every package and Git only when its source requires it. A missing command is reported by the operation that needs it.

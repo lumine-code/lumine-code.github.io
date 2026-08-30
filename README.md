@@ -11,7 +11,7 @@ Served via GitHub Pages at **https://lumine-code.github.io**.
 ## Structure
 
 ```text
-index.html      # single-page site
+index.html      # landing page
 api/            # generated Lumine API reference (HTML and JSON)
 docs/           # Markdown documentation rendered by docs.html
 styles.css      # centered static styles, no build step
@@ -38,7 +38,7 @@ npm start
 # serves http://127.0.0.1:8000 (pass a port with `npm start -- 8080`)
 ```
 
-The docs and API pages load Markdown and JSON with `fetch()`, so they must be served over HTTP — opening the HTML files directly from `file://` will not work.
+The manual loads its manifest and Markdown with `fetch()`, so preview the site over HTTP instead of opening `docs.html` directly from `file://`. The API reference is self-contained HTML, but serving the whole site keeps navigation consistent.
 
 ## Deploying
 
@@ -46,4 +46,4 @@ This repo is named `lumine-code.github.io`, so GitHub Pages serves it at the org
 
 ## Contributing
 
-Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!
+Report documentation problems in [Issues](https://github.com/lumine-code/lumine-code.github.io/issues) and discuss broader changes in [lumine-code Discussions](https://github.com/orgs/lumine-code/discussions).

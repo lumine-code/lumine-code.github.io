@@ -28,4 +28,4 @@ The bundled [search-panel](finding-and-replacing.md) can also select every match
 
 ## Column (block) selection
 
-The `column-selection` package makes rectangular, column-wise selections — select the same columns across many rows at once. See its commands in the Command Palette or **Settings → Keybindings**.
+Install `column-selection` to make rectangular selections across the same columns on many rows. Its commands appear in the Command Palette and **Settings → Keybindings**.

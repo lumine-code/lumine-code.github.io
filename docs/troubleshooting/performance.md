@@ -8,8 +8,8 @@ Run **`timecop:view`** (the bundled `timecop` package). It breaks down where tim
 
 ## Sluggish editing
 
-- **Test in safe mode.** `lumine --safe` starts without your packages. If editing is smooth there, a package is the cause — re-enable them in batches to find it. See [Common issues](common-issues.md).
-- **Profile it.** Run `window:toggle-dev-tools` to open the developer tools, then use the **Performance** tab to record while you reproduce the slowness. The recording shows which code is consuming the time.
+- Start with the [safe-mode package test](common-issues.md#is-it-a-package).
+- Record the slowdown in the developer tools' **Performance** tab; see [Developer tools](developer-tools.md).
 
 ## Large files
 
@@ -18,7 +18,3 @@ Very large files stress any editor. Turning off expensive per-line features for 
 ## Graphics issues
 
 Rendering glitches or high GPU usage can come from hardware-accelerated drawing. If you suspect the GPU, the developer tools and Electron logging enabled with `--enable-electron-logging` can help confirm it before you adjust graphics settings.
-
-## Deprecated calls
-
-Packages using outdated APIs can drag on performance and stability. Check **`deprecation-cop:view`** for deprecated calls made by your installed packages, and update the offenders.

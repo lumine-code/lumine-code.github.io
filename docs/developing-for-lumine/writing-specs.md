@@ -21,13 +21,14 @@ describe("my-package", () => {
 
 ## Waiting
 
-A spec body that takes no argument is awaited, so `async () => {}` is all most specs need. When you have to wait for something that is not a promise you hold, the runner puts four waiters on the global — no import:
+A spec body that takes no argument is awaited, so `async () => {}` is all most specs need. When you have to wait for something that is not a promise you hold, the runner puts five waiters on the global — no import:
 
 | Waiter                                              | Use it for                                                              |
 | --------------------------------------------------- | ----------------------------------------------------------------------- |
 | `flushMicrotasks(count)`                            | a promise chain with no timer in it. Cheapest, and it cannot hang.      |
 | `waitForFrames(condition, { frames })`              | something that needs a paint: a rendered view, a measurement, a scroll. |
 | `conditionPromise(condition, description, timeout)` | real I/O — a subprocess, a file watcher, a network round trip.          |
+| `emitterEventPromise(emitter, event, timeout)`       | the next event from a Node-style emitter, with a real-clock timeout.    |
 | `timeoutPromise(ms)`                                | a fixed pause on the real clock.                                        |
 
 The catch is that **the runner freezes time**: `setTimeout`, `setInterval` and `Date.now` are all faked, so `await new Promise((resolve) => setTimeout(resolve, 10))` never resolves. Advance the fake clock with `advanceClock(ms)` when the code under test schedules its own timer, or call `jasmine.useRealClock()` as the first line of a `beforeEach` when it genuinely needs wall time. The waiters above already reach past the fake clock.

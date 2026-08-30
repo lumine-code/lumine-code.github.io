@@ -4,17 +4,17 @@ Lumine can be adjusted from a graphical settings screen or by editing plain text
 
 ## The Settings view
 
-Open **Settings** (the bundled `settings-view` package) to configure the editor and your packages through a UI. It has tabs for **Core** and **Editor** settings, **Language**, **Keybindings**, **Themes**, **Packages**, and **Install**. Most users never need to touch a config file directly.
+Open **Settings** (the bundled `settings-view` package) to configure the editor and packages through a UI. **Core** covers application-wide behavior, while **Editor** covers text editing, fonts, wrapping, scrolling, and indentation. Other panels manage Git, keybindings, packages, themes, updates, and installs; platform-specific panels appear when relevant. Every setting is documented inline, so most users never need to edit a config file.
 
 ## The config file
 
-Settings are stored in **`config.json`** inside `~/.lumine`, your configuration directory. A manually created `config.jsonc` works too. Open the active file with the `application:open-your-config` command. Lumine accepts JSON comments and trailing commas:
+Settings are stored in **`config.json`** inside the active configuration directory (normally `~/.lumine`). A manually created `config.jsonc` works too. Open the active file with the `application:open-your-config` command. Lumine accepts JSON comments and trailing commas:
 
 ```json
 {
   "*": {
     "core": {
-      "telemetryConsent": "no"
+      "restorePreviousState": "yes"
     },
     "editor": {
       "fontSize": 14,
@@ -24,13 +24,13 @@ Settings are stored in **`config.json`** inside `~/.lumine`, your configuration 
 }
 ```
 
-The top-level `"*"` key holds settings that apply everywhere. Settings you change in the Settings view are written here automatically, so you can use whichever approach you prefer.
+The top-level `"*"` key holds global settings. Values changed in Settings are written here automatically, and scoped values inherit from this block.
 
 A legacy `config.cson` is not loaded. Convert it to `config.json` or `config.jsonc` before moving it into your Lumine configuration directory.
 
 ## Scoped settings
 
-Below `"*"`, settings can be stored under grammar or syntax selectors. Settings exposes the same selector on every configuration page — see [Scoped settings](language-settings.md).
+Settings can also be stored under grammar or syntax selectors. The same selector is available on every configuration page — see [Scoped settings](language-settings.md).
 
 ## The rest of your customization
 

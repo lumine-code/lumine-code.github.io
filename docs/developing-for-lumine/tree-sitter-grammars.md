@@ -13,7 +13,7 @@ A Tree-sitter grammar config lives in a package's `grammars/` directory and decl
   "type": "tree-sitter",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-json#v0.24.8",
-    "wasmBuildTool": "tree-sitter-cli#v0.26.11",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
     "grammar": "tree-sitter/tree-sitter-json.wasm",
     "highlightsQuery": [
       "tree-sitter/queries/highlights-no-comments.scm",
@@ -34,42 +34,40 @@ Several configs can share one wasm (JSON and JSONC), and several packages can ca
 
 ## Building a parser wasm
 
-A parser is compiled from the upstream sources the config pins, with the `tree-sitter` CLI and emscripten. Clone the repository at the exact ref in `parserSource`, then build inside it:
+A parser is compiled from the exact source in `parserSource` with `tree-sitter-cli` and emscripten. In the flat Lumine workspace, `lem grammar` owns that workflow: it reuses the checkout and toolchain under `LUMINE_GRAMMAR_CACHE`, validates the result against the editor's `web-tree-sitter`, installs every copy in the same parser family, and updates `wasmBuildTool`.
 
 ```sh
-git clone https://github.com/tree-sitter/tree-sitter-json
-git -C tree-sitter-json checkout v0.24.8
-npx tree-sitter-cli@0.26.11 build --wasm tree-sitter-json
+LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/tree-sitter-json.json
+LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/tree-sitter-json.json --source github:tree-sitter/tree-sitter-json#v0.24.8 --diff-node-types
+LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar --check
 ```
 
-This needs `emcc` on `PATH` — either an emscripten-activated shell, or an [emsdk](https://github.com/emscripten-core/emsdk) checkout with `emsdk install latest && emsdk activate latest` run once. If upstream ships no generated `src/parser.c`, run `tree-sitter generate` in the clone first.
+The first form rebuilds the currently pinned source. The second changes `parserSource` and reports added and removed node types and fields. Add `--regenerate` when upstream has no generated `src/parser.c` or when the parser must be regenerated at the CLI's ABI. `--check` performs no build; it verifies every committed wasm's ABI and recorded CLI version.
 
-Copy the resulting wasm over the file `grammar` points at, and record what produced it in the same commit: `parserSource` at the ref you checked out, `wasmBuildTool` at the CLI version you ran. Those two fields are the only provenance a wasm has, so a wasm change that leaves them untouched is a change nobody can reproduce — CI enforces it, and `node script/validate-wasm-grammar-prs.js` runs the same check locally.
+Point `LUMINE_GRAMMAR_CACHE` at the workspace `.dev/` directory to reuse its `emsdk/`, pinned CLI, source clones and output. A standalone cache also works when it contains emscripten. The current fleet CLI is `0.26.13`.
 
-When a parser is shared by several configs, or copied into more than one package, install the rebuilt wasm into **every** one of them in that same commit. Shared and copied wasms must not drift apart.
+`parserSource` and `wasmBuildTool` are the committed provenance. Do not copy a wasm by hand: `lem grammar` fans a build out to every config with the same source and wasm name, including copies in different package repositories, so shared parsers do not drift.
 
 Builds are reproducible: the same source ref and CLI version produce a byte-identical wasm. If a bump produces identical bytes, the commit is just a re-pin — that is normal for upstream releases that only touch bindings.
 
-Finally, confirm the result loads in the `web-tree-sitter` runtime Lumine ships and that its ABI falls inside the accepted window — see [ABI compatibility](tree-sitter-grammars.md#abi-compatibility) below.
-
 ### Grammars outside the Lumine repository
 
-A grammar package does not have to be bundled with the editor. It may be its own repository, pinned in the editor's `dependencies` and delivered through `node_modules/`, or installed from the catalog. Building its wasm is exactly the same — the build reads the clone, not the workspace.
+A grammar package does not have to be bundled with the editor. It may be pinned in the editor's dependencies and delivered through `node_modules`, or installed from the catalog. In the flat workspace `lem grammar --all` and `--check` already see every sibling grammar package; when given one config path, the command also includes that config's owning package automatically.
 
-The gates that sweep a whole fleet are different: they default to the editor's own packages, because a check that silently covered whatever happened to be checked out beside it would mean one thing on CI and another on your disk. Widen them explicitly — the capture check takes a repeatable `--package-root`, and the query-compilation spec reads the same list from `LUMINE_GRAMMAR_PACKAGE_ROOTS`, a `PATH`-style variable:
+The editor's query and capture gates deliberately default to its bundled set so CI has stable membership. Widen those checks explicitly for an unpinned checkout: the capture check takes a repeatable `--package-root`, and the query-compilation spec reads `LUMINE_GRAMMAR_PACKAGE_ROOTS`, a `PATH`-style variable:
 
 ```sh
 npm run check:grammar-captures -- --package-root ../language-lua
 LUMINE_GRAMMAR_PACKAGE_ROOTS=../language-lua npm run test:only -- spec/grammar-query-validation-spec.js
 ```
 
-Writing queries means constantly asking what the parse tree actually contains — which node types exist, which tokens are anonymous, what upstream's own queries say. Keep the clone you built from, at the ref you built, and read its `src/node-types.json` and `queries/` rather than fetching again.
+When writing queries, inspect `src/node-types.json` and upstream `queries/` in the source clone that `lem grammar` keeps under the build cache rather than fetching another copy.
 
 While authoring queries, do not iterate through the pin. Symlink the package into `~/.lumine/packages-dev`, which is searched ahead of the bundled checkout, so the editor loads your working copy and a query change needs no repin, no reinstall, and no commit.
 
 ## Updating a grammar
 
-1. Pick the new upstream tag or SHA, build the wasm from it, and diff `src/node-types.json` between the old clone and the new one.
+1. Run `lem grammar <config> --source github:org/repo#ref --diff-node-types` with the new tag or SHA.
 2. Read the diff: **removed** node types or fields are the breakage forecast — search the grammar's `.scm` files for each one. Renames surface as query compile errors; _shape_ changes (a node moving inside another) also surface as compile errors even when the inventory is unchanged.
 3. Run the three gates from the Lumine repo. A language package lives in its own repository, so its specs run against a real build rather than through `test:only`:
 
@@ -80,8 +78,8 @@ While authoring queries, do not iterate through the pin. Symlink the package int
    ```
 
 4. Eyeball highlighting, indentation, and folding on a real file — `spec/fixtures/sample.*` exists for exactly this.
-5. Commit the wasm, config, and query fixes together, one grammar per commit. CI validates that any wasm change also updates `parserSource` or `wasmBuildTool`; run `node script/validate-wasm-grammar-prs.js` locally before pushing directly to master.
-6. Push the package **first**, then advance its pin in `lumine/package.json` `dependencies` to the pushed commit and let `npm install` regenerate the lockfile. Until that pin moves, the package's own CI still tests against the previously pinned editor. The order reverses only when the editor change is the breaking one.
+5. Run `lem grammar --check`, then commit the wasm, config and query fixes together, one grammar per commit.
+6. Push the package first. If it is bundled, use `lem repin` to advance the editor and every dependent pin in dependency order; never substitute a SHA by hand in a lockfile.
 
 ## Query validation and errors
 
@@ -89,7 +87,7 @@ Every query of every bundled grammar is compiled in CI by `spec/grammar-query-va
 
 A grammar package in its own repository carries the same gate as a spec of its own, `spec/grammar-queries-spec.js`, which compiles every query its configs declare against its committed wasm. It needs no CI change: the package's existing integration job already runs its specs inside a real Lumine build. Without it such a package has **no** query gate at all, and a broken highlights query does not fail its other specs — the language layer degrades to a placeholder, so everything stays green while highlighting is silently dead.
 
-New grammar packages are scaffolded with `new-grammar-package.js` from the `tools/grammar-authoring/` checkout, which emits that spec along with the rest of the repository. It lives outside this repository because nothing here runs it: it creates a _different_ repository, by hand, and no spec or CI job touches it.
+The scaffolder described in [Creating a grammar](creating-a-grammar.md) emits that spec with the rest of a new package repository.
 
 ### Captures that compile but are not scopes
 

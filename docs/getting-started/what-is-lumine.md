@@ -6,7 +6,7 @@ Lumine is easy to use out of the box and just as easy to shape to your needs —
 
 ## Built on web technology
 
-Lumine is a desktop application built on **Electron 44**, **Chromium 152**, and **Node 24**. The interface is HTML and CSS and the editor is scriptable in JavaScript, so the same tools you use to build for the web are the tools you use to customize and extend the editor. The full application programming interface is exposed to packages and to your own init script through the global `lumine` object.
+Lumine is a desktop application built on **Electron**, **Chromium**, and **Node.js**. The interface is HTML and CSS and the editor is scriptable in JavaScript, so the same tools used for the web also customize and extend the editor. Packages and init scripts reach the public API through the global `lumine` object.
 
 ## Hackable by design
 
@@ -16,6 +16,6 @@ Almost everything in Lumine is a **package** — many core features are packages
 - **Themes** change the look of the interface and syntax. See [Developing a theme](../developing-for-lumine/developing-a-theme.md).
 - **Keymaps, snippets, styles, and an init script** let you customize the editor without writing a package. See [Configuration](../customizing-lumine/configuration.md).
 
-## Open source and source-first
+## Open source
 
-Lumine is stewarded by the community that uses it, under the `lumine-code` organization on GitHub. The project is evolving quickly and is currently **source-first**: the most reliable way to run it today is to build it from source. See [Installing Lumine](installing-lumine.md).
+Lumine is stewarded by its community under the `lumine-code` organization on GitHub. See [Installing Lumine](installing-lumine.md) to run it.

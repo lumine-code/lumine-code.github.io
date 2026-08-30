@@ -6,6 +6,8 @@ Lumine's workspace is made of **panes** (which hold editors and other items) and
 
 The bundled `tabs` package puts a tab per open item at the top of each pane. Drag tabs to reorder them, or drag them between panes. `pane:show-next-item` and `pane:show-previous-item` cycle through a pane's items; `pane:reopen-closed-item` brings back the last item you closed.
 
+Choose **Detach Tab** from a center tab's context menu, or run `pane:detach-item`, to move that item into its own window. Use the pin button in the detached window to return it to the original pane.
+
 ## Splitting panes
 
 Split the current pane and copy the active item into the new one with:

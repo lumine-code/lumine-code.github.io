@@ -14,12 +14,12 @@ A theme is a package whose `package.json` declares its kind:
   "name": "my-syntax",
   "version": "0.1.0",
   "theme": "syntax",
-  "styles": ["index.css"],
+  "styleSheets": ["main"],
   "engines": { "lumine": "^1.0.0" }
 }
 ```
 
-Set `"theme"` to `"ui"` or `"syntax"`. The stylesheets listed in `"styles"` provide the look. They are plain CSS built on custom properties, as the bundled themes are.
+Set `"theme"` to `"ui"` or `"syntax"`. A single-theme package loads the CSS files named by `styleSheets` from its `styles/` directory; with one `styles/main.css`, the field may be omitted because Lumine scans that directory. The CSS uses custom properties, as the bundled themes do.
 
 ## Use custom properties
 
@@ -28,7 +28,7 @@ Lumine's theming is built on **CSS custom properties**. Define your palette as p
 ```css
 :root {
   --text-color: #e6e6e6;
-  --background-color: #1b1f23;
+  --base-background-color: #1b1f23;
 }
 ```
 
@@ -66,11 +66,20 @@ A package can expose several independently selectable themes through a `themes` 
       "styles": ["styles/syntax", "styles/night-syntax"]
     }
   ],
+  "themePacks": [
+    {
+      "name": "My Theme",
+      "light": ["my-day-ui", "my-day-syntax"],
+      "dark": ["my-night-ui", "my-night-syntax"]
+    }
+  ],
   "engines": { "lumine": "^1.0.0" }
 }
 ```
 
-Each entry becomes its own virtual theme package. Its `name` is what users select, `theme` is either `ui` or `syntax`, and `styles` is a package-relative directory or an ordered list of directories. The containing package still owns shared JavaScript and configuration, but those are not copied into its virtual themes.
+Each `themes` entry becomes its own virtual theme package. Its `name` is what users select, `theme` is either `ui` or `syntax`, and `styles` is a package-relative directory or an ordered list of directories. The containing package still owns shared JavaScript and configuration, but those are not copied into its virtual themes.
+
+`themePacks` groups the complete UI and syntax stacks for light and dark appearance modes. Its `name` is user-facing, and each side is a non-empty ordered array of names declared by this package or another installed theme package.
 
 The list is what keeps a family from duplicating itself. Put the rules in a shared directory and the colors in a per-variant one, and the light and dark members of a pair differ only in the `variables.css` they load last — a syntax theme's scope-to-color mapping is written once, not once per variant.
 
@@ -141,20 +150,9 @@ Size stays the widget's business — a field that should grow with its content a
 
 ## A bar tile is the element the bar marks
 
-The status bar and the title bar each host elements packages hand them, and each stamps a class on what it hosts: `.status-bar-item` on a status-bar tile, `.title-bar-item` on a title-bar control tile. That class is the tile, and it is removed again when the tile is destroyed. Key padding, height, rounding and hover feedback on it:
+The status and title bars mark the element they host with `.status-bar-item` or `.title-bar-item`. Theme padding, rounding, color and hover feedback on those classes; do not infer a tile from descendants or style the unrelated `.inline-block` utility as one.
 
-```css
-.status-bar .status-bar-item:hover {
-}
-.title-bar .control-tiles .title-bar-item:hover {
-}
-```
-
-What a theme must never do is treat `.inline-block` as the tile. It is a layout utility from the editor's base stylesheet — `display: inline-block` plus a right margin — and packages use it _inside_ a tile to lay out a row of labels, so it says nothing about where a tile starts. Styling it gives a nested block the tile's padding and a second hover rectangle inset within the tile's own, which is invisible while the hover colour is opaque and obvious the moment it is translucent.
-
-The tile class also reaches the cases a descendant selector misses. `git-panel` and `github-panel` render into a host element and portal their contents in, so the tile is that host rather than anything recognisable inside it — the bar marks whatever it was handed, so a theme does not have to know.
-
-The two bars supply the tile's box and leave its look to the theme: flex centring, strip height and the panel's spacing come from the package, colour and feedback do not. A theme that paints a title-bar tile is not overriding the package, it is filling in the half it owns.
+The bars own layout while the theme owns appearance. Their complete tile contracts live in the [`status-bar`](https://github.com/lumine-code/status-bar/blob/master/docs/status-bar.md) and [`title-bar`](https://github.com/lumine-code/title-bar/blob/master/docs/title-bar.md) documentation.
 
 ## Icon geometry belongs to the editor
 

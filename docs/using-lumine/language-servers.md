@@ -1,42 +1,43 @@
 # Language servers
 
-The **`ide-client`** package runs Language Server Protocol servers and connects them to the editor. A language server analyzes your project as you work and powers completions in the autocomplete popup, diagnostics in the linter, and document and project symbols in the symbols view — the same servers used by other editors, speaking LSP 3.17. Everything else a server offers — hover documentation, code actions, rename, formatting — is covered in [Code intelligence](code-intelligence.md).
+The optional **`ide-client`** package runs Language Server Protocol 3.17 servers and exposes their results to editor packages. It is not bundled.
 
-Servers start lazily: the first time you open a file whose grammar matches a registered server, that server is launched for the file's project root and kept alive in the background — closing the file does not stop it, so reopening one costs nothing. A file outside every project folder gets a server for its own directory, and that one is released once the last such file is closed.
+## Installation
 
-Each project root gets its own session by default, so diagnostics and navigation stay scoped to the project you are working in: two unrelated folders in one window mean two servers, each reading the `tsconfig.json` or `pyproject.toml` that actually applies to it. A server that tells us it handles multi-root workspaces is the exception — it is given the second folder to look after instead of being started again, so one process covers both. Adding or removing a project folder moves the open editors onto the right server without anything to click.
+A working setup has three layers:
 
-More than one server can serve the same file, which is how these tools are normally combined: a type checker and a linter each cover Python, and both run. Answers that add up are merged — completions, code actions, references, and hover documentation from every server. Where they repeat each other, the repetition is dropped: two servers opening a tooltip with the same signature line produce one signature line, followed by whatever each of them alone had to say. For the features where several answers make no sense, such as formatting or rename, the request goes to the server that supports it — and when both do, the **Features** setting below decides which.
+1. Install `ide-client`.
+2. Install an adapter for each language, such as `ide-typescript`, `ide-eslint`, `ide-bash`, `ide-html`, `ide-yaml`, `ide-marksman`, `ide-pyright`, or `ide-ruff`.
+3. Install the frontends you want: `autocomplete` for completions, `linter` for diagnostics, `symbol` plus a symbol provider for symbol lists, and packages from [Code intelligence](code-intelligence.md) for other features.
 
-## Adapter packages
+For example, a minimal TypeScript setup with completions and diagnostics is:
 
-An adapter package tells `ide-client` how to launch a server for a language. Install one for each language you work in, for example `lumine --install lumine-code/ide-typescript` with `lumine-code/ide-eslint` for TypeScript/JavaScript intelligence and linting, `lumine-code/ide-bash` for Bash and other shell scripts, `lumine-code/ide-html` for HTML and template documents, `lumine-code/ide-yaml` for schema-aware YAML, `lumine-code/ide-marksman` for Markdown links and notes, or `lumine-code/ide-pyright` and `lumine-code/ide-ruff` for Python types and linting side by side — or search for _ide_ in the Install pane in **Settings**. Through the jupyter-view package, servers that understand notebooks — Basedpyright and Ruff among them — reach inside Jupyter notebook cells too.
+```sh
+lumine --install lumine-code/ide-client
+lumine --install lumine-code/ide-typescript
+lumine --install lumine-code/autocomplete
+lumine --install lumine-code/linter
+```
 
-Each adapter's settings page is where its server is configured. **Server Path** points at a specific binary, and adapters expose server options in the editor when the protocol supports them: where Basedpyright looks for imports and stubs, whether Bash analysis follows sourced files, which schemas YAML files use, how HTML attributes wrap, which fonts Tinymist loads, the formatter Texlab runs and the width it wraps at, the quote style the TypeScript server writes an import with. A setting left empty means "no opinion" and the server keeps its own default, so a project that configures itself through `pyrightconfig.json`, `ruff.toml`, or `tsconfig.json` is not overruled by a setting you never touched. Marksman reads its project options from `.marksman.toml`, so its adapter adds only **Server Path** and feature switches.
+Installing an adapter alone does not install or replace `ide-client`; adapters connect to it through an editor service. Each adapter's settings page contains its server path, feature switches, and server-specific options. Project configuration files such as `tsconfig.json`, `pyrightconfig.json`, and `ruff.toml` continue to apply when the corresponding editor setting is left empty.
+
+Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells.
 
 ## Installing a server
 
-Some servers ship with their adapter and work the moment it is installed — the Bash, Basedpyright, CSS, Dockerfile, ESLint, GraphQL, HTML, JSON, TypeScript, Vue, and YAML servers are npm packages their adapters depend on. The ESLint server uses the ESLint library, parsers, and plugins installed in each project, so the project still needs its normal `eslint` development dependency. Others are standalone binaries you would otherwise fetch yourself: Ruff, Texlab, Tinymist, and Marksman. Without one on your PATH or in the editor's managed server directory, its adapter has nothing to run.
+Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint still uses the ESLint library and plugins from each project.
 
-**Every adapter can be installed and updated the same way**, whichever of those it is. That is the point: you should never need to know that Ruff arrives as a release binary, YAML as an npm package with a dependency tree, and Bash as a server plus two separate tools. The list shows one row per language, with the same actions and the same reported state.
+Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy; standalone adapters then search `PATH`, while npm-based adapters fall back to the version shipped with the adapter. Removing a managed copy never removes a server installed by another tool.
 
-`ide-client:manage-servers` lists every server the editor can fetch, what is installed, and what the newest release is. Choosing one installs it, or updates it when a copy is already there; **Check for Updates** looks up every server at once. The same offer appears the moment it matters — an adapter that cannot find its server says so with an **Install** button on the notification.
+The Bash adapter can also manage `shellcheck` and `shfmt`, which provide its diagnostics and formatting.
 
-Installed servers live in `language-servers/` in your configuration directory, one folder per adapter. Each download is checked against the checksum its source publishes before anything is installed, and a mismatch is discarded. Texlab and Marksman publish no checksums, so their downloads cannot be independently verified; the other managed sources can.
+## Sessions
 
-Which copy runs is settled in a fixed order: the **Server Path** setting if you set one, then the copy the editor installed, then whatever is on your PATH. Removing a managed copy therefore falls back rather than breaking — to the PATH binary for standalone servers, and to the version that ships with the package for the npm-based ones. Only what the editor installed is removed; a Ruff you installed with `uv` or `brew` is never touched.
-
-Bash is the one adapter that installs more than a server: it fetches `shellcheck` and `shfmt` alongside it, since its diagnostics and formatting shell out to those. Paths you set by hand still win, and without either the server simply searches your PATH as before.
-
-Keeping your own copy is a reasonable choice, and sometimes the right one: a project that pins `ruff` in its dev dependencies expects that exact version, and a managed copy at a different version reports different violations. Set **Server Path**, or simply do not install one.
+Servers start when a matching file first opens. By default each project root gets a session; a server advertising multi-root support can share one process across roots, and a file outside the project gets a temporary file session. Several servers may serve one file: mergeable results are combined, while operations such as formatting or rename use an enabled server that supports them.
 
 ## Features
 
-Every adapter's settings page has a **Features** group listing what its server does — diagnostics, autocomplete, hover, signature help, go-to-definition, references, call hierarchy, type hierarchy, symbols, outline, formatting, rename, code actions, inlay hints, code lens, semantic tokens. Each is a switch, and only the ones that server actually implements are shown: Basedpyright has no formatter, and Ruff has neither completions nor navigation, so neither offers a switch for them.
-
-Turning one off is how you choose between two servers covering one language. With Basedpyright and Ruff both serving Python, turning **Code Actions** off for one hands quick fixes to the other; turning **Hover** off for Ruff leaves the tooltip to the type checker alone. A switched-off feature is never requested, so it costs nothing rather than being computed and discarded — and where a server can be told to stop the work itself, it is: turning Ruff's **Diagnostics** off stops it linting, and turning Tinymist's **Semantic Tokens** off stops it classifying.
-
-Each switch can also be set per language, the same way editor settings can. Inlay hints on for TypeScript and off for JavaScript is a scoped setting, not two packages.
+Each adapter's **Features** group exposes the capabilities that can be switched off, including diagnostics, completions, navigation, formatting, rename, code actions, hints, lenses, and semantic tokens. Use these switches to choose between overlapping servers; for example, disable Ruff hover to leave it to Basedpyright. Feature settings can be scoped per language.
 
 ## Custom servers
 
@@ -56,22 +57,16 @@ Any other language server can be wired up without a package. `ide-client:open-cu
 
 `command` and `scopes` are required. `args`, `env`, `languageId`, `sessionScope`, `transport`, `initializationOptions`, `settings`, and `features` are optional; `settings` is handed to the server as its configuration, and `features` switches individual capabilities off, as an adapter package's settings page does. Saving the file restarts exactly the servers whose entries changed.
 
-## Seeing what is running
+## Inspecting and controlling servers
 
-`ide-client:servers` lists every language server the window has started — the servers for the active editor first. Each entry names what that server covers, so a shared process is not mistaken for one of many:
+`ide-client:servers` lists running servers, with those serving the active editor first. A session is labeled **Root**, **Roots**, **Workspace**, or **File** according to what it covers; choose it to restart or stop it, open its log, or show its diagnostics.
 
-- **Root** — one project folder, with its path. **Roots (2)** when one server took on several.
-- **Workspace** — the whole window, listing the project folders it answers for.
-- **File** — a file opened outside every project folder, named by the file rather than by the directory the server happens to be rooted at.
+The status-bar item opens the same list and reports failures; disable it with the **Status Bar** setting. With `busy-signal` installed, server progress appears in the shared busy indicator.
 
-Choosing one offers to restart it, stop it, open its log, or jump to the problems panel.
-
-The same list sits in the status bar: an item counting the running servers, with an alert badge when one has failed, that opens the list on click. It stays in place while nothing is running and reports zero, so its neighbours do not shift as servers come and go. Turn it off with the **Status Bar** setting. With the `busy-signal` package installed, work a server reports while it runs — indexing, analysis — spins the busy indicator instead, so long-lived servers do not churn alongside short tasks.
-
-## Commands
-
-`ide-client:servers` lists the running servers. `ide-client:manage-servers` lists the servers the editor can install. `ide-client:restart` restarts every server serving the active editor. `ide-client:format` formats the active document through the server. `ide-client:toggle-problems` opens the `linter-panel` package with the server's diagnostics, when that package is installed. `ide-client:show-log` opens the active server's log in an editor.
+- `ide-client:restart` restarts every server for the active editor.
+- `ide-client:format` formats the active document through a server.
+- `ide-client:toggle-problems` opens `linter-panel` when it is installed.
 
 ## Troubleshooting
 
-Each server's output and protocol traffic is kept in a log buffer — open it with `ide-client:show-log`. The **Protocol Trace** setting raises the detail from `off` to `messages` (methods only) or `verbose` (full payloads). A crashed server is restarted automatically with increasing delays up to **Maximum Automatic Restarts**. When those run out it says so, with a button that opens its log — a server that keeps dying has written the reason there and nowhere else, whether that is a crash, a missing dependency, or an option it refused. Restart it again from the session menu once the cause is dealt with. A server that requests an unsupported position encoding is refused at startup with an explanatory error.
+Open the server log with `ide-client:show-log`; set **Protocol Trace** to `messages` or `verbose` for protocol traffic. Crashed servers restart up to **Maximum Automatic Restarts**, after which the failure notification links to the log. Fix the reported cause and restart the session from `ide-client:servers`.

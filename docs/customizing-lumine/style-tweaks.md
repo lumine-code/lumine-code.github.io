@@ -6,6 +6,8 @@ Because Lumine's interface is HTML and CSS, you can restyle any part of it yours
 
 Personal styles live in **`styles.css`**, opened with `application:open-your-stylesheet`. It is plain CSS, and its rules are applied on top of your active theme.
 
+A legacy `styles.less` file is not loaded; convert it to CSS.
+
 ```css
 /* Make the tree view text a little larger. */
 .tree-view {
@@ -51,7 +53,7 @@ Rather than hardcoding colors, reference the active theme's **CSS custom propert
 ```css
 .my-highlight {
   color: var(--text-color);
-  background: var(--background-color);
+  background: var(--base-background-color);
 }
 ```
 

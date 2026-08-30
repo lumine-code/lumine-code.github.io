@@ -1,6 +1,6 @@
 # Where customization is stored
 
-All of your personal customization lives in one **configuration directory**: `~/.lumine` (on Windows, `%USERPROFILE%\.lumine`). Knowing what is in it makes it easy to back up, sync, or reset your setup.
+All personal customization lives in one **configuration directory**. By default it is `~/.lumine` (on Windows, `%USERPROFILE%\.lumine`), but a portable profile or `LUMINE_HOME` can select another location.
 
 ## The configuration directory
 
@@ -14,13 +14,11 @@ All of your personal customization lives in one **configuration directory**: `~/
 | `packages/`                        | Installed packages, one directory per package.                                |
 | `packages-dev/`                    | Packages loaded only in development mode.                                     |
 
-Lumine does not load `config.cson`, `keymap.cson`, `styles.less`, or `init.coffee`; convert those files to the matching format above. The bundled snippets package is the one migration exception: it can still read an existing `snippets.cson`, although new snippet files are JSON.
-
-Each of the personal files has an "open your…" command (`application:open-your-config`, `application:open-your-keymap`, `application:open-your-snippets`, `application:open-your-stylesheet`, `application:open-your-init-script`), which creates the file if it does not exist yet.
+Each personal file has an `application:open-your-*` command. When its path does not exist, Lumine opens an empty buffer there; save it to create the file.
 
 ## Using a different location
 
-You can point Lumine at a different configuration directory by setting the `LUMINE_HOME` environment variable before launching. This is useful for keeping an isolated setup — for example, a clean profile for testing, or a portable configuration on a removable drive.
+A writable portable `.lumine` directory beside the installation takes precedence. Otherwise you can set `LUMINE_HOME` before launching to use an isolated profile, such as a clean test setup or configuration on a removable drive.
 
 ## Resetting
 
