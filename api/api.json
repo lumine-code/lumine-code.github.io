@@ -187,7 +187,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "IconRegistry",
-          "line": 341
+          "line": 340
         },
         {
           "name": "keymaps",
@@ -299,7 +299,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "RepositoryRegistry",
-          "line": 354
+          "line": 353
         },
         {
           "name": "runtime",
@@ -2646,11 +2646,11 @@
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::show(target, menuTemplate)",
+          "signature": "::show(target, menuTemplate, options = {})",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Show a native context menu for a DOM target.",
-          "summary": "Show a native context menu for a DOM target.",
+          "description": "Show a theme-aware HTML context menu for a DOM target.",
+          "summary": "Show a theme-aware HTML context menu for a DOM target.",
           "parameters": [
             {
               "name": "target",
@@ -2667,14 +2667,23 @@
               "optional": false,
               "rest": false,
               "type": null,
-              "description": "A serializable Electron menu-template `Array`; functions and native Electron objects are not allowed.",
+              "description": "A menu-template `Array`.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Optional popup placement options, including `anchor`.",
               "defaultValue": null
             }
           ],
-          "returnType": "Promise",
-          "returnDescription": "that resolves after the menu is shown.",
+          "returnType": "Object",
+          "returnDescription": "the popup controller.",
           "propertyType": null,
-          "line": 301
+          "line": 261
         }
       ]
     },
@@ -9995,7 +10004,7 @@
       "source": "src/icon-registry.js",
       "sourcePath": "src/icon-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 211,
+      "line": 384,
       "members": [
         {
           "name": "addProvider",
@@ -10005,7 +10014,7 @@
           "signature": "::addProvider(provider, { priority = 0, id = null, core = false } = {})",
           "category": "Methods",
           "visibility": "Essential",
-          "description": "Register an icon provider. Returns a `Disposable`.\n\nProviders are consulted highest `priority` first, and equal priorities keep\nregistration order. `iconFor(target)` returns an icon descriptor, a class\nstring or array, or `null` to defer to the next provider.",
+          "description": "Register an icon provider. Returns a `Disposable`.\n\nProviders are consulted highest `priority` first, and equal priorities keep\nregistration order. `iconFor(target)` returns an icon descriptor, or\n`null` to defer to the next provider.",
           "summary": "Register an icon provider. Returns a `Disposable`.",
           "parameters": [
             {
@@ -10030,7 +10039,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 309
+          "line": 532
         },
         {
           "name": "iconFor",
@@ -10065,7 +10074,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 370
+          "line": 593
         },
         {
           "name": "applyTo",
@@ -10075,7 +10084,7 @@
           "signature": "::applyTo(element, target, options = {})",
           "category": "Methods",
           "visibility": "Essential",
-          "description": "Render `target`'s icon into `element` and keep it current.\n\nCurrent with respect to providers, not to the target: `live` re-renders as\nicon providers come and go, but the target — its hints included — is read\nonce. A caller whose hints can change (a repository registered after\nstartup, say) calls `applyTo` again with fresh hints; the new application\nreplaces the old one on the element wholesale.",
+          "description": "Render `target`'s icon into `element` and keep it current.\n\n`live` re-renders as providers come and go and as centrally derived path\nmetadata changes. An `{item}` target also follows its icon-name and path\nevents. Explicit target hints are read once; a caller changing one of those\ncalls `applyTo` again and replaces the old application on the element\nwholesale.",
           "summary": "Render `target`'s icon into `element` and keep it current.",
           "parameters": [
             {
@@ -10169,7 +10178,7 @@
           "returnType": "Disposable",
           "returnDescription": "that removes everything the call added.",
           "propertyType": null,
-          "line": 449
+          "line": 793
         },
         {
           "name": "invalidate",
@@ -10179,7 +10188,7 @@
           "signature": "::invalidate(scope)",
           "category": "Methods",
           "visibility": "Extended",
-          "description": "Drop cached answers and repaint what they were rendered into.\n\n`scope` is undefined or null for everything, or an object narrowing it to\n`{types}`, `{paths}`, `{names}`, or `{kinds}`. Narrowing matters: a\nprovider that resolves one file extension asynchronously should repaint the\nrows showing that extension, not every row in the tree.",
+          "description": "Drop cached answers and repaint what they were rendered into.\n\n`scope` is undefined or null for everything, or an object narrowing it to\n`{types}`, `{paths}`, `{pathPrefixes}`, `{names}`, or `{kinds}`. Narrowing\nmatters: a provider that resolves one file extension asynchronously should\nrepaint the rows showing that extension, not every row in the tree.",
           "summary": "Drop cached answers and repaint what they were rendered into.",
           "parameters": [
             {
@@ -10195,7 +10204,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 513
+          "line": 944
         },
         {
           "name": "defineNames",
@@ -10221,7 +10230,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 591
+          "line": 1160
         },
         {
           "name": "defineKinds",
@@ -10247,7 +10256,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 601
+          "line": 1170
         },
         {
           "name": "onDidChange",
@@ -10273,7 +10282,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 631
+          "line": 1200
         }
       ]
     },
@@ -11620,8 +11629,112 @@
       "source": "src/menu-manager.js",
       "sourcePath": "src/menu-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 72,
+      "line": 73,
       "members": [
+        {
+          "name": "onDidChange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChange(callback)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Invoke `callback` whenever the canonical application-menu template or the\nkey bindings displayed beside its commands change.",
+          "summary": "Invoke `callback` whenever the canonical application-menu template or the key bindings displayed beside its commands change.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 129
+        },
+        {
+          "name": "createMenuBar",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::createMenuBar(options = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create an HTML application-menu bar bound to this manager's live template.",
+          "summary": "Create an HTML application-menu bar bound to this manager's live template.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "a disposable menu-bar controller and its `element`.",
+          "propertyType": null,
+          "line": 151
+        },
+        {
+          "name": "showPopup",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::showPopup(options = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Show a theme-aware HTML command menu at an element, pointer event, or rect.",
+          "summary": "Show a theme-aware HTML command menu at an element, pointer event, or rect.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "a disposable popup controller.",
+          "propertyType": null,
+          "line": 166
+        },
+        {
+          "name": "createSelectBox",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::createSelectBox(options = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create a theme-aware single-choice control with an HTML listbox popup.",
+          "summary": "Create a theme-aware single-choice control with an HTML listbox popup.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "a disposable select-box controller and its `element`.",
+          "propertyType": null,
+          "line": 180
+        },
         {
           "name": "add",
           "kind": "method",
@@ -11686,7 +11799,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the added menu items.",
           "propertyType": null,
-          "line": 134
+          "line": 209
         },
         {
           "name": "update",
@@ -11702,7 +11815,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 225
+          "line": 300
         }
       ]
     },
@@ -18633,7 +18746,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to an `Array` of every registered {@link GitRepository}.",
           "propertyType": null,
-          "line": 1801
+          "line": 1809
         }
       ]
     },
@@ -33629,7 +33742,7 @@
       "source": "src/theme-manager.js",
       "sourcePath": "src/theme-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 92,
+      "line": 95,
       "members": [
         {
           "name": "onDidChangeActiveThemes",
@@ -33655,7 +33768,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 139
+          "line": 142
         },
         {
           "name": "onDidChangeThemePacks",
@@ -33681,7 +33794,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 151
+          "line": 154
         },
         {
           "name": "registerThemePack",
@@ -33737,7 +33850,7 @@
           "returnType": "Disposable",
           "returnDescription": "that removes the pack.",
           "propertyType": null,
-          "line": 178
+          "line": 181
         },
         {
           "name": "getThemePacks",
@@ -33753,7 +33866,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "registered theme packs sorted by their user-facing names.",
           "propertyType": null,
-          "line": 215
+          "line": 218
         },
         {
           "name": "isThemePackActive",
@@ -33779,7 +33892,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether both configured mode pairs match `themePack`.",
           "propertyType": null,
-          "line": 225
+          "line": 228
         },
         {
           "name": "getActiveThemePack",
@@ -33795,7 +33908,7 @@
           "returnType": "Object|undefined",
           "returnDescription": "registered pack matching both configured mode pairs.",
           "propertyType": null,
-          "line": 245
+          "line": 248
         },
         {
           "name": "setThemePack",
@@ -33821,7 +33934,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 255
+          "line": 258
         },
         {
           "name": "getLoadedThemeNames",
@@ -33837,7 +33950,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the loaded theme names.",
           "propertyType": null,
-          "line": 278
+          "line": 281
         },
         {
           "name": "getLoadedThemes",
@@ -33853,7 +33966,7 @@
           "returnType": "Array",
           "returnDescription": "of all the loaded themes.",
           "propertyType": null,
-          "line": 288
+          "line": 291
         },
         {
           "name": "getActiveThemeNames",
@@ -33869,7 +33982,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the active theme names.",
           "propertyType": null,
-          "line": 302
+          "line": 305
         },
         {
           "name": "getActiveThemes",
@@ -33885,7 +33998,7 @@
           "returnType": "Array",
           "returnDescription": "of all the active themes.",
           "propertyType": null,
-          "line": 312
+          "line": 315
         },
         {
           "name": "getEnabledThemeNames",
@@ -33901,7 +34014,7 @@
           "returnType": "Array",
           "returnDescription": "array of theme names in the order that they should be activated.",
           "propertyType": null,
-          "line": 375
+          "line": 378
         },
         {
           "name": "updateAppearance",
@@ -33927,7 +34040,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once the change has been applied.",
           "propertyType": null,
-          "line": 843
+          "line": 846
         }
       ]
     },
@@ -35320,364 +35433,30 @@
           "line": 410
         },
         {
-          "name": "setAutoHideMenuBar",
+          "name": "setSheetOffset",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::setAutoHideMenuBar(autoHide)",
+          "signature": "::setSheetOffset(offsetY)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Control whether the menu bar hides automatically.",
-          "summary": "Control whether the menu bar hides automatically.",
+          "description": "Move native macOS sheets below HTML window chrome.\n\nThis is a no-op on other platforms.",
+          "summary": "Move native macOS sheets below HTML window chrome.",
           "parameters": [
             {
-              "name": "autoHide",
-              "source": "autoHide",
+              "name": "offsetY",
+              "source": "offsetY",
               "optional": false,
               "rest": false,
               "type": null,
-              "description": "",
+              "description": "A non-negative integer number of pixels.",
               "defaultValue": null
             }
           ],
           "returnType": "Promise",
           "returnDescription": "that resolves when the request is applied.",
           "propertyType": null,
-          "line": 422
-        },
-        {
-          "name": "setMenuBarVisibility",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::setMenuBarVisibility(visible)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Show or hide the menu bar.",
-          "summary": "Show or hide the menu bar.",
-          "parameters": [
-            {
-              "name": "visible",
-              "source": "visible",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": "Promise",
-          "returnDescription": "that resolves when the request is applied.",
-          "propertyType": null,
-          "line": 434
-        },
-        {
-          "name": "showApplicationMenuPopup",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::showApplicationMenuPopup(request)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Open a native popup for the current window's application menu.\n\n`request` is an exact-key union. A submenu request contains exactly\n`{kind, id, x, y, sourceType, activeHoverTarget, hoverTargets}`; an\noverflow request replaces `id` with `ids`.",
-          "summary": "Open a native popup for the current window's application menu.",
-          "parameters": [
-            {
-              "name": "request",
-              "source": "request",
-              "optional": false,
-              "rest": false,
-              "type": "Object",
-              "description": "The popup request.",
-              "defaultValue": null
-            },
-            {
-              "name": "request.kind",
-              "type": "\"submenu\"|\"overflow\"",
-              "description": "Whether to open one top-level submenu or a temporary menu containing several top-level items.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.kind",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.id",
-              "type": "String",
-              "description": "The non-empty top-level menu ID required by a submenu request.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "request.id",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.ids",
-              "type": "Array<String>",
-              "description": "The non-empty, unique top-level menu IDs required by an overflow request.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "request.ids",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.x",
-              "type": "Number",
-              "description": "The active anchor's rounded, non-negative 32-bit integer `getBoundingClientRect().left` coordinate.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.x",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.y",
-              "type": "Number",
-              "description": "The active anchor's rounded, non-negative 32-bit integer `getBoundingClientRect().bottom` coordinate.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.y",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.sourceType",
-              "type": "\"mouse\"|\"keyboard\"",
-              "description": "The Electron popup input source.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.sourceType",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.activeHoverTarget",
-              "type": "String",
-              "description": "The key of the visible anchor containing the popup that is initially open; that descriptor must match the requested submenu or overflow contents.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.activeHoverTarget",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets",
-              "type": "Array<Object>",
-              "description": "A non-empty array of exact `{key, kind, id, bounds}` submenu descriptors or `{key, kind, ids, bounds}` overflow descriptors. Keys and represented menu IDs must be unique across the array.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].key",
-              "type": "String",
-              "description": "The descriptor's unique, non-empty key.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].key",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].kind",
-              "type": "\"submenu\"|\"overflow\"",
-              "description": "The anchor descriptor kind.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].kind",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[",
-              "type": "String",
-              "description": ".id] - The non-empty top-level menu ID present only on a submenu descriptor.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "request.hoverTargets[",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[",
-              "type": "Array<String>",
-              "description": ".ids] - The non-empty, unique top-level menu IDs present only on an overflow descriptor.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "request.hoverTargets[",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].bounds",
-              "type": "Object",
-              "description": "The anchor rectangle in the current window's content coordinate system.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].bounds",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].bounds.x",
-              "type": "Number",
-              "description": "A non-negative 32-bit integer.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].bounds.x",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].bounds.y",
-              "type": "Number",
-              "description": "A non-negative 32-bit integer.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].bounds.y",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].bounds.width",
-              "type": "Number",
-              "description": "A positive 32-bit integer whose sum with `x` remains in the 32-bit range.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].bounds.width",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "request.hoverTargets[].bounds.height",
-              "type": "Number",
-              "description": "A positive 32-bit integer whose sum with `y` remains in the 32-bit range.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "request.hoverTargets[].bounds.height",
-              "rest": false,
-              "nested": true
-            }
-          ],
-          "returnType": "Promise<Boolean>",
-          "returnDescription": "A promise resolving to `true` after Electron reports the popup closed, or `false` when the current menu is unavailable or no longer matches the request. Invalid requests and Electron popup failures reject the promise.",
-          "propertyType": null,
-          "line": 491
-        },
-        {
-          "name": "closeApplicationMenuPopup",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::closeApplicationMenuPopup()",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Close the current window's native application-menu popup, if any.",
-          "summary": "Close the current window's native application-menu popup, if any.",
-          "parameters": [],
-          "returnType": "Promise<Boolean>",
-          "returnDescription": "resolving to whether a popup was closed.",
-          "propertyType": null,
-          "line": 503
-        },
-        {
-          "name": "onDidRequestApplicationMenuPopupSwitch",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidRequestApplicationMenuPopupSwitch(callback)",
-          "category": "Methods",
-          "visibility": "Public",
-          "description": "Subscribe to requests to replace an open native application-menu popup\nafter the pointer moves over another visible top-level menu anchor.",
-          "summary": "Subscribe to requests to replace an open native application-menu popup after the pointer moves over another visible top-level menu anchor.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": "Function",
-              "description": "Called with the switch event.",
-              "defaultValue": null
-            },
-            {
-              "name": "callback.event",
-              "type": "Object",
-              "description": "The exact `{from, target}` switch event.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.from",
-              "type": "String",
-              "description": "The key of the anchor whose popup is currently open.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event.from",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.target",
-              "type": "Object",
-              "description": "The target anchor descriptor. It is the exact submenu shape `{key, kind, id}` or overflow shape `{key, kind, ids}` and deliberately omits bounds.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event.target",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.target.key",
-              "type": "String",
-              "description": "The target anchor's unique key.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event.target.key",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.target.kind",
-              "type": "\"submenu\"|\"overflow\"",
-              "description": "The target anchor kind.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event.target.kind",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.target.id",
-              "type": "String",
-              "description": "The top-level menu ID present only for a submenu target.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "callback.event.target.id",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.target.ids",
-              "type": "Array<String>",
-              "description": "The top-level menu IDs present only for an overflow target.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "callback.event.target.ids",
-              "rest": false,
-              "nested": true
-            }
-          ],
-          "returnType": "Disposable",
-          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
-          "propertyType": null,
-          "line": 530
+          "line": 425
         },
         {
           "name": "openDevTools",
@@ -35693,7 +35472,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the request is applied.",
           "propertyType": null,
-          "line": 542
+          "line": 437
         },
         {
           "name": "closeDevTools",
@@ -35709,7 +35488,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the request is applied.",
           "propertyType": null,
-          "line": 555
+          "line": 450
         },
         {
           "name": "toggleDevTools",
@@ -35725,7 +35504,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the request is applied.",
           "propertyType": null,
-          "line": 568
+          "line": 463
         },
         {
           "name": "executeJavaScriptInDevTools",
@@ -35751,7 +35530,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after evaluation, or immediately when developer tools are closed.",
           "propertyType": null,
-          "line": 581
+          "line": 476
         },
         {
           "name": "broadcast",
@@ -35786,7 +35565,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the event is sent.",
           "propertyType": null,
-          "line": 595
+          "line": 490
         },
         {
           "name": "onDidReceive",
@@ -35821,7 +35600,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 610
+          "line": 505
         },
         {
           "name": "onDidEnterFullScreen",
@@ -35847,7 +35626,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 625
+          "line": 520
         },
         {
           "name": "onDidLeaveFullScreen",
@@ -35873,7 +35652,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 637
+          "line": 532
         },
         {
           "name": "onDidMaximize",
@@ -35899,7 +35678,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 649
+          "line": 544
         },
         {
           "name": "onDidUnmaximize",
@@ -35925,7 +35704,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 661
+          "line": 556
         },
         {
           "name": "onDidFocus",
@@ -35951,7 +35730,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 673
+          "line": 568
         },
         {
           "name": "onDidBlur",
@@ -35977,14 +35756,14 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 685
+          "line": 580
         }
       ]
     },
     {
       "name": "Workspace",
       "visibility": "Essential",
-      "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `lumine.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {@link Workspace#addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {@link WorkspaceCenter} or in one\nof the three {@link Dock Docks}. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a `String` containing the title of the item to display on its\nassociated tab.\n\n### Optional Methods\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a `Disposable`.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `getLongTitle()`\n\nReturns a `String` containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a `Disposable`.\n\n#### `getIconName()`\n\nReturn a `String` with the name of an icon. If this method is defined and\nreturns a string, the item's tab element will be rendered with the `icon` and\n`icon-${iconName}` CSS classes.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the workspace so it can be notified when the item's icon changes.\nMust return a `Disposable`.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a `String` with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an `Array` of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `getFileState()`\n\nReturns one of the mutually exclusive values in `FileState`.\n\n#### `onDidChangeFileState(callback)`\n\nCalled by the workspace so it can be notified when the item's file state\nchanges. The callback receives the new state. Must return a `Disposable`.\n\n#### `copy()`\n\nCreate a copy of the item. If defined, the workspace will call this method to\nduplicate the item when splitting panes via certain split commands.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {@link Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a `Number`.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {@link Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a `Number`.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a `Disposable`.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
+      "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `lumine.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {@link Workspace#addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {@link WorkspaceCenter} or in one\nof the three {@link Dock Docks}. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a `String` containing the title of the item to display on its\nassociated tab.\n\n### Optional Methods\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a `Disposable`.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `getLongTitle()`\n\nReturns a `String` containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a `Disposable`.\n\n#### `getIconName()`\n\nReturn a `String` with the semantic name of an icon. The icon registry\nresolves that name to a descriptor, so an icon provider may render it as\nclasses, an image, SVG, or a letter.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the icon binding so it can be notified when the item's icon\nchanges. Must return a `Disposable`.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a `String` with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an `Array` of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `getFileState()`\n\nReturns one of the mutually exclusive values in `FileState`.\n\n#### `onDidChangeFileState(callback)`\n\nCalled by the workspace so it can be notified when the item's file state\nchanges. The callback receives the new state. Must return a `Disposable`.\n\n#### `copy()`\n\nCreate a copy of the item. If defined, the workspace will call this method to\nduplicate the item when splitting panes via certain split commands.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {@link Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a `Number`.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {@link Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a `Number`.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a `Disposable`.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
       "summary": "Represents the state of the user interface for the entire window. An instance of this class is available via the `lumine.workspace` global.",
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
@@ -40304,5 +40083,5 @@
     }
   ],
   "memberCount": 1265,
-  "generatedAt": "2026-08-30T17:57:22.654Z"
+  "generatedAt": "2026-09-01T03:39:24.325Z"
 }
