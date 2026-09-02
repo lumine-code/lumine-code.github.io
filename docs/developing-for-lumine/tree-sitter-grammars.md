@@ -13,7 +13,7 @@ A Tree-sitter grammar config and all of its runtime assets live directly in a pa
   "type": "tree-sitter",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-json#v0.24.8",
-    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
+    "wasmBuildTool": "tree-sitter-cli#v0.27.0",
     "grammar": "json.wasm",
     "highlightsQuery": [
       "json-no-comments-highlights.scm",
@@ -34,7 +34,7 @@ Several configs can share one wasm (JSON, JSONC, and Jupyter). Configs that pin 
 
 ## Building a parser wasm
 
-A parser is compiled from the exact source in `parserSource` with `tree-sitter-cli` and emscripten. In the flat Lumine workspace, `lem grammar` owns that workflow: it reuses the checkout and toolchain under `LUMINE_GRAMMAR_CACHE`, validates the result against the editor's `web-tree-sitter`, installs every copy in the same parser family, and updates `wasmBuildTool`.
+A parser is compiled from the exact source in `parserSource` with `tree-sitter-cli` and the WASI SDK and Binaryen versions pinned by that CLI. In the flat Lumine workspace, `lem grammar` owns that workflow: it reuses the checkout and CLI under `LUMINE_GRAMMAR_CACHE`, validates the result against the editor's `web-tree-sitter`, installs every copy in the same parser family, and updates `wasmBuildTool`.
 
 ```sh
 LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/json.json
@@ -44,7 +44,7 @@ LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar --check
 
 The first form rebuilds the currently pinned source. The second changes `parserSource` and reports added and removed node types and fields. Add `--regenerate` when upstream has no generated `src/parser.c` or when the parser must be regenerated at the CLI's ABI. `--check` performs no build; it verifies every committed wasm's ABI and recorded CLI version.
 
-Point `LUMINE_GRAMMAR_CACHE` at the workspace `.dev/` directory to reuse its `emsdk/`, pinned CLI, source clones and output. A standalone cache also works when it contains emscripten. The current fleet CLI is `0.26.13`.
+Point `LUMINE_GRAMMAR_CACHE` at the workspace `.dev/` directory to reuse its pinned CLI, source clones and output. Tree-sitter caches its pinned WASI SDK and Binaryen separately in the platform cache; `TREE_SITTER_WASI_SDK_PATH` and `TREE_SITTER_BINARYEN_PATH` may point to existing toolchain checkouts. The current fleet CLI is `0.27.0`.
 
 `parserSource` and `wasmBuildTool` are the committed provenance. Do not copy a wasm by hand: `lem grammar` fans a build out to every config with the same source and wasm name, including copies in different package repositories, so shared parsers do not drift.
 
@@ -110,4 +110,4 @@ Mistakes inside predicates are contained the same way: an unknown `test.`/`adjus
 
 ## ABI compatibility
 
-A parser wasm carries the ABI version of the `tree-sitter-cli` that _generated_ its parser — rebuilding does not change it, bumping `parserSource` usually does. Lumine's runtime accepts a window of ABI versions (currently 13–15), so a wasm outside that window must not be committed. If an upstream commits sources generated with a too-new CLI, delete its `src/parser.c` and run `tree-sitter generate` with the CLI version you are pinning, so the parser is regenerated at an ABI the runtime accepts.
+A parser wasm carries the ABI version of the `tree-sitter-cli` that generated its `parser.c`. Rebuilding an existing `parser.c` preserves that ABI; `lem grammar --regenerate` replaces it with output from the fleet CLI. Lumine's runtime accepts a window of ABI versions (currently 13–15), so a wasm outside that window must not be committed. If an upstream commits sources generated with an incompatible CLI, run `lem grammar <config> --regenerate` so the parser is regenerated at an ABI the runtime accepts.
