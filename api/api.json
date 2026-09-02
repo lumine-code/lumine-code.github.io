@@ -31717,7 +31717,7 @@
           "signature": "::whenGrammarSettled({ signal } = {})",
           "category": "Grammars",
           "visibility": "Extended",
-          "description": "Wait for the current grammar to finish its initial parse and any pending\ntransaction, including injected language layers.\n\nReturns `false` when the editor is destroyed, the grammar changes, the\noptional signal is aborted, or parsing the current transaction fails. A\nparser-loading failure rejects the returned promise.",
+          "description": "Wait for the current grammar to finish its initial parse and any pending\ntransaction, including injected language layers.\n\nReturns `false` when the editor is destroyed, the grammar changes, the\noptional signal is aborted, or parsing the current transaction fails. A\nparser-loading or grammar-settlement failure rejects the returned promise.",
           "summary": "Wait for the current grammar to finish its initial parse and any pending transaction, including injected language layers.",
           "parameters": [
             {
@@ -31759,7 +31759,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "that includes this editor's language. e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with {@link Config#get} to get language specific config values.",
           "propertyType": null,
-          "line": 5567
+          "line": 5579
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -31785,7 +31785,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5586
+          "line": 5598
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -31811,7 +31811,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5607
+          "line": 5619
         },
         {
           "name": "getSyntaxNodeAtBufferPosition",
@@ -31846,7 +31846,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5634
+          "line": 5646
         },
         {
           "name": "hasGrammarQuery",
@@ -31872,7 +31872,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the query is declared by a current language layer.",
           "propertyType": null,
-          "line": 5651
+          "line": 5663
         },
         {
           "name": "getGrammarQueryCaptureGroups",
@@ -31917,7 +31917,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise resolving to `{grammar, captures}` groups for current language layers.",
           "propertyType": null,
-          "line": 5677
+          "line": 5689
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -31943,7 +31943,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5708
+          "line": 5720
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -31978,7 +31978,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5726
+          "line": 5738
         },
         {
           "name": "isBufferRowCommented",
@@ -32004,7 +32004,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5738
+          "line": 5750
         },
         {
           "name": "copySelectedText",
@@ -32030,7 +32030,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5774
+          "line": 5786
         },
         {
           "name": "cutSelectedText",
@@ -32066,7 +32066,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5818
+          "line": 5830
         },
         {
           "name": "pasteText",
@@ -32092,7 +32092,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the clipboard text has been inserted.",
           "propertyType": null,
-          "line": 5849
+          "line": 5861
         },
         {
           "name": "cutToEndOfLine",
@@ -32128,7 +32128,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5955
+          "line": 5967
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -32164,7 +32164,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5979
+          "line": 5991
         },
         {
           "name": "getFoldableRangeAtBufferRow",
@@ -32190,7 +32190,7 @@
           "returnType": "Range|null",
           "returnDescription": "The exact foldable range, or `null` when the row does not start one.",
           "propertyType": null,
-          "line": 6009
+          "line": 6021
         },
         {
           "name": "foldCurrentRow",
@@ -32206,7 +32206,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6024
+          "line": 6036
         },
         {
           "name": "unfoldCurrentRow",
@@ -32222,7 +32222,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6039
+          "line": 6051
         },
         {
           "name": "foldBufferRow",
@@ -32248,7 +32248,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6056
+          "line": 6068
         },
         {
           "name": "unfoldBufferRow",
@@ -32274,7 +32274,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6089
+          "line": 6101
         },
         {
           "name": "foldSelectedLines",
@@ -32290,7 +32290,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6100
+          "line": 6112
         },
         {
           "name": "foldAll",
@@ -32306,7 +32306,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6112
+          "line": 6124
         },
         {
           "name": "unfoldAll",
@@ -32322,7 +32322,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6128
+          "line": 6140
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -32348,7 +32348,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6142
+          "line": 6154
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -32374,7 +32374,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6164
+          "line": 6176
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -32400,7 +32400,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6180
+          "line": 6192
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -32426,7 +32426,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6191
+          "line": 6203
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -32442,7 +32442,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6207
+          "line": 6219
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -32468,7 +32468,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6220
+          "line": 6232
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -32494,7 +32494,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6237
+          "line": 6249
         },
         {
           "name": "addGutter",
@@ -32720,7 +32720,7 @@
           "returnType": "Gutter",
           "returnDescription": "newly-created {@link Gutter}.",
           "propertyType": null,
-          "line": 6301
+          "line": 6313
         },
         {
           "name": "getGutters",
@@ -32736,7 +32736,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Gutter Gutters}.",
           "propertyType": null,
-          "line": 6313
+          "line": 6325
         },
         {
           "name": "gutterWithName",
@@ -32762,7 +32762,7 @@
           "returnType": "Gutter",
           "returnDescription": ", or `null` if no gutter exists for the given name.",
           "propertyType": null,
-          "line": 6329
+          "line": 6341
         },
         {
           "name": "scrollToCursorPosition",
@@ -32808,7 +32808,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6348
+          "line": 6360
         },
         {
           "name": "scrollToBufferPosition",
@@ -32863,7 +32863,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6367
+          "line": 6379
         },
         {
           "name": "scrollToScreenPosition",
@@ -32918,7 +32918,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6385
+          "line": 6397
         },
         {
           "name": "scrollToScreenRange",
@@ -32993,7 +32993,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6402
+          "line": 6414
         },
         {
           "name": "shouldAutoIndent",
@@ -33009,7 +33009,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6449
+          "line": 6461
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -33025,7 +33025,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6461
+          "line": 6473
         },
         {
           "name": "getScrollPastEnd",
@@ -33041,7 +33041,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6473
+          "line": 6485
         },
         {
           "name": "getScrollSensitivity",
@@ -33057,7 +33057,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6490
+          "line": 6502
         },
         {
           "name": "getSmoothScrolling",
@@ -33073,7 +33073,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6502
+          "line": 6514
         },
         {
           "name": "getWheelSmoothness",
@@ -33089,7 +33089,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6516
+          "line": 6528
         },
         {
           "name": "getCommandSmoothness",
@@ -33105,7 +33105,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6530
+          "line": 6542
         },
         {
           "name": "getAltWheelMultiplier",
@@ -33121,7 +33121,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6544
+          "line": 6556
         },
         {
           "name": "getScrollCommandDistance",
@@ -33137,7 +33137,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6558
+          "line": 6570
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -33153,7 +33153,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative `Number`.",
           "propertyType": null,
-          "line": 6571
+          "line": 6583
         },
         {
           "name": "doesShowLineNumbers",
@@ -33169,7 +33169,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6583
+          "line": 6595
         },
         {
           "name": "getUndoGroupingInterval",
@@ -33185,7 +33185,7 @@
           "returnType": "Number",
           "returnDescription": "time interval `Number` in milliseconds.",
           "propertyType": null,
-          "line": 6596
+          "line": 6608
         },
         {
           "name": "getNonWordCharacters",
@@ -33211,7 +33211,7 @@
           "returnType": "String",
           "returnDescription": "containing the non-word characters.",
           "propertyType": null,
-          "line": 6609
+          "line": 6621
         },
         {
           "name": "getPlaceholderText",
@@ -33227,7 +33227,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6678
+          "line": 6690
         },
         {
           "name": "setPlaceholderText",
@@ -33253,7 +33253,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6691
+          "line": 6703
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -33279,7 +33279,7 @@
           "returnType": "Object",
           "returnDescription": "Information about the appropriate comment delimiters at the buffer position.",
           "propertyType": null,
-          "line": 7162
+          "line": 7174
         }
       ]
     },
@@ -40096,5 +40096,5 @@
     }
   ],
   "memberCount": 1267,
-  "generatedAt": "2026-09-02T20:50:17.597Z"
+  "generatedAt": "2026-09-02T21:33:44.918Z"
 }
