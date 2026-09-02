@@ -4,7 +4,7 @@ Most optional features maintained by `lumine-code` are available from **Settings
 
 ## Files and everyday tools
 
-- **terminal** embeds a system shell; **pdf-view** displays PDFs; **image-editor** opens and edits images; **archive-view** and **sqlite-view** browse archives and databases.
+- **terminal** embeds a system shell; **pdf-view** displays PDFs; **image-editor** and **table-editor** edit images and delimited data; **archive-view** and **sqlite-view** browse archives and databases.
 - **fuzzy-files** searches project files, while **fuzzy-explorer**, **project-list**, and **recent-list** search user-selected locations, saved projects, and recent projects.
 - **navigation-panel**, **minimap**, **scrollmap**, **highlight-selected**, **cursor-history**, and **bookmarks** add navigation and visual context.
 - **build**, **toolbar**, **log-filter**, **diff-view**, **sort-lines**, **calc-inline**, and **spell-check** add focused workflows. `spell-check` needs **linter** to display its diagnostics.
