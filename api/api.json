@@ -171,7 +171,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "HistoryManager",
-          "line": 482
+          "line": 485
         },
         {
           "name": "icons",
@@ -411,7 +411,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 505
+          "line": 508
         },
         {
           "name": "tooltips",
@@ -507,7 +507,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "WorkspaceDropManager",
-          "line": 453
+          "line": 456
         }
       ]
     },
@@ -9461,7 +9461,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 609
+          "line": 617
         },
         {
           "name": "loadGrammarSync",
@@ -9487,7 +9487,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 626
+          "line": 634
         },
         {
           "name": "readGrammar",
@@ -9542,7 +9542,7 @@
           "returnType": "undefined",
           "returnDescription": "undefined.",
           "propertyType": null,
-          "line": 644
+          "line": 652
         },
         {
           "name": "readGrammarSync",
@@ -9568,7 +9568,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 665
+          "line": 673
         },
         {
           "name": "getGrammars",
@@ -9584,7 +9584,7 @@
           "returnType": "Array",
           "returnDescription": "non-empty `Array` containing the null grammar sentinel followed by registered {@link TreeSitterGrammar} instances.",
           "propertyType": null,
-          "line": 684
+          "line": 692
         }
       ]
     },
@@ -31778,6 +31778,41 @@
           "line": 5474
         },
         {
+          "name": "getSyntaxNodeAtBufferPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getSyntaxNodeAtBufferPosition(bufferPosition, where)",
+          "category": "Managing Syntax Scopes",
+          "visibility": "Extended",
+          "description": "Get the smallest Tree-sitter syntax node at the given position in buffer\ncoordinates across all language layers.\n\nNode breadth decides between candidates first; the deeper language layer\nwins only when candidates have equal breadth. An optional predicate\nreceives each candidate node and its grammar. Returns `null` when no syntax\ntree is available, including before the grammar's first parse and while\nusing the null grammar.\n\nThe returned node belongs to the current parse snapshot. Do not retain it\nafter the buffer changes or the grammar reparses; request it again instead.",
+          "summary": "Get the smallest Tree-sitter syntax node at the given position in buffer coordinates across all language layers.",
+          "parameters": [
+            {
+              "name": "bufferPosition",
+              "source": "bufferPosition",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A {@link Point} or `Array` of `[row, column]`.",
+              "defaultValue": null
+            },
+            {
+              "name": "where",
+              "source": "where",
+              "optional": true,
+              "rest": false,
+              "type": "Function",
+              "description": "Optional predicate receiving a syntax node and its {@link TreeSitterGrammar}.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Object|null",
+          "returnDescription": "A Tree-sitter syntax node, or `null`.",
+          "propertyType": null,
+          "line": 5501
+        },
+        {
           "name": "bufferRangeForScopeAtCursor",
           "kind": "method",
           "static": false,
@@ -31801,7 +31836,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5494
+          "line": 5519
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -31836,7 +31871,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5512
+          "line": 5537
         },
         {
           "name": "isBufferRowCommented",
@@ -31862,7 +31897,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5524
+          "line": 5549
         },
         {
           "name": "copySelectedText",
@@ -31888,7 +31923,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5560
+          "line": 5585
         },
         {
           "name": "cutSelectedText",
@@ -31924,7 +31959,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5604
+          "line": 5629
         },
         {
           "name": "pasteText",
@@ -31950,7 +31985,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the clipboard text has been inserted.",
           "propertyType": null,
-          "line": 5635
+          "line": 5660
         },
         {
           "name": "cutToEndOfLine",
@@ -31986,7 +32021,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5741
+          "line": 5766
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -32022,7 +32057,33 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5765
+          "line": 5790
+        },
+        {
+          "name": "getFoldableRangeAtBufferRow",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFoldableRangeAtBufferRow(bufferRow)",
+          "category": "Folds",
+          "visibility": "Extended",
+          "description": "Get the foldable range that starts at the given row in buffer coordinates\nwithout creating a fold.\n\nUnlike {@link #foldBufferRow}, this method does not search preceding rows\nfor a fold that contains the given row.",
+          "summary": "Get the foldable range that starts at the given row in buffer coordinates without creating a fold.",
+          "parameters": [
+            {
+              "name": "bufferRow",
+              "source": "bufferRow",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A `Number`.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Range|null",
+          "returnDescription": "The exact foldable range, or `null` when the row does not start one.",
+          "propertyType": null,
+          "line": 5820
         },
         {
           "name": "foldCurrentRow",
@@ -32038,7 +32099,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5792
+          "line": 5835
         },
         {
           "name": "unfoldCurrentRow",
@@ -32054,7 +32115,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5807
+          "line": 5850
         },
         {
           "name": "foldBufferRow",
@@ -32080,7 +32141,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5824
+          "line": 5867
         },
         {
           "name": "unfoldBufferRow",
@@ -32106,7 +32167,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5857
+          "line": 5900
         },
         {
           "name": "foldSelectedLines",
@@ -32122,7 +32183,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5868
+          "line": 5911
         },
         {
           "name": "foldAll",
@@ -32138,7 +32199,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5880
+          "line": 5923
         },
         {
           "name": "unfoldAll",
@@ -32154,7 +32215,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5896
+          "line": 5939
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -32180,7 +32241,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5910
+          "line": 5953
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -32206,7 +32267,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5932
+          "line": 5975
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -32232,7 +32293,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5948
+          "line": 5991
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -32258,7 +32319,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5959
+          "line": 6002
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -32274,7 +32335,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5975
+          "line": 6018
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -32300,7 +32361,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5988
+          "line": 6031
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -32326,7 +32387,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6005
+          "line": 6048
         },
         {
           "name": "addGutter",
@@ -32552,7 +32613,7 @@
           "returnType": "Gutter",
           "returnDescription": "newly-created {@link Gutter}.",
           "propertyType": null,
-          "line": 6069
+          "line": 6112
         },
         {
           "name": "getGutters",
@@ -32568,7 +32629,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Gutter Gutters}.",
           "propertyType": null,
-          "line": 6081
+          "line": 6124
         },
         {
           "name": "gutterWithName",
@@ -32594,7 +32655,7 @@
           "returnType": "Gutter",
           "returnDescription": ", or `null` if no gutter exists for the given name.",
           "propertyType": null,
-          "line": 6097
+          "line": 6140
         },
         {
           "name": "scrollToCursorPosition",
@@ -32640,7 +32701,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6116
+          "line": 6159
         },
         {
           "name": "scrollToBufferPosition",
@@ -32695,7 +32756,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6135
+          "line": 6178
         },
         {
           "name": "scrollToScreenPosition",
@@ -32750,7 +32811,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6153
+          "line": 6196
         },
         {
           "name": "scrollToScreenRange",
@@ -32825,7 +32886,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6170
+          "line": 6213
         },
         {
           "name": "shouldAutoIndent",
@@ -32841,7 +32902,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6217
+          "line": 6260
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -32857,7 +32918,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6229
+          "line": 6272
         },
         {
           "name": "getScrollPastEnd",
@@ -32873,7 +32934,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6241
+          "line": 6284
         },
         {
           "name": "getScrollSensitivity",
@@ -32889,7 +32950,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6258
+          "line": 6301
         },
         {
           "name": "getSmoothScrolling",
@@ -32905,7 +32966,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6270
+          "line": 6313
         },
         {
           "name": "getWheelSmoothness",
@@ -32921,7 +32982,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6284
+          "line": 6327
         },
         {
           "name": "getCommandSmoothness",
@@ -32937,7 +32998,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6298
+          "line": 6341
         },
         {
           "name": "getAltWheelMultiplier",
@@ -32953,7 +33014,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6312
+          "line": 6355
         },
         {
           "name": "getScrollCommandDistance",
@@ -32969,7 +33030,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6326
+          "line": 6369
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -32985,7 +33046,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative `Number`.",
           "propertyType": null,
-          "line": 6339
+          "line": 6382
         },
         {
           "name": "doesShowLineNumbers",
@@ -33001,7 +33062,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6351
+          "line": 6394
         },
         {
           "name": "getUndoGroupingInterval",
@@ -33017,7 +33078,7 @@
           "returnType": "Number",
           "returnDescription": "time interval `Number` in milliseconds.",
           "propertyType": null,
-          "line": 6364
+          "line": 6407
         },
         {
           "name": "getNonWordCharacters",
@@ -33043,7 +33104,7 @@
           "returnType": "String",
           "returnDescription": "containing the non-word characters.",
           "propertyType": null,
-          "line": 6377
+          "line": 6420
         },
         {
           "name": "getPlaceholderText",
@@ -33059,7 +33120,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6442
+          "line": 6489
         },
         {
           "name": "setPlaceholderText",
@@ -33085,7 +33146,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6455
+          "line": 6502
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -33111,7 +33172,7 @@
           "returnType": "Object",
           "returnDescription": "Information about the appropriate comment delimiters at the buffer position.",
           "propertyType": null,
-          "line": 6926
+          "line": 6973
         }
       ]
     },
@@ -33613,7 +33674,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 142
+          "line": 143
         },
         {
           "name": "onDidChangeThemePacks",
@@ -33639,7 +33700,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 154
+          "line": 155
         },
         {
           "name": "registerThemePack",
@@ -33695,7 +33756,7 @@
           "returnType": "Disposable",
           "returnDescription": "that removes the pack.",
           "propertyType": null,
-          "line": 181
+          "line": 182
         },
         {
           "name": "getThemePacks",
@@ -33711,7 +33772,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "registered theme packs sorted by their user-facing names.",
           "propertyType": null,
-          "line": 218
+          "line": 219
         },
         {
           "name": "isThemePackActive",
@@ -33737,7 +33798,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether both configured mode pairs match `themePack`.",
           "propertyType": null,
-          "line": 228
+          "line": 229
         },
         {
           "name": "getActiveThemePack",
@@ -33753,7 +33814,7 @@
           "returnType": "Object|undefined",
           "returnDescription": "registered pack matching both configured mode pairs.",
           "propertyType": null,
-          "line": 248
+          "line": 249
         },
         {
           "name": "setThemePack",
@@ -33779,7 +33840,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 258
+          "line": 259
         },
         {
           "name": "getLoadedThemeNames",
@@ -33795,7 +33856,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the loaded theme names.",
           "propertyType": null,
-          "line": 281
+          "line": 282
         },
         {
           "name": "getLoadedThemes",
@@ -33811,7 +33872,7 @@
           "returnType": "Array",
           "returnDescription": "of all the loaded themes.",
           "propertyType": null,
-          "line": 291
+          "line": 292
         },
         {
           "name": "getActiveThemeNames",
@@ -33827,7 +33888,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the active theme names.",
           "propertyType": null,
-          "line": 305
+          "line": 306
         },
         {
           "name": "getActiveThemes",
@@ -33843,7 +33904,7 @@
           "returnType": "Array",
           "returnDescription": "of all the active themes.",
           "propertyType": null,
-          "line": 315
+          "line": 316
         },
         {
           "name": "getEnabledThemeNames",
@@ -33859,7 +33920,7 @@
           "returnType": "Array",
           "returnDescription": "array of theme names in the order that they should be activated.",
           "propertyType": null,
-          "line": 378
+          "line": 379
         },
         {
           "name": "updateAppearance",
@@ -33885,7 +33946,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once the change has been applied.",
           "propertyType": null,
-          "line": 846
+          "line": 878
         }
       ]
     },
@@ -34145,7 +34206,7 @@
       "source": "src/tree-sitter-grammar.js",
       "sourcePath": "src/tree-sitter-grammar.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 35,
+      "line": 49,
       "members": [
         {
           "name": "getCommentDelimiters",
@@ -34161,7 +34222,7 @@
           "returnType": "Object",
           "returnDescription": "with the following properties:",
           "propertyType": null,
-          "line": 198
+          "line": 216
         },
         {
           "name": "getLanguageSync",
@@ -34177,7 +34238,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 237
+          "line": 255
         },
         {
           "name": "getLanguage",
@@ -34193,7 +34254,7 @@
           "returnType": "Promise",
           "returnDescription": "that will resolve with a Tree-sitter `Language` instance. Once it resolves, the grammar is ready to perform parsing and to execute query captures.",
           "propertyType": null,
-          "line": 285
+          "line": 303
         },
         {
           "name": "getQuery",
@@ -34219,7 +34280,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to a Tree-sitter `Query` object.",
           "propertyType": null,
-          "line": 556
+          "line": 587
         },
         {
           "name": "createQuery",
@@ -34245,7 +34306,7 @@
           "returnType": "Promise",
           "returnDescription": "that will resolve to a Tree-sitter `Query` object.",
           "propertyType": null,
-          "line": 608
+          "line": 639
         },
         {
           "name": "createQuerySync",
@@ -34271,7 +34332,7 @@
           "returnType": "Object",
           "returnDescription": "Tree-sitter `Query` object.",
           "propertyType": null,
-          "line": 626
+          "line": 657
         },
         {
           "name": "onDidChangeQuery",
@@ -34327,7 +34388,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 703
+          "line": 777
         },
         {
           "name": "onDidChangeQueryFile",
@@ -34353,7 +34414,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 715
+          "line": 789
         },
         {
           "name": "onDidLoadQueryFiles",
@@ -34379,7 +34440,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 732
+          "line": 806
         },
         {
           "name": "onDidAddInjectionPoint",
@@ -34405,7 +34466,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 747
+          "line": 821
         },
         {
           "name": "onDidRemoveInjectionPoint",
@@ -34431,7 +34492,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 762
+          "line": 836
         },
         {
           "name": "addInjectionPoint",
@@ -34547,7 +34608,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 815
+          "line": 900
         }
       ]
     },
@@ -35649,7 +35710,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once they are empty.",
           "propertyType": null,
-          "line": 556
+          "line": 560
         },
         {
           "name": "observeTextEditors",
@@ -35685,7 +35746,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 913
+          "line": 917
         },
         {
           "name": "observePaneItems",
@@ -35721,7 +35782,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 931
+          "line": 935
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -35757,7 +35818,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 952
+          "line": 956
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -35793,7 +35854,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 973
+          "line": 977
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -35829,7 +35890,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 988
+          "line": 992
         },
         {
           "name": "observeActivePaneItem",
@@ -35865,7 +35926,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1003
+          "line": 1007
         },
         {
           "name": "observeActiveTextEditor",
@@ -35901,7 +35962,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1020
+          "line": 1024
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -35937,7 +35998,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1037
+          "line": 1041
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -35973,7 +36034,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1052
+          "line": 1056
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -36009,7 +36070,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1069
+          "line": 1073
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -36045,7 +36106,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1084
+          "line": 1088
         },
         {
           "name": "onDidOpen",
@@ -36121,7 +36182,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1106
+          "line": 1110
         },
         {
           "name": "onDidAddPane",
@@ -36167,7 +36228,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1121
+          "line": 1125
         },
         {
           "name": "onWillDestroyPane",
@@ -36213,7 +36274,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1139
+          "line": 1143
         },
         {
           "name": "onDidDestroyPane",
@@ -36259,7 +36320,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1157
+          "line": 1161
         },
         {
           "name": "observePanes",
@@ -36295,7 +36356,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1174
+          "line": 1178
         },
         {
           "name": "onDidChangeActivePane",
@@ -36331,7 +36392,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1190
+          "line": 1194
         },
         {
           "name": "observeActivePane",
@@ -36367,7 +36428,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1205
+          "line": 1209
         },
         {
           "name": "onDidAddPaneItem",
@@ -36433,7 +36494,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1224
+          "line": 1228
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -36499,7 +36560,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1244
+          "line": 1248
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -36565,7 +36626,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1263
+          "line": 1267
         },
         {
           "name": "onDidAddTextEditor",
@@ -36631,7 +36692,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1283
+          "line": 1287
         },
         {
           "name": "open",
@@ -36746,7 +36807,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} for the file URI.",
           "propertyType": null,
-          "line": 1312
+          "line": 1316
         },
         {
           "name": "hide",
@@ -36772,7 +36833,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether any items were found (and hidden).",
           "propertyType": null,
-          "line": 1541
+          "line": 1545
         },
         {
           "name": "toggle",
@@ -36798,7 +36859,7 @@
           "returnType": "Promise",
           "returnDescription": "Promise that resolves when the item is shown or hidden.",
           "propertyType": null,
-          "line": 1580
+          "line": 1584
         },
         {
           "name": "createItemForURI",
@@ -36833,7 +36894,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "propertyType": null,
-          "line": 1702
+          "line": 1706
         },
         {
           "name": "isTextEditor",
@@ -36859,7 +36920,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 1791
+          "line": 1795
         },
         {
           "name": "buildTextEditor",
@@ -36885,7 +36946,7 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1803
+          "line": 1807
         },
         {
           "name": "buildSelectList",
@@ -36931,7 +36992,7 @@
           "returnType": "SelectListView",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1841
+          "line": 1845
         },
         {
           "name": "buildInputDialog",
@@ -36957,7 +37018,7 @@
           "returnType": "InputDialogView",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1867
+          "line": 1871
         },
         {
           "name": "popModal",
@@ -36973,7 +37034,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 1899
+          "line": 1903
         },
         {
           "name": "popModalTo",
@@ -36999,7 +37060,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 1912
+          "line": 1916
         },
         {
           "name": "getModalTrail",
@@ -37015,7 +37076,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 1924
+          "line": 1928
         },
         {
           "name": "onDidChangeModalTrail",
@@ -37041,7 +37102,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1938
+          "line": 1942
         },
         {
           "name": "reopenItem",
@@ -37057,7 +37118,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 1951
+          "line": 1955
         },
         {
           "name": "addOpener",
@@ -37083,7 +37144,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 1998
+          "line": 2002
         },
         {
           "name": "getPaneItems",
@@ -37099,7 +37160,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 2021
+          "line": 2025
         },
         {
           "name": "getActivePaneItem",
@@ -37115,7 +37176,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 2033
+          "line": 2037
         },
         {
           "name": "getTextEditors",
@@ -37131,7 +37192,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 2045
+          "line": 2049
         },
         {
           "name": "getActiveTextEditor",
@@ -37147,7 +37208,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2074
+          "line": 2078
         },
         {
           "name": "getActiveFileTextEditor",
@@ -37163,7 +37224,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 2095
+          "line": 2099
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -37179,7 +37240,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 2124
+          "line": 2128
         },
         {
           "name": "saveActivePaneItem",
@@ -37195,7 +37256,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2162
+          "line": 2166
         },
         {
           "name": "saveActivePaneItemAs",
@@ -37211,7 +37272,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2180
+          "line": 2184
         },
         {
           "name": "destroyActivePaneItem",
@@ -37227,7 +37288,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2205
+          "line": 2209
         },
         {
           "name": "getActivePaneContainer",
@@ -37243,7 +37304,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2221
+          "line": 2225
         },
         {
           "name": "getPanes",
@@ -37259,7 +37320,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2233
+          "line": 2237
         },
         {
           "name": "getActivePane",
@@ -37275,7 +37336,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2249
+          "line": 2253
         },
         {
           "name": "activateNextPane",
@@ -37291,7 +37352,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2259
+          "line": 2263
         },
         {
           "name": "activatePreviousPane",
@@ -37307,7 +37368,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2269
+          "line": 2273
         },
         {
           "name": "paneContainerForURI",
@@ -37333,7 +37394,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2283
+          "line": 2287
         },
         {
           "name": "paneContainerForItem",
@@ -37359,7 +37420,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2296
+          "line": 2300
         },
         {
           "name": "paneForURI",
@@ -37385,7 +37446,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2309
+          "line": 2313
         },
         {
           "name": "paneForItem",
@@ -37411,7 +37472,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2327
+          "line": 2331
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -37427,7 +37488,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2354
+          "line": 2358
         },
         {
           "name": "getCenter",
@@ -37443,7 +37504,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2435
+          "line": 2439
         },
         {
           "name": "getLeftDock",
@@ -37459,7 +37520,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2445
+          "line": 2449
         },
         {
           "name": "getRightDock",
@@ -37475,7 +37536,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2455
+          "line": 2459
         },
         {
           "name": "getBottomDock",
@@ -37491,7 +37552,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2465
+          "line": 2469
         },
         {
           "name": "beginLayoutDrag",
@@ -37507,7 +37568,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 2504
+          "line": 2508
         },
         {
           "name": "getBottomPanels",
@@ -37523,7 +37584,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2518
+          "line": 2522
         },
         {
           "name": "addBottomPanel",
@@ -37579,7 +37640,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2534
+          "line": 2538
         },
         {
           "name": "getLeftPanels",
@@ -37595,7 +37656,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2544
+          "line": 2548
         },
         {
           "name": "addLeftPanel",
@@ -37651,7 +37712,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2560
+          "line": 2564
         },
         {
           "name": "getRightPanels",
@@ -37667,7 +37728,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2570
+          "line": 2574
         },
         {
           "name": "addRightPanel",
@@ -37723,7 +37784,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2586
+          "line": 2590
         },
         {
           "name": "getTopPanels",
@@ -37739,7 +37800,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2596
+          "line": 2600
         },
         {
           "name": "addTopPanel",
@@ -37795,7 +37856,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2612
+          "line": 2616
         },
         {
           "name": "getHeaderPanels",
@@ -37811,7 +37872,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2622
+          "line": 2626
         },
         {
           "name": "addHeaderPanel",
@@ -37867,7 +37928,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2638
+          "line": 2642
         },
         {
           "name": "getFooterPanels",
@@ -37883,7 +37944,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2648
+          "line": 2652
         },
         {
           "name": "addFooterPanel",
@@ -37939,7 +38000,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2664
+          "line": 2668
         },
         {
           "name": "getModalPanels",
@@ -37955,7 +38016,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2674
+          "line": 2678
         },
         {
           "name": "addModalPanel",
@@ -38041,7 +38102,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2693
+          "line": 2697
         },
         {
           "name": "panelForItem",
@@ -38067,7 +38128,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 2704
+          "line": 2708
         },
         {
           "name": "scan",
@@ -38181,7 +38242,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 2768
+          "line": 2772
         },
         {
           "name": "replace",
@@ -38244,7 +38305,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3031
+          "line": 3035
         }
       ]
     },
@@ -39927,6 +39988,6 @@
       "line": 1166
     }
   ],
-  "memberCount": 1262,
-  "generatedAt": "2026-09-02T01:51:09.807Z"
+  "memberCount": 1264,
+  "generatedAt": "2026-09-02T19:43:03.314Z"
 }
