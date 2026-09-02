@@ -42,7 +42,7 @@ LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/jso
 LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar --check
 ```
 
-The first form rebuilds the currently pinned source. The second changes `parserSource` and reports added and removed node types and fields. Add `--regenerate` when upstream has no generated `src/parser.c` or when the parser must be regenerated at the CLI's ABI. `--check` performs no build; it verifies every committed wasm's ABI and recorded CLI version.
+The first form rebuilds the currently pinned source. The second changes `parserSource` and reports added and removed node types and fields. The builder generates `parser.c` automatically when upstream ships none; use `--regenerate` only for a targeted parser migration followed by real parse tests, because generator changes can alter behavior even when named node types and fields do not change. `--check` performs no build; it verifies every committed wasm's ABI and recorded CLI version.
 
 Point `LUMINE_GRAMMAR_CACHE` at the workspace `.dev/` directory to reuse its pinned CLI, source clones and output. Tree-sitter caches its pinned WASI SDK and Binaryen separately in the platform cache; `TREE_SITTER_WASI_SDK_PATH` and `TREE_SITTER_BINARYEN_PATH` may point to existing toolchain checkouts. The current fleet CLI is `0.27.0`.
 
