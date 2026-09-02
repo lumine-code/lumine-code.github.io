@@ -2,22 +2,17 @@
 
 A grammar teaches Lumine to understand a language: it assigns **scopes** to pieces of text, which drive syntax highlighting, indentation, folding, symbols, and more. Grammars ship inside packages, in a `grammars/` directory.
 
-## Two grammar engines
+## Tree-sitter grammar engine
 
-Lumine supports two kinds of grammar, and a language package can ship both:
-
-- **Tree-sitter grammars** parse the whole document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. In a grammar file they declare `type: "tree-sitter"`. See [Tree-sitter grammars](tree-sitter-grammars.md) for how their parsers, queries, and build tooling work.
-- **TextMate grammars** match text with regular expressions. They are simpler and widely available. A TextMate grammar file has a `scopeName` and no `type` field.
-
-When both are present, Lumine prefers the Tree-sitter grammar and falls back to TextMate.
+Lumine grammars use Tree-sitter. They parse the document into a syntax tree, giving accurate, structure-aware highlighting and features like `editor:select-larger-syntax-node`. Every grammar descriptor declares `type: "tree-sitter"`; descriptors for other engines are rejected. See [Tree-sitter grammars](tree-sitter-grammars.md) for how parsers, queries, injections, and build tooling work.
 
 ## Anatomy
 
-A grammar is a `.json` file under `grammars/`. Every grammar declares a **`scopeName`** (for example `source.js`) — the root scope that themes, snippets, and scoped settings target — plus the rules that assign scopes.
+A grammar is a `.json` file under `grammars/`. Every grammar declares a **`scopeName`** (for example `source.js`) — the root scope that themes, snippets, and scoped settings target — plus a parser and its queries.
 
-The bundled `language-*` packages are the best references. Look at a Tree-sitter package (its grammar declares `type: 'tree-sitter'` and points at a parser) alongside a TextMate one to see both styles.
+The bundled `language-*` packages are the best references. Each descriptor points to an immutable parser source, a committed Wasm binary, and the query files that provide highlighting and editor behavior.
 
-To start a Tree-sitter grammar package from scratch, `.dev/grammar-authoring/new-grammar-package.js` scaffolds the repository — config, specs, CI, and lint setup — and prints the build and registration steps. Queries from upstream or nvim-treesitter cannot be used unchanged: their capture names are highlight groups rather than TextMate scopes, so rewrite them before running `npm run check:grammar-captures`.
+To start a Tree-sitter grammar package from scratch, `.dev/grammar-authoring/new-grammar-package.js` scaffolds the repository — config, specs, CI, and lint setup — and prints the build and registration steps. Queries from upstream or nvim-treesitter cannot be used unchanged: their capture names are highlight groups rather than Lumine's scope taxonomy, so rewrite them before running `npm run check:grammar-captures`.
 
 ## Choosing which grammar applies
 

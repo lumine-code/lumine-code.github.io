@@ -4,7 +4,7 @@ Each bundled Tree-sitter grammar combines three things: a **pre-built parser** c
 
 ## The grammar config
 
-A Tree-sitter grammar config lives in a package's `grammars/` directory and declares a `treeSitter` block:
+A Tree-sitter grammar config and all of its runtime assets live directly in a package's flat `grammars/` directory. Filenames describe the language or variant without repeating the `tree-sitter-` implementation prefix: `python.json`, `python.wasm`, `python-highlights.scm`.
 
 ```json
 {
@@ -14,13 +14,13 @@ A Tree-sitter grammar config lives in a package's `grammars/` directory and decl
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-json#v0.24.8",
     "wasmBuildTool": "tree-sitter-cli#v0.26.13",
-    "grammar": "tree-sitter/tree-sitter-json.wasm",
+    "grammar": "json.wasm",
     "highlightsQuery": [
-      "tree-sitter/queries/highlights-no-comments.scm",
-      "tree-sitter/queries/highlights.scm"
+      "json-no-comments-highlights.scm",
+      "json-highlights.scm"
     ],
-    "indentsQuery": "tree-sitter/queries/indents.scm",
-    "foldsQuery": "tree-sitter/queries/folds.scm"
+    "indentsQuery": "json-indents.scm",
+    "foldsQuery": "json-folds.scm"
   }
 }
 ```
@@ -30,15 +30,15 @@ A Tree-sitter grammar config lives in a package's `grammars/` directory and decl
 - **`grammar`** points at the committed wasm, relative to the config file.
 - The **query keys** (`highlightsQuery`, `indentsQuery`, `foldsQuery`, `tagsQuery`, `localsQuery`) point at `.scm` files. A key may hold an array; the files are concatenated in order, which lets grammars share a common base query. Query files may contain the `._LANG_` token, which is replaced with the config's `treeSitter.languageSegment` — this is how one query file serves both TypeScript and TSX.
 
-Several configs can share one wasm (JSON and JSONC), and several packages can carry copies of the same parser (the regex grammar ships in the JavaScript, Ruby, and TypeScript packages). Configs that pin the same `parserSource` always move together.
+Several configs can share one wasm (JSON, JSONC, and Jupyter). Configs that pin the same `parserSource` and wasm filename always move together.
 
 ## Building a parser wasm
 
 A parser is compiled from the exact source in `parserSource` with `tree-sitter-cli` and emscripten. In the flat Lumine workspace, `lem grammar` owns that workflow: it reuses the checkout and toolchain under `LUMINE_GRAMMAR_CACHE`, validates the result against the editor's `web-tree-sitter`, installs every copy in the same parser family, and updates `wasmBuildTool`.
 
 ```sh
-LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/tree-sitter-json.json
-LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/tree-sitter-json.json --source github:tree-sitter/tree-sitter-json#v0.24.8 --diff-node-types
+LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/json.json
+LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/json.json --source github:tree-sitter/tree-sitter-json#v0.24.8 --diff-node-types
 LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar --check
 ```
 

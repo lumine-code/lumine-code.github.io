@@ -37,18 +37,12 @@ jobs:
         working-directory: lumine
         shell: bash
         run: |
-          node -e 'const dependencies = require("./package.json").dependencies; for (const [output, name] of Object.entries({ event_kit: "@lumine-code/event-kit", second_mate: "@lumine-code/second-mate" })) { const ref = dependencies[name]?.split("#")[1]; if (!ref) throw new Error(`Missing pinned dependency ${name}`); console.log(`${output}=${ref}`); }' >> "$GITHUB_OUTPUT"
+          node -e 'const dependencies = require("./package.json").dependencies; const name = "@lumine-code/event-kit"; const ref = dependencies[name]?.split("#")[1]; if (!ref) throw new Error(`Missing pinned dependency ${name}`); console.log(`event_kit=${ref}`);' >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v7
         with:
           repository: lumine-code/event-kit
           path: event-kit
           ref: ${{ steps.api-source-refs.outputs.event_kit }}
-          fetch-depth: 1
-      - uses: actions/checkout@v7
-        with:
-          repository: lumine-code/second-mate
-          path: second-mate
-          ref: ${{ steps.api-source-refs.outputs.second_mate }}
           fetch-depth: 1
       - run: npm ci
         working-directory: lumine-code.github.io
