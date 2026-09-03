@@ -1725,7 +1725,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the added command handler(s).",
           "propertyType": null,
-          "line": 125
+          "line": 126
         },
         {
           "name": "findCommands",
@@ -1761,7 +1761,108 @@
           "returnType": "Array<Object>",
           "returnDescription": "Command descriptors containing the documented keys.",
           "propertyType": null,
-          "line": 225
+          "line": 226
+        },
+        {
+          "name": "getCommandPresentation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getCommandPresentation(commandName, { target, bindingTarget = target })",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the display metadata and effective keybindings for one command at a\ntarget. This is the shared presentation used by command pickers and modal\naction lists.",
+          "summary": "Return the display metadata and effective keybindings for one command at a target. This is the shared presentation used by command pickers and modal action lists.",
+          "parameters": [
+            {
+              "name": "commandName",
+              "source": "commandName",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Command to describe.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ target, bindingTarget = target }",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.target",
+              "type": "Element",
+              "description": "Element from which the command would be dispatched.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.target",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.bindingTarget",
+              "type": "Element",
+              "description": "Element where displayed keybindings resolve.",
+              "optional": true,
+              "defaultValue": "options.target",
+              "source": "options.bindingTarget",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object|null",
+          "returnDescription": "The command descriptor with `keystrokes`, or null when unavailable.",
+          "propertyType": null,
+          "line": 276
+        },
+        {
+          "name": "getCommandPresentations",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getCommandPresentations({ target, bindingTarget = target })",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return presentation metadata for every effective command at a target.\nCommands and keybindings are each scanned once, making this the preferred\npath for command pickers and other complete catalogues.",
+          "summary": "Return presentation metadata for every effective command at a target. Commands and keybindings are each scanned once, making this the preferred path for command pickers and other complete catalogues.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "{ target, bindingTarget = target }",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.target",
+              "type": "Element",
+              "description": "Element from which commands would be dispatched.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.target",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.bindingTarget",
+              "type": "Element",
+              "description": "Element where displayed keybindings resolve.",
+              "optional": true,
+              "defaultValue": "options.target",
+              "source": "options.bindingTarget",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Array<Object>",
+          "returnDescription": "One frozen descriptor per command, each with frozen `keystrokes`.",
+          "propertyType": null,
+          "line": 308
         },
         {
           "name": "dispatch",
@@ -1805,7 +1906,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 280
+          "line": 355
         },
         {
           "name": "onWillDispatch",
@@ -1841,7 +1942,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 295
+          "line": 370
         },
         {
           "name": "onDidDispatch",
@@ -1877,7 +1978,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 308
+          "line": 383
         }
       ]
     },
@@ -10223,6 +10324,1276 @@
       ]
     },
     {
+      "name": "InputDialog",
+      "visibility": "Experimental",
+      "description": "Modal panel with a mini query editor and optional custom DOM content.\n\nInputDialog owns the behaviors every query-driven modal needs — panel\nlifecycle, focus and blur handling, `core:confirm`/`core:cancel` commands,\nand the message line — without any list semantics. SelectList extends it\nwith items, filtering, and selection. Use it directly for dialogs that are\nnot lists (prompts, save dialogs, forms).\n\nThe dialog shows **one** message at a time, from three sources in\nprecedence order: `loadingMessage` (work in flight), then `status` (an\nepisodic overlay — a validation failure, a warning, a confirmation), then\n`infoMessage` (the resting line: a prompt, a help text, a stat line). The\noverlay never destroys the resting line, so clearing a status restores it\nwith nothing to save and put back.\n\nCustom DOM can be hosted through `headerElement` (above the query editor)\nand `contentElement` (below the messages).\n\nThe query is the dialog's own state, not the caller's: it is cleared on\nevery fresh show, kept across a modal-flow round trip, remembered when the\ndialog closes, and put back on demand by `select-list:restore-query` (F11).\nA dialog therefore never needs to call `reset()` before `show()`.",
+      "summary": "Modal panel with a mini query editor and optional custom DOM content.",
+      "source": "src/input-dialog.js",
+      "sourcePath": "src/input-dialog.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 51,
+      "members": [
+        {
+          "name": "focus",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::focus()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Focuses the query editor input.",
+          "summary": "Focuses the query editor input.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 185
+        },
+        {
+          "name": "getElement",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getElement()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the root element rendered for this dialog.",
+          "summary": "Return the root element rendered for this dialog.",
+          "parameters": [],
+          "returnType": "HTMLElement",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 196
+        },
+        {
+          "name": "isDestroyed",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isDestroyed()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether this dialog has been destroyed.",
+          "summary": "Return whether this dialog has been destroyed.",
+          "parameters": [],
+          "returnType": "boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 207
+        },
+        {
+          "name": "onDidChangeQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeQuery(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when the query changes.",
+          "summary": "Invoke a callback when the query changes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 217
+        },
+        {
+          "name": "onDidChangeVisible",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeVisible(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when modal visibility changes.",
+          "summary": "Invoke a callback when modal visibility changes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 227
+        },
+        {
+          "name": "onDidOpen",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidOpen(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback after a fresh dialog open.",
+          "summary": "Invoke a callback after a fresh dialog open.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 237
+        },
+        {
+          "name": "onDidResume",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidResume(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when a modal-flow step resumes.",
+          "summary": "Invoke a callback when a modal-flow step resumes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 247
+        },
+        {
+          "name": "onDidHide",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidHide(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback after the dialog is hidden.",
+          "summary": "Invoke a callback after the dialog is hidden.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 257
+        },
+        {
+          "name": "onDidConfirm",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidConfirm(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when confirmation has no primary action.",
+          "summary": "Invoke a callback when confirmation has no primary action.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 267
+        },
+        {
+          "name": "onDidCancel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidCancel(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback after the dialog is cancelled.",
+          "summary": "Invoke a callback after the dialog is cancelled.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 277
+        },
+        {
+          "name": "onDidDestroy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidDestroy(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback immediately before the dialog is destroyed.",
+          "summary": "Invoke a callback immediately before the dialog is destroyed.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 287
+        },
+        {
+          "name": "reset",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::reset()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Clears the query editor text.",
+          "summary": "Clears the query editor text.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 357
+        },
+        {
+          "name": "destroy",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::destroy()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Destroys the dialog and cleans up resources.",
+          "summary": "Destroys the dialog and cleans up resources.",
+          "parameters": [],
+          "returnType": "Promise",
+          "returnDescription": "Resolves when destruction is complete",
+          "propertyType": null,
+          "line": 368
+        },
+        {
+          "name": "show",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::show(options)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Shows the dialog as a modal panel.\n\nThe dialog reacts to its panel becoming visible — whoever shows it — so\nthe show side effects (open/resume events, select-all, focus) also run\nwhen the panel is shown from outside, e.g. by the modal flow re-showing\nthis dialog on a back navigation.",
+          "summary": "Shows the dialog as a modal panel.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Passed through to Panel#show. `{crumb: \"Label\"}` (or `crumb: true` to use the dialog's `crumb` prop) displays the dialog as a step of the modal flow: the modal visible at that moment becomes the previous breadcrumb entry, and Shift-Escape or a crumb click returns to it. Without options the dialog is shown standalone, as before.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 405
+        },
+        {
+          "name": "getPanel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPanel()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Returns the modal panel that hosts the dialog, creating it (hidden) on\nfirst access. The panel item is `options.panelItem` when one was supplied,\notherwise the dialog model itself. The panel carries the dialog's `crumb`\nas its declared breadcrumb label.",
+          "summary": "Returns the modal panel that hosts the dialog, creating it (hidden) on first access. The panel item is `options.panelItem` when one was supplied, otherwise the dialog model itself. The panel carries the dialog's `crumb` as its declared breadcrumb label.",
+          "parameters": [],
+          "returnType": "Panel",
+          "returnDescription": "The modal panel",
+          "propertyType": null,
+          "line": 496
+        },
+        {
+          "name": "getPanelItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPanelItem()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the item owned by the dialog's modal panel.",
+          "summary": "Return the item owned by the dialog's modal panel.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 546
+        },
+        {
+          "name": "getSource",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getSource()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the configured asynchronous source, or null.",
+          "summary": "Return the configured asynchronous source, or null.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 556
+        },
+        {
+          "name": "setSource",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setSource(source)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace the asynchronous source and reload it when open.",
+          "summary": "Replace the asynchronous source and reload it when open.",
+          "parameters": [
+            {
+              "name": "source",
+              "source": "source",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 566
+        },
+        {
+          "name": "reload",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::reload()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Reload the configured source immediately.",
+          "summary": "Reload the configured source immediately.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 583
+        },
+        {
+          "name": "isLoading",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isLoading()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether source work or its debounce is pending.",
+          "summary": "Return whether source work or its debounce is pending.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 593
+        },
+        {
+          "name": "hide",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hide()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Hides the dialog. Focus returns to the previously focused element via the\nworkspace's modal panel focus restoration.",
+          "summary": "Hides the dialog. Focus returns to the previously focused element via the workspace's modal panel focus restoration.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 633
+        },
+        {
+          "name": "toggle",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::toggle()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Toggles the visibility of the dialog.",
+          "summary": "Toggles the visibility of the dialog.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 653
+        },
+        {
+          "name": "isVisible",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isVisible()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Returns whether the dialog is currently visible.",
+          "summary": "Returns whether the dialog is currently visible.",
+          "parameters": [],
+          "returnType": "boolean",
+          "returnDescription": "True if the panel exists and is visible",
+          "propertyType": null,
+          "line": 668
+        },
+        {
+          "name": "getActions",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getActions()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the complete declared action catalogue.",
+          "summary": "Return the complete declared action catalogue.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 752
+        },
+        {
+          "name": "setActions",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setActions(actions)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace the action catalogue.",
+          "summary": "Replace the action catalogue.",
+          "parameters": [
+            {
+              "name": "actions",
+              "source": "actions",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 766
+        },
+        {
+          "name": "addAction",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addAction(action)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Add an action and return a Disposable that removes it.",
+          "summary": "Add an action and return a Disposable that removes it.",
+          "parameters": [
+            {
+              "name": "action",
+              "source": "action",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 779
+        },
+        {
+          "name": "hasAvailableActions",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hasAvailableActions(context = this.getActionContext())",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether an action applies to the current context.",
+          "summary": "Return whether an action applies to the current context.",
+          "parameters": [
+            {
+              "name": "context",
+              "source": "context = this.getActionContext()",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "this.getActionContext()"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 794
+        },
+        {
+          "name": "getAvailableActions",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getAvailableActions(context = this.getActionContext())",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return evaluated actions for the current context.",
+          "summary": "Return evaluated actions for the current context.",
+          "parameters": [
+            {
+              "name": "context",
+              "source": "context = this.getActionContext()",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "this.getActionContext()"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 804
+        },
+        {
+          "name": "isActionPending",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isActionPending(command)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether any action, or one named action, is currently running.",
+          "summary": "Return whether any action, or one named action, is currently running.",
+          "parameters": [
+            {
+              "name": "command",
+              "source": "command",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 820
+        },
+        {
+          "name": "runAction",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::runAction(command, { source = \"api\", context = null } = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Run a declared action through the shared action runner.",
+          "summary": "Run a declared action through the shared action runner.",
+          "parameters": [
+            {
+              "name": "command",
+              "source": "command",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": null,
+              "source": "{ source = \"api\", context = null } = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 903
+        },
+        {
+          "name": "onDidStartAction",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidStartAction(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when an action starts.",
+          "summary": "Invoke a callback when an action starts.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 943
+        },
+        {
+          "name": "onDidFinishAction",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidFinishAction(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when an action finishes.",
+          "summary": "Invoke a callback when an action finishes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 953
+        },
+        {
+          "name": "restoreQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::restoreQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Puts back the query the dialog was last closed with, selected so the next\nkeystroke replaces it. A fresh show clears the query; this is how it is\nasked for again.",
+          "summary": "Puts back the query the dialog was last closed with, selected so the next keystroke replaces it. A fresh show clears the query; this is how it is asked for again.",
+          "parameters": [],
+          "returnType": "boolean",
+          "returnDescription": "Whether there was a query to restore",
+          "propertyType": null,
+          "line": 1013
+        },
+        {
+          "name": "showActions",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::showActions()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Opens the explicitly declared actions in the workspace's shared action\npicker, preserving this dialog as the previous modal-flow step.",
+          "summary": "Opens the explicitly declared actions in the workspace's shared action picker, preserving this dialog as the previous modal-flow step.",
+          "parameters": [],
+          "returnType": "Promise<boolean>",
+          "returnDescription": "Whether an action picker was opened",
+          "propertyType": null,
+          "line": 1028
+        },
+        {
+          "name": "confirm",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::confirm()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Confirms the dialog with the current query through its primary action, or\nemits `onDidConfirm` when no primary action is declared.",
+          "summary": "Confirms the dialog with the current query through its primary action, or emits `onDidConfirm` when no primary action is declared.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1063
+        },
+        {
+          "name": "cancel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::cancel(reason = \"api\")",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Cancels and hides the dialog, then emits `onDidCancel`.",
+          "summary": "Cancels and hides the dialog, then emits `onDidCancel`.",
+          "parameters": [
+            {
+              "name": "reason",
+              "source": "reason = \"api\"",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "\"api\""
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1076
+        },
+        {
+          "name": "update",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::update(props = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Update one or more documented dialog options.",
+          "summary": "Update one or more documented dialog options.",
+          "parameters": [
+            {
+              "name": "props",
+              "source": "props = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1098
+        },
+        {
+          "name": "getStatus",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getStatus()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the current episodic status.",
+          "summary": "Return the current episodic status.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1122
+        },
+        {
+          "name": "setStatus",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setStatus(status)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the episodic status.",
+          "summary": "Set the episodic status.",
+          "parameters": [
+            {
+              "name": "status",
+              "source": "status",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1132
+        },
+        {
+          "name": "clearStatus",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clearStatus()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Clear the episodic status.",
+          "summary": "Clear the episodic status.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1142
+        },
+        {
+          "name": "getInfoMessage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getInfoMessage()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the resting information message.",
+          "summary": "Return the resting information message.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1152
+        },
+        {
+          "name": "setInfoMessage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setInfoMessage(infoMessage)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the resting information message.",
+          "summary": "Set the resting information message.",
+          "parameters": [
+            {
+              "name": "infoMessage",
+              "source": "infoMessage",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1162
+        },
+        {
+          "name": "getLoadingState",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getLoadingState()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the current loading message and badge.",
+          "summary": "Return the current loading message and badge.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1172
+        },
+        {
+          "name": "setLoadingState",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setLoadingState(loading)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the current loading message and badge.",
+          "summary": "Set the current loading message and badge.",
+          "parameters": [
+            {
+              "name": "loading",
+              "source": "loading",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1183
+        },
+        {
+          "name": "clearLoadingState",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clearLoadingState()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Clear the current loading state.",
+          "summary": "Clear the current loading state.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1196
+        },
+        {
+          "name": "getPlaceholderText",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPlaceholderText()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the query editor placeholder.",
+          "summary": "Return the query editor placeholder.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1206
+        },
+        {
+          "name": "setPlaceholderText",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setPlaceholderText(placeholderText)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the query editor placeholder.",
+          "summary": "Set the query editor placeholder.",
+          "parameters": [
+            {
+              "name": "placeholderText",
+              "source": "placeholderText",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1216
+        },
+        {
+          "name": "getHeaderElement",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getHeaderElement()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the caller-owned header element.",
+          "summary": "Return the caller-owned header element.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1226
+        },
+        {
+          "name": "setHeaderElement",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setHeaderElement(headerElement)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace the caller-owned header element.",
+          "summary": "Replace the caller-owned header element.",
+          "parameters": [
+            {
+              "name": "headerElement",
+              "source": "headerElement",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1236
+        },
+        {
+          "name": "getContentElement",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getContentElement()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the caller-owned content element.",
+          "summary": "Return the caller-owned content element.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1246
+        },
+        {
+          "name": "setContentElement",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setContentElement(contentElement)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace the caller-owned content element.",
+          "summary": "Replace the caller-owned content element.",
+          "parameters": [
+            {
+              "name": "contentElement",
+              "source": "contentElement",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1256
+        },
+        {
+          "name": "getCrumb",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getCrumb()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the declared modal breadcrumb label.",
+          "summary": "Return the declared modal breadcrumb label.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1266
+        },
+        {
+          "name": "setCrumb",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setCrumb(crumb)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the modal breadcrumb label.",
+          "summary": "Set the modal breadcrumb label.",
+          "parameters": [
+            {
+              "name": "crumb",
+              "source": "crumb",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1276
+        },
+        {
+          "name": "getQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the raw query editor text.",
+          "summary": "Return the raw query editor text.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1549
+        },
+        {
+          "name": "setQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setQuery(query, { select = false } = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the query text and optionally select it.",
+          "summary": "Set the query text and optionally select it.",
+          "parameters": [
+            {
+              "name": "query",
+              "source": "query",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": null,
+              "source": "{ select = false } = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1563
+        },
+        {
+          "name": "clearQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clearQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Clear the query text.",
+          "summary": "Clear the query text.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1573
+        },
+        {
+          "name": "selectQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select the complete query.",
+          "summary": "Select the complete query.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1583
+        },
+        {
+          "name": "getQueryEditor",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getQueryEditor()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the full TextEditor model used for the query.",
+          "summary": "Return the full TextEditor model used for the query.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1593
+        },
+        {
+          "name": "getParsedQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getParsedQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the parsed query text and metadata.",
+          "summary": "Return the parsed query text and metadata.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1603
+        },
+        {
+          "name": "setQueryFromSelection",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setQueryFromSelection()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Use the active editor's single-line selection as the query.",
+          "summary": "Use the active editor's single-line selection as the query.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1613
+        }
+      ]
+    },
+    {
       "name": "KeymapManager",
       "visibility": "Extended",
       "description": "Allows commands to be associated with keystrokes in a\ncontext-sensitive way. You can access a global instance of this\nobject via `lumine.keymaps`.\n\nKey bindings are plain JavaScript objects containing **CSS selectors** as\ntheir top level keys, then **keystroke patterns** mapped to commands.\n\n```jsonc\n{\n  \".workspace\": {\n    \"ctrl-l\": \"package:do-something\",\n    \"ctrl-z\": \"package:do-something-else\"\n  },\n  \".mini.editor\": {\n    \"enter\": \"core:confirm\"\n  }\n}\n```\n\nWhen a keystroke sequence matches a binding in a given context, a custom DOM\nevent with a type based on the command is dispatched on the target of the\nkeyboard event.\n\nTo match a keystroke sequence, the keymap starts at the target element for the\nkeyboard event. It looks for key bindings associated with selectors that match\nthe target element. If multiple match, the most specific is selected. If there\nis a tie in specificity, the most recently added binding wins. If no bindings\nare found for the events target, the search is repeated again for the target's\nparent node and so on recursively until a binding is found or we traverse off\nthe top of the document.\n\nWhen a binding is found, its command event is always dispatched on the\noriginal target of the keyboard event, even if the matching element is higher\nup in the DOM. In addition, `.preventDefault()` is called on the keyboard\nevent to prevent the browser from taking action. `.preventDefault` is only\ncalled if a matching binding is found.\n\nCommand event objects have a non-standard method called `.abortKeyBinding()`.\nIf your command handler is invoked but you programmatically determine that no\naction can be taken and you want to allow other bindings to be matched, call\n`.abortKeyBinding()` on the event object. An example of where this is useful\nis binding snippet expansion to `tab`. If `snippets:expand` is invoked when\nthe cursor does not follow a valid snippet prefix, we abort the binding and\nallow `tab` to be handled by the default handler, which inserts whitespace.\n\nMulti-keystroke bindings are possible. If a sequence of one or more keystrokes\n*partially* matches a multi-keystroke binding, the keymap enters a pending\nstate. The pending state is terminated on the next keystroke, or after\n{@link #getPartialMatchTimeout} milliseconds has elapsed. When the pending state is\nterminated via a timeout or a keystroke that leads to no matches, the longest\nambiguous bindings that caused the pending state are temporarily disabled and\nthe previous keystrokes are replayed. If there is ambiguity again during the\nreplay, the next longest bindings are disabled and the keystrokes are replayed\nagain.",
@@ -15206,7 +16577,7 @@
           "returnType": "*",
           "returnDescription": "panel's item.",
           "propertyType": null,
-          "line": 108
+          "line": 118
         },
         {
           "name": "getPriority",
@@ -15222,7 +16593,7 @@
           "returnType": "Number",
           "returnDescription": "indicating this panel's priority.",
           "propertyType": null,
-          "line": 118
+          "line": 128
         },
         {
           "name": "isVisible",
@@ -15238,7 +16609,7 @@
           "returnType": "Boolean",
           "returnDescription": "true when the panel is visible.",
           "propertyType": null,
-          "line": 132
+          "line": 142
         },
         {
           "name": "hide",
@@ -15254,7 +16625,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 142
+          "line": 152
         },
         {
           "name": "show",
@@ -15290,7 +16661,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 158
+          "line": 168
         }
       ]
     },
@@ -21014,6 +22385,1090 @@
       ]
     },
     {
+      "name": "SelectList",
+      "visibility": "Experimental",
+      "description": "Fuzzy-searchable select list. Extends InputDialog — which owns the\nmodal panel, query editor, focus handling, and confirm/cancel commands —\nwith items, filtering, selection, and list rendering.",
+      "summary": "Fuzzy-searchable select list. Extends InputDialog — which owns the modal panel, query editor, focus handling, and confirm/cancel commands — with items, filtering, selection, and list rendering.",
+      "source": "src/select-list.js",
+      "sourcePath": "src/select-list.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 34,
+      "members": [
+        {
+          "name": "destroy",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::destroy()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Destroys the select list and cleans up resources.",
+          "summary": "Destroys the select list and cleans up resources.",
+          "parameters": [],
+          "returnType": "Promise",
+          "returnDescription": "Resolves when destruction is complete",
+          "propertyType": null,
+          "line": 299
+        },
+        {
+          "name": "getParsedQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getParsedQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the parsed search text and package metadata.",
+          "summary": "Return the parsed search text and package metadata.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 361
+        },
+        {
+          "name": "setSource",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setSource(source)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace the asynchronous source and keep local filtering aligned with its\nmode. Query sources own filtering; snapshot sources and a null source use\nthe list's current parsed query.",
+          "summary": "Replace the asynchronous source and keep local filtering aligned with its mode. Query sources own filtering; snapshot sources and a null source use the list's current parsed query.",
+          "parameters": [
+            {
+              "name": "source",
+              "source": "source",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 373
+        },
+        {
+          "name": "getItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getItems()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return a snapshot of all source items.",
+          "summary": "Return a snapshot of all source items.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 618
+        },
+        {
+          "name": "getFilteredItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFilteredItems()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return all items in current filtered order.",
+          "summary": "Return all items in current filtered order.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 628
+        },
+        {
+          "name": "getDisplayedItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getDisplayedItems()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the currently displayed page without UI rows.",
+          "summary": "Return the currently displayed page without UI rows.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 638
+        },
+        {
+          "name": "getItemCount",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getItemCount()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the number of source items.",
+          "summary": "Return the number of source items.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 648
+        },
+        {
+          "name": "getMatchCount",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getMatchCount()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the number of filtered matches.",
+          "summary": "Return the number of filtered matches.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 658
+        },
+        {
+          "name": "onDidChangeItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeItems(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when source items change.",
+          "summary": "Invoke a callback when source items change.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 668
+        },
+        {
+          "name": "onDidChangeSelection",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeSelection(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when the logical selection changes.",
+          "summary": "Invoke a callback when the logical selection changes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 678
+        },
+        {
+          "name": "setItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setItems(items, options = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace a flat item source while preserving selection by default.",
+          "summary": "Replace a flat item source while preserving selection by default.",
+          "parameters": [
+            {
+              "name": "items",
+              "source": "items",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 688
+        },
+        {
+          "name": "setSections",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setSections(sections, options = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace the source with explicitly grouped sections.",
+          "summary": "Replace the source with explicitly grouped sections.",
+          "parameters": [
+            {
+              "name": "sections",
+              "source": "sections",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 698
+        },
+        {
+          "name": "refresh",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::refresh(options = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Re-render the current source after items changed in place.",
+          "summary": "Re-render the current source after items changed in place.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 708
+        },
+        {
+          "name": "getItemId",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getItemId(item)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Returns the stable identifier used by the model for an item. Object\nitems default to their `id` property; primitive items identify themselves.",
+          "summary": "Returns the stable identifier used by the model for an item. Object items default to their `id` property; primitive items identify themselves.",
+          "parameters": [
+            {
+              "name": "item",
+              "source": "item",
+              "optional": false,
+              "rest": false,
+              "type": "*",
+              "description": "The item to identify",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "*",
+          "returnDescription": "The item's identifier",
+          "propertyType": null,
+          "line": 723
+        },
+        {
+          "name": "showMore",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::showMore({ followSelection = false } = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Reveals the next batch of matches in place of the \"Show more…\" row. The\nfirst newly revealed item takes the selection — it sits exactly where the\nrow was.\n\nPressing the row (a click, or Enter while it is highlighted) keeps the\nscroller where it is, so the list never jumps under the pointer. Keyboard\nnavigation that lands on the row from afar — Ctrl-End crossing the whole\nlist — passes `followSelection: true` instead, and the viewport moves to\nthe newly selected item like any other selection change.",
+          "summary": "Reveals the next batch of matches in place of the \"Show more…\" row. The first newly revealed item takes the selection — it sits exactly where the row was.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "{ followSelection = false } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.followSelection",
+              "type": "boolean",
+              "description": "Let the selection's own scroll-into-view stand instead of restoring the previous position",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.followSelection",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise",
+          "returnDescription": "Resolves when the expanded list has rendered",
+          "propertyType": null,
+          "line": 865
+        },
+        {
+          "name": "getFilterKey",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getFilterKey(item)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Returns the filter key for an item.",
+          "summary": "Returns the filter key for an item.",
+          "parameters": [
+            {
+              "name": "item",
+              "source": "item",
+              "optional": false,
+              "rest": false,
+              "type": "*",
+              "description": "The item to get the filter key for",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "string|null",
+          "returnDescription": "The filter key string, or null",
+          "propertyType": null,
+          "line": 928
+        },
+        {
+          "name": "getMatchIndices",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getMatchIndices(item, filterKey)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Returns the match indices for an item, computing lazily if needed.\nMatch indices indicate which characters in the filter key matched the query.",
+          "summary": "Returns the match indices for an item, computing lazily if needed. Match indices indicate which characters in the filter key matched the query.",
+          "parameters": [
+            {
+              "name": "item",
+              "source": "item",
+              "optional": false,
+              "rest": false,
+              "type": "*",
+              "description": "The item to get match indices for",
+              "defaultValue": null
+            },
+            {
+              "name": "filterKey",
+              "source": "filterKey",
+              "optional": true,
+              "rest": false,
+              "type": "string",
+              "description": "Optional filter key override. If not provided, uses the filter text cached by the list model.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "number[]|null",
+          "returnDescription": "Array of character indices that matched, or null",
+          "propertyType": null,
+          "line": 946
+        },
+        {
+          "name": "getSelectedItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getSelectedItem()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the selected package item, or null.",
+          "summary": "Return the selected package item, or null.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 992
+        },
+        {
+          "name": "getSelectedItemId",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getSelectedItemId()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the stable ID of the selected item, or null.",
+          "summary": "Return the stable ID of the selected item, or null.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1002
+        },
+        {
+          "name": "getSelectedIndex",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getSelectedIndex()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the selected filtered index, or null.",
+          "summary": "Return the selected filtered index, or null.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1012
+        },
+        {
+          "name": "selectPrevious",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectPrevious()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select the previous item, respecting the optional empty state.",
+          "summary": "Select the previous item, respecting the optional empty state.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1101
+        },
+        {
+          "name": "selectNext",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectNext()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select the next item, revealing another page when needed.",
+          "summary": "Select the next item, revealing another page when needed.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1113
+        },
+        {
+          "name": "selectFirst",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectFirst()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select the first matching item.",
+          "summary": "Select the first matching item.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1142
+        },
+        {
+          "name": "selectLast",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectLast()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select the last item in the displayed page.",
+          "summary": "Select the last item in the displayed page.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1152
+        },
+        {
+          "name": "selectNone",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectNone()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Clear the logical selection.",
+          "summary": "Clear the logical selection.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1180
+        },
+        {
+          "name": "selectIndex",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectIndex(index, updateComponent = true, reason = \"programmatic\")",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select an item by its displayed index.",
+          "summary": "Select an item by its displayed index.",
+          "parameters": [
+            {
+              "name": "index",
+              "source": "index",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "updateComponent",
+              "source": "updateComponent = true",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "true"
+            },
+            {
+              "name": "reason",
+              "source": "reason = \"programmatic\"",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "\"programmatic\""
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1190
+        },
+        {
+          "name": "selectItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectItem(item)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select an item by value or object identity.",
+          "summary": "Select an item by value or object identity.",
+          "parameters": [
+            {
+              "name": "item",
+              "source": "item",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1231
+        },
+        {
+          "name": "selectItemById",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::selectItemById(id)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select an item by stable ID.",
+          "summary": "Select an item by stable ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "source": "id",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1254
+        },
+        {
+          "name": "getScrollTop",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getScrollTop()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the list viewport's vertical scroll offset.",
+          "summary": "Return the list viewport's vertical scroll offset.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1267
+        },
+        {
+          "name": "setScrollTop",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setScrollTop(scrollTop)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the list viewport's vertical scroll offset.",
+          "summary": "Set the list viewport's vertical scroll offset.",
+          "parameters": [
+            {
+              "name": "scrollTop",
+              "source": "scrollTop",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1277
+        },
+        {
+          "name": "scrollToItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::scrollToItem(itemOrId)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Select and reveal an item or stable ID.",
+          "summary": "Select and reveal an item or stable ID.",
+          "parameters": [
+            {
+              "name": "itemOrId",
+              "source": "itemOrId",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1287
+        },
+        {
+          "name": "scrollToSelectedItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::scrollToSelectedItem()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Reveal the currently selected row.",
+          "summary": "Reveal the currently selected row.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1303
+        },
+        {
+          "name": "hasMoreItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hasMoreItems()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether another result page remains.",
+          "summary": "Return whether another result page remains.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1315
+        },
+        {
+          "name": "getRemainingItemCount",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getRemainingItemCount()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the number of matches beyond the displayed page.",
+          "summary": "Return the number of matches beyond the displayed page.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1325
+        },
+        {
+          "name": "resetDisplayedItemLimit",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::resetDisplayedItemLimit()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Collapse displayed results to the first page.",
+          "summary": "Collapse displayed results to the first page.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1335
+        },
+        {
+          "name": "getRecentItemIds",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getRecentItemIds()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return recent item IDs in most-recent-first order.",
+          "summary": "Return recent item IDs in most-recent-first order.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1351
+        },
+        {
+          "name": "setRecentItemIds",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::setRecentItemIds(recentIds, { persist = true } = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Replace and optionally persist recent item IDs.",
+          "summary": "Replace and optionally persist recent item IDs.",
+          "parameters": [
+            {
+              "name": "recentIds",
+              "source": "recentIds",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": null,
+              "source": "{ persist = true } = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1361
+        },
+        {
+          "name": "getRecentLimit",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getRecentLimit()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the configured maximum recent item count.",
+          "summary": "Return the configured maximum recent item count.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1378
+        },
+        {
+          "name": "setRecentLimit",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setRecentLimit(limit)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Set the maximum recent item count and trim persisted state.",
+          "summary": "Set the maximum recent item count and trim persisted state.",
+          "parameters": [
+            {
+              "name": "limit",
+              "source": "limit",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1388
+        },
+        {
+          "name": "isRecentItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isRecentItem(itemOrId)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether an item or stable ID is recent.",
+          "summary": "Return whether an item or stable ID is recent.",
+          "parameters": [
+            {
+              "name": "itemOrId",
+              "source": "itemOrId",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1405
+        },
+        {
+          "name": "recordRecentItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::recordRecentItem(item)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Move an item to the front of the recent section.",
+          "summary": "Move an item to the front of the recent section.",
+          "parameters": [
+            {
+              "name": "item",
+              "source": "item",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1416
+        },
+        {
+          "name": "removeRecentItem",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::removeRecentItem(itemOrId)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Remove an item from the recent section.",
+          "summary": "Remove an item from the recent section.",
+          "parameters": [
+            {
+              "name": "itemOrId",
+              "source": "itemOrId",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1429
+        },
+        {
+          "name": "clearRecentItems",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clearRecentItems()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Clear the recent section.",
+          "summary": "Clear the recent section.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1440
+        },
+        {
+          "name": "onDidChangeRecentItemIds",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeRecentItemIds(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when recent item IDs change.",
+          "summary": "Invoke a callback when recent item IDs change.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1450
+        },
+        {
+          "name": "confirmSelection",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::confirmSelection()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Confirms the current selection through the applicable primary action, or\nemits the corresponding confirmation event when none is declared.",
+          "summary": "Confirms the current selection through the applicable primary action, or emits the corresponding confirmation event when none is declared.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1461
+        },
+        {
+          "name": "onDidConfirmSelection",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidConfirmSelection(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when confirmation has no primary item action.",
+          "summary": "Invoke a callback when confirmation has no primary item action.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1485
+        },
+        {
+          "name": "onDidConfirmEmptySelection",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidConfirmEmptySelection(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when an empty selection is confirmed.",
+          "summary": "Invoke a callback when an empty selection is confirmed.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1495
+        },
+        {
+          "name": "cancelSelection",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::cancelSelection(reason = \"api\")",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Cancels the selection, hides the list, and emits `onDidCancel`.",
+          "summary": "Cancels the selection, hides the list, and emits `onDidCancel`.",
+          "parameters": [
+            {
+              "name": "reason",
+              "source": "reason = \"api\"",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "\"api\""
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1505
+        }
+      ]
+    },
+    {
       "name": "ServiceHub",
       "visibility": "Public",
       "description": "",
@@ -25583,7 +28038,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 964
+          "line": 961
         },
         {
           "name": "onDidChangePath",
@@ -25609,7 +28064,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 977
+          "line": 974
         },
         {
           "name": "onDidChange",
@@ -25635,7 +28090,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 995
+          "line": 992
         },
         {
           "name": "onDidStopChanging",
@@ -25661,7 +28116,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1010
+          "line": 1007
         },
         {
           "name": "onDidChangeCursorPosition",
@@ -25757,7 +28212,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1031
+          "line": 1028
         },
         {
           "name": "onDidChangeSelectionRange",
@@ -25843,7 +28298,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1050
+          "line": 1047
         },
         {
           "name": "onDidChangeSoftWrapped",
@@ -25869,7 +28324,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1063
+          "line": 1060
         },
         {
           "name": "onDidChangeOvertypeMode",
@@ -25905,7 +28360,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1078
+          "line": 1075
         },
         {
           "name": "onDidChangeEncoding",
@@ -25931,7 +28386,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1091
+          "line": 1088
         },
         {
           "name": "observeGrammar",
@@ -25967,7 +28422,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1107
+          "line": 1104
         },
         {
           "name": "onDidChangeGrammar",
@@ -26003,7 +28458,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1123
+          "line": 1120
         },
         {
           "name": "onDidChangeFileState",
@@ -26029,7 +28484,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1138
+          "line": 1135
         },
         {
           "name": "onWillInsertText",
@@ -26085,7 +28540,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1154
+          "line": 1151
         },
         {
           "name": "onDidInsertText",
@@ -26131,7 +28586,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1169
+          "line": 1166
         },
         {
           "name": "onDidSave",
@@ -26177,7 +28632,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1184
+          "line": 1181
         },
         {
           "name": "onDidDestroy",
@@ -26203,7 +28658,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1197
+          "line": 1194
         },
         {
           "name": "observeCursors",
@@ -26239,7 +28694,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1212
+          "line": 1209
         },
         {
           "name": "onDidAddCursor",
@@ -26275,7 +28730,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1227
+          "line": 1224
         },
         {
           "name": "onDidRemoveCursor",
@@ -26311,7 +28766,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1241
+          "line": 1238
         },
         {
           "name": "observeSelections",
@@ -26347,7 +28802,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1256
+          "line": 1253
         },
         {
           "name": "onDidAddSelection",
@@ -26383,7 +28838,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1271
+          "line": 1268
         },
         {
           "name": "onDidRemoveSelection",
@@ -26419,7 +28874,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1285
+          "line": 1282
         },
         {
           "name": "observeDecorations",
@@ -26455,7 +28910,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1300
+          "line": 1297
         },
         {
           "name": "onDidAddDecoration",
@@ -26491,7 +28946,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1314
+          "line": 1311
         },
         {
           "name": "onDidRemoveDecoration",
@@ -26527,7 +28982,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1328
+          "line": 1325
         },
         {
           "name": "onDidChangePlaceholderText",
@@ -26563,7 +29018,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1349
+          "line": 1346
         },
         {
           "name": "observeGutters",
@@ -26599,7 +29054,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1469
+          "line": 1466
         },
         {
           "name": "onDidAddGutter",
@@ -26635,7 +29090,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1483
+          "line": 1480
         },
         {
           "name": "onDidRemoveGutter",
@@ -26671,7 +29126,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1497
+          "line": 1494
         },
         {
           "name": "getBuffer",
@@ -26687,7 +29142,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1529
+          "line": 1526
         },
         {
           "name": "getTitle",
@@ -26703,7 +29158,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1549
+          "line": 1546
         },
         {
           "name": "getLongTitle",
@@ -26719,7 +29174,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1568
+          "line": 1565
         },
         {
           "name": "getPath",
@@ -26735,7 +29190,7 @@
           "returnType": "String",
           "returnDescription": "path of this editor's text buffer.",
           "propertyType": null,
-          "line": 1664
+          "line": 1661
         },
         {
           "name": "getEncoding",
@@ -26751,7 +29206,7 @@
           "returnType": "String",
           "returnDescription": "character set encoding of this editor's text buffer.",
           "propertyType": null,
-          "line": 1684
+          "line": 1681
         },
         {
           "name": "setEncoding",
@@ -26777,7 +29232,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1697
+          "line": 1694
         },
         {
           "name": "getFileState",
@@ -26793,7 +29248,7 @@
           "returnType": "String",
           "returnDescription": "one of the values in `FileState`.",
           "propertyType": null,
-          "line": 1707
+          "line": 1704
         },
         {
           "name": "isEmpty",
@@ -26809,7 +29264,7 @@
           "returnType": "Boolean",
           "returnDescription": "`true` if this editor has no content.",
           "propertyType": null,
-          "line": 1717
+          "line": 1714
         },
         {
           "name": "save",
@@ -26825,7 +29280,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1733
+          "line": 1730
         },
         {
           "name": "saveAs",
@@ -26851,7 +29306,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1747
+          "line": 1744
         },
         {
           "name": "getText",
@@ -26867,7 +29322,7 @@
           "returnType": "String",
           "returnDescription": "representing the entire contents of the editor.",
           "propertyType": null,
-          "line": 1783
+          "line": 1780
         },
         {
           "name": "getTextInBufferRange",
@@ -26893,7 +29348,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1796
+          "line": 1793
         },
         {
           "name": "getLineCount",
@@ -26909,7 +29364,7 @@
           "returnType": "Number",
           "returnDescription": "representing the number of lines in the buffer.",
           "propertyType": null,
-          "line": 1806
+          "line": 1803
         },
         {
           "name": "getScreenLineCount",
@@ -26925,7 +29380,7 @@
           "returnType": "Number",
           "returnDescription": "representing the number of screen lines in the editor. This accounts for folds.",
           "propertyType": null,
-          "line": 1816
+          "line": 1813
         },
         {
           "name": "getLastBufferRow",
@@ -26941,7 +29396,7 @@
           "returnType": "Number",
           "returnDescription": "representing the last zero-indexed buffer row number of the editor.",
           "propertyType": null,
-          "line": 1830
+          "line": 1827
         },
         {
           "name": "getLastScreenRow",
@@ -26957,7 +29412,7 @@
           "returnType": "Number",
           "returnDescription": "representing the last zero-indexed screen row number of the editor.",
           "propertyType": null,
-          "line": 1840
+          "line": 1837
         },
         {
           "name": "lineTextForBufferRow",
@@ -26983,7 +29438,7 @@
           "returnType": "String",
           "returnDescription": "representing the contents of the line at the given buffer row.",
           "propertyType": null,
-          "line": 1851
+          "line": 1848
         },
         {
           "name": "lineTextForScreenRow",
@@ -27009,7 +29464,7 @@
           "returnType": "String",
           "returnDescription": "representing the contents of the line at the given screen row.",
           "propertyType": null,
-          "line": 1862
+          "line": 1859
         },
         {
           "name": "getCurrentParagraphBufferRange",
@@ -27025,7 +29480,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1983
+          "line": 1980
         },
         {
           "name": "setText",
@@ -27070,7 +29525,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2001
+          "line": 1998
         },
         {
           "name": "setTextInBufferRange",
@@ -27144,7 +29599,7 @@
           "returnType": "Range",
           "returnDescription": "of the newly-inserted text.",
           "propertyType": null,
-          "line": 2020
+          "line": 2017
         },
         {
           "name": "insertText",
@@ -27179,7 +29634,7 @@
           "returnType": "Range",
           "returnDescription": "when the text has been inserted. Returns a `Boolean` `false` when the text has not been inserted.",
           "propertyType": null,
-          "line": 2035
+          "line": 2032
         },
         {
           "name": "insertNewline",
@@ -27215,7 +29670,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2072
+          "line": 2069
         },
         {
           "name": "delete",
@@ -27251,7 +29706,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2086
+          "line": 2083
         },
         {
           "name": "backspace",
@@ -27287,7 +29742,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2101
+          "line": 2098
         },
         {
           "name": "mutateSelectedText",
@@ -27322,7 +29777,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2117
+          "line": 2114
         },
         {
           "name": "transpose",
@@ -27358,7 +29813,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2483
+          "line": 2480
         },
         {
           "name": "upperCase",
@@ -27394,7 +29849,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2510
+          "line": 2507
         },
         {
           "name": "lowerCase",
@@ -27430,7 +29885,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2527
+          "line": 2524
         },
         {
           "name": "toggleLineCommentsInSelection",
@@ -27466,7 +29921,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2543
+          "line": 2540
         },
         {
           "name": "collapseBlankLines",
@@ -27502,7 +29957,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2573
+          "line": 2570
         },
         {
           "name": "collapseContentSpaces",
@@ -27538,7 +29993,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2596
+          "line": 2593
         },
         {
           "name": "insertNewlineBelow",
@@ -27574,7 +30029,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2616
+          "line": 2613
         },
         {
           "name": "insertNewlineAbove",
@@ -27610,7 +30065,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2633
+          "line": 2630
         },
         {
           "name": "deleteToBeginningOfWord",
@@ -27646,7 +30101,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2666
+          "line": 2663
         },
         {
           "name": "deleteToPreviousWordBoundary",
@@ -27682,7 +30137,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2681
+          "line": 2678
         },
         {
           "name": "deleteToNextWordBoundary",
@@ -27718,7 +30173,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2696
+          "line": 2693
         },
         {
           "name": "deleteToBeginningOfSubword",
@@ -27754,7 +30209,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2712
+          "line": 2709
         },
         {
           "name": "deleteToEndOfSubword",
@@ -27790,7 +30245,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2728
+          "line": 2725
         },
         {
           "name": "deleteToBeginningOfLine",
@@ -27826,7 +30281,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2744
+          "line": 2741
         },
         {
           "name": "deleteToEndOfLine",
@@ -27862,7 +30317,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2761
+          "line": 2758
         },
         {
           "name": "deleteToNextLineContent",
@@ -27898,7 +30353,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2779
+          "line": 2776
         },
         {
           "name": "deleteToEndOfWord",
@@ -27934,7 +30389,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2839
+          "line": 2836
         },
         {
           "name": "deleteLine",
@@ -27970,7 +30425,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2853
+          "line": 2850
         },
         {
           "name": "undo",
@@ -28006,7 +30461,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2895
+          "line": 2892
         },
         {
           "name": "redo",
@@ -28042,7 +30497,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2912
+          "line": 2909
         },
         {
           "name": "transact",
@@ -28077,7 +30532,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2934
+          "line": 2931
         },
         {
           "name": "abortTransaction",
@@ -28093,7 +30548,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2951
+          "line": 2948
         },
         {
           "name": "createCheckpoint",
@@ -28109,7 +30564,7 @@
           "returnType": "Number",
           "returnDescription": "checkpoint value.",
           "propertyType": null,
-          "line": 2964
+          "line": 2961
         },
         {
           "name": "revertToCheckpoint",
@@ -28135,7 +30590,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the operation succeeded.",
           "propertyType": null,
-          "line": 2984
+          "line": 2981
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -28161,7 +30616,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 3001
+          "line": 2998
         },
         {
           "name": "screenPositionForBufferPosition",
@@ -28196,7 +30651,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3025
+          "line": 3022
         },
         {
           "name": "bufferPositionForScreenPosition",
@@ -28231,7 +30686,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3041
+          "line": 3038
         },
         {
           "name": "screenRangeForBufferRange",
@@ -28266,7 +30721,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3054
+          "line": 3051
         },
         {
           "name": "bufferRangeForScreenRange",
@@ -28292,7 +30747,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3070
+          "line": 3067
         },
         {
           "name": "bufferRangesForScreenColumnBlock",
@@ -28345,7 +30800,7 @@
           "returnType": "Array",
           "returnDescription": "of `{bufferRange, screenColumn}` objects, one per screen row, where `bufferRange` is a {@link Range} and `screenColumn` is a `Number` or `null`.",
           "propertyType": null,
-          "line": 3108
+          "line": 3105
         },
         {
           "name": "clipBufferPosition",
@@ -28371,7 +30826,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3135
+          "line": 3132
         },
         {
           "name": "clipBufferRange",
@@ -28397,7 +30852,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3149
+          "line": 3146
         },
         {
           "name": "clipScreenPosition",
@@ -28442,7 +30897,7 @@
           "returnType": "Point",
           "returnDescription": "The clipped screen position.",
           "propertyType": null,
-          "line": 3178
+          "line": 3175
         },
         {
           "name": "clipScreenRange",
@@ -28477,7 +30932,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3193
+          "line": 3190
         },
         {
           "name": "decorateMarker",
@@ -28642,7 +31097,7 @@
           "returnType": "Decoration",
           "returnDescription": "created {@link Decoration} object.",
           "propertyType": null,
-          "line": 3269
+          "line": 3266
         },
         {
           "name": "decorateMarkerLayer",
@@ -28677,7 +31132,7 @@
           "returnType": "LayerDecoration",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3285
+          "line": 3282
         },
         {
           "name": "getDecorations",
@@ -28703,7 +31158,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3317
+          "line": 3314
         },
         {
           "name": "getLineDecorations",
@@ -28729,7 +31184,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3330
+          "line": 3327
         },
         {
           "name": "getLineNumberDecorations",
@@ -28755,7 +31210,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3343
+          "line": 3340
         },
         {
           "name": "getHighlightDecorations",
@@ -28781,7 +31236,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3356
+          "line": 3353
         },
         {
           "name": "getOverlayDecorations",
@@ -28807,7 +31262,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3369
+          "line": 3366
         },
         {
           "name": "markBufferRange",
@@ -28872,7 +31327,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3393
+          "line": 3390
         },
         {
           "name": "markScreenRange",
@@ -28937,7 +31392,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3413
+          "line": 3410
         },
         {
           "name": "markBufferPosition",
@@ -28982,7 +31437,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3430
+          "line": 3427
         },
         {
           "name": "markScreenPosition",
@@ -29037,7 +31492,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 3448
+          "line": 3445
         },
         {
           "name": "findMarkers",
@@ -29103,7 +31558,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}",
           "propertyType": null,
-          "line": 3471
+          "line": 3468
         },
         {
           "name": "getMarker",
@@ -29129,7 +31584,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3484
+          "line": 3481
         },
         {
           "name": "getMarkers",
@@ -29145,7 +31600,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3495
+          "line": 3492
         },
         {
           "name": "getMarkerCount",
@@ -29161,7 +31616,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3507
+          "line": 3504
         },
         {
           "name": "addMarkerLayer",
@@ -29207,7 +31662,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3527
+          "line": 3524
         },
         {
           "name": "getMarkerLayer",
@@ -29233,7 +31688,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "or `undefined` if no layer exists with the given id.",
           "propertyType": null,
-          "line": 3540
+          "line": 3537
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -29249,7 +31704,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3555
+          "line": 3552
         },
         {
           "name": "getCursorBufferPosition",
@@ -29265,7 +31720,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3572
+          "line": 3569
         },
         {
           "name": "getCursorBufferPositions",
@@ -29281,7 +31736,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Point Points} in the order they were added",
           "propertyType": null,
-          "line": 3584
+          "line": 3581
         },
         {
           "name": "setCursorBufferPosition",
@@ -29326,7 +31781,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3600
+          "line": 3597
         },
         {
           "name": "getCursorAtScreenPosition",
@@ -29352,7 +31807,7 @@
           "returnType": "Cursor|undefined",
           "returnDescription": "first matched {@link Cursor} or undefined",
           "propertyType": null,
-          "line": 3613
+          "line": 3610
         },
         {
           "name": "getCursorScreenPosition",
@@ -29368,7 +31823,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3629
+          "line": 3626
         },
         {
           "name": "getCursorScreenPositions",
@@ -29384,7 +31839,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Point Points} in the order the cursors were added",
           "propertyType": null,
-          "line": 3641
+          "line": 3638
         },
         {
           "name": "setCursorScreenPosition",
@@ -29429,7 +31884,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3657
+          "line": 3654
         },
         {
           "name": "addCursorAtBufferPosition",
@@ -29464,7 +31919,7 @@
           "returnType": "Cursor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3670
+          "line": 3667
         },
         {
           "name": "addCursorAtScreenPosition",
@@ -29499,7 +31954,7 @@
           "returnType": "Cursor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3687
+          "line": 3684
         },
         {
           "name": "hasMultipleCursors",
@@ -29515,7 +31970,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether or not there are multiple cursors.",
           "propertyType": null,
-          "line": 3701
+          "line": 3698
         },
         {
           "name": "moveUp",
@@ -29541,7 +31996,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3713
+          "line": 3710
         },
         {
           "name": "moveDown",
@@ -29567,7 +32022,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3725
+          "line": 3722
         },
         {
           "name": "moveLeft",
@@ -29593,7 +32048,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3737
+          "line": 3734
         },
         {
           "name": "moveRight",
@@ -29619,7 +32074,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3751
+          "line": 3748
         },
         {
           "name": "moveToBeginningOfLine",
@@ -29635,7 +32090,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3763
+          "line": 3760
         },
         {
           "name": "moveToBeginningOfScreenLine",
@@ -29651,7 +32106,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3773
+          "line": 3770
         },
         {
           "name": "moveToFirstCharacterOfLine",
@@ -29667,7 +32122,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3783
+          "line": 3780
         },
         {
           "name": "moveToEndOfLine",
@@ -29683,7 +32138,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3793
+          "line": 3790
         },
         {
           "name": "moveToEndOfScreenLine",
@@ -29699,7 +32154,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3803
+          "line": 3800
         },
         {
           "name": "moveToBeginningOfWord",
@@ -29715,7 +32170,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3813
+          "line": 3810
         },
         {
           "name": "moveToEndOfWord",
@@ -29731,7 +32186,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3823
+          "line": 3820
         },
         {
           "name": "moveToTop",
@@ -29747,7 +32202,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3837
+          "line": 3834
         },
         {
           "name": "moveToBottom",
@@ -29763,7 +32218,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3849
+          "line": 3846
         },
         {
           "name": "moveToBeginningOfNextWord",
@@ -29779,7 +32234,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3859
+          "line": 3856
         },
         {
           "name": "moveToPreviousWordBoundary",
@@ -29795,7 +32250,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3869
+          "line": 3866
         },
         {
           "name": "moveToNextWordBoundary",
@@ -29811,7 +32266,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3879
+          "line": 3876
         },
         {
           "name": "moveToPreviousSubwordBoundary",
@@ -29827,7 +32282,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3889
+          "line": 3886
         },
         {
           "name": "moveToNextSubwordBoundary",
@@ -29843,7 +32298,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3899
+          "line": 3896
         },
         {
           "name": "moveToBeginningOfNextParagraph",
@@ -29859,7 +32314,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3909
+          "line": 3906
         },
         {
           "name": "moveToBeginningOfPreviousParagraph",
@@ -29875,7 +32330,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3919
+          "line": 3916
         },
         {
           "name": "getLastCursor",
@@ -29891,7 +32346,7 @@
           "returnType": "Cursor",
           "returnDescription": "most recently added {@link Cursor}",
           "propertyType": null,
-          "line": 3929
+          "line": 3926
         },
         {
           "name": "getWordUnderCursor",
@@ -29917,7 +32372,7 @@
           "returnType": "String",
           "returnDescription": "word surrounding the most recently added cursor.",
           "propertyType": null,
-          "line": 3941
+          "line": 3938
         },
         {
           "name": "getCursors",
@@ -29933,7 +32388,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3951
+          "line": 3948
         },
         {
           "name": "getCursorsOrderedByBufferPosition",
@@ -29949,7 +32404,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Selection Selections}.",
           "propertyType": null,
-          "line": 3965
+          "line": 3962
         },
         {
           "name": "getSelectedText",
@@ -29965,7 +32420,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4031
+          "line": 4028
         },
         {
           "name": "getSelectedBufferRange",
@@ -29981,7 +32436,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4044
+          "line": 4041
         },
         {
           "name": "getSelectedBufferRanges",
@@ -29997,7 +32452,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Range Ranges}.",
           "propertyType": null,
-          "line": 4058
+          "line": 4055
         },
         {
           "name": "setSelectedBufferRange",
@@ -30052,7 +32507,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4074
+          "line": 4071
         },
         {
           "name": "setSelectedBufferRanges",
@@ -30107,7 +32562,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4090
+          "line": 4087
         },
         {
           "name": "getSelectedScreenRange",
@@ -30123,7 +32578,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4118
+          "line": 4115
         },
         {
           "name": "getSelectedScreenRanges",
@@ -30139,7 +32594,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Range Ranges}.",
           "propertyType": null,
-          "line": 4132
+          "line": 4129
         },
         {
           "name": "setSelectedScreenRange",
@@ -30184,7 +32639,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4147
+          "line": 4144
         },
         {
           "name": "setSelectedScreenRanges",
@@ -30229,7 +32684,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4165
+          "line": 4162
         },
         {
           "name": "addSelectionForBufferRange",
@@ -30284,7 +32739,7 @@
           "returnType": "Selection",
           "returnDescription": "added {@link Selection}.",
           "propertyType": null,
-          "line": 4196
+          "line": 4193
         },
         {
           "name": "addSelectionForScreenRange",
@@ -30339,7 +32794,7 @@
           "returnType": "Selection",
           "returnDescription": "added {@link Selection}.",
           "propertyType": null,
-          "line": 4224
+          "line": 4221
         },
         {
           "name": "selectToBufferPosition",
@@ -30365,7 +32820,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4239
+          "line": 4236
         },
         {
           "name": "selectToScreenPosition",
@@ -30400,7 +32855,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4258
+          "line": 4255
         },
         {
           "name": "selectUp",
@@ -30426,7 +32881,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4280
+          "line": 4277
         },
         {
           "name": "selectDown",
@@ -30452,7 +32907,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4296
+          "line": 4293
         },
         {
           "name": "selectLeft",
@@ -30478,7 +32933,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4312
+          "line": 4309
         },
         {
           "name": "selectRight",
@@ -30504,7 +32959,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4328
+          "line": 4325
         },
         {
           "name": "selectToTop",
@@ -30520,7 +32975,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4341
+          "line": 4338
         },
         {
           "name": "selectToBottom",
@@ -30536,7 +32991,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4354
+          "line": 4351
         },
         {
           "name": "selectAll",
@@ -30552,7 +33007,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4366
+          "line": 4363
         },
         {
           "name": "selectToBeginningOfLine",
@@ -30568,7 +33023,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4379
+          "line": 4376
         },
         {
           "name": "selectToFirstCharacterOfLine",
@@ -30584,7 +33039,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4394
+          "line": 4391
         },
         {
           "name": "selectToEndOfLine",
@@ -30600,7 +33055,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4407
+          "line": 4404
         },
         {
           "name": "selectToBeginningOfWord",
@@ -30616,7 +33071,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4420
+          "line": 4417
         },
         {
           "name": "selectToEndOfWord",
@@ -30632,7 +33087,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4433
+          "line": 4430
         },
         {
           "name": "selectToPreviousSubwordBoundary",
@@ -30648,7 +33103,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4446
+          "line": 4443
         },
         {
           "name": "selectToNextSubwordBoundary",
@@ -30664,7 +33119,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4461
+          "line": 4458
         },
         {
           "name": "selectLinesContainingCursors",
@@ -30680,7 +33135,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4473
+          "line": 4470
         },
         {
           "name": "selectWordsContainingCursors",
@@ -30696,7 +33151,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4483
+          "line": 4480
         },
         {
           "name": "selectSubwordsContainingCursors",
@@ -30712,7 +33167,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4493
+          "line": 4490
         },
         {
           "name": "selectToPreviousWordBoundary",
@@ -30728,7 +33183,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4508
+          "line": 4505
         },
         {
           "name": "selectToNextWordBoundary",
@@ -30744,7 +33199,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4521
+          "line": 4518
         },
         {
           "name": "selectToBeginningOfNextWord",
@@ -30760,7 +33215,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4534
+          "line": 4531
         },
         {
           "name": "selectToBeginningOfNextParagraph",
@@ -30776,7 +33231,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4547
+          "line": 4544
         },
         {
           "name": "selectToBeginningOfPreviousParagraph",
@@ -30792,7 +33247,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4562
+          "line": 4559
         },
         {
           "name": "selectLargerSyntaxNode",
@@ -30808,7 +33263,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4575
+          "line": 4572
         },
         {
           "name": "selectSmallerSyntaxNode",
@@ -30824,7 +33279,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4596
+          "line": 4593
         },
         {
           "name": "selectMarker",
@@ -30850,7 +33305,7 @@
           "returnType": "Range|undefined",
           "returnDescription": "selected {@link Range} or `undefined` if the marker is invalid.",
           "propertyType": null,
-          "line": 4617
+          "line": 4614
         },
         {
           "name": "getLastSelection",
@@ -30866,7 +33321,7 @@
           "returnType": "Selection",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4633
+          "line": 4630
         },
         {
           "name": "getSelections",
@@ -30882,7 +33337,7 @@
           "returnType": "Array<Selection>",
           "returnDescription": "The current selections.",
           "propertyType": null,
-          "line": 4653
+          "line": 4650
         },
         {
           "name": "getSelectionsOrderedByBufferPosition",
@@ -30898,7 +33353,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Selection Selections}.",
           "propertyType": null,
-          "line": 4667
+          "line": 4664
         },
         {
           "name": "selectionIntersectsBufferRange",
@@ -30924,7 +33379,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4681
+          "line": 4678
         },
         {
           "name": "destroySelections",
@@ -30950,7 +33405,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4702
+          "line": 4699
         },
         {
           "name": "scan",
@@ -31074,7 +33529,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4983
+          "line": 4980
         },
         {
           "name": "scanInBufferRange",
@@ -31168,7 +33623,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5008
+          "line": 5005
         },
         {
           "name": "backwardsScanInBufferRange",
@@ -31262,7 +33717,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5028
+          "line": 5025
         },
         {
           "name": "getSoftTabs",
@@ -31278,7 +33733,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether softTabs are enabled for this editor.",
           "propertyType": null,
-          "line": 5042
+          "line": 5039
         },
         {
           "name": "setSoftTabs",
@@ -31304,7 +33759,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5054
+          "line": 5051
         },
         {
           "name": "toggleSoftTabs",
@@ -31320,7 +33775,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5070
+          "line": 5067
         },
         {
           "name": "getTabLength",
@@ -31336,7 +33791,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5082
+          "line": 5079
         },
         {
           "name": "setTabLength",
@@ -31362,7 +33817,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5095
+          "line": 5092
         },
         {
           "name": "usesSoftTabs",
@@ -31378,7 +33833,7 @@
           "returnType": "Boolean|undefined",
           "returnDescription": "`true` for leading spaces, `false` for a leading hard tab (`\\t`), or `undefined` when no non-comment line has leading whitespace.",
           "propertyType": null,
-          "line": 5123
+          "line": 5120
         },
         {
           "name": "getTabText",
@@ -31394,7 +33849,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5149
+          "line": 5146
         },
         {
           "name": "isSoftWrapped",
@@ -31410,7 +33865,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5174
+          "line": 5171
         },
         {
           "name": "setSoftWrapped",
@@ -31436,7 +33891,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5187
+          "line": 5184
         },
         {
           "name": "toggleSoftWrapped",
@@ -31452,7 +33907,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5204
+          "line": 5201
         },
         {
           "name": "isOvertypeMode",
@@ -31468,7 +33923,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5218
+          "line": 5215
         },
         {
           "name": "setOvertypeMode",
@@ -31494,7 +33949,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5231
+          "line": 5228
         },
         {
           "name": "toggleOvertypeMode",
@@ -31510,7 +33965,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5248
+          "line": 5245
         },
         {
           "name": "applyOvertype",
@@ -31526,7 +33981,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5264
+          "line": 5261
         },
         {
           "name": "getSoftWrapColumn",
@@ -31542,7 +33997,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5279
+          "line": 5276
         },
         {
           "name": "indentationForBufferRow",
@@ -31568,7 +34023,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5309
+          "line": 5306
         },
         {
           "name": "setIndentationForBufferRow",
@@ -31622,7 +34077,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5330
+          "line": 5327
         },
         {
           "name": "indentSelectedRows",
@@ -31658,7 +34113,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5356
+          "line": 5353
         },
         {
           "name": "outdentSelectedRows",
@@ -31694,7 +34149,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5370
+          "line": 5367
         },
         {
           "name": "indentLevelForLine",
@@ -31720,7 +34175,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5389
+          "line": 5386
         },
         {
           "name": "autoIndentSelectedRows",
@@ -31756,7 +34211,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5415
+          "line": 5412
         },
         {
           "name": "getGrammar",
@@ -31772,7 +34227,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5455
+          "line": 5452
         },
         {
           "name": "onDidTokenize",
@@ -31798,7 +34253,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5477
+          "line": 5474
         },
         {
           "name": "whenGrammarSettled",
@@ -31834,7 +34289,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise that resolves to whether the current grammar settled successfully.",
           "propertyType": null,
-          "line": 5496
+          "line": 5493
         },
         {
           "name": "getRootScopeDescriptor",
@@ -31850,7 +34305,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "that includes this editor's language. e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with {@link Config#get} to get language specific config values.",
           "propertyType": null,
-          "line": 5579
+          "line": 5576
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -31876,7 +34331,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5598
+          "line": 5595
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -31902,7 +34357,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5619
+          "line": 5616
         },
         {
           "name": "getSyntaxNodeAtBufferPosition",
@@ -31937,7 +34392,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5646
+          "line": 5643
         },
         {
           "name": "getSyntaxNodeContainingBufferRange",
@@ -31972,7 +34427,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5670
+          "line": 5667
         },
         {
           "name": "hasGrammarQuery",
@@ -31998,7 +34453,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the query is declared by a current language layer.",
           "propertyType": null,
-          "line": 5689
+          "line": 5686
         },
         {
           "name": "getGrammarQueryCaptureGroups",
@@ -32043,7 +34498,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise resolving to `{grammar, captures}` groups for current language layers.",
           "propertyType": null,
-          "line": 5715
+          "line": 5712
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -32069,7 +34524,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5746
+          "line": 5743
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -32104,7 +34559,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5764
+          "line": 5761
         },
         {
           "name": "isBufferRowCommented",
@@ -32130,7 +34585,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5776
+          "line": 5773
         },
         {
           "name": "copySelectedText",
@@ -32156,7 +34611,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5812
+          "line": 5809
         },
         {
           "name": "cutSelectedText",
@@ -32192,7 +34647,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5856
+          "line": 5853
         },
         {
           "name": "pasteText",
@@ -32218,7 +34673,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the clipboard text has been inserted.",
           "propertyType": null,
-          "line": 5887
+          "line": 5884
         },
         {
           "name": "cutToEndOfLine",
@@ -32254,7 +34709,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5993
+          "line": 5990
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -32290,7 +34745,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6017
+          "line": 6014
         },
         {
           "name": "getFoldableRangeAtBufferRow",
@@ -32316,7 +34771,7 @@
           "returnType": "Range|null",
           "returnDescription": "The exact foldable range, or `null` when the row does not start one.",
           "propertyType": null,
-          "line": 6047
+          "line": 6044
         },
         {
           "name": "foldCurrentRow",
@@ -32332,7 +34787,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6062
+          "line": 6059
         },
         {
           "name": "unfoldCurrentRow",
@@ -32348,7 +34803,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6077
+          "line": 6074
         },
         {
           "name": "foldBufferRow",
@@ -32374,7 +34829,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6094
+          "line": 6091
         },
         {
           "name": "unfoldBufferRow",
@@ -32400,7 +34855,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6127
+          "line": 6124
         },
         {
           "name": "foldSelectedLines",
@@ -32416,7 +34871,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6138
+          "line": 6135
         },
         {
           "name": "foldAll",
@@ -32432,7 +34887,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6150
+          "line": 6147
         },
         {
           "name": "unfoldAll",
@@ -32448,7 +34903,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6166
+          "line": 6163
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -32474,7 +34929,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6180
+          "line": 6177
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -32500,7 +34955,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6202
+          "line": 6199
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -32526,7 +34981,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6218
+          "line": 6215
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -32552,7 +35007,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6229
+          "line": 6226
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -32568,7 +35023,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6245
+          "line": 6242
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -32594,7 +35049,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6258
+          "line": 6255
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -32620,7 +35075,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6275
+          "line": 6272
         },
         {
           "name": "addGutter",
@@ -32846,7 +35301,7 @@
           "returnType": "Gutter",
           "returnDescription": "newly-created {@link Gutter}.",
           "propertyType": null,
-          "line": 6339
+          "line": 6336
         },
         {
           "name": "getGutters",
@@ -32862,7 +35317,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Gutter Gutters}.",
           "propertyType": null,
-          "line": 6351
+          "line": 6348
         },
         {
           "name": "gutterWithName",
@@ -32888,7 +35343,7 @@
           "returnType": "Gutter",
           "returnDescription": ", or `null` if no gutter exists for the given name.",
           "propertyType": null,
-          "line": 6367
+          "line": 6364
         },
         {
           "name": "scrollToCursorPosition",
@@ -32934,7 +35389,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6386
+          "line": 6383
         },
         {
           "name": "scrollToBufferPosition",
@@ -32989,7 +35444,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6405
+          "line": 6402
         },
         {
           "name": "scrollToScreenPosition",
@@ -33044,7 +35499,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6423
+          "line": 6420
         },
         {
           "name": "scrollToScreenRange",
@@ -33119,7 +35574,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6440
+          "line": 6437
         },
         {
           "name": "shouldAutoIndent",
@@ -33135,7 +35590,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6487
+          "line": 6484
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -33151,7 +35606,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6499
+          "line": 6496
         },
         {
           "name": "getScrollPastEnd",
@@ -33167,7 +35622,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6511
+          "line": 6508
         },
         {
           "name": "getScrollSensitivity",
@@ -33183,7 +35638,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6528
+          "line": 6525
         },
         {
           "name": "getSmoothScrolling",
@@ -33199,7 +35654,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6540
+          "line": 6537
         },
         {
           "name": "getWheelSmoothness",
@@ -33215,7 +35670,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6554
+          "line": 6551
         },
         {
           "name": "getCommandSmoothness",
@@ -33231,7 +35686,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6568
+          "line": 6565
         },
         {
           "name": "getAltWheelMultiplier",
@@ -33247,7 +35702,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6582
+          "line": 6579
         },
         {
           "name": "getScrollCommandDistance",
@@ -33263,7 +35718,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6596
+          "line": 6593
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -33279,7 +35734,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative `Number`.",
           "propertyType": null,
-          "line": 6609
+          "line": 6606
         },
         {
           "name": "doesShowLineNumbers",
@@ -33295,7 +35750,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6621
+          "line": 6618
         },
         {
           "name": "getUndoGroupingInterval",
@@ -33311,7 +35766,7 @@
           "returnType": "Number",
           "returnDescription": "time interval `Number` in milliseconds.",
           "propertyType": null,
-          "line": 6634
+          "line": 6631
         },
         {
           "name": "getNonWordCharacters",
@@ -33337,7 +35792,7 @@
           "returnType": "String",
           "returnDescription": "containing the non-word characters.",
           "propertyType": null,
-          "line": 6647
+          "line": 6644
         },
         {
           "name": "getPlaceholderText",
@@ -33353,7 +35808,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6716
+          "line": 6713
         },
         {
           "name": "setPlaceholderText",
@@ -33379,7 +35834,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6729
+          "line": 6726
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -33405,7 +35860,7 @@
           "returnType": "Object",
           "returnDescription": "Information about the appropriate comment delimiters at the buffer position.",
           "propertyType": null,
-          "line": 7200
+          "line": 7197
         }
       ]
     },
@@ -35907,7 +38362,7 @@
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 258,
+      "line": 257,
       "members": [
         {
           "name": "clear",
@@ -35943,7 +38398,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once they are empty.",
           "propertyType": null,
-          "line": 560
+          "line": 563
         },
         {
           "name": "observeTextEditors",
@@ -35979,7 +38434,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 917
+          "line": 920
         },
         {
           "name": "observePaneItems",
@@ -36015,7 +38470,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 935
+          "line": 938
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -36051,7 +38506,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 956
+          "line": 959
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -36087,7 +38542,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 977
+          "line": 980
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -36123,7 +38578,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 992
+          "line": 995
         },
         {
           "name": "observeActivePaneItem",
@@ -36159,7 +38614,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1007
+          "line": 1010
         },
         {
           "name": "observeActiveTextEditor",
@@ -36195,7 +38650,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1024
+          "line": 1027
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -36231,7 +38686,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1041
+          "line": 1044
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -36267,7 +38722,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1056
+          "line": 1059
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -36303,7 +38758,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1073
+          "line": 1076
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -36339,7 +38794,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1088
+          "line": 1091
         },
         {
           "name": "onDidOpen",
@@ -36415,7 +38870,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1110
+          "line": 1113
         },
         {
           "name": "onDidAddPane",
@@ -36461,7 +38916,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1125
+          "line": 1128
         },
         {
           "name": "onWillDestroyPane",
@@ -36507,7 +38962,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1143
+          "line": 1146
         },
         {
           "name": "onDidDestroyPane",
@@ -36553,7 +39008,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1161
+          "line": 1164
         },
         {
           "name": "observePanes",
@@ -36589,7 +39044,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1178
+          "line": 1181
         },
         {
           "name": "onDidChangeActivePane",
@@ -36625,7 +39080,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1194
+          "line": 1197
         },
         {
           "name": "observeActivePane",
@@ -36661,7 +39116,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1209
+          "line": 1212
         },
         {
           "name": "onDidAddPaneItem",
@@ -36727,7 +39182,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1228
+          "line": 1231
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -36793,7 +39248,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1248
+          "line": 1251
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -36859,7 +39314,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1267
+          "line": 1270
         },
         {
           "name": "onDidAddTextEditor",
@@ -36925,7 +39380,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1287
+          "line": 1290
         },
         {
           "name": "open",
@@ -37040,7 +39495,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} for the file URI.",
           "propertyType": null,
-          "line": 1316
+          "line": 1319
         },
         {
           "name": "hide",
@@ -37066,7 +39521,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether any items were found (and hidden).",
           "propertyType": null,
-          "line": 1545
+          "line": 1548
         },
         {
           "name": "toggle",
@@ -37092,7 +39547,7 @@
           "returnType": "Promise",
           "returnDescription": "Promise that resolves when the item is shown or hidden.",
           "propertyType": null,
-          "line": 1584
+          "line": 1587
         },
         {
           "name": "createItemForURI",
@@ -37127,7 +39582,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "propertyType": null,
-          "line": 1706
+          "line": 1709
         },
         {
           "name": "isTextEditor",
@@ -37153,7 +39608,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 1795
+          "line": 1798
         },
         {
           "name": "buildTextEditor",
@@ -37179,79 +39634,59 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1807
+          "line": 1810
         },
         {
           "name": "buildSelectList",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::buildSelectList(props)",
+          "signature": "::buildSelectList(options)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a fuzzy-searchable list shown in a modal panel.\n\nThe editor ships the implementation, so a package neither depends on it nor\npins it, and a window holds exactly one copy of it. This is a factory, not a\nshared instance: every call returns a list that owns its own panel, so a\nrenderer that throws takes down one package's list rather than all of them.\n\nThe list owns its panel. Do not call {@link #addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n\nThe list shows one message at a time above the rows, from three props in\nprecedence order — `loadingMessage` (rendered with a spinner, and with\n`loadingBadge` beside it), then `status`, then `infoMessage`. A `status` is\n`{type, message, duration, sticky}`: `type` is `'info'`, `'warning'` or\n`'error'`, `duration` clears it after that many milliseconds, and it is\ncleared on the next query change unless `sticky`. It covers the resting\n`infoMessage` rather than replacing it, so clearing it needs nothing put\nback. `emptyMessage` stands in for the rows when there are none, and stands\ndown while a loading or status message is showing.",
-          "summary": "Create a fuzzy-searchable list shown in a modal panel.",
+          "description": "Create a full fuzzy-searchable {@link SelectList} model.\n\nLike {@link #buildTextEditor}, this returns the complete model rather than a\nUI facade. Its items, selection, query, source, actions, recents, pagination,\nelement and panel are available through the model's named methods and events;\nonly its Etch component and caches are private.\n\nThe list owns its panel. Do not call {@link #addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n\nThe list shows one message at a time above the rows, from three props in\nprecedence order — `loadingMessage` (rendered with a spinner, and with\n`loadingBadge` beside it), then `status`, then `infoMessage`. A `status` is\n`{type, message, duration, sticky}`: `type` is `'info'`, `'warning'` or\n`'error'`, `duration` clears it after that many milliseconds, and it is\ncleared on the next query change unless `sticky`. It covers the resting\n`infoMessage` rather than replacing it, so clearing it needs nothing put\nback. `emptyMessage` stands in for the rows when there are none, and stands\ndown while a loading or status message is showing.\n\nData may be supplied as `items`, explicit `sections`, or an asynchronous\n`source`. `getItemId` defines stable identity, `search` defines matching and\nquery parsing, and `renderItem(item, context)` returns an `HTMLElement`, a\nmanaged row view, or a standard row descriptor. `commands` and `actions`\ndeclare the operations available through Enter, Shift-F10 and right click.",
+          "summary": "Create a full fuzzy-searchable {@link SelectList} model.",
           "parameters": [
             {
-              "name": "props",
-              "source": "props",
+              "name": "options",
+              "source": "options",
               "optional": false,
               "rest": false,
               "type": null,
-              "description": "An `Object` describing the list. The two that matter most:",
+              "description": "The initial SelectList options.",
               "defaultValue": null
-            },
-            {
-              "name": "props.items",
-              "type": null,
-              "description": "An `Array` of the objects to show.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "props.items",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "props.elementForItem",
-              "type": null,
-              "description": "A `Function` called as `(item, options)` to render a row. Return an `HTMLElement`, or an `Object` with `primary` and an optional `secondary`, `icon`, `className` and `trailing` to have a row built for you. `options` carries `selected`, `index`, `filterKey`, `visible`, a lazily computed `matchIndices`, and `highlight(text, indices)` — which wraps the matched characters of `text` in `span.character-match`, defaulting to this item's own indices.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "props.elementForItem",
-              "rest": false,
-              "nested": true
             }
           ],
-          "returnType": "SelectListView",
+          "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1845
+          "line": 1852
         },
         {
           "name": "buildInputDialog",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::buildInputDialog(props)",
+          "signature": "::buildInputDialog(options)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a modal dialog whose query editor is the value.\n\nThe base of {@link #buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement`, below it via\n`contentElement`, and a `checkboxes` row can bind straight to `lumine.config`.\n\nPanel ownership is the same as {@link #buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n\nThe message line works exactly as in {@link #buildSelectList}, minus\n`emptyMessage`: a validation failure is `status: {type: 'error', message}`,\nand the dialog clears it on the next keystroke by itself.",
-          "summary": "Create a modal dialog whose query editor is the value.",
+          "description": "Create a full {@link InputDialog} model whose query editor is the value.\n\nThe base of {@link #buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement` and below it via\n`contentElement`.\n\nPanel ownership is the same as {@link #buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n\nThe message line works exactly as in {@link #buildSelectList}, minus\n`emptyMessage`: a validation failure is `status: {type: 'error', message}`,\nand the dialog clears it on the next keystroke by itself.\n\nThe model owns its element and panel, publishes lifecycle/query events, and\nsupports the same declared commands, actions, messages and asynchronous\nsource contract as SelectList. Confirmation is normally a primary action.",
+          "summary": "Create a full {@link InputDialog} model whose query editor is the value.",
           "parameters": [
             {
-              "name": "props",
-              "source": "props",
+              "name": "options",
+              "source": "options",
               "optional": false,
               "rest": false,
               "type": null,
-              "description": "An `Object` describing the dialog, including `didConfirm(query)`, `didCancel()` and `didChangeQuery(query)`.",
+              "description": "The initial InputDialog options.",
               "defaultValue": null
             }
           ],
-          "returnType": "InputDialogView",
+          "returnType": "InputDialog",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1871
+          "line": 1882
         },
         {
           "name": "popModal",
@@ -37267,7 +39702,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 1903
+          "line": 1914
         },
         {
           "name": "popModalTo",
@@ -37293,7 +39728,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 1916
+          "line": 1927
         },
         {
           "name": "getModalTrail",
@@ -37309,7 +39744,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 1928
+          "line": 1939
         },
         {
           "name": "onDidChangeModalTrail",
@@ -37335,7 +39770,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1942
+          "line": 1953
         },
         {
           "name": "reopenItem",
@@ -37351,7 +39786,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 1955
+          "line": 1966
         },
         {
           "name": "addOpener",
@@ -37377,7 +39812,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 2002
+          "line": 2013
         },
         {
           "name": "getPaneItems",
@@ -37393,7 +39828,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 2025
+          "line": 2036
         },
         {
           "name": "getActivePaneItem",
@@ -37409,7 +39844,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 2037
+          "line": 2048
         },
         {
           "name": "getTextEditors",
@@ -37425,7 +39860,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 2049
+          "line": 2060
         },
         {
           "name": "getActiveTextEditor",
@@ -37441,7 +39876,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2078
+          "line": 2089
         },
         {
           "name": "getActiveFileTextEditor",
@@ -37457,7 +39892,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 2099
+          "line": 2110
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -37473,7 +39908,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 2128
+          "line": 2139
         },
         {
           "name": "saveActivePaneItem",
@@ -37489,7 +39924,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2166
+          "line": 2177
         },
         {
           "name": "saveActivePaneItemAs",
@@ -37505,7 +39940,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2184
+          "line": 2195
         },
         {
           "name": "destroyActivePaneItem",
@@ -37521,7 +39956,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2209
+          "line": 2220
         },
         {
           "name": "getActivePaneContainer",
@@ -37537,7 +39972,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2225
+          "line": 2236
         },
         {
           "name": "getPanes",
@@ -37553,7 +39988,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2237
+          "line": 2248
         },
         {
           "name": "getActivePane",
@@ -37569,7 +40004,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2253
+          "line": 2264
         },
         {
           "name": "activateNextPane",
@@ -37585,7 +40020,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2263
+          "line": 2274
         },
         {
           "name": "activatePreviousPane",
@@ -37601,7 +40036,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2273
+          "line": 2284
         },
         {
           "name": "paneContainerForURI",
@@ -37627,7 +40062,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2287
+          "line": 2298
         },
         {
           "name": "paneContainerForItem",
@@ -37653,7 +40088,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2300
+          "line": 2311
         },
         {
           "name": "paneForURI",
@@ -37679,7 +40114,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2313
+          "line": 2324
         },
         {
           "name": "paneForItem",
@@ -37705,7 +40140,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2331
+          "line": 2342
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -37721,7 +40156,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2358
+          "line": 2369
         },
         {
           "name": "getCenter",
@@ -37737,7 +40172,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2439
+          "line": 2451
         },
         {
           "name": "getLeftDock",
@@ -37753,7 +40188,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2449
+          "line": 2461
         },
         {
           "name": "getRightDock",
@@ -37769,7 +40204,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2459
+          "line": 2471
         },
         {
           "name": "getBottomDock",
@@ -37785,7 +40220,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2469
+          "line": 2481
         },
         {
           "name": "beginLayoutDrag",
@@ -37801,7 +40236,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 2508
+          "line": 2520
         },
         {
           "name": "getBottomPanels",
@@ -37817,7 +40252,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2522
+          "line": 2534
         },
         {
           "name": "addBottomPanel",
@@ -37873,7 +40308,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2538
+          "line": 2550
         },
         {
           "name": "getLeftPanels",
@@ -37889,7 +40324,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2548
+          "line": 2560
         },
         {
           "name": "addLeftPanel",
@@ -37945,7 +40380,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2564
+          "line": 2576
         },
         {
           "name": "getRightPanels",
@@ -37961,7 +40396,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2574
+          "line": 2586
         },
         {
           "name": "addRightPanel",
@@ -38017,7 +40452,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2590
+          "line": 2602
         },
         {
           "name": "getTopPanels",
@@ -38033,7 +40468,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2600
+          "line": 2612
         },
         {
           "name": "addTopPanel",
@@ -38089,7 +40524,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2616
+          "line": 2628
         },
         {
           "name": "getHeaderPanels",
@@ -38105,7 +40540,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2626
+          "line": 2638
         },
         {
           "name": "addHeaderPanel",
@@ -38161,7 +40596,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2642
+          "line": 2654
         },
         {
           "name": "getFooterPanels",
@@ -38177,7 +40612,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2652
+          "line": 2664
         },
         {
           "name": "addFooterPanel",
@@ -38233,7 +40668,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2668
+          "line": 2680
         },
         {
           "name": "getModalPanels",
@@ -38249,7 +40684,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2678
+          "line": 2690
         },
         {
           "name": "addModalPanel",
@@ -38335,7 +40770,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2697
+          "line": 2709
         },
         {
           "name": "panelForItem",
@@ -38361,7 +40796,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 2708
+          "line": 2720
         },
         {
           "name": "scan",
@@ -38475,7 +40910,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 2772
+          "line": 2784
         },
         {
           "name": "replace",
@@ -38538,7 +40973,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3035
+          "line": 3047
         }
       ]
     },
@@ -39818,7 +42253,7 @@
       "source": "src/markdown.js",
       "sourcePath": "src/markdown.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 559
+      "line": 556
     },
     {
       "name": "matcherForSelector",
@@ -40221,6 +42656,6 @@
       "line": 1174
     }
   ],
-  "memberCount": 1270,
-  "generatedAt": "2026-09-02T22:55:54.723Z"
+  "memberCount": 1380,
+  "generatedAt": "2026-09-03T18:12:15.183Z"
 }
