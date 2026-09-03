@@ -378,7 +378,8 @@ function groupId(className, category) {
 
 function renderHtml(api) {
   const [overviewClass, ...otherClasses] = api.classes;
-  if (!overviewClass) throw new Error("The generated API has no overview class.");
+  if (!overviewClass)
+    throw new Error("The generated API has no overview class.");
   const overviewId = `class-${slug(overviewClass.name)}`;
   const classNames = new Set(api.classes.map(({ name }) => name));
   const memberAnchors = new Set(
@@ -412,9 +413,8 @@ function renderHtml(api) {
   const classes = api.classes
     .map((item) => {
       const members = byCategory(item.members)
-        .map(
-          ([category, entries]) => {
-            return `
+        .map(([category, entries]) => {
+          return `
             <section class="api-group api-group-${slug(category)}" id="${groupId(item.name, category)}">
               <h3><span>${escapeHtml(category)}</span><span class="api-group-count">${entries.length}</span></h3>
               <div class="api-group-entries">${entries
@@ -435,10 +435,9 @@ function renderHtml(api) {
                     item.name,
                   );
                   const displaySignature = member.signature.replace(/^::/, "");
-                  const displayPropertyType = (member.propertyType || "").replace(
-                    /^Object<.+>$/,
-                    "Object",
-                  );
+                  const displayPropertyType = (
+                    member.propertyType || ""
+                  ).replace(/^Object<.+>$/, "Object");
                   const memberBadge =
                     member.kind === "property"
                       ? ""
@@ -474,13 +473,13 @@ function renderHtml(api) {
                 })
                 .join("\n")}</div>
             </section>`;
-          },
-        )
+        })
         .join("\n");
       return `
-        <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.description}`.toLowerCase())}">
+        <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.superClass ?? ""} ${item.description}`.toLowerCase())}">
           <header class="api-class-header"><p class="eyebrow">${escapeHtml(item.visibility)} API</p>
           <h2>${escapeHtml(item.name)}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></h2>
+          ${item.superClass && classNames.has(item.superClass) ? `<p class="api-extends">Extends <a href="#class-${slug(item.superClass)}"><code>${escapeHtml(item.superClass)}</code></a></p>` : ""}
           ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}</header>
           ${members || '<p class="api-empty">No documented public members.</p>'}
         </section>`;
@@ -544,6 +543,8 @@ function renderHtml(api) {
       .api-class-header { padding: 0 0 28px; border: 0; border-radius: 0; background: transparent; }
       .api-class-header .eyebrow { margin: 0 0 6px; color: var(--cyan); }
       .api-class-header h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 0; font-size: clamp(1.7rem, 3vw, 2.15rem); line-height: 1.2; letter-spacing: -.018em; }
+      .api-class-header .api-extends { margin: 7px 0 0; color: var(--muted); font-size: .82rem; }
+      .api-class-header .api-extends code { color: var(--green); }
       .api-description-body { margin: 10px 0 0; max-width: 72ch; font-size: .96rem; }
       .api-description-body > :first-child { margin-top: 0; }
       .api-description-body > :last-child { margin-bottom: 0; }

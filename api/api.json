@@ -1,10 +1,11 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "name": "Lumine",
   "version": "1.0.0",
   "classes": [
     {
       "name": "Environment",
+      "superClass": null,
       "visibility": "Public",
       "description": "Lumine global for dealing with packages, themes, menus, and the window.\n\nAn instance of this class is always available as the `lumine` global.",
       "summary": "Lumine global for dealing with packages, themes, menus, and the window.",
@@ -513,6 +514,7 @@
     },
     {
       "name": "ApplicationService",
+      "superClass": null,
       "visibility": "Public",
       "description": "Main-process application services exposed as serializable values.",
       "summary": "Main-process application services exposed as serializable values.",
@@ -933,6 +935,7 @@
     },
     {
       "name": "BufferedNodeProcess",
+      "superClass": "BufferedProcess",
       "visibility": "Extended",
       "description": "Like {@link BufferedProcess}, but accepts a Node script as the command\nto run.\n\nThis is necessary on Windows since it doesn't support shebang `#!` lines.\n\n## Examples\n\n```js\n  const {BufferedNodeProcess} = require('lumine')\n```",
       "summary": "Like {@link BufferedProcess}, but accepts a Node script as the command to run.",
@@ -1061,6 +1064,7 @@
     },
     {
       "name": "BufferedProcess",
+      "superClass": null,
       "visibility": "Extended",
       "description": "A wrapper which provides standard error/output line buffering for\nNode's ChildProcess.\n\n## Examples\n\n```js\n{BufferedProcess} = require('lumine')\n\nconst command = 'ps'\nconst args = ['-ef']\nconst stdout = (output) => console.log(output)\nconst exit = (code) => console.log(\"ps -ef exited with #{code}\")\nconst process = new BufferedProcess({command, args, stdout, exit})\n```",
       "summary": "A wrapper which provides standard error/output line buffering for Node's ChildProcess.",
@@ -1271,6 +1275,7 @@
     },
     {
       "name": "Clipboard",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Represents the clipboard used for copying and pasting in Lumine.\n\nAn instance of this class is always available as the `lumine.clipboard` global.\n\nThis class owns what the clipboard holds, not what a paste does with it. To\nintercept a paste before the editor inserts it as text — to handle an image,\nsay — register a provider with {@link PasteProviderRegistry} through\n`lumine.pasteProviders`.\n\nIt is also the only supported route to the native clipboard from a package:\nElectron exposes its Promise-based clipboard only in the main process, so\nevery programmatic read and write here crosses the process boundary (see\n`src/clipboard-bridge.js`). Native ClipboardEvents use a synchronous\nDataTransfer-backed adapter for the duration of the event.\n\n## Examples\n\n```js\nawait lumine.clipboard.write('hello')\n\nconsole.log(await lumine.clipboard.read()) // 'hello'\n```",
       "summary": "Represents the clipboard used for copying and pasting in Lumine.",
@@ -1546,6 +1551,7 @@
     },
     {
       "name": "Color",
+      "superClass": null,
       "visibility": "Essential",
       "description": "A simple color class returned from {@link Config#get} when the value\nat the key path is of type 'color'.",
       "summary": "A simple color class returned from {@link Config#get} when the value at the key path is of type 'color'.",
@@ -1616,6 +1622,7 @@
     },
     {
       "name": "CommandRegistry",
+      "superClass": null,
       "visibility": "Public",
       "description": "Associates listener functions with commands in a\ncontext-sensitive way using CSS selectors. You can access a global instance of\nthis class via `lumine.commands`, and commands registered there will be\npresented in the command palette.\n\nThe global command registry facilitates a style of event handling known as\n*event delegation* that was popularized by jQuery. Lumine commands are expressed\nas custom DOM events that can be invoked on the currently focused element via\na key binding or manually via the command palette. Rather than binding\nlisteners for command events directly to DOM nodes, you instead register\ncommand event listeners globally on `lumine.commands` and constrain them to\nspecific kinds of elements with CSS selectors.\n\nCommand names must follow the `namespace:action` pattern, where `namespace`\nwill typically be the name of your package, and `action` describes the\nbehavior of your command. If either part consists of multiple words, these\nmust be separated by hyphens. E.g. `awesome-package:turn-it-up-to-eleven`.\nAll words should be lowercased.\n\nAs the event bubbles upward through the DOM, all registered event listeners\nwith matching selectors are invoked in order of specificity. In the event of a\nspecificity tie, the most recently registered listener is invoked first. This\nmirrors the \"cascade\" semantics of CSS. Event listeners are invoked in the\ncontext of the current DOM node, meaning `this` always points at\n`event.currentTarget`. As is normally the case with DOM events,\n`stopPropagation` and `stopImmediatePropagation` can be used to terminate the\nbubbling process and prevent invocation of additional listeners.\n\n## Example\n\nHere is a command that inserts the current date in an editor:\n\n```js\nlumine.commands.add('lumine-text-editor', {\n  'user:insert-date'(event) {\n    const editor = this.getModel()\n    editor.insertText(new Date().toLocaleString())\n  }\n})\n```",
       "summary": "Associates listener functions with commands in a context-sensitive way using CSS selectors. You can access a global instance of this class via `lumine.commands`, and commands registered there will be presented in the command palette.",
@@ -1984,6 +1991,7 @@
     },
     {
       "name": "CompositeDisposable",
+      "superClass": null,
       "visibility": "Essential",
       "description": "An object that aggregates multiple {@link Disposable} instances into a\nsingle disposable, so they can all be disposed as a group.\n\nThese are very useful when subscribing to multiple events.\n\n## Examples\n\n```js\nconst { CompositeDisposable } = require(\"lumine\");\n\nclass Something {\n  constructor() {\n    this.disposables = new CompositeDisposable();\n    const editor = lumine.workspace.getActiveTextEditor();\n    this.disposables.add(editor.onDidChange(() => {}));\n    this.disposables.add(editor.onDidChangePath(() => {}));\n  }\n\n  destroy() {\n    this.disposables.dispose();\n  }\n}\n```",
       "summary": "An object that aggregates multiple {@link Disposable} instances into a single disposable, so they can all be disposed as a group.",
@@ -2132,6 +2140,7 @@
     },
     {
       "name": "Config",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `lumine.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\nlumine.config.get('my-package.myKey') // -> 'defaultValue'\n\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {@link #observe} to catch changes to the setting.\n\n```js\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {@link #onDidChange}.\n\n```js\nlumine.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\nlumine.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\nlumine.config.set('my-package.anInt', '123')\nlumine.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\nlumine.config.set('my-package.anInt', '-20')\nlumine.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\nlumine.config.set('my-package.thingVolume', '10')\nlumine.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\nlumine.config.set('my-package.thingVolume', '400')\nlumine.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\nlumine.config.set('my-package.thingVolume', 'cats')\nlumine.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\nlumine.config.set('my-package.someSetting', 'true')\nlumine.config.get('my-package.someSetting') // -> true\n\nlumine.config.set('my-package.someSetting', '12')\nlumine.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {@link Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\nlumine.config.set('my-package.someSetting', '2')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\nlumine.config.set('my-package.someSetting', '3')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\nlumine.config.set('my-package.someSetting', '4')\nlumine.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = lumine.config.get('some-package.otherSetting')\nlumine.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
       "summary": "Used to access all of Lumine's configuration details.",
@@ -2599,6 +2608,7 @@
     },
     {
       "name": "ContextMenuManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Provides a registry for commands that you'd like to appear in the\ncontext menu.\n\nAn instance of this class is always available as the `lumine.contextMenu`\nglobal.\n\n## Context Menu Object Format\n\n```json\n{\n  \"lumine-workspace\": [\n    { \"label\": \"Help\", \"command\": \"application:open-documentation\" }\n  ],\n  \"lumine-text-editor\": [\n    {\n      \"label\": \"History\",\n      \"submenu\": [\n        { \"label\": \"Undo\", \"command\": \"core:undo\" },\n        { \"label\": \"Redo\", \"command\": \"core:redo\" }\n      ]\n    }\n  ]\n}\n```\n\nA package declares its context menu in a file under `menus/`, with the\nstructure above under a `context-menu` key:\n\n```json\n{\n  \"context-menu\": {\n    \"lumine-workspace\": [\n      { \"label\": \"Help\", \"command\": \"application:open-documentation\" }\n    ]\n  }\n}\n```\n\nThe format for use in {@link #add} is the same minus the `context-menu` key. See\n{@link #add} for more information.",
       "summary": "Provides a registry for commands that you'd like to appear in the context menu.",
@@ -2790,6 +2800,7 @@
     },
     {
       "name": "Cursor",
+      "superClass": "Model",
       "visibility": "Extended",
       "description": "The `Cursor` class represents the little blinking line identifying\nwhere text can be inserted.\n\nCursors belong to {@link TextEditor TextEditors} and have some metadata attached in the form\nof a {@link DisplayMarker}.",
       "summary": "The `Cursor` class represents the little blinking line identifying where text can be inserted.",
@@ -4212,6 +4223,7 @@
     },
     {
       "name": "Decoration",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Represents a decoration that follows a {@link DisplayMarker}. A decoration is\nbasically a visual representation of a marker. It allows you to add CSS\nclasses to line numbers in the gutter, lines, and add selection-line regions\naround marked ranges of text.\n\n{@link Decoration} objects are not meant to be created directly, but created with\n{@link TextEditor#decorateMarker}. eg.\n\n```js\nconst range = editor.getSelectedBufferRange() // any range you like\nconst marker = editor.markBufferRange(range)\nconst decoration = editor.decorateMarker(marker, { type: 'line', class: 'my-line-class' })\n```\n\nBest practice for destroying the decoration is by destroying the {@link DisplayMarker}.\n\n```js\nmarker.destroy()\n```\n\nYou should only use {@link Decoration#destroy} when you still need or do not own\nthe marker.",
       "summary": "Represents a decoration that follows a {@link DisplayMarker}. A decoration is basically a visual representation of a marker. It allows you to add CSS classes to line numbers in the gutter, lines, and add selection-line regions around marked ranges of text.",
@@ -4422,6 +4434,7 @@
     },
     {
       "name": "DefaultDirectoryProvider",
+      "superClass": null,
       "visibility": "Public",
       "description": "Turns a project URI into a `Directory`, for local paths.\n\nThis is the provider {@link Project} falls back to when no package claims a URI. A\npackage supplies its own by providing the `project.directory-provider`\nservice; the methods below are the shape that contract expects.",
       "summary": "Turns a project URI into a `Directory`, for local paths.",
@@ -4512,6 +4525,7 @@
     },
     {
       "name": "DeserializerManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Manages the deserializers used for serialized state\n\nAn instance of this class is always available as the `lumine.deserializers`\nglobal.\n\n## Examples\n\n```js\nclass MyPackageView {\n  static deserialize(state) {\n    return new MyPackageView(state)\n  }\n\n  constructor(state) {\n    this.state = state\n  }\n\n  serialize() {\n    return { deserializer: 'MyPackageView', ...this.state }\n  }\n}\n\nlumine.deserializers.add(MyPackageView)\n```\n\nSerialized state has to carry the `deserializer` key: it is the name\n{@link #deserialize} looks the class up by, and state without it is dropped with a\nwarning rather than restored.",
       "summary": "Manages the deserializers used for serialized state",
@@ -4576,6 +4590,7 @@
     },
     {
       "name": "DisplayMarker",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Represents a buffer annotation that remains logically stationary\neven as the buffer changes. This is used to represent cursors, folds, snippet\ntargets, misspelled words, and anything else that needs to track a logical\nlocation in the buffer over time.\n\n### DisplayMarker Creation\n\nUse {@link DisplayMarkerLayer#markBufferRange} or {@link DisplayMarkerLayer#markScreenRange}\nrather than creating Markers directly.\n\n### Head and Tail\n\nMarkers always have a *head* and sometimes have a *tail*. If you think of a\nmarker as an editor selection, the tail is the part that's stationary and the\nhead is the part that moves when the mouse is moved. A marker without a tail\nalways reports an empty range at the head position. A marker with a head position\ngreater than the tail is in a \"normal\" orientation. If the head precedes the\ntail the marker is in a \"reversed\" orientation.\n\n### Validity\n\nMarkers are considered *valid* when they are first created. Depending on the\ninvalidation strategy you choose, certain changes to the buffer can cause a\nmarker to become invalid, for example if the text surrounding the marker is\ndeleted. The strategies, in order of descending fragility:\n\n* __never__: The marker is never marked as invalid. This is a good choice for\n  markers representing selections in an editor.\n* __surround__: The marker is invalidated by changes that completely surround it.\n* __overlap__: The marker is invalidated by changes that surround the\n  start or end of the marker. This is the default.\n* __inside__: The marker is invalidated by changes that extend into the\n  inside of the marker. Changes that end at the marker's start or\n  start at the marker's end do not invalidate the marker.\n* __touch__: The marker is invalidated by a change that touches the marked\n  region in any way, including changes that end at the marker's\n  start or start at the marker's end. This is the most fragile strategy.\n\nSee {@link TextBuffer#markRange} for usage.",
       "summary": "Represents a buffer annotation that remains logically stationary even as the buffer changes. This is used to represent cursors, folds, snippet targets, misspelled words, and anything else that needs to track a logical location in the buffer over time.",
@@ -5572,6 +5587,7 @@
     },
     {
       "name": "DisplayMarkerLayer",
+      "superClass": null,
       "visibility": "Experimental",
       "description": "A container for a related set of markers at the `DisplayLayer` level. Wraps\nan underlying {@link MarkerLayer} on the {@link TextBuffer}.",
       "summary": "A container for a related set of markers at the `DisplayLayer` level. Wraps an underlying {@link MarkerLayer} on the {@link TextBuffer}.",
@@ -6254,6 +6270,7 @@
     },
     {
       "name": "Disposable",
+      "superClass": null,
       "visibility": "Essential",
       "description": "A handle to a resource that can be disposed. For example,\n{@link Emitter#on} returns disposables representing subscriptions.",
       "summary": "A handle to a resource that can be disposed. For example, {@link Emitter#on} returns disposables representing subscriptions.",
@@ -6334,6 +6351,7 @@
     },
     {
       "name": "Dock",
+      "superClass": null,
       "visibility": "Extended",
       "description": "A container at the edges of the editor window capable of holding items.\nYou should not create a Dock directly. Instead, access one of the three docks of the workspace\nvia {@link Workspace#getLeftDock}, {@link Workspace#getRightDock}, and {@link Workspace#getBottomDock}\nor add an item to a dock via {@link Workspace#open}.",
       "summary": "A container at the edges of the editor window capable of holding items. You should not create a Dock directly. Instead, access one of the three docks of the workspace via {@link Workspace#getLeftDock}, {@link Workspace#getRightDock}, and {@link Workspace#getBottomDock} or add an item to a dock via {@link Workspace#open}.",
@@ -7218,6 +7236,7 @@
     },
     {
       "name": "Emitter",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Utility class to be used when implementing event-based APIs that allows\nhandlers registered via {@link Emitter#on} to be invoked with calls to\n{@link Emitter#emit}. Instances of this class are intended to be used\ninternally by classes that expose an event-based API.\n\nFor example:\n\n```js\nclass User {\n  constructor() {\n    this.emitter = new Emitter();\n  }\n\n  onDidChangeName(callback) {\n    return this.emitter.on(\"did-change-name\", callback);\n  }\n\n  setName(name) {\n    if (name !== this.name) {\n      this.name = name;\n      this.emitter.emit(\"did-change-name\", name);\n    }\n\n    return this.name;\n  }\n}\n```",
       "summary": "Utility class to be used when implementing event-based APIs that allows handlers registered via {@link Emitter#on} to be invoked with calls to {@link Emitter#emit}. Instances of this class are intended to be used internally by classes that expose an event-based API.",
@@ -7436,6 +7455,7 @@
     },
     {
       "name": "FileState",
+      "superClass": null,
       "visibility": "Public",
       "description": "The mutually exclusive persistence states exposed by file-backed pane items.",
       "summary": "The mutually exclusive persistence states exposed by file-backed pane items.",
@@ -7512,6 +7532,7 @@
     },
     {
       "name": "GitRepository",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Represents the underlying git operations performed by Lumine.\n\nThis class shouldn't be instantiated directly but instead by accessing the\n`lumine.repositories` and calling `getRepositories()` or `getForPath()`. It is\nindependent from project roots and may represent containing or nested repos.\n\nThis class handles submodules automatically by taking a `path` argument to many\nof the methods.  This `path` argument will determine which underlying\nrepository is used.\n\nFor a repository with submodules this would have the following outcome:\n\n```js\nconst repo = lumine.repositories.getRepositories()[0]\nrepo.getShortHead() // 'master'\nrepo.getShortHead('vendor/path/to/a/submodule') // 'dead1234'\n```\n\n## Examples\n\n### Logging the URL of the origin remote\n\n```js\nconst git = lumine.repositories.getRepositories()[0]\nconsole.log(git.getOriginURL())\n```\n\n### Requiring in packages\n\n```js\nconst { GitRepository } = require('lumine')\n```",
       "summary": "Represents the underlying git operations performed by Lumine.",
@@ -9142,6 +9163,7 @@
     },
     {
       "name": "GrammarRegistry",
+      "superClass": null,
       "visibility": "Extended",
       "description": "This class holds the grammars used for tokenizing.\n\nAn instance of this class is always available as the `lumine.grammars` global.",
       "summary": "This class holds the grammars used for tokenizing.",
@@ -9782,6 +9804,7 @@
     },
     {
       "name": "Gutter",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Represents a gutter within a {@link TextEditor}.\n\nSee {@link TextEditor#addGutter} for information on creating a gutter.",
       "summary": "Represents a gutter within a {@link TextEditor}.",
@@ -9965,6 +9988,7 @@
     },
     {
       "name": "HistoryManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "History manager for remembering which projects have been opened.\n\nAn instance of this class is always available as the `lumine.history` global.\n\nThe project history is used to populate recent project lists.",
       "summary": "History manager for remembering which projects have been opened.",
@@ -10035,6 +10059,7 @@
     },
     {
       "name": "IconRegistry",
+      "superClass": null,
       "visibility": "Essential",
       "description": "The single source of every icon the editor renders — file-type\nicons, the semantic names pane items return from `getIconName()`, and LSP\nsymbol kinds.\n\nProviders form a priority chain. Each is asked in turn, and returning `null`\nmeans \"not mine, ask the next one\"; core's octicon mapping is the always\npresent provider at the bottom, so every target resolves. Returning\n`Icon.none()` is *not* the same as `null` — it stops the chain with \"no icon\nhere\".\n\nAn instance of this class is always available as the `lumine.icons` global.",
       "summary": "The single source of every icon the editor renders — file-type icons, the semantic names pane items return from `getIconName()`, and LSP symbol kinds.",
@@ -10325,30 +10350,15 @@
     },
     {
       "name": "InputDialog",
+      "superClass": null,
       "visibility": "Experimental",
-      "description": "Modal panel with a mini query editor and optional custom DOM content.\n\nInputDialog owns the behaviors every query-driven modal needs — panel\nlifecycle, focus and blur handling, `core:confirm`/`core:cancel` commands,\nand the message line — without any list semantics. SelectList extends it\nwith items, filtering, and selection. Use it directly for dialogs that are\nnot lists (prompts, save dialogs, forms).\n\nThe dialog shows **one** message at a time, from three sources in\nprecedence order: `loadingMessage` (work in flight), then `status` (an\nepisodic overlay — a validation failure, a warning, a confirmation), then\n`infoMessage` (the resting line: a prompt, a help text, a stat line). The\noverlay never destroys the resting line, so clearing a status restores it\nwith nothing to save and put back.\n\nCustom DOM can be hosted through `headerElement` (above the query editor)\nand `contentElement` (below the messages).\n\nThe query is the dialog's own state, not the caller's: it is cleared on\nevery fresh show, kept across a modal-flow round trip, remembered when the\ndialog closes, and put back on demand by `select-list:restore-query` (F11).\nA dialog therefore never needs to call `reset()` before `show()`.",
-      "summary": "Modal panel with a mini query editor and optional custom DOM content.",
+      "description": "Detached query-dialog model with a mini editor and optional custom DOM content.\n\nInputDialog owns query state, messages, sources, commands and actions without\nany list semantics. SelectList extends it with items, filtering, and\nselection. The model creates its renderer only when {@link #getElement} is\nfirst called and never inserts that element into the DOM. Use\n{@link Workspace#addInputDialog} when the dialog needs a modal host.\n\nThe dialog shows **one** message at a time, from three sources in\nprecedence order: `loadingMessage` (work in flight), then `status` (an\nepisodic overlay — a validation failure, a warning, a confirmation), then\n`infoMessage` (the resting line: a prompt, a help text, a stat line). The\noverlay never destroys the resting line, so clearing a status restores it\nwith nothing to save and put back.\n\nCustom DOM can be hosted through `headerElement` (above the query editor)\nand `contentElement` (below the messages).\n\nThe query is the dialog's own state. A modal host decides when a new session\nresets it, preserves it across modal-flow steps, and restores a previous\nsession on request.",
+      "summary": "Detached query-dialog model with a mini editor and optional custom DOM content.",
       "source": "src/input-dialog.js",
       "sourcePath": "src/input-dialog.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 51,
+      "line": 45,
       "members": [
-        {
-          "name": "focus",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::focus()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Focuses the query editor input.",
-          "summary": "Focuses the query editor input.",
-          "parameters": [],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 185
-        },
         {
           "name": "getElement",
           "kind": "method",
@@ -10363,7 +10373,7 @@
           "returnType": "HTMLElement",
           "returnDescription": "",
           "propertyType": null,
-          "line": 196
+          "line": 171
         },
         {
           "name": "isDestroyed",
@@ -10379,7 +10389,7 @@
           "returnType": "boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 207
+          "line": 183
         },
         {
           "name": "onDidChangeQuery",
@@ -10405,111 +10415,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 217
-        },
-        {
-          "name": "onDidChangeVisible",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidChangeVisible(callback)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Invoke a callback when modal visibility changes.",
-          "summary": "Invoke a callback when modal visibility changes.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 227
-        },
-        {
-          "name": "onDidOpen",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidOpen(callback)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Invoke a callback after a fresh dialog open.",
-          "summary": "Invoke a callback after a fresh dialog open.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 237
-        },
-        {
-          "name": "onDidResume",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidResume(callback)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Invoke a callback when a modal-flow step resumes.",
-          "summary": "Invoke a callback when a modal-flow step resumes.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 247
-        },
-        {
-          "name": "onDidHide",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidHide(callback)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Invoke a callback after the dialog is hidden.",
-          "summary": "Invoke a callback after the dialog is hidden.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 257
+          "line": 263
         },
         {
           "name": "onDidConfirm",
@@ -10535,33 +10441,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 267
-        },
-        {
-          "name": "onDidCancel",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidCancel(callback)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Invoke a callback after the dialog is cancelled.",
-          "summary": "Invoke a callback after the dialog is cancelled.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 277
+          "line": 273
         },
         {
           "name": "onDidDestroy",
@@ -10587,7 +10467,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 287
+          "line": 283
         },
         {
           "name": "reset",
@@ -10603,13 +10483,13 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 357
+          "line": 293
         },
         {
           "name": "destroy",
           "kind": "method",
           "static": false,
-          "async": true,
+          "async": false,
           "signature": "::destroy()",
           "category": "Methods",
           "visibility": "Experimental",
@@ -10619,65 +10499,7 @@
           "returnType": "Promise",
           "returnDescription": "Resolves when destruction is complete",
           "propertyType": null,
-          "line": 368
-        },
-        {
-          "name": "show",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::show(options)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Shows the dialog as a modal panel.\n\nThe dialog reacts to its panel becoming visible — whoever shows it — so\nthe show side effects (open/resume events, select-all, focus) also run\nwhen the panel is shown from outside, e.g. by the modal flow re-showing\nthis dialog on a back navigation.",
-          "summary": "Shows the dialog as a modal panel.",
-          "parameters": [
-            {
-              "name": "options",
-              "source": "options",
-              "optional": true,
-              "rest": false,
-              "type": "Object",
-              "description": "Passed through to Panel#show. `{crumb: \"Label\"}` (or `crumb: true` to use the dialog's `crumb` prop) displays the dialog as a step of the modal flow: the modal visible at that moment becomes the previous breadcrumb entry, and Shift-Escape or a crumb click returns to it. Without options the dialog is shown standalone, as before.",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 405
-        },
-        {
-          "name": "getPanel",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getPanel()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Returns the modal panel that hosts the dialog, creating it (hidden) on\nfirst access. The panel item is `options.panelItem` when one was supplied,\notherwise the dialog model itself. The panel carries the dialog's `crumb`\nas its declared breadcrumb label.",
-          "summary": "Returns the modal panel that hosts the dialog, creating it (hidden) on first access. The panel item is `options.panelItem` when one was supplied, otherwise the dialog model itself. The panel carries the dialog's `crumb` as its declared breadcrumb label.",
-          "parameters": [],
-          "returnType": "Panel",
-          "returnDescription": "The modal panel",
-          "propertyType": null,
-          "line": 496
-        },
-        {
-          "name": "getPanelItem",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getPanelItem()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Return the item owned by the dialog's modal panel.",
-          "summary": "Return the item owned by the dialog's modal panel.",
-          "parameters": [],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 546
+          "line": 309
         },
         {
           "name": "getSource",
@@ -10693,7 +10515,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 556
+          "line": 366
         },
         {
           "name": "setSource",
@@ -10719,7 +10541,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 566
+          "line": 376
         },
         {
           "name": "reload",
@@ -10735,7 +10557,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 583
+          "line": 393
         },
         {
           "name": "isLoading",
@@ -10751,55 +10573,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 593
-        },
-        {
-          "name": "hide",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::hide()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Hides the dialog. Focus returns to the previously focused element via the\nworkspace's modal panel focus restoration.",
-          "summary": "Hides the dialog. Focus returns to the previously focused element via the workspace's modal panel focus restoration.",
-          "parameters": [],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 633
-        },
-        {
-          "name": "toggle",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::toggle()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Toggles the visibility of the dialog.",
-          "summary": "Toggles the visibility of the dialog.",
-          "parameters": [],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 653
-        },
-        {
-          "name": "isVisible",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::isVisible()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Returns whether the dialog is currently visible.",
-          "summary": "Returns whether the dialog is currently visible.",
-          "parameters": [],
-          "returnType": "boolean",
-          "returnDescription": "True if the panel exists and is visible",
-          "propertyType": null,
-          "line": 668
+          "line": 403
         },
         {
           "name": "getActions",
@@ -10815,7 +10589,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 752
+          "line": 516
         },
         {
           "name": "setActions",
@@ -10841,7 +10615,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 766
+          "line": 530
         },
         {
           "name": "addAction",
@@ -10867,7 +10641,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 779
+          "line": 543
         },
         {
           "name": "hasAvailableActions",
@@ -10893,7 +10667,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 794
+          "line": 558
         },
         {
           "name": "getAvailableActions",
@@ -10919,7 +10693,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 804
+          "line": 568
         },
         {
           "name": "isActionPending",
@@ -10945,7 +10719,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 820
+          "line": 584
         },
         {
           "name": "runAction",
@@ -10980,7 +10754,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 903
+          "line": 667
         },
         {
           "name": "onDidStartAction",
@@ -11006,7 +10780,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 943
+          "line": 707
         },
         {
           "name": "onDidFinishAction",
@@ -11032,39 +10806,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 953
-        },
-        {
-          "name": "restoreQuery",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::restoreQuery()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Puts back the query the dialog was last closed with, selected so the next\nkeystroke replaces it. A fresh show clears the query; this is how it is\nasked for again.",
-          "summary": "Puts back the query the dialog was last closed with, selected so the next keystroke replaces it. A fresh show clears the query; this is how it is asked for again.",
-          "parameters": [],
-          "returnType": "boolean",
-          "returnDescription": "Whether there was a query to restore",
-          "propertyType": null,
-          "line": 1013
-        },
-        {
-          "name": "showActions",
-          "kind": "method",
-          "static": false,
-          "async": true,
-          "signature": "::showActions()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Opens the explicitly declared actions in the workspace's shared action\npicker, preserving this dialog as the previous modal-flow step.",
-          "summary": "Opens the explicitly declared actions in the workspace's shared action picker, preserving this dialog as the previous modal-flow step.",
-          "parameters": [],
-          "returnType": "Promise<boolean>",
-          "returnDescription": "Whether an action picker was opened",
-          "propertyType": null,
-          "line": 1028
+          "line": 717
         },
         {
           "name": "confirm",
@@ -11080,33 +10822,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1063
-        },
-        {
-          "name": "cancel",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::cancel(reason = \"api\")",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Cancels and hides the dialog, then emits `onDidCancel`.",
-          "summary": "Cancels and hides the dialog, then emits `onDidCancel`.",
-          "parameters": [
-            {
-              "name": "reason",
-              "source": "reason = \"api\"",
-              "optional": true,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": "\"api\""
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 1076
+          "line": 778
         },
         {
           "name": "update",
@@ -11132,7 +10848,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1098
+          "line": 791
         },
         {
           "name": "getStatus",
@@ -11148,7 +10864,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1122
+          "line": 819
         },
         {
           "name": "setStatus",
@@ -11174,7 +10890,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1132
+          "line": 829
         },
         {
           "name": "clearStatus",
@@ -11190,7 +10906,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1142
+          "line": 839
         },
         {
           "name": "getInfoMessage",
@@ -11206,7 +10922,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1152
+          "line": 849
         },
         {
           "name": "setInfoMessage",
@@ -11232,7 +10948,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1162
+          "line": 859
         },
         {
           "name": "getLoadingState",
@@ -11248,7 +10964,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1172
+          "line": 869
         },
         {
           "name": "setLoadingState",
@@ -11274,7 +10990,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1183
+          "line": 880
         },
         {
           "name": "clearLoadingState",
@@ -11290,7 +11006,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1196
+          "line": 893
         },
         {
           "name": "getPlaceholderText",
@@ -11306,7 +11022,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1206
+          "line": 903
         },
         {
           "name": "setPlaceholderText",
@@ -11332,7 +11048,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1216
+          "line": 913
         },
         {
           "name": "getHeaderElement",
@@ -11348,7 +11064,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1226
+          "line": 923
         },
         {
           "name": "setHeaderElement",
@@ -11374,7 +11090,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1236
+          "line": 933
         },
         {
           "name": "getContentElement",
@@ -11390,7 +11106,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1246
+          "line": 943
         },
         {
           "name": "setContentElement",
@@ -11416,49 +11132,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1256
-        },
-        {
-          "name": "getCrumb",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getCrumb()",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Return the declared modal breadcrumb label.",
-          "summary": "Return the declared modal breadcrumb label.",
-          "parameters": [],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 1266
-        },
-        {
-          "name": "setCrumb",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::setCrumb(crumb)",
-          "category": "Methods",
-          "visibility": "Experimental",
-          "description": "Set the modal breadcrumb label.",
-          "summary": "Set the modal breadcrumb label.",
-          "parameters": [
-            {
-              "name": "crumb",
-              "source": "crumb",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": null,
-          "returnDescription": "",
-          "propertyType": null,
-          "line": 1276
+          "line": 953
         },
         {
           "name": "getQuery",
@@ -11474,7 +11148,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1549
+          "line": 1219
         },
         {
           "name": "setQuery",
@@ -11509,7 +11183,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1563
+          "line": 1229
         },
         {
           "name": "clearQuery",
@@ -11525,7 +11199,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1573
+          "line": 1239
         },
         {
           "name": "selectQuery",
@@ -11541,7 +11215,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1583
+          "line": 1249
         },
         {
           "name": "getQueryEditor",
@@ -11557,7 +11231,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1593
+          "line": 1259
         },
         {
           "name": "getParsedQuery",
@@ -11573,7 +11247,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1603
+          "line": 1269
         },
         {
           "name": "setQueryFromSelection",
@@ -11589,12 +11263,434 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1613
+          "line": 1279
+        }
+      ]
+    },
+    {
+      "name": "InputDialogHost",
+      "superClass": null,
+      "visibility": "Experimental",
+      "description": "Hosts a detached {@link InputDialog} model in a lazily-created modal panel.\nThe host owns visibility, focus, modal-flow state and session lifecycle; the\ncomplete dialog model remains available through {@link #getModel}.",
+      "summary": "Hosts a detached {@link InputDialog} model in a lazily-created modal panel. The host owns visibility, focus, modal-flow state and session lifecycle; the complete dialog model remains available through {@link #getModel}.",
+      "source": "src/input-dialog-host.js",
+      "sourcePath": "src/input-dialog-host.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 18,
+      "members": [
+        {
+          "name": "getModel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getModel()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return the complete detached dialog model.",
+          "summary": "Return the complete detached dialog model.",
+          "parameters": [],
+          "returnType": "InputDialog",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 70
+        },
+        {
+          "name": "getPanel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPanel()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Materialize and return the underlying modal Panel. Calling this method is\nthe first point at which the host registers UI with the workspace.",
+          "summary": "Materialize and return the underlying modal Panel. Calling this method is the first point at which the host registers UI with the workspace.",
+          "parameters": [],
+          "returnType": "Panel",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 82
+        },
+        {
+          "name": "show",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::show(options = {})",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Show the modal host and begin a model session.",
+          "summary": "Show the modal host and begin a model session.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.query",
+              "type": "String",
+              "description": "Opening query; omitted to reset it.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.query",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.selectQuery",
+              "type": "Boolean",
+              "description": "Whether to select the opening query.",
+              "optional": true,
+              "defaultValue": "true",
+              "source": "options.selectQuery",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.crumb",
+              "type": "String|Boolean",
+              "description": "Modal-flow breadcrumb for this opening.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.crumb",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise",
+          "returnDescription": "Resolves when the opening source load settles.",
+          "propertyType": null,
+          "line": 130
+        },
+        {
+          "name": "hide",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hide()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Hide the modal without emitting cancellation.",
+          "summary": "Hide the modal without emitting cancellation.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 155
+        },
+        {
+          "name": "toggle",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::toggle(options)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Hide a visible host or show a hidden one.",
+          "summary": "Hide a visible host or show a hidden one.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Opening options passed to {@link #show}.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Promise|undefined",
+          "returnDescription": "The opening source promise when shown.",
+          "propertyType": null,
+          "line": 177
+        },
+        {
+          "name": "cancel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::cancel(reason = \"api\")",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Dismiss the modal and emit a cancellation event.",
+          "summary": "Dismiss the modal and emit a cancellation event.",
+          "parameters": [
+            {
+              "name": "reason",
+              "source": "reason = \"api\"",
+              "optional": true,
+              "rest": false,
+              "type": "String",
+              "description": "Machine-readable cancellation reason.",
+              "defaultValue": "\"api\""
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 188
+        },
+        {
+          "name": "isVisible",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isVisible()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether this host's modal panel is visible.",
+          "summary": "Return whether this host's modal panel is visible.",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 207
+        },
+        {
+          "name": "isDestroyed",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isDestroyed()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Return whether this host has been destroyed.",
+          "summary": "Return whether this host has been destroyed.",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 218
+        },
+        {
+          "name": "focus",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::focus()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Focus the model's query editor.",
+          "summary": "Focus the model's query editor.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 228
+        },
+        {
+          "name": "restoreQuery",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::restoreQuery()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Restore and select the query remembered from the previous session.",
+          "summary": "Restore and select the query remembered from the previous session.",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "Whether a non-empty query was restored.",
+          "propertyType": null,
+          "line": 240
+        },
+        {
+          "name": "showActions",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::showActions()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Open the shared picker for actions available on the model.",
+          "summary": "Open the shared picker for actions available on the model.",
+          "parameters": [],
+          "returnType": "Promise",
+          "returnDescription": "Resolves to whether the action picker opened.",
+          "propertyType": null,
+          "line": 254
+        },
+        {
+          "name": "onDidChangeVisible",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeVisible(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when the host's visibility changes.",
+          "summary": "Invoke a callback when the host's visibility changes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 286
+        },
+        {
+          "name": "onDidOpen",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidOpen(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when a fresh modal session opens.",
+          "summary": "Invoke a callback when a fresh modal session opens.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 298
+        },
+        {
+          "name": "onDidResume",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidResume(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when a suspended modal-flow session resumes.",
+          "summary": "Invoke a callback when a suspended modal-flow session resumes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 310
+        },
+        {
+          "name": "onDidHide",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidHide(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when a modal session fully hides.",
+          "summary": "Invoke a callback when a modal session fully hides.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 322
+        },
+        {
+          "name": "onDidCancel",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidCancel(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when the host is cancelled.",
+          "summary": "Invoke a callback when the host is cancelled.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 334
+        },
+        {
+          "name": "onDidDestroy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidDestroy(callback)",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Invoke a callback when the host is destroyed.",
+          "summary": "Invoke a callback when the host is destroyed.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 346
+        },
+        {
+          "name": "destroy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::destroy()",
+          "category": "Methods",
+          "visibility": "Experimental",
+          "description": "Destroy the host and its panel. A model created from options is destroyed\nwith it; a model passed to the factory remains alive.",
+          "summary": "Destroy the host and its panel. A model created from options is destroyed with it; a model passed to the factory remains alive.",
+          "parameters": [],
+          "returnType": "Promise",
+          "returnDescription": "Resolves when owned resources have been destroyed.",
+          "propertyType": null,
+          "line": 390
         }
       ]
     },
     {
       "name": "KeymapManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Allows commands to be associated with keystrokes in a\ncontext-sensitive way. You can access a global instance of this\nobject via `lumine.keymaps`.\n\nKey bindings are plain JavaScript objects containing **CSS selectors** as\ntheir top level keys, then **keystroke patterns** mapped to commands.\n\n```jsonc\n{\n  \".workspace\": {\n    \"ctrl-l\": \"package:do-something\",\n    \"ctrl-z\": \"package:do-something-else\"\n  },\n  \".mini.editor\": {\n    \"enter\": \"core:confirm\"\n  }\n}\n```\n\nWhen a keystroke sequence matches a binding in a given context, a custom DOM\nevent with a type based on the command is dispatched on the target of the\nkeyboard event.\n\nTo match a keystroke sequence, the keymap starts at the target element for the\nkeyboard event. It looks for key bindings associated with selectors that match\nthe target element. If multiple match, the most specific is selected. If there\nis a tie in specificity, the most recently added binding wins. If no bindings\nare found for the events target, the search is repeated again for the target's\nparent node and so on recursively until a binding is found or we traverse off\nthe top of the document.\n\nWhen a binding is found, its command event is always dispatched on the\noriginal target of the keyboard event, even if the matching element is higher\nup in the DOM. In addition, `.preventDefault()` is called on the keyboard\nevent to prevent the browser from taking action. `.preventDefault` is only\ncalled if a matching binding is found.\n\nCommand event objects have a non-standard method called `.abortKeyBinding()`.\nIf your command handler is invoked but you programmatically determine that no\naction can be taken and you want to allow other bindings to be matched, call\n`.abortKeyBinding()` on the event object. An example of where this is useful\nis binding snippet expansion to `tab`. If `snippets:expand` is invoked when\nthe cursor does not follow a valid snippet prefix, we abort the binding and\nallow `tab` to be handled by the default handler, which inserts whitespace.\n\nMulti-keystroke bindings are possible. If a sequence of one or more keystrokes\n*partially* matches a multi-keystroke binding, the keymap enters a pending\nstate. The pending state is terminated on the next keystroke, or after\n{@link #getPartialMatchTimeout} milliseconds has elapsed. When the pending state is\nterminated via a timeout or a keystroke that leads to no matches, the longest\nambiguous bindings that caused the pending state are temporarily disabled and\nthe previous keystrokes are replayed. If there is ambiguity again during the\nreplay, the next longest bindings are disabled and the keystrokes are replayed\nagain.",
       "summary": "Allows commands to be associated with keystrokes in a context-sensitive way. You can access a global instance of this object via `lumine.keymaps`.",
@@ -12435,6 +12531,7 @@
     },
     {
       "name": "LayerDecoration",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Represents a decoration that applies to every marker on a given\nlayer. Created via {@link TextEditor#decorateMarkerLayer}.",
       "summary": "Represents a decoration that applies to every marker on a given layer. Created via {@link TextEditor#decorateMarkerLayer}.",
@@ -12556,6 +12653,7 @@
     },
     {
       "name": "MarkerLayer",
+      "superClass": null,
       "visibility": "Experimental",
       "description": "A container for a related set of markers.",
       "summary": "A container for a related set of markers.",
@@ -12930,6 +13028,7 @@
     },
     {
       "name": "MenuManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `lumine.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/main.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n      ]\n    }\n  ]\n}\n```\n\nSee {@link #add} for more information about adding menus directly.",
       "summary": "Provides a registry for menu items that you'd like to appear in the application menu.",
@@ -13128,6 +13227,7 @@
     },
     {
       "name": "Notification",
+      "superClass": null,
       "visibility": "Public",
       "description": "A notification to the user containing a message and type.",
       "summary": "A notification to the user containing a message and type.",
@@ -13240,6 +13340,7 @@
     },
     {
       "name": "NotificationManager",
+      "superClass": null,
       "visibility": "Public",
       "description": "A notification manager used to create {@link Notification Notifications} to be shown\nto the user.\n\nAn instance of this class is always available as the `lumine.notifications`\nglobal.",
       "summary": "A notification manager used to create {@link Notification Notifications} to be shown to the user.",
@@ -14098,6 +14199,7 @@
     },
     {
       "name": "Package",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Loads and activates a package's main module and resources such as\nstylesheets, keymaps, grammar, editor properties, and menus.",
       "summary": "Loads and activates a package's main module and resources such as stylesheets, keymaps, grammar, editor properties, and menus.",
@@ -14184,6 +14286,7 @@
     },
     {
       "name": "PackageManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Package manager for coordinating the lifecycle of Lumine packages.\n\nAn instance of this class is always available as the `lumine.packages` global.\n\nPackages can be loaded, activated, and deactivated, and unloaded:\n * Loading a package reads and parses the package's metadata and resources\n   such as keymaps, menus, stylesheets, etc.\n * Activating a package registers the loaded resources and calls `activate()`\n   on the package's main module.\n * Deactivating a package unregisters the package's resources  and calls\n   `deactivate()` on the package's main module.\n * Unloading a package removes it completely from the package manager.\n\nPackages can be enabled/disabled via the `core.disabledPackages` config\nsettings and also by calling `enablePackage()/disablePackage()`.",
       "summary": "Package manager for coordinating the lifecycle of Lumine packages.",
@@ -14832,6 +14935,7 @@
     },
     {
       "name": "Pane",
+      "superClass": null,
       "visibility": "Extended",
       "description": "A container for presenting content in the center of the workspace.\nPanes can contain multiple items, one of which is *active* at a given time.\nThe view corresponding to the active item is displayed in the interface. In\nthe default configuration, tabs are also displayed for each item.\n\nEach pane may also contain one *pending* item. When a pending item is added\nto a pane, it will replace the currently pending item, if any, instead of\nsimply being added. In the default configuration, the text in the tab for\npending items is shown in italics.",
       "summary": "A container for presenting content in the center of the workspace. Panes can contain multiple items, one of which is *active* at a given time. The view corresponding to the active item is displayed in the interface. In the default configuration, tabs are also displayed for each item.",
@@ -16467,6 +16571,7 @@
     },
     {
       "name": "Panel",
+      "superClass": null,
       "visibility": "Extended",
       "description": "A container representing a panel on the edges of the editor window.\nYou should not create a `Panel` directly, instead use {@link Workspace#addTopPanel}\nand friends to add panels.\n\nExamples: status-bar and search-panel both use panels.",
       "summary": "A container representing a panel on the edges of the editor window. You should not create a `Panel` directly, instead use {@link Workspace#addTopPanel} and friends to add panels.",
@@ -16561,7 +16666,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 94
+          "line": 104
         },
         {
           "name": "getItem",
@@ -16577,7 +16682,7 @@
           "returnType": "*",
           "returnDescription": "panel's item.",
           "propertyType": null,
-          "line": 118
+          "line": 128
         },
         {
           "name": "getPriority",
@@ -16593,7 +16698,7 @@
           "returnType": "Number",
           "returnDescription": "indicating this panel's priority.",
           "propertyType": null,
-          "line": 128
+          "line": 138
         },
         {
           "name": "isVisible",
@@ -16609,7 +16714,7 @@
           "returnType": "Boolean",
           "returnDescription": "true when the panel is visible.",
           "propertyType": null,
-          "line": 142
+          "line": 152
         },
         {
           "name": "hide",
@@ -16625,7 +16730,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 152
+          "line": 162
         },
         {
           "name": "show",
@@ -16661,12 +16766,13 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 168
+          "line": 179
         }
       ]
     },
     {
       "name": "PasteProviderRegistry",
+      "superClass": null,
       "visibility": "Experimental",
       "description": "Lets a package claim a paste before the editor turns the\nclipboard into text.\n\nAn instance of this class is always available as the `lumine.pasteProviders`\nglobal.\n\nThis is a dispatch table, not a second clipboard. {@link Clipboard} owns what the\nclipboard holds; this owns who gets first refusal on putting it somewhere.\nThe two are deliberately separate, because a provider is chosen by the\npaste's *target* — a text editor, a tree-view directory — and that is\nworkspace vocabulary the clipboard has no business knowing.\n\nProviders are offered the paste highest `priority` first, and equal\npriorities keep registration order. The first one to resolve to `true`\nclaims it and no later provider is consulted; when none does, the caller\nfalls back to its own behavior — inserting text, in the editor's case. A paste that sets\n`skipPasteProviders` in its options skips the registry outright, which is how\n`editor:paste-without-reformatting` guarantees it pastes raw text.\n\nA provider may return a `Promise`, but it must copy everything it needs from\na native `paste` ClipboardEvent before its first asynchronous step because\n`clipboardData` is readable only for the duration of that event.\n\n## Examples\n\nTake over pasting an image, and leave every other paste alone:\n\n```js\nlumine.pasteProviders.add({\n  handlePaste({ target, clipboardData }) {\n    if (target.type !== 'text-editor') return false\n    const image = imageFrom(clipboardData)\n    if (!image) return false\n    saveAndInsert(image, target.editor) // may finish asynchronously\n    return true\n  }\n}, { priority: 100 })\n```",
       "summary": "Lets a package claim a paste before the editor turns the clipboard into text.",
@@ -16790,6 +16896,7 @@
     },
     {
       "name": "PathWatcher",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Manage a subscription to filesystem events that occur beneath a\nroot directory. Construct these by calling `watchPath`. To watch for events\nwithin active project directories, use {@link Project#onDidChangeFiles} instead.\n\nMultiple PathWatchers may be backed by a single native watcher to conserve\noperating-system resources.\n\nCall {@link #dispose} to stop receiving events and, if possible, release\nunderlying resources. A PathWatcher may be added to a `CompositeDisposable`\nto manage its lifetime along with other `Disposable` resources like event\nsubscriptions.\n\n```js\nconst {watchPath} = require('lumine')\n\nconst disposable = await watchPath('/var/log', {}, events => {\n  console.log(`Received batch of ${events.length} events.`)\n  for (const event of events) {\n    // \"created\", \"updated\", \"deleted\", \"renamed\"\n    console.log(`Event action: ${event.action}`)\n\n    // absolute path to the filesystem entry that was touched\n    console.log(`Event path: ${event.path}`)\n\n    if (event.action === 'renamed') {\n      console.log(`.. renamed from: ${event.oldPath}`)\n    }\n  }\n})\n\n // Immediately stop receiving filesystem events. If this is the last\n // watcher, asynchronously release any OS resources required to\n // subscribe to these events.\n disposable.dispose()\n```\n\n`watchPath` accepts the following arguments:\n\n* `rootPath` `String` specifies the absolute path to the root of the\n  filesystem content to watch.\n* `options` Control the watcher's behavior:\n  * `realPaths` `Boolean` whether to report the real path on disk for each\n    event. Default `true`; `false` reports paths that descend from\n    `rootPath` even where symlinks point elsewhere.\n* `eventCallback` `Function` to be called each time a batch of filesystem\n  events is observed. Each event object has the keys:\n  * `action`, a `String` describing the filesystem action that occurred, one\n    of `\"created\"`, `\"updated\"`, `\"deleted\"`, or `\"renamed\"`;\n  * `path`, a `String` containing the absolute path to the filesystem entry\n    that was acted upon;\n  * `oldPath` (for `renamed` events only), a `String` containing the\n    filesystem entry's former absolute path.",
       "summary": "Manage a subscription to filesystem events that occur beneath a root directory. Construct these by calling `watchPath`. To watch for events within active project directories, use {@link Project#onDidChangeFiles} instead.",
@@ -16870,6 +16977,7 @@
     },
     {
       "name": "Point",
+      "superClass": null,
       "visibility": "Public",
       "description": "Represents a point in a buffer in row/column coordinates.\n\nEvery public method that takes a point also accepts a *point-compatible*\n`Array`. This means a 2-element array containing `Numbers` representing the\nrow and column. So the following are equivalent:\n\n```js\nnew Point(1, 2)\n[1, 2] // Point-compatible Array\n```",
       "summary": "Represents a point in a buffer in row/column coordinates.",
@@ -17352,6 +17460,7 @@
     },
     {
       "name": "Project",
+      "superClass": "Model",
       "visibility": "Extended",
       "description": "Represents a project that's opened in Lumine.\n\nAn instance of this class is always available as the `lumine.project` global.",
       "summary": "Represents a project that's opened in Lumine.",
@@ -18230,6 +18339,7 @@
     },
     {
       "name": "Range",
+      "superClass": null,
       "visibility": "Public",
       "description": "Represents a region in a buffer in row/column coordinates.\n\nEvery public method that takes a range also accepts a *range-compatible*\n`Array`. This means a 2-element array containing {@link Point Points} or point-compatible\narrays. So the following are equivalent:\n\n## Examples\n\n```js\nnew Range(new Point(0, 1), new Point(2, 3))\nnew Range([0, 1], [2, 3])\n[[0, 1], [2, 3]] // Range-compatible array\n```",
       "summary": "Represents a region in a buffer in row/column coordinates.",
@@ -18813,6 +18923,7 @@
     },
     {
       "name": "RepositoryRegistry",
+      "superClass": null,
       "visibility": "Public",
       "description": "Every Git repository this window knows about, available as\n`lumine.repositories`.\n\nProject roots are where repositories are discovered and what keeps them\nalive, but a repository's identity is independent of them: one root can hold\nseveral repositories, one repository can span several roots, and a file\nopened from outside every root still resolves to the repository that\ncontains it.\n\n## Finding a repository\n\n{@link #getForPath} answers from what is already known and never touches the\nfilesystem, which is what a renderer wants. {@link #resolveForPath} may discover\nand register a repository that was not known yet, at the cost of being\nasynchronous:\n\n```js\nconst repository = lumine.repositories.getForPath(editor.getPath())\nif (repository) console.log(repository.getShortHead())\n```\n\n## Following the one the user is in\n\n{@link #observeActiveRepository} tracks the repository behind the active pane\nitem, so a status bar or a panel does not have to work it out itself:\n\n```js\nlumine.repositories.observeActiveRepository(({ repository, workingDirectory }) => {\n  // repository is null when the active item belongs to none\n})\n```\n\n## Operations\n\nThe registry performs no Git work of its own. A package provides an\nimplementation through {@link #addOperationProvider}, and everything under\n\"Operations\" and \"Running Git\" below is routed to whichever provider claims\nthe capability. Ask {@link #canPerformOperation} before offering an action, since\na window with no provider installed can answer nothing.",
       "summary": "Every Git repository this window knows about, available as `lumine.repositories`.",
@@ -20059,6 +20170,7 @@
     },
     {
       "name": "RuntimeService",
+      "superClass": null,
       "visibility": "Public",
       "description": "Renderer-runtime readiness and unhandled-error events.",
       "summary": "Renderer-runtime readiness and unhandled-error events.",
@@ -20155,6 +20267,7 @@
     },
     {
       "name": "ScopeDescriptor",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Wraps an `Array` of `String`s. The Array describes a path from the\nroot of the syntax tree to a token including _all_ scope names for the entire\npath.\n\nMethods that take a `ScopeDescriptor` will also accept an `Array` of `String`\nscope names e.g. `['.source.js']`.\n\nYou can use `ScopeDescriptor`s to get language-specific config settings via\n{@link Config#get}.\n\nYou should not need to create a `ScopeDescriptor` directly.\n\n* {@link TextEditor#getRootScopeDescriptor} to get the language's descriptor.\n* {@link TextEditor#scopeDescriptorForBufferPosition} to get the descriptor at a\n  specific position in the buffer.\n* {@link Cursor#getScopeDescriptor} to get a cursor's descriptor based on position.\n\nSee the [scopes and scope descriptor guide](https://lumine-code.github.io/docs.html#customizing-lumine/language-settings)\nfor more information.",
       "summary": "Wraps an `Array` of `String`s. The Array describes a path from the root of the syntax tree to a token including _all_ scope names for the entire path.",
@@ -20219,6 +20332,7 @@
     },
     {
       "name": "SecretStore",
+      "superClass": null,
       "visibility": "Public",
       "description": "Somewhere to keep an access token, available as `lumine.secrets`.\n\nFor the sensitive strings a package must remember between sessions — a\nforge token, an API key, a password. Never `lumine.config`: everything in\nthere is written to disk in plain text and shown in the settings view.\n\nKeys are opaque strings and values are strings. Namespace your own keys, by\nconvention with the package name:\n\n```js\nawait lumine.secrets.set('github.token', token)\nconst token = await lumine.secrets.get('github.token')\n```\n\n## Storage\n\nValues are encrypted with the operating system's own facility — DPAPI on\nWindows, the Keychain on macOS, libsecret or kwallet on Linux — and kept as\nbase64 in one file under the config directory.\n\nWhere the OS offers no encryption, typically a headless Linux box with no\nkeyring, the store keeps values in memory for the session only and warns the\nuser once. It never writes a secret to disk in the clear. A package should\ntherefore expect {@link #get} to return `null` for something it stored in an\nearlier session, and ask again rather than fail.",
       "summary": "Somewhere to keep an access token, available as `lumine.secrets`.",
@@ -20370,6 +20484,7 @@
     },
     {
       "name": "Selection",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Represents a selection in the {@link TextEditor}.",
       "summary": "Represents a selection in the {@link TextEditor}.",
@@ -22386,20 +22501,21 @@
     },
     {
       "name": "SelectList",
+      "superClass": "InputDialog",
       "visibility": "Experimental",
-      "description": "Fuzzy-searchable select list. Extends InputDialog — which owns the\nmodal panel, query editor, focus handling, and confirm/cancel commands —\nwith items, filtering, selection, and list rendering.",
-      "summary": "Fuzzy-searchable select list. Extends InputDialog — which owns the modal panel, query editor, focus handling, and confirm/cancel commands — with items, filtering, selection, and list rendering.",
+      "description": "Detached fuzzy-searchable select-list model. Extends InputDialog with items,\nfiltering, selection and list rendering. Call {@link InputDialog#getElement} to lazily\ncreate its unmounted surface, or use {@link Workspace#addSelectList} to give\nit a modal host.",
+      "summary": "Detached fuzzy-searchable select-list model. Extends InputDialog with items, filtering, selection and list rendering. Call {@link InputDialog#getElement} to lazily create its unmounted surface, or use {@link Workspace#addSelectList} to give it a modal host.",
       "source": "src/select-list.js",
       "sourcePath": "src/select-list.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 34,
+      "line": 35,
       "members": [
         {
-          "name": "destroy",
+          "name": "destroyNow",
           "kind": "method",
           "static": false,
           "async": true,
-          "signature": "::destroy()",
+          "signature": "::destroyNow()",
           "category": "Methods",
           "visibility": "Experimental",
           "description": "Destroys the select list and cleans up resources.",
@@ -22408,7 +22524,7 @@
           "returnType": "Promise",
           "returnDescription": "Resolves when destruction is complete",
           "propertyType": null,
-          "line": 299
+          "line": 381
         },
         {
           "name": "getParsedQuery",
@@ -22424,7 +22540,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 361
+          "line": 446
         },
         {
           "name": "setSource",
@@ -22450,7 +22566,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 373
+          "line": 458
         },
         {
           "name": "getItems",
@@ -22466,7 +22582,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 618
+          "line": 699
         },
         {
           "name": "getFilteredItems",
@@ -22482,7 +22598,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 628
+          "line": 709
         },
         {
           "name": "getDisplayedItems",
@@ -22498,7 +22614,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 638
+          "line": 719
         },
         {
           "name": "getItemCount",
@@ -22514,7 +22630,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 648
+          "line": 729
         },
         {
           "name": "getMatchCount",
@@ -22530,7 +22646,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 658
+          "line": 739
         },
         {
           "name": "onDidChangeItems",
@@ -22556,7 +22672,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 668
+          "line": 749
         },
         {
           "name": "onDidChangeSelection",
@@ -22582,7 +22698,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 678
+          "line": 759
         },
         {
           "name": "setItems",
@@ -22617,7 +22733,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 688
+          "line": 769
         },
         {
           "name": "setSections",
@@ -22652,7 +22768,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 698
+          "line": 779
         },
         {
           "name": "refresh",
@@ -22678,7 +22794,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 708
+          "line": 789
         },
         {
           "name": "getItemId",
@@ -22704,7 +22820,7 @@
           "returnType": "*",
           "returnDescription": "The item's identifier",
           "propertyType": null,
-          "line": 723
+          "line": 804
         },
         {
           "name": "showMore",
@@ -22740,7 +22856,7 @@
           "returnType": "Promise",
           "returnDescription": "Resolves when the expanded list has rendered",
           "propertyType": null,
-          "line": 865
+          "line": 947
         },
         {
           "name": "getFilterKey",
@@ -22766,7 +22882,7 @@
           "returnType": "string|null",
           "returnDescription": "The filter key string, or null",
           "propertyType": null,
-          "line": 928
+          "line": 1010
         },
         {
           "name": "getMatchIndices",
@@ -22801,7 +22917,7 @@
           "returnType": "number[]|null",
           "returnDescription": "Array of character indices that matched, or null",
           "propertyType": null,
-          "line": 946
+          "line": 1028
         },
         {
           "name": "getSelectedItem",
@@ -22817,7 +22933,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 992
+          "line": 1074
         },
         {
           "name": "getSelectedItemId",
@@ -22833,7 +22949,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1002
+          "line": 1084
         },
         {
           "name": "getSelectedIndex",
@@ -22849,7 +22965,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1012
+          "line": 1094
         },
         {
           "name": "selectPrevious",
@@ -22865,7 +22981,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1101
+          "line": 1183
         },
         {
           "name": "selectNext",
@@ -22881,7 +22997,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1113
+          "line": 1195
         },
         {
           "name": "selectFirst",
@@ -22897,7 +23013,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1142
+          "line": 1224
         },
         {
           "name": "selectLast",
@@ -22913,7 +23029,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1152
+          "line": 1234
         },
         {
           "name": "selectNone",
@@ -22929,7 +23045,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1180
+          "line": 1262
         },
         {
           "name": "selectIndex",
@@ -22973,7 +23089,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1190
+          "line": 1272
         },
         {
           "name": "selectItem",
@@ -22999,7 +23115,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1231
+          "line": 1313
         },
         {
           "name": "selectItemById",
@@ -23025,7 +23141,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1254
+          "line": 1336
         },
         {
           "name": "getScrollTop",
@@ -23041,7 +23157,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1267
+          "line": 1349
         },
         {
           "name": "setScrollTop",
@@ -23067,7 +23183,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1277
+          "line": 1359
         },
         {
           "name": "scrollToItem",
@@ -23093,7 +23209,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1287
+          "line": 1369
         },
         {
           "name": "scrollToSelectedItem",
@@ -23109,7 +23225,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1303
+          "line": 1385
         },
         {
           "name": "hasMoreItems",
@@ -23125,7 +23241,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1315
+          "line": 1397
         },
         {
           "name": "getRemainingItemCount",
@@ -23141,7 +23257,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1325
+          "line": 1407
         },
         {
           "name": "resetDisplayedItemLimit",
@@ -23157,7 +23273,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1335
+          "line": 1417
         },
         {
           "name": "getRecentItemIds",
@@ -23173,7 +23289,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1351
+          "line": 1433
         },
         {
           "name": "setRecentItemIds",
@@ -23208,7 +23324,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1361
+          "line": 1443
         },
         {
           "name": "getRecentLimit",
@@ -23224,7 +23340,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1378
+          "line": 1460
         },
         {
           "name": "setRecentLimit",
@@ -23250,7 +23366,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1388
+          "line": 1470
         },
         {
           "name": "isRecentItem",
@@ -23276,7 +23392,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1405
+          "line": 1487
         },
         {
           "name": "recordRecentItem",
@@ -23302,7 +23418,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1416
+          "line": 1498
         },
         {
           "name": "removeRecentItem",
@@ -23328,7 +23444,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1429
+          "line": 1511
         },
         {
           "name": "clearRecentItems",
@@ -23344,7 +23460,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1440
+          "line": 1522
         },
         {
           "name": "onDidChangeRecentItemIds",
@@ -23370,7 +23486,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1450
+          "line": 1532
         },
         {
           "name": "confirmSelection",
@@ -23386,7 +23502,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1461
+          "line": 1543
         },
         {
           "name": "onDidConfirmSelection",
@@ -23412,7 +23528,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1485
+          "line": 1567
         },
         {
           "name": "onDidConfirmEmptySelection",
@@ -23438,38 +23554,42 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1495
-        },
+          "line": 1577
+        }
+      ]
+    },
+    {
+      "name": "SelectListHost",
+      "superClass": "InputDialogHost",
+      "visibility": "Experimental",
+      "description": "Modal host for a detached {@link SelectList} model. It inherits the complete\nvisibility, focus, modal-flow and session lifecycle of\n{@link InputDialogHost} while narrowing {@link #getModel} to SelectList.",
+      "summary": "Modal host for a detached {@link SelectList} model. It inherits the complete visibility, focus, modal-flow and session lifecycle of {@link InputDialogHost} while narrowing {@link #getModel} to SelectList.",
+      "source": "src/select-list-host.js",
+      "sourcePath": "src/select-list-host.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 13,
+      "members": [
         {
-          "name": "cancelSelection",
+          "name": "getModel",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::cancelSelection(reason = \"api\")",
+          "signature": "::getModel()",
           "category": "Methods",
           "visibility": "Experimental",
-          "description": "Cancels the selection, hides the list, and emits `onDidCancel`.",
-          "summary": "Cancels the selection, hides the list, and emits `onDidCancel`.",
-          "parameters": [
-            {
-              "name": "reason",
-              "source": "reason = \"api\"",
-              "optional": true,
-              "rest": false,
-              "type": null,
-              "description": "",
-              "defaultValue": "\"api\""
-            }
-          ],
-          "returnType": null,
+          "description": "Return the complete detached select-list model.",
+          "summary": "Return the complete detached select-list model.",
+          "parameters": [],
+          "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1505
+          "line": 21
         }
       ]
     },
     {
       "name": "ServiceHub",
+      "superClass": null,
       "visibility": "Public",
       "description": "",
       "summary": "",
@@ -23602,6 +23722,7 @@
     },
     {
       "name": "ShellService",
+      "superClass": null,
       "visibility": "Public",
       "description": "Operating-system shell integrations.",
       "summary": "Operating-system shell integrations.",
@@ -23718,6 +23839,7 @@
     },
     {
       "name": "StyleManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "A singleton instance of this class available via `lumine.styles`,\nwhich you can use to globally query and observe the set of active style\nsheets. The `StyleManager` doesn't add any style elements to the DOM on its\nown, but is instead subscribed to by individual `<lumine-styles>` elements,\nwhich clone and attach style elements in different contexts.",
       "summary": "A singleton instance of this class available via `lumine.styles`, which you can use to globally query and observe the set of active style sheets. The `StyleManager` doesn't add any style elements to the DOM on its own, but is instead subscribed to by individual `<lumine-styles>` elements, which clone and attach style elements in different contexts.",
@@ -23966,6 +24088,7 @@
     },
     {
       "name": "Task",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Run a node script in a separate process.\n\nUsed by fuzzy file search and find-and-replace in project.\n\nFor a real-world example, see the [replace-handler](https://github.com/lumine-code/lumine/blob/master/src/replace-handler.js).\n\n## Examples\n\nIn your package code:\n\n```javascript\nconst {Task} = require('lumine');\n\nlet task = Task.once('/path/to/task-file.js', parameter1, parameter2, function() {\n  console.log('task has finished');\n});\n\ntask.on('some-event-from-the-task', (data) => {\n  console.log(data.someString); // prints 'yep this is it'\n});\n```\n\nIn `'/path/to/task-file.js'`:\n\n```javascript\nmodule.exports = function(parameter1, parameter2) {\n  // Indicates that this task will be async.\n  // Call the `callback` to finish the task\n  const callback = this.async();\n  emit('some-event-from-the-task', {\n    someString: 'yep this is it'\n  });\n  return callback();\n};\n```",
       "summary": "Run a node script in a separate process.",
@@ -24167,6 +24290,7 @@
     },
     {
       "name": "TextBuffer",
+      "superClass": null,
       "visibility": "Extended",
       "description": "A mutable text container with undo/redo support and the ability to\nannotate logical regions in the text.\n\n## Observing Changes\n\nYou can observe changes in a {@link TextBuffer} using methods like {@link #onDidChange},\n{@link #onDidStopChanging}, and {@link #getChangesSinceCheckpoint}. These methods report\naggregated buffer updates as arrays of change objects containing the following\nfields: `oldRange`, `newRange`, `oldText`, and `newText`. The `oldText`,\n`newText`, and `newRange` fields are self-explanatory, but the interpretation\nof `oldRange` is more nuanced:\n\nThe reported `oldRange` is the range of the replaced text in the original\ncontents of the buffer *irrespective of the spatial impact of any other\nreported change*. So, for example, if you wanted to apply all the changes made\nin a transaction to a clone of the observed buffer, the easiest approach would\nbe to apply the changes in reverse:\n\n```js\nbuffer1.onDidChange(({changes}) => {\n  for (const {oldRange, newText} of changes.reverse()) {\n    buffer2.setTextInRange(oldRange, newText)\n  }\n})\n```\n\nIf you needed to apply the changes in the forwards order, you would need to\nincorporate the impact of preceding changes into the range passed to\n{@link #setTextInRange}, as follows:\n\n```js\nbuffer1.onDidChange(({changes}) => {\n  for (const {oldRange, newRange, newText} of changes) {\n    const rangeToReplace = Range(\n      newRange.start,\n      newRange.start.traverse(oldRange.getExtent())\n    )\n    buffer2.setTextInRange(rangeToReplace, newText)\n  }\n})\n```",
       "summary": "A mutable text container with undo/redo support and the ability to annotate logical regions in the text.",
@@ -28006,6 +28130,7 @@
     },
     {
       "name": "TextEditor",
+      "superClass": null,
       "visibility": "Essential",
       "description": "This class represents all essential editing state for a single\n{@link TextBuffer}, including cursor and selection positions, folds, and soft wraps.\nIf you're manipulating the state of an editor, use this class.\n\nA single {@link TextBuffer} can belong to multiple editors. For example, if the\nsame file is open in two different panes, Lumine creates a separate editor for\neach pane. If the buffer is manipulated the changes are reflected in both\neditors, but each maintains its own cursor position, folded lines, etc.\n\n## Accessing TextEditor Instances\n\nThe easiest way to get hold of `TextEditor` objects is by registering a callback\nwith `::observeTextEditors` on the `lumine.workspace` global. Your callback will\nthen be called with all current editor instances and also when any editor is\ncreated in the future.\n\n```js\nlumine.workspace.observeTextEditors(editor => {\n  editor.insertText('Hello World')\n})\n```\n\n## Buffer vs. Screen Coordinates\n\nBecause editors support folds and soft-wrapping, the lines on screen don't\nalways match the lines in the buffer. For example, a long line that soft wraps\ntwice renders as three lines on screen, but only represents one line in the\nbuffer. Similarly, if rows 5-10 are folded, then row 6 on screen corresponds\nto row 11 in the buffer.\n\nYour choice of coordinates systems will depend on what you're trying to\nachieve. For example, if you're writing a command that jumps the cursor up or\ndown by 10 lines, you'll want to use screen coordinates because the user\nprobably wants to skip lines *on screen*. However, if you're writing a package\nthat jumps between method definitions, you'll want to work in buffer\ncoordinates.\n\n**When in doubt, just default to buffer coordinates**, then experiment with\nsoft wraps and folds to ensure your code interacts with them correctly.",
       "summary": "This class represents all essential editing state for a single {@link TextBuffer}, including cursor and selection positions, folds, and soft wraps. If you're manipulating the state of an editor, use this class.",
@@ -35866,6 +35991,7 @@
     },
     {
       "name": "TextEditorElement",
+      "superClass": "HTMLElement",
       "visibility": "Essential",
       "description": "",
       "summary": "",
@@ -36046,6 +36172,7 @@
     },
     {
       "name": "TextEditorRegistry",
+      "superClass": null,
       "visibility": "Public",
       "description": "The global registry of every {@link TextEditor} in the window, available as\n`lumine.textEditors`.\n\n{@link Workspace} holds the editors that are pane items; this registry holds all of\nthem, including the ones a package builds for its own interface — a search\nfield, a notebook cell, a REPL prompt. Reach for it when a feature should\napply to editors wherever they are rather than only to open files.\n\n## Observing every editor\n\n{@link #observe} calls back with every editor that is registered now and every one\nregistered later:\n\n```js\nlumine.textEditors.observe(editor => {\n  // every editor in the window, not just the ones in panes\n})\n```\n\n## Registering your own\n\nA package that embeds an editor registers it so everyone else's features\nreach it too. **Dispose of the returned `Disposable` when the editor goes\naway**, or the registry keeps it alive:\n\n```js\nconst editor = lumine.workspace.buildTextEditor({ mini: true })\nconst registration = lumine.textEditors.add(editor, { role: 'fragment' })\n// …later\nregistration.dispose()\n```\n\n## Roles\n\nThe `role` an editor is registered with says how it relates to the user's\ndocuments, so a cross-editor feature can tell them apart:\n\n* `\"document\"` — a standalone document: a pane item, or an embedded editor\n  holding complete content of its own. The default.\n* `\"fragment\"` — a piece of a larger composite document: a notebook cell, a\n  watch expression, a REPL input. Fragments share context with the editors\n  around them.\n* `\"background\"` — an infrastructure editor mirroring content the user works\n  on through another view, such as the JSON source behind a notebook. It is\n  registered so configuration and services apply to it, but cross-editor\n  features like completion sourcing leave it alone.",
       "summary": "The global registry of every {@link TextEditor} in the window, available as `lumine.textEditors`.",
@@ -36330,6 +36457,7 @@
     },
     {
       "name": "ThemeManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Handles loading and activating available themes.\n\nAn instance of this class is always available as the `lumine.themes` global.",
       "summary": "Handles loading and activating available themes.",
@@ -36640,6 +36768,7 @@
     },
     {
       "name": "TooltipManager",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Associates tooltips with HTML elements.\n\nYou can get the `TooltipManager` via `lumine.tooltips`.\n\n## Examples\n\nThe essence of displaying a tooltip\n\n```js\n// display it\nconst disposable = lumine.tooltips.add(div, {title: 'This is a tooltip'})\n\n// remove it\ndisposable.dispose()\n```\n\nIn practice there are usually multiple tooltips. So we add them to a\nCompositeDisposable\n\n```js\nconst {CompositeDisposable} = require('lumine')\nconst subscriptions = new CompositeDisposable()\n\nconst div1 = document.createElement('div')\nconst div2 = document.createElement('div')\nsubscriptions.add(lumine.tooltips.add(div1, {title: 'This is a tooltip'}))\nsubscriptions.add(lumine.tooltips.add(div2, {title: 'Another tooltip'}))\n\n// remove them all\nsubscriptions.dispose()\n```\n\nYou can display a key binding in the tooltip as well with the\n`keyBindingCommand` option.\n\n```js\ndisposable = lumine.tooltips.add(this.caseOptionButton, {\n  title: 'Match Case',\n  keyBindingCommand: 'search-panel:toggle-case-option',\n  keyBindingTarget: this.findEditor.element\n})\n```\n\nTo display several tooltip entries together, use `addComposite`.\n\n```js\ndisposable = lumine.tooltips.addComposite(this.modeIndicator, [\n  {title: 'Column selection'},\n  {\n    title: 'Toggle sticky mode',\n    keyBindingExtra: 'LMB',\n    keyBindingCommand: 'column-selection:sticky'\n  },\n  {\n    title: 'Toggle picker mode',\n    keyBindingExtra: 'RMB',\n    keyBindingCommand: 'column-selection:picker'\n  }\n])\n```",
       "summary": "Associates tooltips with HTML elements.",
@@ -36888,6 +37017,7 @@
     },
     {
       "name": "TreeSitterGrammar",
+      "superClass": null,
       "visibility": "Extended",
       "description": "This class holds an instance of a Tree-sitter grammar.",
       "summary": "This class holds an instance of a Tree-sitter grammar.",
@@ -37302,6 +37432,7 @@
     },
     {
       "name": "URIHandlerRegistry",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `lumine.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nBy default, Lumine will defer activation of your package until a URI it needs to handle\nis triggered. If you need your package to activate right away, you can add\n`\"deferActivation\": false` to your \"uriHandler\" configuration object. When activation\nis deferred, once Lumine receives a request for a URI in your package's namespace, it will\nactivate your package and then call `methodName` on it as before.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```javascript\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": {\n    \"method\": \"handleURI\"\n  }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  }\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
       "summary": "Associates listener functions with URIs from outside the application.",
@@ -37313,6 +37444,7 @@
     },
     {
       "name": "ViewRegistry",
+      "superClass": null,
       "visibility": "Essential",
       "description": "`ViewRegistry` handles the association between model and view\ntypes in Lumine. We call this association a View Provider. As in, for a given\nmodel, this class can provide a view via {@link #getView}, as long as the\nmodel/view association was registered via {@link #addViewProvider}\n\nIf you're adding your own kind of pane item, a good strategy for all but the\nsimplest items is to separate the model and the view. The model handles\napplication logic and is the primary point of API interaction. The view\njust handles presentation.\n\nNote: Models can be any object, but must implement a `getTitle()` function\nif they are to be displayed in a {@link Pane}\n\nView providers inform the workspace how your model objects should be\npresented in the DOM. A view provider must always return a DOM node, which\nmakes [HTML 5 custom elements](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/)\nan ideal tool for implementing views in Lumine.\n\nYou can access the `ViewRegistry` object via `lumine.views`.",
       "summary": "`ViewRegistry` handles the association between model and view types in Lumine. We call this association a View Provider. As in, for a given model, this class can provide a view via {@link #getView}, as long as the model/view association was registered via {@link #addViewProvider}",
@@ -37386,6 +37518,7 @@
     },
     {
       "name": "WindowService",
+      "superClass": null,
       "visibility": "Public",
       "description": "Operations on the Lumine window hosting the current renderer.\n\nBrowserWindow objects never cross the process boundary. State is returned as\nplain objects and every operation which reaches the main process is async.",
       "summary": "Operations on the Lumine window hosting the current renderer.",
@@ -38356,6 +38489,7 @@
     },
     {
       "name": "Workspace",
+      "superClass": "Model",
       "visibility": "Essential",
       "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `lumine.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {@link Workspace#addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {@link WorkspaceCenter} or in one\nof the three {@link Dock Docks}. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a `String` containing the title of the item to display on its\nassociated tab.\n\n### Optional Methods\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a `Disposable`.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `getLongTitle()`\n\nReturns a `String` containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a `Disposable`.\n\n#### `getIconName()`\n\nReturn a `String` with the semantic name of an icon. The icon registry\nresolves that name to a descriptor, so an icon provider may render it as\nclasses, an image, SVG, or a letter.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the icon binding so it can be notified when the item's icon\nchanges. Must return a `Disposable`.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a `String` with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an `Array` of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `getFileState()`\n\nReturns one of the mutually exclusive values in `FileState`.\n\n#### `onDidChangeFileState(callback)`\n\nCalled by the workspace so it can be notified when the item's file state\nchanges. The callback receives the new state. Must return a `Disposable`.\n\n#### `copy()`\n\nCreate a copy of the item. If defined, the workspace will call this method to\nduplicate the item when splitting panes via certain split commands.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {@link Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a `Number`.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {@link Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a `Number`.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a `Disposable`.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
       "summary": "Represents the state of the user interface for the entire window. An instance of this class is available via the `lumine.workspace` global.",
@@ -39644,8 +39778,8 @@
           "signature": "::buildSelectList(options)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a full fuzzy-searchable {@link SelectList} model.\n\nLike {@link #buildTextEditor}, this returns the complete model rather than a\nUI facade. Its items, selection, query, source, actions, recents, pagination,\nelement and panel are available through the model's named methods and events;\nonly its Etch component and caches are private.\n\nThe list owns its panel. Do not call {@link #addModalPanel} for it — `show()`,\n`hide()` and `toggle()` manage a hidden-until-shown modal panel created on\nfirst use, and `getPanel()` returns it.\n\n\nThe list shows one message at a time above the rows, from three props in\nprecedence order — `loadingMessage` (rendered with a spinner, and with\n`loadingBadge` beside it), then `status`, then `infoMessage`. A `status` is\n`{type, message, duration, sticky}`: `type` is `'info'`, `'warning'` or\n`'error'`, `duration` clears it after that many milliseconds, and it is\ncleared on the next query change unless `sticky`. It covers the resting\n`infoMessage` rather than replacing it, so clearing it needs nothing put\nback. `emptyMessage` stands in for the rows when there are none, and stands\ndown while a loading or status message is showing.\n\nData may be supplied as `items`, explicit `sections`, or an asynchronous\n`source`. `getItemId` defines stable identity, `search` defines matching and\nquery parsing, and `renderItem(item, context)` returns an `HTMLElement`, a\nmanaged row view, or a standard row descriptor. `commands` and `actions`\ndeclare the operations available through Enter, Shift-F10 and right click.",
-          "summary": "Create a full fuzzy-searchable {@link SelectList} model.",
+          "description": "Create a detached fuzzy-searchable {@link SelectList} model.\n\nLike {@link #buildTextEditor}, this returns the complete model rather than\na UI facade. It creates its mini TextEditor model immediately, but lazily\ncreates its private renderer and detached element on the first\n`getElement()` call. The query editor is registered with the window only\nwhile that element is connected to the DOM.\n\nThe model owns data and behavior: items, sections, selection, query,\nsource, actions, recents, pagination and confirmation. It has no panel or\nmodal lifecycle. Pass it to {@link #addSelectList}, or let that method build\nan owned model, when it should appear as a modal.\n\nThe list shows one message at a time above the rows, from three props in\nprecedence order — `loadingMessage` (rendered with a spinner, and with\n`loadingBadge` beside it), then `status`, then `infoMessage`. A `status` is\n`{type, message, duration, sticky}`: `type` is `'info'`, `'warning'` or\n`'error'`, `duration` clears it after that many milliseconds, and it is\ncleared on the next query change unless `sticky`. It covers the resting\n`infoMessage` rather than replacing it, so clearing it needs nothing put\nback. `emptyMessage` stands in for the rows when there are none, and stands\ndown while a loading or status message is showing.\n\nData may be supplied as `items`, explicit `sections`, or an asynchronous\n`source`. `getItemId` defines stable identity, `search` defines matching and\nquery parsing, and `renderItem(item, context)` returns an `HTMLElement`, a\nmanaged row view, or a standard row descriptor. `commands` and `actions`\ndeclare the operations available through Enter, Shift-F10 and right click.",
+          "summary": "Create a detached fuzzy-searchable {@link SelectList} model.",
           "parameters": [
             {
               "name": "options",
@@ -39660,7 +39794,102 @@
           "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1852
+          "line": 1853
+        },
+        {
+          "name": "addSelectList",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addSelectList(modelOrOptions, hostOptions)",
+          "category": "Opening",
+          "visibility": "Essential",
+          "description": "Create a lazy {@link SelectListHost}. Passing model options creates a model\nowned by the host; passing a model from {@link #buildSelectList} borrows it.\nDestroying an owned host destroys its model, while a borrowed model remains\navailable and may be hosted again. A model can have only one live host.\n\nConstruction creates neither a Panel nor DOM. `host.show()` creates and\nopens the modal; `host.getPanel()` explicitly materializes it. The default\npanel item is the model. A custom `item` must expose a view containing the\nmodel element.\n\nEvery fresh show clears the query unless one is supplied and reapplies the\nlist's `selection.initial`, defaulting to the first result unless empty\nselection is enabled. Returning from a modal-flow step is a resume and\npreserves both query and selection.",
+          "summary": "Create a lazy {@link SelectListHost}. Passing model options creates a model owned by the host; passing a model from {@link #buildSelectList} borrows it. Destroying an owned host destroys its model, while a borrowed model remains available and may be hosted again. A model can have only one live host.",
+          "parameters": [
+            {
+              "name": "modelOrOptions",
+              "source": "modelOrOptions",
+              "optional": true,
+              "rest": false,
+              "type": "SelectList|Object",
+              "description": "A detached model or its construction options.",
+              "defaultValue": null
+            },
+            {
+              "name": "hostOptions",
+              "source": "hostOptions",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Options belonging to the modal host only.",
+              "defaultValue": null
+            },
+            {
+              "name": "hostOptions.item",
+              "type": "*",
+              "description": "Panel item; defaults to the model.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "hostOptions.item",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.crumb",
+              "type": "String",
+              "description": "Declared modal-flow label.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "hostOptions.crumb",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.visible",
+              "type": "Boolean",
+              "description": "Show when the host is first materialized.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "hostOptions.visible",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.restoreFocus",
+              "type": "Boolean",
+              "description": "Restore focus after hiding.",
+              "optional": true,
+              "defaultValue": "true",
+              "source": "hostOptions.restoreFocus",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.priority",
+              "type": "Number",
+              "description": "Panel ordering priority.",
+              "optional": true,
+              "defaultValue": "100",
+              "source": "hostOptions.priority",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.className",
+              "type": "String",
+              "description": "Class names for the panel element.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "hostOptions.className",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "SelectListHost",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1886
         },
         {
           "name": "buildInputDialog",
@@ -39670,8 +39899,8 @@
           "signature": "::buildInputDialog(options)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Create a full {@link InputDialog} model whose query editor is the value.\n\nThe base of {@link #buildSelectList} without the list: a modal panel with a mini\neditor, for prompts and save dialogs where the typed text is the answer.\nExtra DOM goes above the editor via `headerElement` and below it via\n`contentElement`.\n\nPanel ownership is the same as {@link #buildSelectList} — the dialog creates and\nowns its own modal panel.\n\n\nThe message line works exactly as in {@link #buildSelectList}, minus\n`emptyMessage`: a validation failure is `status: {type: 'error', message}`,\nand the dialog clears it on the next keystroke by itself.\n\nThe model owns its element and panel, publishes lifecycle/query events, and\nsupports the same declared commands, actions, messages and asynchronous\nsource contract as SelectList. Confirmation is normally a primary action.",
-          "summary": "Create a full {@link InputDialog} model whose query editor is the value.",
+          "description": "Create a detached {@link InputDialog} model whose query editor is the value.\n\nThis is the base of {@link #buildSelectList} without list semantics, for\nprompts and save dialogs where the typed text is the answer. Extra DOM goes\nabove the editor through `headerElement` and below it through\n`contentElement`. Its renderer and detached element are created lazily by\n`getElement()`; it has no panel or modal lifecycle.\n\nThe message line works exactly as in {@link #buildSelectList}, minus\n`emptyMessage`: a validation failure is `status: {type: 'error', message}`,\nand the dialog clears it on the next keystroke by itself.\n\nThe model publishes query and confirmation events and supports the same\ndeclared commands, actions, messages and asynchronous source contract as\nSelectList. Confirmation is normally a primary action.",
+          "summary": "Create a detached {@link InputDialog} model whose query editor is the value.",
           "parameters": [
             {
               "name": "options",
@@ -39686,7 +39915,102 @@
           "returnType": "InputDialog",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1882
+          "line": 1913
+        },
+        {
+          "name": "addInputDialog",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addInputDialog(modelOrOptions, hostOptions)",
+          "category": "Opening",
+          "visibility": "Essential",
+          "description": "Create a lazy {@link InputDialogHost}. Passing options creates an owned\nmodel; passing a model from {@link #buildInputDialog} borrows it. Ownership,\none-host enforcement and lazy Panel/DOM materialization match\n{@link #addSelectList}.",
+          "summary": "Create a lazy {@link InputDialogHost}. Passing options creates an owned model; passing a model from {@link #buildInputDialog} borrows it. Ownership, one-host enforcement and lazy Panel/DOM materialization match {@link #addSelectList}.",
+          "parameters": [
+            {
+              "name": "modelOrOptions",
+              "source": "modelOrOptions",
+              "optional": true,
+              "rest": false,
+              "type": "InputDialog|Object",
+              "description": "A detached model or its construction options.",
+              "defaultValue": null
+            },
+            {
+              "name": "hostOptions",
+              "source": "hostOptions",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Options belonging to the modal host only.",
+              "defaultValue": null
+            },
+            {
+              "name": "hostOptions.item",
+              "type": "*",
+              "description": "Panel item; defaults to the model.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "hostOptions.item",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.crumb",
+              "type": "String",
+              "description": "Declared modal-flow label.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "hostOptions.crumb",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.visible",
+              "type": "Boolean",
+              "description": "Show when the host is first materialized.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "hostOptions.visible",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.restoreFocus",
+              "type": "Boolean",
+              "description": "Restore focus after hiding.",
+              "optional": true,
+              "defaultValue": "true",
+              "source": "hostOptions.restoreFocus",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.priority",
+              "type": "Number",
+              "description": "Panel ordering priority.",
+              "optional": true,
+              "defaultValue": "100",
+              "source": "hostOptions.priority",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "hostOptions.className",
+              "type": "String",
+              "description": "Class names for the panel element.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "hostOptions.className",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "InputDialogHost",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 1936
         },
         {
           "name": "popModal",
@@ -39702,7 +40026,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 1914
+          "line": 1968
         },
         {
           "name": "popModalTo",
@@ -39728,7 +40052,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 1927
+          "line": 1981
         },
         {
           "name": "getModalTrail",
@@ -39744,7 +40068,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 1939
+          "line": 1993
         },
         {
           "name": "onDidChangeModalTrail",
@@ -39770,7 +40094,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1953
+          "line": 2007
         },
         {
           "name": "reopenItem",
@@ -39786,7 +40110,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 1966
+          "line": 2020
         },
         {
           "name": "addOpener",
@@ -39812,7 +40136,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 2013
+          "line": 2067
         },
         {
           "name": "getPaneItems",
@@ -39828,7 +40152,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 2036
+          "line": 2090
         },
         {
           "name": "getActivePaneItem",
@@ -39844,7 +40168,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 2048
+          "line": 2102
         },
         {
           "name": "getTextEditors",
@@ -39860,7 +40184,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 2060
+          "line": 2114
         },
         {
           "name": "getActiveTextEditor",
@@ -39876,7 +40200,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2089
+          "line": 2143
         },
         {
           "name": "getActiveFileTextEditor",
@@ -39892,7 +40216,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 2110
+          "line": 2164
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -39908,7 +40232,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 2139
+          "line": 2193
         },
         {
           "name": "saveActivePaneItem",
@@ -39924,7 +40248,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2177
+          "line": 2231
         },
         {
           "name": "saveActivePaneItemAs",
@@ -39940,7 +40264,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2195
+          "line": 2249
         },
         {
           "name": "destroyActivePaneItem",
@@ -39956,7 +40280,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2220
+          "line": 2274
         },
         {
           "name": "getActivePaneContainer",
@@ -39972,7 +40296,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2236
+          "line": 2290
         },
         {
           "name": "getPanes",
@@ -39988,7 +40312,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2248
+          "line": 2302
         },
         {
           "name": "getActivePane",
@@ -40004,7 +40328,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2264
+          "line": 2318
         },
         {
           "name": "activateNextPane",
@@ -40020,7 +40344,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2274
+          "line": 2328
         },
         {
           "name": "activatePreviousPane",
@@ -40036,7 +40360,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2284
+          "line": 2338
         },
         {
           "name": "paneContainerForURI",
@@ -40062,7 +40386,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2298
+          "line": 2352
         },
         {
           "name": "paneContainerForItem",
@@ -40088,7 +40412,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2311
+          "line": 2365
         },
         {
           "name": "paneForURI",
@@ -40114,7 +40438,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2324
+          "line": 2378
         },
         {
           "name": "paneForItem",
@@ -40140,7 +40464,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2342
+          "line": 2396
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -40156,7 +40480,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2369
+          "line": 2423
         },
         {
           "name": "getCenter",
@@ -40172,7 +40496,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2451
+          "line": 2505
         },
         {
           "name": "getLeftDock",
@@ -40188,7 +40512,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2461
+          "line": 2515
         },
         {
           "name": "getRightDock",
@@ -40204,7 +40528,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2471
+          "line": 2525
         },
         {
           "name": "getBottomDock",
@@ -40220,7 +40544,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2481
+          "line": 2535
         },
         {
           "name": "beginLayoutDrag",
@@ -40236,7 +40560,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 2520
+          "line": 2574
         },
         {
           "name": "getBottomPanels",
@@ -40252,7 +40576,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2534
+          "line": 2588
         },
         {
           "name": "addBottomPanel",
@@ -40308,7 +40632,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2550
+          "line": 2604
         },
         {
           "name": "getLeftPanels",
@@ -40324,7 +40648,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2560
+          "line": 2614
         },
         {
           "name": "addLeftPanel",
@@ -40380,7 +40704,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2576
+          "line": 2630
         },
         {
           "name": "getRightPanels",
@@ -40396,7 +40720,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2586
+          "line": 2640
         },
         {
           "name": "addRightPanel",
@@ -40452,7 +40776,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2602
+          "line": 2656
         },
         {
           "name": "getTopPanels",
@@ -40468,7 +40792,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2612
+          "line": 2666
         },
         {
           "name": "addTopPanel",
@@ -40524,7 +40848,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2628
+          "line": 2682
         },
         {
           "name": "getHeaderPanels",
@@ -40540,7 +40864,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2638
+          "line": 2692
         },
         {
           "name": "addHeaderPanel",
@@ -40596,7 +40920,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2654
+          "line": 2708
         },
         {
           "name": "getFooterPanels",
@@ -40612,7 +40936,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2664
+          "line": 2718
         },
         {
           "name": "addFooterPanel",
@@ -40668,7 +40992,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2680
+          "line": 2734
         },
         {
           "name": "getModalPanels",
@@ -40684,7 +41008,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2690
+          "line": 2744
         },
         {
           "name": "addModalPanel",
@@ -40770,7 +41094,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2709
+          "line": 2763
         },
         {
           "name": "panelForItem",
@@ -40796,7 +41120,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 2720
+          "line": 2774
         },
         {
           "name": "scan",
@@ -40910,7 +41234,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 2784
+          "line": 2838
         },
         {
           "name": "replace",
@@ -40973,12 +41297,13 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3047
+          "line": 3101
         }
       ]
     },
     {
       "name": "WorkspaceCenter",
+      "superClass": null,
       "visibility": "Essential",
       "description": "Represents the workspace at the center of the entire window.",
       "summary": "Represents the workspace at the center of the entire window.",
@@ -41809,6 +42134,7 @@
     },
     {
       "name": "WorkspaceDropManager",
+      "superClass": null,
       "visibility": "Extended",
       "description": "Routes workspace drag-and-drop through one capture lifecycle. Providers own\nsource semantics; targets own surface-specific context and visuals.",
       "summary": "Routes workspace drag-and-drop through one capture lifecycle. Providers own source semantics; targets own surface-specific context and visuals.",
@@ -42656,6 +42982,6 @@
       "line": 1174
     }
   ],
-  "memberCount": 1380,
-  "generatedAt": "2026-09-03T18:12:15.183Z"
+  "memberCount": 1383,
+  "generatedAt": "2026-09-03T21:58:34.052Z"
 }
