@@ -7944,7 +7944,7 @@
           "signature": "::getShortHead()",
           "category": "Repository Details",
           "visibility": "Public",
-          "description": "Retrieves a shortened version of the HEAD reference value.\n\nThis removes the leading segments of `refs/heads`, `refs/tags`, or\n`refs/remotes`.  It also shortens the SHA-1 of a detached `HEAD` to 7\ncharacters.",
+          "description": "Retrieves a shortened version of the HEAD reference value.\n\nThis removes the leading segments of `refs/heads`, `refs/tags`, or\n`refs/remotes`. It also shortens the object id of a detached `HEAD` to 7\ncharacters, independent of the repository's object format.",
           "summary": "Retrieves a shortened version of the HEAD reference value.",
           "parameters": [],
           "returnType": "String",
@@ -8773,7 +8773,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the contents, or `null` when the path does not exist at that revision.",
           "propertyType": null,
-          "line": 1558
+          "line": 1562
         },
         {
           "name": "getIndexFile",
@@ -8828,7 +8828,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the staged contents, or `null` when the path has no stage-0 index entry.",
           "propertyType": null,
-          "line": 1585
+          "line": 1589
         },
         {
           "name": "getBlob",
@@ -8883,7 +8883,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the contents, or `null` when the oid does not name an object.",
           "propertyType": null,
-          "line": 1612
+          "line": 1616
         },
         {
           "name": "getDescription",
@@ -8899,7 +8899,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1634
+          "line": 1638
         },
         {
           "name": "getBranchesContaining",
@@ -8964,7 +8964,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of refname `Strings`.",
           "propertyType": null,
-          "line": 1654
+          "line": 1658
         },
         {
           "name": "getFileMode",
@@ -8990,7 +8990,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the `String` mode (e.g. `\"100644\"`), or `null` when the path is not tracked.",
           "propertyType": null,
-          "line": 1674
+          "line": 1678
         },
         {
           "name": "getSubmodulePaths",
@@ -9000,13 +9000,13 @@
           "signature": "::getSubmodulePaths()",
           "category": "Reading Status",
           "visibility": "Public",
-          "description": "The repository-relative paths of the repository's submodules\n(`git submodule status`).",
-          "summary": "The repository-relative paths of the repository's submodules (`git submodule status`).",
+          "description": "The repository-relative paths declared in `.gitmodules`.",
+          "summary": "The repository-relative paths declared in `.gitmodules`.",
           "parameters": [],
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of path `Strings`.",
           "propertyType": null,
-          "line": 1689
+          "line": 1692
         },
         {
           "name": "getBlame",
@@ -9071,7 +9071,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{revision, lines}` object where each line has `line`, `originalLine`, `sha`, `author`, `summary`.",
           "propertyType": null,
-          "line": 1708
+          "line": 1711
         },
         {
           "name": "getLineDiffsAsync",
@@ -9106,7 +9106,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of hunk `Objects`, each with `oldStart`, `newStart`, `oldLines`, and `newLines`.",
           "propertyType": null,
-          "line": 1740
+          "line": 1743
         },
         {
           "name": "checkoutHead",
@@ -9132,7 +9132,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1770
+          "line": 1773
         },
         {
           "name": "checkoutReference",
@@ -9167,7 +9167,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1792
+          "line": 1795
         }
       ]
     },
@@ -43019,5 +43019,5 @@
     }
   ],
   "memberCount": 1384,
-  "generatedAt": "2026-09-04T17:58:00.298Z"
+  "generatedAt": "2026-09-04T18:35:45.770Z"
 }
