@@ -22,4 +22,4 @@ Providers receive open document editors, including unsaved buffers. Packages can
 
 Install `spell-check` to report misspellings through the linter and offer corrections through [autocomplete](autocomplete.md) and code actions. Use **Checked Grammars**, **Excluded Scopes**, and **Severity** to control automatic checking; `spell-check:check-selected` checks a selection regardless of those scope settings.
 
-`linter-ruff` and `ide-ruff` can coexist: the CLI linter stands down for editors and notebooks whose Ruff server has diagnostics enabled, while retaining project/tree scans, unsupported notebooks, and its fix and format commands. Providers wrapping different tools, such as `linter-eslint` beside `ide-typescript`, remain independent.
+`linter-ruff` and `ide-ruff` can coexist: the CLI linter stands down for editors and notebook cells whose Ruff server has diagnostics enabled, while retaining project/tree scans, notebooks not attached through `jupyter-view`, and its fix and format commands. Providers wrapping different tools, such as `linter-eslint` beside `ide-typescript`, remain independent.

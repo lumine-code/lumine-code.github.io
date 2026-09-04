@@ -21,7 +21,7 @@ lumine --install lumine-code/linter
 
 Installing an adapter alone does not install or replace `ide-client`; adapters connect to it through an editor service. Each adapter's settings page contains its server path, feature switches, and server-specific options. Project configuration files such as `tsconfig.json`, `pyrightconfig.json`, and `ruff.toml` continue to apply when the corresponding editor setting is left empty.
 
-Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells.
+Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells. The same document transforms apply to ordinary editors and cells, so IPython magics and adapter-specific source masking stay out of diagnostics without changing notebook text.
 
 ## Installing a server
 
@@ -29,7 +29,7 @@ Some adapters include an npm-based server; standalone servers such as Ruff, Texl
 
 Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy; standalone adapters then search `PATH`, while npm-based adapters fall back to the version shipped with the adapter. Removing a managed copy never removes a server installed by another tool.
 
-The Bash adapter can also manage `shellcheck` and `shfmt`, which provide its diagnostics and formatting.
+The Bash adapter always runs its audited bundled server fork. Its managed install is a separately versioned, checksum-verified toolchain containing ShellCheck and shfmt, which provide diagnostics, fixes and formatting.
 
 ## Sessions
 
@@ -37,7 +37,13 @@ Servers start when a matching file first opens. By default each project root get
 
 ## Features
 
-Each adapter's **Features** group exposes the capabilities that can be switched off, including diagnostics, completions, navigation, formatting, rename, code actions, hints, lenses, and semantic tokens. Use these switches to choose between overlapping servers; for example, disable Ruff hover to leave it to Basedpyright. Feature settings can be scoped per language.
+Each adapter's **Features** group exposes the capabilities that can be switched off, including diagnostics, completions, navigation, formatting, rename, code actions, hints, lenses, and semantic tokens. Use these switches to choose between overlapping servers; for example, disable Ruff hover to leave it to Basedpyright. Feature settings can be scoped per language, and adapters keep the corresponding server capability available whenever any served grammar enables it.
+
+Document diagnostics and workspace diagnostics use the same route into `linter`: open buffers update as you type, while a server that implements `workspace/diagnostic` can also report files that are not open. Install `linter-panel` to browse the combined project result.
+
+When `tree-view` creates, moves, renames or deletes an entry, `ide-client` runs the matching LSP `will*Files` request before the filesystem operation and sends `did*Files` after it. A server such as TypeScript can update imports first; a failed preparation cancels the tree operation without leaving partial edits behind.
+
+Document links from a server open through `hyperclick`. Four built-in commands expose protocol features that do not need another frontend package: `ide-client:fold-server-ranges` folds every server range, `ide-client:expand-selection-range` grows each selection to its next structural parent, `ide-client:select-linked-ranges` selects linked occurrences, and `ide-client:color-presentation` lets you choose and apply a server-provided spelling for the color under the cursor.
 
 ## Custom servers
 
