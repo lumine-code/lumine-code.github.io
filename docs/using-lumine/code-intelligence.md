@@ -1,6 +1,6 @@
 # Code intelligence
 
-A working [language-server setup](language-servers.md#installation) exposes editor services. Install only the UI packages for the features you want; other providers can supply the same services without a language server.
+A working [language-server setup](language-servers.md#installation) uses `ide-client` as a protocol hub that exposes editor services without rendering every feature itself. Install only the UI packages for the features you want; other providers can supply the same services without a language server.
 
 | Feature                                   | Package           |
 | ----------------------------------------- | ----------------- |

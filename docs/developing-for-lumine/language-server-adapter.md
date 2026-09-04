@@ -1,6 +1,6 @@
 # Writing a language-server adapter
 
-An adapter package teaches `ide-client` how to launch and configure a language server. The adapter owns server discovery and server-specific settings; `ide-client` owns LSP, document synchronization and editor integrations.
+An adapter package teaches the minimal `ide-client` protocol hub how to launch and configure a language server. The adapter owns server discovery and server-specific settings; `ide-client` owns sessions, LSP synchronization and routing into editor services, while frontend packages own presentation.
 
 ## Registering
 
@@ -38,6 +38,12 @@ module.exports = {
 Returning the registration disposable from the consumer unregisters the adapter and stops its sessions when either package deactivates.
 
 The canonical contract, optional hooks and service methods live in [`ide-client`'s documentation](https://github.com/lumine-code/ide-client/blob/master/docs/ide-client.md); exact TypeScript shapes live in [`lib/main.d.ts`](https://github.com/lumine-code/ide-client/blob/master/lib/main.d.ts). Keep detailed API descriptions there rather than copying them into an adapter.
+
+## Architecture boundaries
+
+An adapter describes one server; it does not apply `WorkspaceEdit` resource operations or depend on tree-view internals. `ide-client` validates and orders the protocol's document and resource changes, then delegates inspection plus create, rename and delete steps to the bundled, UI-less `file-operations.executor@1.0.0`. Its `prepare()` method preflights the complete virtual sequence before returning an opaque plan for stepwise execution, while its neutral lifecycle distinguishes private staging roots from durable logical effects.
+
+User-initiated filesystem operations have a different owner. `tree-view` supplies their UI and the versioned `tree-view.file-operations` will/did boundary; `ide-client` translates that boundary to LSP file-operation requests and notifications. The executor lifecycle is infrastructure rather than a user-operation event bus, `tree-view` does not execute server-authored `WorkspaceEdit` objects, and adapters need to consume neither service directly.
 
 ## What the adapter owns
 

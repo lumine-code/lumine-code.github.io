@@ -1,6 +1,6 @@
 # Language servers
 
-The optional **`ide-client`** package runs Language Server Protocol 3.17 servers and exposes their results to editor packages. It is not bundled.
+The optional **`ide-client`** package is the editor's minimal Language Server Protocol 3.17 hub. It starts and synchronizes servers, coordinates protocol operations, and routes results to editor services; feature packages render those results, and separate bundled infrastructure performs filesystem changes. `ide-client` is not bundled.
 
 ## Installation
 
@@ -9,6 +9,8 @@ A working setup has three layers:
 1. Install `ide-client`.
 2. Install an adapter for each language, such as `ide-typescript`, `ide-eslint`, `ide-bash`, `ide-html`, `ide-yaml`, `ide-marksman`, `ide-pyright`, or `ide-ruff`.
 3. Install the frontends you want: `autocomplete` for completions, `linter` for diagnostics, `symbol` plus a symbol provider for symbol lists, and packages from [Code intelligence](code-intelligence.md) for other features.
+
+Lumine already bundles the UI-less `file-operations` package. It is infrastructure used automatically when a language server asks for create, rename or delete operations, so it is not a fourth installation step.
 
 For example, a minimal TypeScript setup with completions and diagnostics is:
 
@@ -41,7 +43,13 @@ Each adapter's **Features** group exposes the capabilities that can be switched 
 
 Document diagnostics and workspace diagnostics use the same route into `linter`: open buffers update as you type, while a server that implements `workspace/diagnostic` can also report files that are not open. Install `linter-panel` to browse the combined project result.
 
-When `tree-view` creates, moves, renames or deletes an entry, `ide-client` runs the matching LSP `will*Files` request before the filesystem operation and sends `did*Files` after it. A server such as TypeScript can update imports first; if a server refuses or cannot prepare the change, the tree operation is cancelled before the filesystem is touched.
+## File operations
+
+`ide-client` coordinates file changes from the protocol but does not implement filesystem access. For a server-authored `WorkspaceEdit`, it validates document versions and ordered changes, prepares text edits, and hands closed-path inspection plus every create, rename and delete step to the bundled `file-operations.executor@1.0.0` service. The executor's `inspect()` and `prepare()` calls inspect affected paths, simulate the complete sequence without mutation, and return frozen results or an opaque identity-checked plan; `ide-client` executes plan steps in `documentChanges` order, applies the interleaved text edits, and retargets open buffers from the effects that remain.
+
+The executor has no commands or user interface and deliberately exposes only its versioned service. Its neutral step lifecycle identifies private staging roots and durable logical effects so protocol consumers can gate watcher noise; it neither emits nor consumes `tree-view`'s package-private events and does not manufacture a user-operation boundary from watcher notifications.
+
+The bundled `tree-view` owns the interface, conflict choices, queue and will/did boundary for file operations initiated by the user. Before a create, move, rename, copy or delete batch touches the filesystem, it publishes the exact planned paths through `tree-view.file-operations`; `ide-client` translates that boundary into matching LSP `workspace/will*Files` requests and preflights the returned edits. A server veto or failed preparation cancels the complete tree operation before mutation, while the matching `workspace/did*Files` notifications contain only effects that actually completed. `tree-view` never executes a server-authored `WorkspaceEdit` itself.
 
 Document links from a server open through `hyperclick`. Four built-in commands expose protocol features that do not need another frontend package: `ide-client:fold-server-ranges` folds every server range, `ide-client:expand-selection-range` grows each selection to its next structural parent, `ide-client:select-linked-ranges` selects linked occurrences, and `ide-client:color-presentation` lets you choose and apply a server-provided spelling for the color under the cursor.
 
