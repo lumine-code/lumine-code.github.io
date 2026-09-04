@@ -41,7 +41,7 @@ Each adapter's **Features** group exposes the capabilities that can be switched 
 
 Document diagnostics and workspace diagnostics use the same route into `linter`: open buffers update as you type, while a server that implements `workspace/diagnostic` can also report files that are not open. Install `linter-panel` to browse the combined project result.
 
-When `tree-view` creates, moves, renames or deletes an entry, `ide-client` runs the matching LSP `will*Files` request before the filesystem operation and sends `did*Files` after it. A server such as TypeScript can update imports first; a failed preparation cancels the tree operation without leaving partial edits behind.
+When `tree-view` creates, moves, renames or deletes an entry, `ide-client` runs the matching LSP `will*Files` request before the filesystem operation and sends `did*Files` after it. A server such as TypeScript can update imports first; if a server refuses or cannot prepare the change, the tree operation is cancelled before the filesystem is touched.
 
 Document links from a server open through `hyperclick`. Four built-in commands expose protocol features that do not need another frontend package: `ide-client:fold-server-ranges` folds every server range, `ide-client:expand-selection-range` grows each selection to its next structural parent, `ide-client:select-linked-ranges` selects linked occurrences, and `ide-client:color-presentation` lets you choose and apply a server-provided spelling for the color under the cursor.
 
