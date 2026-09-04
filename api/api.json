@@ -172,7 +172,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "HistoryManager",
-          "line": 485
+          "line": 489
         },
         {
           "name": "icons",
@@ -268,7 +268,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PasteProviderRegistry",
-          "line": 421
+          "line": 425
         },
         {
           "name": "project",
@@ -380,7 +380,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "TextEditorRegistry",
-          "line": 409
+          "line": 413
         },
         {
           "name": "themes",
@@ -412,7 +412,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 508
+          "line": 512
         },
         {
           "name": "tooltips",
@@ -492,7 +492,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Workspace",
-          "line": 430
+          "line": 434
         },
         {
           "name": "workspaceDrops",
@@ -508,7 +508,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "WorkspaceDropManager",
-          "line": 456
+          "line": 460
         }
       ]
     },
@@ -7534,19 +7534,19 @@
       "name": "GitRepository",
       "superClass": null,
       "visibility": "Extended",
-      "description": "Represents the underlying git operations performed by Lumine.\n\nThis class shouldn't be instantiated directly but instead by accessing the\n`lumine.repositories` and calling `getRepositories()` or `getForPath()`. It is\nindependent from project roots and may represent containing or nested repos.\n\nThis class handles submodules automatically by taking a `path` argument to many\nof the methods.  This `path` argument will determine which underlying\nrepository is used.\n\nFor a repository with submodules this would have the following outcome:\n\n```js\nconst repo = lumine.repositories.getRepositories()[0]\nrepo.getShortHead() // 'master'\nrepo.getShortHead('vendor/path/to/a/submodule') // 'dead1234'\n```\n\n## Examples\n\n### Logging the URL of the origin remote\n\n```js\nconst git = lumine.repositories.getRepositories()[0]\nconsole.log(git.getOriginURL())\n```\n\n### Requiring in packages\n\n```js\nconst { GitRepository } = require('lumine')\n```",
+      "description": "Represents the underlying git operations performed by Lumine.\n\nThis class shouldn't be instantiated directly but instead by accessing the\n`lumine.repositories` and calling `getRepositories()` or `getForPath()`. It is\nindependent from project roots and may represent containing or nested repos.\n\n## Examples\n\n### Logging the URL of the origin remote\n\n```js\nconst git = lumine.repositories.getRepositories()[0]\nconsole.log(git.getOriginURL())\n```\n\n### Requiring in packages\n\n```js\nconst { GitRepository } = require('lumine')\n```",
       "summary": "Represents the underlying git operations performed by Lumine.",
       "source": "src/git-repository.js",
       "sourcePath": "src/git-repository.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 98,
+      "line": 137,
       "members": [
         {
           "name": "open",
           "kind": "method",
           "static": true,
-          "async": false,
-          "signature": ".open(path, options)",
+          "async": true,
+          "signature": ".open(path, options = {})",
           "category": "Construction and Destruction",
           "visibility": "Public",
           "description": "Creates a new GitRepository instance.",
@@ -7563,38 +7563,18 @@
             },
             {
               "name": "options",
-              "source": "options",
+              "source": "options = {}",
               "optional": false,
               "rest": false,
               "type": null,
               "description": "An optional `Object` with the following keys:",
               "defaultValue": null
-            },
-            {
-              "name": "options.project",
-              "type": null,
-              "description": "A {@link Project} whose buffer saves keep this repository's status snapshot fresh.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "options.project",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "options.config",
-              "type": null,
-              "description": "The config consulted for Git settings.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "options.config",
-              "rest": false,
-              "nested": true
             }
           ],
-          "returnType": "GitRepository",
-          "returnDescription": "instance or `null` if the repository could not be opened.",
+          "returnType": "Promise<GitRepository|null>",
+          "returnDescription": "resolving to an instance or `null` if the repository could not be opened.",
           "propertyType": null,
-          "line": 125
+          "line": 152
         },
         {
           "name": "destroy",
@@ -7610,7 +7590,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 214
+          "line": 226
         },
         {
           "name": "isDestroyed",
@@ -7626,23 +7606,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating if this repository has been destroyed.",
           "propertyType": null,
-          "line": 259
-        },
-        {
-          "name": "isPresent",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::isPresent()",
-          "category": "Construction and Destruction",
-          "visibility": "Public",
-          "description": "",
-          "summary": "",
-          "parameters": [],
-          "returnType": "Boolean",
-          "returnDescription": "whether this repository's Git directory still exists.",
-          "propertyType": null,
-          "line": 269
+          "line": 254
         },
         {
           "name": "getOperations",
@@ -7658,7 +7622,7 @@
           "returnType": "Object",
           "returnDescription": "stable write facade assigned by lumine.repositories. Its methods are enabled by repositories.operations-provider services.",
           "propertyType": null,
-          "line": 279
+          "line": 264
         },
         {
           "name": "onDidDestroy",
@@ -7684,89 +7648,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 297
-        },
-        {
-          "name": "onDidChangeStatus",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidChangeStatus(callback)",
-          "category": "Event Subscription",
-          "visibility": "Public",
-          "description": "Invoke the given callback when a specific file's status has\nchanged. When a file is updated, reloaded, etc, and the status changes, this\nwill be fired.\n\n\nNote: prefer {@link #onDidChangeStatusSnapshot}, which fires for every status\nchange; this legacy per-path event is retained for API compatibility.",
-          "summary": "Invoke the given callback when a specific file's status has changed. When a file is updated, reloaded, etc, and the status changes, this will be fired.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": "Function",
-              "description": "",
-              "defaultValue": null
-            },
-            {
-              "name": "callback.event",
-              "type": "Object",
-              "description": "",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.path",
-              "type": "String",
-              "description": "the path whose status changed",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event.path",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "callback.event.pathStatus",
-              "type": "Number",
-              "description": "representing the status.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "callback.event.pathStatus",
-              "rest": false,
-              "nested": true
-            }
-          ],
-          "returnType": "Disposable",
-          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
-          "propertyType": null,
-          "line": 323
-        },
-        {
-          "name": "onDidChangeStatuses",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::onDidChangeStatuses(callback)",
-          "category": "Event Subscription",
-          "visibility": "Public",
-          "description": "Invoke the given callback when multiple files' statuses have\nchanged. Prefer {@link #onDidChangeStatusSnapshot}; this legacy event is retained\nfor API compatibility.",
-          "summary": "Invoke the given callback when multiple files' statuses have changed. Prefer {@link #onDidChangeStatusSnapshot}; this legacy event is retained for API compatibility.",
-          "parameters": [
-            {
-              "name": "callback",
-              "source": "callback",
-              "optional": false,
-              "rest": false,
-              "type": "Function",
-              "description": "",
-              "defaultValue": null
-            }
-          ],
-          "returnType": "Disposable",
-          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
-          "propertyType": null,
-          "line": 338
+          "line": 282
         },
         {
           "name": "onDidChangeStatusSnapshot",
@@ -7792,7 +7674,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 357
+          "line": 305
         },
         {
           "name": "onDidChangeRefsSnapshot",
@@ -7818,7 +7700,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 382
+          "line": 330
         },
         {
           "name": "getType",
@@ -7834,7 +7716,7 @@
           "returnType": "\"git\"",
           "returnDescription": ".",
           "propertyType": null,
-          "line": 408
+          "line": 356
         },
         {
           "name": "getPath",
@@ -7850,7 +7732,7 @@
           "returnType": "String",
           "returnDescription": "path of the repository.",
           "propertyType": null,
-          "line": 418
+          "line": 366
         },
         {
           "name": "getWorkingDirectory",
@@ -7866,23 +7748,7 @@
           "returnType": "String",
           "returnDescription": "working directory path of the repository.",
           "propertyType": null,
-          "line": 432
-        },
-        {
-          "name": "isProjectAtRoot",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::isProjectAtRoot()",
-          "category": "Repository Details",
-          "visibility": "Public",
-          "description": "",
-          "summary": "",
-          "parameters": [],
-          "returnType": "Boolean",
-          "returnDescription": "true if at the root, false if in a subfolder of the repository.",
-          "propertyType": null,
-          "line": 453
+          "line": 380
         },
         {
           "name": "relativize",
@@ -7908,7 +7774,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 467
+          "line": 401
         },
         {
           "name": "hasBranch",
@@ -7934,7 +7800,7 @@
           "returnType": "Boolean",
           "returnDescription": "true if the given branch exists.",
           "propertyType": null,
-          "line": 482
+          "line": 465
         },
         {
           "name": "getShortHead",
@@ -7950,7 +7816,7 @@
           "returnType": "String",
           "returnDescription": "The shortened `HEAD` reference.",
           "propertyType": null,
-          "line": 498
+          "line": 481
         },
         {
           "name": "isSubmodule",
@@ -7976,7 +7842,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 523
+          "line": 506
         },
         {
           "name": "getAheadBehindCount",
@@ -8002,7 +7868,7 @@
           "returnType": "Object",
           "returnDescription": "The `ahead` and `behind` commit counts.",
           "propertyType": null,
-          "line": 535
+          "line": 518
         },
         {
           "name": "getCachedUpstreamAheadBehindCount",
@@ -8018,7 +7884,7 @@
           "returnType": "Object",
           "returnDescription": "with the following keys:",
           "propertyType": null,
-          "line": 557
+          "line": 540
         },
         {
           "name": "getConfigValueAsync",
@@ -8044,7 +7910,7 @@
           "returnType": "Promise<String|null>",
           "returnDescription": "The configured value.",
           "propertyType": null,
-          "line": 577
+          "line": 560
         },
         {
           "name": "getConfigValuesAsync",
@@ -8070,7 +7936,7 @@
           "returnType": "Promise<Object>",
           "returnDescription": "Values keyed by the requested names.",
           "propertyType": null,
-          "line": 593
+          "line": 576
         },
         {
           "name": "getOriginURL",
@@ -8086,7 +7952,7 @@
           "returnType": "String|null",
           "returnDescription": "origin url of the repository, read from the refs snapshot's remotes. Returns `null` until the snapshot has loaded or when the repository has no `origin` remote.",
           "propertyType": null,
-          "line": 614
+          "line": 597
         },
         {
           "name": "getUpstreamBranch",
@@ -8102,7 +7968,7 @@
           "returnType": "String|null",
           "returnDescription": "The upstream branch, such as `refs/remotes/origin/master`, or `null` when HEAD has no upstream.",
           "propertyType": null,
-          "line": 628
+          "line": 611
         },
         {
           "name": "getReferences",
@@ -8118,7 +7984,7 @@
           "returnType": "Object",
           "returnDescription": "with the following keys:",
           "propertyType": null,
-          "line": 648
+          "line": 631
         },
         {
           "name": "getReferenceTarget",
@@ -8144,7 +8010,7 @@
           "returnType": "String|null",
           "returnDescription": "The current SHA for the reference, or `null` when it is unavailable.",
           "propertyType": null,
-          "line": 665
+          "line": 648
         },
         {
           "name": "isPathModified",
@@ -8170,7 +8036,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the path is modified in the detailed status snapshot. Returns `false` until the snapshot loads.",
           "propertyType": null,
-          "line": 713
+          "line": 696
         },
         {
           "name": "isPathNew",
@@ -8196,7 +8062,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the path is new in the detailed status snapshot. Returns `false` until the snapshot loads.",
           "propertyType": null,
-          "line": 725
+          "line": 708
         },
         {
           "name": "isPathIgnored",
@@ -8222,7 +8088,7 @@
           "returnType": "Boolean",
           "returnDescription": "that's true if the `path` is ignored.",
           "propertyType": null,
-          "line": 740
+          "line": 723
         },
         {
           "name": "isPathIgnoredCached",
@@ -8248,7 +8114,7 @@
           "returnType": "Boolean",
           "returnDescription": "that's true if the `filePath` is ignored.",
           "propertyType": null,
-          "line": 755
+          "line": 738
         },
         {
           "name": "getStatusSnapshot",
@@ -8262,9 +8128,9 @@
           "summary": "",
           "parameters": [],
           "returnType": "Object",
-          "returnDescription": "latest immutable detailed status snapshot. It contains `head`, `upstream`, per-file staged/unstaged/conflict state, aggregate `counts`, and a monotonic `generation`. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeStatusSnapshot} or call {@link #ensureStatusSnapshot} to load it.",
+          "returnDescription": "latest immutable detailed status snapshot. It contains `head`, `upstream`, `submodulePaths`, per-file staged/unstaged/conflict state, aggregate `counts`, and a monotonic `generation`. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeStatusSnapshot} or call {@link #ensureStatusSnapshot} to load it.",
           "propertyType": null,
-          "line": 771
+          "line": 754
         },
         {
           "name": "ensureStatusSnapshot",
@@ -8290,7 +8156,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the snapshot.",
           "propertyType": null,
-          "line": 784
+          "line": 767
         },
         {
           "name": "getStatusEntry",
@@ -8316,7 +8182,7 @@
           "returnType": "Object|null",
           "returnDescription": "detailed cached status for a repository path, or `null`.",
           "propertyType": null,
-          "line": 823
+          "line": 792
         },
         {
           "name": "refreshStatusSnapshot",
@@ -8326,8 +8192,8 @@
           "signature": "::refreshStatusSnapshot(options = {})",
           "category": "Reading Status",
           "visibility": "Public",
-          "description": "Refresh the detailed branch and file status snapshot with Git.\nConcurrent calls coalesce into at most one in-flight and one trailing\nsubprocess; see `coalesceSnapshotRefresh`.",
-          "summary": "Refresh the detailed branch and file status snapshot with Git. Concurrent calls coalesce into at most one in-flight and one trailing subprocess; see `coalesceSnapshotRefresh`.",
+          "description": "Refresh the detailed branch and file status snapshot with Git.\nConcurrent calls coalesce into at most one in-flight and one trailing\nworker request.",
+          "summary": "Refresh the detailed branch and file status snapshot with Git. Concurrent calls coalesce into at most one in-flight and one trailing worker request.",
           "parameters": [
             {
               "name": "options",
@@ -8342,7 +8208,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1090
+          "line": 1184
         },
         {
           "name": "getPathStatusSummary",
@@ -8368,7 +8234,7 @@
           "returnType": "Object|null",
           "returnDescription": "frozen `{source, conflicted, modified, added, renamed}` object (`source` is always `\"snapshot\"`), or `null` for clean, ignored, unknown, and pre-snapshot paths.",
           "propertyType": null,
-          "line": 1193
+          "line": 1198
         },
         {
           "name": "getDirectoryStatusSummary",
@@ -8394,7 +8260,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1210
+          "line": 1215
         },
         {
           "name": "getRefsSnapshot",
@@ -8410,7 +8276,7 @@
           "returnType": "Object",
           "returnDescription": "latest immutable refs snapshot. It contains `head`, local `branches` with upstream tracking, `remoteBranches`, `tags`, `remotes` with fetch and push URLs, `worktrees`, and a monotonic `generation`. Branch and tag entries include `lastCommit` metadata for their target commit. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeRefsSnapshot} or call {@link #ensureRefsSnapshot} to load it.",
           "propertyType": null,
-          "line": 1233
+          "line": 1238
         },
         {
           "name": "ensureRefsSnapshot",
@@ -8436,7 +8302,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the snapshot.",
           "propertyType": null,
-          "line": 1246
+          "line": 1251
         },
         {
           "name": "refreshRefsSnapshot",
@@ -8446,8 +8312,8 @@
           "signature": "::refreshRefsSnapshot(options = {})",
           "category": "Reading Status",
           "visibility": "Public",
-          "description": "Refresh the refs snapshot with Git. Concurrent calls coalesce into\nat most one in-flight and one trailing refresh; see\n`coalesceSnapshotRefresh`.",
-          "summary": "Refresh the refs snapshot with Git. Concurrent calls coalesce into at most one in-flight and one trailing refresh; see `coalesceSnapshotRefresh`.",
+          "description": "Refresh the refs snapshot with Git. Concurrent calls coalesce into\nat most one in-flight and one trailing worker request.",
+          "summary": "Refresh the refs snapshot with Git. Concurrent calls coalesce into at most one in-flight and one trailing worker request.",
           "parameters": [
             {
               "name": "options",
@@ -8462,7 +8328,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1284
+          "line": 1276
         },
         {
           "name": "getDiff",
@@ -8588,7 +8454,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{schemaVersion, files, rawPatch?}` object; `rawPatch` is present only for `patch` and `both`.",
           "propertyType": null,
-          "line": 1348
+          "line": 1302
         },
         {
           "name": "getCommits",
@@ -8674,7 +8540,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{commits, hasMore, nextCursor}` object. Each commit has `sha`, `parents`, `author`, `committer`, `subject`, and `body`. An unborn repository resolves to an empty page.",
           "propertyType": null,
-          "line": 1451
+          "line": 1375
         },
         {
           "name": "getCommit",
@@ -8709,7 +8575,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the commit object extended with `changedFiles`: `[{path, originalPath, status, similarity}]`.",
           "propertyType": null,
-          "line": 1520
+          "line": 1422
         },
         {
           "name": "getFileAtRevision",
@@ -8773,7 +8639,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the contents, or `null` when the path does not exist at that revision.",
           "propertyType": null,
-          "line": 1562
+          "line": 1449
         },
         {
           "name": "getIndexFile",
@@ -8828,7 +8694,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the staged contents, or `null` when the path has no stage-0 index entry.",
           "propertyType": null,
-          "line": 1589
+          "line": 1473
         },
         {
           "name": "getBlob",
@@ -8883,7 +8749,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the contents, or `null` when the oid does not name an object.",
           "propertyType": null,
-          "line": 1616
+          "line": 1497
         },
         {
           "name": "getDescription",
@@ -8899,7 +8765,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1638
+          "line": 1512
         },
         {
           "name": "getBranchesContaining",
@@ -8964,7 +8830,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of refname `Strings`.",
           "propertyType": null,
-          "line": 1658
+          "line": 1530
         },
         {
           "name": "getFileMode",
@@ -8990,23 +8856,43 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the `String` mode (e.g. `\"100644\"`), or `null` when the path is not tracked.",
           "propertyType": null,
-          "line": 1678
+          "line": 1548
         },
         {
           "name": "getSubmodulePaths",
           "kind": "method",
           "static": false,
-          "async": false,
-          "signature": "::getSubmodulePaths()",
+          "async": true,
+          "signature": "::getSubmodulePaths(options = {})",
           "category": "Reading Status",
           "visibility": "Public",
           "description": "The repository-relative paths declared in `.gitmodules`.",
           "summary": "The repository-relative paths declared in `.gitmodules`.",
-          "parameters": [],
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Read options.",
+              "defaultValue": null
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancellation signal.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
+            }
+          ],
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of path `Strings`.",
           "propertyType": null,
-          "line": 1692
+          "line": 1565
         },
         {
           "name": "getBlame",
@@ -9071,14 +8957,14 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{revision, lines}` object where each line has `line`, `originalLine`, `sha`, `author`, `summary`.",
           "propertyType": null,
-          "line": 1711
+          "line": 1587
         },
         {
           "name": "getLineDiffsAsync",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::getLineDiffsAsync(filePath, text)",
+          "signature": "::getLineDiffsAsync(filePath, text, { signal } = {})",
           "category": "Retrieving Diffs",
           "visibility": "Public",
           "description": "Computes gutter line diffs off the renderer thread via the git-host worker,\nfetching and caching the HEAD blob before comparing it with the buffer.",
@@ -9101,12 +8987,31 @@
               "type": null,
               "description": "The `String` to compare against the `HEAD` contents.",
               "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ signal } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Diff options.",
+              "defaultValue": null
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancellation signal.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of hunk `Objects`, each with `oldStart`, `newStart`, `oldLines`, and `newLines`.",
           "propertyType": null,
-          "line": 1743
+          "line": 1618
         },
         {
           "name": "checkoutHead",
@@ -9132,7 +9037,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1773
+          "line": 1649
         },
         {
           "name": "checkoutReference",
@@ -9167,7 +9072,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1795
+          "line": 1671
         }
       ]
     },
@@ -17477,7 +17382,7 @@
       "source": "src/project.js",
       "sourcePath": "src/project.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 23,
+      "line": 30,
       "members": [
         {
           "name": "onDidChangePaths",
@@ -17513,7 +17418,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 223
+          "line": 242
         },
         {
           "name": "onDidAddBuffer",
@@ -17549,7 +17454,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 238
+          "line": 257
         },
         {
           "name": "observeBuffers",
@@ -17585,7 +17490,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 253
+          "line": 272
         },
         {
           "name": "onDidChangeFiles",
@@ -17641,7 +17546,7 @@
           "returnType": "Disposable",
           "returnDescription": "to manage this event subscription.",
           "propertyType": null,
-          "line": 303
+          "line": 322
         },
         {
           "name": "repositoryForDirectory",
@@ -17667,17 +17572,17 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with either: * {@link GitRepository} if a repository can be created for the given directory",
           "propertyType": null,
-          "line": 323
+          "line": 342
         },
         {
           "name": "repositoryForPath",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::repositoryForPath(filePath)",
+          "signature": "::repositoryForPath(filePath, options = {})",
           "category": "Accessing the git repository",
           "visibility": "Public",
-          "description": "Get the repository that contains a given file or directory path\nasynchronously.\n\nThis is a convenience over {@link #repositoryForDirectory} for callers that have\na path `String` rather than a `Directory`. The path is resolved to its\ncontaining `Directory` (a file path resolves to its parent directory), so\ncallers no longer need to construct a `Directory` themselves.\n\n\n* `null` if no repository can be created for the given path.",
+          "description": "Get the repository that contains a given file or directory path\nasynchronously.\n\nThis is a convenience over {@link #repositoryForDirectory} for callers that have\na path `String` rather than a `Directory`. Providers receive the path\ndirectly and perform discovery asynchronously.\n\n\n* `null` if no repository can be created for the given path.",
           "summary": "Get the repository that contains a given file or directory path asynchronously.",
           "parameters": [
             {
@@ -17688,12 +17593,31 @@
               "type": "String",
               "description": "path of a file or directory.",
               "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Resolution options.",
+              "defaultValue": null
+            },
+            {
+              "name": "options.refresh",
+              "type": "Boolean",
+              "description": "Re-run providers instead of using an exact-path discovery cache entry.",
+              "optional": true,
+              "defaultValue": "true",
+              "source": "options.refresh",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Promise",
           "returnDescription": "that resolves with either: * {@link GitRepository} if a repository can be created for the given path",
           "propertyType": null,
-          "line": 345
+          "line": 365
         },
         {
           "name": "getPaths",
@@ -17709,7 +17633,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 396
+          "line": 556
         },
         {
           "name": "setPaths",
@@ -17764,7 +17688,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 417
+          "line": 577
         },
         {
           "name": "setState",
@@ -17790,7 +17714,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to `true` once the new state is in place, or to `false` if the window was left as it was — because the paths were already open, none was given, or the user cancelled at the save prompt.",
           "propertyType": null,
-          "line": 489
+          "line": 649
         },
         {
           "name": "addPath",
@@ -17845,7 +17769,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 506
+          "line": 666
         },
         {
           "name": "addPaths",
@@ -17880,7 +17804,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 591
+          "line": 751
         },
         {
           "name": "getWatcherPromise",
@@ -17906,7 +17830,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the {@link PathWatcher} associated with this project root once it has initialized and is ready to start sending events. The Promise will reject with an error instead if `projectPath` is not currently a root directory.",
           "propertyType": null,
-          "line": 639
+          "line": 799
         },
         {
           "name": "removePath",
@@ -17932,7 +17856,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 654
+          "line": 814
         },
         {
           "name": "getDirectories",
@@ -17948,7 +17872,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 692
+          "line": 852
         },
         {
           "name": "relativizePath",
@@ -17974,7 +17898,7 @@
           "returnType": "Array",
           "returnDescription": "with two elements:",
           "propertyType": null,
-          "line": 739
+          "line": 899
         },
         {
           "name": "contains",
@@ -18000,7 +17924,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether the path is inside the project's root directory.",
           "propertyType": null,
-          "line": 783
+          "line": 943
         },
         {
           "name": "compileIgnoredNames",
@@ -18045,7 +17969,7 @@
           "returnType": "Object",
           "returnDescription": "an immutable `{patterns, matches(relativePath)}` matcher.",
           "propertyType": null,
-          "line": 810
+          "line": 970
         },
         {
           "name": "crawl",
@@ -18151,7 +18075,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that resolves the crawl early.",
           "propertyType": null,
-          "line": 847
+          "line": 1007
         },
         {
           "name": "observeFilePaths",
@@ -18207,7 +18131,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 913
+          "line": 1073
         },
         {
           "name": "getFilePaths",
@@ -18223,7 +18147,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` absolute paths.",
           "propertyType": null,
-          "line": 946
+          "line": 1106
         },
         {
           "name": "getFilePathsForRoot",
@@ -18249,7 +18173,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` absolute paths, empty for a path that is not a project root.",
           "propertyType": null,
-          "line": 963
+          "line": 1123
         },
         {
           "name": "hasFilePath",
@@ -18275,7 +18199,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 983
+          "line": 1143
         },
         {
           "name": "getFilePathCount",
@@ -18291,7 +18215,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 997
+          "line": 1157
         },
         {
           "name": "isIndexing",
@@ -18307,7 +18231,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1012
+          "line": 1172
         },
         {
           "name": "refreshFilePaths",
@@ -18343,7 +18267,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the crawl settles.",
           "propertyType": null,
-          "line": 1035
+          "line": 1195
         }
       ]
     },
@@ -18940,7 +18864,7 @@
       "source": "src/repository-registry.js",
       "sourcePath": "src/repository-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 145,
+      "line": 134,
       "members": [
         {
           "name": "getActiveRepository",
@@ -18956,7 +18880,7 @@
           "returnType": "GitRepository",
           "returnDescription": ", or `null` when the active item belongs to none.",
           "propertyType": null,
-          "line": 282
+          "line": 276
         },
         {
           "name": "getActiveRepositoryContext",
@@ -18972,7 +18896,7 @@
           "returnType": "Object",
           "returnDescription": "frozen `Object`.",
           "propertyType": null,
-          "line": 304
+          "line": 298
         },
         {
           "name": "isActiveRepositoryPinned",
@@ -18988,7 +18912,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 320
+          "line": 314
         },
         {
           "name": "onDidChangeActiveRepository",
@@ -19014,7 +18938,7 @@
           "returnType": "Disposable",
           "returnDescription": "A subscription that can be disposed to unsubscribe.",
           "propertyType": null,
-          "line": 336
+          "line": 330
         },
         {
           "name": "observeActiveRepository",
@@ -19040,7 +18964,7 @@
           "returnType": "Disposable",
           "returnDescription": "A subscription that can be disposed to unsubscribe.",
           "propertyType": null,
-          "line": 353
+          "line": 347
         },
         {
           "name": "setActiveRepository",
@@ -19085,7 +19009,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 371
+          "line": 365
         },
         {
           "name": "setActiveRepositoryForPath",
@@ -19130,7 +19054,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link GitRepository}, or to `null` when the path is not in one.",
           "propertyType": null,
-          "line": 402
+          "line": 399
         },
         {
           "name": "getSnapshot",
@@ -19146,7 +19070,7 @@
           "returnType": "Object",
           "returnDescription": "frozen `Object`.",
           "propertyType": null,
-          "line": 618
+          "line": 682
         },
         {
           "name": "getRepositories",
@@ -19162,7 +19086,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link GitRepository}.",
           "propertyType": null,
-          "line": 636
+          "line": 700
         },
         {
           "name": "getById",
@@ -19188,7 +19112,7 @@
           "returnType": "GitRepository",
           "returnDescription": ", or `null` if nothing is registered under it.",
           "propertyType": null,
-          "line": 649
+          "line": 713
         },
         {
           "name": "observeRepositories",
@@ -19214,7 +19138,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 667
+          "line": 731
         },
         {
           "name": "onDidAddRepository",
@@ -19240,7 +19164,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 681
+          "line": 745
         },
         {
           "name": "onDidRemoveRepository",
@@ -19266,7 +19190,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 697
+          "line": 761
         },
         {
           "name": "onDidChange",
@@ -19362,7 +19286,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 721
+          "line": 785
         },
         {
           "name": "onDidStartRescan",
@@ -19398,7 +19322,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 735
+          "line": 799
         },
         {
           "name": "onDidFinishRescan",
@@ -19454,7 +19378,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 752
+          "line": 816
         },
         {
           "name": "onDidQueueOperation",
@@ -19480,7 +19404,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 766
+          "line": 830
         },
         {
           "name": "onDidStartOperation",
@@ -19506,7 +19430,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 779
+          "line": 843
         },
         {
           "name": "onDidFinishOperation",
@@ -19532,7 +19456,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 793
+          "line": 857
         },
         {
           "name": "getForPath",
@@ -19558,14 +19482,14 @@
           "returnType": "GitRepository",
           "returnDescription": ", or `null`.",
           "propertyType": null,
-          "line": 817
+          "line": 881
         },
         {
           "name": "resolveForPath",
           "kind": "method",
           "static": false,
           "async": true,
-          "signature": "::resolveForPath(filePath)",
+          "signature": "::resolveForPath(filePath, { refresh = true } = {})",
           "category": "Resolving Paths",
           "visibility": "Public",
           "description": "The repository a path belongs to, discovering and registering one\nif it is not known yet.",
@@ -19579,90 +19503,21 @@
               "type": null,
               "description": "The `String` path to resolve.",
               "defaultValue": null
+            },
+            {
+              "name": null,
+              "source": "{ refresh = true } = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise",
           "returnDescription": "that resolves to a {@link GitRepository}, or to `null` when the path is not in one.",
           "propertyType": null,
-          "line": 867
-        },
-        {
-          "name": "resolveForPathSync",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::resolveForPathSync(filePath)",
-          "category": "Resolving Paths",
-          "visibility": "Extended",
-          "description": "{@link #resolveForPath}, synchronously.\n\nDiscovery reads the filesystem, so this blocks the renderer. Prefer\n{@link #getForPath} when the repository is expected to be known already, and\n{@link #resolveForPath} when it is not.",
-          "summary": "{@link #resolveForPath}, synchronously.",
-          "parameters": [
-            {
-              "name": "filePath",
-              "source": "filePath",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "The `String` path to resolve.",
-              "defaultValue": null
-            }
-          ],
-          "returnType": "GitRepository",
-          "returnDescription": ", or `null`.",
-          "propertyType": null,
-          "line": 888
-        },
-        {
-          "name": "resolveDirectory",
-          "kind": "method",
-          "static": false,
-          "async": true,
-          "signature": "::resolveDirectory(directory)",
-          "category": "Resolving Paths",
-          "visibility": "Extended",
-          "description": "The repository for a `Directory`, discovering and registering one\nif it is not known yet.",
-          "summary": "The repository for a `Directory`, discovering and registering one if it is not known yet.",
-          "parameters": [
-            {
-              "name": "directory",
-              "source": "directory",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "The `Directory` to resolve.",
-              "defaultValue": null
-            }
-          ],
-          "returnType": "Promise",
-          "returnDescription": "that resolves to a {@link GitRepository}, or to `null`.",
-          "propertyType": null,
-          "line": 906
-        },
-        {
-          "name": "resolveDirectorySync",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::resolveDirectorySync(directory)",
-          "category": "Resolving Paths",
-          "visibility": "Extended",
-          "description": "{@link #resolveDirectory}, synchronously. Reads the filesystem.",
-          "summary": "{@link #resolveDirectory}, synchronously. Reads the filesystem.",
-          "parameters": [
-            {
-              "name": "directory",
-              "source": "directory",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "The `Directory` to resolve.",
-              "defaultValue": null
-            }
-          ],
-          "returnType": "GitRepository",
-          "returnDescription": ", or `null`.",
-          "propertyType": null,
-          "line": 920
+          "line": 919
         },
         {
           "name": "retain",
@@ -19697,7 +19552,7 @@
           "returnType": "Disposable",
           "returnDescription": "that releases the hold.",
           "propertyType": null,
-          "line": 944
+          "line": 974
         },
         {
           "name": "runOperation",
@@ -19732,7 +19587,7 @@
           "returnType": "Promise",
           "returnDescription": "for whatever the operation returned.",
           "propertyType": null,
-          "line": 972
+          "line": 1002
         },
         {
           "name": "addOperationProvider",
@@ -19777,7 +19632,7 @@
           "returnType": "Disposable",
           "returnDescription": "that removes the provider and everything it implemented.",
           "propertyType": null,
-          "line": 1010
+          "line": 1042
         },
         {
           "name": "getOperations",
@@ -19803,7 +19658,7 @@
           "returnType": "Object",
           "returnDescription": "of operation functions, or `null` when no provider has claimed the repository.",
           "propertyType": null,
-          "line": 1052
+          "line": 1084
         },
         {
           "name": "canPerformOperation",
@@ -19838,7 +19693,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1070
+          "line": 1102
         },
         {
           "name": "getOperationCapabilities",
@@ -19864,7 +19719,7 @@
           "returnType": "Array",
           "returnDescription": "frozen `Array` of `String` operation names.",
           "propertyType": null,
-          "line": 1083
+          "line": 1115
         },
         {
           "name": "getPendingOperations",
@@ -19890,7 +19745,7 @@
           "returnType": "Array",
           "returnDescription": "frozen `Array` of frozen `Objects`.",
           "propertyType": null,
-          "line": 1125
+          "line": 1157
         },
         {
           "name": "getWorkspaceOperationCapabilities",
@@ -19906,7 +19761,7 @@
           "returnType": "Array",
           "returnDescription": "frozen `Array` of `String` operation names.",
           "propertyType": null,
-          "line": 1159
+          "line": 1191
         },
         {
           "name": "canPerformWorkspaceOperation",
@@ -19932,7 +19787,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1175
+          "line": 1207
         },
         {
           "name": "canExecuteGitCommands",
@@ -19948,7 +19803,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1191
+          "line": 1223
         },
         {
           "name": "executeGit",
@@ -19992,23 +19847,7 @@
           "returnType": "Promise",
           "returnDescription": "for the provider's result. It rejects with a `TypeError` if `args` is not an array, and with an `Error` whose `code` is `ERR_GIT_EXECUTION_UNAVAILABLE` when no provider runs Git commands.",
           "propertyType": null,
-          "line": 1210
-        },
-        {
-          "name": "getGitExecutablePath",
-          "kind": "method",
-          "static": false,
-          "async": false,
-          "signature": "::getGitExecutablePath()",
-          "category": "Running Git",
-          "visibility": "Extended",
-          "description": "The Git binary the active provider runs.",
-          "summary": "The Git binary the active provider runs.",
-          "parameters": [],
-          "returnType": "String",
-          "returnDescription": "path, or `null` when no provider runs Git commands or it does not say which binary it uses.",
-          "propertyType": null,
-          "line": 1235
+          "line": 1242
         },
         {
           "name": "initialize",
@@ -20043,7 +19882,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the new {@link GitRepository}. It rejects when no provider implements `initialize`, and with an `Error` whose `code` is `ERR_REPOSITORY_DISCOVERY_FAILED` if the command succeeded but nothing was found at the path afterwards.",
           "propertyType": null,
-          "line": 1253
+          "line": 1273
         },
         {
           "name": "clone",
@@ -20087,7 +19926,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the new {@link GitRepository}, and rejects the same way {@link #initialize} does.",
           "propertyType": null,
-          "line": 1268
+          "line": 1288
         },
         {
           "name": "add",
@@ -20132,7 +19971,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to an `Object`, or to `null` when the path is not in a repository.",
           "propertyType": null,
-          "line": 1619
+          "line": 1651
         },
         {
           "name": "forget",
@@ -20158,7 +19997,7 @@
           "returnType": "Boolean",
           "returnDescription": ": `true` if the repository was registered.",
           "propertyType": null,
-          "line": 1650
+          "line": 1682
         },
         {
           "name": "update",
@@ -20174,7 +20013,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to an `Array` of every registered {@link GitRepository}.",
           "propertyType": null,
-          "line": 1816
+          "line": 1851
         }
       ]
     },
@@ -43018,6 +42857,6 @@
       "line": 1174
     }
   ],
-  "memberCount": 1384,
-  "generatedAt": "2026-09-04T18:35:45.770Z"
+  "memberCount": 1376,
+  "generatedAt": "2026-09-04T23:12:00.248Z"
 }
