@@ -1,6 +1,6 @@
 # Language servers
 
-The optional **`ide-client`** package is the editor's minimal Language Server Protocol 3.17 hub. It starts and synchronizes servers, coordinates protocol operations, and routes results to editor services; feature packages render those results, and separate bundled infrastructure performs filesystem changes. `ide-client` is not bundled.
+The optional **`ide-client`** package is the editor's minimal Language Server Protocol 3.17 hub. It starts and synchronizes servers, coordinates protocol operations, and routes results to editor services; feature packages render those results, and separate optional infrastructure can perform filesystem changes. `ide-client` is not bundled.
 
 ## Installation
 
@@ -10,7 +10,7 @@ A working setup has three layers:
 2. Install an adapter for each language, such as `ide-typescript`, `ide-eslint`, `ide-bash`, `ide-html`, `ide-yaml`, `ide-marksman`, `ide-pyright`, or `ide-ruff`.
 3. Install the frontends you want: `autocomplete` for completions, `linter` for diagnostics, `symbol` plus a symbol provider for symbol lists, and packages from [Code intelligence](code-intelligence.md) for other features.
 
-Lumine already bundles the UI-less `file-operations` package. It is infrastructure used automatically when a language server asks for create, rename or delete operations, so it is not a fourth installation step.
+Install the optional, UI-less `file-operations` package when language servers should be allowed to create, rename or delete files through `WorkspaceEdit`. Without it, text edits and the other language features continue to work, while `ide-client` does not advertise resource-operation support.
 
 For example, a minimal TypeScript setup with completions and diagnostics is:
 
@@ -45,7 +45,7 @@ Document diagnostics and workspace diagnostics use the same route into `linter`:
 
 ## File operations
 
-`ide-client` coordinates file changes from the protocol but does not implement filesystem access. For a server-authored `WorkspaceEdit`, it validates document versions and ordered changes, prepares text edits, and hands closed-path inspection plus every create, rename and delete step to the bundled `file-operations.executor@1.0.0` service. The executor's `inspect()` and `prepare()` calls inspect affected paths, simulate the complete sequence without mutation, and return frozen results or an opaque identity-checked plan; `ide-client` executes plan steps in `documentChanges` order, applies the interleaved text edits, and retargets open buffers from the effects that remain.
+`ide-client` coordinates file changes from the protocol but does not implement filesystem access. It validates document versions and ordered changes and prepares text edits; when the optional `file-operations` package is installed, closed-path inspection plus every create, rename and delete step goes to its `file-operations.executor@1.0.0` service. The executor's `inspect()` and `prepare()` calls inspect affected paths, simulate the complete sequence without mutation, and return frozen results or an opaque identity-checked plan; `ide-client` executes plan steps in `documentChanges` order, applies the interleaved text edits, and retargets open buffers from the effects that remain.
 
 The executor has no commands or user interface and deliberately exposes only its versioned service. Its neutral step lifecycle identifies private staging roots and durable logical effects so protocol consumers can gate watcher noise; it neither emits nor consumes `tree-view`'s package-private events and does not manufacture a user-operation boundary from watcher notifications.
 

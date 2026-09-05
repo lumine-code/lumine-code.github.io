@@ -41,7 +41,7 @@ The canonical contract, optional hooks and service methods live in [`ide-client`
 
 ## Architecture boundaries
 
-An adapter describes one server; it does not apply `WorkspaceEdit` resource operations or depend on tree-view internals. `ide-client` validates and orders the protocol's document and resource changes, then delegates inspection plus create, rename and delete steps to the bundled, UI-less `file-operations.executor@1.0.0`. Its `prepare()` method preflights the complete virtual sequence before returning an opaque plan for stepwise execution, while its neutral lifecycle distinguishes private staging roots from durable logical effects.
+An adapter describes one server; it does not apply `WorkspaceEdit` resource operations or depend on tree-view internals. When the optional, UI-less `file-operations` package is installed, `ide-client` delegates inspection plus create, rename and delete steps to `file-operations.executor@1.0.0`. Its `prepare()` method preflights the complete virtual sequence before returning an opaque plan for stepwise execution, while its neutral lifecycle distinguishes private staging roots from durable logical effects.
 
 User-initiated filesystem operations have a different owner. `tree-view` supplies their UI and the versioned `tree-view.file-operations` will/did boundary; `ide-client` translates that boundary to LSP file-operation requests and notifications. The executor lifecycle is infrastructure rather than a user-operation event bus, `tree-view` does not execute server-authored `WorkspaceEdit` objects, and adapters need to consume neither service directly.
 
