@@ -34,17 +34,17 @@ Several configs can share one wasm (JSON, JSONC, and Jupyter). Configs that pin 
 
 ## Building a parser wasm
 
-A parser is compiled from the exact source in `parserSource` with `tree-sitter-cli` and the WASI SDK and Binaryen versions pinned by that CLI. In the flat Lumine workspace, `lem grammar` owns that workflow: it reuses the checkout and CLI under `LUMINE_GRAMMAR_CACHE`, validates the result against the editor's `web-tree-sitter`, installs every copy in the same parser family, and updates `wasmBuildTool`.
+A parser is compiled from the exact source in `parserSource` with the `tree-sitter-cli` version pinned by `lem` and the WASI SDK and Binaryen versions pinned by that CLI. In the flat Lumine workspace, `lem grammar` owns that workflow: it reuses its ignored source checkout, validates the result against the editor's `web-tree-sitter`, installs every copy in the same parser family, and updates `wasmBuildTool`.
 
 ```sh
-LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/json.json
-LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar language-json/grammars/json.json --source github:tree-sitter/tree-sitter-json#v0.24.8 --diff-node-types
-LUMINE_GRAMMAR_CACHE=/path/to/Lumine/.dev lem grammar --check
+lem grammar language-json/grammars/json.json
+lem grammar language-json/grammars/json.json --source github:tree-sitter/tree-sitter-json#v0.24.8 --diff-node-types
+lem grammar --check
 ```
 
 The first form rebuilds the currently pinned source. The second changes `parserSource` and reports added and removed node types and fields. The builder generates `parser.c` automatically when upstream ships none; use `--regenerate` only for a targeted parser migration followed by real parse tests, because generator changes can alter behavior even when named node types and fields do not change. `--check` performs no build; it verifies every committed wasm's ABI and recorded CLI version.
 
-Point `LUMINE_GRAMMAR_CACHE` at the workspace `.dev/` directory to reuse its pinned CLI, source clones and output. Tree-sitter caches its pinned WASI SDK and Binaryen separately in the platform cache; `TREE_SITTER_WASI_SDK_PATH` and `TREE_SITTER_BINARYEN_PATH` may point to existing toolchain checkouts. The current fleet CLI is `0.27.0`.
+`lem` keeps every isolated source clone, including `lumine-code` parsers, at `.parsers/<repo_owner>_<repo_name>` and build products in `.wasms/`, both ignored by Git. Tree-sitter caches its pinned WASI SDK and Binaryen separately in the platform cache; `TREE_SITTER_WASI_SDK_PATH` and `TREE_SITTER_BINARYEN_PATH` may point to existing toolchain checkouts. The current fleet CLI is the exact `tree-sitter-cli` dependency in `lem`.
 
 `parserSource` and `wasmBuildTool` are the committed provenance. Do not copy a wasm by hand: `lem grammar` fans a build out to every config with the same source and wasm name, including copies in different package repositories, so shared parsers do not drift.
 

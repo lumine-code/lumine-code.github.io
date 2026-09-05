@@ -12,7 +12,7 @@ A grammar is a `.json` file under `grammars/`. Every grammar declares a **`scope
 
 The bundled `language-*` packages are the best references. Each descriptor points to an immutable parser source, a committed Wasm binary, and the query files that provide highlighting and editor behavior.
 
-To start a Tree-sitter grammar package from scratch, `.dev/grammar-authoring/new-grammar-package.js` scaffolds the repository — config, specs, CI, and lint setup — and prints the build and registration steps. Queries from upstream or nvim-treesitter cannot be used unchanged: their capture names are highlight groups rather than Lumine's scope taxonomy, so rewrite them before running `npm run check:grammar-captures`.
+To start a Tree-sitter grammar package from scratch, `lem grammar new` scaffolds the repository — config, specs, CI, and lint setup — and prints the build and registration steps. `lem grammar port` rewrites queries from upstream or nvim-treesitter, whose capture names are highlight groups rather than Lumine's scope taxonomy; review its output before running `npm run check:grammar-captures`.
 
 ## Choosing which grammar applies
 
