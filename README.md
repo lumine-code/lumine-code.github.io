@@ -46,4 +46,4 @@ This repo is named `lumine-code.github.io`, so GitHub Pages serves it at the org
 
 ## Contributing
 
-Report documentation problems in [Issues](https://github.com/lumine-code/lumine-code.github.io/issues) and discuss broader changes in [lumine-code Discussions](https://github.com/orgs/lumine-code/discussions).
+Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!
