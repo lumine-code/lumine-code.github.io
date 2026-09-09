@@ -7549,13 +7549,13 @@
           "signature": "::path",
           "category": "Methods",
           "visibility": "Public",
-          "description": "",
-          "summary": "",
+          "description": "Get the fixed absolute path requested by the subscriber.",
+          "summary": "Get the fixed absolute path requested by the subscriber.",
           "parameters": [],
           "returnType": "String",
           "returnDescription": "The absolute path in the subscriber's spelling.",
           "propertyType": null,
-          "line": 32
+          "line": 34
         },
         {
           "name": "ready",
@@ -7565,13 +7565,13 @@
           "signature": "::ready",
           "category": "Methods",
           "visibility": "Public",
-          "description": "",
-          "summary": "",
+          "description": "Wait for the underlying observation to be armed.",
+          "summary": "Wait for the underlying observation to be armed.",
           "parameters": [],
           "returnType": "Promise<void>",
           "returnDescription": "Resolves when observation is armed; rejects on failure or cancellation.",
           "propertyType": null,
-          "line": 42
+          "line": 46
         },
         {
           "name": "closed",
@@ -7581,13 +7581,13 @@
           "signature": "::closed",
           "category": "Methods",
           "visibility": "Public",
-          "description": "",
-          "summary": "",
+          "description": "Wait for disposal to release ownership and native resources.",
+          "summary": "Wait for disposal to release ownership and native resources.",
           "parameters": [],
           "returnType": "Promise<void>",
           "returnDescription": "Resolves after this handle's ownership and resources are released.",
           "propertyType": null,
-          "line": 52
+          "line": 58
         },
         {
           "name": "onDidChange",
@@ -7597,8 +7597,8 @@
           "signature": "::onDidChange(callback)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "",
-          "summary": "",
+          "description": "Subscribe to batches of created, updated and deleted paths.",
+          "summary": "Subscribe to batches of created, updated and deleted paths.",
           "parameters": [
             {
               "name": "callback",
@@ -7613,7 +7613,7 @@
           "returnType": "Disposable",
           "returnDescription": "Removes the callback when disposed.",
           "propertyType": null,
-          "line": 68
+          "line": 76
         },
         {
           "name": "onDidInvalidate",
@@ -7623,8 +7623,8 @@
           "signature": "::onDidInvalidate(callback)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "",
-          "summary": "",
+          "description": "Subscribe to restored observation after changes may have been lost.",
+          "summary": "Subscribe to restored observation after changes may have been lost.",
           "parameters": [
             {
               "name": "callback",
@@ -7639,7 +7639,7 @@
           "returnType": "Disposable",
           "returnDescription": "Removes the callback when disposed.",
           "propertyType": null,
-          "line": 79
+          "line": 89
         },
         {
           "name": "onDidError",
@@ -7649,8 +7649,8 @@
           "signature": "::onDidError(callback)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "",
-          "summary": "",
+          "description": "Subscribe to structured observation errors.",
+          "summary": "Subscribe to structured observation errors.",
           "parameters": [
             {
               "name": "callback",
@@ -7665,7 +7665,7 @@
           "returnType": "Disposable",
           "returnDescription": "Removes the callback when disposed.",
           "propertyType": null,
-          "line": 90
+          "line": 102
         },
         {
           "name": "dispose",
@@ -7681,7 +7681,7 @@
           "returnType": "void",
           "returnDescription": "",
           "propertyType": null,
-          "line": 145
+          "line": 157
         }
       ]
     },
@@ -11930,7 +11930,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 184
+          "line": 188
         },
         {
           "name": "onDidMatchBinding",
@@ -11996,7 +11996,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 209
+          "line": 213
         },
         {
           "name": "onDidPartiallyMatchBindings",
@@ -12062,7 +12062,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 227
+          "line": 231
         },
         {
           "name": "onDidFailToMatchBinding",
@@ -12118,7 +12118,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 244
+          "line": 248
         },
         {
           "name": "onDidFailToReadFile",
@@ -12174,7 +12174,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 282
+          "line": 286
         },
         {
           "name": "build",
@@ -12227,7 +12227,7 @@
           "returnType": "Array<KeyBinding>",
           "returnDescription": "The constructed bindings.",
           "propertyType": null,
-          "line": 304
+          "line": 308
         },
         {
           "name": "add",
@@ -12280,7 +12280,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the bindings.",
           "propertyType": null,
-          "line": 370
+          "line": 374
         },
         {
           "name": "getKeyBindings",
@@ -12296,7 +12296,7 @@
           "returnType": "Array",
           "returnDescription": "of `KeyBindings`.",
           "propertyType": null,
-          "line": 411
+          "line": 415
         },
         {
           "name": "findKeyBindings",
@@ -12352,7 +12352,7 @@
           "returnType": "Array",
           "returnDescription": "of key bindings.",
           "propertyType": null,
-          "line": 427
+          "line": 431
         },
         {
           "name": "loadKeymap",
@@ -12407,7 +12407,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 474
+          "line": 478
         },
         {
           "name": "watchKeymap",
@@ -12452,7 +12452,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 515
+          "line": 519
         },
         {
           "name": "handleKeyboardEvent",
@@ -12487,7 +12487,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 619
+          "line": 623
         },
         {
           "name": "keystrokeForKeyboardEvent",
@@ -12513,7 +12513,7 @@
           "returnType": "String",
           "returnDescription": "describing the keystroke.",
           "propertyType": null,
-          "line": 899
+          "line": 903
         },
         {
           "name": "addKeystrokeResolver",
@@ -12579,7 +12579,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the resolver.",
           "propertyType": null,
-          "line": 920
+          "line": 924
         },
         {
           "name": "getPartialMatchTimeout",
@@ -12595,7 +12595,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 939
+          "line": 943
         }
       ]
     },
@@ -25115,6 +25115,16 @@
               "nested": true
             },
             {
+              "name": "file.setPath",
+              "type": null,
+              "description": "A `Function` that retargets this same data source, optionally returning a Promise. Supplying it opts into editor-initiated filesystem moves; without it, the provider owns relocation.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "file.setPath",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "file.createReadStream",
               "type": null,
               "description": "A `Function` that returns a `Readable` stream that can be used to load the file's content.",
@@ -25178,7 +25188,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 740
+          "line": 777
         },
         {
           "name": "setEncoding",
@@ -25204,7 +25214,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 774
+          "line": 812
         },
         {
           "name": "getEncoding",
@@ -25220,7 +25230,7 @@
           "returnType": "String",
           "returnDescription": "encoding of this buffer.",
           "propertyType": null,
-          "line": 797
+          "line": 835
         },
         {
           "name": "getUri",
@@ -25236,7 +25246,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 817
+          "line": 855
         },
         {
           "name": "isEmpty",
@@ -25252,7 +25262,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 843
+          "line": 881
         },
         {
           "name": "getText",
@@ -25268,7 +25278,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 856
+          "line": 894
         },
         {
           "name": "getTextInRange",
@@ -25294,7 +25304,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 874
+          "line": 912
         },
         {
           "name": "getLines",
@@ -25310,7 +25320,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings`.",
           "propertyType": null,
-          "line": 886
+          "line": 924
         },
         {
           "name": "getLastLine",
@@ -25326,7 +25336,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 899
+          "line": 937
         },
         {
           "name": "lineForRow",
@@ -25352,7 +25362,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 913
+          "line": 951
         },
         {
           "name": "lineEndingForRow",
@@ -25378,7 +25388,7 @@
           "returnType": "String",
           "returnDescription": "The returned newline is represented as a literal string: `'\\n'`, `'\\r\\n'`, or `''` for the last line of the buffer, which doesn't end in a newline.",
           "propertyType": null,
-          "line": 926
+          "line": 964
         },
         {
           "name": "lineLengthForRow",
@@ -25404,7 +25414,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 940
+          "line": 978
         },
         {
           "name": "isRowBlank",
@@ -25430,7 +25440,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 953
+          "line": 991
         },
         {
           "name": "previousNonBlankRow",
@@ -25456,7 +25466,7 @@
           "returnType": "Number",
           "returnDescription": "or `null` if there's no preceding non-blank row.",
           "propertyType": null,
-          "line": 966
+          "line": 1004
         },
         {
           "name": "nextNonBlankRow",
@@ -25482,7 +25492,7 @@
           "returnType": "Number",
           "returnDescription": "or `null` if there's no next non-blank row.",
           "propertyType": null,
-          "line": 984
+          "line": 1022
         },
         {
           "name": "hasAstral",
@@ -25498,7 +25508,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the buffer contains astral-plane Unicode characters encoded as surrogate pairs.",
           "propertyType": null,
-          "line": 1000
+          "line": 1038
         },
         {
           "name": "setText",
@@ -25524,7 +25534,7 @@
           "returnType": "Range",
           "returnDescription": "spanning the new buffer contents.",
           "propertyType": null,
-          "line": 1022
+          "line": 1060
         },
         {
           "name": "setTextViaDiff",
@@ -25550,7 +25560,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1035
+          "line": 1073
         },
         {
           "name": "setTextInRange",
@@ -25614,7 +25624,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text.",
           "propertyType": null,
-          "line": 1118
+          "line": 1156
         },
         {
           "name": "insert",
@@ -25678,7 +25688,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text.",
           "propertyType": null,
-          "line": 1175
+          "line": 1213
         },
         {
           "name": "append",
@@ -25733,7 +25743,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text",
           "propertyType": null,
-          "line": 1191
+          "line": 1229
         },
         {
           "name": "delete",
@@ -25759,7 +25769,7 @@
           "returnType": "Range",
           "returnDescription": "empty {@link Range} starting at the start of deleted range.",
           "propertyType": null,
-          "line": 1272
+          "line": 1310
         },
         {
           "name": "deleteRow",
@@ -25785,7 +25795,7 @@
           "returnType": "Range",
           "returnDescription": "of the deleted text.",
           "propertyType": null,
-          "line": 1285
+          "line": 1323
         },
         {
           "name": "deleteRows",
@@ -25820,7 +25830,7 @@
           "returnType": "Range",
           "returnDescription": "of the deleted text.",
           "propertyType": null,
-          "line": 1302
+          "line": 1340
         },
         {
           "name": "addMarkerLayer",
@@ -25876,7 +25886,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1352
+          "line": 1390
         },
         {
           "name": "getMarkerLayer",
@@ -25902,7 +25912,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "or `undefined` if no layer exists with the given id.",
           "propertyType": null,
-          "line": 1367
+          "line": 1405
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -25918,7 +25928,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1382
+          "line": 1420
         },
         {
           "name": "markRange",
@@ -25983,7 +25993,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1402
+          "line": 1440
         },
         {
           "name": "markPosition",
@@ -26038,7 +26048,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1419
+          "line": 1457
         },
         {
           "name": "getMarkers",
@@ -26054,7 +26064,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers`.",
           "propertyType": null,
-          "line": 1431
+          "line": 1469
         },
         {
           "name": "getMarker",
@@ -26080,7 +26090,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1444
+          "line": 1482
         },
         {
           "name": "findMarkers",
@@ -26196,7 +26206,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers`.",
           "propertyType": null,
-          "line": 1470
+          "line": 1508
         },
         {
           "name": "getMarkerCount",
@@ -26212,7 +26222,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1482
+          "line": 1520
         },
         {
           "name": "undo",
@@ -26248,7 +26258,7 @@
           "returnType": "Boolean",
           "returnDescription": "of whether or not a change was made.",
           "propertyType": null,
-          "line": 1542
+          "line": 1580
         },
         {
           "name": "redo",
@@ -26284,7 +26294,7 @@
           "returnType": "Boolean",
           "returnDescription": "of whether or not a change was made.",
           "propertyType": null,
-          "line": 1571
+          "line": 1609
         },
         {
           "name": "transact",
@@ -26339,7 +26349,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1609
+          "line": 1647
         },
         {
           "name": "abortTransaction",
@@ -26355,7 +26365,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1673
+          "line": 1711
         },
         {
           "name": "clearUndoStack",
@@ -26371,7 +26381,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1683
+          "line": 1721
         },
         {
           "name": "createCheckpoint",
@@ -26407,7 +26417,7 @@
           "returnType": "Number",
           "returnDescription": "checkpoint id value.",
           "propertyType": null,
-          "line": 1698
+          "line": 1736
         },
         {
           "name": "revertToCheckpoint",
@@ -26452,7 +26462,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the operation succeeded.",
           "propertyType": null,
-          "line": 1721
+          "line": 1759
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -26497,7 +26507,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 1755
+          "line": 1793
         },
         {
           "name": "groupLastChanges",
@@ -26513,7 +26523,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 1773
+          "line": 1811
         },
         {
           "name": "getChangesSinceCheckpoint",
@@ -26539,7 +26549,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "Changes since the checkpoint. See *Working With Aggregated Changes* in the {@link TextBuffer} class description for the fields.",
           "propertyType": null,
-          "line": 1795
+          "line": 1833
         },
         {
           "name": "scan",
@@ -26673,7 +26683,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1831
+          "line": 1869
         },
         {
           "name": "backwardsScan",
@@ -26807,7 +26817,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1860
+          "line": 1898
         },
         {
           "name": "scanInRange",
@@ -26959,7 +26969,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1890
+          "line": 1928
         },
         {
           "name": "backwardsScanInRange",
@@ -27082,7 +27092,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1955
+          "line": 1993
         },
         {
           "name": "replace",
@@ -27117,7 +27127,7 @@
           "returnType": "Number",
           "returnDescription": "representing the number of replacements made.",
           "propertyType": null,
-          "line": 1974
+          "line": 2012
         },
         {
           "name": "find",
@@ -27143,7 +27153,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2028
+          "line": 2066
         },
         {
           "name": "findInRange",
@@ -27178,7 +27188,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2042
+          "line": 2080
         },
         {
           "name": "findSync",
@@ -27204,7 +27214,7 @@
           "returnType": "Range",
           "returnDescription": "first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2055
+          "line": 2093
         },
         {
           "name": "findInRangeSync",
@@ -27239,7 +27249,7 @@
           "returnType": "Range",
           "returnDescription": "first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2069
+          "line": 2107
         },
         {
           "name": "findAll",
@@ -27265,7 +27275,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an `Array` containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2082
+          "line": 2120
         },
         {
           "name": "findAllInRange",
@@ -27300,7 +27310,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an `Array` containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2096
+          "line": 2134
         },
         {
           "name": "findAllSync",
@@ -27326,7 +27336,7 @@
           "returnType": "Array",
           "returnDescription": "containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2109
+          "line": 2147
         },
         {
           "name": "findAllInRangeSync",
@@ -27361,7 +27371,7 @@
           "returnType": "Array",
           "returnDescription": "containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2123
+          "line": 2161
         },
         {
           "name": "findAndMarkAllInRangeSync",
@@ -27414,7 +27424,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers` representing the matches.",
           "propertyType": null,
-          "line": 2139
+          "line": 2177
         },
         {
           "name": "findWordsWithSubsequence",
@@ -27458,7 +27468,7 @@
           "returnType": "Array",
           "returnDescription": "containing every `SubsequenceMatch` of text that matches the given query.",
           "propertyType": null,
-          "line": 2169
+          "line": 2207
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -27511,7 +27521,7 @@
           "returnType": "Array",
           "returnDescription": "containing every `SubsequenceMatch` of text that matches the given query in the given range.",
           "propertyType": null,
-          "line": 2185
+          "line": 2223
         },
         {
           "name": "getRange",
@@ -27527,7 +27537,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2201
+          "line": 2239
         },
         {
           "name": "getLineCount",
@@ -27543,7 +27553,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2213
+          "line": 2251
         },
         {
           "name": "getLastRow",
@@ -27559,7 +27569,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2225
+          "line": 2263
         },
         {
           "name": "getFirstPosition",
@@ -27575,7 +27585,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2237
+          "line": 2275
         },
         {
           "name": "getEndPosition",
@@ -27591,7 +27601,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2250
+          "line": 2288
         },
         {
           "name": "getLength",
@@ -27607,7 +27617,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2260
+          "line": 2298
         },
         {
           "name": "getMaxCharacterIndex",
@@ -27623,7 +27633,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2272
+          "line": 2310
         },
         {
           "name": "rangeForRow",
@@ -27658,7 +27668,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2286
+          "line": 2324
         },
         {
           "name": "characterIndexForPosition",
@@ -27684,7 +27694,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2308
+          "line": 2346
         },
         {
           "name": "positionForCharacterIndex",
@@ -27710,7 +27720,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2324
+          "line": 2362
         },
         {
           "name": "clipRange",
@@ -27736,7 +27746,7 @@
           "returnType": "Range",
           "returnDescription": "given {@link Range} if it is already in bounds, or a new clipped {@link Range} if the given range is out-of-bounds.",
           "propertyType": null,
-          "line": 2340
+          "line": 2378
         },
         {
           "name": "clipPosition",
@@ -27771,7 +27781,7 @@
           "returnType": "Point",
           "returnDescription": "new {@link Point} if the given position is invalid, otherwise returns the given position.",
           "propertyType": null,
-          "line": 2363
+          "line": 2401
         },
         {
           "name": "save",
@@ -27787,7 +27797,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2402
+          "line": 2440
         },
         {
           "name": "saveAs",
@@ -27813,7 +27823,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2415
+          "line": 2453
         },
         {
           "name": "reload",
@@ -27829,7 +27839,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the load is complete.",
           "propertyType": null,
-          "line": 2498
+          "line": 2536
         },
         {
           "name": "getLanguageMode",
@@ -27845,7 +27855,7 @@
           "returnType": "Object",
           "returnDescription": "language mode `Object` (See {@link TextBuffer#setLanguageMode} for its interface).",
           "propertyType": null,
-          "line": 2534
+          "line": 2572
         },
         {
           "name": "setLanguageMode",
@@ -28011,7 +28021,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2560
+          "line": 2598
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -28057,7 +28067,7 @@
           "returnType": "Disposable",
           "returnDescription": "that can be used to stop the callback from being called.",
           "propertyType": null,
-          "line": 2589
+          "line": 2627
         },
         {
           "name": "getFileWatchStartPromise",
@@ -28073,7 +28083,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once this buffer's file watcher has been armed and is delivering external-change events. Watching is served asynchronously by the file-watcher worker; this lets callers wait for it before relying on external-change detection. Resolves immediately when the buffer has no path or a custom data source that watches synchronously.",
           "propertyType": null,
-          "line": 3077
+          "line": 3136
         }
       ]
     },
@@ -36578,7 +36588,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once the change has been applied.",
           "propertyType": null,
-          "line": 871
+          "line": 878
         }
       ]
     },
@@ -42959,5 +42969,5 @@
     }
   ],
   "memberCount": 1381,
-  "generatedAt": "2026-09-09T00:58:05.254Z"
+  "generatedAt": "2026-09-09T01:18:11.552Z"
 }
