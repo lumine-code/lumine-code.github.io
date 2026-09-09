@@ -6,6 +6,8 @@ Lumine ships several fast, keyboard-driven ways to move around a project without
 
 The bundled **`tree-view`** package shows your project's directories and files. From it you can open files, create files and folders (`tree-view:add-file`, `tree-view:add-folder`), and cut, copy, paste, duplicate, or move entries. `tree-view:open-selected-entry-right` (and the `-left`/`-up`/`-down` variants) open a file in a split pane; with `open-external` installed, Alt-click opens it in an external program. Tree view also owns the will/did boundary around these user-initiated filesystem operations, allowing language integrations to prepare reference updates without making it the executor for server-authored `WorkspaceEdit` changes.
 
+Moves initiated by the tree view update the paths of open documents in that workspace while preserving edits and view state. An external rename leaves a document at its original path; it is treated as a missing file and can observe a file recreated under that name. Unsaved contents are preserved.
+
 ## Fuzzy finders
 
 Lumine splits fuzzy finding into focused packages:

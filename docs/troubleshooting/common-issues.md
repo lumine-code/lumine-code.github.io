@@ -26,9 +26,9 @@ If a bundled package behaves unexpectedly, check whether an installed package of
 
 Check the console for errors that name the package or file at fault; see [Developer tools](developer-tools.md).
 
-## "Unable to watch path" on Linux
+## File observation errors on Linux
 
-Lumine watches your config files and project directories for changes. On Linux each watched path consumes an inotify watch, and the per-user limit is low enough that a large project can exhaust it — at which point Lumine reports **Unable to watch path** and stops noticing edits made outside the editor.
+Lumine observes configuration files and project directories for changes. On Linux each observed directory needs an inotify watch; file subscriptions can share their parent's watch. A large directory tree can exhaust the per-user limit. An error naming inotify or saying “No space left on device” can refer to that watch limit even when disk space is available.
 
 Check the current limit:
 
@@ -48,7 +48,7 @@ To make it persist across reboots, write it to a sysctl config file:
 echo 'fs.inotify.max_user_watches=524288' | sudo tee /etc/sysctl.d/60-inotify.conf
 ```
 
-If the message names a single file rather than a project directory, the cause is more likely permissions — confirm you can write to the path it names.
+After raising the limit, reload the affected editor window to rebuild observation. If an error instead names a permission failure, check read and directory-traversal access to the reported path and its parents. The editor reconciles affected state after observation recovers.
 
 ## Start fresh
 

@@ -109,4 +109,5 @@ Everything you can do is reachable through the global `lumine` object. Its class
 
 - [Writing specs](writing-specs.md) — test your package.
 - [Handling URIs](handling-uris.md) — respond to `lumine://` links.
+- [Watching files and directories](file-watching.md) — keep disk-backed state current and handle recovery.
 - [Publishing a package](publishing-a-package.md) — share it with others.
