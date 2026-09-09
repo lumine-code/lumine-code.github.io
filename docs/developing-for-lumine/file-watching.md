@@ -24,9 +24,11 @@ await handle.closed;
 
 ## Fixed paths and recovery
 
-The service observes the requested name even when its file or parent directories do not yet exist. Deletion followed by recreation resumes observation at that location. Atomic replacement remains activity at the same filename. External renames do not make the handle follow the moved file.
+The service observes the requested name even when its file or parent directories do not yet exist. Deletion followed by recreation resumes observation at that location. Symlink entries are revalidated when they change, including when a previously missing link target appears. Atomic replacement remains activity at the same filename. External renames do not make the handle follow the moved file.
 
 Change batches contain `{action, path}` entries with `created`, `updated`, or `deleted` actions and absolute paths. Treat them as hints to read current state. Ignore rules belong to the consumer, and recursive observation does not follow nested symlinks or junctions; explicitly observe such a path when its target is needed.
+
+On macOS, FSEvents observes existing content roots and reports ancestor moves. Symlink entries and missing-path anchors use shared vnode guards that observe directory membership and relocation without subscribing to descendant content events. Even an alias guard at `/` therefore avoids a filesystem-wide FSEvents stream. Packages use the same public API on Windows, macOS and Linux.
 
 `onDidInvalidate` reports `{path, reason, generation}` after observation recovers from lost delivery. Reread the affected state before applying more deltas; changes during the interruption cannot be replayed. Project invalidation names `rootPaths` instead of a single path. Use both project callbacks whenever maintaining a project cache, and await `project.getWatcherPromise(rootPath)` before changing files in a test.
 
