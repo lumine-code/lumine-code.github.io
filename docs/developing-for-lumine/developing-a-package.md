@@ -27,9 +27,10 @@ Key `package.json` fields:
 - **`name`** — the package's identity: its command prefix and config namespace, and what the editor loads it under. The directory it lives in need not match. See [The package system](../packages-and-themes/package-system.md).
 - **`main`** — the entry module (for example `./lib/my-package`).
 - **`version`** and **`engines`** — `"engines": { "lumine": "^1.0.0" }`; the `lumine` key is also what marks the manifest as a package.
-- **`activationCommands`** / **`activationHooks`** — let Lumine load the package lazily, only when it is first needed.
+- **`activate()`** — runs during eager package bootstrap; register commands, openers, hooks, and service facades here, and keep expensive work behind package-owned `ensure` functions.
 - **`configSchema`** — declares the package's settings so they appear in the Settings view; add `scopeResolution` (`grammar` or `syntax`) to an individual entry when its consumer resolves contextually. Omit it for the usual `base` behavior; an explicit `base` remains valid when useful for overriding inherited schema metadata.
 - **`providedServices`** / **`consumedServices`** — how packages offer and use functionality from one another.
+- **`requiresRestartOnUpdate`** — set this to `true` only when a live renderer cannot safely replace the package's module identities, such as a package whose registered custom-element constructor closes over generation-specific model classes. The updater deactivates it, preserves the old module graph for rollback, swaps the files, and waits for the prompted restart before loading the new generation.
 
 The entry module exports lifecycle methods — most importantly `activate()`, where you register commands, open UI, and subscribe to events, and `deactivate()`, where you dispose of them.
 
@@ -37,7 +38,10 @@ The entry module exports lifecycle methods — most importantly `activate()`, wh
 module.exports = {
   activate() {
     this.sub = lumine.commands.add("lumine-workspace", {
-      "my-package:hello": () => lumine.notifications.addSuccess("Hello!"),
+      "my-package:hello": {
+        description: "Show the greeting notification.",
+        didDispatch: () => lumine.notifications.addSuccess("Hello!"),
+      },
     });
   },
   deactivate() {
@@ -45,6 +49,12 @@ module.exports = {
   },
 };
 ```
+
+## Bootstrap and lazy work
+
+`activate(state, {signal, cause})` is synchronous. Register public commands, openers, hooks, and services before it returns; command handlers and openers can call package-owned `ensure` functions to load heavy modules on first use. A service consumer is passive and never activates its provider, so a provider should publish a lightweight facade whose methods can load the expensive implementation asynchronously.
+
+Window hooks are available through `lumine.hooks`. Core emits one-shot events such as `core:pane-item-used`, `core:text-editor-used`, and `core:grammar-used`; packages subscribe in `activate()` and dispose subscriptions in `deactivate()`.
 
 ## Writing views in JSX
 

@@ -51,6 +51,10 @@ Return a `Disposable` from a consumer method and Lumine calls it when the provid
 
 Order does not matter. Lumine connects providers and consumers whichever activates first, and connects late arrivals as they load.
 
+### Bootstrap and lazy work
+
+Packages bootstrap synchronously. A provider publishes its declared service during `activate()`, and a consumer connects to providers that are already available; consuming a service never activates another package. Keep expensive provider implementation behind an `ensure` function or an asynchronous service method, and let the consumer await that method when it performs the operation.
+
 ### Names are matched exactly
 
 A service name is an opaque string. The `.` in `linter.provider` groups related services for a reader — it is **not** a path, so consuming `linter` does not reach a provider of `linter.provider`. Get the name exactly right or nothing happens: there is no error, no warning in the console, and no failing spec. Missing wiring is silent.

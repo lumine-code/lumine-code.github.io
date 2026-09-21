@@ -34,7 +34,7 @@ module.exports = {
 };
 ```
 
-`lumine://my-package/open-thing?id=42` activates `my-package` and calls the handler with an object shaped like Node's legacy `url.parse(uri, true)` result, followed by the raw URI string. Activation is deferred by default; set `deferActivation` to `false` only when the package must activate at startup for another reason.
+`lumine://my-package/open-thing?id=42` calls the handler on the package's already-bootstrapped module with an object shaped like Node's legacy `url.parse(uri, true)` result, followed by the raw URI string. Keep expensive URI work behind a package-owned lazy function if the handler is not used during normal startup.
 
 The `settings-view` package is a working example: `lumine://settings-view/show-package?package=tree-view` reaches its handler, which opens the internal workspace URI `lumine://config/packages/tree-view`.
 

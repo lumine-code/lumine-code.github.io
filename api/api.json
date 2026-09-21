@@ -92,7 +92,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "ContextMenuManager",
-          "line": 342
+          "line": 354
         },
         {
           "name": "deserializers",
@@ -172,7 +172,23 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "HistoryManager",
-          "line": 514
+          "line": 526
+        },
+        {
+          "name": "hooks",
+          "kind": "property",
+          "static": false,
+          "async": false,
+          "signature": "::hooks",
+          "category": "Properties",
+          "visibility": "Extended",
+          "description": "Sticky hooks emitted by core and consumed by package-owned lazy\nfeatures. Hooks are independent of package lifecycle and last for this\nenvironment generation only.",
+          "summary": "Sticky hooks emitted by core and consumed by package-owned lazy features. Hooks are independent of package lifecycle and last for this environment generation only.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": "Object",
+          "line": 319
         },
         {
           "name": "icons",
@@ -188,7 +204,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "IconRegistry",
-          "line": 361
+          "line": 373
         },
         {
           "name": "keymaps",
@@ -220,7 +236,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "MenuManager",
-          "line": 331
+          "line": 343
         },
         {
           "name": "notifications",
@@ -268,7 +284,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PasteProviderRegistry",
-          "line": 449
+          "line": 461
         },
         {
           "name": "project",
@@ -284,7 +300,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Project",
-          "line": 409
+          "line": 421
         },
         {
           "name": "repositories",
@@ -300,7 +316,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "RepositoryRegistry",
-          "line": 374
+          "line": 386
         },
         {
           "name": "runtime",
@@ -332,7 +348,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "SecretStore",
-          "line": 397
+          "line": 409
         },
         {
           "name": "shell",
@@ -380,7 +396,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "TextEditorRegistry",
-          "line": 436
+          "line": 448
         },
         {
           "name": "themes",
@@ -396,7 +412,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "ThemeManager",
-          "line": 315
+          "line": 327
         },
         {
           "name": "tools",
@@ -412,7 +428,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 537
+          "line": 549
         },
         {
           "name": "tooltips",
@@ -492,7 +508,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Workspace",
-          "line": 458
+          "line": 470
         },
         {
           "name": "workspaceDrops",
@@ -508,7 +524,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "WorkspaceDropManager",
-          "line": 485
+          "line": 497
         }
       ]
     },
@@ -1869,7 +1885,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "One frozen descriptor per command, each with frozen `keystrokes`.",
           "propertyType": null,
-          "line": 308
+          "line": 311
         },
         {
           "name": "dispatch",
@@ -1913,7 +1929,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 355
+          "line": 360
         },
         {
           "name": "onWillDispatch",
@@ -1949,7 +1965,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 370
+          "line": 375
         },
         {
           "name": "onDidDispatch",
@@ -1985,7 +2001,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 383
+          "line": 388
         }
       ]
     },
@@ -4558,7 +4574,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 50
+          "line": 51
         },
         {
           "name": "deserialize",
@@ -4584,7 +4600,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 76
+          "line": 95
         }
       ]
     },
@@ -14276,7 +14292,7 @@
       "source": "src/package.js",
       "sourcePath": "src/package.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 34,
+      "line": 33,
       "members": [
         {
           "name": "onDidDeactivate",
@@ -14302,7 +14318,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 79
+          "line": 78
         },
         {
           "name": "isCompatible",
@@ -14318,7 +14334,7 @@
           "returnType": "Boolean",
           "returnDescription": ", true if compatible, false if incompatible.",
           "propertyType": null,
-          "line": 1210
+          "line": 1243
         },
         {
           "name": "rebuild",
@@ -14334,7 +14350,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an object containing `code`, `stdout`, and `stderr` properties based on the results of running `lumine -p rebuild` on the package.",
           "propertyType": null,
-          "line": 1231
+          "line": 1264
         },
         {
           "name": "getBuildFailureOutput",
@@ -14350,7 +14366,7 @@
           "returnType": "String",
           "returnDescription": "or null if no previous build failure occurred.",
           "propertyType": null,
-          "line": 1254
+          "line": 1287
         }
       ]
     },
@@ -14363,7 +14379,7 @@
       "source": "src/package-manager.js",
       "sourcePath": "src/package-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 55,
+      "line": 63,
       "members": [
         {
           "name": "onDidLoadInitialPackages",
@@ -14389,7 +14405,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 158
+          "line": 177
         },
         {
           "name": "onDidActivateInitialPackages",
@@ -14415,7 +14431,33 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 171
+          "line": 190
+        },
+        {
+          "name": "onDidInitializeInitialPackages",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidInitializeInitialPackages(callback)",
+          "category": "Event Subscription",
+          "visibility": "Extended",
+          "description": "Invoke the given callback after all initial package facades have been\ninitialized, before workspace restore begins.",
+          "summary": "Invoke the given callback after all initial package facades have been initialized, before workspace restore begins.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 201
         },
         {
           "name": "onDidActivatePackage",
@@ -14451,7 +14493,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 193
+          "line": 223
         },
         {
           "name": "onDidDeactivatePackage",
@@ -14487,7 +14529,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 207
+          "line": 237
         },
         {
           "name": "onDidLoadPackage",
@@ -14523,7 +14565,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 221
+          "line": 251
         },
         {
           "name": "onDidUnloadPackage",
@@ -14559,7 +14601,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 235
+          "line": 265
         },
         {
           "name": "getPackageDirPaths",
@@ -14575,7 +14617,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` directory paths.",
           "propertyType": null,
-          "line": 251
+          "line": 281
         },
         {
           "name": "resolvePackagePath",
@@ -14601,7 +14643,7 @@
           "returnType": "String",
           "returnDescription": "folder path or undefined if it could not be resolved.",
           "propertyType": null,
-          "line": 268
+          "line": 298
         },
         {
           "name": "isBundledPackage",
@@ -14627,13 +14669,13 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 329
+          "line": 359
         },
         {
           "name": "enablePackage",
           "kind": "method",
           "static": false,
-          "async": false,
+          "async": true,
           "signature": "::enablePackage(name)",
           "category": "Enabling and disabling packages",
           "visibility": "Public",
@@ -14650,16 +14692,16 @@
               "defaultValue": null
             }
           ],
-          "returnType": "Package",
-          "returnDescription": "that was enabled or null if it isn't loaded.",
+          "returnType": "Promise<Package|null>",
+          "returnDescription": "Resolves when the enabled package is initialized or active.",
           "propertyType": null,
-          "line": 346
+          "line": 376
         },
         {
           "name": "disablePackage",
           "kind": "method",
           "static": false,
-          "async": false,
+          "async": true,
           "signature": "::disablePackage(name)",
           "category": "Enabling and disabling packages",
           "visibility": "Public",
@@ -14676,10 +14718,10 @@
               "defaultValue": null
             }
           ],
-          "returnType": "Package",
-          "returnDescription": "that was disabled or null if it isn't loaded.",
+          "returnType": "Promise<Package|null>",
+          "returnDescription": "Resolves after the package is fully deactivated.",
           "propertyType": null,
-          "line": 363
+          "line": 397
         },
         {
           "name": "isPackageDisabled",
@@ -14705,7 +14747,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 380
+          "line": 418
         },
         {
           "name": "getActivePackages",
@@ -14721,7 +14763,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 394
+          "line": 432
         },
         {
           "name": "getActivePackage",
@@ -14747,7 +14789,7 @@
           "returnType": "Package",
           "returnDescription": "or undefined.",
           "propertyType": null,
-          "line": 407
+          "line": 461
         },
         {
           "name": "isPackageActive",
@@ -14773,7 +14815,33 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 420
+          "line": 475
+        },
+        {
+          "name": "getPackageLifecycleState",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getPackageLifecycleState(name)",
+          "category": "Accessing active packages",
+          "visibility": "Public",
+          "description": "Return the package's explicit lifecycle state.",
+          "summary": "Return the package's explicit lifecycle state.",
+          "parameters": [
+            {
+              "name": "name",
+              "source": "name",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Package name.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "String|undefined",
+          "returnDescription": "One of `loaded`, `activating`, `active`, or `deactivating`. An unloaded or unknown package has no current lifecycle record.",
+          "propertyType": null,
+          "line": 489
         },
         {
           "name": "hasActivatedInitialPackages",
@@ -14789,7 +14857,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether package activation has occurred.",
           "propertyType": null,
-          "line": 430
+          "line": 526
         },
         {
           "name": "getLoadedPackages",
@@ -14805,7 +14873,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 444
+          "line": 540
         },
         {
           "name": "getLoadedPackage",
@@ -14831,7 +14899,7 @@
           "returnType": "Package",
           "returnDescription": "or undefined.",
           "propertyType": null,
-          "line": 464
+          "line": 560
         },
         {
           "name": "isPackageLoaded",
@@ -14857,7 +14925,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 477
+          "line": 573
         },
         {
           "name": "hasLoadedInitialPackages",
@@ -14873,7 +14941,23 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether package loading has occurred.",
           "propertyType": null,
-          "line": 487
+          "line": 583
+        },
+        {
+          "name": "hasInitializedInitialPackages",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hasInitializedInitialPackages()",
+          "category": "Accessing loaded packages",
+          "visibility": "Extended",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether the initial package bootstrap has completed.",
+          "propertyType": null,
+          "line": 594
         },
         {
           "name": "getAvailablePackagePaths",
@@ -14889,7 +14973,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the available package paths.",
           "propertyType": null,
-          "line": 501
+          "line": 608
         },
         {
           "name": "getAvailablePackageNames",
@@ -14905,7 +14989,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the available package names.",
           "propertyType": null,
-          "line": 511
+          "line": 618
         },
         {
           "name": "getAvailablePackageMetadata",
@@ -14921,7 +15005,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the available package metadata.",
           "propertyType": null,
-          "line": 521
+          "line": 628
         },
         {
           "name": "getAvailablePackages",
@@ -14957,7 +15041,7 @@
           "returnType": "Array",
           "returnDescription": "Available package descriptors that own their names, sorted by name.",
           "propertyType": null,
-          "line": 540
+          "line": 647
         },
         {
           "name": "getAvailablePackage",
@@ -14983,7 +15067,7 @@
           "returnType": "Object|undefined",
           "returnDescription": "package descriptor or undefined.",
           "propertyType": null,
-          "line": 555
+          "line": 662
         },
         {
           "name": "refreshPackageIndex",
@@ -14999,7 +15083,200 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 571
+          "line": 678
+        },
+        {
+          "name": "initializePackages",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::initializePackages()",
+          "category": "Private",
+          "visibility": "Extended",
+          "description": "Initialize every enabled package before workspace state is restored.\n\nInitialization is deliberately synchronous and is the package-facing\nbootstrap phase: packages may register deserializers, openers, commands,\nlightweight UI hosts, and service facades here. Expensive work belongs in\nan explicit package-owned ensure method and must not be started from this\nphase. Keeping this separate from activation lets workspace restoration\nuse those registrations without making `activate()` responsible for\ndeserialization ordering.",
+          "summary": "Initialize every enabled package before workspace state is restored.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 969
+        },
+        {
+          "name": "unloadPackage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::unloadPackage(name, { serialize = true, preserveModuleCache = false } = {})",
+          "category": "Private",
+          "visibility": "Public",
+          "description": "Atomically deactivate and unload a package in any lifecycle state. The\ncurrent generation is stopped before the loaded instance is removed.",
+          "summary": "Atomically deactivate and unload a package in any lifecycle state. The current generation is stopped before the loaded instance is removed.",
+          "parameters": [
+            {
+              "name": "name",
+              "source": "name",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Package name.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ serialize = true, preserveModuleCache = false } = {}",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.serialize",
+              "type": null,
+              "description": "Serialize an active package before teardown. Defaults to true.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.serialize",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise<Package>",
+          "returnDescription": "Resolves with the unloaded package after teardown.",
+          "propertyType": null,
+          "line": 1326
+        },
+        {
+          "name": "requestService",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::requestService(keyPath, versionRange)",
+          "category": "Private",
+          "visibility": "Public",
+          "description": "Check whether a compatible service has already been published. Service\nlookup never activates a provider; providers are ordinary active packages.",
+          "summary": "Check whether a compatible service has already been published. Service lookup never activates a provider; providers are ordinary active packages.",
+          "parameters": [
+            {
+              "name": "keyPath",
+              "source": "keyPath",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Exact service name.",
+              "defaultValue": null
+            },
+            {
+              "name": "versionRange",
+              "source": "versionRange",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Semantic version range required by the caller.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Promise<Boolean>",
+          "returnDescription": "Whether a compatible non-null service is published.",
+          "propertyType": null,
+          "line": 1480
+        },
+        {
+          "name": "startPackage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::startPackage(name)",
+          "category": "Private",
+          "visibility": "Public",
+          "description": "Start a package according to its manifest. The synchronous facade is\npublished during the call; the returned promise also settles after core\ngrammar/settings resources finish loading. Expensive feature work remains\npackage-owned and lazy.",
+          "summary": "Start a package according to its manifest. The synchronous facade is published during the call; the returned promise also settles after core grammar/settings resources finish loading. Expensive feature work remains package-owned and lazy.",
+          "parameters": [
+            {
+              "name": "name",
+              "source": "name",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Package name or path.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Promise<Package>",
+          "returnDescription": "The started package. This never waits for a future trigger.",
+          "propertyType": null,
+          "line": 1514
+        },
+        {
+          "name": "activatePackage",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::activatePackage(name)",
+          "category": "Private",
+          "visibility": "Public",
+          "description": "Fully activate a package and wait for its main module and services to be ready.\nConcurrent requests share one activation. Deactivation while activating\nrejects with an error whose code is `PACKAGE_ACTIVATION_CANCELLED`.",
+          "summary": "Fully activate a package and wait for its main module and services to be ready. Concurrent requests share one activation. Deactivation while activating rejects with an error whose code is `PACKAGE_ACTIVATION_CANCELLED`.",
+          "parameters": [
+            {
+              "name": "name",
+              "source": "name",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Package name or path.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Promise<Package>",
+          "returnDescription": "The active package.",
+          "propertyType": null,
+          "line": 1545
+        },
+        {
+          "name": "deactivatePackage",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::deactivatePackage(name, { serialize = true } = {})",
+          "category": "Private",
+          "visibility": "Public",
+          "description": "Deactivate a loaded package and await its teardown before it reaches the\nloaded state again.",
+          "summary": "Deactivate a loaded package and await its teardown before it reaches the loaded state again.",
+          "parameters": [
+            {
+              "name": "name",
+              "source": "name",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "Package name.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ serialize = true } = {}",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            },
+            {
+              "name": "options.serialize",
+              "type": null,
+              "description": "Serialize an active package before teardown. Defaults to true.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.serialize",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise<void>",
+          "returnDescription": "Resolves when the package reaches `loaded`.",
+          "propertyType": null,
+          "line": 1794
         }
       ]
     },
@@ -23545,7 +23822,7 @@
       "source": "src/service-hub.js",
       "sourcePath": "src/service-hub.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 160,
+      "line": 154,
       "members": [
         {
           "name": "provide",
@@ -23589,14 +23866,14 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the provided service.",
           "propertyType": null,
-          "line": 179
+          "line": 172
         },
         {
           "name": "consume",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::consume(keyPath, versionRange, callback, { activateProviders = true } = {})",
+          "signature": "::consume(keyPath, versionRange, callback)",
           "category": "Methods",
           "visibility": "Public",
           "description": "Consume a service by invoking the given callback for all current\nand future provided services matching the given service name and version\nrange.",
@@ -23628,31 +23905,12 @@
               "type": null,
               "description": "A `Function` to be called with current and future matching service objects.",
               "defaultValue": null
-            },
-            {
-              "name": "options",
-              "source": "{ activateProviders = true } = {}",
-              "optional": false,
-              "rest": false,
-              "type": null,
-              "description": "Optional activation behavior for this consumer.",
-              "defaultValue": null
-            },
-            {
-              "name": "options.activateProviders",
-              "type": null,
-              "description": "Whether consuming the service may activate a deferred provider. Pass `false` for a passive subscription that receives an already active or later provider without waking one merely because the consumer activated. Defaults to `true`.",
-              "optional": false,
-              "defaultValue": null,
-              "source": "options.activateProviders",
-              "rest": false,
-              "nested": true
             }
           ],
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the consumer. Disposing it also disposes whatever the callback returned, so a package that deactivates unregisters itself from the services it took.",
           "propertyType": null,
-          "line": 247
+          "line": 236
         },
         {
           "name": "unmatchedConsumers",
@@ -23662,13 +23920,13 @@
           "signature": "::unmatchedConsumers()",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Names consumed by someone and provided by no one.\n\nDeliberately not reported on its own: packages activate lazily, so a\nconsumer with no provider *yet* is ordinary. It is a question to ask at a\nmoment the caller chooses -- a diagnostic command, `timecop` -- rather than\na warning this class can time correctly. Nothing makes the check statically\neither, so this is the only place the question is answered at all.",
+          "description": "Names consumed by someone and provided by no one.\n\nDeliberately not reported on its own: a consumer with no provider is\nordinary when an optional package is disabled. It is a question to ask at\na moment the caller chooses -- a diagnostic command, `timecop` -- rather\nthan a warning this class can time correctly.",
           "summary": "Names consumed by someone and provided by no one.",
           "parameters": [],
           "returnType": "Array",
           "returnDescription": "of `{keyPath, versionRange}`.",
           "propertyType": null,
-          "line": 303
+          "line": 304
         },
         {
           "name": "clear",
@@ -23684,7 +23942,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 319
+          "line": 320
         }
       ]
     },
@@ -36649,7 +36907,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once the change has been applied.",
           "propertyType": null,
-          "line": 882
+          "line": 894
         }
       ]
     },
@@ -37321,12 +37579,12 @@
       "name": "URIHandlerRegistry",
       "superClass": null,
       "visibility": "Extended",
-      "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `lumine.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nBy default, Lumine will defer activation of your package until a URI it needs to handle\nis triggered. If you need your package to activate right away, you can add\n`\"deferActivation\": false` to your \"uriHandler\" configuration object. When activation\nis deferred, once Lumine receives a request for a URI in your package's namespace, it will\nactivate your package and then call `methodName` on it as before.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```javascript\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": {\n    \"method\": \"handleURI\"\n  }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  }\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
+      "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `lumine.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nURI handlers are registered by the package's synchronous bootstrap. The\npackage is therefore already active when a URI is delivered; expensive\nhandler work may still be loaded lazily by the package itself.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```javascript\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": { \"method\": \"handleURI\" }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  }\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
       "summary": "Associates listener functions with URIs from outside the application.",
       "source": "src/uri-handler-registry.js",
       "sourcePath": "src/uri-handler-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 75,
+      "line": 71,
       "members": []
     },
     {
@@ -38583,7 +38841,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1114
+          "line": 1119
         },
         {
           "name": "observePaneItems",
@@ -38619,7 +38877,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1132
+          "line": 1137
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -38655,7 +38913,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1153
+          "line": 1158
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -38691,7 +38949,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1174
+          "line": 1179
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -38727,7 +38985,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1189
+          "line": 1194
         },
         {
           "name": "observeActivePaneItem",
@@ -38763,7 +39021,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1204
+          "line": 1209
         },
         {
           "name": "observeActiveTextEditor",
@@ -38799,7 +39057,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1221
+          "line": 1226
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -38835,7 +39093,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1238
+          "line": 1243
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -38871,7 +39129,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1253
+          "line": 1258
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -38907,7 +39165,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1270
+          "line": 1275
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -38943,7 +39201,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1285
+          "line": 1290
         },
         {
           "name": "onDidOpen",
@@ -39019,7 +39277,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1307
+          "line": 1312
         },
         {
           "name": "onDidAddPane",
@@ -39065,7 +39323,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1322
+          "line": 1327
         },
         {
           "name": "onWillDestroyPane",
@@ -39111,7 +39369,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1340
+          "line": 1345
         },
         {
           "name": "onDidDestroyPane",
@@ -39157,7 +39415,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1358
+          "line": 1363
         },
         {
           "name": "observePanes",
@@ -39193,7 +39451,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1375
+          "line": 1380
         },
         {
           "name": "onDidChangeActivePane",
@@ -39229,7 +39487,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1391
+          "line": 1396
         },
         {
           "name": "observeActivePane",
@@ -39265,7 +39523,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1406
+          "line": 1411
         },
         {
           "name": "onDidAddPaneItem",
@@ -39331,7 +39589,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1425
+          "line": 1430
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -39397,7 +39655,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1445
+          "line": 1450
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -39463,7 +39721,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1464
+          "line": 1469
         },
         {
           "name": "onDidAddTextEditor",
@@ -39529,7 +39787,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1484
+          "line": 1489
         },
         {
           "name": "open",
@@ -39644,7 +39902,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} for the file URI.",
           "propertyType": null,
-          "line": 1513
+          "line": 1518
         },
         {
           "name": "hide",
@@ -39670,7 +39928,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether any items were found (and hidden).",
           "propertyType": null,
-          "line": 1738
+          "line": 1743
         },
         {
           "name": "toggle",
@@ -39696,7 +39954,7 @@
           "returnType": "Promise",
           "returnDescription": "Promise that resolves when the item is shown or hidden.",
           "propertyType": null,
-          "line": 1777
+          "line": 1782
         },
         {
           "name": "createItemForURI",
@@ -39731,7 +39989,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "propertyType": null,
-          "line": 1899
+          "line": 1904
         },
         {
           "name": "isTextEditor",
@@ -39757,7 +40015,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 1996
+          "line": 2002
         },
         {
           "name": "buildTextEditor",
@@ -39783,7 +40041,7 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2008
+          "line": 2014
         },
         {
           "name": "buildSelectList",
@@ -39809,7 +40067,7 @@
           "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2051
+          "line": 2057
         },
         {
           "name": "addSelectList",
@@ -39904,7 +40162,7 @@
           "returnType": "SelectListHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2084
+          "line": 2090
         },
         {
           "name": "buildInputDialog",
@@ -39930,7 +40188,7 @@
           "returnType": "InputDialog",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2111
+          "line": 2117
         },
         {
           "name": "addInputDialog",
@@ -40025,7 +40283,7 @@
           "returnType": "InputDialogHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2134
+          "line": 2140
         },
         {
           "name": "popModal",
@@ -40041,7 +40299,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 2166
+          "line": 2172
         },
         {
           "name": "popModalTo",
@@ -40067,7 +40325,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 2179
+          "line": 2185
         },
         {
           "name": "getModalTrail",
@@ -40083,7 +40341,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 2191
+          "line": 2197
         },
         {
           "name": "onDidChangeModalTrail",
@@ -40109,7 +40367,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2205
+          "line": 2211
         },
         {
           "name": "reopenItem",
@@ -40125,7 +40383,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 2218
+          "line": 2224
         },
         {
           "name": "addOpener",
@@ -40135,7 +40393,7 @@
           "signature": "::addOpener(opener)",
           "category": "Modal flow",
           "visibility": "Public",
-          "description": "Register an opener for a uri.\n\nWhen a URI is opened via {@link Workspace#open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {@link ViewRegistry}.\nA {@link TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\nlumine.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{@link Workspace#open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.\n\nTo defer your package's activation until a specific URL is opened, add a\n`workspaceOpeners` field to your `package.json`. Entries may be exact URI\nstrings or objects with a `uriPrefix`, `pathSuffixes`, and/or a\n`pathSuffixesConfig` key path whose current value supplies more suffixes.",
+          "description": "Register an opener for a uri.\n\nWhen a URI is opened via {@link Workspace#open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {@link ViewRegistry}.\nA {@link TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\nlumine.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{@link Workspace#open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.",
           "summary": "Register an opener for a uri.",
           "parameters": [
             {
@@ -40151,7 +40409,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 2266
+          "line": 2267
         },
         {
           "name": "getPaneItems",
@@ -40167,7 +40425,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 2289
+          "line": 2290
         },
         {
           "name": "getActivePaneItem",
@@ -40183,7 +40441,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 2301
+          "line": 2302
         },
         {
           "name": "getTextEditors",
@@ -40199,7 +40457,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 2313
+          "line": 2314
         },
         {
           "name": "getActiveTextEditor",
@@ -40215,7 +40473,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2342
+          "line": 2343
         },
         {
           "name": "getTextEditorForElement",
@@ -40260,7 +40518,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The containing editor, or `null`.",
           "propertyType": null,
-          "line": 2364
+          "line": 2365
         },
         {
           "name": "getFocusedTextEditor",
@@ -40296,7 +40554,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The focused editor, or `null`.",
           "propertyType": null,
-          "line": 2387
+          "line": 2388
         },
         {
           "name": "getActiveFileTextEditor",
@@ -40312,7 +40570,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 2405
+          "line": 2406
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -40328,7 +40586,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 2434
+          "line": 2435
         },
         {
           "name": "saveActivePaneItem",
@@ -40344,7 +40602,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2472
+          "line": 2473
         },
         {
           "name": "saveActivePaneItemAs",
@@ -40360,7 +40618,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2490
+          "line": 2491
         },
         {
           "name": "destroyActivePaneItem",
@@ -40376,7 +40634,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2515
+          "line": 2516
         },
         {
           "name": "getActivePaneContainer",
@@ -40392,7 +40650,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2531
+          "line": 2532
         },
         {
           "name": "getPanes",
@@ -40408,7 +40666,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2543
+          "line": 2544
         },
         {
           "name": "getActivePane",
@@ -40424,7 +40682,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2559
+          "line": 2560
         },
         {
           "name": "activateNextPane",
@@ -40440,7 +40698,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2569
+          "line": 2570
         },
         {
           "name": "activatePreviousPane",
@@ -40456,7 +40714,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2579
+          "line": 2580
         },
         {
           "name": "paneContainerForURI",
@@ -40482,7 +40740,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2593
+          "line": 2594
         },
         {
           "name": "paneContainerForItem",
@@ -40508,7 +40766,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2606
+          "line": 2607
         },
         {
           "name": "paneForURI",
@@ -40534,7 +40792,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2619
+          "line": 2620
         },
         {
           "name": "paneForItem",
@@ -40560,7 +40818,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2637
+          "line": 2638
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -40576,7 +40834,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2664
+          "line": 2665
         },
         {
           "name": "getCenter",
@@ -40592,7 +40850,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2756
+          "line": 2757
         },
         {
           "name": "getLeftDock",
@@ -40608,7 +40866,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2766
+          "line": 2767
         },
         {
           "name": "getRightDock",
@@ -40624,7 +40882,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2776
+          "line": 2777
         },
         {
           "name": "getBottomDock",
@@ -40640,7 +40898,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2786
+          "line": 2787
         },
         {
           "name": "beginLayoutDrag",
@@ -40656,7 +40914,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 2825
+          "line": 2826
         },
         {
           "name": "getBottomPanels",
@@ -40672,7 +40930,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2839
+          "line": 2840
         },
         {
           "name": "addBottomPanel",
@@ -40728,7 +40986,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2855
+          "line": 2856
         },
         {
           "name": "getLeftPanels",
@@ -40744,7 +41002,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2865
+          "line": 2866
         },
         {
           "name": "addLeftPanel",
@@ -40800,7 +41058,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2881
+          "line": 2882
         },
         {
           "name": "getRightPanels",
@@ -40816,7 +41074,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2891
+          "line": 2892
         },
         {
           "name": "addRightPanel",
@@ -40872,7 +41130,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2907
+          "line": 2908
         },
         {
           "name": "getTopPanels",
@@ -40888,7 +41146,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2917
+          "line": 2918
         },
         {
           "name": "addTopPanel",
@@ -40944,7 +41202,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2933
+          "line": 2934
         },
         {
           "name": "getHeaderPanels",
@@ -40960,7 +41218,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2943
+          "line": 2944
         },
         {
           "name": "addHeaderPanel",
@@ -41016,7 +41274,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2959
+          "line": 2960
         },
         {
           "name": "getFooterPanels",
@@ -41032,7 +41290,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2969
+          "line": 2970
         },
         {
           "name": "addFooterPanel",
@@ -41088,7 +41346,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2985
+          "line": 2986
         },
         {
           "name": "getModalPanels",
@@ -41104,7 +41362,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2995
+          "line": 2996
         },
         {
           "name": "addModalPanel",
@@ -41190,7 +41448,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3014
+          "line": 3015
         },
         {
           "name": "panelForItem",
@@ -41216,7 +41474,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 3025
+          "line": 3026
         },
         {
           "name": "scan",
@@ -41330,7 +41588,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 3089
+          "line": 3090
         },
         {
           "name": "replace",
@@ -41393,7 +41651,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3352
+          "line": 3353
         }
       ]
     },
@@ -43029,6 +43287,6 @@
       "line": 18
     }
   ],
-  "memberCount": 1383,
-  "generatedAt": "2026-09-19T20:30:01.463Z"
+  "memberCount": 1393,
+  "generatedAt": "2026-09-21T04:28:17.639Z"
 }
