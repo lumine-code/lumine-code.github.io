@@ -35,7 +35,7 @@ Search Install for `language-` packages to add grammars that are not bundled. **
 
 ## Themes and file icons
 
-Lumine bundles **one-theme**. Optional day/night packs include **atom-theme**, **aura-theme**, **nova-theme**, and **vscode-theme**; **theme-selector** previews registered packs.
+Lumine bundles **one-theme**. Optional day/night packs include **aura-theme** and **vscode-theme**; **theme-selector** previews registered packs.
 
 **more-icons** supplies glyph-based file icons, while **native-icons** can supply operating-system icons for configured filename patterns. Both participate in the same provider chain and can be installed together.
 
