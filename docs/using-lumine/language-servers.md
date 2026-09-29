@@ -21,6 +21,15 @@ lumine --install lumine-code/autocomplete
 lumine --install lumine-code/linter
 ```
 
+A minimal CSS and HTML setup with completions is:
+
+```sh
+lumine --install lumine-code/ide-client
+lumine --install lumine-code/ide-css
+lumine --install lumine-code/ide-html
+lumine --install lumine-code/autocomplete
+```
+
 Installing an adapter alone does not install or replace `ide-client`; adapters connect to it through an editor service. Each adapter's settings page contains its server path, feature switches, and server-specific options. Project configuration files such as `tsconfig.json`, `pyrightconfig.json`, and `ruff.toml` continue to apply when the corresponding editor setting is left empty.
 
 Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells. The same document transforms apply to ordinary editors and cells, so IPython magics and adapter-specific source masking stay out of diagnostics without changing notebook text.
@@ -35,11 +44,17 @@ The Bash adapter always runs its audited bundled server fork. Its managed instal
 
 ## Sessions
 
-Servers start when a matching file first opens. By default each project root gets a session; a server advertising multi-root support can share one process across roots, and a file outside the project gets a temporary file session. Several servers may serve one file: mergeable results are combined, while operations such as formatting or rename use an enabled server that supports them.
+Servers start when a matching editor first opens or its grammar changes. By default each project root gets a session; a server advertising multi-root support can share one process across roots, and a file outside the project gets a temporary file session. Several servers may serve one file: mergeable results are combined, while operations such as formatting or rename use an enabled server that supports them.
+
+Untitled editors receive language-server features after you select a supported grammar. The client gives each one a stable untitled document identity and uses the first project root, falling back to the editor process's working directory when no project is open. Saving closes the untitled document and opens the same buffer under its file identity in the session selected for that path.
 
 ## Features
 
 Each adapter's **Features** group exposes the capabilities that can be switched off, including diagnostics, completions, navigation, formatting, rename, code actions, hints, lenses, and semantic tokens. Use these switches to choose between overlapping servers; for example, disable Ruff hover to leave it to Basedpyright. Feature settings can be scoped per language, and adapters keep the corresponding server capability available whenever any served grammar enables it.
+
+`ide-css` serves CSS, SCSS, Less, and indented Sass. Indented Sass uses its native language identifier and a separate server; property completions retain indentation and omit semicolons. Formatting is available for CSS, SCSS, and Less, while the Sass server does not provide a formatter.
+
+`ide-html` serves HTML, EJS, ERB, and Mustache, including CSS and JavaScript embedded in HTML. In PHP, Blade, and Markdown, it sends only the grammar's HTML fragments to the server while preserving their document positions. HTML formatting is unavailable for those three host languages even when the Format setting is enabled; their own formatters handle the complete document. Vue documents use `ide-vue`. CSS in JavaScript template strings, such as styled-components, remains outside `ide-css`'s scope.
 
 Document diagnostics and workspace diagnostics use the same route into `linter`: open buffers update as you type, while a server that implements `workspace/diagnostic` can also report files that are not open. Install `linter-panel` to browse the combined project result.
 
