@@ -19,13 +19,14 @@ Most optional features maintained by `lumine-code` are available from **Settings
 - **ide-client** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-pyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, and **ide-vue**.
 - **file-operations** is optional, UI-less infrastructure that inspects and preflights ordered create, rename and delete plans before executing them for protocol orchestrators such as **ide-client**.
 - **symbol**, **hyperclick**, **hover**, **outline-view**, **intentions**, **refactor**, **find-references**, **hierarchy-view**, **code-lens**, **inlay-hints**, and **semantic-tokens** present navigation, actions, and language-server results.
+- **jedi-tools** uses Jedi for Python definition lookup, usage searches, renaming, method overrides, and hyperclick navigation.
 - **linter** and **linter-panel** collect diagnostics; **code-format** and **prettier** format code through registered providers or Prettier.
 
 See [Language servers](../using-lumine/language-servers.md) for how clients, providers, and user-interface packages fit together.
 
 ## Languages and completion
 
-Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-css**, **autocomplete-html**, **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-jedi**, **autocomplete-paths**, and **autocomplete-sofistik**.
+Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-css**, **autocomplete-html**, **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and **autocomplete-sofistik**.
 
 **latex-tools**, **typst-tools**, **sofistik-tools**, **tasklist-tools**, and **bib-finder** add build and navigation workflows for their respective formats.
 
