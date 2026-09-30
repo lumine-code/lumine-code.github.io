@@ -9,6 +9,8 @@ Most optional features maintained by `lumine-code` are available from **Settings
 - **navigation-panel**, **minimap**, **scrollmap**, **highlight-selected**, **cursor-history**, and **bookmarks** add navigation and visual context.
 - **build**, **toolbar**, **log-filter**, **diff-view**, **sort-lines**, **calc-inline**, and **spell-check** add focused workflows. `spell-check` needs **linter** to display its diagnostics.
 
+**pdf-view** uses PDF.js to render documents with text selection, search, an outline, and optional scrollmap markers. Refreshing a rebuilt PDF preserves its page, zoom, rotation, and scroll position. **latex-tools** adds SyncTeX navigation, and **latex-tools** or **typst-tools** coordinates refresh with compilation.
+
 ## Git and hosting
 
 - **git-panel** manages the working tree, **github-panel** handles GitHub issues and reviews, and **git-command** offers common workflows in a searchable list.
