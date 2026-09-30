@@ -65,3 +65,19 @@ npm run benchmark:display -- --compare --profile release --output ../.dev/benchm
 The release comparison alternates baseline and candidate in three A–B–B–A blocks, giving six fresh processes per variant, five warmups and thirty measured samples per case. Run it on the same machine with fixed editor dimensions and font settings, after builds and other test processes finish. Raw samples, runtime and addon metadata, semantic checksums, medians, p95 and bootstrap confidence intervals remain in the output directory; generated reports are not committed.
 
 Measure the complete operation rather than the native lookup alone: packed mapping still pays for JavaScript clipping and result allocation, and cached markers can be cheaper than a batch. Geometry reuse applies to short ASCII identifier replacements that preserve layout; parser highlighting events may invalidate a larger range afterwards. The component-update measurements report synchronous CPU and DOM work, not the time a frame is presented on screen.
+
+### Recorded legacy display comparison
+
+The September 30, 2026 comparison used Windows x64, Electron 44.5.0 and Node 24.21.0. A full 278-case release comparison covered six fresh processes per variant and 180 measured samples per case. A subsequent cached-decoration allocation cleanup received a separate 22-case comparison with the same process and sample counts; the original full results and intermediate control confirmations were retained. All comparisons matched their output checksums.
+
+| Operation | Legacy median | Candidate median | Improvement |
+| --- | ---: | ---: | ---: |
+| Uncached decoration query, 256 endpoints with wrap | 1.3 ms | 0.7 ms | 46% |
+| Uncached decoration query, 5000 endpoints with wrap | 33.0 ms | 14.5 ms | 56% |
+| Uncached decoration query, 5000 endpoints with folds | 42.6 ms | 15.5 ms | 64% |
+| Replacement to component update, 250k-character plain-text line | 3.5 ms | 1.0 ms | 71% |
+| Replacement to component update, 1M-character plain-text line | 8.2 ms | 1.9 ms | 77% |
+
+The decoration rows come from the final focused comparison; the replacement rows come from the full comparison, whose geometry implementation and native addon remained unchanged by the later collector cleanup. The final 22 cases had no median or p95 regression exceeding both 5% and 0.5 ms. The broad comparison initially had uncertain control regressions, which prompted isolated confirmations and a cleanup that avoids allocating unused batch structures for cached-only decorations.
+
+These measurements apply to Superstring commit `57a49a92f51b088642a130d03bed70598906887d` and editor commit `87a2c435304f8064bdf6c94523952fa814fc45ae`. They are examples of the tested workloads, not an estimate of whole-editor speedup. Local artifacts are under `.dev/benchmarks/display-legacy/2026-09-30-targeted` and `.dev/benchmarks/display-legacy/2026-09-30-final-cached-cleanup`.
