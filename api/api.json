@@ -40798,7 +40798,7 @@
           "signature": "::destroyActivePaneItem()",
           "category": "Pane Items",
           "visibility": "Extended",
-          "description": "Destroy (close) the active pane item.\n\nRemoves the active pane item and calls its `.destroy` method if it has one.\n\nThis one resolves through the *active pane container*, so it closes the\nfocused dock's item while a dock has focus. That pairs it with\n{@link #getActivePaneItem} and {@link #getActivePane}, which resolve the same way, and\nis what a package wants when it has already inspected the active item and\ndecided to close it.\n\nIts neighbours here deliberately differ: {@link #saveActivePaneItem},\n{@link #saveActivePaneItemAs} and {@link #closeActivePaneItemOrEmptyPaneOrWindow} are\npinned to the workspace center. They back `core:save`, `core:save-as` and\nthe center fallback of `core:close`. Saving from a search field or a dock\nstill saves the document being edited; closing from a dock instead\nresolves its owning pane from the command's dispatch target.",
+          "description": "Destroy (close) the active pane item.\n\nRemoves the active pane item and calls its `.destroy` method if it has one.\n\nThis one resolves through the *active pane container*, so it closes the\nfocused dock's item while a dock has focus. That pairs it with\n{@link #getActivePaneItem} and {@link #getActivePane}, which resolve the same way, and\nis what a package wants when it has already inspected the active item and\ndecided to close it.\n\nIts neighbours here deliberately differ: {@link #saveActivePaneItem},\n{@link #saveActivePaneItemAs} and {@link #closeActivePaneItemOrEmptyPaneOrWindow} are\npinned to the workspace center. They back `core:save`, `core:save-as` and\n`core:close`. These commands act on the document being edited even when\nfocus is in a dock or an input field. Closing a dock item is a separate\naction performed through its tab or package-owned commands.",
           "summary": "Destroy (close) the active pane item.",
           "parameters": [],
           "returnType": null,
@@ -43458,5 +43458,5 @@
     }
   ],
   "memberCount": 1395,
-  "generatedAt": "2026-09-30T18:59:01.017Z"
+  "generatedAt": "2026-09-30T20:06:07.192Z"
 }
