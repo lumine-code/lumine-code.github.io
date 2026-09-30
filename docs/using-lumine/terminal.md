@@ -18,6 +18,8 @@ A focused terminal handles most other keystrokes itself, so use `terminal:unfocu
 
 Hold Alt and left-click to open a web URL, an OSC 8 hyperlink emitted by a program, or a detected filesystem path. File paths can include compiler-style line and column suffixes such as `file.js:42:7`.
 
+Files open in Lumine by default, while directories open externally. Set **Local Path Behavior** to `all-external` to reveal files in the file manager instead. Opening directories and revealing files use the `open-external` service when available, honoring handlers registered by other packages, and fall back to the system otherwise.
+
 Alt is the fixed link modifier on every platform. While it is held, a link under the mouse is underlined and the cursor becomes a pointer. Pressing or releasing Alt updates both indicators immediately, even while the mouse stays still; moving with Alt held updates them for the link under the pointer. Ordinary mouse movement and clicking keep the terminal's normal behavior.
 
 ## Finding in scrollback
