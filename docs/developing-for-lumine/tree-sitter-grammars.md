@@ -114,7 +114,7 @@ Measure opening a file, editing a small range, and collecting symbols separately
 
 The first parse waits for the highlighting query. Folding and indentation queries already in the grammar cache are reused immediately; cold queries are prepared during idle time after the first highlighting update. An explicit folding or indentation request prepares the query when needed, and completed folding queries invalidate the initial fold cache so gutter markers appear without an edit. Symbol and local-variable queries are compiled on their first asynchronous capture request. Changed optional queries stay uncompiled until requested; queries already in use retain validation and reload behavior. The validation command and CI still compile every declared query.
 
-The window remembers up to five recently used grammars and prepares their parsers and highlighting, folding, and indentation queries during idle time after restoring the workspace. Each preparation step checks that the grammar is still registered, and reset or window shutdown cancels queued work. This moves preparation ahead of a later file opening; upstream Tree-sitter query construction remains synchronous, so a large cold highlights query can still briefly occupy the renderer.
+Upstream Tree-sitter query construction remains synchronous, so a large cold highlights query can still briefly occupy the renderer.
 
 Prefer a field or a leaf pattern to an unbounded sibling sequence. A query containing `(comment)*` before a declaration can reconsider long suffixes even when the caller requests only a small row window. Capture definitions and names directly when documentation is not consumed; when a sequence is required, test its behavior inside a growing parent rather than only on a short fixture.
 
