@@ -52,3 +52,16 @@ Never combine `async` with Jasmine's `done` argument. A spec body that declares 
 - Activate the package under test explicitly with `lumine.packages.activatePackage` rather than assuming it is loaded.
 - Dispatch commands through `lumine.commands.dispatch` against the right view to test behavior the way a user triggers it.
 - Keep specs isolated — undo any config or workspace changes, since specs share one editor environment.
+
+## Display performance benchmarks
+
+The editor repository provides `npm run benchmark:display` for display mapping, decoration queries, long-line edits and scrolling. Freeze the baseline before changing production code; the runner copies the source and the exact installed Superstring addon into the output directory. Use the same directory for the subsequent comparison:
+
+```sh
+npm run benchmark:display -- --phase baseline --profile quick --output ../.dev/benchmarks/display-legacy/my-run
+npm run benchmark:display -- --compare --profile release --output ../.dev/benchmarks/display-legacy/my-run
+```
+
+The release comparison alternates baseline and candidate in three A–B–B–A blocks, giving six fresh processes per variant, five warmups and thirty measured samples per case. Run it on the same machine with fixed editor dimensions and font settings, after builds and other test processes finish. Raw samples, runtime and addon metadata, semantic checksums, medians, p95 and bootstrap confidence intervals remain in the output directory; generated reports are not committed.
+
+Measure the complete operation rather than the native lookup alone: packed mapping still pays for JavaScript clipping and result allocation, and cached markers can be cheaper than a batch. Geometry reuse applies to short ASCII identifier replacements that preserve layout; parser highlighting events may invalidate a larger range afterwards. The component-update measurements report synchronous CPU and DOM work, not the time a frame is presented on screen.
