@@ -48,6 +48,8 @@ Run `ide-client:manage-servers` to install, update, or remove managed copies und
 
 The Bash adapter always runs its audited bundled server fork. Its managed install is a separately versioned, checksum-verified toolchain containing ShellCheck and shfmt, which provide diagnostics, fixes and formatting.
 
+The SOFiSTiK adapter also includes its maintained server. It provides offline CADINP intelligence and manual import of existing calculation diagnostics, using the root `sofistik.def` and shared release detection. It replaces the older autocomplete and linter providers functionally; see [SOFiSTiK](sofistik.md) for setup and migration.
+
 ## Sessions
 
 Servers start when a matching editor first opens or its grammar changes. By default each project root gets a session; a server advertising multi-root support can share one process across roots, and a file outside the project gets a temporary file session. Several servers may serve one file: mergeable results are combined, while operations such as formatting or rename use an enabled server that supports them.

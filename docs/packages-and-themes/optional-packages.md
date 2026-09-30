@@ -16,7 +16,7 @@ Most optional features maintained by `lumine-code` are available from **Settings
 
 ## Code intelligence
 
-- **ide-client** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-pyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-sass**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, and **ide-vue**.
+- **ide-client** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-pyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-sass**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, **ide-vue**, and **ide-sofistik**.
 - **file-operations** is optional, UI-less infrastructure that inspects and preflights ordered create, rename and delete plans before executing them for protocol orchestrators such as **ide-client**.
 - **symbol**, **hyperclick**, **hover**, **outline-view**, **intentions**, **refactor**, **find-references**, **hierarchy-view**, **code-lens**, **inlay-hints**, and **semantic-tokens** present navigation, actions, and language-server results.
 - **jedi-tools** uses Jedi for Python definition lookup, usage searches, renaming, method overrides, and hyperclick navigation.
@@ -26,9 +26,11 @@ See [Language servers](../using-lumine/language-servers.md) for how clients, pro
 
 ## Languages and completion
 
-Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and **autocomplete-sofistik**.
+Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and language-server adapters through **ide-client**.
 
 For CSS, SCSS and Less completions, install **autocomplete**, **ide-client** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
+
+For SOFiSTiK CADINP, use **language-sofistik**, **ide-client** and **ide-sofistik**. The adapter replaces the functions of **autocomplete-sofistik** and **linter-sofistik**; disable those older providers to avoid duplicate results. New SOFiSTiK packages use the shared data library directly instead of **sofistik-environment**, which remains available during migration. See [SOFiSTiK](../using-lumine/sofistik.md) for installation, project declarations and manual calculation-diagnostics import.
 
 **latex-tools**, **typst-tools**, **sofistik-tools**, **tasklist-tools**, and **bib-finder** add build and navigation workflows for their respective formats.
 
