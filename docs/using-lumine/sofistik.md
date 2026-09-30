@@ -44,6 +44,6 @@ This command reads an existing result; it never starts SOFiSTiK. Logs are not wa
 
 ## Migration
 
-`ide-sofistik` replaces the language-intelligence functions of `autocomplete-sofistik` and `linter-sofistik`. Disable or uninstall those older providers to avoid duplicate results; keep `autocomplete` and `linter`, which provide the interfaces used by `ide-client`.
+`autocomplete-sofistik`, `linter-sofistik` and `sofistik-environment` are archived and removed from the install catalogue. Uninstall those packages and use `ide-sofistik` with `ide-client`; keep `autocomplete` and `linter`, which provide the completion and diagnostics interfaces.
 
-The new packages do not use `sofistik-environment` or its settings. Move release, language and edition choices into the root `sofistik.def`; shared detection uses `C:\Program Files\SOFiSTiK` when installed programs are needed. The older packages remain available during migration. See [Language servers](language-servers.md) for the client and frontend setup, and [Optional packages](../packages-and-themes/optional-packages.md) for the other maintained packages.
+The new packages do not use the former `sofistik.environment` service or its settings. Move release, language and edition choices into the root `sofistik.def`; shared detection uses `C:\Program Files\SOFiSTiK` when installed programs are needed. See [Language servers](language-servers.md) for the client and frontend setup, and [Optional packages](../packages-and-themes/optional-packages.md) for the other maintained packages.
