@@ -65,6 +65,14 @@ For a leading cell magic, the notebook keeps the header visible and parses the b
 
 Syntax and kernel choice are separate. A cell with `%%bash` can be highlighted as shell while being submitted to the notebook's Python kernel, which handles the magic. Selecting HTML or Python syntax does not start a different kernel or convert a code cell into Markdown or raw.
 
+## Python analysis tools
+
+`ide-pyright`, `ide-ruff`, `linter-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are excluded, including Python fences written inside a Markdown cell. The kernel continues to receive the original source when you execute it.
+
+The projection maps diagnostic, lookup, and edit positions back to the source document, including Unicode columns. Requests inside excluded regions return no Python results. Returned edits are checked against their source revision and cannot overwrite protected cell headers or foreign bodies. Ruff formats Python blocks while preserving the surrounding cell document.
+
+IPython commands remain runtime operations. Static analysis cannot discover names created dynamically by commands such as `%run`; write normal Python imports or annotations when the analyzer needs that information. Basedpyright analyzes explicitly opened `.ipy` documents, but its normal workspace discovery and Python module imports do not treat closed `.ipy` files as `.py` modules.
+
 ## Importing and exporting notebooks
 
 `jupyter-cells:import-notebook` opens a notebook as a source document. For a Python notebook, it creates literal `.ipy` code, Markdown, and raw cells and suggests an `.ipy` filename when you save. Saved results can appear inline when `jupyter-repl` is available. Other notebook languages retain their language's comment-prefixed non-code cells.
