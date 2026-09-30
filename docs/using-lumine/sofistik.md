@@ -42,6 +42,12 @@ Run `ide-sofistik:read-calculation-diagnostics` on a saved, unchanged CADINP fil
 
 This command reads an existing result; it never starts SOFiSTiK. Logs are not watched or imported automatically. Editing the source clears imported findings until the command is run again. Keep `sofistik-tools` if you also want the separate calculation and manual-opening workflows.
 
+## Run a program block
+
+Install `sofistik-tools` and `code-lens` to display a Run action above active `+PROG` headers. Clicking Run saves that source file and starts its selected block in WPS, regardless of the cursor position or which other editor is active. The project's `sofistik.def` selects the installation. A matching SOFiSTiK installation is required; language intelligence remains usable without it.
+
+Inline Run is available on the `sofistik-tools#master` branch ahead of the next tagged release.
+
 ## FEM model views
 
 Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed; the adapter uses the project's shared release and edition selection.
