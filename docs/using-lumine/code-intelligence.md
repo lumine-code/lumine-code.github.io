@@ -68,3 +68,5 @@ Labels follow edits and refresh as scrolling, folding, resizing or font changes 
 ## Semantic tokens
 
 `semantic-tokens` layers a server's identifier classifications over grammar highlighting, leaving unclassified text unchanged. It is enabled after installation; use `semantic-tokens:toggle`, `semantic-tokens:refresh`, or the per-language **Enabled** setting.
+
+It needs a backend that supports semantic tokens. Highlighting follows edits and file renames, and large files refresh the visible rows as scrolling, folding or resizing changes the view. Deprecated identifiers keep their strike while linter underlines remain visible on the same text.
