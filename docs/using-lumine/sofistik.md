@@ -18,7 +18,7 @@ Add `autocomplete` for completion, `hover` for declaration previews, parameter p
 
 ## Release, language and edition
 
-Place `sofistik.def` alongside the source or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
+Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
 
 For example, an adjacent definition can contain:
 
@@ -50,7 +50,7 @@ Inline Run is available on the `sofistik-tools#master` branch ahead of the next 
 
 ## FEM model views
 
-Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed; the adapter uses the definition alongside the actual CDB for release and edition selection.
+Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed. For a `.grv` view, the adapter selects release and edition from `sofistik.def` alongside that view file, even when its database is in another directory. Direct CDB calls use the definition alongside the database. Neither context inherits workspace-root or ancestor definitions.
 
 ```sh
 lumine --install lumine-code/graviss
