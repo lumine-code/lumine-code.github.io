@@ -40,6 +40,8 @@ If another window or an external editor changes the config file, this window rec
 
 A local value replaces the corresponding user-config entry before normal configuration resolution. Project settings and more specific language or syntax selectors keep their existing priority; a local base value does not force every project or language to use it.
 
+The Command Palette's `core:toggle-local-vcs-ignored-paths` command uses a local override to include or exclude VCS-ignored files in project discovery for the current window. The shared file index rebuilds automatically when the effective policy changes. `core.ignoredNames` still applies.
+
 Packages and startup code can use the same API:
 
 ```js
