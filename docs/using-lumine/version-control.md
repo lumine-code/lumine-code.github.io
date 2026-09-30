@@ -29,6 +29,10 @@ The active repository normally follows whatever you are editing. `git-center:tog
 
 A Git worktree is another checkout of the repository. `git-center:select-worktree` lists worktrees and opens one in this window; its actions can open one elsewhere, create, move, lock, unlock, or remove it. The branch picker marks branches checked out in another worktree and offers to open that checkout.
 
+## Commit attribution
+
+Install **`git-blame`** and run `git-blame:toggle` to show who last changed the lines in the current file. Consecutive lines from the same commit share one gutter block, with the hash, date and author shown once; its label stays visible while scrolling through a long block. Wrapped lines stay inside their block, and uncommitted lines are grouped and marked as such. Hover over a block for the commit message, or click anywhere in it to open the commit on its Git host; when no host link is available, the click copies its hash.
+
 ## Opening on your Git host
 
 The **`open-repository`** package opens the current file or repository on its Git host's website. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/open-repository`. It supports GitHub, GitLab, and Bitbucket (and falls back to GitHub-style URLs for other hosts). Run `open-repository:file` to open the file, its blame or history, the repository, its issues or pull/merge requests, or the branch compare page; run `open-repository:copy-url` to copy a URL for the current file and selected lines.
