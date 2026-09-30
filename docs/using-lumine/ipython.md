@@ -4,9 +4,9 @@ An `.ipy` file combines Python, IPython commands, and named cells in one source 
 
 ## Writing a cell document
 
-Start each cell with a column-zero `# %%` marker. Text after the marker is its title. Each additional `%` increases its outline level while still starting a new cell. Python before the first marker is an initial code cell.
+Start each cell with a column-zero `# %%` marker. Text after the marker is its title. Additional `%` characters are accepted in document cell markers. Python before the first marker is an initial code cell.
 
-The optional [`navigation-panel`](https://github.com/lumine-code/navigation-panel) lists named code, Markdown, and raw cells in that hierarchy. It reads the parsed markers, omits type annotations from titles, and ignores marker-like text inside Python strings, bracketed expressions, and continued instructions. Notebook cell editors do not treat `# %%` as document headings.
+The optional [`navigation-panel`](https://github.com/lumine-code/navigation-panel) keeps its own annotations: `#%%$# Section` creates a cell entry and `#%%$$# Child` adds a child entry. The number of `$` characters controls the outline level. Ordinary document markers such as `# %% Title` or `# %% [markdown] Notes` do not create navigation-panel entries. The IPython parser accepts compact navigation annotations without changing their syntax.
 
 ```ipy
 # %% Setup
