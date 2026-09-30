@@ -22,7 +22,7 @@ All three fuzzy finders are optional and available under **Settings → Install*
 
 Install `symbol` with at least one provider: `symbol-tree-sitter` reads the active grammar and `symbol-ctags` supplies ctags results. Use `symbol:toggle-file-symbols` for the active editor, `symbol:toggle-project-symbols` for the project, `symbol:go-to-declaration` to follow a symbol, and `symbol:return-from-declaration` to return.
 
-Install `hyperclick` for pointer navigation supplied by `symbol` or another `hyperclick.provider`: hold Alt to underline the available target under the mouse and show a pointer cursor, then left-click to follow it. For keyboard navigation, run `hyperclick:confirm-cursor`.
+Install `hyperclick` for pointer navigation supplied by `symbol` or another `hyperclick.provider`: hold Alt to underline the available target under the mouse and show a pointer cursor, then left-click to follow it. For keyboard navigation, run `hyperclick:confirm-cursor`. Disabling a provider removes its links immediately and discards any answers still being resolved.
 
 Alt is the fixed mouse-navigation modifier on every platform. Pressing or releasing it updates the underline and mouse cursor immediately, even while the mouse stays still; moving with Alt held updates them for the target under the pointer. Ordinary mouse movement and clicking keep the editor's normal behavior.
 
