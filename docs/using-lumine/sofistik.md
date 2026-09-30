@@ -32,7 +32,7 @@ Use `EN` or `DE` for the keyword language and `professional` or `educational` fo
 
 ## Language intelligence
 
-The server provides contextual records, parameters and values in completion, declaration previews, compact parameter positions and complete enum lists on hover, parameter signatures, static diagnostics, document and project symbols, definitions and references. Each supported feature can be enabled or disabled per grammar in the adapter settings.
+The server provides contextual records, parameters and values in completion, ordered record keys, declaration previews, compact parameter positions and complete enum lists on hover, parameter signatures, static diagnostics, document and project symbols, definitions and references. Each supported feature can be enabled or disabled per grammar in the adapter settings.
 
 The language grammar supplies ordinary syntax colors. Semantic tokens add color only to enum values recognized in the current record, slot, release and language; comments, numbers, variables and unknown values keep their grammar colors. Disabling semantic tokens leaves ordinary highlighting visible. The adapter does not format or rename source files or run calculations.
 
@@ -45,6 +45,8 @@ This command reads an existing result; it never starts SOFiSTiK. Logs are not wa
 ## Run a program block
 
 Install `sofistik-tools` and `code-lens` to display a Run action above active `+PROG` headers. Clicking Run saves that source file and starts its selected block in WPS, regardless of the cursor position or which other editor is active. Only `sofistik.def` alongside the clicked file selects its installation. A matching SOFiSTiK installation is required; language intelligence remains usable without it.
+
+Use **Inline Run Actions** in the **SOFiSTiK Tools** settings to enable or disable these links, with overrides per grammar. Disabling it removes the links immediately.
 
 Inline Run is available on the `sofistik-tools#master` branch ahead of the next tagged release.
 
