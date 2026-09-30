@@ -19,7 +19,7 @@ Every package in the table is optional and available under **Settings → Instal
 
 ## Hover and signature help
 
-`hover` shows provider documentation, types, signatures, and linter messages at the pointer or cursor. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Pointer and cursor delays are configurable.
+`hover` shows provider documentation, types, signatures, and linter messages at the pointer or cursor. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Pointer and cursor delays are configurable. Scrolling stays inside either overlay by default; enable `hover.scrollChaining` to pass wheel events to the editor when the overlay cannot scroll further.
 
 ## Outline
 
