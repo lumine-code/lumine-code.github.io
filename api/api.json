@@ -37643,6 +37643,16 @@
               "nested": true
             },
             {
+              "name": "injectionPoint.combined",
+              "type": "Boolean|Function",
+              "description": "Parse all matching owner nodes in one shared child language layer per injection point and resolved language name. Defaults to `false`. A function is called synchronously with the owner node after its language and content resolve; returning `false` keeps that owner in an independent layer. Owner and content ranges are tracked individually, so local edits rediscover only affected owners. Use this when disjoint content regions form one logical document; independent contexts such as Markdown inline blocks should keep separate layers.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "injectionPoint.combined",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "injectionPoint.coverShallowerScopes",
               "type": "Boolean",
               "description": "controlling whether the injection should prevent the parent grammar (and any of its ancestors) from applying scope boundaries within its injection range(s). Defaults to `false`.",
@@ -37666,7 +37676,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 897
+          "line": 898
         }
       ]
     },
@@ -43393,5 +43403,5 @@
     }
   ],
   "memberCount": 1394,
-  "generatedAt": "2026-09-30T03:27:46.369Z"
+  "generatedAt": "2026-09-30T03:46:48.189Z"
 }
