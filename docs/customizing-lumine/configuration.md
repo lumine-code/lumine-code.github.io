@@ -1,10 +1,14 @@
 # Configuration
 
-Lumine can be adjusted from a graphical settings screen or by editing plain text files. Both change the same underlying configuration.
+Lumine can be adjusted from a graphical settings screen or by editing plain text files. Settings can be shared between windows or changed temporarily in the current window.
 
 ## The Settings view
 
 Open **Settings** (the bundled `settings-view` package) to configure the editor and packages through a UI. **Core** covers application-wide behavior, while **Editor** covers text editing, fonts, wrapping, scrolling, and indentation. Other panels manage Git, keybindings, packages, themes, updates, and installs; platform-specific panels appear when relevant. Every setting is documented inline, so most users never need to edit a config file.
+
+Configuration pages have a **Global / This window** choice beside the scope selector. **Global** is the default and edits the settings stored in your config file. **This window** edits temporary overrides belonging to the current window; the scope selector still chooses whether an override applies to the base settings or a particular language or syntax scope.
+
+In **This window**, check a setting's override checkbox to give it a local value. Uncheck it to inherit the current global value again. Settings that apply to the entire application are unavailable locally, with an explanation beside the control. Theme selection, package installation, and system integration panels continue to make global changes.
 
 ## The config file
 
@@ -24,9 +28,35 @@ Settings are stored in **`config.json`** inside the active configuration directo
 }
 ```
 
-The top-level `"*"` key holds global settings. Values changed in Settings are written here automatically, and scoped values inherit from this block.
+The top-level `"*"` key holds base settings. Values changed with **Global** selected in Settings are written here automatically, and scoped values inherit from this block. Saved changes propagate to other windows.
 
 A legacy `config.cson` is not loaded. Convert it to `config.json` or `config.jsonc` before moving it into your Lumine configuration directory.
+
+## Temporary window settings
+
+Local overrides live only in the current window's memory. They are never written to the config file, copied to another window, or included in saved window state. They disappear when you reload or close the window; closing Settings or reloading a package leaves them in place.
+
+If another window or an external editor changes the config file, this window receives the new global values while keeping its local overrides, including overrides of the same setting. Removing an override reveals the latest global value. A normal global write to a setting in this window also removes that setting's local override for the same selector.
+
+A local value replaces the corresponding user-config entry before normal configuration resolution. Project settings and more specific language or syntax selectors keep their existing priority; a local base value does not force every project or language to use it.
+
+Packages and startup code can use the same API:
+
+```js
+// Change only this window.
+lumine.config.set("editor.fontSize", 20, { local: true });
+
+// Reads and observers automatically include local overrides.
+lumine.config.get("editor.fontSize");
+
+// Remove the override and inherit the latest global value.
+lumine.config.unset("editor.fontSize", { local: true });
+
+// A normal write saves globally and removes this key's local override.
+lumine.config.set("editor.fontSize", 14);
+```
+
+The `local` option can be combined with `scopeSelector` — see [Scoped settings](language-settings.md). Existing commands that call `set()` without `local: true` continue to write globally.
 
 ## Scoped settings
 

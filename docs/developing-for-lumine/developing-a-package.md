@@ -115,6 +115,14 @@ Dev-mode windows load packages from `~/.lumine/packages-dev`, enable developer t
 
 Everything you can do is reachable through the global `lumine` object. Its classes and methods are documented in the [Lumine API reference](https://lumine-code.github.io/api/), generated from Lumine's own source. Install the optional [`autocomplete-lumine`](https://github.com/lumine-code/autocomplete-lumine) package to complete this API as you type.
 
+### Configuration in one window
+
+Use `lumine.config.set(key, value, { local: true })` for a temporary setting in the current window and `lumine.config.unset(key, { local: true })` to remove it. Both accept the usual `scopeSelector` option. Local values are validated against the same schema as saved values, and `get()`, `getAll()`, `observe()`, and `onDidChange()` include them automatically through normal configuration resolution.
+
+Local values replace the corresponding entries in the user source, so project settings and more specific selectors keep their existing priority. They survive config-file synchronization but disappear on window reload or close. A normal `set()` removes the local override for the key and selector it writes; ordinary commands therefore continue to make global changes unless they explicitly choose `local: true`.
+
+Set `allowLocal: false` on a schema entry when its consumer cannot apply settings within an individual renderer, such as a setting read only by the main application process. A local write to such an entry returns `false`, and a bulk local write containing it is rejected without partial changes. Local writes may only target the user source; requesting a different `source` with `local: true` throws `TypeError`. See [Configuration](../customizing-lumine/configuration.md) for the Settings controls and the [Config API](../../api/#class-config) for the full contract.
+
 ## Next
 
 - [Writing specs](writing-specs.md) — test your package.

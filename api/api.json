@@ -2158,12 +2158,12 @@
       "name": "Config",
       "superClass": null,
       "visibility": "Essential",
-      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `lumine.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\nlumine.config.get('my-package.myKey') // -> 'defaultValue'\n\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.get('my-package.myKey') // -> 'value'\n```\n\nYou may want to watch for changes. Use {@link #observe} to catch changes to the setting.\n\n```js\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {@link #onDidChange}.\n\n```js\nlumine.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\nlumine.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\nlumine.config.set('my-package.anInt', '123')\nlumine.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\nlumine.config.set('my-package.anInt', '-20')\nlumine.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\nlumine.config.set('my-package.thingVolume', '10')\nlumine.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\nlumine.config.set('my-package.thingVolume', '400')\nlumine.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\nlumine.config.set('my-package.thingVolume', 'cats')\nlumine.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\nlumine.config.set('my-package.someSetting', 'true')\nlumine.config.get('my-package.someSetting') // -> true\n\nlumine.config.set('my-package.someSetting', '12')\nlumine.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {@link Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\nlumine.config.set('my-package.someSetting', '2')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\nlumine.config.set('my-package.someSetting', '3')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\nlumine.config.set('my-package.someSetting', '4')\nlumine.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = lumine.config.get('some-package.otherSetting')\nlumine.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
+      "description": "Used to access all of Lumine's configuration details.\n\nAn instance of this class is always available as the `lumine.config` global.\n\n## Getting and setting config settings.\n\n```js\n// Note that with no value set, ::get returns the setting's default value.\nlumine.config.get('my-package.myKey') // -> 'defaultValue'\n\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.get('my-package.myKey') // -> 'value'\n\n// Change only this window until it reloads, without saving to config.json.\nlumine.config.set('my-package.myKey', 'temporary', { local: true })\nlumine.config.unset('my-package.myKey', { local: true })\n```\n\nYou may want to watch for changes. Use {@link #observe} to catch changes to the setting.\n\n```js\nlumine.config.set('my-package.myKey', 'value')\nlumine.config.observe('my-package.myKey', (newValue) => {\n  // `observe` calls immediately and every time the value is changed\n  console.log('My configuration changed:', newValue)\n})\n```\n\nIf you want a notification only when the value changes, use {@link #onDidChange}.\n\n```js\nlumine.config.onDidChange('my-package.myKey', ({ newValue, oldValue }) => {\n  console.log('My configuration changed:', newValue, oldValue)\n})\n```\n\n### Value Coercion\n\nConfig settings each have a type specified by way of a\n[schema](https://json-schema.org). For example we might want an integer setting that only\nallows integers greater than `0`:\n\n```js\n// When no value has been set, `::get` returns the setting's default value\nlumine.config.get('my-package.anInt') // -> 12\n\n// The string will be coerced to the integer 123\nlumine.config.set('my-package.anInt', '123')\nlumine.config.get('my-package.anInt') // -> 123\n\n// The string will be coerced to an integer, but it must be greater than 0, so is set to 1\nlumine.config.set('my-package.anInt', '-20')\nlumine.config.get('my-package.anInt') // -> 1\n```\n\n## Defining settings for your package\n\nDeclare a `configSchema` in your package's `package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"configSchema\": {\n    \"someInt\": {\n      \"title\": \"Some Int\",\n      \"description\": \"How many of the thing to do.\",\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"default\": 23\n    }\n  }\n}\n```\n\nThe schema is read before the package activates, so its settings appear in\nthe settings view and its defaults apply whether or not the package has been\nloaded yet. Export a `config` object from the package's main module only when\nthe schema cannot be written down ahead of time and has to be built at\nruntime.\n\nSee the [package tutorial](https://lumine-code.github.io/docs.html#developing-for-lumine/developing-a-package) for\nmore info.\n\n## Config Schemas\n\nWe use [json schema](https://json-schema.org) which allows you to define your value's\ndefault, the type it should be, etc. Every example below is the value of the\n`configSchema` key. A simple one, providing an `enableThing` and a\n`thingVolume`:\n\n```json\n{\n  \"enableThing\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  },\n  \"thingVolume\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\nThe type keyword allows for type coercion and validation. If a `thingVolume` is\nset to a string `'10'`, it will be coerced into an integer.\n\n```js\nlumine.config.set('my-package.thingVolume', '10')\nlumine.config.get('my-package.thingVolume') // -> 10\n\n// It respects the min / max\nlumine.config.set('my-package.thingVolume', '400')\nlumine.config.get('my-package.thingVolume') // -> 11\n\n// If it cannot be coerced, the value will not be set\nlumine.config.set('my-package.thingVolume', 'cats')\nlumine.config.get('my-package.thingVolume') // -> 11\n```\n\n### Supported Types\n\nThe `type` keyword can be a string with any one of the following. You can also\nchain them by specifying multiple in an array. For example\n\n```json\n{\n  \"someSetting\": {\n    \"type\": [\"boolean\", \"integer\"],\n    \"default\": 5\n  }\n}\n```\n\n```js\nlumine.config.set('my-package.someSetting', 'true')\nlumine.config.get('my-package.someSetting') // -> true\n\nlumine.config.set('my-package.someSetting', '12')\nlumine.config.get('my-package.someSetting') // -> 12\n```\n\n#### string\n\nValues must be a string.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"default\": \"hello\"\n  }\n}\n```\n\n#### integer\n\nValues will be coerced into integer. Supports the (optional) `minimum` and\n`maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"minimum\": 1,\n    \"maximum\": 11,\n    \"default\": 5\n  }\n}\n```\n\n#### number\n\nValues will be coerced into a number, including real numbers. Supports the\n(optional) `minimum` and `maximum` keys.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"number\",\n    \"minimum\": 1.5,\n    \"maximum\": 11.5,\n    \"default\": 5.3\n  }\n}\n```\n\n#### boolean\n\nValues will be coerced into a Boolean. `'true'` and `'false'` will be coerced into\na boolean. Numbers, arrays, objects, and anything else will not be coerced.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\n#### array\n\nValue must be an Array. The types of the values can be specified by a\nsubschema in the `items` key. An item that does not conform to that subschema\nis dropped rather than rejecting the whole array. Supports the (optional)\n`minItems` and `maxItems` keys, which bound the length of the array that\nsurvives; a value outside those bounds is rejected and the setting keeps its\nprevious value.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"array\",\n    \"items\": {\n      \"type\": \"integer\",\n      \"minimum\": 1.5,\n      \"maximum\": 11.5\n    },\n    \"minItems\": 1,\n    \"maxItems\": 3,\n    \"default\": [1, 2, 3]\n  }\n}\n```\n\n#### color\n\nValues will be coerced into a {@link Color} with `red`, `green`, `blue`, and `alpha`\nproperties that all have numeric values. `red`, `green`, `blue` will be in\nthe range 0 to 255 and `value` will be in the range 0 to 1. Values can be any\nvalid CSS color format such as `#abc`, `#abcdef`, `white`,\n`rgb(50, 100, 150)`, and `rgba(25, 75, 125, .75)`.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"color\",\n    \"default\": \"white\"\n  }\n}\n```\n\n#### object / Grouping other types\n\nA config setting with the type `object` allows grouping a set of config\nsettings. The group will be visually separated and has its own group headline.\nThe sub options must be listed under a `properties` key.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"myChildIntOption\": {\n        \"type\": \"integer\",\n        \"minimum\": 1.5,\n        \"maximum\": 11.5\n      }\n    }\n  }\n}\n```\n\n### Other Supported Keys\n\n#### enum\n\nAll types support an `enum` key, which lets you specify all the values the\nsetting can take. `enum` may be an array of allowed values (of the specified\ntype), or an array of objects with `value` and `description` properties, where\nthe `value` is an allowed value, and the `description` is a descriptive string\nused in the settings view.\n\nIn this example, the setting must be one of the 4 integers:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"integer\",\n    \"enum\": [2, 4, 6, 8],\n    \"default\": 4\n  }\n}\n```\n\nIn this example, the setting must be either 'foo' or 'bar', which are\npresented using the provided descriptions in the settings pane:\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"default\": \"foo\"\n  }\n}\n```\n\nIf you only have a few elements, you can display your enum as a list of\nradio buttons in the settings view rather than a select list. To do so,\nspecify `radio: true` as a sibling property to the `enum` array.\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"string\",\n    \"enum\": [\n      { \"value\": \"foo\", \"description\": \"Foo mode. You want this.\" },\n      { \"value\": \"bar\", \"description\": \"Bar mode. Nobody wants that!\" }\n    ],\n    \"radio\": true,\n    \"default\": \"foo\"\n  }\n}\n```\n\nUsage:\n\n```js\nlumine.config.set('my-package.someSetting', '2')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value outside the enum is rejected, and the setting keeps what it had\nlumine.config.set('my-package.someSetting', '3')\nlumine.config.get('my-package.someSetting') // -> 2\n\n// a value inside it is coerced to the declared type and set\nlumine.config.set('my-package.someSetting', '4')\nlumine.config.get('my-package.someSetting') // -> 4\n```\n\n#### title and description\n\nThe settings view will use the `title` and `description` keys to display your\nconfig setting in a readable way. By default the settings view humanizes your\nconfig key, so `someSetting` becomes `Some Setting`. In some cases, this is\nconfusing for users, and a more descriptive title is useful.\n\nDescriptions will be displayed below the title in the settings view.\n\nFor a group of config settings the humanized key or the title and the\ndescription are used for the group headline.\n\n```json\n{\n  \"someSetting\": {\n    \"title\": \"Setting Magnitude\",\n    \"description\": \"This will affect the blah and the other blah\",\n    \"type\": \"integer\",\n    \"default\": 4\n  }\n}\n```\n\n__Note__: You should strive to be so clear in your naming of the setting that\nyou do not need to specify a title or description!\n\nDescriptions allow a subset of\n[Markdown formatting](https://help.github.com/articles/github-flavored-markdown/).\nSpecifically, you may use the following in configuration setting descriptions:\n\n* **bold** - `**bold**`\n* *italics* - `*italics*`\n* [links](https://lumine-code.github.io) - `[links](https://lumine-code.github.io)`\n* `code spans` - `` `code spans` ``\n* line breaks - `line breaks<br/>`\n* ~~strikethrough~~ - `~~strikethrough~~`\n\n#### order\n\nThe settings view displays your settings in the order the schema declares\nthem, so arranging the schema is all this normally takes.\n\nAn explicit `order` key still takes precedence where one is present, but\nprefer not to use it: a setting without `order` sorts after every setting\nthat has one, so adding `order` to part of a schema reorders the rest of it\ntoo.\n\n## Manipulating values outside your configuration schema\n\nIt is possible to manipulate(`get`, `set`, `observe` etc) values that do not\nappear in your configuration schema. For example, if the config schema of the\npackage 'some-package' is\n\n```json\n{\n  \"someSetting\": {\n    \"type\": \"boolean\",\n    \"default\": false\n  }\n}\n```\n\nYou can still do the following\n\n```js\nconst otherSetting = lumine.config.get('some-package.otherSetting')\nlumine.config.set('some-package.stillAnotherSetting', otherSetting * 5)\n```\n\nIn other words, if a function asks for a `key-path`, that path doesn't have to\nbe described in the config schema for the package or any package. However, as\nhighlighted in the best practices section, you are advised against doing the\nabove.\n\n## Best practices\n\n* Don't depend on (or write to) configuration keys outside of your keypath.",
       "summary": "Used to access all of Lumine's configuration details.",
       "source": "src/config.js",
       "sourcePath": "src/config.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 431,
+      "line": 435,
       "members": [
         {
           "name": "observe",
@@ -2227,7 +2227,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 543
+          "line": 550
         },
         {
           "name": "onDidChange",
@@ -2311,7 +2311,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 588
+          "line": 595
         },
         {
           "name": "get",
@@ -2374,9 +2374,9 @@
             }
           ],
           "returnType": "*",
-          "returnDescription": "The value from Lumine's defaults or the user's configuration, in the type specified by the configuration schema.",
+          "returnDescription": "The resolved value, including this window's local user overrides, in the type specified by the configuration schema.",
           "propertyType": null,
-          "line": 680
+          "line": 687
         },
         {
           "name": "getAll",
@@ -2431,7 +2431,7 @@
           "returnType": "Array",
           "returnDescription": "of `Objects` with the following keys:",
           "propertyType": null,
-          "line": 722
+          "line": 729
         },
         {
           "name": "set",
@@ -2441,7 +2441,7 @@
           "signature": "::set(...args)",
           "category": "Managing Settings",
           "visibility": "Essential",
-          "description": "Sets the value for a configuration setting.\n\nThis value is stored in Lumine's internal configuration file.\n\n### Examples\n\nYou might want to change the themes programmatically:\n\n```js\nlumine.config.set('theme.dark', ['one-night-ui', 'one-night-syntax'])\n```\n\nYou can also set scoped settings. For example, you might want change the\n`editor.tabLength` only for ruby files.\n\n```js\nlumine.config.get('editor.tabLength') // => 4\nlumine.config.get('editor.tabLength', { scope: ['source.ruby'] }) // => 4\nlumine.config.get('editor.tabLength', { scope: ['source.js'] }) // => 4\n\n// Set ruby to 2\nlumine.config.set('editor.tabLength', 2, { scopeSelector: '.source.ruby' }) // => true\n\n// Notice it's only set to 2 in the case of ruby\nlumine.config.get('editor.tabLength') // => 4\nlumine.config.get('editor.tabLength', { scope: ['source.ruby'] }) // => 2\nlumine.config.get('editor.tabLength', { scope: ['source.js'] }) // => 4\n```",
+          "description": "Sets the value for a configuration setting.\n\nThis value is stored in Lumine's configuration file unless `local` is true.\nLocal values replace user values in this renderer until it reloads. Project\nand scope precedence remains unchanged, and synchronized file changes do\nnot remove local values. An ordinary write removes the local override at\nthe same selector and key path before updating the user value.\n\n### Examples\n\nYou might want to change the themes programmatically:\n\n```js\nlumine.config.set('theme.dark', ['one-night-ui', 'one-night-syntax'])\n```\n\nYou can also set scoped settings. For example, you might want change the\n`editor.tabLength` only for ruby files.\n\n```js\nlumine.config.get('editor.tabLength') // => 4\nlumine.config.get('editor.tabLength', { scope: ['source.ruby'] }) // => 4\nlumine.config.get('editor.tabLength', { scope: ['source.js'] }) // => 4\n\n// Set ruby to 2\nlumine.config.set('editor.tabLength', 2, { scopeSelector: '.source.ruby' }) // => true\n\n// Notice it's only set to 2 in the case of ruby\nlumine.config.get('editor.tabLength') // => 4\nlumine.config.get('editor.tabLength', { scope: ['source.ruby'] }) // => 2\nlumine.config.get('editor.tabLength', { scope: ['source.js'] }) // => 4\n```",
           "summary": "Sets the value for a configuration setting.",
           "parameters": [
             {
@@ -2456,7 +2456,7 @@
             {
               "name": "value",
               "type": "*",
-              "description": "The setting value. Passing `undefined` reverts it to the default value.",
+              "description": "The setting value. Passing `undefined` reverts it to the default value, or removes the override when `local` is true.",
               "optional": false,
               "defaultValue": null,
               "source": "value",
@@ -2470,6 +2470,16 @@
               "defaultValue": null,
               "source": "options",
               "rest": false
+            },
+            {
+              "name": "options.local",
+              "type": "Boolean",
+              "description": "Keep the value in this window only.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.local",
+              "rest": false,
+              "nested": true
             },
             {
               "name": "options.scopeSelector",
@@ -2493,9 +2503,9 @@
             }
           ],
           "returnType": "Boolean",
-          "returnDescription": "`true` if the value was set; `false` if it could not be coerced to the type specified by the setting's schema.",
+          "returnDescription": "`true` if the value was set; `false` if it could not be coerced to the type specified by the setting's schema or the schema declares `allowLocal: false` for a requested local write.",
           "propertyType": null,
-          "line": 791
+          "line": 808
         },
         {
           "name": "unset",
@@ -2505,8 +2515,8 @@
           "signature": "::unset(keyPath, options)",
           "category": "Managing Settings",
           "visibility": "Essential",
-          "description": "Restore the setting at `keyPath` to its default value.",
-          "summary": "Restore the setting at `keyPath` to its default value.",
+          "description": "Restore the setting at `keyPath` to its default value. With `local: true`,\nremove only the selected local override and inherit the current user value.",
+          "summary": "Restore the setting at `keyPath` to its default value. With `local: true`, remove only the selected local override and inherit the current user value.",
           "parameters": [
             {
               "name": "keyPath",
@@ -2525,6 +2535,16 @@
               "type": "Object",
               "description": "",
               "defaultValue": null
+            },
+            {
+              "name": "options.local",
+              "type": "Boolean",
+              "description": "Remove only this window's override, revealing the current user value. An absent override is a no-op.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.local",
+              "rest": false,
+              "nested": true
             },
             {
               "name": "options.scopeSelector",
@@ -2550,7 +2570,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 845
+          "line": 875
         },
         {
           "name": "getSources",
@@ -2566,7 +2586,72 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 904
+          "line": 940
+        },
+        {
+          "name": "inspect",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::inspect(keyPath, options = {})",
+          "category": "Managing Settings",
+          "visibility": "Extended",
+          "description": "Inspect the stored layers for a key at an exact selector. Complex\nselectors describe several possible scope chains, so only their exact\nentries are reported; simple chains also receive inherited/effective\nvalues.\n\nThe selected target is the user file by default, or this window when\n`local` is true. `overrideValue` and `hasOverride` describe that target's\nexact declaration. `inheritedValue` removes that declaration while retaining\nnormal project precedence. `editableValue` and `editableInheritedValue`\nexclude project values, and exclude all local values for the user-file\ntarget. `localValue` and `hasLocalOverride` describe the exact local\ndeclaration independently of the selected target. `effectiveValue` always\ndescribes actual runtime resolution, including projects and locals; it is\nundefined for a complex selector whose match cannot be inferred.",
+          "summary": "Inspect the stored layers for a key at an exact selector. Complex selectors describe several possible scope chains, so only their exact entries are reported; simple chains also receive inherited/effective values.",
+          "parameters": [
+            {
+              "name": "keyPath",
+              "source": "keyPath",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The configuration key to inspect.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Storage target options.",
+              "defaultValue": null
+            },
+            {
+              "name": "options.local",
+              "type": "Boolean",
+              "description": "Inspect this window's declaration.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.local",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.scopeSelector",
+              "type": "String",
+              "description": "An exact selector; omitted or `*` selects the base declaration.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.scopeSelector",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.source",
+              "type": "String",
+              "description": "The stored source, defaulting to the user file. Local inspection only accepts the user source.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.source",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "Stored and resolved values: `overrideValue`, `hasOverride`, `inheritedValue`, `editableValue`, `editableInheritedValue`, `localValue`, `hasLocalOverride`, `effectiveValue`, `baseValue`, `valuesBySource`, `projectValue`, `variableByMatch`, `keyPath`, `scopeSelector`, and `schema`. `allowLocal` is false when the key or a parent schema forbids local writes.",
+          "propertyType": null,
+          "line": 1157
         },
         {
           "name": "getSchema",
@@ -2592,7 +2677,7 @@
           "returnType": "Object|null",
           "returnDescription": "A schema such as `{type: 'integer', default: 23, minimum: 1}`, or `null` when the key path has no accessible schema.",
           "propertyType": null,
-          "line": 1016
+          "line": 1254
         },
         {
           "name": "transact",
@@ -2618,7 +2703,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1054
+          "line": 1292
         }
       ]
     },
@@ -43297,6 +43382,6 @@
       "line": 18
     }
   ],
-  "memberCount": 1393,
-  "generatedAt": "2026-09-29T22:27:37.955Z"
+  "memberCount": 1394,
+  "generatedAt": "2026-09-30T00:15:11.864Z"
 }
