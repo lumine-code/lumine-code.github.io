@@ -9367,7 +9367,7 @@
           "returnType": "Disposable",
           "returnDescription": "that can be used to stop updating the buffer's language mode.",
           "propertyType": null,
-          "line": 76
+          "line": 77
         },
         {
           "name": "assignLanguageMode",
@@ -9402,7 +9402,42 @@
           "returnType": "Boolean",
           "returnDescription": "that indicates whether the language was successfully found.",
           "propertyType": null,
-          "line": 162
+          "line": 164
+        },
+        {
+          "name": "setRootLanguageRanges",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setRootLanguageRanges(buffer, provider)",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "Limit a buffer's root language to source ranges without changing its text.\nThe policy follows the buffer across grammar changes and is not serialized.\nThe provider runs before each parse; return `null` to parse the whole buffer,\nor an empty array to parse no source. Ranges use buffer coordinates.",
+          "summary": "Limit a buffer's root language to source ranges without changing its text. The policy follows the buffer across grammar changes and is not serialized. The provider runs before each parse; return `null` to parse the whole buffer, or an empty array to parse no source. Ranges use buffer coordinates.",
+          "parameters": [
+            {
+              "name": "buffer",
+              "source": "buffer",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "The {@link TextBuffer} whose root language is constrained.",
+              "defaultValue": null
+            },
+            {
+              "name": "provider",
+              "source": "provider",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A function receiving the buffer and returning an array of {@link Range}s or `null`.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Removes this policy and restores full-buffer parsing, unless a newer policy replaced it.",
+          "propertyType": null,
+          "line": 199
         },
         {
           "name": "assignGrammar",
@@ -9437,7 +9472,7 @@
           "returnType": "Boolean",
           "returnDescription": "that indicates whether the assignment was successful",
           "propertyType": null,
-          "line": 195
+          "line": 234
         },
         {
           "name": "getAssignedLanguageId",
@@ -9463,7 +9498,7 @@
           "returnType": "String",
           "returnDescription": "id of the language",
           "propertyType": null,
-          "line": 235
+          "line": 275
         },
         {
           "name": "autoAssignLanguageMode",
@@ -9489,7 +9524,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 249
+          "line": 289
         },
         {
           "name": "selectGrammar",
@@ -9524,7 +9559,7 @@
           "returnType": "TreeSitterGrammar|Object",
           "returnDescription": "a Tree-sitter grammar or the null grammar sentinel.",
           "propertyType": null,
-          "line": 301
+          "line": 341
         },
         {
           "name": "getGrammarScore",
@@ -9568,7 +9603,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 347
+          "line": 387
         },
         {
           "name": "onDidAddGrammar",
@@ -9604,7 +9639,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 531
+          "line": 571
         },
         {
           "name": "onDidUpdateGrammar",
@@ -9640,7 +9675,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 546
+          "line": 586
         },
         {
           "name": "onDidRemoveGrammar",
@@ -9676,7 +9711,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 561
+          "line": 601
         },
         {
           "name": "addInjectionPoint",
@@ -9801,7 +9836,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the injection point.",
           "propertyType": null,
-          "line": 584
+          "line": 624
         },
         {
           "name": "loadGrammar",
@@ -9856,7 +9891,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 694
+          "line": 734
         },
         {
           "name": "loadGrammarSync",
@@ -9882,7 +9917,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 711
+          "line": 751
         },
         {
           "name": "readGrammar",
@@ -9937,7 +9972,7 @@
           "returnType": "undefined",
           "returnDescription": "undefined.",
           "propertyType": null,
-          "line": 729
+          "line": 769
         },
         {
           "name": "readGrammarSync",
@@ -9963,7 +9998,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 750
+          "line": 790
         },
         {
           "name": "getGrammars",
@@ -9979,7 +10014,7 @@
           "returnType": "Array",
           "returnDescription": "registered {@link TreeSitterGrammar} instances.",
           "propertyType": null,
-          "line": 769
+          "line": 809
         }
       ]
     },
@@ -43402,6 +43437,6 @@
       "line": 18
     }
   ],
-  "memberCount": 1394,
-  "generatedAt": "2026-09-30T04:05:48.118Z"
+  "memberCount": 1395,
+  "generatedAt": "2026-09-30T04:45:17.154Z"
 }

@@ -108,6 +108,32 @@ Two commands help while working on queries:
 
 Mistakes inside predicates are contained the same way: an unknown `test.`/`adjust.`/`capture.` key, an invalid regular expression, or a predicate missing its argument drops only the affected capture and warns once per grammar in dev mode, instead of breaking highlighting for the whole file.
 
+## Keeping grammar work local
+
+Measure opening a file, editing a small range, and collecting symbols separately. A fast parser does not guarantee a fast grammar: query compilation, repeated sibling matches, and injection callbacks can dominate different phases. Use valid generated input as well as partially edited syntax, and compare captures and scopes before and after an optimization.
+
+The editor prepares highlighting, folding, and indentation queries when a language layer starts. Symbol and local-variable queries are compiled on their first asynchronous capture request, so opening a file does not pay for features that are never used. Changed optional queries stay uncompiled until requested; queries already in use retain validation and reload behavior. The validation command and CI still compile every declared query. Upstream Tree-sitter query construction remains synchronous, so a large highlights query can still have a one-time compilation cost.
+
+Prefer a field or a leaf pattern to an unbounded sibling sequence. A query containing `(comment)*` before a declaration can reconsider long suffixes even when the caller requests only a small row window. Capture definitions and names directly when documentation is not consumed; when a sequence is required, test its behavior inside a growing parent rather than only on a short fixture.
+
+An injection callback should inspect the node that owns its content. Registering a root node and calling `descendantsOfType` inside the callback performs synchronous work on the entire tree after every edit. The runtime's outer scan budget cannot divide a traversal inside a callback.
+
+Use `combined` when several discovered nodes contribute to one logical child document:
+
+```js
+const registration = lumine.grammars.addInjectionPoint("source.example", {
+  type: "documentation_line",
+  language: () => "documentation",
+  content: (node) => node,
+  combined: true,
+  newlinesBetween: true,
+});
+```
+
+The child layer shares its parser and queries while retaining individual owner and content ranges. An edit outside those ranges does not rediscover every member. `combined` can also be a function receiving the owner node: return `false` to parse that owner's content independently when joining it would change its meaning or its error recovery. Dispose the registration with the package or service edge that created it. Test malformed syntax as well as insertion, deletion, prefix shifts, and removal of the last member.
+
+For grammar-selection regular expressions, make repeated alternatives disjoint. A comment matcher must stop at the first closing delimiter; an optional whitespace matcher must not overlap another repeated whitespace branch. Include failed matches in regression cases: the costly backtracking often appears when the final language name or opening delimiter is absent.
+
 ## ABI compatibility
 
 A parser wasm carries the ABI version of the `tree-sitter-cli` that generated its `parser.c`. Rebuilding an existing `parser.c` preserves that ABI; `lem grammar --regenerate` replaces it with output from the fleet CLI. Lumine's runtime accepts a window of ABI versions (currently 13–15), so a wasm outside that window must not be committed. If an upstream commits sources generated with an incompatible CLI, run `lem grammar <config> --regenerate` so the parser is regenerated at an ABI the runtime accepts.
