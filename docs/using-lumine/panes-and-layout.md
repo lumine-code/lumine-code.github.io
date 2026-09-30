@@ -19,7 +19,7 @@ Move between panes with `window:focus-pane-on-left`, `window:focus-pane-on-right
 
 ## Resizing and closing
 
-`core:close` closes the tab containing focus, whether it is in the workspace center or a dock. Pickers and cancellable dialogs dismiss through `core:cancel`. Closing a focused tool panel leaves the center document open.
+`core:close` closes the active tab in the workspace center, even when a dock, tool panel, or dialog has focus. Close a dock tab with its × button, or hide a tool surface with its toggle command. Pickers and cancellable dialogs dismiss through `core:cancel`.
 
 - `pane:increase-size` / `pane:decrease-size` resize the active pane.
 - `pane:close` closes a pane; `pane:close-other-items` closes everything else in it.

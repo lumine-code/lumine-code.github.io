@@ -64,7 +64,7 @@ Core keeps shared bindings in a base keymap and splits out only genuine platform
 
 Cross-editor conventions keep their familiar keys: <kbd>Ctrl</kbd><kbd>Backquote</kbd> for the terminal, <kbd>Cmd/Ctrl</kbd><kbd>P</kbd> for files, <kbd>Cmd/Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> for the command palette, <kbd>Cmd/Ctrl</kbd><kbd>F</kbd> for find, and <kbd>F2</kbd> for rename.
 
-<kbd>Cmd/Ctrl</kbd><kbd>W</kbd> closes the focused tab or tool panel, including items in docks. In a picker or cancellable dialog it dismisses the modal. Focus inside a tool surface never sends this shortcut to the center document behind it.
+<kbd>Cmd/Ctrl</kbd><kbd>W</kbd> runs `core:close`, which closes the active center tab regardless of dock, panel, or dialog focus. It does not generally dismiss a modal; use <kbd>Esc</kbd> for dialog cancellation. A focused terminal keeps native <kbd>Ctrl</kbd><kbd>W</kbd> when the shell handles it. The terminal's × button closes its own tab, and a terminal opened in the center can be closed with `core:close`.
 
 ## Debugging a keystroke
 
