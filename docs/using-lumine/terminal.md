@@ -14,6 +14,12 @@ A focused terminal handles most other keystrokes itself, so use `terminal:unfocu
 
 `terminal:run-selected-text` sends the editor's current selection to the active terminal and runs it; `terminal:insert-selected-text` inserts it without pressing Enter.
 
+## Opening links
+
+Hold Alt and left-click to open a web URL, an OSC 8 hyperlink emitted by a program, or a detected filesystem path. File paths can include compiler-style line and column suffixes such as `file.js:42:7`.
+
+Alt is the fixed link modifier on every platform. While it is held, a link under the mouse is underlined and the cursor becomes a pointer. Pressing or releasing Alt updates both indicators immediately, even while the mouse stays still; moving with Alt held updates them for the link under the pointer. Ordinary mouse movement and clicking keep the terminal's normal behavior.
+
 ## Finding in scrollback
 
 `terminal:find` opens an in-terminal find palette, with `terminal:find-next` and `terminal:find-previous` to step through matches, and `terminal:set-selection-as-find-pattern` to search for the currently selected text.
