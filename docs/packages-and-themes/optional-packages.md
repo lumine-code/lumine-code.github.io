@@ -28,7 +28,9 @@ See [Language servers](../using-lumine/language-servers.md) for how clients, pro
 
 Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and language-server adapters through **ide-client**.
 
-**autocomplete-paths** completes language-specific imports and explicit relative paths beginning with `./` or `../` (including their backslash forms). Quoted paths allow spaces and brackets in filenames; bare paths with whitespace in the filename query use literal prefix matching. Enclosing quotes or brackets end completion when closed, and a line with several paths uses the last active one. Suggestions stay inside the current file's project root and replace the full typed path prefix.
+**autocomplete-paths** completes language-specific imports and explicit relative paths beginning with `./` or `../` (including their backslash forms). Quoted paths preserve filename punctuation, spaces, brackets and Unicode; inserted suggestions escape the enclosing quote and `${` inside backtick templates. On POSIX, `./` and `../` paths preserve literal filename backslashes, doubled in quoted insertions. Optional HTML attribute support matches decoded character references and inserts entities such as `&amp;`, `&quot;` and `&#39;`. C0 control characters, including tabs and physical line breaks in filenames, are unsupported.
+
+Bare paths with whitespace in the filename query use literal prefix matching. An unescaped enclosing quote or a closing bracket around a bare path ends completion, and a line with several paths uses the last active one. Suggestions stay inside the current file's project root and replace the full typed path prefix.
 
 For CSS, SCSS and Less completions, install **autocomplete**, **ide-client** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
 
