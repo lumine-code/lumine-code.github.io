@@ -14,7 +14,7 @@ lumine --install lumine-code/ide-client
 lumine --install lumine-code/ide-sofistik
 ```
 
-Add `autocomplete` for completion, `hover` for documentation and record signatures, `linter` for diagnostics, and `symbol`, `find-references` or `semantic-tokens` for navigation and contextual colors. The adapter includes its server, which runs with the editor's Node runtime. Static language intelligence works without a SOFiSTiK installation.
+Add `autocomplete` for completion, `hover` for declaration previews, parameter positions, complete enum lists and signature help, `linter` for diagnostics, and `symbol`, `find-references` or `semantic-tokens` for navigation and contextual colors. The adapter includes its server, which runs with the editor's Node runtime. Static language intelligence works without a SOFiSTiK installation.
 
 ## Release, language and edition
 
@@ -32,7 +32,7 @@ Use `EN` or `DE` for the keyword language and `professional` or `educational` fo
 
 ## Language intelligence
 
-The server provides contextual records, parameters and values in completion, documentation on hover, parameter signatures, static diagnostics, document and project symbols, definitions and references. Each supported feature can be enabled or disabled per grammar in the adapter settings.
+The server provides contextual records, parameters and values in completion, declaration previews, compact parameter positions and complete enum lists on hover, parameter signatures, static diagnostics, document and project symbols, definitions and references. Each supported feature can be enabled or disabled per grammar in the adapter settings.
 
 The language grammar supplies ordinary syntax colors. Semantic tokens add color only to enum values recognized in the current record, slot, release and language; comments, numbers, variables and unknown values keep their grammar colors. Disabling semantic tokens leaves ordinary highlighting visible. The adapter does not format or rename source files or run calculations.
 
