@@ -18,7 +18,7 @@ Add `autocomplete` for completion, `hover` for declaration previews, parameter p
 
 ## Release, language and edition
 
-Open the project directory as an editor project root. One server uses one release, language and edition for the entire directory. The shared SOFiSTiK data library resolves the release from the root `sofistik.def`, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
+Open the project directory as an editor project root. One server uses one release, language and edition for the entire directory. The lightweight `sofistik-env` library resolves the release from the root `sofistik.def`, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
 
 For example, a project definition can contain:
 
@@ -41,6 +41,27 @@ The language grammar supplies ordinary syntax colors. Semantic tokens add color 
 Run `ide-sofistik:read-calculation-diagnostics` on a saved, unchanged CADINP file to read its existing `.error_positions` file. The file contains one JSON object per line, with an error number, severity flag and source position. The server validates the imported records and combines them with its static findings in the linter.
 
 This command reads an existing result; it never starts SOFiSTiK. Logs are not watched or imported automatically. Editing the source clears imported findings until the command is run again. Keep `sofistik-tools` if you also want the separate calculation and manual-opening workflows.
+
+## FEM model views
+
+Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed; the adapter uses the project's shared release and edition selection.
+
+```sh
+lumine --install lumine-code/graviss
+lumine --install lumine-code/graviss-sofistik
+```
+
+Create `model.grv` beside the database and open it in the editor:
+
+```json
+{ "source": "model.cdb" }
+```
+
+The source path is relative to the `.grv` file. A document containing `{}` also discovers a same-basename `.cdb` beside it. Use Results to search load cases, choose exact or automatic amplification, and pause or seek the deformation; Filter offers model values and ordered Add/Subtract rules.
+
+The toolbar's quick filter accepts expressions such as `G12-15;-Q1??1*`: add groups 12–15, then subtract shells matching the element-number pattern. `G12` selects group 12, `GB12` restricts it to beams, and `GQ12` restricts it to shells. `SG:DECK` selects the secondary group named DECK. `L1030` selects members generated along structural line 1030; `Q1030` instead names finite shell element 1030. The `?` help lists the codes available for the current model.
+
+Press Enter to apply a quick-filter draft and Escape to cancel it. All whitespace is ignored, including inside quoted names; commas separate terms within a clause and semicolons separate ordered clauses. Invalid edits report an error and keep the last applied filter. An element must pass both the quick filter and the independent Filter panel rules. The × button clears only the quick filter; while it is active, the panel's reset reads Clear panel filter and leaves the toolbar expression active. See [Graviss usage](https://github.com/lumine-code/graviss#usage) for the complete syntax and [the CDB adapter](https://github.com/lumine-code/graviss-sofistik) for database setup.
 
 ## Migration
 
