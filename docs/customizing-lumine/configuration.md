@@ -6,9 +6,9 @@ Lumine can be adjusted from a graphical settings screen or by editing plain text
 
 Open **Settings** (the bundled `settings-view` package) to configure the editor and packages through a UI. **Core** covers application-wide behavior, while **Editor** covers text editing, fonts, wrapping, scrolling, and indentation. Other panels manage Git, keybindings, packages, themes, updates, and installs; platform-specific panels appear when relevant. Every setting is documented inline, so most users never need to edit a config file.
 
-Configuration pages have a **Global / This window** choice beside the scope selector. **Global** is the default and edits the settings stored in your config file. **This window** edits temporary overrides belonging to the current window; the scope selector still chooses whether an override applies to the base settings or a particular language or syntax scope.
+Configuration pages have a checkbox immediately to the left of the scope selector. It is unchecked by default, so edits are saved globally in your config file. Check it to edit temporary overrides belonging to the current window; its tooltip explains the two modes. The scope selector still chooses whether an override applies to the base settings or a particular language or syntax scope.
 
-In **This window**, check a setting's override checkbox to give it a local value. Uncheck it to inherit the current global value again. Settings that apply to the entire application are unavailable locally, with an explanation beside the control. Theme selection, package installation, and system integration panels continue to make global changes.
+With the window checkbox checked, check an individual setting's override checkbox to give it a local value. Uncheck that setting's checkbox to inherit the current global value again. Settings that apply to the entire application are unavailable locally, with an explanation beside the control. Theme selection, package installation, and system integration panels continue to make global changes.
 
 ## The config file
 
@@ -28,7 +28,7 @@ Settings are stored in **`config.json`** inside the active configuration directo
 }
 ```
 
-The top-level `"*"` key holds base settings. Values changed with **Global** selected in Settings are written here automatically, and scoped values inherit from this block. Saved changes propagate to other windows.
+The top-level `"*"` key holds base settings. Values changed with the window checkbox unchecked in Settings are written here automatically, and scoped values inherit from this block. Saved changes propagate to other windows.
 
 A legacy `config.cson` is not loaded. Convert it to `config.json` or `config.jsonc` before moving it into your Lumine configuration directory.
 
