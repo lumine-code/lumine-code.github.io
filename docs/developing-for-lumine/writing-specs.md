@@ -81,3 +81,44 @@ The September 30, 2026 comparison used Windows x64, Electron 44.5.0 and Node 24.
 The decoration rows come from the final focused comparison; the replacement rows come from the full comparison, whose geometry implementation and native addon remained unchanged by the later collector cleanup. The final 22 cases had no median or p95 regression exceeding both 5% and 0.5 ms. The broad comparison initially had uncertain control regressions, which prompted isolated confirmations and a cleanup that avoids allocating unused batch structures for cached-only decorations.
 
 These measurements apply to Superstring commit `57a49a92f51b088642a130d03bed70598906887d` and editor commit `87a2c435304f8064bdf6c94523952fa814fc45ae`. They are examples of the tested workloads, not an estimate of whole-editor speedup. Local artifacts are under `.dev/benchmarks/display-legacy/2026-09-30-targeted` and `.dev/benchmarks/display-legacy/2026-09-30-final-cached-cleanup`.
+
+## Injection routing benchmarks
+
+The focused `npm run benchmark:injection-routing` benchmark separates buffer-change routing, synchronous editing and the complete edit-to-syntax-settled interval. It uses 500 and 5000 independent WASM injections, with edits before, inside and after them, plus a length-changing control. Freeze the source before changing it, then compare against that snapshot:
+
+```sh
+npm run benchmark:display -- --freeze --output ../.dev/benchmarks/injection-routing/before
+npm run benchmark:injection-routing -- --compare --profile release --baseline ../.dev/benchmarks/injection-routing/before/baseline/lumine --output ../.dev/benchmarks/injection-routing/comparison
+```
+
+The release comparison uses three A–B–B–A blocks, six fresh processes per variant, five warmups and thirty measured edits per case. Parser, tree-edit and injection discovery/reconciliation counters come from a separate diagnostic pass, not the timing loop. Semantic SHA256 checks cover the complete trees, included ranges and highlight boundaries after the final measured edit and diagnostic edit; they do not replace the functional suite. Runtime versions, loaded module/addon hashes and grammar/query hashes accompany the raw samples. `--electron <executable>` selects a separately provisioned runtime, and `--power-profile <description>` records the measured environment.
+
+An equal-extent edit strictly before an injection can skip its tree edit only when both its owner and all known content ranges follow the edit. Boundary touches, coordinate shifts and unknown ranges keep the full update path. The root still parses and reconciles injection topology. This is a small legacy optimization, not a replacement parser or worker system.
+
+### Recorded injection routing comparison
+
+The September 30, 2026 comparison used Electron 44.5.1 on Windows x64, with six fresh processes per variant and 180 measured edits per case. The baseline was editor commit `99d1dee32dffb251adf969cbea4fe77c362408d0`; the candidate was `0b6c604e92ecf0f773e59f68aab0321751875114`. All eight cases matched their complete-tree/range/highlight checksums. Another Electron validation process was active on the machine, so these are paired results under that recorded background load, not a quiet-machine absolute latency gate.
+
+| Case | Routing before | Routing after | Complete edit before | Complete edit after |
+| --- | ---: | ---: | ---: | ---: |
+| 500 injections, equal-extent replacement before them | 1.95 ms | 0.76 ms | 6.00 ms | 4.85 ms |
+| 5000 injections, equal-extent replacement before them | 21.86 ms | 7.87 ms | 64.65 ms | 50.98 ms |
+| 5000 injections, replacement inside the first one | 21.79 ms | 7.71 ms | 65.35 ms | 49.53 ms |
+
+Leading replacements reduced child `handleTextChange`/`tree.edit` calls from 500 or 5000 to zero. An internal replacement routed to one child instead of all following children; both backends still parsed that one child. Neither backend parsed unchanged children for the leading edit, so this is routing/tree-edit savings, not newly introduced parser reuse. The 5000-layer leading routing ratio's bootstrap 95% interval was approximately 0.35–0.37; the complete edit improved by about 21%, not 64%. Ordinary insertion and deletion shift later coordinates and do not qualify for this shortcut.
+
+The trailing and length-changing controls showed no complete-operation median/p95 regression exceeding both 5% and 0.5 ms. One routing p95 in the broad run increased from 9.06 to 9.94 ms while its complete-operation p95 improved. A separate six-process-per-variant trailing-only confirmation gave routing median 7.05 → 6.95 ms and p95 9.77 → 7.82 ms, consistent with an unchanged path and timing variability. Both observations are retained. Raw paired results are under `.dev/benchmarks/injection-routing/2026-09-30/release`, with the separate `trailing-control` confirmation and earlier short `orientation` run alongside them.
+
+## Captured-frame diagnostics
+
+`npm run benchmark:presentation` drives a real visible, focused editor window through main-process `sendInputEvent`. It covers typing, benchmark-payload paste, undo and scrolling, plus HTML, Vue and IPython injections. A rendered pixel marker identifies the input revision after the editor DOM acknowledges the expected change, rejecting unrelated cursor frames and stale captures. The default run collects one hundred interactions per case and keeps failures, warmups and raw samples in its output directory.
+
+```sh
+npm run benchmark:presentation -- --samples 100 --output ../.dev/benchmarks/editor-presentation/my-run
+```
+
+Treat its latency as input-to-subscription-observed captured frame, not physical monitor scanout or the earliest presented frame. Electron 44.5.1 limits `beginFrameSubscription` to thirty captures per second and returns dirty crops in physical pixels; see the [Electron implementation](https://github.com/electron/electron/blob/v44.5.1/shell/browser/api/frame_subscriber.cc). Capture cadence cannot establish a 16.7 ms or 8.33 ms frame deadline or count missed monitor frames. A precise presentation gate requires a separate presentation-feedback/trace measurement.
+
+The report separates captured-frame latency from instrumented component/editor method durations collected until settling; those method durations are not total renderer CPU, may overlap and exclude asynchronous parser work outside the wrappers. Syntax settles between samples, but the first captured frame does not prove syntax-correct paint. Paste uses an editor-scoped in-memory payload after native command dispatch, leaving the user's clipboard untouched and excluding clipboard transfer/providers. Smooth-scroll animation drains between samples, and the no-op control must not acknowledge or capture a changed revision. Font, viewport, DPI, packages, grammar assets and loaded addons are recorded. Do not run builds or other benchmarks concurrently, and do not reuse an output directory.
+
+The first diagnostic series collected 1400 measured actions and 100 no-op controls on a 120 Hz Windows monitor, with zero failed interactions and zero observed long tasks. Plain-text typing had an input-to-capture median/p95 of 17.88/18.98 ms; the fixed 720-character paste into a reset 2000-line fixture had 101.58/114.67 ms. The paste's DOM acknowledgement reached the main process after a median of 13.09 ms, with another 88.27 ms to the accepted capture; those independently summarized phases must not be mistaken for physical presentation latency. This illustrates why captured-frame timing cannot substitute for editor CPU or a monitor-frame deadline. Raw results remain under `.dev/benchmarks/editor-presentation/2026-09-30-current-capture-100-primary`. That series used the original renderer method timer; later high-resolution method timing, summary metadata and orderly teardown received a separate smoke run, not a second 1400-action run.
