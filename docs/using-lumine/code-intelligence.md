@@ -63,6 +63,8 @@ Every package in the table is optional and available under **Settings → Instal
 
 `inlay-hints` displays provider-supplied type and parameter labels without changing the buffer. It is enabled after installation; use `inlay-hints:toggle`, `inlay-hints:refresh`, or the per-language **Enabled** setting.
 
+Labels follow edits and refresh as scrolling, folding, resizing or font changes expose different rows. Multiple labels at the same position appear together, while labels before the last character and after the line stay separate. Refresh reports when hints are disabled or no provider serves the file.
+
 ## Semantic tokens
 
 `semantic-tokens` layers a server's identifier classifications over grammar highlighting, leaving unclassified text unchanged. It is enabled after installation; use `semantic-tokens:toggle`, `semantic-tokens:refresh`, or the per-language **Enabled** setting.
