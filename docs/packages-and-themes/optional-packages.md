@@ -34,7 +34,7 @@ Bare paths with whitespace in the filename query use literal prefix matching. An
 
 For CSS, SCSS and Less completions, install **autocomplete**, **ide-client** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
 
-For SOFiSTiK CADINP, use **language-sofistik**, **ide-client** and **ide-sofistik**. **autocomplete-sofistik**, **linter-sofistik** and **sofistik-environment** are archived and removed from the install catalogue. Uninstall the older providers to avoid duplicate results; shared SOFiSTiK detection now lives in the data library. See [SOFiSTiK](../using-lumine/sofistik.md) for installation, project declarations and manual calculation-diagnostics import.
+For SOFiSTiK CADINP, use **language-sofistik**, **ide-client** and **ide-sofistik**. **autocomplete-sofistik**, **linter-sofistik** and **sofistik-environment** are archived and removed from the install catalogue. Uninstall the older providers to avoid duplicate results; shared SOFiSTiK detection now lives in the lightweight `sofistik-env` library. See [SOFiSTiK](../using-lumine/sofistik.md) for installation, project declarations and manual calculation-diagnostics import.
 
 **latex-tools**, **typst-tools**, **sofistik-tools**, **tasklist-tools**, and **bib-finder** add build and navigation workflows for their respective formats.
 
