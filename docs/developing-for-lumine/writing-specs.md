@@ -129,6 +129,29 @@ The follow-up 38-case comparison used six fresh processes per variant and 180 ed
 
 A separate dense-search control alternated six fresh Node processes per variant with 180 samples per case. Normalizing every LF endpoint initially added avoidable cost to edited buffers; the final correction clips only a leading LF whose CR context can come from another chunk. At 10000 rows, edited newline-search medians changed from 1.067 to 1.125 ms and edited word-search medians from 3.530 to 3.753 ms, with identical outputs and no median/p95 increase exceeding both 5% and 0.5 ms. These are correctness-overhead controls, not gains. The final source is Superstring `c622eaa57af0cd31a7689cb504390f1507fa99c9`; both the initial `search-control` and final `search-control-offset0` datasets remain beside the other artifacts.
 
+### Packed marker transfer comparison
+
+The next legacy optimization adds two small Superstring methods, not another engine: `splicePacked` returns sorted id/flag pairs or `null` instead of four JavaScript Sets, and `getRanges` reads requested marker ranges into one owned typed array. The editor uses the first in its existing marker-layer splice and the second for owner-range routing at 64 or more injections. Smaller routing loops and older addons retain the scalar path. The native indexing algorithm, parser, public marker objects, event order and history remain in place; `null` means no touched markers, not unchanged positions.
+
+The September 30, 2026 release comparison froze editor `bb6cc2e7e40b8e725bdeb04f2c6ca44fe4b72faf` with Superstring `c622eaa57af0cd31a7689cb504390f1507fa99c9` as baseline. The candidate facade is editor `ebed843446032d47a0726e0d8d1ec673ae18d7bb`, using Superstring `fc960bed66d93d483e00113d6e83b5817a3cb0f3`; editor `67615d05a8e5f53d68a38a4097b61083758b23a8` pins that dependency and its build permission. Both benchmark addons were compiled in Release with Node 24.18.0 and the same Windows toolchain, then frozen independently of the live installation. The measurement used Electron 44.5.1, Ultimate Performance on AC, three A–B–B–A blocks, six fresh processes per variant, five warmups and 180 samples per case. No local build or test suite ran alongside the timed processes; a pre-existing validation window remained open. All 38 cases matched their semantic checksums.
+
+| Case | Complete edit before | Complete edit after | Median reduction |
+| --- | ---: | ---: | ---: |
+| 500 injections, leading equal-extent edit | 5.07 ms | 3.01 ms | 41% |
+| 5000 injections, leading equal-extent edit | 72.67 ms | 44.10 ms | 39% |
+| 5000 injections, edit inside the first injection | 78.80 ms | 45.67 ms | 42% |
+| HTML, 50 blocks, leading equal-extent edit | 2.14 ms | 1.83 ms | 15% |
+| Vue, 50 blocks, leading equal-extent edit | 3.76 ms | 3.10 ms | 18% |
+| IPython, 50 blocks, leading equal-extent edit | 1.67 ms | 0.92 ms | 45% |
+
+For the 5000-injection leading edit, synchronous edit time fell from 49.35 to 18.62 ms and routing from 15.13 to 2.44 ms. Complete-edit p95 fell from 90.72 to 59.57 ms. Its complete-edit candidate/baseline bootstrap 95% interval was approximately 0.49–0.70, and its synchronous-edit interval 0.31–0.44. Leading, trailing, length-changing and internal edits all reduced complete-edit medians by 39–42% at 5000 injections. Several smaller HTML/Vue cases have intervals crossing one, so their median changes are observations, not proof of a universal speedup. These are edit/settlement timings, not physical frame-presentation latency.
+
+Diagnostics still count 5003 native splices for the 5000-layer case: the optimization removes transfer/allocation work, not those calls. One batch replaces the 5000 owner-range reads in routing; about 5000 scalar reads elsewhere remain. Root/child tree-edit and parse counts agree with baseline. Separate short splice-only and range-only comparisons support that attribution but do not replace the full release result.
+
+General-marker controls showed no median or p95 regression exceeding both 5% and 0.5 ms. However, the broad series recorded a 10000-marker dense-listener leading median of 31.19 → 32.50 ms, a 4.2% increase whose interval excluded one. A separate six-process-per-variant dense-listener confirmation did not reproduce it: leading medians were 16.05 → 15.97 ms, insertion 21.17 → 18.20 ms, and deletion 30.30 → 30.33 ms; all complete-edit intervals included one and p95 did not increase. Both datasets remain, rather than substituting the confirmation into the broad series. The absolute variation between series is another reason not to promise a gain for ordinary markers or combine unrelated timings.
+
+Artifacts are retained under `.dev/benchmarks/marker-transfer/2026-09-30/combined-release`, with the exploratory `combined-quick`, `splice-only-quick`, `ranges-only-quick` and separate `dense-marker-confirmation` runs alongside it. Exact addon/module hashes and frozen manifests identify each measured variant. Functional validation also covers invalidation strategies, boundary touches, null-result coordinate shifts, identity, undo/redo, serialization, reentrant/throwing listeners, Unicode/CRLF routing and both WASM/native grammar paths. This supports retaining the small boundary optimization; it does not reopen the document-engine migration.
+
 ## Captured-frame diagnostics
 
 `npm run benchmark:presentation` drives a real visible, focused editor window through main-process `sendInputEvent`. It covers typing, benchmark-payload paste, undo and scrolling, plus HTML, Vue and IPython injections. A rendered pixel marker identifies the input revision after the editor DOM acknowledges the expected change, rejecting unrelated cursor frames and stale captures. The default run collects one hundred interactions per case and keeps failures, warmups and raw samples in its output directory.
