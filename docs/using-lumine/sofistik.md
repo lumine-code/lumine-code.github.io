@@ -18,9 +18,9 @@ Add `autocomplete` for completion, `hover` for declaration previews, parameter p
 
 ## Release, language and edition
 
-Open the project directory as an editor project root. One server uses one release, language and edition for the entire directory. The lightweight `sofistik-env` library resolves the release from the root `sofistik.def`, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
+Place `sofistik.def` alongside the source or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
 
-For example, a project definition can contain:
+For example, an adjacent definition can contain:
 
 ```text
 SOF_VERSION = 2026
@@ -28,7 +28,7 @@ SOF_LANGUAGE = EN
 SOF_EDITION = professional
 ```
 
-Use `EN` or `DE` for the keyword language and `professional` or `educational` for the licensed edition. Language defaults to English and edition to professional when the project does not specify them. These declarations are shared by the language server and the SOFiSTiK tool packages. Source-file headers are ignored when selecting the release, language and edition.
+Use `EN` or `DE` for the keyword language and `professional` or `educational` for the licensed edition. Language defaults to English and edition to professional when the adjacent definition does not specify them. These declarations are shared by the language server and the SOFiSTiK tool packages. Source-file headers are ignored when selecting the release, language and edition.
 
 ## Language intelligence
 
@@ -44,13 +44,13 @@ This command reads an existing result; it never starts SOFiSTiK. Logs are not wa
 
 ## Run a program block
 
-Install `sofistik-tools` and `code-lens` to display a Run action above active `+PROG` headers. Clicking Run saves that source file and starts its selected block in WPS, regardless of the cursor position or which other editor is active. The project's `sofistik.def` selects the installation. A matching SOFiSTiK installation is required; language intelligence remains usable without it.
+Install `sofistik-tools` and `code-lens` to display a Run action above active `+PROG` headers. Clicking Run saves that source file and starts its selected block in WPS, regardless of the cursor position or which other editor is active. Only `sofistik.def` alongside the clicked file selects its installation. A matching SOFiSTiK installation is required; language intelligence remains usable without it.
 
 Inline Run is available on the `sofistik-tools#master` branch ahead of the next tagged release.
 
 ## FEM model views
 
-Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed; the adapter uses the project's shared release and edition selection.
+Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed; the adapter uses the definition alongside the actual CDB for release and edition selection.
 
 ```sh
 lumine --install lumine-code/graviss
@@ -73,4 +73,4 @@ Press Enter to apply a quick-filter draft and Escape to cancel it. All whitespac
 
 `autocomplete-sofistik`, `linter-sofistik` and `sofistik-environment` are archived and removed from the install catalogue. Uninstall those packages and use `ide-sofistik` with `ide-client`; keep `autocomplete` and `linter`, which provide the completion and diagnostics interfaces.
 
-The new packages do not use the former `sofistik.environment` service or its settings. Move release, language and edition choices into the root `sofistik.def`; shared detection uses `C:\Program Files\SOFiSTiK` when installed programs are needed. See [Language servers](language-servers.md) for the client and frontend setup, and [Optional packages](../packages-and-themes/optional-packages.md) for the other maintained packages.
+The new packages do not use the former `sofistik.environment` service or its settings. Move release, language and edition choices into `sofistik.def` alongside the files they describe; shared detection uses `C:\Program Files\SOFiSTiK` when installed programs are needed. See [Language servers](language-servers.md) for the client and frontend setup, and [Optional packages](../packages-and-themes/optional-packages.md) for the other maintained packages.

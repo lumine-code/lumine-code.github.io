@@ -48,7 +48,7 @@ Run `ide-client:manage-servers` to install, update, or remove managed copies und
 
 The Bash adapter always runs its audited bundled server fork. Its managed install is a separately versioned, checksum-verified toolchain containing ShellCheck and shfmt, which provide diagnostics, fixes and formatting.
 
-The SOFiSTiK adapter also includes its maintained server. It provides offline CADINP intelligence and manual import of existing calculation diagnostics, using the root `sofistik.def` and shared release detection. It replaces the archived `autocomplete-sofistik` and `linter-sofistik` providers; see [SOFiSTiK](sofistik.md) for setup and migration.
+The SOFiSTiK adapter also includes its maintained server. It provides offline CADINP intelligence and manual import of existing calculation diagnostics, using only `sofistik.def` alongside each saved file and shared release detection. Files in different directories can use different releases within one server session; definitions in workspace roots or ancestors do not apply to child directories. It replaces the archived `autocomplete-sofistik` and `linter-sofistik` providers; see [SOFiSTiK](sofistik.md) for setup and migration.
 
 ## Sessions
 
