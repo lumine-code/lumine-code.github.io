@@ -134,6 +134,25 @@ The child layer shares its parser and queries while retaining individual owner a
 
 For grammar-selection regular expressions, make repeated alternatives disjoint. A comment matcher must stop at the first closing delimiter; an optional whitespace matcher must not overlap another repeated whitespace branch. Include failed matches in regression cases: the costly backtracking often appears when the final language name or opening delimiter is absent.
 
+## Constraining an embedded editor's root language
+
+A host can keep a prefix in an editor's buffer while parsing only its body with the selected language. `lumine.grammars.setRootLanguageRanges(buffer, provider)` installs a policy for that buffer's root language without changing its source text or its assigned grammar. Notebook code cells use this for a visible `%%` header followed by a body parsed with its original language package.
+
+The provider runs synchronously before each parse and receives the buffer. Return an array of `Range` objects in buffer coordinates, `null` to parse the whole buffer, or `[]` to parse no source. For a host-defined prefix occupying the first line:
+
+```js
+const { Range } = require("lumine");
+
+const registration = lumine.grammars.setRootLanguageRanges(editor.getBuffer(), (buffer) => {
+  if (!buffer.lineForRow(0).startsWith("%%")) return null;
+  return [new Range(buffer.clipPosition([1, 0]), buffer.getEndPosition())];
+});
+```
+
+The policy follows the buffer across grammar changes. It is not serialized, so the host recreates it when restoring its editor. Dispose the returned registration when the host releases the buffer; disposing an older registration does not remove a newer policy. Source outside the included ranges stays editable and is still available to save, copy, search, and execution. The host owns any highlighting or decorations for that excluded prefix.
+
+Keep the provider small: use bounded prefix recognition and edit-aware markers or caches instead of rescanning a large body on every parse. The ranges constrain syntax parsing, not the code sent to a kernel or language server; those consumers still need their own source contract.
+
 ## ABI compatibility
 
 A parser wasm carries the ABI version of the `tree-sitter-cli` that generated its `parser.c`. Rebuilding an existing `parser.c` preserves that ABI; `lem grammar --regenerate` replaces it with output from the fleet CLI. Lumine's runtime accepts a window of ABI versions (currently 13–15), so a wasm outside that window must not be committed. If an upstream commits sources generated with an incompatible CLI, run `lem grammar <config> --regenerate` so the parser is regenerated at an ABI the runtime accepts.
