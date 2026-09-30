@@ -64,6 +64,8 @@ Core keeps shared bindings in a base keymap and splits out only genuine platform
 
 Cross-editor conventions keep their familiar keys: <kbd>Ctrl</kbd><kbd>Backquote</kbd> for the terminal, <kbd>Cmd/Ctrl</kbd><kbd>P</kbd> for files, <kbd>Cmd/Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> for the command palette, <kbd>Cmd/Ctrl</kbd><kbd>F</kbd> for find, and <kbd>F2</kbd> for rename.
 
+<kbd>Cmd/Ctrl</kbd><kbd>W</kbd> closes the focused tab or tool panel, including items in docks. In a picker or cancellable dialog it dismisses the modal. Focus inside a tool surface never sends this shortcut to the center document behind it.
+
 ## Debugging a keystroke
 
 If a key isn't doing what you expect, open the resolver with `keybinding-resolver:toggle` (the bundled `keybinding-resolver` package) and press the key. It shows every binding that matched, which one won, and which were shadowed — the fastest way to find a conflict.
