@@ -132,6 +132,8 @@ const registration = lumine.grammars.addInjectionPoint("source.example", {
 
 The child layer shares its parser and queries while retaining individual owner and content ranges. An edit outside those ranges does not rediscover every member. `combined` can also be a function receiving the owner node: return `false` to parse that owner's content independently when joining it would change its meaning or its error recovery. Dispose the registration with the package or service edge that created it. Test malformed syntax as well as insertion, deletion, prefix shifts, and removal of the last member.
 
+When independent owners are safe to combine but a large shared parse tree makes local edits expensive, set `combinedMaxMembers` to a positive safe integer. For example, validated regex literals can share layers with at most 128 owners each. Existing owners keep their group during ordinary edits; insertion and deletion split or merge neighboring groups when needed. Each owner counts once even if its `content` function returns several nodes, and those fragments stay together. Omit the limit when the regions require one continuous document, such as the SassDoc example above. Test scopes across group boundaries, changes in eligibility and flags, prefix shifts, and grammar replacement before enabling a limit.
+
 For grammar-selection regular expressions, make repeated alternatives disjoint. A comment matcher must stop at the first closing delimiter; an optional whitespace matcher must not overlap another repeated whitespace branch. Include failed matches in regression cases: the costly backtracking often appears when the final language name or opening delimiter is absent.
 
 ## Constraining an embedded editor's root language

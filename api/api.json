@@ -9775,10 +9775,20 @@
             {
               "name": "injectionPoint.combined",
               "type": "Boolean|Function",
-              "description": "Share one child language layer for matching owners and their resolved language name. Defaults to `false`. A function is called with the owner node and returns whether that node can share a layer; `false` keeps its context independent. Individual ranges remain indexed so unrelated edits do not rescan every owner.",
+              "description": "Share child language layers for matching owners and their resolved language name. Defaults to `false`. A function is called with the owner node and returns whether that node can share a layer; `false` keeps its context independent. Without a member limit the owners form one shared document. Individual ranges remain indexed so unrelated edits do not rescan every owner.",
               "optional": true,
               "defaultValue": null,
               "source": "injectionPoint.combined",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "injectionPoint.combinedMaxMembers",
+              "type": "Number",
+              "description": "An optional positive safe integer limiting the number of owners in a combined child layer. Omit it for an unbounded combined document. Set a limit only when each owner remains correct at a group boundary. An owner returning several content nodes counts as one member and stays in one layer.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "injectionPoint.combinedMaxMembers",
               "rest": false,
               "nested": true
             },
@@ -9836,7 +9846,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the injection point.",
           "propertyType": null,
-          "line": 624
+          "line": 625
         },
         {
           "name": "loadGrammar",
@@ -9891,7 +9901,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 753
+          "line": 761
         },
         {
           "name": "loadGrammarSync",
@@ -9917,7 +9927,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 770
+          "line": 778
         },
         {
           "name": "readGrammar",
@@ -9972,7 +9982,7 @@
           "returnType": "undefined",
           "returnDescription": "undefined.",
           "propertyType": null,
-          "line": 788
+          "line": 796
         },
         {
           "name": "readGrammarSync",
@@ -9998,7 +10008,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 809
+          "line": 817
         },
         {
           "name": "getGrammars",
@@ -10014,7 +10024,7 @@
           "returnType": "Array",
           "returnDescription": "registered {@link TreeSitterGrammar} instances.",
           "propertyType": null,
-          "line": 828
+          "line": 836
         }
       ]
     },
@@ -37680,10 +37690,20 @@
             {
               "name": "injectionPoint.combined",
               "type": "Boolean|Function",
-              "description": "Parse all matching owner nodes in one shared child language layer per injection point and resolved language name. Defaults to `false`. A function is called synchronously with the owner node after its language and content resolve; returning `false` keeps that owner in an independent layer. Owner and content ranges are tracked individually, so local edits rediscover only affected owners. Use this when disjoint content regions form one logical document; independent contexts such as Markdown inline blocks should keep separate layers.",
+              "description": "Share child language layers between matching owner nodes per injection point and resolved language name. Defaults to `false`. A function is called synchronously with the owner node after its language and content resolve; returning `false` keeps that owner in an independent layer. Owner and content ranges are tracked individually, so local edits rediscover only affected owners. By default the owners form one shared document. Independent contexts such as Markdown inline blocks should keep separate layers.",
               "optional": true,
               "defaultValue": null,
               "source": "injectionPoint.combined",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "injectionPoint.combinedMaxMembers",
+              "type": "Number",
+              "description": "An optional positive safe integer limiting the number of owner nodes in each combined child layer. Omit it to keep one unbounded combined document. Use a limit only when splitting the combined document preserves the meaning of its independent owners. An owner returning multiple content nodes counts as one member and is never split across layers.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "injectionPoint.combinedMaxMembers",
               "rest": false,
               "nested": true
             },
@@ -37711,7 +37731,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 951
+          "line": 952
         }
       ]
     },
@@ -43438,5 +43458,5 @@
     }
   ],
   "memberCount": 1395,
-  "generatedAt": "2026-09-30T05:48:37.590Z"
+  "generatedAt": "2026-09-30T13:15:42.612Z"
 }
