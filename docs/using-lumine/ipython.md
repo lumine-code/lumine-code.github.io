@@ -23,7 +23,7 @@ values = [1, 2, 3]
 sum(values)
 ```
 
-`[markdown]` and `[md]` select Markdown; `[raw]` selects raw. The bare spellings `markdown`, `md`, and `raw` also work. Metadata is case-sensitive and must be the first complete word after the percent run. A title such as `markdownish benchmark` is a code-cell title.
+`[markdown]` and `[md]` select Markdown; `[raw]` selects raw. `[code]` explicitly selects code. The bare spellings `markdown`, `md`, and `raw` are code-cell titles. Metadata is case-sensitive and must be the first complete word after the percent run. A title such as `markdownish benchmark` is a code-cell title.
 
 Markdown and raw bodies are literal source. A Markdown heading is `# Analysis`, without an extra Python comment prefix. Raw text keeps its `#` characters and is neither executed nor rendered as Markdown. Running a Markdown cell renders it locally without starting a kernel; running raw cells skips them.
 
