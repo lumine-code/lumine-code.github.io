@@ -28,6 +28,8 @@ See [Language servers](../using-lumine/language-servers.md) for how clients, pro
 
 Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and language-server adapters through **ide-client**.
 
+**autocomplete-paths** completes language-specific imports and explicit relative paths beginning with `./` or `../` (including their backslash forms). Quoted paths allow spaces and brackets in filenames; bare paths with whitespace in the filename query use literal prefix matching. Enclosing quotes or brackets end completion when closed, and a line with several paths uses the last active one. Suggestions stay inside the current file's project root and replace the full typed path prefix.
+
 For CSS, SCSS and Less completions, install **autocomplete**, **ide-client** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
 
 For SOFiSTiK CADINP, use **language-sofistik**, **ide-client** and **ide-sofistik**. The adapter replaces the functions of **autocomplete-sofistik** and **linter-sofistik**; disable those older providers to avoid duplicate results. New SOFiSTiK packages use the shared data library directly instead of **sofistik-environment**, which remains available during migration. See [SOFiSTiK](../using-lumine/sofistik.md) for installation, project declarations and manual calculation-diagnostics import.
