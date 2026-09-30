@@ -26,7 +26,9 @@ See [Language servers](../using-lumine/language-servers.md) for how clients, pro
 
 ## Languages and completion
 
-Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-css**, **autocomplete-html**, **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and **autocomplete-sofistik**.
+Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and **autocomplete-sofistik**.
+
+For CSS, SCSS and Less completions, install **autocomplete**, **ide-client** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
 
 **latex-tools**, **typst-tools**, **sofistik-tools**, **tasklist-tools**, and **bib-finder** add build and navigation workflows for their respective formats.
 
