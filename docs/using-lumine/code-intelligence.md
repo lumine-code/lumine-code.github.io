@@ -37,6 +37,8 @@ Every package in the table is optional and available under **Settings → Instal
 
 `find-references` highlights references in visible editors and lists them by file with `find-references:show-panel`; `find-references:highlight` refreshes the inline highlights. Install `marker` and a compatible overview map to add scrollbar or minimap markers.
 
+Moving the cursor keeps the previous highlights visible while the next lookup is pending, so navigating within a name does not make its references blink. The latest result replaces them, and an empty result clears them. Buffer edits clear old highlights immediately before a new lookup.
+
 ## Call and type hierarchies
 
 `hierarchy-view:incoming-calls` and `hierarchy-view:outgoing-calls` show callers and callees; `hierarchy-view:supertypes` and `hierarchy-view:subtypes` show inheritance. Availability depends on the active server, and expanding an entry requests the next level.
