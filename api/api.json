@@ -9738,6 +9738,16 @@
               "nested": true
             },
             {
+              "name": "injectionPoint.combined",
+              "type": "Boolean|Function",
+              "description": "Share one child language layer for matching owners and their resolved language name. Defaults to `false`. A function is called with the owner node and returns whether that node can share a layer; `false` keeps its context independent. Individual ranges remain indexed so unrelated edits do not rescan every owner.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "injectionPoint.combined",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "injectionPoint.includeChildren",
               "type": null,
               "description": "A `Boolean` that indicates whether the children (and, in fact, all descendants) of the nodes returned by `content` should be included in the injection's buffer range(s). Defaults to `false`.",
@@ -9791,7 +9801,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the injection point.",
           "propertyType": null,
-          "line": 583
+          "line": 584
         },
         {
           "name": "loadGrammar",
@@ -9846,7 +9856,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 693
+          "line": 694
         },
         {
           "name": "loadGrammarSync",
@@ -9872,7 +9882,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 710
+          "line": 711
         },
         {
           "name": "readGrammar",
@@ -9927,7 +9937,7 @@
           "returnType": "undefined",
           "returnDescription": "undefined.",
           "propertyType": null,
-          "line": 728
+          "line": 729
         },
         {
           "name": "readGrammarSync",
@@ -9953,7 +9963,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 749
+          "line": 750
         },
         {
           "name": "getGrammars",
@@ -9969,7 +9979,7 @@
           "returnType": "Array",
           "returnDescription": "registered {@link TreeSitterGrammar} instances.",
           "propertyType": null,
-          "line": 768
+          "line": 769
         }
       ]
     },
@@ -43383,5 +43393,5 @@
     }
   ],
   "memberCount": 1394,
-  "generatedAt": "2026-09-30T00:15:11.864Z"
+  "generatedAt": "2026-09-30T03:27:46.369Z"
 }
