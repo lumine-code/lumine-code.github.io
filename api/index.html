@@ -19448,9 +19448,9 @@ decided to close it.
 its neighbours here deliberately differ: {@link #saveactivepaneitem},
 {@link #saveactivepaneitemas} and {@link #closeactivepaneitemoremptypaneorwindow} are
 pinned to the workspace center. they back `core:save`, `core:save-as` and
-`core:close`, whose keystrokes fire from anywhere in the window, so
-following focus would make ctrl-s in a search field or a dock try to save
-that instead of the document being edited." data-api-expandable>
+the center fallback of `core:close`. saving from a search field or a dock
+still saves the document being edited; closing from a dock instead
+resolves its owning pane from the command's dispatch target." data-api-expandable>
                       <div class="api-member-heading">
                         <h4><button class="api-member-toggle" id="workspace-instance-destroyactivepaneitem-toggle" type="button" aria-expanded="false" aria-controls="workspace-instance-destroyactivepaneitem-panel"><span class="api-member-disclosure" aria-hidden="true"></span><code class="api-signature"><span class="api-signature-name">destroy<wbr>Active<wbr>Pane<wbr>Item</span><span class="api-signature-parameters">()</span></code></button></h4>
                         <div class="api-member-meta"><span class="api-badge api-badge-extended">Extended</span><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/workspace.js#L2582" title="src/workspace.js:2582" aria-label="View source for destroyActivePaneItem(), line 2582">L2582</a><a class="api-anchor" href="#workspace-instance-destroyactivepaneitem" aria-label="Link to ::destroyActivePaneItem()">#</a></div>
@@ -19465,9 +19465,9 @@ decided to close it.</p>
 <p>Its neighbours here deliberately differ: <a class="api-ref" href="#workspace-instance-saveactivepaneitem">#saveActivePaneItem</a>,
 <a class="api-ref" href="#workspace-instance-saveactivepaneitemas">#saveActivePaneItemAs</a> and <a class="api-ref" href="#workspace-instance-closeactivepaneitemoremptypaneorwindow">#closeActivePaneItemOrEmptyPaneOrWindow</a> are
 pinned to the workspace center. They back <code>core:save</code>, <code>core:save-as</code> and
-<code>core:close</code>, whose keystrokes fire from anywhere in the window, so
-following focus would make Ctrl-S in a search field or a dock try to save
-that instead of the document being edited.</p>
+the center fallback of <code>core:close</code>. Saving from a search field or a dock
+still saves the document being edited; closing from a dock instead
+resolves its owning pane from the command’s dispatch target.</p>
 </div></div>
                     </article></div>
             </section>
