@@ -148,6 +148,20 @@ editor.element.setAttribute("input", "");
 
 Size stays the widget's business — a field that should grow with its content and one that should scroll after ten lines are both legitimate, so the editor ships neither.
 
+## Style the active line number
+
+The standard line-number gutter marks the primary cursor's buffer row with `.active-line-number`. The class follows the selection head, including reversed and nonempty selections, and stays on the numbered row when the cursor moves through a soft-wrapped continuation. It is a passive state: core adds no color, and custom gutters receive no such class.
+
+```css
+lumine-text-editor:not([mini], [input]) {
+  .gutter[gutter-name="line-number"] .line-number.active-line-number {
+    color: var(--syntax-gutter-text-color-selected);
+  }
+}
+```
+
+The editor also exposes `.is-focused`, so a theme can style focused and unfocused selections by changing `--syntax-selection-color` on the editor element. Keep mini editors and `[input]` fields separate: their selection colors belong to the UI theme.
+
 ## A bar tile is the element the bar marks
 
 The status and title bars mark the element they host with `.status-bar-item` or `.title-bar-item`. Theme padding, rounding, color and hover feedback on those classes; do not infer a tile from descendants or style the unrelated `.inline-block` utility as one.
