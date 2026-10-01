@@ -2,6 +2,8 @@
 
 Each bundled Tree-sitter grammar combines three things: a **pre-built parser** compiled from an upstream `tree-sitter-*` repository into a `.wasm` file, **query files** with the `.scm` extension that turn syntax nodes into scopes, and a **grammar config** in `.json` that ties them together. This page covers how those pieces fit and how to build, update, and validate them in a Lumine source checkout.
 
+Install [`language-tree-sitter-query`](https://github.com/lumine-code/language-tree-sitter-query) from **Settings → Install** or with `lumine --install lumine-code/language-tree-sitter-query` to edit `.scm` query files with syntax highlighting, folding, indentation, and symbols. These files use Tree-sitter's query syntax, which resembles Scheme but describes parser nodes, captures, and predicates.
+
 ## The grammar config
 
 A Tree-sitter grammar config and all of its runtime assets live directly in a package's flat `grammars/` directory. Filenames describe the language or variant without repeating the `tree-sitter-` implementation prefix: `python.json`, `python.wasm`, `python-highlights.scm`.

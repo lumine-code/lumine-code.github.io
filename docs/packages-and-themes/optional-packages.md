@@ -30,6 +30,8 @@ See [Language servers](../using-lumine/language-servers.md) for how clients, pro
 
 Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and language-server adapters through **ide-client**.
 
+For Tree-sitter query files such as `highlights.scm`, `folds.scm`, and `indents.scm`, install [`language-tree-sitter-query`](https://github.com/lumine-code/language-tree-sitter-query). It provides syntax highlighting, folding, indentation, and query symbols. `.scm` selects this query grammar; Scheme source needs a Scheme grammar.
+
 **autocomplete-paths** completes language-specific imports and explicit relative paths beginning with `./` or `../` (including their backslash forms). Quoted paths preserve filename punctuation, spaces, brackets and Unicode; inserted suggestions escape the enclosing quote and `${` inside backtick templates. On POSIX, `./` and `../` paths preserve literal filename backslashes, doubled in quoted insertions. Optional HTML attribute support matches decoded character references and inserts entities such as `&amp;`, `&quot;` and `&#39;`. C0 control characters, including tabs and physical line breaks in filenames, are unsupported.
 
 Bare paths with whitespace in the filename query use literal prefix matching. An unescaped enclosing quote or a closing bracket around a bare path ends completion, and a line with several paths uses the last active one. Suggestions stay inside the current file's project root and replace the full typed path prefix.
