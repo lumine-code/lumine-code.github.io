@@ -14474,7 +14474,7 @@
           "returnType": "Boolean",
           "returnDescription": ", true if compatible, false if incompatible.",
           "propertyType": null,
-          "line": 1265
+          "line": 1287
         },
         {
           "name": "rebuild",
@@ -14490,7 +14490,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an object containing `code`, `stdout`, and `stderr` properties based on the results of running `lumine -p rebuild` on the package.",
           "propertyType": null,
-          "line": 1286
+          "line": 1308
         },
         {
           "name": "getBuildFailureOutput",
@@ -14506,7 +14506,7 @@
           "returnType": "String",
           "returnDescription": "or null if no previous build failure occurred.",
           "propertyType": null,
-          "line": 1309
+          "line": 1331
         }
       ]
     },
@@ -37309,7 +37309,7 @@
       "source": "src/tree-sitter-grammar.js",
       "sourcePath": "src/tree-sitter-grammar.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 63,
+      "line": 64,
       "members": [
         {
           "name": "getCommentDelimiters",
@@ -37325,7 +37325,7 @@
           "returnType": "Object",
           "returnDescription": "with the following properties:",
           "propertyType": null,
-          "line": 231
+          "line": 232
         },
         {
           "name": "getLanguageSync",
@@ -37341,7 +37341,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 270
+          "line": 271
         },
         {
           "name": "getLanguage",
@@ -37357,7 +37357,7 @@
           "returnType": "Promise",
           "returnDescription": "that will resolve with a Tree-sitter `Language` instance. Once it resolves, the grammar is ready to perform parsing and to execute query captures.",
           "propertyType": null,
-          "line": 318
+          "line": 332
         },
         {
           "name": "getQuery",
@@ -37376,14 +37376,14 @@
               "optional": false,
               "rest": false,
               "type": null,
-              "description": "A `String` describing the query type: typically one of `highlightsQuery`, `foldsQuery`, `tagsQuery`, or `indentsQuery`, but could be any other custom type.",
+              "description": "A `String` describing the query type: typically one of `highlightsQuery`, `injectionsQuery`, `foldsQuery`, `tagsQuery`, or `indentsQuery`, but could be any other custom type.",
               "defaultValue": null
             }
           ],
           "returnType": "Promise",
           "returnDescription": "that resolves to a Tree-sitter `Query` object.",
           "propertyType": null,
-          "line": 613
+          "line": 627
         },
         {
           "name": "createQuery",
@@ -37409,7 +37409,7 @@
           "returnType": "Promise",
           "returnDescription": "that will resolve to a Tree-sitter `Query` object.",
           "propertyType": null,
-          "line": 695
+          "line": 709
         },
         {
           "name": "createQuerySync",
@@ -37435,7 +37435,7 @@
           "returnType": "Object",
           "returnDescription": "Tree-sitter `Query` object.",
           "propertyType": null,
-          "line": 713
+          "line": 727
         },
         {
           "name": "onDidChangeQuery",
@@ -37491,7 +37491,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 842
+          "line": 856
         },
         {
           "name": "onDidChangeQueryFile",
@@ -37517,7 +37517,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 854
+          "line": 868
         },
         {
           "name": "onDidLoadQueryFiles",
@@ -37543,7 +37543,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 871
+          "line": 885
         },
         {
           "name": "onDidAddInjectionPoint",
@@ -37569,7 +37569,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 886
+          "line": 900
         },
         {
           "name": "onDidRemoveInjectionPoint",
@@ -37595,7 +37595,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 901
+          "line": 915
         },
         {
           "name": "addInjectionPoint",
@@ -37731,7 +37731,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 968
+          "line": 982
         }
       ]
     },
@@ -43458,5 +43458,5 @@
     }
   ],
   "memberCount": 1395,
-  "generatedAt": "2026-09-30T21:27:51.534Z"
+  "generatedAt": "2026-10-01T02:22:12.876Z"
 }
