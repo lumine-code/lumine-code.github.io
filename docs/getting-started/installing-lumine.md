@@ -8,7 +8,7 @@ Lumine is currently **source-first**: downloads and platform packages are still 
 - **Node.js** — install the exact version named in `.nvmrc`. On macOS and Linux, [nvm](https://github.com/nvm-sh/nvm) can select it with `nvm install`; on Windows, use the matching Node installer or a Windows-compatible version manager. npm ships with Node.
 - **A C/C++ build toolchain** — some native modules are compiled during install. On Windows this means the Visual Studio Build Tools; on macOS the Xcode command-line tools; on Linux the usual `build-essential`/Python toolchain.
 
-Lumine requires an x64 or arm64 system. The macOS minimum is macOS 13 Ventura; Windows builds require 64-bit Windows 10 or later; Linux builds target current 64-bit distributions.
+Lumine requires an x64 or arm64 system. The macOS minimum is macOS 13.5 Ventura; Windows builds require 64-bit Windows 10 or later; Linux builds target current 64-bit distributions.
 
 ## Build from source
 
