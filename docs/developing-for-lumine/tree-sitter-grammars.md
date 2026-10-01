@@ -28,7 +28,7 @@ A Tree-sitter grammar config and all of its runtime assets live directly in a pa
 - **`parserSource`** pins the exact upstream source as `github:org/repo#ref`, where `ref` is a tag or a full commit SHA — never a moving branch, so a build is always reproducible. For repositories that contain several grammars, add the subdirectory: `github:tree-sitter-grammars/tree-sitter-markdown/tree-sitter-markdown-inline#<ref>`.
 - **`wasmBuildTool`** records which `tree-sitter-cli` version built the committed wasm. It is provenance, not configuration.
 - **`grammar`** points at the committed wasm, relative to the config file.
-- The **query keys** (`highlightsQuery`, `indentsQuery`, `foldsQuery`, `tagsQuery`, `localsQuery`) point at `.scm` files. A key may hold an array; the files are concatenated in order, which lets grammars share a common base query. Query files may contain the `._LANG_` token, which is replaced with the config's `treeSitter.languageSegment` — this is how one query file serves both TypeScript and TSX.
+- The **query keys** (`highlightsQuery`, `injectionsQuery`, `indentsQuery`, `foldsQuery`, `tagsQuery`, `localsQuery`) point at `.scm` files. A key may hold an array; the files are concatenated in order, which lets grammars share a common base query. Query files may contain the `._LANG_` token, which is replaced with the config's `treeSitter.languageSegment` — this is how one query file serves both TypeScript and TSX.
 
 Several configs can share one wasm (JSON, JSONC, and Jupyter). Configs that pin the same `parserSource` and wasm filename always move together.
 
@@ -108,11 +108,51 @@ Two commands help while working on queries:
 
 Mistakes inside predicates are contained the same way: an unknown `test.`/`adjust.`/`capture.` key, an invalid regular expression, or a predicate missing its argument drops only the affected capture and warns once per grammar in dev mode, instead of breaking highlighting for the whole file.
 
+## Static injections
+
+Declare `treeSitter.injectionsQuery` when a syntax pattern can identify an injection's owner, content and language without a JavaScript callback. Keep the query beside the grammar's other assets, for example `grammars/example-injections.scm`, and reference it as `"injectionsQuery": "example-injections.scm"`. The query is compiled against the same parser as highlighting, validated by the query gates, and watched and reloaded in dev mode.
+
+Each pattern must capture exactly one `@injection.owner` and at least one `@injection.content`. The owner defines the range used for local rediscovery and layer reuse; the content defines what the child parser receives. Every content capture, language capture and helper capture used by predicates must lie within that owner. Choose a local owner that contains the fragments belonging to one injection, rather than the file's root node.
+
+For example, a parser whose documentation comments use `///` can inject them into a grammar whose alias is `documentation`:
+
+```scheme
+((comment) @injection.owner @injection.content
+  (#match? @injection.owner "^///")
+  (#set! injection.language "documentation")
+  (#set! injection.include-children "true")
+  (#set! injection.combined "true")
+  (#set! injection.newlines-between "true"))
+```
+
+The child grammar must accept the captured source, including its delimiters. To select the language from source, capture one node as `@injection.language` instead of setting `injection.language`; that node's text is resolved through the target grammar's `injectionNames` aliases. Use JavaScript when selection needs normalization, configuration, semantic checks or source ranges that the syntax tree does not represent.
+
+| Property | Meaning |
+| --- | --- |
+| `injection.language` | A fixed injection alias, used instead of `@injection.language`. |
+| `injection.include-children` | Include each content node's child nodes in the parsed source. By default, direct children are excluded. |
+| `injection.include-adjacent-whitespace` | Include whitespace between captured content ranges. |
+| `injection.newlines-between` | Include newline joins between captured content ranges. |
+| `injection.combined` | Share one child document across owners from the same pattern and language. |
+| `injection.combined-max-members` | Bound a combined layer to this positive safe integer number of owners. |
+| `injection.language-scope` | Override the child grammar's base scope; `"none"` suppresses it. |
+| `injection.cover-shallower-scopes` | Cover scopes supplied by shallower language layers. |
+
+Boolean properties accept `"true"`, `"false"`, or a directive without a value, which means true. Unknown properties and captures beginning with `injection.`, custom predicates and directives, and `#is?` or `#is-not?` assertions fail validation. The implemented text predicates are `#eq?`, `#not-eq?`, `#any-eq?`, `#any-not-eq?`, `#match?`, `#not-match?`, `#any-match?`, `#any-not-match?`, `#any-of?` and `#not-any-of?`. A pattern cannot combine a fixed language property with a language capture.
+
+Matches from the same pattern, owner and language accumulate content fragments into one injection. The runtime deduplicates repeated captures across scan windows and preserves each pattern's identity for layer reuse. Separate patterns remain separate injections, even when they capture the same owner and select the same language. `combined` then groups these owners using the same range and parser lifecycle as JavaScript injection points; a member limit counts owners, rather than content fragments.
+
+Static queries and `lumine.grammars.addInjectionPoint()` registrations are additive. Port a rule by removing its JavaScript registration when its query is ready, so both mechanisms do not create the same child document. Keep dynamic registrations for service-provided injections, configuration changes, semantic eligibility checks and synthetic content ranges, and dispose them with the package or service edge that owns them. Removing or reloading a static query rebuilds its injections without removing unrelated dynamic registrations.
+
+The performance benefit comes from structural selection in the query and fewer node accesses across the JavaScript/WASM boundary. Text predicates still run in JavaScript in `web-tree-sitter`, and every selected child document still needs range markers, reconciliation and parsing. Measure initial opening and incremental edits separately; changing the query format alone does not reduce the number of child layers.
+
+Run `npm run test:only -- benchmark/tree-sitter-static-injections-spec.js` from the editor repository for a diagnostic comparison of equivalent JavaScript and static rules. It measures initial parsing with warm languages and queries, edits inside content and prefix shifts, and verifies owner ranges, content, syntax trees, scopes and layer counts outside the timers. It reports samples and medians without performance thresholds; set `LUMINE_STATIC_INJECTION_BENCHMARK_CONFIG` to a JSON object with `sizes`, `samples` and `warmups` to change the workload.
+
 ## Keeping grammar work local
 
 Measure opening a file, editing a small range, and collecting symbols separately. A fast parser does not guarantee a fast grammar: query compilation, repeated sibling matches, and injection callbacks can dominate different phases. Use valid generated input as well as partially edited syntax, and compare captures and scopes before and after an optimization.
 
-The first parse waits for the highlighting query. Folding and indentation queries already in the grammar cache are reused immediately; cold queries are prepared during idle time after the first highlighting update. An explicit folding or indentation request prepares the query when needed, and completed folding queries invalidate the initial fold cache so gutter markers appear without an edit. Symbol and local-variable queries are compiled on their first asynchronous capture request. Changed optional queries stay uncompiled until requested; queries already in use retain validation and reload behavior. The validation command and CI still compile every declared query.
+The first parse waits for the highlighting query and any declared injection query. Folding and indentation queries already in the grammar cache are reused immediately; cold queries are prepared during idle time after the first highlighting update. An explicit folding or indentation request prepares the query when needed, and completed folding queries invalidate the initial fold cache so gutter markers appear without an edit. Symbol and local-variable queries are compiled on their first asynchronous capture request. Changed optional queries stay uncompiled until requested; queries already in use retain validation and reload behavior. The validation command and CI still compile every declared query.
 
 Upstream Tree-sitter query construction remains synchronous, so a large cold highlights query can still briefly occupy the renderer.
 
