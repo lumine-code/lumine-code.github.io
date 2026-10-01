@@ -172,7 +172,7 @@ The value is a nonempty regular-expression string or a nonempty array of such st
   (#set! injection.language-scope "none"))
 ```
 
-Use the parent parser's actual comment types and keep document-comment exclusions or URL-specific structural guards in its query. Including children preserves comment bodies represented by child nodes; for strings, capture literal content nodes and leave expressions out. When an injection target is unavailable, the editor retains the unresolved alias; grammar registration retries it, and grammar removal rebuilds the affected injections. The JavaScript services remain supported for rules requiring runtime logic.
+Use the parent parser's actual comment types and keep document-comment exclusions or URL-specific structural guards in its query. Including children preserves comment bodies represented by child nodes; for strings, capture literal content nodes and leave expressions out. For annotation patterns, give each independent literal fragment its own owner and content capture: joining fragments in one layer can let a lexer token span an excluded expression. When an injection target is unavailable, the editor retains the unresolved alias; grammar registration retries it, and grammar removal rebuilds the affected injections. The JavaScript services remain supported for rules requiring runtime logic.
 
 The performance benefit comes from structural selection in the query and fewer node accesses across the JavaScript/WASM boundary. Text predicates still run in JavaScript in `web-tree-sitter`, and every selected child document still needs range markers, reconciliation and parsing. Measure initial opening and incremental edits separately; changing the query format alone does not reduce the number of child layers.
 
