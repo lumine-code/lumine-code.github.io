@@ -144,7 +144,35 @@ Boolean properties accept `"true"`, `"false"`, or a directive without a value, w
 
 Matches from the same pattern, owner and language accumulate content fragments into one injection. The runtime deduplicates repeated captures across scan windows and preserves each pattern's identity for layer reuse. Separate patterns remain separate injections, even when they capture the same owner and select the same language. `combined` then groups these owners using the same range and parser lifecycle as JavaScript injection points; a member limit counts owners, rather than content fragments.
 
-Static queries and `lumine.grammars.addInjectionPoint()` registrations are additive. Port a rule by removing its JavaScript registration when its query is ready, so both mechanisms do not create the same child document. Keep dynamic registrations for service-provided injections, configuration changes, semantic eligibility checks and synthetic content ranges, and dispose them with the package or service edge that owns them. Removing or reloading a static query rebuilds its injections without removing unrelated dynamic registrations.
+Static queries and `lumine.grammars.addInjectionPoint()` registrations are additive. Port a rule by removing its JavaScript registration when its query is ready, so both mechanisms do not create the same child document. Keep dynamic registrations for configuration changes, semantic eligibility checks and synthetic content ranges, and dispose them with the package or service edge that owns them. Removing or reloading a static query rebuilds its injections without removing unrelated dynamic registrations.
+
+An injection target can declare a top-level `injectionContentRegex` in its grammar descriptor when a cheap text check can rule out owners that have nothing for it to parse:
+
+```json
+{
+  "scopeName": "text.hyperlink",
+  "injectionNames": ["hyperlink"],
+  "injectionContentRegex": "\\bhttps?:"
+}
+```
+
+The value is a nonempty regular-expression string or a nonempty array of such strings, treated as alternatives. An omitted or null value accepts every structurally eligible match; empty, invalid or malformed filters fail grammar loading. The runtime compiles the filter once and tests each static match's owner text before creating a child layer. Owner text includes the content captures, their children and any gaps between them, so the filter conservatively accepts matches whose actual content might not contain a token. This also avoids losing a token that crosses capture boundaries. Declare only a filter that cannot reject source the target parser should handle; JavaScript injection points keep their existing callback-controlled eligibility.
+
+`language-hyperlink` and `language-todo` own their respective filters. A parent grammar selects their aliases without copying URL expressions or the TODO marker list, consuming a service, or defining a JavaScript entry point:
+
+```scheme
+((comment) @injection.owner @injection.content
+  (#set! injection.language "hyperlink")
+  (#set! injection.include-children)
+  (#set! injection.language-scope "none"))
+
+((comment) @injection.owner @injection.content
+  (#set! injection.language "todo")
+  (#set! injection.include-children)
+  (#set! injection.language-scope "none"))
+```
+
+Use the parent parser's actual comment types and keep document-comment exclusions or URL-specific structural guards in its query. Including children preserves comment bodies represented by child nodes; for strings, capture literal content nodes and leave expressions out. When an injection target is unavailable, the editor retains the unresolved alias; grammar registration retries it, and grammar removal rebuilds the affected injections. The JavaScript services remain supported for rules requiring runtime logic.
 
 The performance benefit comes from structural selection in the query and fewer node accesses across the JavaScript/WASM boundary. Text predicates still run in JavaScript in `web-tree-sitter`, and every selected child document still needs range markers, reconciliation and parsing. Measure initial opening and incremental edits separately; changing the query format alone does not reduce the number of child layers.
 
