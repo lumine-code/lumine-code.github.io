@@ -9710,6 +9710,16 @@
               "nested": true
             },
             {
+              "name": "injectionPoint.excludeChildrenLines",
+              "type": "Boolean",
+              "description": "When `includeChildren` is false, subtract the complete physical rows occupied by each direct child, clipped to the content node and buffer. Overlapping row exclusions are merged. Defaults to false.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "injectionPoint.excludeChildrenLines",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "injectionPoint.newlinesBetween",
               "type": null,
               "description": "A `Boolean` that indicates whether each node returned from `content` should be separated by at least one newline character so that the parser understands them to be logically separated. Embedded languages like ERB and EJS need this. Defaults to `false`.",
@@ -9753,7 +9763,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the injection point.",
           "propertyType": null,
-          "line": 625
+          "line": 626
         },
         {
           "name": "loadGrammar",
@@ -9808,7 +9818,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 761
+          "line": 762
         },
         {
           "name": "loadGrammarSync",
@@ -9834,7 +9844,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 778
+          "line": 779
         },
         {
           "name": "readGrammar",
@@ -9889,7 +9899,7 @@
           "returnType": "undefined",
           "returnDescription": "undefined.",
           "propertyType": null,
-          "line": 796
+          "line": 797
         },
         {
           "name": "readGrammarSync",
@@ -9915,7 +9925,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 817
+          "line": 818
         },
         {
           "name": "getGrammars",
@@ -9931,7 +9941,7 @@
           "returnType": "Array",
           "returnDescription": "registered {@link TreeSitterGrammar} instances.",
           "propertyType": null,
-          "line": 836
+          "line": 837
         }
       ]
     },
@@ -25861,6 +25871,32 @@
           "line": 1081
         },
         {
+          "name": "getChangesToText",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getChangesToText(text)",
+          "category": "Mutating Text",
+          "visibility": "Extended",
+          "description": "Compute native diff changes to target text without modifying this buffer,\nits history, markers or observers. Ranges use UTF-16 buffer coordinates.",
+          "summary": "Compute native diff changes to target text without modifying this buffer, its history, markers or observers. Ranges use UTF-16 buffer coordinates.",
+          "parameters": [
+            {
+              "name": "text",
+              "source": "text",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Target text.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Array",
+          "returnDescription": "Changes containing oldRange, newRange, oldText and newText.",
+          "propertyType": null,
+          "line": 1095
+        },
+        {
           "name": "setTextViaDiff",
           "kind": "method",
           "static": false,
@@ -25884,7 +25920,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1094
+          "line": 1116
         },
         {
           "name": "setTextInRange",
@@ -25948,7 +25984,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text.",
           "propertyType": null,
-          "line": 1177
+          "line": 1199
         },
         {
           "name": "insert",
@@ -26012,7 +26048,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text.",
           "propertyType": null,
-          "line": 1234
+          "line": 1256
         },
         {
           "name": "append",
@@ -26067,7 +26103,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text",
           "propertyType": null,
-          "line": 1250
+          "line": 1272
         },
         {
           "name": "delete",
@@ -26093,7 +26129,7 @@
           "returnType": "Range",
           "returnDescription": "empty {@link Range} starting at the start of deleted range.",
           "propertyType": null,
-          "line": 1370
+          "line": 1392
         },
         {
           "name": "deleteRow",
@@ -26119,7 +26155,7 @@
           "returnType": "Range",
           "returnDescription": "of the deleted text.",
           "propertyType": null,
-          "line": 1383
+          "line": 1405
         },
         {
           "name": "deleteRows",
@@ -26154,7 +26190,7 @@
           "returnType": "Range",
           "returnDescription": "of the deleted text.",
           "propertyType": null,
-          "line": 1400
+          "line": 1422
         },
         {
           "name": "addMarkerLayer",
@@ -26210,7 +26246,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1450
+          "line": 1472
         },
         {
           "name": "getMarkerLayer",
@@ -26236,7 +26272,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "or `undefined` if no layer exists with the given id.",
           "propertyType": null,
-          "line": 1465
+          "line": 1487
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -26252,7 +26288,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1480
+          "line": 1502
         },
         {
           "name": "markRange",
@@ -26317,7 +26353,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1500
+          "line": 1522
         },
         {
           "name": "markPosition",
@@ -26372,7 +26408,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1517
+          "line": 1539
         },
         {
           "name": "getMarkers",
@@ -26388,7 +26424,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers`.",
           "propertyType": null,
-          "line": 1529
+          "line": 1551
         },
         {
           "name": "getMarker",
@@ -26414,7 +26450,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1542
+          "line": 1564
         },
         {
           "name": "findMarkers",
@@ -26530,7 +26566,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers`.",
           "propertyType": null,
-          "line": 1568
+          "line": 1590
         },
         {
           "name": "getMarkerCount",
@@ -26546,7 +26582,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1580
+          "line": 1602
         },
         {
           "name": "undo",
@@ -26582,7 +26618,7 @@
           "returnType": "Boolean",
           "returnDescription": "of whether or not a change was made.",
           "propertyType": null,
-          "line": 1640
+          "line": 1662
         },
         {
           "name": "redo",
@@ -26618,7 +26654,7 @@
           "returnType": "Boolean",
           "returnDescription": "of whether or not a change was made.",
           "propertyType": null,
-          "line": 1669
+          "line": 1691
         },
         {
           "name": "transact",
@@ -26673,7 +26709,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1707
+          "line": 1729
         },
         {
           "name": "abortTransaction",
@@ -26689,7 +26725,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1771
+          "line": 1793
         },
         {
           "name": "clearUndoStack",
@@ -26705,7 +26741,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1781
+          "line": 1803
         },
         {
           "name": "createCheckpoint",
@@ -26741,7 +26777,7 @@
           "returnType": "Number",
           "returnDescription": "checkpoint id value.",
           "propertyType": null,
-          "line": 1796
+          "line": 1818
         },
         {
           "name": "revertToCheckpoint",
@@ -26786,7 +26822,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the operation succeeded.",
           "propertyType": null,
-          "line": 1819
+          "line": 1841
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -26831,7 +26867,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 1853
+          "line": 1875
         },
         {
           "name": "groupLastChanges",
@@ -26847,7 +26883,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 1871
+          "line": 1893
         },
         {
           "name": "getChangesSinceCheckpoint",
@@ -26873,7 +26909,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "Changes since the checkpoint. See *Working With Aggregated Changes* in the {@link TextBuffer} class description for the fields.",
           "propertyType": null,
-          "line": 1893
+          "line": 1915
         },
         {
           "name": "scan",
@@ -27007,7 +27043,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1929
+          "line": 1951
         },
         {
           "name": "backwardsScan",
@@ -27141,7 +27177,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1958
+          "line": 1980
         },
         {
           "name": "scanInRange",
@@ -27293,7 +27329,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1988
+          "line": 2010
         },
         {
           "name": "backwardsScanInRange",
@@ -27416,7 +27452,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2053
+          "line": 2075
         },
         {
           "name": "replace",
@@ -27451,7 +27487,7 @@
           "returnType": "Number",
           "returnDescription": "representing the number of replacements made.",
           "propertyType": null,
-          "line": 2072
+          "line": 2094
         },
         {
           "name": "find",
@@ -27477,7 +27513,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2126
+          "line": 2148
         },
         {
           "name": "findInRange",
@@ -27512,7 +27548,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2140
+          "line": 2162
         },
         {
           "name": "findSync",
@@ -27538,7 +27574,7 @@
           "returnType": "Range",
           "returnDescription": "first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2153
+          "line": 2175
         },
         {
           "name": "findInRangeSync",
@@ -27573,7 +27609,7 @@
           "returnType": "Range",
           "returnDescription": "first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2167
+          "line": 2189
         },
         {
           "name": "findAll",
@@ -27599,7 +27635,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an `Array` containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2180
+          "line": 2202
         },
         {
           "name": "findAllInRange",
@@ -27634,7 +27670,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an `Array` containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2194
+          "line": 2216
         },
         {
           "name": "findAllSync",
@@ -27660,7 +27696,7 @@
           "returnType": "Array",
           "returnDescription": "containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2207
+          "line": 2229
         },
         {
           "name": "findAllInRangeSync",
@@ -27695,7 +27731,7 @@
           "returnType": "Array",
           "returnDescription": "containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2221
+          "line": 2243
         },
         {
           "name": "findAndMarkAllInRangeSync",
@@ -27748,7 +27784,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers` representing the matches.",
           "propertyType": null,
-          "line": 2237
+          "line": 2259
         },
         {
           "name": "findWordsWithSubsequence",
@@ -27792,7 +27828,7 @@
           "returnType": "Array",
           "returnDescription": "containing every `SubsequenceMatch` of text that matches the given query.",
           "propertyType": null,
-          "line": 2267
+          "line": 2289
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -27845,7 +27881,7 @@
           "returnType": "Array",
           "returnDescription": "containing every `SubsequenceMatch` of text that matches the given query in the given range.",
           "propertyType": null,
-          "line": 2283
+          "line": 2305
         },
         {
           "name": "getRange",
@@ -27861,7 +27897,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2299
+          "line": 2321
         },
         {
           "name": "getLineCount",
@@ -27877,7 +27913,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2311
+          "line": 2333
         },
         {
           "name": "getLastRow",
@@ -27893,7 +27929,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2323
+          "line": 2345
         },
         {
           "name": "getFirstPosition",
@@ -27909,7 +27945,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2335
+          "line": 2357
         },
         {
           "name": "getEndPosition",
@@ -27925,7 +27961,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2348
+          "line": 2370
         },
         {
           "name": "getLength",
@@ -27941,7 +27977,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2358
+          "line": 2380
         },
         {
           "name": "getMaxCharacterIndex",
@@ -27957,7 +27993,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2370
+          "line": 2392
         },
         {
           "name": "rangeForRow",
@@ -27992,7 +28028,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2384
+          "line": 2406
         },
         {
           "name": "characterIndexForPosition",
@@ -28018,7 +28054,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2406
+          "line": 2428
         },
         {
           "name": "positionForCharacterIndex",
@@ -28044,7 +28080,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2422
+          "line": 2444
         },
         {
           "name": "clipRange",
@@ -28070,7 +28106,7 @@
           "returnType": "Range",
           "returnDescription": "given {@link Range} if it is already in bounds, or a new clipped {@link Range} if the given range is out-of-bounds.",
           "propertyType": null,
-          "line": 2438
+          "line": 2460
         },
         {
           "name": "clipPosition",
@@ -28105,7 +28141,7 @@
           "returnType": "Point",
           "returnDescription": "new {@link Point} if the given position is invalid, otherwise returns the given position.",
           "propertyType": null,
-          "line": 2461
+          "line": 2483
         },
         {
           "name": "save",
@@ -28121,7 +28157,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2500
+          "line": 2522
         },
         {
           "name": "saveAs",
@@ -28147,7 +28183,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2513
+          "line": 2535
         },
         {
           "name": "reload",
@@ -28163,7 +28199,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the load is complete.",
           "propertyType": null,
-          "line": 2596
+          "line": 2618
         },
         {
           "name": "getLanguageMode",
@@ -28179,7 +28215,7 @@
           "returnType": "Object",
           "returnDescription": "language mode `Object` (See {@link TextBuffer#setLanguageMode} for its interface).",
           "propertyType": null,
-          "line": 2640
+          "line": 2662
         },
         {
           "name": "setLanguageMode",
@@ -28345,7 +28381,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2666
+          "line": 2688
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -28391,7 +28427,7 @@
           "returnType": "Disposable",
           "returnDescription": "that can be used to stop the callback from being called.",
           "propertyType": null,
-          "line": 2695
+          "line": 2717
         },
         {
           "name": "getFileWatchStartPromise",
@@ -28407,7 +28443,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once this buffer's file watcher has been armed and is delivering external-change events. Watching is served asynchronously by the file-watcher worker; this lets callers wait for it before relying on external-change detection. Resolves immediately when the buffer has no path or a custom data source that watches synchronously.",
           "propertyType": null,
-          "line": 3233
+          "line": 3255
         }
       ]
     },
@@ -43364,6 +43400,6 @@
       "line": 18
     }
   ],
-  "memberCount": 1390,
-  "generatedAt": "2026-10-01T02:25:11.973Z"
+  "memberCount": 1391,
+  "generatedAt": "2026-10-01T06:46:23.645Z"
 }

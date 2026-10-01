@@ -2,6 +2,10 @@
 
 An `.ipy` file combines Python, IPython commands, and named cells in one source document. Install [`language-ipython`](https://github.com/lumine-code/language-ipython) for syntax highlighting, [`jupyter-cells`](https://github.com/lumine-code/jupyter-cells) for cell navigation and notebook conversion, and [`jupyter-repl`](https://github.com/lumine-code/jupyter-repl) to run code through a Jupyter kernel. Install these packages from **Settings → Install**. Add [`jupyter-view`](https://github.com/lumine-code/jupyter-view) to edit `.ipynb` files as notebooks.
 
+`tree-sitter-ipython` parses the cell scaffold and IPython commands. `language-ipython` injects the original Python grammar into Python bodies, sharing one Python layer across the document, and the corresponding original grammars into Markdown and foreign magic bodies. The scaffold does not duplicate Python syntax. Cell markers belong to the scaffold and are styled as comments; raw and unknown bodies stay plain text.
+
+The body-language rules live in `ipython-injections.scm`. An IPython command excludes its entire row from native Python syntax, splitting the surrounding source into fragments. Those fragments remain combined in one Python layer, so this separation does not create a parser for each piece. Assignment magics exclude the whole assignment row rather than leaving an incomplete Python expression; the shared analysis projection separately retains the assignment name and replaces only its IPython RHS.
+
 ## Writing a cell document
 
 Start each cell with a column-zero `# %%` marker. Text after the marker is its title. Additional `%` characters are accepted in document cell markers. Python before the first marker is an initial code cell.
@@ -67,9 +71,9 @@ Syntax and kernel choice are separate. A cell with `%%bash` can be highlighted a
 
 ## Python analysis tools
 
-`ide-pyright`, `ide-ruff`, `linter-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are excluded, including Python fences written inside a Markdown cell. The kernel continues to receive the original source when you execute it.
+`ide-pyright`, `ide-ruff`, `linter-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
 
-The projection maps diagnostic, lookup, and edit positions back to the source document, including Unicode columns. Requests inside excluded regions return no Python results. Returned edits are checked against their source revision and cannot overwrite protected cell headers or foreign bodies. Ruff formats Python blocks while preserving the surrounding cell document.
+The projection maps diagnostic, lookup, and edit positions back to the source document, including Unicode columns. Requests inside excluded regions return no Python results. Returned edits are checked against their source revision and cannot overwrite protected cell headers or foreign bodies. Ruff uses one formatter request and restores the original IPython commands and surrounding non-Python source before applying edits.
 
 IPython commands remain runtime operations. Static analysis cannot discover names created dynamically by commands such as `%run`; write normal Python imports or annotations when the analyzer needs that information. Basedpyright analyzes explicitly opened `.ipy` documents, but its normal workspace discovery and Python module imports do not treat closed `.ipy` files as `.py` modules.
 
