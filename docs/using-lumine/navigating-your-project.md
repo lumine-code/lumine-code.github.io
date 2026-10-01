@@ -24,6 +24,8 @@ Install `symbol` with at least one provider: `symbol-tree-sitter` reads the acti
 
 Install `hyperclick` for pointer navigation supplied by `symbol` or another `hyperclick.provider`: hold Alt to underline the available target under the mouse and show a pointer cursor, then left-click to follow it. For keyboard navigation, run `hyperclick:confirm-cursor`. Disabling a provider removes its links immediately and discards any answers still being resolved.
 
+Install `link` alongside `hyperclick` to follow recognized HTTP(S) and mailto links in the default browser or mail application. The provider underlines the complete link when the pointer is over a word within it and also resolves named Markdown references.
+
 Alt is the fixed mouse-navigation modifier on every platform. Pressing or releasing it updates the underline and mouse cursor immediately, even while the mouse stays still; moving with Alt held updates them for the target under the pointer. Ordinary mouse movement and clicking keep the editor's normal behavior.
 
 ## Other navigators
