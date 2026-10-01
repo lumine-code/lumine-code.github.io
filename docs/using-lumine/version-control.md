@@ -45,4 +45,6 @@ For richer workflows, install these `lumine-code` packages from the Install tab 
 - **[git-panel](https://github.com/lumine-code/git-panel)** — a full panel for changes, commits, branches, remotes, diffs, and conflicts.
 - **[github-panel](https://github.com/lumine-code/github-panel)** — pull requests, reviews, issues, and repository publishing on top of `git-panel`.
 
+In `git-panel`'s changes list, select one or more files and use **Split Up**, **Split Down**, **Split Left**, or **Split Right** in the context menu to open their working-tree contents in one new pane. The same actions are available as `git-panel:split-up`, `git-panel:split-down`, `git-panel:split-left`, and `git-panel:split-right` while the changes list has focus.
+
 Type `lumine-code/git-command`, `lumine-code/git-panel`, or `lumine-code/github-panel` directly into the Install tab's search box to find them.
