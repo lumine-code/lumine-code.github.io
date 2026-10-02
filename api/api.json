@@ -7904,6 +7904,22 @@
           "line": 456
         },
         {
+          "name": "getCommonDirectory",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getCommonDirectory()",
+          "category": "Repository Details",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "String",
+          "returnDescription": "directory shared by linked worktrees for refs and configuration.",
+          "propertyType": null,
+          "line": 466
+        },
+        {
           "name": "relativize",
           "kind": "method",
           "static": false,
@@ -7927,7 +7943,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 507
+          "line": 517
         },
         {
           "name": "hasBranch",
@@ -7953,7 +7969,7 @@
           "returnType": "Boolean",
           "returnDescription": "true if the given branch exists.",
           "propertyType": null,
-          "line": 571
+          "line": 581
         },
         {
           "name": "getShortHead",
@@ -7969,7 +7985,7 @@
           "returnType": "String",
           "returnDescription": "The shortened `HEAD` reference.",
           "propertyType": null,
-          "line": 587
+          "line": 597
         },
         {
           "name": "isSubmodule",
@@ -7995,7 +8011,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 607
+          "line": 617
         },
         {
           "name": "getAheadBehindCount",
@@ -8021,7 +8037,7 @@
           "returnType": "Object",
           "returnDescription": "The `ahead` and `behind` commit counts.",
           "propertyType": null,
-          "line": 619
+          "line": 629
         },
         {
           "name": "getCachedUpstreamAheadBehindCount",
@@ -8037,7 +8053,7 @@
           "returnType": "Object",
           "returnDescription": "with the following keys:",
           "propertyType": null,
-          "line": 641
+          "line": 651
         },
         {
           "name": "getConfigValueAsync",
@@ -8082,7 +8098,7 @@
           "returnType": "Promise<String|null>",
           "returnDescription": "The configured value.",
           "propertyType": null,
-          "line": 663
+          "line": 673
         },
         {
           "name": "getConfigValuesAsync",
@@ -8127,7 +8143,7 @@
           "returnType": "Promise<Object>",
           "returnDescription": "Values keyed by the requested names.",
           "propertyType": null,
-          "line": 681
+          "line": 691
         },
         {
           "name": "getOriginURL",
@@ -8143,7 +8159,7 @@
           "returnType": "String|null",
           "returnDescription": "origin url of the repository, read from the refs snapshot's remotes. Returns `null` until the snapshot has loaded or when the repository has no `origin` remote.",
           "propertyType": null,
-          "line": 705
+          "line": 715
         },
         {
           "name": "getUpstreamBranch",
@@ -8159,7 +8175,7 @@
           "returnType": "String|null",
           "returnDescription": "The upstream branch, such as `refs/remotes/origin/master`, or `null` when HEAD has no upstream.",
           "propertyType": null,
-          "line": 719
+          "line": 729
         },
         {
           "name": "getReferences",
@@ -8175,7 +8191,7 @@
           "returnType": "Object",
           "returnDescription": "with the following keys:",
           "propertyType": null,
-          "line": 739
+          "line": 749
         },
         {
           "name": "getReferenceTarget",
@@ -8201,7 +8217,7 @@
           "returnType": "String|null",
           "returnDescription": "The current SHA for the reference, or `null` when it is unavailable.",
           "propertyType": null,
-          "line": 756
+          "line": 766
         },
         {
           "name": "isPathModified",
@@ -8227,7 +8243,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the path is modified in the detailed status snapshot. Returns `false` until the snapshot loads.",
           "propertyType": null,
-          "line": 804
+          "line": 814
         },
         {
           "name": "isPathNew",
@@ -8253,7 +8269,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the path is new in the detailed status snapshot. Returns `false` until the snapshot loads.",
           "propertyType": null,
-          "line": 816
+          "line": 826
         },
         {
           "name": "isPathIgnored",
@@ -8279,7 +8295,7 @@
           "returnType": "Boolean",
           "returnDescription": "that's true if the `path` is ignored.",
           "propertyType": null,
-          "line": 831
+          "line": 841
         },
         {
           "name": "isPathIgnoredCached",
@@ -8305,7 +8321,7 @@
           "returnType": "Boolean",
           "returnDescription": "that's true if the `filePath` is ignored.",
           "propertyType": null,
-          "line": 846
+          "line": 856
         },
         {
           "name": "getStatusSnapshot",
@@ -8321,7 +8337,7 @@
           "returnType": "Object",
           "returnDescription": "latest immutable detailed status snapshot. It contains `head`, `upstream`, `submodulePaths`, per-file staged/unstaged/conflict state, aggregate `counts`, and a monotonic `generation`. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeStatusSnapshot} or call {@link #ensureStatusSnapshot} to load it.",
           "propertyType": null,
-          "line": 862
+          "line": 872
         },
         {
           "name": "ensureStatusSnapshot",
@@ -8347,7 +8363,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the snapshot.",
           "propertyType": null,
-          "line": 875
+          "line": 885
         },
         {
           "name": "getStatusEntry",
@@ -8373,7 +8389,7 @@
           "returnType": "Object|null",
           "returnDescription": "detailed cached status for a repository path, or `null`.",
           "propertyType": null,
-          "line": 900
+          "line": 910
         },
         {
           "name": "refreshStatusSnapshot",
@@ -8399,7 +8415,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1354
+          "line": 1364
         },
         {
           "name": "getPathStatusSummary",
@@ -8425,7 +8441,7 @@
           "returnType": "Object|null",
           "returnDescription": "frozen `{source, conflicted, modified, added, renamed}` object (`source` is always `\"snapshot\"`), or `null` for clean, ignored, unknown, and pre-snapshot paths.",
           "propertyType": null,
-          "line": 1368
+          "line": 1378
         },
         {
           "name": "getDirectoryStatusSummary",
@@ -8451,7 +8467,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1385
+          "line": 1395
         },
         {
           "name": "getRefsSnapshot",
@@ -8467,7 +8483,7 @@
           "returnType": "Object",
           "returnDescription": "latest immutable refs snapshot. It contains `head`, local `branches` with upstream tracking, `remoteBranches`, `tags`, `remotes` with fetch and push URLs, `worktrees`, and a monotonic `generation`. Branch and tag entries include `lastCommit` metadata for their target commit. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeRefsSnapshot} or call {@link #ensureRefsSnapshot} to load it.",
           "propertyType": null,
-          "line": 1408
+          "line": 1418
         },
         {
           "name": "ensureRefsSnapshot",
@@ -8493,7 +8509,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the snapshot.",
           "propertyType": null,
-          "line": 1421
+          "line": 1431
         },
         {
           "name": "refreshRefsSnapshot",
@@ -8519,7 +8535,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1446
+          "line": 1456
         },
         {
           "name": "getDiff",
@@ -8645,7 +8661,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{schemaVersion, files, rawPatch?}` object; `rawPatch` is present only for `patch` and `both`.",
           "propertyType": null,
-          "line": 1472
+          "line": 1482
         },
         {
           "name": "getCommits",
@@ -8731,7 +8747,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{commits, hasMore, nextCursor}` object. Each commit has `sha`, `parents`, `author`, `committer`, `subject`, and `body`. An unborn repository resolves to an empty page.",
           "propertyType": null,
-          "line": 1545
+          "line": 1555
         },
         {
           "name": "getCommit",
@@ -8766,7 +8782,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the commit object extended with `changedFiles`: `[{path, originalPath, status, similarity}]`.",
           "propertyType": null,
-          "line": 1595
+          "line": 1605
         },
         {
           "name": "getFileAtRevision",
@@ -8830,7 +8846,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the contents, or `null` when the path does not exist at that revision.",
           "propertyType": null,
-          "line": 1624
+          "line": 1634
         },
         {
           "name": "getIndexFile",
@@ -8885,7 +8901,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the staged contents, or `null` when the path has no stage-0 index entry.",
           "propertyType": null,
-          "line": 1650
+          "line": 1660
         },
         {
           "name": "getBlob",
@@ -8940,7 +8956,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the contents, or `null` when the oid does not name an object.",
           "propertyType": null,
-          "line": 1674
+          "line": 1684
         },
         {
           "name": "getDescription",
@@ -8956,7 +8972,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1693
+          "line": 1703
         },
         {
           "name": "getBranchesContaining",
@@ -9021,7 +9037,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of refname `Strings`.",
           "propertyType": null,
-          "line": 1713
+          "line": 1723
         },
         {
           "name": "getFileMode",
@@ -9047,7 +9063,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to the `String` mode (e.g. `\"100644\"`), or `null` when the path is not tracked.",
           "propertyType": null,
-          "line": 1734
+          "line": 1744
         },
         {
           "name": "getSubmodulePaths",
@@ -9083,7 +9099,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of path `Strings`.",
           "propertyType": null,
-          "line": 1752
+          "line": 1762
         },
         {
           "name": "getBlame",
@@ -9148,7 +9164,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a frozen `{revision, lines}` object where each line has `line`, `originalLine`, `sha`, `author`, `summary`.",
           "propertyType": null,
-          "line": 1781
+          "line": 1791
         },
         {
           "name": "getLineDiffsAsync",
@@ -9202,7 +9218,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of hunk `Objects`, each with `oldStart`, `newStart`, `oldLines`, and `newLines`.",
           "propertyType": null,
-          "line": 1816
+          "line": 1826
         },
         {
           "name": "checkoutHead",
@@ -9228,7 +9244,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1855
+          "line": 1865
         },
         {
           "name": "checkoutReference",
@@ -9263,7 +9279,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1877
+          "line": 1887
         }
       ]
     },
@@ -44747,6 +44763,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1429,
-  "generatedAt": "2026-10-02T12:49:09.010Z"
+  "memberCount": 1430,
+  "generatedAt": "2026-10-02T12:51:47.438Z"
 }
