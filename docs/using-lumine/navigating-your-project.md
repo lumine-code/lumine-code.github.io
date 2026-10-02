@@ -32,6 +32,8 @@ Alt is the fixed mouse-navigation modifier on every platform. Pressing or releas
 
 The `recent-list` package switches between recently opened paths, and `project-list` does the same for projects you have saved. Install them from the Install pane in **Settings**, or with `lumine --install lumine-code/recent-list` and `lumine --install lumine-code/project-list`. Recently opened projects are also always available from **File > Reopen Project**, which is part of the editor itself. Combined with the [Command Palette](basics.md#the-command-palette), these give you fast, mouse-free navigation across everything you have open.
 
+`recent-list` searches paths without accents and highlights complete Unicode characters and emoji. Its actions remove individual projects from history or clear the whole list. History edits apply to the latest stored list, so an unrelated update from another window cannot restore a deleted entry. Entries whose folders are unavailable stay visible for removal; opening one in this window requires every folder to be available.
+
 ## Switching projects in place
 
 Both lists and the tree view offer **Open in This Window**. Lumine saves the outgoing project's editors, including unsaved changes, restores the incoming project's editors, and leaves dock items running. Each window keeps its own session for each project; a window with no history can adopt the most recently saved session only while no other window has that project open. Project switches run one at a time, and unavailable folders leave the outgoing session intact. If restoring a saved session fails, Lumine restores the outgoing editors and project settings.

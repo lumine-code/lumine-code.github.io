@@ -1066,7 +1066,7 @@
       "name": "BufferedProcess",
       "superClass": null,
       "visibility": "Extended",
-      "description": "A wrapper which provides standard error/output line buffering for\nNode's ChildProcess.\n\n## Examples\n\n```js\n{BufferedProcess} = require('lumine')\n\nconst command = 'ps'\nconst args = ['-ef']\nconst stdout = (output) => console.log(output)\nconst exit = (code) => console.log(\"ps -ef exited with #{code}\")\nconst process = new BufferedProcess({command, args, stdout, exit})\n```",
+      "description": "A wrapper which provides standard error/output line buffering for\nNode's ChildProcess.\n\n## Examples\n\n```js\nconst {BufferedProcess} = require('lumine')\n\nconst command = 'ps'\nconst args = ['-ef']\nconst stdout = (output) => console.log(output)\nconst exit = (code) => console.log(`ps -ef exited with ${code}`)\nconst process = new BufferedProcess({command, args, stdout, exit})\n```",
       "summary": "A wrapper which provides standard error/output line buffering for Node's ChildProcess.",
       "source": "src/buffered-process.js",
       "sourcePath": "src/buffered-process.js",
@@ -1910,10 +1910,10 @@
               "defaultValue": null
             }
           ],
-          "returnType": null,
-          "returnDescription": "",
+          "returnType": "Promise<Array>|null",
+          "returnDescription": "Resolves to the listener results after all matched handlers finish, or `null` when no handler matches. Handler errors reject the promise.",
           "propertyType": null,
-          "line": 360
+          "line": 361
         },
         {
           "name": "onWillDispatch",
@@ -1946,10 +1946,10 @@
               "nested": true
             }
           ],
-          "returnType": null,
-          "returnDescription": "",
+          "returnType": "Disposable",
+          "returnDescription": "Removes the event subscription.",
           "propertyType": null,
-          "line": 375
+          "line": 377
         },
         {
           "name": "onDidDispatch",
@@ -1982,10 +1982,10 @@
               "nested": true
             }
           ],
-          "returnType": null,
-          "returnDescription": "",
+          "returnType": "Disposable",
+          "returnDescription": "Removes the event subscription.",
           "propertyType": null,
-          "line": 388
+          "line": 391
         }
       ]
     },
@@ -2710,7 +2710,7 @@
           "signature": "::add(itemsBySelector, throwOnInvalidSelector = true)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\nlumine.contextMenu.add({\n  'lumine-workspace': [{label: 'Help', command: 'application:open-documentation'}]\n  'lumine-text-editor': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'}\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments",
+          "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\nlumine.contextMenu.add({\n  'lumine-workspace': [{label: 'Help', command: 'application:open-documentation'}],\n  'lumine-text-editor:not([mini])': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'},\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments",
           "summary": "Add context menu items scoped by CSS selectors.",
           "parameters": [
             {
@@ -2727,8 +2727,8 @@
               "source": "throwOnInvalidSelector = true",
               "optional": true,
               "rest": false,
-              "type": null,
-              "description": "",
+              "type": "Boolean",
+              "description": "Throw for an invalid selector.",
               "defaultValue": "true"
             },
             {
@@ -2832,10 +2832,10 @@
               "nested": true
             }
           ],
-          "returnType": null,
-          "returnDescription": "",
+          "returnType": "Disposable",
+          "returnDescription": "Removes the added context-menu items.",
           "propertyType": null,
-          "line": 135
+          "line": 133
         },
         {
           "name": "show",
@@ -2879,7 +2879,7 @@
           "returnType": "Object",
           "returnDescription": "the popup controller.",
           "propertyType": null,
-          "line": 261
+          "line": 259
         }
       ]
     },
@@ -10190,15 +10190,15 @@
           "summary": "Obtain a list of previously opened projects.",
           "parameters": [],
           "returnType": "Array",
-          "returnDescription": "of `HistoryProject` objects, most recent first.",
+          "returnDescription": "of detached `HistoryProject` objects, most recent first. Their paths and dates can be changed without modifying history.",
           "propertyType": null,
-          "line": 47
+          "line": 58
         },
         {
           "name": "clearProjects",
           "kind": "method",
           "static": false,
-          "async": true,
+          "async": false,
           "signature": "::clearProjects()",
           "category": "Methods",
           "visibility": "Public",
@@ -10208,7 +10208,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the history has been successfully cleared.",
           "propertyType": null,
-          "line": 62
+          "line": 73
         },
         {
           "name": "onDidChangeProjects",
@@ -10234,7 +10234,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 77
+          "line": 86
         }
       ]
     },
@@ -13330,7 +13330,7 @@
           "signature": "::add(items)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Adds the given items to the application menu.\n\n## Examples\n```javascript\n  lumine.menu.add([\n    {\n      label: 'Hello'\n      submenu : [{label: 'World!', id: 'World!', command: 'hello:world'}]\n    }\n  ]);\n```",
+          "description": "Adds the given items to the application menu.\n\n## Examples\n```javascript\n  lumine.menu.add([\n    {\n      label: 'Hello',\n      submenu : [{label: 'World!', id: 'World!', command: 'hello:world'}]\n    }\n  ]);\n```",
           "summary": "Adds the given items to the application menu.",
           "parameters": [
             {
@@ -17266,7 +17266,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that unregisters the provider.",
           "propertyType": null,
-          "line": 72
+          "line": 73
         },
         {
           "name": "handlePaste",
@@ -17276,7 +17276,7 @@
           "signature": "::handlePaste(context)",
           "category": "Methods",
           "visibility": "Experimental",
-          "description": "Offer a paste to each registered provider in turn.\n\nThe text editor calls this for you. Call it directly when your own package\nis somewhere a paste can land: the tree-view does, so that pasting onto a\ndirectory row reaches the same providers an editor paste would.",
+          "description": "Offer a paste to each registered provider in turn.\n\nThe text editor calls this for you. Call it directly when your own package\nis somewhere a paste can land: the tree-view does, so that pasting onto a\ndirectory row reaches the same providers an editor paste would.\nProviders are captured when dispatch starts. Removed providers are skipped,\nand newly registered providers participate in the next paste.",
           "summary": "Offer a paste to each registered provider in turn.",
           "parameters": [
             {
@@ -17332,7 +17332,7 @@
           "returnType": "Boolean|Promise",
           "returnDescription": "`true` when a provider claimed the paste and the caller must not handle it itself, `false` when none did, or a `Promise` resolving to either value when a provider decides asynchronously.",
           "propertyType": null,
-          "line": 113
+          "line": 118
         }
       ]
     },
@@ -17864,7 +17864,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 261
+          "line": 262
         },
         {
           "name": "onDidAddBuffer",
@@ -17900,7 +17900,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 276
+          "line": 277
         },
         {
           "name": "observeBuffers",
@@ -17936,7 +17936,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 291
+          "line": 292
         },
         {
           "name": "onDidChangeFiles",
@@ -17992,7 +17992,7 @@
           "returnType": "Disposable",
           "returnDescription": "to manage this event subscription.",
           "propertyType": null,
-          "line": 341
+          "line": 342
         },
         {
           "name": "onDidInvalidateFiles",
@@ -18018,7 +18018,7 @@
           "returnType": "Disposable",
           "returnDescription": "The event subscription.",
           "propertyType": null,
-          "line": 355
+          "line": 356
         },
         {
           "name": "repositoryForDirectory",
@@ -18044,7 +18044,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with either: * {@link GitRepository} if a repository can be created for the given directory",
           "propertyType": null,
-          "line": 375
+          "line": 376
         },
         {
           "name": "repositoryForPath",
@@ -18089,7 +18089,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with either: * {@link GitRepository} if a repository can be created for the given path",
           "propertyType": null,
-          "line": 398
+          "line": 399
         },
         {
           "name": "getPaths",
@@ -18105,7 +18105,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 589
+          "line": 612
         },
         {
           "name": "setPaths",
@@ -18160,7 +18160,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 610
+          "line": 633
         },
         {
           "name": "setState",
@@ -18186,7 +18186,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to `true` once the new state is in place, or to `false` if the window was left as it was — because the paths were already open, none was given, or the user cancelled at the save prompt.",
           "propertyType": null,
-          "line": 680
+          "line": 703
         },
         {
           "name": "addPath",
@@ -18241,7 +18241,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 697
+          "line": 720
         },
         {
           "name": "addPaths",
@@ -18276,7 +18276,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 800
+          "line": 823
         },
         {
           "name": "getWatcherPromise",
@@ -18302,7 +18302,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the {@link FileWatchHandle} associated with this project root once it has initialized and is ready to start sending events. The Promise will reject with an error instead if `projectPath` is not currently a root directory.",
           "propertyType": null,
-          "line": 848
+          "line": 871
         },
         {
           "name": "removePath",
@@ -18328,7 +18328,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 863
+          "line": 886
         },
         {
           "name": "getDirectories",
@@ -18344,7 +18344,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 896
+          "line": 919
         },
         {
           "name": "relativizePath",
@@ -18370,7 +18370,7 @@
           "returnType": "Array",
           "returnDescription": "with two elements:",
           "propertyType": null,
-          "line": 943
+          "line": 966
         },
         {
           "name": "contains",
@@ -18396,7 +18396,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether the path is inside the project's root directory.",
           "propertyType": null,
-          "line": 987
+          "line": 1010
         },
         {
           "name": "compileIgnoredNames",
@@ -18441,7 +18441,7 @@
           "returnType": "Object",
           "returnDescription": "an immutable `{patterns, matches(relativePath)}` matcher.",
           "propertyType": null,
-          "line": 1014
+          "line": 1037
         },
         {
           "name": "crawl",
@@ -18547,7 +18547,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that resolves the crawl early.",
           "propertyType": null,
-          "line": 1051
+          "line": 1074
         },
         {
           "name": "observeFilePaths",
@@ -18603,7 +18603,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1117
+          "line": 1140
         },
         {
           "name": "getFilePaths",
@@ -18619,7 +18619,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` absolute paths.",
           "propertyType": null,
-          "line": 1150
+          "line": 1173
         },
         {
           "name": "getFilePathsForRoot",
@@ -18645,7 +18645,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` absolute paths, empty for a path that is not a project root.",
           "propertyType": null,
-          "line": 1167
+          "line": 1190
         },
         {
           "name": "hasFilePath",
@@ -18671,7 +18671,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1187
+          "line": 1210
         },
         {
           "name": "getFilePathCount",
@@ -18687,7 +18687,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1201
+          "line": 1224
         },
         {
           "name": "isIndexing",
@@ -18703,7 +18703,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1216
+          "line": 1239
         },
         {
           "name": "refreshFilePaths",
@@ -18739,7 +18739,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the crawl settles.",
           "propertyType": null,
-          "line": 1239
+          "line": 1262
         }
       ]
     },
@@ -19336,7 +19336,7 @@
       "source": "src/repository-registry.js",
       "sourcePath": "src/repository-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 257,
+      "line": 274,
       "members": [
         {
           "name": "getActiveRepository",
@@ -19352,7 +19352,7 @@
           "returnType": "GitRepository",
           "returnDescription": ", or `null` when the active item belongs to none.",
           "propertyType": null,
-          "line": 409
+          "line": 429
         },
         {
           "name": "getActiveRepositoryContext",
@@ -19368,7 +19368,7 @@
           "returnType": "Object",
           "returnDescription": "frozen `Object`.",
           "propertyType": null,
-          "line": 431
+          "line": 451
         },
         {
           "name": "isActiveRepositoryPinned",
@@ -19384,7 +19384,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 447
+          "line": 467
         },
         {
           "name": "onDidChangeActiveRepository",
@@ -19410,7 +19410,7 @@
           "returnType": "Disposable",
           "returnDescription": "A subscription that can be disposed to unsubscribe.",
           "propertyType": null,
-          "line": 463
+          "line": 483
         },
         {
           "name": "observeActiveRepository",
@@ -19436,7 +19436,7 @@
           "returnType": "Disposable",
           "returnDescription": "A subscription that can be disposed to unsubscribe.",
           "propertyType": null,
-          "line": 480
+          "line": 500
         },
         {
           "name": "setActiveRepository",
@@ -19481,7 +19481,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 498
+          "line": 518
         },
         {
           "name": "setActiveRepositoryForPath",
@@ -19526,7 +19526,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link GitRepository}, or to `null` when the path is not in one.",
           "propertyType": null,
-          "line": 532
+          "line": 552
         },
         {
           "name": "getSnapshot",
@@ -19542,7 +19542,7 @@
           "returnType": "Object",
           "returnDescription": "frozen `Object`.",
           "propertyType": null,
-          "line": 839
+          "line": 863
         },
         {
           "name": "getRepositories",
@@ -19558,7 +19558,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link GitRepository}.",
           "propertyType": null,
-          "line": 857
+          "line": 881
         },
         {
           "name": "getById",
@@ -19584,7 +19584,7 @@
           "returnType": "GitRepository",
           "returnDescription": ", or `null` if nothing is registered under it.",
           "propertyType": null,
-          "line": 870
+          "line": 894
         },
         {
           "name": "observeRepositories",
@@ -19610,7 +19610,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 888
+          "line": 912
         },
         {
           "name": "onDidAddRepository",
@@ -19636,7 +19636,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 902
+          "line": 926
         },
         {
           "name": "onDidRemoveRepository",
@@ -19662,7 +19662,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 918
+          "line": 942
         },
         {
           "name": "onDidChange",
@@ -19758,7 +19758,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 942
+          "line": 966
         },
         {
           "name": "onDidStartRescan",
@@ -19794,7 +19794,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 956
+          "line": 980
         },
         {
           "name": "onDidFinishRescan",
@@ -19850,7 +19850,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 973
+          "line": 997
         },
         {
           "name": "onDidQueueOperation",
@@ -19876,7 +19876,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 987
+          "line": 1011
         },
         {
           "name": "onDidStartOperation",
@@ -19902,7 +19902,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1000
+          "line": 1024
         },
         {
           "name": "onDidFinishOperation",
@@ -19928,7 +19928,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1014
+          "line": 1038
         },
         {
           "name": "getForPath",
@@ -19954,7 +19954,7 @@
           "returnType": "GitRepository",
           "returnDescription": ", or `null`.",
           "propertyType": null,
-          "line": 1038
+          "line": 1062
         },
         {
           "name": "resolveForPath",
@@ -19989,7 +19989,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to a {@link GitRepository}, or to `null` when the path is not in one.",
           "propertyType": null,
-          "line": 1076
+          "line": 1100
         },
         {
           "name": "retain",
@@ -20024,7 +20024,7 @@
           "returnType": "Disposable",
           "returnDescription": "that releases the hold.",
           "propertyType": null,
-          "line": 1285
+          "line": 1336
         },
         {
           "name": "runOperation",
@@ -20059,7 +20059,7 @@
           "returnType": "Promise",
           "returnDescription": "for whatever the operation returned.",
           "propertyType": null,
-          "line": 1313
+          "line": 1364
         },
         {
           "name": "addOperationProvider",
@@ -20104,7 +20104,7 @@
           "returnType": "Disposable",
           "returnDescription": "that removes the provider and everything it implemented.",
           "propertyType": null,
-          "line": 1353
+          "line": 1404
         },
         {
           "name": "getOperations",
@@ -20130,7 +20130,7 @@
           "returnType": "Object",
           "returnDescription": "of operation functions, or `null` when no provider has claimed the repository.",
           "propertyType": null,
-          "line": 1395
+          "line": 1446
         },
         {
           "name": "canPerformOperation",
@@ -20165,7 +20165,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1413
+          "line": 1464
         },
         {
           "name": "getOperationCapabilities",
@@ -20191,7 +20191,7 @@
           "returnType": "Array",
           "returnDescription": "frozen `Array` of `String` operation names.",
           "propertyType": null,
-          "line": 1426
+          "line": 1477
         },
         {
           "name": "getPendingOperations",
@@ -20217,7 +20217,7 @@
           "returnType": "Array",
           "returnDescription": "frozen `Array` of frozen `Objects`.",
           "propertyType": null,
-          "line": 1468
+          "line": 1519
         },
         {
           "name": "getWorkspaceOperationCapabilities",
@@ -20233,7 +20233,7 @@
           "returnType": "Array",
           "returnDescription": "frozen `Array` of `String` operation names.",
           "propertyType": null,
-          "line": 1502
+          "line": 1553
         },
         {
           "name": "canPerformWorkspaceOperation",
@@ -20259,7 +20259,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1518
+          "line": 1569
         },
         {
           "name": "canExecuteGitCommands",
@@ -20275,7 +20275,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1534
+          "line": 1585
         },
         {
           "name": "executeGit",
@@ -20319,7 +20319,7 @@
           "returnType": "Promise",
           "returnDescription": "for the provider's result. It rejects with a `TypeError` if `args` is not an array, and with an `Error` whose `code` is `ERR_GIT_EXECUTION_UNAVAILABLE` when no provider runs Git commands.",
           "propertyType": null,
-          "line": 1553
+          "line": 1604
         },
         {
           "name": "initialize",
@@ -20354,7 +20354,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the new {@link GitRepository}. It rejects when no provider implements `initialize`, and with an `Error` whose `code` is `ERR_REPOSITORY_DISCOVERY_FAILED` if the command succeeded but nothing was found at the path afterwards.",
           "propertyType": null,
-          "line": 1584
+          "line": 1635
         },
         {
           "name": "clone",
@@ -20398,7 +20398,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the new {@link GitRepository}, and rejects the same way {@link #initialize} does.",
           "propertyType": null,
-          "line": 1599
+          "line": 1650
         },
         {
           "name": "add",
@@ -20443,7 +20443,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to an `Object`, or to `null` when the path is not in a repository.",
           "propertyType": null,
-          "line": 1969
+          "line": 2038
         },
         {
           "name": "forget",
@@ -20469,7 +20469,7 @@
           "returnType": "Boolean",
           "returnDescription": ": `true` if the repository was registered.",
           "propertyType": null,
-          "line": 2000
+          "line": 2069
         },
         {
           "name": "update",
@@ -20485,7 +20485,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to an `Array` of every registered {@link GitRepository}.",
           "propertyType": null,
-          "line": 2170
+          "line": 2239
         }
       ]
     },
@@ -37720,7 +37720,7 @@
       "name": "URIHandlerRegistry",
       "superClass": null,
       "visibility": "Extended",
-      "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `lumine.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nURI handlers are registered by the package's synchronous bootstrap. The\npackage is therefore already active when a URI is delivered; expensive\nhandler work may still be loaded lazily by the package itself.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```javascript\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": { \"method\": \"handleURI\" }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  }\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
+      "description": "Associates listener functions with URIs from outside the application.\n\nAn instance of this class is always available as the `lumine.uriHandlers`\nglobal.\n\nThe global URI handler registry maps URIs to listener functions. URIs are mapped\nbased on the hostname of the URI; the format is lumine://package/command?args.\nThe \"core\" package name is reserved for URIs handled by Lumine Core (it is not possible\nto register a package with the name \"core\").\n\nBecause URI handling can be triggered from outside the application (e.g. from\nthe user's browser), package authors should take great care to ensure that malicious\nactivities cannot be performed by an attacker. A good rule to follow is that\n**URI handlers should not take action on behalf of the user**. For example, clicking\na link to open a pane item that prompts the user to install a package is okay;\nautomatically installing the package right away is not.\n\nPackages can register their desire to handle URIs via a special key in their\n`package.json` called \"uriHandler\". The value of this key should be an object\nthat contains, at minimum, a key named \"method\". This is the name of the method\non your package object that Lumine will call when it receives a URI your package\nis responsible for handling. It will pass the parsed URI as the first argument (an\nobject with the same shape as the output of Node's legacy `url.parse(uri, true)`,\nincluding a `query` object) and the raw URI string as the second argument.\n\nURI handlers are registered by the package's synchronous bootstrap. The\npackage is therefore already active when a URI is delivered; expensive\nhandler work may still be loaded lazily by the package itself.\n\nIf your package specifies a deprecated `urlMain` property, you cannot register URI handlers\nvia the `uriHandler` key.\n\n## Example\n\nHere is a sample package that will be activated and have its `handleURI` method called\nwhen a URI beginning with `lumine://my-package` is triggered:\n\n`package.json`:\n\n```json\n{\n  \"name\": \"my-package\",\n  \"main\": \"./lib/my-package.js\",\n  \"uriHandler\": { \"method\": \"handleURI\" }\n}\n```\n\n`lib/my-package.js`\n\n```javascript\nmodule.exports = {\n  activate: function() {\n    // code to activate your package\n  },\n\n  handleURI(parsedUri, rawUri) {\n    // parse and handle uri\n  }\n}\n```",
       "summary": "Associates listener functions with URIs from outside the application.",
       "source": "src/uri-handler-registry.js",
       "sourcePath": "src/uri-handler-registry.js",
@@ -43439,5 +43439,5 @@
     }
   ],
   "memberCount": 1391,
-  "generatedAt": "2026-10-02T04:43:42.891Z"
+  "generatedAt": "2026-10-02T12:32:53.054Z"
 }
