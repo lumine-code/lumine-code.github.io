@@ -77,6 +77,12 @@ Python tracebacks rendered by `jupyter-repl` link to existing local source files
 
 `jupyter-repl` renders interactive Matplotlib figures with `%matplotlib ipympl` and custom anywidget modules in isolated frames. Install `ipympl` or `anywidget` in the kernel environment first. Bokeh's `output_notebook()` and Panel's `pn.extension()` select their notebook renderers; their resource scripts and browser callbacks run inside isolated output frames. Python callbacks require the original kernel to remain connected.
 
+## AI access through MCP
+
+With `lumine-mcp` active and a client connected to this window, the Jupyter packages expose notebook, kernel, execution, variable and watch tools. Reads use the live notebook, including unsaved cell source. Edits preserve notebook undo and require the revision returned by a read. Execution names an existing kernel and returns a receipt that can be queried without running the code again; repeated requests with the same operation ID do not duplicate accepted work.
+
+The host can wait for notebook changes or execution progress while other calls remain available. Cancelling an observation releases its listener without stopping Python; interrupt and restart are separate actions. Variable and watch reads expose existing cached data and identify stale or unavailable values. See the [Jupyter MCP workflow](https://github.com/lumine-code/lumine-mcp/blob/master/docs/jupyter.md) for tool names and request fields.
+
 ## Python analysis tools
 
 `ide-pyright`, `ide-ruff`, `linter-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
