@@ -92,7 +92,15 @@ Use `<>…</>` to group siblings without wrapping them in an element. A fragment
 
 A component still has to render a single root element, so a fragment belongs inside one rather than at the top of `render`.
 
-The same pragmas and the same defaults apply to `.tsx`, which the editor compiles with TypeScript. And a `.js` file that opens with `"use babel"` or `/** @babel */` is still compiled the old way, so existing packages keep working unchanged.
+The same pragmas and the same defaults apply to `.tsx`, which the editor compiles through Babel too. A `.js` file that opens with `"use babel"` or `/** @babel */` also uses Babel.
+
+## Writing TypeScript
+
+Lumine automatically transpiles `.ts` and `.tsx` files through Babel when they load, with no build step or compiler dependency in your package. Babel removes type syntax and converts imports and exports to CommonJS; `.tsx` also uses the JSX factories described above.
+
+Babel processes each file independently and does not check types or read your `tsconfig.json`. For type checking, add `typescript` to your package's `devDependencies`, configure a `tsconfig.json`, and run `npx tsc --noEmit` during development or in CI.
+
+If your package needs TypeScript compiler options or behavior beyond the editor's transpilation, use your own build step and point `package.json`'s `main` at the generated JavaScript.
 
 ## Putting something in a bar
 
