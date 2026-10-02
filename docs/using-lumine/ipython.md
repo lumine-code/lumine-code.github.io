@@ -69,6 +69,14 @@ For a leading cell magic, the notebook keeps the header visible and parses the b
 
 Syntax and kernel choice are separate. A cell with `%%bash` can be highlighted as shell while being submitted to the notebook's Python kernel, which handles the magic. Selecting HTML or Python syntax does not start a different kernel or convert a code cell into Markdown or raw.
 
+## Inspecting results and data
+
+Python tracebacks rendered by `jupyter-repl` link to existing local source files and to the source captured for executed cells. Library frames can be folded. Notebook links follow stable cell IDs through reordering; changing or deleting the executed source disables its link until it is run again. Syntax errors select the reported source range when the kernel supplies one.
+
+`jupyter-explorer` reads dataframes and arrays in pages from the kernel, with sorting, filtering, search and column profiles over the full selected data. Column histograms and frequent values can apply filters together. Charts use an explicitly labelled bounded sample. The package can also open Parquet, Feather and Arrow files when the kernel environment has the required readers.
+
+`jupyter-repl` renders interactive Matplotlib figures with `%matplotlib ipympl` and custom anywidget modules in isolated frames. Install `ipympl` or `anywidget` in the kernel environment first. Bokeh's `output_notebook()` and Panel's `pn.extension()` select their notebook renderers; their resource scripts and browser callbacks run inside isolated output frames. Python callbacks require the original kernel to remain connected.
+
 ## Python analysis tools
 
 `ide-pyright`, `ide-ruff`, `linter-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
