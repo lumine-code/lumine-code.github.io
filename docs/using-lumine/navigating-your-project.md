@@ -34,6 +34,8 @@ The `recent-list` package switches between recently opened paths, and `project-l
 
 ## Switching projects in place
 
-Both lists and the tree view offer **Open in This Window**. Lumine saves the outgoing project's editors, including unsaved changes, restores the incoming project's editors, and leaves dock items running. Projects that require a different dev or safe mode still open a new window; avoid opening one project in several windows if you depend on its restored editor session, because the last window to save wins.
+Both lists and the tree view offer **Open in This Window**. Lumine saves the outgoing project's editors, including unsaved changes, restores the incoming project's editors, and leaves dock items running. Each window keeps its own session for each project; a window with no history can adopt the most recently saved session only while no other window has that project open. Project switches run one at a time, and unavailable folders leave the outgoing session intact. If restoring a saved session fails, Lumine restores the outgoing editors and project settings.
+
+In `project-list`, every configured folder must be available for **Open in This Window**. Directory links and filesystem roots are supported. Projects that request dev or safe mode switch in place when that mode is already active; otherwise they open a new window and leave the source window open.
 
 Packages reach the same behavior through `lumine.project.setState(projectPaths)`, documented in the [Lumine API reference](https://lumine-code.github.io/api/).
