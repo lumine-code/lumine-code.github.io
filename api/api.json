@@ -1911,7 +1911,7 @@
             }
           ],
           "returnType": "Promise<Array>|null",
-          "returnDescription": "Resolves to the listener results after all matched handlers finish, or `null` when no handler matches. Handler errors reject the promise.",
+          "returnDescription": "Resolves to the listener results after all matched handlers finish, or `null` when no handler matches. Rejected handler promises reject the returned promise; synchronous handler errors are thrown.",
           "propertyType": null,
           "line": 361
         },
@@ -44764,5 +44764,5 @@
     }
   ],
   "memberCount": 1430,
-  "generatedAt": "2026-10-02T12:51:47.438Z"
+  "generatedAt": "2026-10-02T13:22:49.359Z"
 }
