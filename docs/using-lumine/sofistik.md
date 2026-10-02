@@ -34,7 +34,9 @@ Use `EN` or `DE` for the keyword language and `professional` or `educational` fo
 
 The server provides contextual records, parameters and values in completion, ordered record keys, declaration previews, compact parameter positions and complete enum lists on hover, parameter signatures, static diagnostics, document and project symbols, definitions and references. Each supported feature can be enabled or disabled per grammar in the adapter settings.
 
-The language grammar supplies ordinary syntax colors. Semantic tokens add color only to enum values recognized in the current record, slot, release and language; comments, numbers, variables and unknown values keep their grammar colors. Disabling semantic tokens leaves ordinary highlighting visible. The adapter does not format or rename source files or run calculations.
+Parameter positions follow both named and positional values. In a WING record, `GRP NUMB 57 OFF SPRI` resolves to `NUMB /1`, `OPTI /2` and `ETYP /3`, just like `GRP NUMB 57 OPTI OFF ETYP SPRI`.
+
+The language grammar supplies ordinary syntax colors. Semantic tokens add color only to unquoted enum values recognized in the current record, slot, release and language; quoted strings, comments, numbers, variables and unknown values keep their grammar colors. Quoted enum values still offer completion and parameter hover. Disabling semantic tokens leaves ordinary highlighting visible. The adapter does not format or rename source files or run calculations.
 
 ## Existing calculation diagnostics
 
