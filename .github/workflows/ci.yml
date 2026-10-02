@@ -46,6 +46,8 @@ jobs:
           fetch-depth: 1
       - run: npm ci
         working-directory: lumine-code.github.io
+      - run: npm run test:api-docs
+        working-directory: lumine-code.github.io
       # Fails when the committed api/ no longer matches any registered source:
       # a changed doc comment, a new member, or a moved source line.
       - run: npm run docs:api:check -- --editor ../lumine

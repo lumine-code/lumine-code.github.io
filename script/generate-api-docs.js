@@ -170,16 +170,18 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
       : `<code class="api-${kind}">${escapeHtml(label)}</code>`;
 
   const linkFor = (target, label = target) => {
+    if (/^(?:https?:|mailto:)/.test(target))
+      return token("ref", label, escapeHtml(target));
     const normalized = target
       .replace(/^#/, `${currentClass || ""}#`)
       .replace(/^\./, `${currentClass || ""}.`);
+    if (classNames.has(normalized))
+      return token("type", label, classNames.get(normalized));
     const match = normalized.match(/^([^#.]+)(#|\.)(.+)$/);
     if (match && classNames.has(match[1])) {
       const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
       return token("ref", label, memberAnchors.has(id) ? `#${id}` : null);
     }
-    if (classNames.has(normalized))
-      return token("type", label, `#class-${slug(normalized)}`);
     return token("type", label, null);
   };
 
@@ -228,7 +230,7 @@ function renderType(type, classNames) {
     html += escapeHtml(type.slice(offset, match.index));
     const token = match[0];
     html += classNames.has(token)
-      ? `<a href="#class-${slug(token)}">${escapeHtml(token)}</a>`
+      ? `<a href="${classNames.get(token)}">${escapeHtml(token)}</a>`
       : escapeHtml(token);
     offset = match.index + token.length;
   }
@@ -381,15 +383,23 @@ function renderHtml(api) {
   if (!overviewClass)
     throw new Error("The generated API has no overview class.");
   const overviewId = `class-${slug(overviewClass.name)}`;
-  const classNames = new Set(api.classes.map(({ name }) => name));
+  const apiTypes = [...api.classes, ...api.objects];
+  const objectNames = new Set(api.objects.map(({ name }) => name));
+  const classNames = new Map([
+    ...apiTypes.map(({ name }) => [name, `#class-${slug(name)}`]),
+    ...api.functions.flatMap(({ name, accessPath }) => [
+      [name, `#function-${slug(name)}`],
+      [accessPath, `#function-${slug(name)}`],
+    ]),
+  ]);
   const memberAnchors = new Set(
-    api.classes.flatMap((item) =>
+    apiTypes.flatMap((item) =>
       item.members.map((member) => memberId(item.name, member)),
     ),
   );
   const byName = (left, right) =>
     left.name.localeCompare(right.name, "en", { sensitivity: "base" });
-  const sortedClasses = otherClasses.sort(byName);
+  const sortedClasses = [...otherClasses, ...api.objects].sort(byName);
   const sortedFunctions = [...api.functions].sort(byName);
   const apiIndex = [
     ...sortedClasses.map((item) => ({
@@ -410,7 +420,7 @@ function renderHtml(api) {
   // Every member of a class comes from the file named beside the class heading,
   // so each row carries only its line number; the full path stays in the link's
   // title. Functions are gathered from across the tree and keep theirs.
-  const classes = api.classes
+  const classes = apiTypes
     .map((item) => {
       const members = byCategory(item.members)
         .map(([category, entries]) => {
@@ -419,11 +429,12 @@ function renderHtml(api) {
               <h3><span>${escapeHtml(category)}</span><span class="api-group-count">${entries.length}</span></h3>
               <div class="api-group-entries">${entries
                 .map((member) => {
-                  // Properties form a compact index: name, type and source.
-                  // Their full descriptions stay in api.json and data-api-entry
-                  // for downstream consumers and search without making three
-                  // exceptional rows visually unlike the other properties.
-                  const hideDescription = member.kind === "property";
+                  // A synthesized instance description repeats the linked type.
+                  // Keep actual property contracts visible, including objects
+                  // whose semantics cannot be inferred from their type alone.
+                  const hideDescription =
+                    member.kind === "property" &&
+                    /^An? \{@link [^}]+\} instance$/.test(member.description);
                   const description =
                     member.description && !hideDescription
                       ? `<div class="api-description-body">${renderDoc(member.description, classNames, memberAnchors, item.name)}</div>`
@@ -477,8 +488,9 @@ function renderHtml(api) {
         .join("\n");
       return `
         <section class="api-class" id="class-${slug(item.name)}" data-api-entry="${escapeHtml(`${item.name} ${item.superClass ?? ""} ${item.description}`.toLowerCase())}">
-          <header class="api-class-header"><p class="eyebrow">${escapeHtml(item.visibility)} API</p>
+          <header class="api-class-header"><p class="eyebrow">${escapeHtml(item.visibility)} API${objectNames.has(item.name) ? " &middot; Object" : ""}</p>
           <h2>${escapeHtml(item.name)}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></h2>
+          ${item.accessPath ? `<p class="api-access-path"><code>${escapeHtml(item.accessPath)}</code></p>` : ""}
           ${item.superClass && classNames.has(item.superClass) ? `<p class="api-extends">Extends <a href="#class-${slug(item.superClass)}"><code>${escapeHtml(item.superClass)}</code></a></p>` : ""}
           ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}</header>
           ${members || '<p class="api-empty">No documented public members.</p>'}
@@ -487,7 +499,7 @@ function renderHtml(api) {
     .join("\n");
 
   const functions = api.functions.length
-    ? `<section class="api-class" id="functions" data-api-entry="functions standalone exports"><header class="api-class-header"><p class="eyebrow">Public API</p><h2>Functions</h2><div class="api-description-body api-class-description"><p>Standalone functions exported by Lumine.</p></div></header><section class="api-group"><h3><span>Exports</span><span class="api-group-count">${sortedFunctions.length}</span></h3><div class="api-group-entries api-function-entries">${sortedFunctions
+    ? `<section class="api-class" id="functions" data-api-entry="functions utilities exports"><header class="api-class-header"><p class="eyebrow">Public API</p><h2>Functions</h2><div class="api-description-body api-class-description"><p>Public functions with their callable access paths.</p></div></header><section class="api-group"><h3><span>Functions</span><span class="api-group-count">${sortedFunctions.length}</span></h3><div class="api-group-entries api-function-entries">${sortedFunctions
         .map((item) => {
           const entryId = `function-${slug(item.name)}`;
           const description = item.description
@@ -545,6 +557,7 @@ function renderHtml(api) {
       .api-class-header h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin: 0; font-size: clamp(1.7rem, 3vw, 2.15rem); line-height: 1.2; letter-spacing: -.018em; }
       .api-class-header .api-extends { margin: 7px 0 0; color: var(--muted); font-size: .82rem; }
       .api-class-header .api-extends code { color: var(--green); }
+      .api-class-header .api-access-path { margin: 7px 0 0; color: var(--green); font-size: .85rem; }
       .api-description-body { margin: 10px 0 0; max-width: 72ch; font-size: .96rem; }
       .api-description-body > :first-child { margin-top: 0; }
       .api-description-body > :last-child { margin-bottom: 0; }
@@ -696,7 +709,7 @@ function renderHtml(api) {
       <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></nav>
     </header>
     <main class="api-main">
-      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.memberCount} documented members</p></header>
+      <header class="api-header"><p class="eyebrow">Generated documentation</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.objects.length} objects &middot; ${api.memberCount} documented members</p></header>
       <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><details class="api-tree"><summary class="api-rail-heading">Browse API</summary><nav class="api-tree-scroll" aria-label="API index">${apiIndexList}</nav></details></aside><article class="api-content">${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
@@ -816,7 +829,7 @@ const rendered = {
   "api.json": `${JSON.stringify(api, null, 2)}\n`,
   "index.html": renderHtml(api).replace(/[ \t]+$/gm, ""),
 };
-const summary = `${api.classes.length} classes and ${api.memberCount} documented members`;
+const summary = `${api.classes.length} classes, ${api.objects.length} objects and ${api.memberCount} documented members`;
 
 // The timestamp is the one thing that differs on every run, so comparing it
 // would make the check useless. Everything else — the version, the members,

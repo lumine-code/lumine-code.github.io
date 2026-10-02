@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "name": "Lumine",
   "version": "1.0.0",
   "classes": [
@@ -784,7 +784,7 @@
               "rest": false,
               "type": "Object",
               "description": "Electron `printToPDF` options. `printBackground` defaults to `true`.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise",
@@ -1091,7 +1091,7 @@
               "rest": false,
               "type": "Object",
               "description": "Process options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.command",
@@ -2392,30 +2392,20 @@
               "defaultValue": null
             },
             {
-              "name": "options.scopeDescriptor",
-              "type": null,
-              "description": "The {@link ScopeDescriptor} with which the value is associated",
-              "optional": false,
+              "name": "options.scope",
+              "type": "ScopeDescriptor|Array",
+              "description": "The scope with which the values are associated.",
+              "optional": true,
               "defaultValue": null,
-              "source": "options.scopeDescriptor",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "options.value",
-              "type": null,
-              "description": "The value for the key-path",
-              "optional": false,
-              "defaultValue": null,
-              "source": "options.value",
+              "source": "options.scope",
               "rest": false,
               "nested": true
             }
           ],
           "returnType": "Array",
-          "returnDescription": "of `Objects` with the following keys:",
+          "returnDescription": "of objects containing a `scopeSelector` string and its corresponding `value`, ordered from the most specific matching selector to the global `*` value.",
           "propertyType": null,
-          "line": 729
+          "line": 728
         },
         {
           "name": "set",
@@ -2489,7 +2479,7 @@
           "returnType": "Boolean",
           "returnDescription": "`true` if the value was set; `false` if it could not be coerced to the type specified by the setting's schema or the schema declares `allowLocal: false` for a requested local write.",
           "propertyType": null,
-          "line": 808
+          "line": 807
         },
         {
           "name": "unset",
@@ -2554,7 +2544,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 875
+          "line": 874
         },
         {
           "name": "getSources",
@@ -2570,7 +2560,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 940
+          "line": 939
         },
         {
           "name": "inspect",
@@ -2599,7 +2589,7 @@
               "rest": false,
               "type": "Object",
               "description": "Storage target options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.local",
@@ -2635,7 +2625,7 @@
           "returnType": "Object",
           "returnDescription": "Stored and resolved values: `overrideValue`, `hasOverride`, `inheritedValue`, `editableValue`, `editableInheritedValue`, `localValue`, `hasLocalOverride`, `effectiveValue`, `baseValue`, `valuesBySource`, `projectValue`, `variableByMatch`, `keyPath`, `scopeSelector`, and `schema`. `allowLocal` is false when the key or a parent schema forbids local writes.",
           "propertyType": null,
-          "line": 1157
+          "line": 1156
         },
         {
           "name": "getSchema",
@@ -2661,7 +2651,7 @@
           "returnType": "Object|null",
           "returnDescription": "A schema such as `{type: 'integer', default: 23, minimum: 1}`, or `null` when the key path has no accessible schema.",
           "propertyType": null,
-          "line": 1254
+          "line": 1253
         },
         {
           "name": "transact",
@@ -2687,7 +2677,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1292
+          "line": 1291
         }
       ]
     },
@@ -2869,11 +2859,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "Optional popup placement options, including `anchor`.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Object",
@@ -3043,7 +3033,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.autoscroll",
@@ -3104,7 +3094,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.autoscroll",
@@ -3133,8 +3123,8 @@
           "description": "",
           "summary": "",
           "parameters": [],
-          "returnType": "Array",
-          "returnDescription": "current buffer position as an Array.",
+          "returnType": "Point",
+          "returnDescription": "The current buffer position.",
           "propertyType": null,
           "line": 120
         },
@@ -3213,8 +3203,8 @@
           "description": "",
           "summary": "",
           "parameters": [],
-          "returnType": "Number",
-          "returnDescription": "cursor's current buffer row of text excluding its line ending.",
+          "returnType": "String",
+          "returnDescription": "The text of the cursor's current buffer row, excluding its line ending.",
           "propertyType": null,
           "line": 170
         },
@@ -3394,7 +3384,7 @@
           "summary": "",
           "parameters": [],
           "returnType": "Boolean",
-          "returnDescription": "true if this cursor has no non-whitespace characters before its current position.",
+          "returnDescription": "true if this cursor has non-whitespace characters before its current position.",
           "propertyType": null,
           "line": 315
         },
@@ -3432,7 +3422,7 @@
               "rest": false,
               "type": "Number",
               "description": "number of rows to move (default: 1)",
-              "defaultValue": null
+              "defaultValue": "1"
             },
             {
               "name": "options",
@@ -3441,7 +3431,7 @@
               "rest": false,
               "type": "Object",
               "description": "Movement options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.moveToEndOfSelection",
@@ -3477,7 +3467,7 @@
               "rest": false,
               "type": "Number",
               "description": "number of rows to move (default: 1)",
-              "defaultValue": null
+              "defaultValue": "1"
             },
             {
               "name": "options",
@@ -3486,7 +3476,7 @@
               "rest": false,
               "type": "Object",
               "description": "Movement options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.moveToEndOfSelection",
@@ -3522,7 +3512,7 @@
               "rest": false,
               "type": "Number",
               "description": "number of columns to move (default: 1)",
-              "defaultValue": null
+              "defaultValue": "1"
             },
             {
               "name": "options",
@@ -3531,7 +3521,7 @@
               "rest": false,
               "type": "Object",
               "description": "Movement options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.moveToEndOfSelection",
@@ -3567,7 +3557,7 @@
               "rest": false,
               "type": "Number",
               "description": "number of columns to move (default: 1)",
-              "defaultValue": null
+              "defaultValue": "1"
             },
             {
               "name": "options",
@@ -3576,7 +3566,7 @@
               "rest": false,
               "type": "Object",
               "description": "Movement options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.moveToEndOfSelection",
@@ -3884,7 +3874,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.wordRegex",
@@ -3920,7 +3910,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.wordRegex",
@@ -3956,7 +3946,7 @@
               "rest": false,
               "type": null,
               "description": "An `Object` with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.wordRegex",
@@ -3989,7 +3979,7 @@
               "nested": true
             }
           ],
-          "returnType": "Range",
+          "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
           "line": 769
@@ -4012,7 +4002,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.wordRegex",
@@ -4035,7 +4025,7 @@
               "nested": true
             }
           ],
-          "returnType": "Range",
+          "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
           "line": 803
@@ -4058,7 +4048,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.wordRegex",
@@ -4071,7 +4061,7 @@
               "nested": true
             }
           ],
-          "returnType": "Range",
+          "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
           "line": 834
@@ -4094,7 +4084,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.wordRegex",
@@ -4286,7 +4276,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.backwards",
@@ -4331,7 +4321,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 100
+          "line": 103
         },
         {
           "name": "onDidChangeProperties",
@@ -4387,7 +4377,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 132
+          "line": 135
         },
         {
           "name": "onDidDestroy",
@@ -4413,7 +4403,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 145
+          "line": 148
         },
         {
           "name": "getId",
@@ -4429,7 +4419,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 159
+          "line": 162
         },
         {
           "name": "getMarker",
@@ -4445,7 +4435,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "marker associated with this {@link Decoration}",
           "propertyType": null,
-          "line": 169
+          "line": 172
         },
         {
           "name": "isType",
@@ -4463,15 +4453,15 @@
               "source": "type",
               "optional": false,
               "rest": false,
-              "type": "String",
-              "description": "type like `'line-number'`, `'line'`, etc. `type` can also be an `Array` of `Strings`, where it will return true if the decoration's type matches any in the array.",
+              "type": "String|Array<String>",
+              "description": "type like `'line-number'`, `'line'`, etc. When given an array, returns true if the decoration matches any listed type.",
               "defaultValue": null
             }
           ],
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 182
+          "line": 185
         },
         {
           "name": "getProperties",
@@ -4487,7 +4477,7 @@
           "returnType": "Object",
           "returnDescription": "The decoration's properties.",
           "propertyType": null,
-          "line": 196
+          "line": 199
         },
         {
           "name": "setProperties",
@@ -4513,7 +4503,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 214
+          "line": 217
         }
       ]
     },
@@ -4682,7 +4672,7 @@
       "source": "src/display-marker.js",
       "sourcePath": "src/display-marker.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 48,
+      "line": 49,
       "members": [
         {
           "name": "destroy",
@@ -4698,7 +4688,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 69
+          "line": 70
         },
         {
           "name": "copy",
@@ -4724,7 +4714,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 98
+          "line": 99
         },
         {
           "name": "onDidChange",
@@ -4910,7 +4900,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 131
+          "line": 132
         },
         {
           "name": "onDidDestroy",
@@ -4936,7 +4926,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 164
+          "line": 167
         },
         {
           "name": "isValid",
@@ -4952,7 +4942,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker is valid. Markers can be invalidated when a region surrounding them in the buffer is changed.",
           "propertyType": null,
-          "line": 185
+          "line": 188
         },
         {
           "name": "isDestroyed",
@@ -4968,7 +4958,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker has been destroyed. A marker can be invalid without being destroyed, in which case undoing the invalidating operation would restore the marker. Once a marker is destroyed by calling {@link DisplayMarker#destroy}, no undo/redo operation can ever bring it back.",
           "propertyType": null,
-          "line": 195
+          "line": 198
         },
         {
           "name": "isReversed",
@@ -4984,7 +4974,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the head precedes the tail.",
           "propertyType": null,
-          "line": 205
+          "line": 208
         },
         {
           "name": "isExclusive",
@@ -5000,7 +4990,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether changes that occur exactly at the marker's head or tail cause it to move.",
           "propertyType": null,
-          "line": 215
+          "line": 218
         },
         {
           "name": "getInvalidationStrategy",
@@ -5016,7 +5006,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 229
+          "line": 232
         },
         {
           "name": "getProperties",
@@ -5032,7 +5022,7 @@
           "returnType": "Object",
           "returnDescription": "containing any custom properties associated with the marker.",
           "propertyType": null,
-          "line": 239
+          "line": 242
         },
         {
           "name": "setProperties",
@@ -5058,7 +5048,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 252
+          "line": 255
         },
         {
           "name": "matchesProperties",
@@ -5084,7 +5074,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether this marker matches the given parameters. The parameters are the same as {@link DisplayMarkerLayer#findMarkers}.",
           "propertyType": null,
-          "line": 262
+          "line": 265
         },
         {
           "name": "compare",
@@ -5110,7 +5100,7 @@
           "returnType": "Number",
           "returnDescription": "The ordering of this marker relative to `otherMarker`.",
           "propertyType": null,
-          "line": 280
+          "line": 282
         },
         {
           "name": "isEqual",
@@ -5136,7 +5126,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this marker is equivalent to another marker, meaning they have the same range and options.",
           "propertyType": null,
-          "line": 291
+          "line": 293
         },
         {
           "name": "getBufferRange",
@@ -5152,7 +5142,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 310
+          "line": 312
         },
         {
           "name": "getScreenRange",
@@ -5168,7 +5158,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 326
+          "line": 328
         },
         {
           "name": "setBufferRange",
@@ -5213,7 +5203,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 344
+          "line": 346
         },
         {
           "name": "setScreenRange",
@@ -5268,7 +5258,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 359
+          "line": 361
         },
         {
           "name": "getHeadBufferPosition",
@@ -5284,7 +5274,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 371
+          "line": 373
         },
         {
           "name": "setHeadBufferPosition",
@@ -5310,7 +5300,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 385
+          "line": 387
         },
         {
           "name": "getHeadScreenPosition",
@@ -5346,7 +5336,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's head screen position.",
           "propertyType": null,
-          "line": 399
+          "line": 401
         },
         {
           "name": "setHeadScreenPosition",
@@ -5391,7 +5381,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 417
+          "line": 419
         },
         {
           "name": "getTailBufferPosition",
@@ -5407,7 +5397,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 429
+          "line": 431
         },
         {
           "name": "setTailBufferPosition",
@@ -5433,7 +5423,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 443
+          "line": 445
         },
         {
           "name": "getTailScreenPosition",
@@ -5469,7 +5459,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's tail screen position.",
           "propertyType": null,
-          "line": 457
+          "line": 459
         },
         {
           "name": "setTailScreenPosition",
@@ -5514,7 +5504,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 475
+          "line": 477
         },
         {
           "name": "getStartBufferPosition",
@@ -5530,7 +5520,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 490
+          "line": 492
         },
         {
           "name": "getStartScreenPosition",
@@ -5566,7 +5556,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's start screen position.",
           "propertyType": null,
-          "line": 507
+          "line": 509
         },
         {
           "name": "getEndBufferPosition",
@@ -5582,7 +5572,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 520
+          "line": 522
         },
         {
           "name": "getEndScreenPosition",
@@ -5618,7 +5608,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's end screen position.",
           "propertyType": null,
-          "line": 537
+          "line": 539
         },
         {
           "name": "hasTail",
@@ -5634,7 +5624,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker has a tail.",
           "propertyType": null,
-          "line": 547
+          "line": 549
         },
         {
           "name": "plantTail",
@@ -5650,7 +5640,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 559
+          "line": 561
         },
         {
           "name": "clearTail",
@@ -5666,7 +5656,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 571
+          "line": 573
         }
       ]
     },
@@ -5763,8 +5753,8 @@
           "signature": "::onDidUpdate(callback)",
           "category": "Event Subscription",
           "visibility": "Public",
-          "description": "Subscribe to be notified asynchronously whenever markers are\ncreated, updated, or destroyed on this layer. *Prefer this method for\noptimal performance when interacting with layers that could contain large\nnumbers of markers.*\n\n\nSubscribers are notified once, asynchronously when any number of changes\noccur in a given tick of the event loop. You should re-query the layer\nto determine the state of markers in which you're interested in. It may\nbe counter-intuitive, but this is much more efficient than subscribing to\nevents on individual markers, which are expensive to deliver.",
-          "summary": "Subscribe to be notified asynchronously whenever markers are created, updated, or destroyed on this layer. *Prefer this method for optimal performance when interacting with layers that could contain large numbers of markers.*",
+          "description": "Subscribe to be notified whenever markers are\ncreated, updated, or destroyed on this layer. *Prefer this method for\noptimal performance when interacting with layers that could contain large\nnumbers of markers.*\n\n\nChanges made within a {@link TextBuffer#transact} block are batched: subscribers\nare notified once, at the end of the transaction. Changes made outside a\ntransaction notify subscribers synchronously per change. You should re-query the layer\nto determine the state of markers in which you're interested in. It may\nbe counter-intuitive, but this is much more efficient than subscribing to\nevents on individual markers, which are expensive to deliver.",
+          "summary": "Subscribe to be notified whenever markers are created, updated, or destroyed on this layer. *Prefer this method for optimal performance when interacting with layers that could contain large numbers of markers.*",
           "parameters": [
             {
               "name": "callback",
@@ -5779,7 +5769,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 126
+          "line": 127
         },
         {
           "name": "onDidCreateMarker",
@@ -5805,7 +5795,7 @@
           "returnType": "Disposable",
           "returnDescription": "",
           "propertyType": null,
-          "line": 145
+          "line": 146
         },
         {
           "name": "markScreenRange",
@@ -5880,7 +5870,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 176
+          "line": 177
         },
         {
           "name": "markScreenPosition",
@@ -5945,7 +5935,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 196
+          "line": 197
         },
         {
           "name": "markBufferRange",
@@ -6010,7 +6000,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 215
+          "line": 216
         },
         {
           "name": "markBufferPosition",
@@ -6065,7 +6055,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 233
+          "line": 234
         },
         {
           "name": "getMarker",
@@ -6091,7 +6081,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 251
+          "line": 252
         },
         {
           "name": "getMarkers",
@@ -6107,7 +6097,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}.",
           "propertyType": null,
-          "line": 273
+          "line": 274
         },
         {
           "name": "getMarkerCount",
@@ -6123,7 +6113,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 285
+          "line": 286
         },
         {
           "name": "findMarkers",
@@ -6349,7 +6339,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}",
           "propertyType": null,
-          "line": 323
+          "line": 324
         }
       ]
     },
@@ -7727,11 +7717,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "An optional `Object` with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise<GitRepository|null>",
@@ -8076,7 +8066,7 @@
               "rest": false,
               "type": "Object",
               "description": "Read options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.signal",
@@ -8121,7 +8111,7 @@
               "rest": false,
               "type": "Object",
               "description": "Read options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.signal",
@@ -8549,7 +8539,7 @@
               "rest": false,
               "type": "Object",
               "description": "Diff options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.from",
@@ -8675,7 +8665,7 @@
               "rest": false,
               "type": "Object",
               "description": "History options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.revision",
@@ -8814,7 +8804,7 @@
               "rest": false,
               "type": "Object",
               "description": "Read options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.encoding",
@@ -8869,7 +8859,7 @@
               "rest": false,
               "type": "Object",
               "description": "Read options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.encoding",
@@ -8924,7 +8914,7 @@
               "rest": false,
               "type": "Object",
               "description": "Read options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.encoding",
@@ -8995,7 +8985,7 @@
               "rest": false,
               "type": "Object",
               "description": "Branch filtering options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.showLocal",
@@ -9077,7 +9067,7 @@
               "rest": false,
               "type": "Object",
               "description": "Read options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.signal",
@@ -9122,7 +9112,7 @@
               "rest": false,
               "type": "Object",
               "description": "Blame options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.revision",
@@ -9196,7 +9186,7 @@
               "rest": false,
               "type": "Object",
               "description": "Diff options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.signal",
@@ -10355,7 +10345,7 @@
               "rest": false,
               "type": "Object",
               "description": "Rendering options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.classes",
@@ -11509,7 +11499,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.query",
@@ -12833,6 +12823,730 @@
       ]
     },
     {
+      "name": "Marker",
+      "superClass": null,
+      "visibility": "Extended",
+      "description": "Represents a buffer annotation that remains logically stationary\neven as the buffer changes. This is used to represent cursors, folds, snippet\ntargets, misspelled words, and anything else that needs to track a logical\nlocation in the buffer over time.\n\nCreate markers with {@link TextBuffer#markRange}, {@link TextBuffer#markPosition},\nor the corresponding {@link MarkerLayer} methods rather than constructing them directly.\nFor screen coordinates and editor decorations, use {@link DisplayMarker} instead.\n\n### Head and Tail\nMarkers always have a *head* and sometimes have a *tail*. If you think of a\nmarker as an editor selection, the tail is the part that's stationary and the\nhead is the part that moves when the mouse is moved. A marker without a tail\nalways reports an empty range at the head position. A marker with a head position\ngreater than the tail is in a \"normal\" orientation. If the head precedes the\ntail the marker is in a \"reversed\" orientation.\n\n### Validity\nMarkers are considered *valid* when they are first created. Depending on the\ninvalidation strategy you choose, certain changes to the buffer can cause a\nmarker to become invalid, for example if the text surrounding the marker is\ndeleted. See {@link TextBuffer#markRange} for invalidation strategies.",
+      "summary": "Represents a buffer annotation that remains logically stationary even as the buffer changes. This is used to represent cursors, folds, snippet targets, misspelled words, and anything else that needs to track a logical location in the buffer over time.",
+      "source": "src/marker.js",
+      "sourcePath": "src/marker.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 40,
+      "members": [
+        {
+          "name": "onDidDestroy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidDestroy(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the given callback when the marker is destroyed.",
+          "summary": "Invoke the given callback when the marker is destroyed.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called when the marker is destroyed.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 111
+        },
+        {
+          "name": "onDidChange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChange(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the given callback when the state of the marker changes.",
+          "summary": "Invoke the given callback when the state of the marker changes.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "to be called when the marker changes.",
+              "defaultValue": null
+            },
+            {
+              "name": "callback.event",
+              "type": "Object",
+              "description": "with the following keys:",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.oldHeadPosition",
+              "type": "Point",
+              "description": "representing the former head position",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.oldHeadPosition",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.newHeadPosition",
+              "type": "Point",
+              "description": "representing the new head position",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.newHeadPosition",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.oldTailPosition",
+              "type": "Point",
+              "description": "representing the former tail position",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.oldTailPosition",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.newTailPosition",
+              "type": "Point",
+              "description": "representing the new tail position",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.newTailPosition",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.wasValid",
+              "type": "Boolean",
+              "description": "indicating whether the marker was valid before the change",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.wasValid",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.isValid",
+              "type": "Boolean",
+              "description": "indicating whether the marker is now valid",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.isValid",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.hadTail",
+              "type": "Boolean",
+              "description": "indicating whether the marker had a tail before the change",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.hadTail",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.hasTail",
+              "type": "Boolean",
+              "description": "indicating whether the marker now has a tail",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.hasTail",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.oldProperties",
+              "type": "Object",
+              "description": "containing the marker's custom properties before the change.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.oldProperties",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.newProperties",
+              "type": "Object",
+              "description": "containing the marker's custom properties after the change.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.newProperties",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "callback.event.textChanged",
+              "type": "Boolean",
+              "description": "indicating whether this change was caused by a textual change to the buffer or whether the marker was manipulated directly via its public API.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "callback.event.textChanged",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
+          "propertyType": null,
+          "line": 143
+        },
+        {
+          "name": "getRange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getRange()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Range",
+          "returnDescription": "current {@link Range} of the marker. The range is immutable.",
+          "propertyType": null,
+          "line": 166
+        },
+        {
+          "name": "setRange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setRange(range, params)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Sets the range of the marker.",
+          "summary": "Sets the range of the marker.",
+          "parameters": [
+            {
+              "name": "range",
+              "source": "range",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A {@link Range} or range-compatible `Array`. The range will be clipped before it is assigned.",
+              "defaultValue": null
+            },
+            {
+              "name": "params",
+              "source": "params",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "An `Object` with the following keys:",
+              "defaultValue": null
+            },
+            {
+              "name": "params.reversed",
+              "type": "Boolean",
+              "description": "indicating the marker will to be in a reversed orientation.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "params.reversed",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "params.exclusive",
+              "type": "Boolean",
+              "description": "indicating that changes occurring at either end of the marker will be considered *outside* the marker rather than inside. This defaults to `false` unless the marker's invalidation strategy is `inside` or the marker has no tail, in which case it defaults to `true`.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "params.exclusive",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 181
+        },
+        {
+          "name": "getHeadPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getHeadPosition()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Point",
+          "returnDescription": "representing the marker's current head position.",
+          "propertyType": null,
+          "line": 199
+        },
+        {
+          "name": "setHeadPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setHeadPosition(position)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Sets the head position of the marker.",
+          "summary": "Sets the head position of the marker.",
+          "parameters": [
+            {
+              "name": "position",
+              "source": "position",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A {@link Point} or point-compatible `Array`. The position will be clipped before it is assigned.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 215
+        },
+        {
+          "name": "getTailPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getTailPosition()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Point",
+          "returnDescription": "representing the marker's current tail position. If the marker has no tail, the head position will be returned instead.",
+          "propertyType": null,
+          "line": 248
+        },
+        {
+          "name": "setTailPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setTailPosition(position)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Sets the tail position of the marker. If the marker doesn't have a\ntail, it will after calling this method.",
+          "summary": "Sets the tail position of the marker. If the marker doesn't have a tail, it will after calling this method.",
+          "parameters": [
+            {
+              "name": "position",
+              "source": "position",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A {@link Point} or point-compatible `Array`. The position will be clipped before it is assigned.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 265
+        },
+        {
+          "name": "getStartPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getStartPosition()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Point",
+          "returnDescription": "representing the start position of the marker, which could be the head or tail position, depending on its orientation.",
+          "propertyType": null,
+          "line": 295
+        },
+        {
+          "name": "getEndPosition",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getEndPosition()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Point",
+          "returnDescription": "representing the end position of the marker, which could be the head or tail position, depending on its orientation.",
+          "propertyType": null,
+          "line": 305
+        },
+        {
+          "name": "clearTail",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::clearTail()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Removes the marker's tail. After calling the marker's head position\nwill be reported as its current tail position until the tail is planted\nagain.",
+          "summary": "Removes the marker's tail. After calling the marker's head position will be reported as its current tail position until the tail is planted again.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 317
+        },
+        {
+          "name": "plantTail",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::plantTail()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Plants the marker's tail at the current head position. After calling\nthe marker's tail position will be its head position at the time of the\ncall, regardless of where the marker's head is moved.",
+          "summary": "Plants the marker's tail at the current head position. After calling the marker's tail position will be its head position at the time of the call, regardless of where the marker's head is moved.",
+          "parameters": [],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 334
+        },
+        {
+          "name": "isReversed",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isReversed()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether the head precedes the tail.",
+          "propertyType": null,
+          "line": 350
+        },
+        {
+          "name": "hasTail",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hasTail()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether the marker has a tail.",
+          "propertyType": null,
+          "line": 360
+        },
+        {
+          "name": "isValid",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isValid()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Is the marker valid?",
+          "summary": "Is the marker valid?",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 372
+        },
+        {
+          "name": "isDestroyed",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isDestroyed()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Is the marker destroyed?",
+          "summary": "Is the marker destroyed?",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 384
+        },
+        {
+          "name": "isExclusive",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isExclusive()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether changes that occur exactly at the marker's head or tail cause it to move.",
+          "propertyType": null,
+          "line": 394
+        },
+        {
+          "name": "isEqual",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isEqual(other)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [
+            {
+              "name": "other",
+              "source": "other",
+              "optional": false,
+              "rest": false,
+              "type": "Marker",
+              "description": "other marker",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether this marker is equivalent to another marker, meaning they have the same range and options.",
+          "propertyType": null,
+          "line": 409
+        },
+        {
+          "name": "getInvalidationStrategy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getInvalidationStrategy()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Get the invalidation strategy for this marker.\n\nValid values include: `never`, `surround`, `overlap`, `inside`, and `touch`.",
+          "summary": "Get the invalidation strategy for this marker.",
+          "parameters": [],
+          "returnType": "String",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 430
+        },
+        {
+          "name": "getProperties",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getProperties()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "Object",
+          "returnDescription": "containing any custom properties associated with the marker.",
+          "propertyType": null,
+          "line": 440
+        },
+        {
+          "name": "setProperties",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setProperties(properties)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Merges an `Object` containing new properties into the marker's\nexisting properties.",
+          "summary": "Merges an `Object` containing new properties into the marker's existing properties.",
+          "parameters": [
+            {
+              "name": "properties",
+              "source": "properties",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 453
+        },
+        {
+          "name": "copy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::copy(options = {})",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Creates and returns a new `Marker` with the same properties as this\nmarker.\n\n* `params` `Object`",
+          "summary": "Creates and returns a new `Marker` with the same properties as this marker.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 468
+        },
+        {
+          "name": "destroy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::destroy(suppressMarkerLayerUpdateEvents)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Destroys the marker, causing it to emit the 'destroyed' event.",
+          "summary": "Destroys the marker, causing it to emit the 'destroyed' event.",
+          "parameters": [
+            {
+              "name": "suppressMarkerLayerUpdateEvents",
+              "source": "suppressMarkerLayerUpdateEvents",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 484
+        },
+        {
+          "name": "compare",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::compare(other)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Compares this marker to another based on their ranges.",
+          "summary": "Compares this marker to another based on their ranges.",
+          "parameters": [
+            {
+              "name": "other",
+              "source": "other",
+              "optional": false,
+              "rest": false,
+              "type": "Marker",
+              "description": "",
+              "defaultValue": null
+            }
+          ],
+          "returnType": null,
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 506
+        },
+        {
+          "name": "containsPoint",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::containsPoint(point)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [
+            {
+              "name": "point",
+              "source": "point",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A {@link Point} or point-compatible `Array`",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether the marker's range contains the given point.",
+          "propertyType": null,
+          "line": 517
+        },
+        {
+          "name": "containsRange",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::containsRange(range)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [
+            {
+              "name": "range",
+              "source": "range",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A {@link Range} or range-compatible `Array`",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether the marker's range contains the given range.",
+          "propertyType": null,
+          "line": 528
+        },
+        {
+          "name": "intersectsRow",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::intersectsRow(row)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "",
+          "summary": "",
+          "parameters": [
+            {
+              "name": "row",
+              "source": "row",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A row `Number`",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "indicating whether the marker's range intersects the given row.",
+          "propertyType": null,
+          "line": 539
+        }
+      ]
+    },
+    {
       "name": "MarkerLayer",
       "superClass": null,
       "visibility": "Experimental",
@@ -13030,11 +13744,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "A hash of key-value pairs to associate with the marker. There are also reserved property names that have marker-specific meaning.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.reversed",
@@ -13099,7 +13813,7 @@
               "rest": false,
               "type": null,
               "description": "An `Object` with the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.invalidate",
@@ -13208,6 +13922,150 @@
       ]
     },
     {
+      "name": "Matcher",
+      "superClass": null,
+      "visibility": "Essential",
+      "description": "A reusable candidate set returned by {@link fuzzyMatcher.setCandidates}.\nQuery it with {@link #match}, or replace its candidates with\n{@link #setCandidates}. The `ignoreDiacritics` flag is fixed when the matcher\nis created.",
+      "summary": "A reusable candidate set returned by {@link fuzzyMatcher.setCandidates}. Query it with {@link #match}, or replace its candidates with {@link #setCandidates}. The `ignoreDiacritics` flag is fixed when the matcher is created.",
+      "source": "src/fuzzy-matcher.js",
+      "sourcePath": "src/fuzzy-matcher.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 68,
+      "members": [
+        {
+          "name": "match",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::match(query, options = {})",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Matches the current candidates to a string query.\n\nEach returned object contains the candidate `id`, its original `value`, and\na `score` from 0 to 1. When `recordMatchIndexes` is enabled, it also contains\nthe character indexes used for highlighting.",
+          "summary": "Matches the current candidates to a string query.",
+          "parameters": [
+            {
+              "name": "query",
+              "source": "query",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The query used to filter the candidates.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Search options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.algorithm",
+              "type": "\"fuzzaldrin\"|\"command-t\"",
+              "description": "The scoring algorithm. `fuzzaldrin` uses acronym, consecutive-run, basename-aware path scoring, and optional query characters. `command-t` is the path-tuned alternative.",
+              "optional": true,
+              "defaultValue": "\"fuzzaldrin\"",
+              "source": "options.algorithm",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.maxResults",
+              "type": "Number",
+              "description": "The maximum number of results. This does not affect filtering speed.",
+              "optional": true,
+              "defaultValue": "Infinity",
+              "source": "options.maxResults",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.recordMatchIndexes",
+              "type": "Boolean",
+              "description": "Include character indexes for highlighting.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.recordMatchIndexes",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.numThreads",
+              "type": "Number",
+              "description": "Worker threads to use. Defaults to most available cores, capped at 8.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.numThreads",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.maxGap",
+              "type": "Number",
+              "description": "With `command-t`, the maximum gap between consecutive letters.",
+              "optional": true,
+              "defaultValue": "Infinity",
+              "source": "options.maxGap",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.usePathScoring",
+              "type": "Boolean",
+              "description": "With `fuzzaldrin`, blend basename and full-path scores by directory depth.",
+              "optional": true,
+              "defaultValue": "true",
+              "source": "options.usePathScoring",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.useExtensionBonus",
+              "type": "Boolean",
+              "description": "With `fuzzaldrin`, prefer matching file extensions.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.useExtensionBonus",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Array<Object>",
+          "returnDescription": "Matching candidates ordered by relevance.",
+          "propertyType": null,
+          "line": 103
+        },
+        {
+          "name": "setCandidates",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::setCandidates(candidates)",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Replaces this matcher's candidates.",
+          "summary": "Replaces this matcher's candidates.",
+          "parameters": [
+            {
+              "name": "candidates",
+              "source": "candidates",
+              "optional": false,
+              "rest": false,
+              "type": "Array<String>",
+              "description": "The new candidates.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Matcher",
+          "returnDescription": "This matcher.",
+          "propertyType": null,
+          "line": 119
+        }
+      ]
+    },
+    {
       "name": "MenuManager",
       "superClass": null,
       "visibility": "Extended",
@@ -13258,11 +14116,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Object",
@@ -13284,11 +14142,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Object",
@@ -13310,11 +14168,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Object",
@@ -14397,8 +15255,8 @@
           "signature": "::onDidDeactivate(callback)",
           "category": "Event Subscription",
           "visibility": "Essential",
-          "description": "Invoke the given callback when all packages have been activated.",
-          "summary": "Invoke the given callback when all packages have been activated.",
+          "description": "Invoke the given callback when this package has been deactivated.",
+          "summary": "Invoke the given callback when this package has been deactivated.",
           "parameters": [
             {
               "name": "callback",
@@ -14735,8 +15593,8 @@
               "defaultValue": null
             }
           ],
-          "returnType": "String",
-          "returnDescription": "folder path or undefined if it could not be resolved.",
+          "returnType": "String|null",
+          "returnDescription": "folder path or `null` if it could not be resolved.",
           "propertyType": null,
           "line": 298
         },
@@ -15098,7 +15956,7 @@
           "summary": "",
           "parameters": [],
           "returnType": "Array",
-          "returnDescription": "of `Strings` of all the available package metadata.",
+          "returnDescription": "of manifest metadata objects for all available packages.",
           "propertyType": null,
           "line": 628
         },
@@ -15219,11 +16077,11 @@
             {
               "name": "options",
               "source": "{ serialize = true, preserveModuleCache = false } = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.serialize",
@@ -15351,11 +16209,11 @@
             {
               "name": "options",
               "source": "{ serialize = true } = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.serialize",
@@ -16245,7 +17103,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.pending",
@@ -16290,7 +17148,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.index",
@@ -16361,7 +17219,7 @@
               "rest": false,
               "type": "Number",
               "description": "index at which to add the items. If omitted, the item is # added after the current active item.",
-              "defaultValue": null
+              "defaultValue": "this.getActiveItemIndex() + 1"
             }
           ],
           "returnType": "Array",
@@ -17250,7 +18108,7 @@
               "rest": false,
               "type": "Object",
               "description": "Registration options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.priority",
@@ -17492,20 +18350,20 @@
             {
               "name": "row",
               "source": "row = 0",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Number",
               "description": "row",
-              "defaultValue": null
+              "defaultValue": "0"
             },
             {
               "name": "column",
               "source": "column = 0",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Number",
               "description": "column",
-              "defaultValue": null
+              "defaultValue": "0"
             }
           ],
           "returnType": null,
@@ -18073,7 +18931,7 @@
               "rest": false,
               "type": "Object",
               "description": "Resolution options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.refresh",
@@ -18130,11 +18988,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "An optional `Object` that may contain the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.mustExist",
@@ -18211,11 +19069,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "An optional `Object` that may contain the following keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.mustExist",
@@ -18266,11 +19124,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "An optional `Object` passed to {@link #addPath} for each path.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": null,
@@ -18412,11 +19270,11 @@
             {
               "name": "additionalIgnoredNames",
               "source": "additionalIgnoredNames = []",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "an `Array` of additional `String` globs.",
-              "defaultValue": null
+              "defaultValue": "[]"
             },
             {
               "name": "options",
@@ -18425,7 +19283,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.useCoreIgnoredNames",
@@ -18461,7 +19319,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.didFindPaths",
@@ -18723,7 +19581,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.rootPaths",
@@ -19037,7 +19895,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 296
+          "line": 297
         },
         {
           "name": "traverse",
@@ -19063,7 +19921,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 315
+          "line": 316
         },
         {
           "name": "compare",
@@ -19089,7 +19947,7 @@
           "returnType": "Number",
           "returnDescription": "`-1` when this range starts first, `0` when the ranges are equal, or `1` when the argument starts first.",
           "propertyType": null,
-          "line": 332
+          "line": 333
         },
         {
           "name": "isEqual",
@@ -19115,7 +19973,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this range has the same start and end points as the given {@link Range} or range-compatible `Array`.",
           "propertyType": null,
-          "line": 349
+          "line": 350
         },
         {
           "name": "coversSameRows",
@@ -19141,7 +19999,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this range starts and ends on the same row as the argument.",
           "propertyType": null,
-          "line": 364
+          "line": 365
         },
         {
           "name": "intersectsWith",
@@ -19176,7 +20034,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 378
+          "line": 380
         },
         {
           "name": "containsRange",
@@ -19211,7 +20069,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this range contains the given range.",
           "propertyType": null,
-          "line": 397
+          "line": 400
         },
         {
           "name": "containsPoint",
@@ -19246,7 +20104,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this range contains the given point.",
           "propertyType": null,
-          "line": 410
+          "line": 413
         },
         {
           "name": "intersectsRow",
@@ -19272,7 +20130,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this range intersects the given row `Number`.",
           "propertyType": null,
-          "line": 426
+          "line": 429
         },
         {
           "name": "intersectsRowRange",
@@ -19307,7 +20165,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this range intersects the row range indicated by the given startRow and endRow `Numbers`.",
           "propertyType": null,
-          "line": 438
+          "line": 441
         },
         {
           "name": "toString",
@@ -19323,7 +20181,7 @@
           "returnType": "String",
           "returnDescription": "string representation of the range.",
           "propertyType": null,
-          "line": 470
+          "line": 473
         }
       ]
     },
@@ -19465,7 +20323,7 @@
               "rest": false,
               "type": "Object",
               "description": "Activation options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.pin",
@@ -19510,7 +20368,7 @@
               "rest": false,
               "type": "Object",
               "description": "Activation options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.pin",
@@ -20018,7 +20876,7 @@
               "rest": false,
               "type": null,
               "description": "A `String` label for the hold, for debugging.",
-              "defaultValue": null
+              "defaultValue": "\"pin\""
             }
           ],
           "returnType": "Disposable",
@@ -20088,7 +20946,7 @@
               "rest": false,
               "type": "Object",
               "description": "Provider options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.fallback",
@@ -20207,7 +21065,7 @@
             {
               "name": "repository",
               "source": "repository",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "The {@link GitRepository} it runs on, or `null`.",
@@ -20427,7 +21285,7 @@
               "rest": false,
               "type": "Object",
               "description": "Registration options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.persist",
@@ -21020,7 +21878,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.reversed",
@@ -21677,10 +22535,10 @@
               "defaultValue": "{}"
             }
           ],
-          "returnType": "Range",
+          "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 552
+          "line": 550
         },
         {
           "name": "selectWord",
@@ -21703,10 +22561,10 @@
               "defaultValue": "{}"
             }
           ],
-          "returnType": "Range",
+          "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 567
+          "line": 563
         },
         {
           "name": "expandOverWord",
@@ -21732,7 +22590,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 585
+          "line": 581
         },
         {
           "name": "selectLine",
@@ -21767,7 +22625,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 602
+          "line": 598
         },
         {
           "name": "expandOverLine",
@@ -21793,7 +22651,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 632
+          "line": 628
         },
         {
           "name": "insertText",
@@ -21822,7 +22680,7 @@
               "rest": false,
               "type": "Object",
               "description": "with keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.select",
@@ -21908,7 +22766,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 686
+          "line": 682
         },
         {
           "name": "backspace",
@@ -21928,7 +22786,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -21944,7 +22802,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 774
+          "line": 770
         },
         {
           "name": "deleteToPreviousWordBoundary",
@@ -21964,7 +22822,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -21980,7 +22838,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 791
+          "line": 787
         },
         {
           "name": "deleteToNextWordBoundary",
@@ -22000,7 +22858,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22016,7 +22874,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 808
+          "line": 804
         },
         {
           "name": "deleteToBeginningOfWord",
@@ -22036,7 +22894,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22052,7 +22910,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 824
+          "line": 820
         },
         {
           "name": "deleteToBeginningOfLine",
@@ -22072,7 +22930,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22088,7 +22946,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 840
+          "line": 836
         },
         {
           "name": "delete",
@@ -22108,7 +22966,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22124,7 +22982,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 860
+          "line": 856
         },
         {
           "name": "deleteToEndOfLine",
@@ -22144,7 +23002,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22160,7 +23018,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 878
+          "line": 874
         },
         {
           "name": "deleteToEndOfWord",
@@ -22180,7 +23038,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22196,7 +23054,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 900
+          "line": 896
         },
         {
           "name": "deleteToBeginningOfSubword",
@@ -22216,7 +23074,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22232,7 +23090,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 916
+          "line": 912
         },
         {
           "name": "deleteToEndOfSubword",
@@ -22252,7 +23110,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22268,7 +23126,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 932
+          "line": 928
         },
         {
           "name": "deleteSelectedText",
@@ -22288,7 +23146,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22304,7 +23162,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 947
+          "line": 943
         },
         {
           "name": "deleteLine",
@@ -22324,7 +23182,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22340,7 +23198,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 965
+          "line": 961
         },
         {
           "name": "joinLines",
@@ -22360,7 +23218,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22376,7 +23234,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1000
+          "line": 996
         },
         {
           "name": "outdentSelectedRows",
@@ -22396,7 +23254,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22412,7 +23270,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1064
+          "line": 1060
         },
         {
           "name": "autoIndentSelectedRows",
@@ -22432,7 +23290,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22448,7 +23306,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1090
+          "line": 1086
         },
         {
           "name": "toggleLineComments",
@@ -22468,7 +23326,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22484,7 +23342,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1108
+          "line": 1104
         },
         {
           "name": "cutToEndOfLine",
@@ -22513,7 +23371,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22529,7 +23387,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1127
+          "line": 1123
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -22558,7 +23416,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22574,7 +23432,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1148
+          "line": 1144
         },
         {
           "name": "cut",
@@ -22590,29 +23448,29 @@
             {
               "name": "maintainClipboard",
               "source": "maintainClipboard = false",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Boolean",
               "description": "(default: false) See {@link #copy}",
-              "defaultValue": null
+              "defaultValue": "false"
             },
             {
               "name": "fullLine",
               "source": "fullLine = false",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Boolean",
               "description": "(default: false) See {@link #copy}",
-              "defaultValue": null
+              "defaultValue": "false"
             },
             {
               "name": "bypassReadOnly",
               "source": "bypassReadOnly = false",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Boolean",
               "description": "(default: false) Must be `true` to modify text within a read-only editor.",
-              "defaultValue": null
+              "defaultValue": "false"
             },
             {
               "name": "clipboard",
@@ -22627,7 +23485,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1169
+          "line": 1165
         },
         {
           "name": "copy",
@@ -22643,20 +23501,20 @@
             {
               "name": "maintainClipboard",
               "source": "maintainClipboard = false",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Boolean",
               "description": "if `true`, a specific metadata property is created to store each content copied to the clipboard. The clipboard `text` still contains the concatenation of the clipboard with the current selection. (default: false)",
-              "defaultValue": null
+              "defaultValue": "false"
             },
             {
               "name": "fullLine",
               "source": "fullLine = false",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Boolean",
               "description": "if `true`, the copied text will always be pasted at the beginning of the line containing the cursor, regardless of the cursor's horizontal position. (default: false)",
-              "defaultValue": null
+              "defaultValue": "false"
             },
             {
               "name": "clipboard",
@@ -22671,7 +23529,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1190
+          "line": 1186
         },
         {
           "name": "fold",
@@ -22687,7 +23545,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1235
+          "line": 1231
         },
         {
           "name": "indentSelectedRows",
@@ -22707,7 +23565,7 @@
               "rest": false,
               "type": "Object",
               "description": "with the keys:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -22723,7 +23581,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1307
+          "line": 1303
         },
         {
           "name": "addSelectionBelow",
@@ -22739,7 +23597,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1327
+          "line": 1323
         },
         {
           "name": "addSelectionAbove",
@@ -22755,7 +23613,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1362
+          "line": 1358
         },
         {
           "name": "merge",
@@ -22784,13 +23642,13 @@
               "rest": false,
               "type": "Object",
               "description": "options matching those found in {@link #setBufferRange}.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1401
+          "line": 1397
         },
         {
           "name": "compare",
@@ -22816,7 +23674,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1431
+          "line": 1427
         }
       ]
     },
@@ -23161,7 +24019,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.followSelection",
@@ -24005,7 +24863,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the consumer. Disposing it also disposes whatever the callback returned, so a package that deactivates unregisters itself from the services it took.",
           "propertyType": null,
-          "line": 241
+          "line": 242
         },
         {
           "name": "unmatchedConsumers",
@@ -24021,7 +24879,7 @@
           "returnType": "Array",
           "returnDescription": "of `{keyPath, versionRange}`.",
           "propertyType": null,
-          "line": 321
+          "line": 332
         },
         {
           "name": "clear",
@@ -24037,7 +24895,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 337
+          "line": 348
         }
       ]
     },
@@ -25576,11 +26434,11 @@
             {
               "name": "encoding",
               "source": "encoding = \"utf8\"",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "The `String` encoding to use (default: 'utf8').",
-              "defaultValue": null
+              "defaultValue": "\"utf8\""
             }
           ],
           "returnType": null,
@@ -26976,7 +27834,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "iterator",
@@ -27110,7 +27968,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "iterator",
@@ -27253,7 +28111,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "callback",
@@ -27405,7 +28263,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "iterator",
@@ -27863,10 +28721,10 @@
               "defaultValue": null
             }
           ],
-          "returnType": "Array",
-          "returnDescription": "containing every `SubsequenceMatch` of text that matches the given query.",
+          "returnType": "Promise<Array>",
+          "returnDescription": "Resolves with every `SubsequenceMatch` of text that matches the given query.",
           "propertyType": null,
-          "line": 2301
+          "line": 2302
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -27916,10 +28774,10 @@
               "defaultValue": null
             }
           ],
-          "returnType": "Array",
-          "returnDescription": "containing every `SubsequenceMatch` of text that matches the given query in the given range.",
+          "returnType": "Promise<Array>",
+          "returnDescription": "Resolves with every `SubsequenceMatch` of text that matches the given query in the given range.",
           "propertyType": null,
-          "line": 2317
+          "line": 2318
         },
         {
           "name": "getRange",
@@ -27935,7 +28793,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2333
+          "line": 2339
         },
         {
           "name": "getLineCount",
@@ -27951,7 +28809,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2345
+          "line": 2351
         },
         {
           "name": "getLastRow",
@@ -27967,7 +28825,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2357
+          "line": 2363
         },
         {
           "name": "getFirstPosition",
@@ -27983,7 +28841,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2369
+          "line": 2375
         },
         {
           "name": "getEndPosition",
@@ -27999,7 +28857,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2382
+          "line": 2388
         },
         {
           "name": "getLength",
@@ -28015,7 +28873,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2392
+          "line": 2398
         },
         {
           "name": "getMaxCharacterIndex",
@@ -28031,7 +28889,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2404
+          "line": 2410
         },
         {
           "name": "rangeForRow",
@@ -28066,7 +28924,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2418
+          "line": 2424
         },
         {
           "name": "characterIndexForPosition",
@@ -28092,7 +28950,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2440
+          "line": 2446
         },
         {
           "name": "positionForCharacterIndex",
@@ -28118,7 +28976,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2456
+          "line": 2462
         },
         {
           "name": "clipRange",
@@ -28144,7 +29002,7 @@
           "returnType": "Range",
           "returnDescription": "given {@link Range} if it is already in bounds, or a new clipped {@link Range} if the given range is out-of-bounds.",
           "propertyType": null,
-          "line": 2472
+          "line": 2478
         },
         {
           "name": "clipPosition",
@@ -28179,7 +29037,7 @@
           "returnType": "Point",
           "returnDescription": "new {@link Point} if the given position is invalid, otherwise returns the given position.",
           "propertyType": null,
-          "line": 2495
+          "line": 2501
         },
         {
           "name": "save",
@@ -28195,7 +29053,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2534
+          "line": 2540
         },
         {
           "name": "saveAs",
@@ -28221,7 +29079,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2547
+          "line": 2553
         },
         {
           "name": "reload",
@@ -28237,7 +29095,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the load is complete.",
           "propertyType": null,
-          "line": 2630
+          "line": 2636
         },
         {
           "name": "getLanguageMode",
@@ -28253,7 +29111,7 @@
           "returnType": "Object",
           "returnDescription": "language mode `Object` (See {@link TextBuffer#setLanguageMode} for its interface).",
           "propertyType": null,
-          "line": 2674
+          "line": 2680
         },
         {
           "name": "setLanguageMode",
@@ -28419,7 +29277,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2700
+          "line": 2706
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -28465,7 +29323,7 @@
           "returnType": "Disposable",
           "returnDescription": "that can be used to stop the callback from being called.",
           "propertyType": null,
-          "line": 2729
+          "line": 2735
         },
         {
           "name": "getFileWatchStartPromise",
@@ -28481,7 +29339,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once this buffer's file watcher has been armed and is delivering external-change events. Watching is served asynchronously by the file-watcher worker; this lets callers wait for it before relying on external-change detection. Resolves immediately when the buffer has no path or a custom data source that watches synchronously.",
           "propertyType": null,
-          "line": 3267
+          "line": 3273
         }
       ]
     },
@@ -30033,7 +30891,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30087,7 +30945,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.normalizeLineEndings",
@@ -30152,7 +31010,7 @@
               "rest": false,
               "type": null,
               "description": "See {@link Selection#insertText}.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Range",
@@ -30178,7 +31036,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30214,7 +31072,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30250,7 +31108,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30321,7 +31179,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30357,7 +31215,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30393,7 +31251,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30429,7 +31287,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30465,7 +31323,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30501,7 +31359,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30537,7 +31395,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30573,7 +31431,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30609,7 +31467,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30645,7 +31503,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30681,7 +31539,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30717,7 +31575,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30753,7 +31611,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30789,7 +31647,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30825,7 +31683,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30861,7 +31719,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30897,7 +31755,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30933,7 +31791,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -30969,7 +31827,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -31005,7 +31863,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -32925,8 +33783,8 @@
           "description": "Get all {@link Cursor Cursors}, ordered by their position in the buffer\ninstead of the order in which they were added.",
           "summary": "Get all {@link Cursor Cursors}, ordered by their position in the buffer instead of the order in which they were added.",
           "parameters": [],
-          "returnType": "Array",
-          "returnDescription": "of {@link Selection Selections}.",
+          "returnType": "Array<Cursor>",
+          "returnDescription": "The cursors ordered by buffer position.",
           "propertyType": null,
           "line": 4062
         },
@@ -33060,7 +33918,7 @@
               "rest": false,
               "type": null,
               "description": "An `Object` of options:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.reversed",
@@ -33192,7 +34050,7 @@
               "rest": false,
               "type": null,
               "description": "An `Object` of options:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.reversed",
@@ -33237,7 +34095,7 @@
               "rest": false,
               "type": null,
               "description": "An `Object` of options:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.reversed",
@@ -33292,7 +34150,7 @@
               "rest": false,
               "type": null,
               "description": "An `Object` of options:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.reversed",
@@ -33958,7 +34816,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "iterator",
@@ -34585,7 +35443,7 @@
               "rest": false,
               "type": "Object",
               "description": "Indentation options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.preserveLeadingWhitespace",
@@ -34621,7 +35479,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -34657,7 +35515,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -34719,7 +35577,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -34797,7 +35655,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.signal",
@@ -35006,7 +35864,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.signal",
@@ -35155,7 +36013,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -35191,7 +36049,7 @@
               "rest": false,
               "type": null,
               "description": "See {@link Selection#insertText}.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise",
@@ -35217,7 +36075,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -35253,7 +36111,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.bypassReadOnly",
@@ -36052,7 +36910,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.center",
@@ -36603,11 +37461,11 @@
             {
               "name": "options",
               "source": "{ role } = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Object",
               "description": "Registration options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.role",
@@ -36798,11 +37656,11 @@
             {
               "name": "themePack",
               "source": "{ name, light, dark } = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Object",
               "description": "The theme pack.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "themePack.name",
@@ -38307,11 +39165,11 @@
             {
               "name": "fullScreen",
               "source": "fullScreen = false",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "A `Boolean` indicating the desired state.",
-              "defaultValue": null
+              "defaultValue": "false"
             }
           ],
           "returnType": "Promise",
@@ -38365,11 +39223,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "Serializable Electron open-dialog options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise<Object>",
@@ -38391,11 +39249,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "Serializable Electron save-dialog options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise",
@@ -38926,11 +39784,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "An optional `Object` that may contain the following key:",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.locations",
@@ -39957,7 +40815,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.initialLine",
@@ -40063,8 +40921,8 @@
           "signature": "::hide(itemOrURI)",
           "category": "Opening",
           "visibility": "Essential",
-          "description": "Search the workspace for items matching the given URI and hide them.",
-          "summary": "Search the workspace for items matching the given URI and hide them.",
+          "description": "Search the workspace for items matching the given URI and hide them.\nCenter items are closed asynchronously and can remain open if closing is\nprevented or cancelled. Use {@link #toggle} to await the closing result.",
+          "summary": "Search the workspace for items matching the given URI and hide them. Center items are closed asynchronously and can remain open if closing is prevented or cancelled. Use {@link #toggle} to await the closing result.",
           "parameters": [
             {
               "name": "itemOrURI",
@@ -40077,9 +40935,9 @@
             }
           ],
           "returnType": "Boolean",
-          "returnDescription": "indicating whether any items were found (and hidden).",
+          "returnDescription": "indicating whether any visible matching items were found and hiding or closing was requested.",
           "propertyType": null,
-          "line": 1839
+          "line": 1841
         },
         {
           "name": "toggle",
@@ -40103,9 +40961,9 @@
             }
           ],
           "returnType": "Promise",
-          "returnDescription": "Promise that resolves when the item is shown or hidden.",
+          "returnDescription": "that resolves when the item is shown or hidden, or to `false` if closing a center item is prevented or cancelled. Rejects if closing fails.",
           "propertyType": null,
-          "line": 1878
+          "line": 1895
         },
         {
           "name": "createItemForURI",
@@ -40140,7 +40998,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "propertyType": null,
-          "line": 2000
+          "line": 2020
         },
         {
           "name": "isTextEditor",
@@ -40166,7 +41024,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 2098
+          "line": 2118
         },
         {
           "name": "buildTextEditor",
@@ -40192,7 +41050,7 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2110
+          "line": 2130
         },
         {
           "name": "buildSelectList",
@@ -40218,7 +41076,7 @@
           "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2153
+          "line": 2173
         },
         {
           "name": "addSelectList",
@@ -40313,7 +41171,7 @@
           "returnType": "SelectListHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2186
+          "line": 2206
         },
         {
           "name": "buildInputDialog",
@@ -40339,7 +41197,7 @@
           "returnType": "InputDialog",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2213
+          "line": 2233
         },
         {
           "name": "addInputDialog",
@@ -40434,7 +41292,7 @@
           "returnType": "InputDialogHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2236
+          "line": 2256
         },
         {
           "name": "popModal",
@@ -40450,7 +41308,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 2268
+          "line": 2288
         },
         {
           "name": "popModalTo",
@@ -40476,7 +41334,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 2281
+          "line": 2301
         },
         {
           "name": "getModalTrail",
@@ -40492,7 +41350,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 2293
+          "line": 2313
         },
         {
           "name": "onDidChangeModalTrail",
@@ -40518,7 +41376,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2307
+          "line": 2327
         },
         {
           "name": "reopenItem",
@@ -40534,7 +41392,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 2320
+          "line": 2340
         },
         {
           "name": "addOpener",
@@ -40560,7 +41418,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 2363
+          "line": 2383
         },
         {
           "name": "getPaneItems",
@@ -40576,7 +41434,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 2386
+          "line": 2406
         },
         {
           "name": "getActivePaneItem",
@@ -40592,7 +41450,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 2398
+          "line": 2418
         },
         {
           "name": "getTextEditors",
@@ -40608,7 +41466,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 2410
+          "line": 2430
         },
         {
           "name": "getActiveTextEditor",
@@ -40624,7 +41482,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2439
+          "line": 2459
         },
         {
           "name": "getTextEditorForElement",
@@ -40653,7 +41511,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.includeMini",
@@ -40669,7 +41527,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The containing editor, or `null`.",
           "propertyType": null,
-          "line": 2461
+          "line": 2481
         },
         {
           "name": "getFocusedTextEditor",
@@ -40705,7 +41563,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The focused editor, or `null`.",
           "propertyType": null,
-          "line": 2484
+          "line": 2504
         },
         {
           "name": "getActiveFileTextEditor",
@@ -40721,7 +41579,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 2502
+          "line": 2522
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -40737,7 +41595,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 2531
+          "line": 2551
         },
         {
           "name": "saveActivePaneItem",
@@ -40753,7 +41611,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2570
+          "line": 2590
         },
         {
           "name": "saveActivePaneItemAs",
@@ -40769,7 +41627,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2588
+          "line": 2608
         },
         {
           "name": "destroyActivePaneItem",
@@ -40785,7 +41643,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2613
+          "line": 2633
         },
         {
           "name": "getActivePaneContainer",
@@ -40801,7 +41659,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2629
+          "line": 2649
         },
         {
           "name": "getPanes",
@@ -40817,7 +41675,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2641
+          "line": 2661
         },
         {
           "name": "getActivePane",
@@ -40833,7 +41691,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2657
+          "line": 2677
         },
         {
           "name": "activateNextPane",
@@ -40849,7 +41707,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2667
+          "line": 2687
         },
         {
           "name": "activatePreviousPane",
@@ -40865,7 +41723,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2677
+          "line": 2697
         },
         {
           "name": "paneContainerForURI",
@@ -40891,7 +41749,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2691
+          "line": 2711
         },
         {
           "name": "paneContainerForItem",
@@ -40917,7 +41775,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2704
+          "line": 2724
         },
         {
           "name": "paneForURI",
@@ -40943,7 +41801,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2717
+          "line": 2737
         },
         {
           "name": "paneForItem",
@@ -40969,7 +41827,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2735
+          "line": 2755
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -40985,7 +41843,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2762
+          "line": 2782
         },
         {
           "name": "getCenter",
@@ -41001,7 +41859,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2854
+          "line": 2874
         },
         {
           "name": "getLeftDock",
@@ -41017,7 +41875,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2864
+          "line": 2884
         },
         {
           "name": "getRightDock",
@@ -41033,7 +41891,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2874
+          "line": 2894
         },
         {
           "name": "getBottomDock",
@@ -41049,7 +41907,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2884
+          "line": 2904
         },
         {
           "name": "beginLayoutDrag",
@@ -41065,7 +41923,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 2923
+          "line": 2943
         },
         {
           "name": "getBottomPanels",
@@ -41081,7 +41939,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2937
+          "line": 2957
         },
         {
           "name": "addBottomPanel",
@@ -41137,7 +41995,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2953
+          "line": 2973
         },
         {
           "name": "getLeftPanels",
@@ -41153,7 +42011,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2963
+          "line": 2983
         },
         {
           "name": "addLeftPanel",
@@ -41209,7 +42067,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2979
+          "line": 2999
         },
         {
           "name": "getRightPanels",
@@ -41225,7 +42083,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2989
+          "line": 3009
         },
         {
           "name": "addRightPanel",
@@ -41281,7 +42139,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3005
+          "line": 3025
         },
         {
           "name": "getTopPanels",
@@ -41297,7 +42155,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3015
+          "line": 3035
         },
         {
           "name": "addTopPanel",
@@ -41353,7 +42211,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3031
+          "line": 3051
         },
         {
           "name": "getHeaderPanels",
@@ -41369,7 +42227,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3041
+          "line": 3061
         },
         {
           "name": "addHeaderPanel",
@@ -41425,7 +42283,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3057
+          "line": 3077
         },
         {
           "name": "getFooterPanels",
@@ -41441,7 +42299,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3067
+          "line": 3087
         },
         {
           "name": "addFooterPanel",
@@ -41497,7 +42355,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3083
+          "line": 3103
         },
         {
           "name": "getModalPanels",
@@ -41513,7 +42371,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3093
+          "line": 3113
         },
         {
           "name": "addModalPanel",
@@ -41529,11 +42387,11 @@
             {
               "name": "options",
               "source": "options = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.item",
@@ -41599,7 +42457,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3112
+          "line": 3132
         },
         {
           "name": "panelForItem",
@@ -41625,7 +42483,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 3123
+          "line": 3143
         },
         {
           "name": "scan",
@@ -41654,7 +42512,7 @@
               "rest": false,
               "type": "Object",
               "description": "",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "iterator",
@@ -41739,7 +42597,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 3187
+          "line": 3207
         },
         {
           "name": "replace",
@@ -41802,7 +42660,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3450
+          "line": 3471
         }
       ]
     },
@@ -42675,7 +43533,7 @@
               "rest": false,
               "type": "Object",
               "description": "Registration options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.priority",
@@ -42716,11 +43574,11 @@
             {
               "name": "adapter",
               "source": "adapter = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "An adapter describing the target surface.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options",
@@ -42729,7 +43587,7 @@
               "rest": false,
               "type": "Object",
               "description": "Registration options.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "options.priority",
@@ -42774,7 +43632,7 @@
               "rest": false,
               "type": "Object",
               "description": "Settlement callbacks.",
-              "defaultValue": null
+              "defaultValue": "{}"
             },
             {
               "name": "callbacks.commit",
@@ -42851,11 +43709,11 @@
             {
               "name": "result",
               "source": "result = {}",
-              "optional": false,
+              "optional": true,
               "rest": false,
               "type": null,
               "description": "Structured-cloneable result details. Cross-window callers include `sourceWindowId`.",
-              "defaultValue": null
+              "defaultValue": "{}"
             }
           ],
           "returnType": "Promise",
@@ -42988,10 +43846,513 @@
       ]
     }
   ],
+  "objects": [
+    {
+      "name": "fuzzyMatcher",
+      "accessPath": "lumine.tools.fuzzyMatcher",
+      "visibility": "Essential",
+      "description": "Fuzzy matching utilities used by autocomplete, file search and the command\npalette. Available as `lumine.tools.fuzzyMatcher`.\n\nUse {@link .setCandidates} to create a reusable {@link Matcher} for an array\nof candidates. {@link .match} and {@link .score} match one candidate without\ncreating a matcher yourself.",
+      "summary": "Fuzzy matching utilities used by autocomplete, file search and the command palette. Available as `lumine.tools.fuzzyMatcher`.",
+      "source": "src/fuzzy-matcher.js",
+      "sourcePath": "src/fuzzy-matcher.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 137,
+      "members": [
+        {
+          "name": "setCandidates",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".setCandidates(matcherOrCandidates, candidates, _options)",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Create a matcher for string candidates, or replace the candidates of an\nexisting {@link Matcher}. The replacement preserves its construction\noptions.\n\n```js\nconst matcher = lumine.tools.fuzzyMatcher.setCandidates(['hello', 'world'])\nmatcher.match('he')\nlumine.tools.fuzzyMatcher.setCandidates(matcher, ['hello', 'hope'])\n```",
+          "summary": "Create a matcher for string candidates, or replace the candidates of an existing {@link Matcher}. The replacement preserves its construction options.",
+          "parameters": [
+            {
+              "name": "matcherOrCandidates",
+              "source": "matcherOrCandidates",
+              "optional": false,
+              "rest": false,
+              "type": "Matcher|Array<String>",
+              "description": "An existing matcher or candidates for a new one.",
+              "defaultValue": null
+            },
+            {
+              "name": "candidates",
+              "source": "candidates",
+              "optional": true,
+              "rest": false,
+              "type": "Array<String>|Object",
+              "description": "Replacement candidates when the first argument is a matcher; construction options when it is an array. Set `ignoreDiacritics: true` in those options for accent-insensitive matching.",
+              "defaultValue": null
+            },
+            {
+              "name": "_options",
+              "source": "_options",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Retained for compatibility; ignored.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Matcher",
+          "returnDescription": "The created or updated matcher.",
+          "propertyType": null,
+          "line": 160
+        },
+        {
+          "name": "score",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".score(candidate, query, opts = {})",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Score a single candidate against a query.",
+          "summary": "Score a single candidate against a query.",
+          "parameters": [
+            {
+              "name": "candidate",
+              "source": "candidate",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The candidate to match.",
+              "defaultValue": null
+            },
+            {
+              "name": "query",
+              "source": "query",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The search query.",
+              "defaultValue": null
+            },
+            {
+              "name": "opts",
+              "source": "opts = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "The options accepted by {@link Matcher#match}, plus `ignoreDiacritics` for accent-insensitive matching.",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": "Number",
+          "returnDescription": "The score from 0 to 1, or 0 when there is no match.",
+          "propertyType": null,
+          "line": 174
+        },
+        {
+          "name": "match",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".match(candidate, query, opts = {})",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Match a single candidate against a query. Accent-insensitive matching\nreports character indexes against the original candidate.",
+          "summary": "Match a single candidate against a query. Accent-insensitive matching reports character indexes against the original candidate.",
+          "parameters": [
+            {
+              "name": "candidate",
+              "source": "candidate",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The candidate to match.",
+              "defaultValue": null
+            },
+            {
+              "name": "query",
+              "source": "query",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The search query.",
+              "defaultValue": null
+            },
+            {
+              "name": "opts",
+              "source": "opts = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "The options accepted by {@link Matcher#match}, plus `ignoreDiacritics` for accent-insensitive matching.",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": "Object|undefined",
+          "returnDescription": "The match with `id`, `value`, `score` and optional character indexes, or `undefined` when there is no match.",
+          "propertyType": null,
+          "line": 192
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "accessPath": "require('lumine').Icon",
+      "visibility": "Public",
+      "description": "Factories and helpers for the frozen icon descriptors consumed by\n{@link IconRegistry}. Available as `require('lumine').Icon`.\n\nA descriptor contains a `render` discriminator (`classes`, `image`, `svg`,\n`letter` or `none`), a frozen `classes` array, and nullable `source`, `svg`,\n`viewBox`, `letter`, `color`, `title` and `providerId` fields. Always use these\nfactories: a plain object with the same fields is not a descriptor.\n\nProviders return a descriptor when they claim an icon, {@link .none} when\nthey intentionally suppress one, and `null` to let the next provider answer.",
+      "summary": "Factories and helpers for the frozen icon descriptors consumed by {@link IconRegistry}. Available as `require('lumine').Icon`.",
+      "source": "src/icon-descriptor.js",
+      "sourcePath": "src/icon-descriptor.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 61,
+      "members": [
+        {
+          "name": "classes",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".classes(value, { color = null, title = null } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create a glyph-font icon. The provider supplies the CSS for the given\nclasses; the editor applies them unchanged.",
+          "summary": "Create a glyph-font icon. The provider supplies the CSS for the given classes; the editor applies them unchanged.",
+          "parameters": [
+            {
+              "name": "value",
+              "source": "value",
+              "optional": false,
+              "rest": false,
+              "type": "String|Array<String>",
+              "description": "A whitespace-separated class string or an array of class names. Empty input returns {@link .none}.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ color = null, title = null } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Presentation options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.color",
+              "type": "String|null",
+              "description": "The glyph color.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.color",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.title",
+              "type": "String|null",
+              "description": "The tooltip title.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.title",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "A frozen icon descriptor.",
+          "propertyType": null,
+          "line": 76
+        },
+        {
+          "name": "image",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".image(source, { title = null } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create an image icon addressed by URL, such as a `data:` URL from the OS\nor a `file:` URL from an icon theme. The editor paints it in its icon box.",
+          "summary": "Create an image icon addressed by URL, such as a `data:` URL from the OS or a `file:` URL from an icon theme. The editor paints it in its icon box.",
+          "parameters": [
+            {
+              "name": "source",
+              "source": "source",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The image URL. Empty input returns {@link .none}.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ title = null } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Presentation options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.title",
+              "type": "String|null",
+              "description": "The tooltip title.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.title",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "A frozen icon descriptor.",
+          "propertyType": null,
+          "line": 94
+        },
+        {
+          "name": "svg",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".svg(markup, { viewBox = null, color = null, title = null } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create an inline SVG icon rendered into a child element. Markup is supplied\nby the provider and is not sanitized.",
+          "summary": "Create an inline SVG icon rendered into a child element. Markup is supplied by the provider and is not sanitized.",
+          "parameters": [
+            {
+              "name": "markup",
+              "source": "markup",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "SVG markup. Empty input returns {@link .none}.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ viewBox = null, color = null, title = null } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Presentation options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.viewBox",
+              "type": "String|null",
+              "description": "The SVG view box.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.viewBox",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.color",
+              "type": "String|null",
+              "description": "The icon color.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.color",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.title",
+              "type": "String|null",
+              "description": "The tooltip title.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.title",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "A frozen icon descriptor.",
+          "propertyType": null,
+          "line": 113
+        },
+        {
+          "name": "letter",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".letter(character, { color = null, title = null } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Create a badge from the first Unicode code point of a string.",
+          "summary": "Create a badge from the first Unicode code point of a string.",
+          "parameters": [
+            {
+              "name": "character",
+              "source": "character",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Badge text. Empty input returns {@link .none}.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ color = null, title = null } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Presentation options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.color",
+              "type": "String|null",
+              "description": "The badge color.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.color",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.title",
+              "type": "String|null",
+              "description": "The tooltip title.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.title",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "A frozen icon descriptor.",
+          "propertyType": null,
+          "line": 136
+        },
+        {
+          "name": "none",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".none()",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Explicitly suppress an icon. This stops provider resolution; returning\n`null` instead lets the next provider answer.",
+          "summary": "Explicitly suppress an icon. This stops provider resolution; returning `null` instead lets the next provider answer.",
+          "parameters": [],
+          "returnType": "Object",
+          "returnDescription": "The shared frozen descriptor with `render: 'none'`.",
+          "propertyType": null,
+          "line": 151
+        },
+        {
+          "name": "isDescriptor",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".isDescriptor(value)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Test whether a value was created by these descriptor factories.",
+          "summary": "Test whether a value was created by these descriptor factories.",
+          "parameters": [
+            {
+              "name": "value",
+              "source": "value",
+              "optional": false,
+              "rest": false,
+              "type": "*",
+              "description": "The value to inspect.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "Whether the value is an icon descriptor.",
+          "propertyType": null,
+          "line": 164
+        },
+        {
+          "name": "equal",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".equal(left, right)",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Compare descriptors by their rendered fields. Provider identity is ignored;\ntwo identical absent values also compare equal.",
+          "summary": "Compare descriptors by their rendered fields. Provider identity is ignored; two identical absent values also compare equal.",
+          "parameters": [
+            {
+              "name": "left",
+              "source": "left",
+              "optional": false,
+              "rest": false,
+              "type": "Object|null|undefined",
+              "description": "An icon descriptor or an absent value.",
+              "defaultValue": null
+            },
+            {
+              "name": "right",
+              "source": "right",
+              "optional": false,
+              "rest": false,
+              "type": "Object|null|undefined",
+              "description": "An icon descriptor or an absent value.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "Whether the descriptors would render identically.",
+          "propertyType": null,
+          "line": 179
+        },
+        {
+          "name": "coerce",
+          "kind": "method",
+          "static": true,
+          "async": false,
+          "signature": ".coerce(value, { providerId = null } = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Rebuild a provider's descriptor with its structural classes and provider\nidentity. Throws a `TypeError` for values that are not descriptors.",
+          "summary": "Rebuild a provider's descriptor with its structural classes and provider identity. Throws a `TypeError` for values that are not descriptors.",
+          "parameters": [
+            {
+              "name": "value",
+              "source": "value",
+              "optional": false,
+              "rest": false,
+              "type": "Object|null|undefined",
+              "description": "An icon descriptor, or an absent value that passes through as `null`.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ providerId = null } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Provider metadata.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.providerId",
+              "type": "String|null",
+              "description": "The provider identity. A non-null value overrides the descriptor's existing identity.",
+              "optional": true,
+              "defaultValue": "null",
+              "source": "options.providerId",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object|null",
+          "returnDescription": "A rebuilt frozen descriptor, or `null`.",
+          "propertyType": null,
+          "line": 211
+        }
+      ]
+    }
+  ],
   "functions": [
     {
       "name": "applySyntaxHighlighting",
-      "signature": "applySyntaxHighlighting(content, givenOpts = {}, givenOpts.syntaxScopeNameFunc, givenOpts.renderMode, givenOpts.grammar, givenOpts.autoWidth)",
+      "accessPath": "lumine.tools.markdown.applySyntaxHighlighting",
+      "signature": "lumine.tools.markdown.applySyntaxHighlighting(content, givenOpts = {})",
       "visibility": "Public",
       "description": "Uses Lumine's built-in Syntax Highlighting system to apply the same syntax\nhighlighting to code blocks within markdown. Modifies the existing object passed.",
       "summary": "Uses Lumine's built-in Syntax Highlighting system to apply the same syntax highlighting to code blocks within markdown. Modifies the existing object passed.",
@@ -43008,11 +44369,11 @@
         {
           "name": "givenOpts",
           "source": "givenOpts = {}",
-          "optional": false,
+          "optional": true,
           "rest": false,
           "type": "object",
           "description": "Optional Arguments:",
-          "defaultValue": null
+          "defaultValue": "{}"
         },
         {
           "name": "givenOpts.syntaxScopeNameFunc",
@@ -43064,7 +44425,8 @@
     },
     {
       "name": "convertToDOM",
-      "signature": "convertToDOM(content)",
+      "accessPath": "lumine.tools.markdown.convertToDOM",
+      "signature": "lumine.tools.markdown.convertToDOM(content)",
       "visibility": "Public",
       "description": "Takes a raw HTML string of data and returns a proper HTMLFragment.\nThis should be done if you need access to APIs available on the DOM itself.",
       "summary": "Takes a raw HTML string of data and returns a proper HTMLFragment. This should be done if you need access to APIs available on the DOM itself.",
@@ -43087,32 +44449,9 @@
       "line": 554
     },
     {
-      "name": "matcherForSelector",
-      "signature": "matcherForSelector(selector)",
-      "visibility": "Essential",
-      "description": "Build a reusable test for a scope selector.\n\nParsing the selector once and testing many scopes with the result is what\nmakes this worth having over `selectorMatchesAnyScope` in a loop.",
-      "summary": "Build a reusable test for a scope selector.",
-      "parameters": [
-        {
-          "name": "selector",
-          "source": "selector",
-          "optional": false,
-          "rest": false,
-          "type": null,
-          "description": "A `String` selector such as `\"source.js\"`, or an `Array` of the parts it is made of. An empty selector matches everything.",
-          "defaultValue": null
-        }
-      ],
-      "returnType": "Function",
-      "returnDescription": "taking a scope `String` and returning a `Boolean`, true when the scope matches the selector.",
-      "source": "src/selectors.js",
-      "sourcePath": "src/selectors.js",
-      "repository": "https://github.com/lumine-code/lumine",
-      "line": 31
-    },
-    {
       "name": "removeDiacritics",
-      "signature": "removeDiacritics(text)",
+      "accessPath": "lumine.tools.removeDiacritics",
+      "signature": "lumine.tools.removeDiacritics(text)",
       "visibility": "Public",
       "description": "Removes diacritical marks from a string, so that \"café\" can be matched by\ntyping \"cafe\".",
       "summary": "Removes diacritical marks from a string, so that \"café\" can be matched by typing \"cafe\".",
@@ -43132,11 +44471,12 @@
       "source": "src/diacritics.js",
       "sourcePath": "src/diacritics.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 13
+      "line": 14
     },
     {
-      "name": "renderMarkdown",
-      "signature": "renderMarkdown(content, givenOpts = {}, givenOpts.renderMode, givenOpts.html, givenOpts.sanitize, givenOpts.sanitizeAllowUnknownProtocols, givenOpts.sanitizeAllowSelfClose, givenOpts.breaks, givenOpts.handleFrontMatter, givenOpts.useDefaultEmoji, givenOpts.useGitHubHeadings, givenOpts.useTaskCheckbox, givenOpts.taskCheckboxDisabled, givenOpts.taskCheckboxDivWrap, givenOpts.transformImageLinks, givenOpts.transformNonFqdnLinks, givenOpts.rootDomain, givenOpts.filePath, givenOpts.disableMode)",
+      "name": "render",
+      "accessPath": "lumine.tools.markdown.render",
+      "signature": "lumine.tools.markdown.render(content, givenOpts = {})",
       "visibility": "Public",
       "description": "Takes a Markdown document and renders it as HTML.",
       "summary": "Takes a Markdown document and renders it as HTML.",
@@ -43153,11 +44493,11 @@
         {
           "name": "givenOpts",
           "source": "givenOpts = {}",
-          "optional": false,
+          "optional": true,
           "rest": false,
           "type": "object",
           "description": "The optional arguments:",
-          "defaultValue": null
+          "defaultValue": "{}"
         },
         {
           "name": "givenOpts.renderMode",
@@ -43338,41 +44678,9 @@
       "line": 71
     },
     {
-      "name": "selectorMatchesAnyScope",
-      "signature": "selectorMatchesAnyScope(selector, scopes)",
-      "visibility": "Essential",
-      "description": "Whether any of the given scopes matches a selector.",
-      "summary": "Whether any of the given scopes matches a selector.",
-      "parameters": [
-        {
-          "name": "selector",
-          "source": "selector",
-          "optional": false,
-          "rest": false,
-          "type": null,
-          "description": "A `String` selector. An empty selector matches everything.",
-          "defaultValue": null
-        },
-        {
-          "name": "scopes",
-          "source": "scopes",
-          "optional": false,
-          "rest": false,
-          "type": null,
-          "description": "An `Array` of scope `Strings` to test.",
-          "defaultValue": null
-        }
-      ],
-      "returnType": "Boolean",
-      "returnDescription": "",
-      "source": "src/selectors.js",
-      "sourcePath": "src/selectors.js",
-      "repository": "https://github.com/lumine-code/lumine",
-      "line": 47
-    },
-    {
       "name": "watchDirectory",
-      "signature": "watchDirectory(directoryPath, options, options.recursive)",
+      "accessPath": "require('lumine').watchDirectory",
+      "signature": "require('lumine').watchDirectory(directoryPath, options)",
       "visibility": "Public",
       "description": "Observe a fixed directory and its direct children, or its entire tree.\nMissing directories remain observed through their nearest existing ancestor.",
       "summary": "Observe a fixed directory and its direct children, or its entire tree. Missing directories remain observed through their nearest existing ancestor.",
@@ -43411,11 +44719,12 @@
       "source": "src/file-watch.js",
       "sourcePath": "src/file-watch.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 34
+      "line": 36
     },
     {
       "name": "watchFile",
-      "signature": "watchFile(filePath)",
+      "accessPath": "require('lumine').watchFile",
+      "signature": "require('lumine').watchFile(filePath)",
       "visibility": "Public",
       "description": "Observe a fixed file path, including deletion and recreation. External\nrenames never change the observed path. Changes are hints to reread the file;\nan invalidation requires a reread after observation has recovered.",
       "summary": "Observe a fixed file path, including deletion and recreation. External renames never change the observed path. Changes are hints to reread the file; an invalidation requires a reread after observation has recovered.",
@@ -43435,9 +44744,9 @@
       "source": "src/file-watch.js",
       "sourcePath": "src/file-watch.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 18
+      "line": 19
     }
   ],
-  "memberCount": 1391,
-  "generatedAt": "2026-10-02T12:32:53.054Z"
+  "memberCount": 1429,
+  "generatedAt": "2026-10-02T12:36:27.173Z"
 }
