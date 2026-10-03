@@ -41,3 +41,25 @@ The `settings-view` package is a working example: `lumine://settings-view/show-p
 ## From the command line
 
 The `lumine` command accepts `--uri-handler` so desktop integration can forward one `lumine://` link to a running window.
+
+## Workspace openers and preview reuse
+
+`lumine.workspace.addOpener()` handles internal workspace URIs and file paths. Its optional second argument lets a viewer replace the document in an existing pending item:
+
+```js
+const registration = lumine.workspace.addOpener(
+  (uri) => (supportsURI(uri) ? new Viewer(uri) : undefined),
+  {
+    canReusePendingItem: (item, uri) => item instanceof Viewer && supportsURI(uri),
+    reusePendingItem: (item, uri, options, { signal }) => item.openDocument(uri, { signal }),
+  },
+);
+```
+
+The workspace checks reuse at that opener's usual position in the registration order, after looking for an already open URI. It offers only an unmodified pending item in the same destination pane, for an opening with `pending: true` that does not request a split or `activateItem: false`. Permanent tabs and incompatible items follow ordinary opening behavior.
+
+`canReusePendingItem(item, uri, options)` is synchronous and has no side effects. `reusePendingItem(item, uri, options, { signal })` returns a Promise; resolving `false` declines reuse without changing the item, while any other resolved value accepts it. Prepare the new document before committing, preserve the previous document on failure, and check `signal.aborted` before changing the item. A newer opening, keeping the pending tab, closing it or moving it cancels an unfinished reuse. The normal successful-open events and hooks still run for a reused item.
+
+A viewer whose URI can change exposes `onDidChangeURI(callback)`, returning a disposable subscription. Emit after committing the new document, together with the existing path, title and file-state notifications that changed. The workspace reads `getURI()` and publishes `onDidChangePaneItemURI(callback)` with `{ item, pane, oldURI, newURI }`. Consumers use this event when their context follows the resource inside an item, rather than only reacting to a different active item. Reuse preserves item and view identity and emits neither an item-add nor an item-destroy event.
+
+Older editor builds ignore the opener's optional reuse capabilities and keep ordinary opening behavior. A package subscribing to the new workspace event can check its availability when it also runs against those builds.

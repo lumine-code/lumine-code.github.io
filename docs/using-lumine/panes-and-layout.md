@@ -6,6 +6,8 @@ Lumine's workspace is made of **panes** (which hold editors and other items) and
 
 The bundled `tabs` package puts a tab per open item at the top of each pane. Drag tabs to reorder them, or drag them between panes. `pane:show-next-item` and `pane:show-previous-item` cycle through a pane's items; `pane:reopen-closed-item` brings back the last item you closed.
 
+With `core.allowPendingPaneItems` enabled, a single click in the tree opens a temporary preview tab. Opening another file replaces that preview. Image Editor and PDF View can load the next compatible file into the existing preview, keeping the viewer in place; PDF View also keeps its iframe runtime. Double-clicking a file keeps its tab, and editing an image keeps that image's tab. Replaced previews remain available through `pane:reopen-closed-item`.
+
 ## Splitting panes
 
 Split the current pane and copy the active item into the new one with:
