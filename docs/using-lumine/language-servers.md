@@ -117,7 +117,7 @@ LemMinX provides schema and DTD diagnostics, schema completions, navigation, doc
 
 ## Installing a server
 
-Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint uses the library and plugins from each project when available, falling back to bundled ESLint v8 for legacy configuration or v10 for flat configuration. Its Configuration Mode defaults to automatic detection; install project-specific plugins locally.
+Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint uses the library and plugins from each project when available; bundled and managed server copies fall back to bundled ESLint v8 for legacy configuration or v10 for flat configuration. Its Configuration Format defaults to automatic detection; install project-specific plugins locally.
 
 Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy; standalone adapters then search `PATH`, while npm-based adapters fall back to the version shipped with the adapter. Removing a managed copy never removes a server installed by another tool.
 
