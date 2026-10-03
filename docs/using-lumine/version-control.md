@@ -49,4 +49,8 @@ In `git-panel`'s changes list, select one or more files and use **Split Up**, **
 
 The `git-panel` diff viewer uses **Unified** by default, with removed and added lines shown together. Select **Side by Side** in the commit or changes header to compare the before and after versions in two aligned columns, with shared file headers and one scrollbar on the right; **Unified** returns to the original view. Both views are available for committed, unstaged, and staged changes. Long lines wrap by default, and toggling soft wrap in either column updates both columns.
 
+`github-panel` provides the same layout switch in a pull request's **Files** tab and in diff previews beside review comments. Review previews keep the surrounding context limited to the comment's location and preserve source line numbering in either layout.
+
+`git-command` provides the switch in **Diff Current File**, **Diff All**, and commit previews. Select **Staged Changes** or **Unstaged Changes** to compare the index and working-tree snapshots separately, even when the same file appears in both. The chosen snapshot and layout stay selected when an output pane is refreshed. Untracked files have a separate text preview. Keep `git-panel` enabled to use visual diffs; when it is unavailable, the report explains why and shows the text patch.
+
 Type `lumine-code/git-command`, `lumine-code/git-panel`, or `lumine-code/github-panel` directly into the Install tab's search box to find them.
