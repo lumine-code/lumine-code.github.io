@@ -47,6 +47,6 @@ For richer workflows, install these `lumine-code` packages from the Install tab 
 
 In `git-panel`'s changes list, select one or more files and use **Split Up**, **Split Down**, **Split Left**, or **Split Right** in the context menu to open their working-tree contents in one new pane. The same actions are available as `git-panel:split-up`, `git-panel:split-down`, `git-panel:split-left`, and `git-panel:split-right` while the changes list has focus.
 
-The `git-panel` diff viewer uses **Unified** by default, with removed and added lines shown together. Select **Side by Side** in the commit header to compare the before and after versions in two aligned columns, with shared file headers and one scrollbar on the right; **Unified** returns to the original view.
+The `git-panel` diff viewer uses **Unified** by default, with removed and added lines shown together. Select **Side by Side** in the commit header to compare the before and after versions in two aligned columns, with shared file headers and one scrollbar on the right; **Unified** returns to the original view. Long lines wrap by default, and toggling soft wrap in either column updates both columns.
 
 Type `lumine-code/git-command`, `lumine-code/git-panel`, or `lumine-code/github-panel` directly into the Install tab's search box to find them.
