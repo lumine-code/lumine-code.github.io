@@ -71,7 +71,7 @@ Syntax and kernel choice are separate. A cell with `%%bash` can be highlighted a
 
 ## Inspecting results and data
 
-Python tracebacks rendered by `jupyter-repl` link to existing local source files and to the source captured for executed cells. Library frames can be folded. Notebook links follow stable cell IDs through reordering; changing or deleting the executed source disables its link until it is run again. Syntax errors select the reported source range when the kernel supplies one.
+With `hyperclick` active, holding Alt over a traceback location offers navigation to an existing local source file or to the source captured for an executed cell. Plain hover and click keep normal text behavior; Alt-click follows the verified destination, with the same hover delay as source symbols. Library frames can be folded. Notebook links follow stable cell IDs through reordering; changing or deleting the executed source disables its link until it is run again. Syntax errors select the reported source range when the kernel supplies one.
 
 `jupyter-explorer` reads dataframes and arrays in pages from the kernel, with sorting, filtering, search and column profiles over the full selected data. Column histograms and frequent values can apply filters together. Charts use an explicitly labelled bounded sample. The package can also open Parquet, Feather and Arrow files when the kernel environment has the required readers.
 
