@@ -7,7 +7,7 @@ The optional **`ide-client`** package is the editor's minimal Language Server Pr
 A working setup has three layers:
 
 1. Install `ide-client`.
-2. Install an adapter for each language, such as `ide-typescript`, `ide-eslint`, `ide-bash`, `ide-html`, `ide-yaml`, `ide-marksman`, `ide-pyright`, or `ide-ruff`.
+2. Install an adapter for each language, such as `ide-typescript`, `ide-eslint`, `ide-bash`, `ide-html`, `ide-yaml`, `ide-marksman`, `ide-basedpyright`, or `ide-ruff`.
 3. Install the frontends you want: `autocomplete` for completions, `linter` for diagnostics, `symbol` plus a symbol provider for symbol lists, and packages from [Code intelligence](code-intelligence.md) for other features.
 
 Install the optional, UI-less `file-operations` package when language servers should be allowed to create, rename or delete files through `WorkspaceEdit`. Without it, text edits and the other language features continue to work, while `ide-client` does not advertise resource-operation support.
@@ -48,8 +48,8 @@ These adapters use the same `ide-client` and frontend packages as the other lang
 | --- | --- | --- | --- |
 | `ide-clangd` | C, C++, Objective-C and Objective-C++ | clangd | install `language-c`, or `language-objective-c` for Objective-C; provide your project's compilation database. |
 | `ide-rust` | Rust | rust-analyzer | install `language-rust` and a Rust toolchain; `rust-src` enables standard-library navigation and `rustfmt` enables formatting. |
-| `ide-go` | Go | gopls | install `language-go` and the Go SDK; open the folder containing `go.mod` or `go.work`. |
-| `ide-toml` | TOML | Tombi | install `language-toml`; `tombi.toml` can select schemas and project formatting rules. |
+| `ide-gopls` | Go | gopls | install `language-go` and the Go SDK; open the folder containing `go.mod` or `go.work`. |
+| `ide-tombi` | TOML | Tombi | install `language-toml`; `tombi.toml` can select schemas and project formatting rules. |
 | `ide-r` | R source files | R languageserver | install `language-r` and R; Manage Servers can install the `languageserver` package into a private R library. |
 
 For CMake projects, `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` generates the `compile_commands.json` clangd uses to resolve include paths, macros and compiler options. The adapter's Compile Commands Path selects another database directory, and Fallback Flags cover files without a database entry. Project `.clangd` and `.clang-format` settings continue to apply.
@@ -66,9 +66,9 @@ Install `ide-client`, the language grammar and the adapter, then choose the fron
 
 | Adapter | Server | Runtime and project setup |
 | --- | --- | --- |
-| `ide-java` | Eclipse JDT Language Server | use a Java 21 or newer JDK and `language-java`; open the project's Maven, Gradle or Eclipse root. |
-| `ide-csharp` | Standalone Roslyn Language Server | use the .NET 10 SDK and `language-csharp`; open the solution or project folder. |
-| `ide-php` | PHPantom | use `language-php`; open the Composer project root, or a folder of PHP files. Built-in analysis and formatting need no PHP runtime. |
+| `ide-jdtls` | Eclipse JDT Language Server | use a Java 21 or newer JDK and `language-java`; open the project's Maven, Gradle or Eclipse root. |
+| `ide-roslyn` | Standalone Roslyn Language Server | use the .NET 10 SDK and `language-csharp`; open the solution or project folder. |
+| `ide-phpantom` | PHPantom | use `language-php`; open the Composer project root, or a folder of PHP files. Built-in analysis and formatting need no PHP runtime. |
 | `ide-ruby` | Ruby LSP | use Ruby 3.0 or newer and `language-ruby`; select the project's Ruby version and run `bundle install` when the project has a Gemfile. |
 
 Manage Servers installs the server independently of its runtime. Java uses a milestone distribution with separate Eclipse cache directories for each project and editor window. Its launch JDK requires Java 21 or newer; project build files can still target earlier Java versions. Ruby installs gems into a private directory and records the selected Ruby ABI and platform; reinstall the managed server after changing to an incompatible runtime. Windows native gem dependencies need RubyInstaller's Devkit or equivalent build tools.
@@ -87,10 +87,10 @@ These adapters use `ide-client`, their language grammar and the same feature fro
 
 | Adapter | Server | Runtime and project setup |
 | --- | --- | --- |
-| `ide-lua` | LuaLS | install `language-lua`; open the Lua module folder. The complete LuaLS distribution includes its runtime and formatter. |
+| `ide-luals` | LuaLS | install `language-lua`; open the Lua module folder. The complete LuaLS distribution includes its runtime and formatter. |
 | `ide-dart` | Dart SDK Analysis Server | install `language-dart`; open the pub or Flutter project and resolve its dependencies with the matching SDK. |
 | `ide-swift` | SourceKit-LSP | install `language-swift`; open the Swift package and keep its matching compiler, SDK and SourceKit-LSP together. |
-| `ide-zig` | ZLS | install `language-zig` and the Zig SDK; open the folder containing `build.zig`. ZLS and Zig must share their major and minor version. |
+| `ide-zls` | ZLS | install `language-zig` and the Zig SDK; open the folder containing `build.zig`. ZLS and Zig must share their major and minor version. |
 
 LuaLS 3.19.1 analyzes Lua 5.1 through 5.5 and LuaJIT without a separately installed Lua interpreter. Manage Servers downloads the full distribution, including the scripts, metadata and native formatter required beside the executable. `.luarc.json` or `.luarc.jsonc` takes precedence over editor fallbacks; use it to select the analyzed Lua version, application globals and annotated library paths. Reference-count labels are informational, and `find-references` supplies navigation. LuaLS does not implement standard call or type hierarchy, and the adapter disables the upstream editor's addon-manager integration.
 
@@ -108,7 +108,7 @@ These adapters connect through `ide-client` and the same completion, diagnostic 
 
 | Adapter | Server | Runtime and project setup |
 | --- | --- | --- |
-| `ide-xml` | Eclipse LemMinX | use Java 11 or newer and `language-xml`; open XML or XSL files with their schemas, DTDs and XML catalogs. |
+| `ide-lemminx` | Eclipse LemMinX | use Java 11 or newer and `language-xml`; open XML or XSL files with their schemas, DTDs and XML catalogs. |
 | `ide-powershell` | PowerShell Editor Services | use PowerShell 7 and `language-powershell`; open the script or module folder. `.ps1xml` files belong to `language-xml`. |
 
 Manage Servers installs LemMinX as a checksum-verified JAR and PowerShell Editor Services as its complete official release ZIP. Java and PowerShell remain separate runtimes. Explicit runtime and server selections take precedence over managed copies.
