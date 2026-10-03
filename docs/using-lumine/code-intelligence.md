@@ -21,6 +21,8 @@ Every package in the table is optional and available under **Settings → Instal
 
 `hover` shows provider documentation, types, signatures, and linter messages at the pointer or cursor. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Pointer and cursor delays are configurable. Scrolling stays inside either overlay by default; enable `hover.scrollChaining` to pass wheel events to the editor when the overlay cannot scroll further.
 
+Python doctest examples supplied through `ide-client` use Python syntax highlighting in hover documentation, with `>>>` prompts, `...` continuations, and expected output preserved. [Autocomplete documentation](autocomplete.md#documentation-and-detail) uses the same rendering.
+
 ## Outline
 
 `outline-view` lists the active file's symbols as a collapsible dock tree and follows the cursor. Use `outline-view:toggle` to show or hide it and `outline-view:reveal-in-outline-view` to reveal the current symbol. A language server can provide the tree directly; otherwise the package can use an installed `symbol` hub and its providers.
