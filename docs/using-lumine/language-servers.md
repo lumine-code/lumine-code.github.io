@@ -60,6 +60,27 @@ Tombi respects project configuration before editor fallback settings. Local sche
 
 Rust and R reference code lenses use client commands specific to other editors, so these adapters disable those lenses. References remain available through `find-references`. Rust-analyzer does not implement type hierarchy; clangd, gopls and R expose the hierarchies their servers support.
 
+## Java, C#, PHP and Ruby
+
+Install `ide-client`, the language grammar and the adapter, then choose the frontends for the features you want:
+
+| Adapter | Server | Runtime and project setup |
+| --- | --- | --- |
+| `ide-java` | Eclipse JDT Language Server | use a Java 21 or newer JDK and `language-java`; open the project's Maven, Gradle or Eclipse root. |
+| `ide-csharp` | Standalone Roslyn Language Server | use the .NET 10 SDK and `language-csharp`; open the solution or project folder. |
+| `ide-php` | PHPantom | use `language-php`; open the Composer project root, or a folder of PHP files. Built-in analysis and formatting need no PHP runtime. |
+| `ide-ruby` | Ruby LSP | use Ruby 3.0 or newer and `language-ruby`; select the project's Ruby version and run `bundle install` when the project has a Gemfile. |
+
+Manage Servers installs the server independently of its runtime. Java uses a milestone distribution with separate Eclipse cache directories for each project and editor window. Its launch JDK requires Java 21 or newer; project build files can still target earlier Java versions. Ruby installs gems into a private directory and records the selected Ruby ABI and platform; reinstall the managed server after changing to an incompatible runtime. Windows native gem dependencies need RubyInstaller's Devkit or equivalent build tools.
+
+C# uses Microsoft's standalone MIT-licensed Roslyn NuGet distribution, currently published as a prerelease. The adapter launches `Microsoft.CodeAnalysis.LanguageServer.dll` directly through the selected .NET runtime, preserving the full MSBuild payload. Roslyn requires .NET 10 to start and an SDK to load projects; keep other SDKs required by `global.json` installed too. **.NET Path** can select a portable SDK, and an explicit server selection can name the engine DLL. Project solutions, dependencies and SDK selection remain authoritative.
+
+PHPantom reads `composer.json` and `.phpantom.toml` directly. Its adapter redirects supported method renames to the canonical inheritance declaration, so a concrete implementation and its interface change together. PHPantom 0.10.0 cannot safely rename a method shared by independent contracts; the adapter refuses that case before applying edits. Plain and mixed HTML/PHP documents are served, while Blade templates remain outside the adapter's document scope. PHPantom does not implement call hierarchy or range formatting. External tools such as PHPStan and PHP-CS-Fixer keep their own runtime requirements.
+
+Ruby LSP uses the project's `Gemfile.lock` and composes its own `.ruby-lsp/Gemfile` through the official executable. Add RuboCop or Syntax Tree to the project bundle for formatting; formatter and linter settings default to upstream detection. The adapter corrects Prism UTF-16 ranges in Ruby LSP 0.26.0 through 0.26.11, preserving Unicode positions in preparation, references and rename edits. Constant rename and type ancestors are supported; Ruby LSP does not implement call hierarchy or type descendants, and it may defer references, rename and workspace symbols when it detects Sorbet.
+
+Java project-source navigation is supported. Virtual JDK and dependency class-file documents require another client capability and are not enabled by this adapter; C# metadata definitions are supported. The Java, C# and Ruby adapters omit client-only code lenses; PHP method-prototype lenses use an executable server command. Code actions that require another editor's client command, including Roslyn's client-only Fix All actions, are filtered by `ide-client`, while ordinary edit-based fixes remain available.
+
 ## Installing a server
 
 Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint still uses the ESLint library and plugins from each project.
