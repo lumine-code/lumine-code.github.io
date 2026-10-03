@@ -40,6 +40,26 @@ Installing an adapter alone does not install or replace `ide-client`; adapters c
 
 Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells. The same document transforms apply to ordinary editors and cells, so IPython magics and adapter-specific source masking stay out of diagnostics without changing notebook text.
 
+## C, Rust, Go, TOML and R
+
+These adapters use the same `ide-client` and frontend packages as the other languages:
+
+| Adapter | Languages | Server | Additional setup |
+| --- | --- | --- | --- |
+| `ide-clangd` | C, C++, Objective-C and Objective-C++ | clangd | install `language-c`, or `language-objective-c` for Objective-C; provide your project's compilation database. |
+| `ide-rust` | Rust | rust-analyzer | install `language-rust` and a Rust toolchain; `rust-src` enables standard-library navigation and `rustfmt` enables formatting. |
+| `ide-go` | Go | gopls | install `language-go` and the Go SDK; open the folder containing `go.mod` or `go.work`. |
+| `ide-toml` | TOML | Tombi | install `language-toml`; `tombi.toml` can select schemas and project formatting rules. |
+| `ide-r` | R source files | R languageserver | install `language-r` and R; Manage Servers can install the `languageserver` package into a private R library. |
+
+For CMake projects, `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` generates the `compile_commands.json` clangd uses to resolve include paths, macros and compiler options. The adapter's Compile Commands Path selects another database directory, and Fallback Flags cover files without a database entry. Project `.clangd` and `.clang-format` settings continue to apply.
+
+The Go SDK remains necessary after installing gopls because the server uses it to load modules and dependencies. Go Path selects the SDK's `go` or `go.exe` executable when it is outside PATH. Rscript Path similarly selects the R runtime; the R adapter uses that installation's libraries, the managed library when present, or Library Path for another library. A `.lintr` file controls R diagnostics, and `.Rprofile` can customize the server's styler formatting.
+
+Tombi respects project configuration before editor fallback settings. Local schema associations entered in the editor use absolute paths or URLs; relative schema paths belong in `tombi.toml`. Its supported features include schema diagnostics, completions, hover, navigation and formatting; the server does not implement rename.
+
+Rust and R reference code lenses use client commands specific to other editors, so these adapters disable those lenses. References remain available through `find-references`. Rust-analyzer does not implement type hierarchy; clangd, gopls and R expose the hierarchies their servers support.
+
 ## Installing a server
 
 Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint still uses the ESLint library and plugins from each project.
