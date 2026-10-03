@@ -12,6 +12,8 @@ Inline decorations are skipped for very large files to keep editing responsive â
 
 `linter:toggle-current-file` pauses the active file; `linter:toggle-linter` enables or disables providers. **Ignore files matching this Glob** excludes matching paths, and the core **Exclude VCS Ignored Paths** setting skips ignored files. Unsaved buffers can still be linted.
 
+The provider list combines classic linters, project scans, and language servers. Language server providers appear as soon as their adapter is registered, even before it reports a problem. Disabling a provider immediately hides its messages throughout the linter while the server and its other IDE features continue running; enabling it restores the latest pushed diagnostics or runs a fresh classic lint. The list updates when providers are added or removed, and your choices persist between editor sessions. An adapter's own **Diagnostics** feature setting still determines whether it publishes diagnostics at all.
+
 By default files are linted when opened (**Lint on Open**) and as you type (**Lint on Change**, throttled by **Lint on Change Interval**); disable either to lint only on save. `linter:lint` lints the current file on demand, and `linter:debug` reports which providers apply to it.
 
 ## Providers
