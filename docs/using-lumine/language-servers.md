@@ -102,6 +102,19 @@ Swift supplies compiler diagnostics, completion and signatures, source and cross
 
 ZLS 0.16.0 works with Zig 0.16.x; Manage Servers installs the matching ZLS server, while **Zig Path** selects the separately installed SDK. Build-runner discovery, standard-library navigation and compiler checks depend on that SDK. ZLS preserves automatic build-on-save detection, including a project's `check` step. Its comptime and semantic analysis remain incomplete. ZON files use diagnostics, formatting and semantic highlighting; source completion, navigation, rename, actions and hints are gated off. ZLS does not advertise call hierarchy, type hierarchy, code lenses or range formatting.
 
+## XML and PowerShell
+
+These adapters connect through `ide-client` and the same completion, diagnostic and navigation frontends:
+
+| Adapter | Server | Runtime and project setup |
+| --- | --- | --- |
+| `ide-xml` | Eclipse LemMinX | use Java 11 or newer and `language-xml`; open XML or XSL files with their schemas, DTDs and XML catalogs. |
+| `ide-powershell` | PowerShell Editor Services | use PowerShell 7 and `language-powershell`; open the script or module folder. `.ps1xml` files belong to `language-xml`. |
+
+Manage Servers installs LemMinX as a checksum-verified JAR and PowerShell Editor Services as its complete official release ZIP. Java and PowerShell remain separate runtimes. Explicit runtime and server selections take precedence over managed copies.
+
+LemMinX provides schema and DTD diagnostics, schema completions, navigation, document symbols, formatting, paired-tag rename and edit-based fixes. PowerShell Editor Services includes PSScriptAnalyzer diagnostics and fixes, signatures, navigation, formatting and semantic highlighting; project analyzer rules remain authoritative. Its rename is the upstream single-file operation and asks for acknowledgement of its limitations. Debugging and an integrated PowerShell terminal require separate integrations.
+
 ## Installing a server
 
 Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint still uses the ESLint library and plugins from each project.
