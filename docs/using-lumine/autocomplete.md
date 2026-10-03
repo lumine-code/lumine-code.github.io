@@ -12,12 +12,13 @@ Behavior — the activation delay, whether to auto-confirm a single suggestion, 
 
 For CSS, SCSS and Less completions, install `autocomplete`, `ide-client` and `ide-css`. HTML uses `ide-html` with the same completion hub and client; indented `.sass` files use `ide-sass`. The [language-server setup](language-servers.md#installation) includes the installation commands.
 
-`autocomplete` also consumes suggestions from other provider packages. Common providers in the Install catalogue include:
+`autocomplete` also consumes suggestions supplied directly by packages that own each feature:
 
-- **`autocomplete-snippets`** — your [snippets](../customizing-lumine/snippets.md), offered as completions.
+- **`snippets`** — your [snippets](../customizing-lumine/snippets.md), offered as completions.
+- **`fuzzy-files`** — project file paths, using the same file set and exclusions as its finder.
 - **`autocomplete-lumine`** — the editor API, for package and init-script development.
 
-Install the providers you need like any other package; none of the providers above is bundled.
+`snippets` is bundled with the editor. Install `fuzzy-files` and `autocomplete-lumine` like any other optional package.
 
 [`spell-check`](linting.md#providers) also offers corrections in this list when it is opened manually.
 

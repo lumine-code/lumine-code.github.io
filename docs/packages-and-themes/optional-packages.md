@@ -5,7 +5,7 @@ Most optional features maintained by `lumine-code` are available from **Settings
 ## Files and everyday tools
 
 - **terminal** embeds a system shell; **pdf-view** displays PDFs; **image-editor** and **table-editor** edit images and delimited data; **archive-view** and **sqlite-view** browse archives and databases.
-- **fuzzy-files** searches project files, while **fuzzy-explorer**, **project-list**, and **recent-list** search user-selected locations, saved projects, and recent projects.
+- **fuzzy-files** searches project files and offers their paths to autocomplete, while **fuzzy-explorer**, **project-list**, and **recent-list** search user-selected locations, saved projects, and recent projects.
 - **navigation-panel**, **minimap**, **scrollmap**, **highlight-selected**, **cursor-history**, and **bookmarks** add navigation and visual context.
 - **build**, **toolbar**, **log-filter**, **diff-view**, **sort-lines**, **calc-inline**, and **spell-check** add focused workflows. `spell-check` needs **linter** to display its diagnostics.
 
@@ -28,11 +28,11 @@ See [Language servers](../using-lumine/language-servers.md) for how clients, pro
 
 ## Languages and completion
 
-Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; providers include **autocomplete-snippets**, **autocomplete-lumine**, **autocomplete-paths**, and language-server adapters through **ide-client**.
+Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; **snippets** supplies snippet suggestions, **fuzzy-files** supplies project paths, **autocomplete-lumine** supplies editor API suggestions, and **ide-client** connects language-server adapters.
 
 For Tree-sitter query files such as `highlights.scm`, `folds.scm`, and `indents.scm`, install [`language-tree-sitter-query`](https://github.com/lumine-code/language-tree-sitter-query). It provides syntax highlighting, folding, indentation, and query symbols. `.scm` selects this query grammar; Scheme source needs a Scheme grammar.
 
-**autocomplete-paths** completes language-specific imports and explicit relative paths beginning with `./` or `../` (including their backslash forms). Quoted paths preserve filename punctuation, spaces, brackets and Unicode; inserted suggestions escape the enclosing quote and `${` inside backtick templates. On POSIX, `./` and `../` paths preserve literal filename backslashes, doubled in quoted insertions. Optional HTML attribute support matches decoded character references and inserts entities such as `&amp;`, `&quot;` and `&#39;`. C0 control characters, including tabs and physical line breaks in filenames, are unsupported.
+**fuzzy-files** completes language-specific imports and explicit relative paths beginning with `./` or `../` (including their backslash forms) when **autocomplete** is installed. Its finder and path suggestions share one project file set and the same Ignored Names setting; completion does not restrict candidates by file extension. Quoted paths preserve filename punctuation, spaces, brackets and Unicode; inserted suggestions escape the enclosing quote and `${` inside backtick templates. On POSIX, `./` and `../` paths preserve literal filename backslashes, doubled in quoted insertions. Optional HTML attribute support matches decoded character references and inserts entities such as `&amp;`, `&quot;` and `&#39;`. C0 control characters, including tabs and physical line breaks in filenames, are unsupported.
 
 Bare paths with whitespace in the filename query use literal prefix matching. An unescaped enclosing quote or a closing bracket around a bare path ends completion, and a line with several paths uses the last active one. Suggestions stay inside the current file's project root and replace the full typed path prefix.
 
