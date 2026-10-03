@@ -35,7 +35,7 @@ A provider may nominate characters that accept an entry, such as `(` after a fun
 
 Providers can attach markdown documentation, a signature, a source module, deprecation state, and extra edits such as a required import. These appear with the selected entry when available.
 
-For documentation supplied through `ide-client`, Python doctest examples beginning with `>>>` use Python syntax highlighting, including `...` continuation lines. The prompts and expected output remain visible and copyable; output is not parsed as Python. This also applies to [hover documentation](code-intelligence.md#hover-and-signature-help).
+For documentation supplied by `ide-pyright`, Python doctest examples beginning with `>>>` use Python syntax highlighting, including `...` continuation lines. The prompts and expected output remain visible and copyable; output is not parsed as Python. Examples supplied by other language servers keep their declared language. This also applies to [hover documentation](code-intelligence.md#hover-and-signature-help).
 
 ## Snippet expansion
 

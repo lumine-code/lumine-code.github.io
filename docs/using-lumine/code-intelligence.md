@@ -21,7 +21,7 @@ Every package in the table is optional and available under **Settings → Instal
 
 `hover` shows provider documentation, types, signatures, and linter messages at the pointer or cursor. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Pointer and cursor delays are configurable. Scrolling stays inside either overlay by default; enable `hover.scrollChaining` to pass wheel events to the editor when the overlay cannot scroll further.
 
-Python doctest examples supplied through `ide-client` use Python syntax highlighting in hover documentation, with `>>>` prompts, `...` continuations, and expected output preserved. [Autocomplete documentation](autocomplete.md#documentation-and-detail) uses the same rendering.
+Python doctest examples supplied by `ide-pyright` use Python syntax highlighting in hover documentation, with `>>>` prompts, `...` continuations, and expected output preserved. When several servers contribute to a hover, each example keeps its originating server's rendering. [Autocomplete documentation](autocomplete.md#documentation-and-detail) uses the same rendering.
 
 ## Outline
 
