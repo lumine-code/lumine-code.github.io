@@ -41075,7 +41075,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 2345
+          "line": 2347
         },
         {
           "name": "buildTextEditor",
@@ -41101,7 +41101,7 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2357
+          "line": 2359
         },
         {
           "name": "buildSelectList",
@@ -41127,7 +41127,7 @@
           "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2400
+          "line": 2402
         },
         {
           "name": "addSelectList",
@@ -41222,7 +41222,7 @@
           "returnType": "SelectListHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2433
+          "line": 2435
         },
         {
           "name": "buildInputDialog",
@@ -41248,7 +41248,7 @@
           "returnType": "InputDialog",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2460
+          "line": 2462
         },
         {
           "name": "addInputDialog",
@@ -41343,7 +41343,7 @@
           "returnType": "InputDialogHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2483
+          "line": 2485
         },
         {
           "name": "popModal",
@@ -41359,7 +41359,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 2515
+          "line": 2517
         },
         {
           "name": "popModalTo",
@@ -41385,7 +41385,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 2528
+          "line": 2530
         },
         {
           "name": "getModalTrail",
@@ -41401,7 +41401,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 2540
+          "line": 2542
         },
         {
           "name": "onDidChangeModalTrail",
@@ -41427,7 +41427,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2554
+          "line": 2556
         },
         {
           "name": "reopenItem",
@@ -41443,7 +41443,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 2567
+          "line": 2569
         },
         {
           "name": "addOpener",
@@ -41487,7 +41487,7 @@
             {
               "name": "options.reusePendingItem",
               "type": "Function",
-              "description": "Asynchronously replaces the document with `(item, uri, openOptions, {signal})`. Return `false` to decline and construct normally. Any other resolved value accepts the reuse. Keep the previous document intact on failure, honor the abort signal before committing, and emit the item's `onDidChangeURI` event after committing. Reuse applies only to unmodified pending items in the same destination, without splitting or background opening.",
+              "description": "Asynchronously replaces the document with `(item, uri, openOptions, {signal})`. Return `false` to decline and construct normally. Any other resolved value accepts the reuse. Throw `AbortError` to cancel an open superseded by item-owned navigation or reload. Keep the previous document intact on failure, honor the abort signal before committing, and emit the item's `onDidChangeURI` event after committing. Reuse applies only to unmodified pending items in the same destination, without splitting or background opening.",
               "optional": true,
               "defaultValue": null,
               "source": "options.reusePendingItem",
@@ -41498,7 +41498,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 2613
+          "line": 2615
         },
         {
           "name": "getPaneItems",
@@ -41514,7 +41514,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 2641
+          "line": 2643
         },
         {
           "name": "getActivePaneItem",
@@ -41530,7 +41530,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 2653
+          "line": 2655
         },
         {
           "name": "getTextEditors",
@@ -41546,7 +41546,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 2665
+          "line": 2667
         },
         {
           "name": "getActiveTextEditor",
@@ -41562,7 +41562,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 2694
+          "line": 2696
         },
         {
           "name": "getTextEditorForElement",
@@ -41607,7 +41607,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The containing editor, or `null`.",
           "propertyType": null,
-          "line": 2716
+          "line": 2718
         },
         {
           "name": "getFocusedTextEditor",
@@ -41643,7 +41643,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The focused editor, or `null`.",
           "propertyType": null,
-          "line": 2739
+          "line": 2741
         },
         {
           "name": "getActiveFileTextEditor",
@@ -41659,7 +41659,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 2757
+          "line": 2759
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -41675,7 +41675,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 2786
+          "line": 2788
         },
         {
           "name": "saveActivePaneItem",
@@ -41691,7 +41691,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2825
+          "line": 2827
         },
         {
           "name": "saveActivePaneItemAs",
@@ -41707,7 +41707,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2843
+          "line": 2845
         },
         {
           "name": "destroyActivePaneItem",
@@ -41723,7 +41723,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2868
+          "line": 2870
         },
         {
           "name": "getActivePaneContainer",
@@ -41739,7 +41739,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 2884
+          "line": 2886
         },
         {
           "name": "getPanes",
@@ -41755,7 +41755,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 2896
+          "line": 2898
         },
         {
           "name": "getActivePane",
@@ -41771,7 +41771,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2912
+          "line": 2914
         },
         {
           "name": "activateNextPane",
@@ -41787,7 +41787,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2922
+          "line": 2924
         },
         {
           "name": "activatePreviousPane",
@@ -41803,7 +41803,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2932
+          "line": 2934
         },
         {
           "name": "paneContainerForURI",
@@ -41829,7 +41829,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2946
+          "line": 2948
         },
         {
           "name": "paneContainerForItem",
@@ -41855,7 +41855,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 2959
+          "line": 2961
         },
         {
           "name": "paneForURI",
@@ -41881,7 +41881,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 2972
+          "line": 2974
         },
         {
           "name": "paneForItem",
@@ -41907,7 +41907,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 2990
+          "line": 2992
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -41923,7 +41923,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3017
+          "line": 3019
         },
         {
           "name": "getCenter",
@@ -41939,7 +41939,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3114
+          "line": 3116
         },
         {
           "name": "getLeftDock",
@@ -41955,7 +41955,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3124
+          "line": 3126
         },
         {
           "name": "getRightDock",
@@ -41971,7 +41971,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3134
+          "line": 3136
         },
         {
           "name": "getBottomDock",
@@ -41987,7 +41987,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3144
+          "line": 3146
         },
         {
           "name": "beginLayoutDrag",
@@ -42003,7 +42003,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 3183
+          "line": 3185
         },
         {
           "name": "getBottomPanels",
@@ -42019,7 +42019,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3197
+          "line": 3199
         },
         {
           "name": "addBottomPanel",
@@ -42075,7 +42075,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3213
+          "line": 3215
         },
         {
           "name": "getLeftPanels",
@@ -42091,7 +42091,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3223
+          "line": 3225
         },
         {
           "name": "addLeftPanel",
@@ -42147,7 +42147,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3239
+          "line": 3241
         },
         {
           "name": "getRightPanels",
@@ -42163,7 +42163,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3249
+          "line": 3251
         },
         {
           "name": "addRightPanel",
@@ -42219,7 +42219,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3265
+          "line": 3267
         },
         {
           "name": "getTopPanels",
@@ -42235,7 +42235,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3275
+          "line": 3277
         },
         {
           "name": "addTopPanel",
@@ -42291,7 +42291,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3291
+          "line": 3293
         },
         {
           "name": "getHeaderPanels",
@@ -42307,7 +42307,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3301
+          "line": 3303
         },
         {
           "name": "addHeaderPanel",
@@ -42363,7 +42363,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3317
+          "line": 3319
         },
         {
           "name": "getFooterPanels",
@@ -42379,7 +42379,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3327
+          "line": 3329
         },
         {
           "name": "addFooterPanel",
@@ -42435,7 +42435,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3343
+          "line": 3345
         },
         {
           "name": "getModalPanels",
@@ -42451,7 +42451,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3353
+          "line": 3355
         },
         {
           "name": "addModalPanel",
@@ -42537,7 +42537,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3372
+          "line": 3374
         },
         {
           "name": "panelForItem",
@@ -42563,7 +42563,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 3383
+          "line": 3385
         },
         {
           "name": "scan",
@@ -42677,7 +42677,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 3447
+          "line": 3449
         },
         {
           "name": "replace",
@@ -42740,7 +42740,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3711
+          "line": 3713
         }
       ]
     },
@@ -44828,5 +44828,5 @@
     }
   ],
   "memberCount": 1431,
-  "generatedAt": "2026-10-03T03:44:16.995Z"
+  "generatedAt": "2026-10-03T03:57:58.732Z"
 }
