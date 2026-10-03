@@ -16,6 +16,8 @@ lumine --install lumine-code/ide-sofistik
 
 Add `autocomplete` for completion, `hover` for declaration previews, parameter positions, complete enum lists and signature help, `linter` for diagnostics, and `symbol`, `find-references` or `semantic-tokens` for navigation and contextual colors. The adapter includes its server, which runs with the editor's Node runtime. Static language intelligence works without a SOFiSTiK installation.
 
+With `busy-signal` installed, the shared busy indicator shows server startup and common finite language requests after 400 ms, plus workspace indexing. Indexing runs in the background and clears its indicator when it finishes.
+
 ## Release, language and edition
 
 Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.

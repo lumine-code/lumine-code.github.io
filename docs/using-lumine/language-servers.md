@@ -102,7 +102,7 @@ Any other language server can be wired up without a package. `ide-client:open-cu
 
 `ide-client:servers` lists running servers, with those serving the active editor first. A session is labeled **Root**, **Roots**, **Workspace**, or **File** according to what it covers; choose it to restart or stop it, open its log, or show its diagnostics.
 
-The status-bar item opens the same list and reports failures; disable it with the **Status Bar** setting. With `busy-signal` installed, server progress appears in the shared busy indicator.
+The status-bar item opens the same list and reports failures; disable it with the **Status Bar** setting. With `busy-signal` installed, the shared busy indicator shows server startup and common finite language requests after 400 ms, plus background work reported by the server, such as indexing. This is managed centrally for adapters and custom servers. Concurrent operations remain visible until each finishes; running servers are listed in the separate IDE status item.
 
 - `ide-client:restart` restarts every server for the active editor.
 - `ide-client:format` formats the active document through a server.
