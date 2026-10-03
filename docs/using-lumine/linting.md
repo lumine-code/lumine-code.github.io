@@ -1,6 +1,6 @@
 # Linting
 
-Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Provider packages such as `linter-eslint` or `linter-ruff` report the problems; the `linter` package collects them and marks them in the editor. To read them all in one list, add `linter-panel`.
+Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers and language servers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Providers such as `spell-check` and language adapters such as `ide-eslint` and `ide-ruff` report the problems; the `linter` package collects them and marks them in the editor. Language adapters also need `ide-client`. To read them all in one list, add `linter-panel`.
 
 ## Inline messages
 
@@ -22,4 +22,6 @@ Providers receive open document editors, including unsaved buffers. Packages can
 
 Install `spell-check` to report misspellings through the linter and offer corrections through [autocomplete](autocomplete.md) and code actions. Use **Checked Grammars**, **Excluded Scopes**, and **Severity** to control automatic checking; `spell-check:check-selected` checks a selection regardless of those scope settings.
 
-`linter-ruff` and `ide-ruff` can coexist: the CLI linter stands down for editors and notebook cells whose Ruff server has diagnostics enabled, while retaining project/tree scans, notebooks not attached through `jupyter-view`, and its fix and format commands. Providers wrapping different tools, such as `linter-eslint` beside `ide-typescript`, remain independent.
+`ide-ruff:lint-projects` and `ide-eslint:lint-projects` scan project files on demand, including files that are not open. Their `lint-selected` commands scan the files or folders selected in the tree view. Results appear in `linter` and `linter-panel`; opening a file preserves the scan's findings. These scans complement the adapters' live language-server diagnostics.
+
+`ide-ruff` uses the same selected Ruff executable for its server and scans, including notebook files and safely projected `.ipy` documents. `ide-eslint` uses each project's ESLint and plugins, with bundled ESLint v8 for legacy configuration or v10 for flat configuration when no user-installed engine is available. Configuration Mode defaults to automatic detection.

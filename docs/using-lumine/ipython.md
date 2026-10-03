@@ -85,11 +85,13 @@ The host can wait for notebook changes or execution progress while other calls r
 
 ## Python analysis tools
 
-`ide-basedpyright`, `ide-ruff`, `linter-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
+`ide-basedpyright`, `ide-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
 
 The projection maps diagnostic, lookup, and edit positions back to the source document, including Unicode columns. Requests inside excluded regions return no Python results. Returned edits are checked against their source revision and cannot overwrite protected cell headers or foreign bodies. Ruff uses one formatter request and restores the original IPython commands and surrounding non-Python source before applying edits.
 
 IPython commands remain runtime operations. Static analysis cannot discover names created dynamically by commands such as `%run`; write normal Python imports or annotations when the analyzer needs that information. Basedpyright analyzes explicitly opened `.ipy` documents, but its normal workspace discovery and Python module imports do not treat closed `.ipy` files as `.py` modules.
+
+`ide-ruff:lint-projects` and `ide-ruff:lint-selected` include `.ipy` files through the same safe projection. Open documents use their current buffers; closed files use temporary source snapshots. The scans report diagnostics without rewriting files.
 
 ## Importing and exporting notebooks
 

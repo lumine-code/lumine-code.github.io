@@ -117,7 +117,7 @@ LemMinX provides schema and DTD diagnostics, schema completions, navigation, doc
 
 ## Installing a server
 
-Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint still uses the ESLint library and plugins from each project.
+Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint uses the library and plugins from each project when available, falling back to bundled ESLint v8 for legacy configuration or v10 for flat configuration. Its Configuration Mode defaults to automatic detection; install project-specific plugins locally.
 
 Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy; standalone adapters then search `PATH`, while npm-based adapters fall back to the version shipped with the adapter. Removing a managed copy never removes a server installed by another tool.
 
@@ -142,6 +142,8 @@ Each adapter's **Features** group exposes the capabilities that can be switched 
 `ide-html` serves HTML, EJS, ERB, and Mustache, including CSS and JavaScript embedded in HTML. In PHP, Blade, and Markdown, it sends only the grammar's HTML fragments to the server while preserving their document positions. HTML formatting is unavailable for those three host languages even when the Format setting is enabled; their own formatters handle the complete document. Vue documents use `ide-vue`. CSS in JavaScript template strings, such as styled-components, remains outside `ide-css`'s scope.
 
 Document diagnostics and workspace diagnostics use the same route into `linter`: open buffers update as you type, while a server that implements `workspace/diagnostic` can also report files that are not open. Install `linter-panel` to browse the combined project result.
+
+Ruff and ESLint also provide explicit project and tree-view scans through `ide-ruff:lint-projects`, `ide-ruff:lint-selected`, `ide-eslint:lint-projects`, and `ide-eslint:lint-selected`. These commands analyze project files directly and publish their results to `linter`; see [Linting](linting.md) for scan behavior.
 
 ## File operations
 
