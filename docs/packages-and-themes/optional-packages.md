@@ -18,7 +18,7 @@ Most optional features maintained by `lumine-code` are available from **Settings
 
 ## Code intelligence
 
-- **ide-client** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-pyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-sass**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, **ide-vue**, **ide-sofistik**, **ide-clangd**, **ide-rust**, **ide-go**, **ide-toml**, **ide-r**, **ide-java**, **ide-csharp**, **ide-php**, and **ide-ruby**.
+- **ide-client** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-pyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-sass**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, **ide-vue**, **ide-sofistik**, **ide-clangd**, **ide-rust**, **ide-go**, **ide-toml**, **ide-r**, **ide-java**, **ide-csharp**, **ide-php**, **ide-ruby**, **ide-lua**, **ide-dart**, **ide-swift**, and **ide-zig**.
 - **file-operations** is optional, UI-less infrastructure that inspects and preflights ordered create, rename and delete plans before executing them for protocol orchestrators such as **ide-client**.
 - **symbol**, **hyperclick**, **hover**, **outline-view**, **intentions**, **refactor**, **find-references**, **hierarchy-view**, **code-lens**, **inlay-hints**, and **semantic-tokens** present navigation, actions, and language-server results.
 - **jedi-tools** uses Jedi for Python definition lookup, usage searches, renaming, method overrides, and hyperclick navigation.

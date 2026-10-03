@@ -81,6 +81,27 @@ Ruby LSP uses the project's `Gemfile.lock` and composes its own `.ruby-lsp/Gemfi
 
 Java project-source navigation is supported. Virtual JDK and dependency class-file documents require another client capability and are not enabled by this adapter; C# metadata definitions are supported. The Java, C# and Ruby adapters omit client-only code lenses; PHP method-prototype lenses use an executable server command. Code actions that require another editor's client command, including Roslyn's client-only Fix All actions, are filtered by `ide-client`, while ordinary edit-based fixes remain available.
 
+## Lua, Dart, Swift and Zig
+
+These adapters use `ide-client`, their language grammar and the same feature frontends as the other languages:
+
+| Adapter | Server | Runtime and project setup |
+| --- | --- | --- |
+| `ide-lua` | LuaLS | install `language-lua`; open the Lua module folder. The complete LuaLS distribution includes its runtime and formatter. |
+| `ide-dart` | Dart SDK Analysis Server | install `language-dart`; open the pub or Flutter project and resolve its dependencies with the matching SDK. |
+| `ide-swift` | SourceKit-LSP | install `language-swift`; open the Swift package and keep its matching compiler, SDK and SourceKit-LSP together. |
+| `ide-zig` | ZLS | install `language-zig` and the Zig SDK; open the folder containing `build.zig`. ZLS and Zig must share their major and minor version. |
+
+LuaLS 3.19.1 analyzes Lua 5.1 through 5.5 and LuaJIT without a separately installed Lua interpreter. Manage Servers downloads the full distribution, including the scripts, metadata and native formatter required beside the executable. `.luarc.json` or `.luarc.jsonc` takes precedence over editor fallbacks; use it to select the analyzed Lua version, application globals and annotated library paths. Reference-count labels are informational, and `find-references` supplies navigation. LuaLS does not implement standard call or type hierarchy, and the adapter disables the upstream editor's addon-manager integration.
+
+Dart's managed installation contains the complete Dart SDK, including the analyzer, formatter, pub tools, libraries and licenses. Dart SDK 3.13.5 provides both hierarchy APIs, analyzer diagnostics, quick fixes and Unicode workspace edits. **Dart Path** selects a project SDK explicitly. For Flutter, select its bundled Dart executable and run `flutter pub get`; a managed standalone Dart SDK does not install Flutter. `pubspec.yaml`, resolved pub dependencies and `analysis_options.yaml` remain authoritative, including `formatter.page_width`. Dart-specific test and navigation lenses are disabled; Flutter outlines, hot reload and debugging require separate integrations.
+
+SourceKit-LSP from Swift 6.4 runs with its matching compiler, SDK, libraries and runtime resources. Manage Servers downloads the complete toolchain into private editor storage, verifying the official Linux release signature, Windows installer checksum or macOS package signature for the selected platform. Existing **Server Path** or **Swift Toolchain** selections take precedence over the managed copy; PATH and the selected Xcode toolchain supply discovery fallbacks. Windows also needs the platform C++ build tools and Windows SDK. Keep `SDKROOT` and project SourceKit-LSP configuration authoritative; managed extraction preserves the payload without performing a global toolchain installation or installing those platform prerequisites.
+
+Swift supplies compiler diagnostics, completion and signatures, source and cross-module navigation, rename, formatting, edit-based fixes, hints, semantic highlighting and both call and type hierarchies. Background indexing follows the server and project defaults unless overridden. Swift run, debug and test lenses require editor-specific commands and are disabled.
+
+ZLS 0.16.0 works with Zig 0.16.x; Manage Servers installs the matching ZLS server, while **Zig Path** selects the separately installed SDK. Build-runner discovery, standard-library navigation and compiler checks depend on that SDK. ZLS preserves automatic build-on-save detection, including a project's `check` step. Its comptime and semantic analysis remain incomplete. ZON files use diagnostics, formatting and semantic highlighting; source completion, navigation, rename, actions and hints are gated off. ZLS does not advertise call hierarchy, type hierarchy, code lenses or range formatting.
+
 ## Installing a server
 
 Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint still uses the ESLint library and plugins from each project.
