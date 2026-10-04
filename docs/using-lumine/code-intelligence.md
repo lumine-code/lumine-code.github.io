@@ -47,17 +47,20 @@ Moving the cursor keeps the previous highlights visible while the next lookup is
 
 ## Formatting
 
-`code-format:format-code` formats the selection or, when none exists, the whole file. **Format On Save** and **Format On Type** are opt-in scoped settings; enable at most one on-save formatter per language.
+`code-format:format-code` formats the selection or, when none exists, the whole file. **Format On Save** and **Format On Type** are opt-in scoped settings. The hub owns the save hook, chooses one capable provider, and discards cancelled or outdated results. Install `prettier` to add the Prettier engine and select it as the default formatter for the desired languages. Language-server formatting uses the same hub.
 
 ```json
 {
   ".source.python": {
     "code-format": {
+      "defaultProvider": "ide-client",
       "formatOnSave": true
     }
   }
 }
 ```
+
+The hub also owns save glob filters, session-only observed-file opt-ins and status-bar indicators. Provider eligibility checks still apply. `prettier:format` and `ide-client:format` explicitly choose their engine through the hub; Prettier project commands format files on disk.
 
 ## Code lens
 
