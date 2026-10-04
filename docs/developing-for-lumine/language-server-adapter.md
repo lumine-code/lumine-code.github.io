@@ -47,6 +47,8 @@ An adapter describes one server; it does not apply `WorkspaceEdit` resource oper
 
 User-initiated filesystem operations have a different owner. `tree-view` supplies their UI and the versioned `tree-view.file-operations` will/did boundary; `ide-client` translates that boundary to supported LSP file-operation requests and notifications. Ordinary renames and moves emit completion notifications without server preparation; `workspace/willRenameFiles` is requested only when the user explicitly chooses reference updates. Create and delete operations still request supported preparation before mutation. The executor lifecycle is infrastructure rather than a user-operation event bus, `tree-view` does not execute server-authored `WorkspaceEdit` objects, and adapters need to consume neither service directly.
 
+File-operation preparation requests carry a cancellation signal and share a configurable deadline, 30 seconds by default. Adapter request hooks should honor that signal. The client discards cancelled or expired responses and stages returned edits until the tree operation's guards accept; asynchronous preflight checks the live operation and document snapshots again before mutating text.
+
 ## What the adapter owns
 
 - `id`, `displayName` and `grammarScopes` identify the adapter and the editors it serves.
