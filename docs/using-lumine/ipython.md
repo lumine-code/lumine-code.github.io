@@ -87,7 +87,9 @@ The host can wait for notebook changes or execution progress while other calls r
 
 ## Python analysis tools
 
-`ide-basedpyright`, `ide-ruff`, `jedi-tools`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
+Use `ide-client` with `ide-basedpyright` for static Python analysis and navigation. `symbol:go-to-declaration` opens definitions, `find-references:show-panel` lists usages, and `refactor:rename` renames through the server. Install the corresponding `symbol`, `find-references`, and `refactor` frontend packages; `hyperclick` adds pointer navigation through `symbol`.
+
+`ide-basedpyright`, `ide-ruff`, and `symbol-ctags` use a shared Python projection supplied by `language-ipython`. Each tool receives one Python module for the entire file, so imports and names remain visible across cells. Python code cells and Python magic bodies participate in analysis. Markdown, raw, and foreign magic bodies are masked, including Python fences written inside a Markdown cell. IPython commands are replaced with valid analysis placeholders while preserving source positions. The kernel continues to receive the original source when you execute it.
 
 The projection maps diagnostic, lookup, and edit positions back to the source document, including Unicode columns. Requests inside excluded regions return no Python results. Returned edits are checked against their source revision and cannot overwrite protected cell headers or foreign bodies. Ruff uses one formatter request and restores the original IPython commands and surrounding non-Python source before applying edits.
 
