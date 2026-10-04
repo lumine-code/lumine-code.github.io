@@ -4,7 +4,7 @@ Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, a
 
 ## Inline messages
 
-Problems are underlined and marked in the gutter. Hints use a dotted underline without a gutter or overview marker; unnecessary code is dimmed and deprecated code struck through. Install [`hover`](code-intelligence.md) for pointer tooltips, or use `linter:inspect` at the cursor; `linter:next` and `linter:previous` step through the current file's messages. **Show Hover Tooltip** controls the integration.
+Problems are underlined and marked in the gutter. Hints use a dotted underline without a gutter or overview marker; unnecessary code is dimmed and deprecated code struck through. Install [`documentation-view`](code-intelligence.md#documentation-and-context-help) to read diagnostics in its persistent panel and add `hover` for pointer tooltips, or use `linter:inspect` at the cursor; `linter:next` and `linter:previous` step through the current file's messages. **Show Context Help** controls the diagnostic context-help integration for both surfaces.
 
 Inline decorations are skipped for very large files to keep editing responsive — the **Large File Line Count** and **Long Line Length** settings control the thresholds. Every message is still reported.
 

@@ -78,3 +78,11 @@ The method is `provide`/`consume` plus the PascalCased name, dropping a trailing
 ## Contracts
 
 Each service's canonical contract belongs in the repository of the package that owns it, normally as `docs/<service-name>.md` and, for core services, under `lumine/docs/services/`. This keeps the shape, required fields and example beside the implementation. The editor exposes package documentation under Settings → the package → Documentation.
+
+## Contextual help
+
+`documentation-view` owns the context-help domain. Sources provide [`context-help.provider`](https://github.com/lumine-code/documentation-view/blob/master/docs/context-help.provider.md); views consume [`context-help.registry`](https://github.com/lumine-code/documentation-view/blob/master/docs/context-help.registry.md) to request and render combined answers. A view can also consume [`context-help.panel`](https://github.com/lumine-code/documentation-view/blob/master/docs/context-help.panel.md) to open its existing answer in the documentation dock without another provider request.
+
+Providers implement `getHelp(editor, position, {signal})` and optionally `getGutterHelp(editor, row, {signal})`. Each call owns its cancellation state so a tooltip request cannot cancel a simultaneous panel request. Custom content returns a `render()` factory that creates fresh DOM, with an optional disposer, for each surface. Consumers dispose their own rendering when it closes.
+
+This replaces `hover.provider` during preproduction. Migrate providers and consumers directly to the context-help contracts; there are no compatibility aliases. `hover.signature-provider` remains the independent contract for function signature help.

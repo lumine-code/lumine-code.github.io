@@ -2,24 +2,33 @@
 
 A working [language-server setup](language-servers.md#installation) uses `ide-client` as a protocol hub that exposes editor services without rendering every feature itself. Install only the UI packages for the features you want; other providers can supply the same services without a language server.
 
-| Feature                                   | Package           |
-| ----------------------------------------- | ----------------- |
-| Documentation tooltips and signature help | `hover`           |
-| Symbol outline of the active file         | `outline-view`    |
-| Code actions and quick fixes              | `intentions`      |
-| Rename a symbol across the project        | `refactor`        |
-| Formatting, on demand or on save          | `code-format`     |
-| References to the symbol under the cursor | `find-references` |
-| Callers, callees, supertypes and subtypes | `hierarchy-view`  |
-| Actionable links above the code           | `code-lens`       |
-| Inferred types and parameter names inline | `inlay-hints`     |
-| Semantic highlighting over the grammar    | `semantic-tokens` |
+| Feature                                   | Package              |
+| ----------------------------------------- | -------------------- |
+| Persistent documentation and context help | `documentation-view` |
+| Documentation tooltips and signature help | `hover`              |
+| Symbol outline of the active file         | `outline-view`       |
+| Code actions and quick fixes              | `intentions`         |
+| Rename a symbol across the project        | `refactor`           |
+| Formatting, on demand or on save          | `code-format`        |
+| References to the symbol under the cursor | `find-references`    |
+| Callers, callees, supertypes and subtypes  | `hierarchy-view`     |
+| Actionable links above the code           | `code-lens`          |
+| Inferred types and parameter names inline | `inlay-hints`        |
+| Semantic highlighting over the grammar    | `semantic-tokens`    |
 
 Every package in the table is optional and available under **Settings → Install**.
 
+## Documentation and context help
+
+`documentation-view` collects contextual help from providers and shows it in a persistent dock. Run `documentation-view:open` in an editor to request documentation, types, and diagnostics at the cursor. The panel opens without taking focus and keeps that answer when the cursor moves or you switch files. Its header identifies the source file and position and indicates when the source has changed or closed. Refresh requests help at that saved position, clamped to the current buffer after edits; Clear removes the answer. Returning to the editor focuses the currently active editor.
+
+The panel works without `hover`. Install `documentation-view` together with a provider such as a language-server setup or `linter`; add `hover` for temporary tooltips using the same answers. In a tooltip, choose **Open in Documentation View** to preserve the displayed answer in the dock. That action uses the tooltip's source position, which may differ from the cursor, and does not query providers again.
+
+`documentation-view:toggle` shows or hides the dock, while `documentation-view:toggle-focus` focuses it or returns focus to the editor. Help is requested explicitly; the panel does not follow the cursor automatically.
+
 ## Hover and signature help
 
-`hover` shows provider documentation, types, signatures, and linter messages at the pointer or cursor. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Pointer and cursor delays are configurable. Scrolling stays inside either overlay by default; enable `hover.scrollChaining` to pass wheel events to the editor when the overlay cannot scroll further.
+`hover` shows provider documentation, types, and linter messages at the pointer or cursor through the `documentation-view` registry. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Signature help uses its own provider service. Pointer and cursor delays are configurable. Scrolling stays inside either overlay by default; enable `hover.scrollChaining` to pass wheel events to the editor when the overlay cannot scroll further.
 
 Python doctest examples supplied by `ide-basedpyright` use Python syntax highlighting in hover documentation, with `>>>` prompts, `...` continuations, and expected output preserved. When several servers contribute to a hover, each example keeps its originating server's rendering. [Autocomplete documentation](autocomplete.md#documentation-and-detail) uses the same rendering.
 

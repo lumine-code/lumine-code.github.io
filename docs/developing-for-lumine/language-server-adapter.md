@@ -39,6 +39,8 @@ Returning the registration disposable from the consumer unregisters the adapter 
 
 The canonical contract, optional hooks and service methods live in [`ide-client`'s documentation](https://github.com/lumine-code/ide-client/blob/master/docs/ide-client.md); exact TypeScript shapes live in [`lib/main.d.ts`](https://github.com/lumine-code/ide-client/blob/master/lib/main.d.ts). Keep detailed API descriptions there rather than copying them into an adapter.
 
+Language-server hover responses reach [`context-help.provider`](https://github.com/lumine-code/documentation-view/blob/master/docs/context-help.provider.md) through `ide-client`. `documentation-view` aggregates and renders them for its persistent dock and for `hover` tooltips; adapters do not need separate panel or hover providers. Signature help continues through the separate `hover.signature-provider` service.
+
 ## Architecture boundaries
 
 An adapter describes one server; it does not apply `WorkspaceEdit` resource operations or depend on tree-view internals. When the optional, UI-less `file-operations` package is installed, `ide-client` delegates inspection plus create, rename and delete steps to `file-operations.executor@1.0.0`. Its `prepare()` method preflights the complete virtual sequence before returning an opaque plan for stepwise execution, while its neutral lifecycle distinguishes private staging roots from durable logical effects.
