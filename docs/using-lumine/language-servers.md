@@ -40,6 +40,8 @@ Installing an adapter alone does not install or replace `ide-client`; adapters c
 
 Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells. The same document transforms apply to ordinary editors and cells, so IPython magics and adapter-specific source masking stay out of diagnostics without changing notebook text.
 
+Renaming a file or folder in Tree View lets running language servers update references. Files that need no reference changes stay closed.
+
 ## C, Rust, Go, TOML and R
 
 These adapters use the same `ide-client` and frontend packages as the other languages:
