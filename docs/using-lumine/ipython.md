@@ -4,7 +4,7 @@ An `.ipy` file combines Python, IPython commands, and named cells in one source 
 
 `tree-sitter-ipython` parses the cell scaffold and IPython commands. `language-ipython` injects the original Python grammar into Python bodies, sharing one Python layer across the document, and the corresponding original grammars into Markdown and foreign magic bodies. The scaffold does not duplicate Python syntax. Cell markers belong to the scaffold and are styled as comments; raw and unknown bodies stay plain text.
 
-The body-language rules live in `ipython-injections.scm`. An IPython command excludes its entire row from native Python syntax, splitting the surrounding source into fragments. Those fragments remain combined in one Python layer, so this separation does not create a parser for each piece. Assignment magics exclude the whole assignment row rather than leaving an incomplete Python expression; the shared analysis projection separately retains the assignment name and replaces only its IPython RHS.
+The body-language rules live in `ipython-injections.scm`. An IPython command excludes its entire row from the shared Python syntax tree, splitting the surrounding source into fragments. Those fragments remain combined in one Python layer. Executable magic payloads receive separate syntax injections. Assignment magics exclude the whole assignment row rather than leaving an incomplete Python expression; the shared analysis projection separately retains the assignment name and replaces only its IPython RHS.
 
 ## Writing a cell document
 
@@ -60,6 +60,8 @@ echo hello
 Running at the cursor inside a cell magic runs the whole magic. When you run a selected fragment of its body, the execution packages prepend the complete original header, including arguments. For example, selecting only `echo hello` in the shell example still submits it with `%%bash -x`.
 
 Line commands such as `%pwd`, shell escapes such as `!ls`, and assignment results such as `directory = %pwd` remain IPython syntax within code cells.
+
+Line magics highlight only their `%` prefix and command name as a magic command. `%time`, `%timeit`, `%prun`, `%debug`, and `%config` use Python highlighting for the code after their leading options. For example, `%timeit -n 3 prs.nodes_dissup(151)` keeps `%timeit` as the command, `-n 3` as arguments, and `prs.nodes_dissup(151)` as Python. Nested magic commands and shell escapes keep their IPython highlighting. `%%timeit` setup code and optional header statements in `%%prun` and `%%debug` also use Python syntax. Paths, object-name patterns, history ranges, and arguments to other or custom line magics remain text.
 
 ## Notebook syntax and execution
 
