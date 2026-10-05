@@ -36,6 +36,8 @@ Python doctest examples supplied by `ide-basedpyright` use Python syntax highlig
 
 `outline-view` lists the active file's symbols as a collapsible dock tree and follows the cursor. Use `outline-view:toggle` to show or hide it and `outline-view:reveal-in-outline-view` to reveal the current symbol. A language server can provide the tree directly; otherwise the package can use an installed `symbol` hub and its providers.
 
+The outline follows the navigation panel's keyboard behavior: Up and Down wrap through visible entries, Left collapses a branch or its parent, and Right expands it. Click an entry or press Enter to jump to its symbol and focus the editor. Alt+Enter or Alt+click also clears the search; Ctrl+Enter or Ctrl+click adds a cursor while keeping focus in the outline. Tab switches between the tree and search, and Escape clears the query. The optional keyboard preview setting moves the editor cursor as you browse while keeping the outline focused.
+
 ## Code actions and quick fixes
 
 `intentions` combines provider code actions and linter fixes. Run `intentions:show` (`Alt+Enter` by default), choose with the arrow keys, confirm with Enter, or close with Escape.
