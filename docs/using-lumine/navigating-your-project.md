@@ -20,7 +20,9 @@ All three fuzzy finders are optional and available under **Settings → Install*
 
 ## Symbols
 
-Install `symbol` with at least one provider: `symbol-tree-sitter` reads the active grammar and `symbol-ctags` supplies ctags results. Use `symbol:toggle-file-symbols` for the active editor, `symbol:toggle-project-symbols` for the project, `symbol:go-to-declaration` to follow a symbol, and `symbol:return-from-declaration` to return.
+Install `symbol` with `symbol-tree-sitter` for navigation inside the current buffer, including unsaved changes. When a language backend supplies document symbols, it takes precedence. Use `symbol:toggle-file-symbols` for the active editor, `symbol:toggle-project-symbols` to search active workspace backends, `symbol:go-to-definition` to follow a definition, and `symbol:return-from-definition` to return.
+
+Workspace symbols and definitions require a language backend that supports the corresponding feature. Workspace search combines all active backends independently of the focused editor, including closed files in projects those backends have loaded. Searching does not start additional servers or index source files itself; backend activation follows the language package's normal lifecycle.
 
 Install `hyperclick` for pointer navigation supplied by `symbol` or another `hyperclick.provider`: hold Alt to underline the available target under the mouse and show a pointer cursor, then left-click to follow it. For keyboard navigation, run `hyperclick:confirm-cursor`. Disabling a provider removes its links immediately and discards any answers still being resolved.
 
