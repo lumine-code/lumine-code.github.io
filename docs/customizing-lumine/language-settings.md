@@ -57,3 +57,7 @@ An override stays in place when the config file changes and ends when this windo
 The active language is chosen automatically from the file's name and contents. To change it for the current editor, run `grammar-selector:show` from the bundled `grammar-selector` package and pick a grammar. See [Creating a grammar](../developing-for-lumine/creating-a-grammar.md) for how grammars work.
 
 Choose **Auto Detect** to remove a manual grammar override. The checkmark stays beside Auto Detect, and an italic icon identifies the grammar currently chosen automatically. When the list needs scrolling, that grammar moves directly below Auto Detect, above a separator; short lists keep their natural order. Choosing a grammar manually moves the checkmark to that grammar.
+
+## Default file encoding
+
+The encoding picker starts in **Auto Detect**, with the initial encoding resolved from `editor.fileEncoding`: UTF-8 by default, or the value configured for the file's grammar. Choosing Auto Detect reads an existing saved file to detect its encoding; for an unsaved file, it restores the configured default. A manual choice moves the checkmark to the concrete encoding, while an automatic result carries an italic icon.
