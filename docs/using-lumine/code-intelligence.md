@@ -36,7 +36,9 @@ Python doctest examples supplied by `ide-basedpyright` use Python syntax highlig
 
 `outline-view` lists the active file's symbols as a collapsible dock tree and follows the cursor. Use `outline-view:toggle` to show or hide it and `outline-view:reveal-in-outline-view` to reveal the current symbol. A language server can provide the tree directly; otherwise the package can use an installed `symbol` hub and its providers.
 
-The outline follows the navigation panel's keyboard behavior: Up and Down wrap through visible entries, Left collapses a branch or its parent, and Right expands it. Click an entry or press Enter to jump to its symbol and focus the editor. Alt+Enter or Alt+click also clears the search; Ctrl+Enter or Ctrl+click adds a cursor while keeping focus in the outline. Tab switches between the tree and search, and Escape clears the query. The optional keyboard preview setting moves the editor cursor as you browse while keeping the outline focused.
+The outline marks the symbol containing the last editor cursor in bold, including positions inside a multiline body. Keyboard browsing uses an independent dotted outline: focusing the panel creates no selection, and the first Up or Down moves from the current symbol to its neighbour. Subsequent Up and Down wrap through visible entries, Left collapses a branch or its parent, and Right expands it. Keyboard navigation from search focuses the tree; Tab switches between the tree and search without losing the selection. Leaving the panel clears the temporary selection while the current symbol continues following the last cursor.
+
+Click an entry or press Enter to jump to its symbol and focus the editor. With no keyboard selection, Enter uses the current visible symbol or the first entry. Alt+Enter or Alt+click also clears the search; Ctrl+Enter or Ctrl+click adds a cursor while keeping focus in the outline. Escape clears the query. The optional keyboard preview setting moves the editor cursor as you browse while keeping the outline focused.
 
 ## Code actions and quick fixes
 
