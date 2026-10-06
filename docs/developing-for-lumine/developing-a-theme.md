@@ -23,6 +23,8 @@ Set `"theme"` to `"ui"` or `"syntax"`. A single-theme package loads the CSS file
 
 ## Use custom properties
 
+The [theme variable contract](theme-variables.md) describes the public tokens, their roles and types, and which values a theme owns. The Styleguide reads the same contract from the editor and shows its active values.
+
 Lumine's theming is built on **CSS custom properties**. Define your palette as properties and consume them throughout, so the theme is consistent and easy to adjust:
 
 ```css
@@ -34,7 +36,7 @@ Lumine's theming is built on **CSS custom properties**. Define your palette as p
 
 The bundled **`one-theme`** package is the reference implementation: a single package that ships light and dark variants for both UI and syntax (**one-day-ui** / **one-night-ui** and **one-day-syntax** / **one-night-syntax**). Reading it is the best way to see how a complete theme is structured.
 
-Define the accent group — `--accent-color`, `--accent-text-color`, `--accent-bg-color`, `--accent-bg-text-color`, `--accent-only-text-color` — as you would any other palette entry. A user who sets **Accent Source** to `system` replaces the two fill colors with the operating system's accent and derives the text on them from it, so pick foregrounds that read against your own accent and let that setting handle the rest. `--accent-only-text-color`, which puts the accent on your background rather than under it, is always yours.
+Define the accent group — `--accent-indicator-color`, `--accent-indicator-text-color`, `--accent-background-color`, `--accent-foreground-color`, `--accent-link-color` — as you would any other palette entry. A user who sets **Accent Source** to `system` replaces the two fill colors with the operating system's accent and derives the text on them from it, so pick foregrounds that read against your own accent and let that setting handle the rest. `--accent-link-color`, which puts the accent on your background rather than under it, is always yours.
 
 ## Provide a family of themes
 
@@ -170,7 +172,7 @@ The bars own layout while the theme owns appearance. Their complete tile contrac
 
 ## Icon geometry belongs to the editor
 
-Every icon in the interface — tree-view rows, tabs, lists, the status bar — renders in one frame, defined once by the editor's base stylesheet: a square of `--component-icon-size` whose `line-height` equals its height, aligned `vertical-align: text-bottom`. The box centers itself in any line, and each font's ink centers inside the box, so the same glyph sits at the same height in every surface without per-surface tuning.
+Every icon in the interface — tree-view rows, tabs, lists, the status bar — renders in one frame, defined once by the editor's base stylesheet: a square of `--ui-icon-size` whose `line-height` equals its height, aligned `vertical-align: text-bottom`. The box centers itself in any line, and each font's ink centers inside the box, so the same glyph sits at the same height in every surface without per-surface tuning.
 
 A theme styles icons by **color and margin only**. Row metrics stay yours — set `line-height` on the row, the tab, the list item — and the icons follow. What a theme must never do is re-declare box geometry (`line-height`, `vertical-align`, `width`, `height`, `font-size`, `top`, `translate`) on an `.icon` `::before`: that pulls one surface out of the shared frame and re-splits icon alignment per surface. The bundled themes are checked mechanically (`npm run check:icons` in the editor repository fails on any such declaration).
 
@@ -178,7 +180,7 @@ To scale icons on one surface, scope the variable instead of restyling the pseud
 
 ```css
 .tab-bar {
-  --component-icon-size: 14px;
+  --ui-icon-size: 14px;
 }
 ```
 

@@ -37693,8 +37693,50 @@
       "source": "src/theme-manager.js",
       "sourcePath": "src/theme-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 91,
+      "line": 92,
       "members": [
+        {
+          "name": "getVariables",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getVariables()",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Get the immutable definitions of the editor's public CSS variables.\nEach definition specifies its bare name, type, role, owner, scope, default,\ndocumentation group and description. Runtime variables have a null default.",
+          "summary": "Get the immutable definitions of the editor's public CSS variables. Each definition specifies its bare name, type, role, owner, scope, default, documentation group and description. Runtime variables have a null default.",
+          "parameters": [],
+          "returnType": "Array<Object>",
+          "returnDescription": "The public CSS variable definitions.",
+          "propertyType": null,
+          "line": 138
+        },
+        {
+          "name": "onDidChangeVariables",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeVariables(callback)",
+          "category": "Methods",
+          "visibility": "Essential",
+          "description": "Observe changes to the CSS variable cascade, including theme switches,\nsystem accents, user styles and runtime editor typography. Synchronous\nstylesheet updates are combined into one notification in a microtask.",
+          "summary": "Observe changes to the CSS variable cascade, including theme switches, system accents, user styles and runtime editor typography. Synchronous stylesheet updates are combined into one notification in a microtask.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "Function called after the cascade changes.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Dispose to stop observing variable changes.",
+          "propertyType": null,
+          "line": 153
+        },
         {
           "name": "onDidChangeActiveThemes",
           "kind": "method",
@@ -37719,7 +37761,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 141
+          "line": 189
         },
         {
           "name": "onDidChangeThemePacks",
@@ -37745,7 +37787,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 153
+          "line": 201
         },
         {
           "name": "registerThemePack",
@@ -37801,7 +37843,7 @@
           "returnType": "Disposable",
           "returnDescription": "that removes the pack.",
           "propertyType": null,
-          "line": 180
+          "line": 228
         },
         {
           "name": "getThemePacks",
@@ -37817,7 +37859,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "registered theme packs sorted by their user-facing names.",
           "propertyType": null,
-          "line": 217
+          "line": 265
         },
         {
           "name": "isThemePackActive",
@@ -37843,7 +37885,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether both configured mode pairs match `themePack`.",
           "propertyType": null,
-          "line": 227
+          "line": 275
         },
         {
           "name": "getActiveThemePack",
@@ -37859,7 +37901,7 @@
           "returnType": "Object|undefined",
           "returnDescription": "registered pack matching both configured mode pairs.",
           "propertyType": null,
-          "line": 247
+          "line": 295
         },
         {
           "name": "setThemePack",
@@ -37885,7 +37927,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 257
+          "line": 305
         },
         {
           "name": "getLoadedThemeNames",
@@ -37901,7 +37943,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the loaded theme names.",
           "propertyType": null,
-          "line": 280
+          "line": 328
         },
         {
           "name": "getLoadedThemes",
@@ -37917,7 +37959,7 @@
           "returnType": "Array",
           "returnDescription": "of all the loaded themes.",
           "propertyType": null,
-          "line": 290
+          "line": 338
         },
         {
           "name": "getActiveThemeNames",
@@ -37933,7 +37975,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings` of all the active theme names.",
           "propertyType": null,
-          "line": 304
+          "line": 352
         },
         {
           "name": "getActiveThemes",
@@ -37949,7 +37991,7 @@
           "returnType": "Array",
           "returnDescription": "of all the active themes.",
           "propertyType": null,
-          "line": 314
+          "line": 362
         },
         {
           "name": "getEnabledThemeNames",
@@ -37965,7 +38007,7 @@
           "returnType": "Array",
           "returnDescription": "array of theme names in the order that they should be activated.",
           "propertyType": null,
-          "line": 377
+          "line": 425
         },
         {
           "name": "updateAppearance",
@@ -37991,7 +38033,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once the change has been applied.",
           "propertyType": null,
-          "line": 894
+          "line": 942
         }
       ]
     },
@@ -44934,6 +44976,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1433,
-  "generatedAt": "2026-10-06T19:10:01.157Z"
+  "memberCount": 1435,
+  "generatedAt": "2026-10-06T19:17:40.114Z"
 }

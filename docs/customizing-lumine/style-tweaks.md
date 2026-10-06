@@ -48,6 +48,8 @@ Reach for those rather than `.inline-block`, which is a general layout class pac
 
 ## Using theme colors
 
+The [theme variable contract](../developing-for-lumine/theme-variables.md) lists the shared colors and dimensions and explains how to override a specific component. The Styleguide shows the complete list with the current theme's resolved values.
+
 Rather than hardcoding colors, reference the active theme's **CSS custom properties** so your tweaks adapt to light and dark themes automatically:
 
 ```css
@@ -61,13 +63,13 @@ Many packages document a root selector and the properties they expose; targeting
 
 ## The accent color
 
-`--accent-color` and its companions — the color behind focus rings, checkboxes, progress bars and tooltips — come from the active theme by default. Set **Accent Source** to `system` in Settings and they follow the operating system's accent color instead, falling back to the theme's own on a platform that reports none.
+`--accent-indicator-color` and its companions — the color behind focus rings, checkboxes, progress bars and tooltips — come from the active theme by default. Set **Accent Source** to `system` in Settings and they follow the operating system's accent color instead, falling back to the theme's own on a platform that reports none.
 
 Your `styles.css` wins over both, so you can pin the accent to whatever you like regardless of that setting:
 
 ```css
 :root {
-  --accent-color: #b4637a;
-  --accent-bg-color: #b4637a;
+  --accent-indicator-color: #b4637a;
+  --accent-background-color: #b4637a;
 }
 ```
