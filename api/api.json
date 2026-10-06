@@ -25005,6 +25005,50 @@
           "line": 46
         },
         {
+          "name": "openApplication",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::openApplication(executablePath, args = [], options = {})",
+          "category": "Methods",
+          "visibility": "Public",
+          "description": "Launch a GUI application directly from the main process, independently of\nthe editor's lifetime. Arguments are passed literally without a shell.",
+          "summary": "Launch a GUI application directly from the main process, independently of the editor's lifetime. Arguments are passed literally without a shell.",
+          "parameters": [
+            {
+              "name": "executablePath",
+              "source": "executablePath",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Absolute path to the application executable.",
+              "defaultValue": null
+            },
+            {
+              "name": "args",
+              "source": "args = []",
+              "optional": true,
+              "rest": false,
+              "type": "Array<String>",
+              "description": "Literal application arguments.",
+              "defaultValue": "[]"
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "An optional absolute working directory in `cwd`.",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": "Promise<Number>",
+          "returnDescription": "resolving to the process ID when the application starts, or rejecting if it cannot start. Window activation remains subject to the operating system and the application's own behavior.",
+          "propertyType": null,
+          "line": 64
+        },
+        {
           "name": "openExternal",
           "kind": "method",
           "static": false,
@@ -25028,7 +25072,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the request completes.",
           "propertyType": null,
-          "line": 61
+          "line": 79
         }
       ]
     },
@@ -44827,6 +44871,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1431,
-  "generatedAt": "2026-10-05T04:06:51.647Z"
+  "memberCount": 1432,
+  "generatedAt": "2026-10-06T00:04:44.362Z"
 }
