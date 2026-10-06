@@ -21,6 +21,12 @@ For a large generated file, repeat the typing comparison at the end of the file 
 
 Very large files stress any editor. Turning off expensive per-line features for those files — soft wrap, some decorations, and heavy packages — helps. You can apply lighter settings to specific languages via [Scoped settings](../customizing-lumine/language-settings.md).
 
+## Large project roots
+
+A folder containing many independent projects can give a language server much more work than the files currently open. In Basedpyright's settings, **Analysis → Diagnostic Mode → Open Files Only** limits background checking; use **Workspace** when you need reports for unopened files. A project's `pyrightconfig.json` can narrow the analyzed directories with `include` and `exclude`. Switching off the adapter's Diagnostics feature hides reports but does not stop its workspace analysis.
+
+The busy indicator measures how long a server operation stays active. A long operation is not a measurement of how long the window stopped responding. For an intermittent freeze, record the developer tools' Performance tab across the pause and note any external build, synchronization or cleanup running under the project roots. Include the roots, approximate file count and active language servers in the report.
+
 ## Graphics issues
 
 Rendering glitches or high GPU usage can come from hardware-accelerated drawing. If you suspect the GPU, the developer tools and Electron logging enabled with `--enable-electron-logging` can help confirm it before you adjust graphics settings.

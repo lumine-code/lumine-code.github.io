@@ -210,6 +210,12 @@ When independent owners are safe to combine but a large shared parse tree makes 
 
 For grammar-selection regular expressions, make repeated alternatives disjoint. A comment matcher must stop at the first closing delimiter; an optional whitespace matcher must not overlap another repeated whitespace branch. Include failed matches in regression cases: the costly backtracking often appears when the final language name or opening delimiter is absent.
 
+## Recognizing unopened files
+
+Use `await lumine.grammars.selectGrammarAsync(filePath, { signal })` when background work needs the language of a file that is not open. It reads the file asynchronously once, applies the same filename and content rules as `selectGrammar`, and accepts an `AbortSignal` so a package can cancel work during teardown. For an open editor, use `editor.getGrammar()` to preserve a manual language selection.
+
+The synchronous `selectGrammar(filePath, fileContents)` remains available when the caller already has the text. Passing the contents avoids disk access; omitting them reads the file synchronously once. Both selectors honor custom file types, shebangs, multiline first-line expressions and content expressions. A package awaiting a result must still verify that its document, configuration and package generation are current before applying it.
+
 ## Constraining an embedded editor's root language
 
 A host can keep a prefix in an editor's buffer while parsing only its body with the selected language. `lumine.grammars.setRootLanguageRanges(buffer, provider)` installs a policy for that buffer's root language without changing its source text or its assigned grammar. Notebook code cells use this for a visible `%%` header followed by a body parsed with its original language package.

@@ -9292,7 +9292,7 @@
       "source": "src/grammar-registry.js",
       "sourcePath": "src/grammar-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 21,
+      "line": 23,
       "members": [
         {
           "name": "maintainLanguageMode",
@@ -9318,7 +9318,7 @@
           "returnType": "Disposable",
           "returnDescription": "that can be used to stop updating the buffer's language mode.",
           "propertyType": null,
-          "line": 77
+          "line": 80
         },
         {
           "name": "assignLanguageMode",
@@ -9353,7 +9353,7 @@
           "returnType": "Boolean",
           "returnDescription": "that indicates whether the language was successfully found.",
           "propertyType": null,
-          "line": 164
+          "line": 167
         },
         {
           "name": "setRootLanguageRanges",
@@ -9388,7 +9388,7 @@
           "returnType": "Disposable",
           "returnDescription": "Removes this policy and restores full-buffer parsing, unless a newer policy replaced it.",
           "propertyType": null,
-          "line": 199
+          "line": 202
         },
         {
           "name": "assignGrammar",
@@ -9423,7 +9423,7 @@
           "returnType": "Boolean",
           "returnDescription": "that indicates whether the assignment was successful",
           "propertyType": null,
-          "line": 234
+          "line": 237
         },
         {
           "name": "getAssignedLanguageId",
@@ -9449,7 +9449,7 @@
           "returnType": "String",
           "returnDescription": "id of the language",
           "propertyType": null,
-          "line": 275
+          "line": 278
         },
         {
           "name": "autoAssignLanguageMode",
@@ -9475,7 +9475,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 289
+          "line": 292
         },
         {
           "name": "selectGrammar",
@@ -9510,7 +9510,52 @@
           "returnType": "TreeSitterGrammar|Object",
           "returnDescription": "a Tree-sitter grammar or the null grammar sentinel.",
           "propertyType": null,
-          "line": 341
+          "line": 344
+        },
+        {
+          "name": "selectGrammarAsync",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::selectGrammarAsync(filePath, { signal } = {})",
+          "category": "Methods",
+          "visibility": "Extended",
+          "description": "Select a grammar for a file on disk without synchronously reading it.\nScoring yields between grammars when its current slice exceeds 5 ms.\nMissing files are scored by path alone. Cancellation rejects with an\n`AbortError` and can be used to discard work when its consumer unloads.",
+          "summary": "Select a grammar for a file on disk without synchronously reading it. Scoring yields between grammars when its current slice exceeds 5 ms. Missing files are scored by path alone. Cancellation rejects with an `AbortError` and can be used to discard work when its consumer unloads.",
+          "parameters": [
+            {
+              "name": "filePath",
+              "source": "filePath",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The file path to read and match.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ signal } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Selection options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancels reading and scoring.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise",
+          "returnDescription": "Resolves to a Tree-sitter grammar or the null grammar sentinel.",
+          "propertyType": null,
+          "line": 362
         },
         {
           "name": "getGrammarScore",
@@ -9554,7 +9599,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 387
+          "line": 480
         },
         {
           "name": "onDidAddGrammar",
@@ -9590,7 +9635,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 571
+          "line": 673
         },
         {
           "name": "onDidUpdateGrammar",
@@ -9626,7 +9671,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 586
+          "line": 688
         },
         {
           "name": "onDidRemoveGrammar",
@@ -9662,7 +9707,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 601
+          "line": 703
         },
         {
           "name": "addInjectionPoint",
@@ -9807,7 +9852,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the injection point.",
           "propertyType": null,
-          "line": 626
+          "line": 728
         },
         {
           "name": "loadGrammar",
@@ -9862,7 +9907,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 762
+          "line": 865
         },
         {
           "name": "loadGrammarSync",
@@ -9888,7 +9933,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 779
+          "line": 882
         },
         {
           "name": "readGrammar",
@@ -9943,7 +9988,7 @@
           "returnType": "undefined",
           "returnDescription": "undefined.",
           "propertyType": null,
-          "line": 797
+          "line": 900
         },
         {
           "name": "readGrammarSync",
@@ -9969,7 +10014,7 @@
           "returnType": "TreeSitterGrammar",
           "returnDescription": "",
           "propertyType": null,
-          "line": 818
+          "line": 921
         },
         {
           "name": "getGrammars",
@@ -9985,7 +10030,7 @@
           "returnType": "Array",
           "returnDescription": "registered {@link TreeSitterGrammar} instances.",
           "propertyType": null,
-          "line": 837
+          "line": 940
         }
       ]
     },
@@ -44871,6 +44916,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1432,
-  "generatedAt": "2026-10-06T00:04:44.362Z"
+  "memberCount": 1433,
+  "generatedAt": "2026-10-06T00:55:57.007Z"
 }
