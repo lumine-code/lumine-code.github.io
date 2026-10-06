@@ -10,7 +10,7 @@ Behavior — the activation delay, whether to auto-confirm a single suggestion, 
 
 ## Providers
 
-For CSS, SCSS and Less completions, install `autocomplete`, `ide-client` and `ide-css`. HTML uses `ide-html` with the same completion hub and client; indented `.sass` files use `ide-sass`. The [language-server setup](language-servers.md#installation) includes the installation commands.
+For CSS, SCSS and Less completions, install `autocomplete`, `ide` and `ide-css`. HTML uses `ide-html` with the same completion hub and client; indented `.sass` files use `ide-sass`. The [language-server setup](language-servers.md#installation) includes the installation commands.
 
 `autocomplete` also consumes suggestions supplied directly by packages that own each feature:
 

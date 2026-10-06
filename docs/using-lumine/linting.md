@@ -1,6 +1,6 @@
 # Linting
 
-Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers and language servers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Providers such as `spell-check` and language adapters such as `ide-eslint` and `ide-ruff` report the problems; the `linter` package collects them and marks them in the editor. Language adapters also need `ide-client`. To read them all in one list, add `linter-panel`.
+Lumine's **`linter`** package surfaces diagnostics — errors, warnings, info, and hints — from linter providers and language servers directly in the editor. Install it from the Install pane in **Settings**, or with `lumine --install lumine-code/linter`. Providers such as `spell-check` and language adapters such as `ide-eslint` and `ide-ruff` report the problems; the `linter` package collects them and marks them in the editor. Language adapters also need `ide`. To read them all in one list, add `linter-panel`.
 
 ## Inline messages
 

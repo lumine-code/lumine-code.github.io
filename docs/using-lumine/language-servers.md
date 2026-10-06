@@ -1,21 +1,21 @@
 # Language servers
 
-The optional **`ide-client`** package is the editor's minimal Language Server Protocol 3.17 hub. It starts and synchronizes servers, coordinates protocol operations, and routes results to editor services; feature packages render those results, and separate optional infrastructure can perform filesystem changes. `ide-client` is not bundled.
+The optional **`ide`** package is the editor's minimal Language Server Protocol 3.17 hub. It starts and synchronizes servers, coordinates protocol operations, and routes results to editor services; feature packages render those results, and separate optional infrastructure can perform filesystem changes. `ide` is not bundled.
 
 ## Installation
 
 A working setup has three layers:
 
-1. Install `ide-client`.
+1. Install `ide`.
 2. Install an adapter for each language, such as `ide-typescript`, `ide-eslint`, `ide-bash`, `ide-html`, `ide-yaml`, `ide-marksman`, `ide-basedpyright`, or `ide-ruff`.
 3. Install the frontends you want: `autocomplete` for completions, `linter` for diagnostics, `symbol` plus a symbol provider for symbol lists, and packages from [Code intelligence](code-intelligence.md) for other features.
 
-Install the optional, UI-less `file-operations` package when language servers should be allowed to create, rename or delete files through `WorkspaceEdit`. Without it, text edits and the other language features continue to work, while `ide-client` does not advertise resource-operation support.
+Install the optional, UI-less `file-operations` package when language servers should be allowed to create, rename or delete files through `WorkspaceEdit`. Without it, text edits and the other language features continue to work, while `ide` does not advertise resource-operation support.
 
 For example, a minimal TypeScript setup with completions and diagnostics is:
 
 ```sh
-lumine --install lumine-code/ide-client
+lumine --install lumine-code/ide
 lumine --install lumine-code/ide-typescript
 lumine --install lumine-code/autocomplete
 lumine --install lumine-code/linter
@@ -24,7 +24,7 @@ lumine --install lumine-code/linter
 A minimal CSS and HTML setup with completions is:
 
 ```sh
-lumine --install lumine-code/ide-client
+lumine --install lumine-code/ide
 lumine --install lumine-code/ide-css
 lumine --install lumine-code/ide-html
 lumine --install lumine-code/autocomplete
@@ -36,17 +36,17 @@ For indented `.sass` files, also install `ide-sass`:
 lumine --install lumine-code/ide-sass
 ```
 
-Installing an adapter alone does not install or replace `ide-client`; adapters connect to it through an editor service. Each adapter's settings page contains its server path, feature switches, and server-specific options. Project configuration files such as `tsconfig.json`, `pyrightconfig.json`, and `ruff.toml` continue to apply when the corresponding editor setting is left empty.
+Installing an adapter alone does not install or replace `ide`; adapters connect to it through an editor service. Each adapter's settings page contains its server path, feature switches, and server-specific options. Project configuration files such as `tsconfig.json`, `pyrightconfig.json`, and `ruff.toml` continue to apply when the corresponding editor setting is left empty.
 
 Through `jupyter-view`, servers with notebook support — including Basedpyright and Ruff — can analyze notebook cells. The same document transforms apply to ordinary editors and cells, so IPython magics and adapter-specific source masking stay out of diagnostics without changing notebook text.
 
 Tree View renames files and folders without waiting for language servers. Use `tree-view:confirm-and-update-references` from the rename dialog's actions, or press Alt+Enter there, when you also want servers to update imports, paths or links in other document buffers. These text edits are not saved automatically. Ordinary document synchronization and supported file-change notifications run with both choices. Files that need no reference changes stay closed.
 
-While the rename dialog is preparing reference updates, cancelling it or changing the entered path discards the preparation. A changed source or destination, or another integration refusing the operation, also prevents those edits. Server preparation has a default limit of 30 seconds, configurable through **File Operation Preparation Timeout** in the IDE Client settings; exceeding the limit stops the operation and reports the timeout. After all checks pass, the dialog closes and execution begins. Real reference edits remain in ordinary document tabs until you save or undo them.
+While the rename dialog is preparing reference updates, cancelling it or changing the entered path discards the preparation. A changed source or destination, or another integration refusing the operation, also prevents those edits. Server preparation has a default limit of 30 seconds, configurable through **File Operation Preparation Timeout** in the IDE settings; exceeding the limit stops the operation and reports the timeout. After all checks pass, the dialog closes and execution begins. Real reference edits remain in ordinary document tabs until you save or undo them.
 
 ## C, Rust, Go, TOML and R
 
-These adapters use the same `ide-client` and frontend packages as the other languages:
+These adapters use the same `ide` and frontend packages as the other languages:
 
 | Adapter | Languages | Server | Additional setup |
 | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ Rust and R reference code lenses use client commands specific to other editors, 
 
 ## Java, C#, PHP and Ruby
 
-Install `ide-client`, the language grammar and the adapter, then choose the frontends for the features you want:
+Install `ide`, the language grammar and the adapter, then choose the frontends for the features you want:
 
 | Adapter | Server | Runtime and project setup |
 | --- | --- | --- |
@@ -83,11 +83,11 @@ PHPantom reads `composer.json` and `.phpantom.toml` directly. Its adapter redire
 
 Ruby LSP uses the project's `Gemfile.lock` and composes its own `.ruby-lsp/Gemfile` through the official executable. Add RuboCop or Syntax Tree to the project bundle for formatting; formatter and linter settings default to upstream detection. The adapter corrects Prism UTF-16 ranges in Ruby LSP 0.26.0 through 0.26.11, preserving Unicode positions in preparation, references and rename edits. Constant rename and type ancestors are supported; Ruby LSP does not implement call hierarchy or type descendants, and it may defer references, rename and workspace symbols when it detects Sorbet.
 
-Java project-source navigation is supported. Virtual JDK and dependency class-file documents require another client capability and are not enabled by this adapter; C# metadata definitions are supported. The Java, C# and Ruby adapters omit client-only code lenses; PHP method-prototype lenses use an executable server command. Code actions that require another editor's client command, including Roslyn's client-only Fix All actions, are filtered by `ide-client`, while ordinary edit-based fixes remain available.
+Java project-source navigation is supported. Virtual JDK and dependency class-file documents require another client capability and are not enabled by this adapter; C# metadata definitions are supported. The Java, C# and Ruby adapters omit client-only code lenses; PHP method-prototype lenses use an executable server command. Code actions that require another editor's client command, including Roslyn's client-only Fix All actions, are filtered by `ide`, while ordinary edit-based fixes remain available.
 
 ## Lua, Dart, Swift and Zig
 
-These adapters use `ide-client`, their language grammar and the same feature frontends as the other languages:
+These adapters use `ide`, their language grammar and the same feature frontends as the other languages:
 
 | Adapter | Server | Runtime and project setup |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ ZLS 0.16.0 works with Zig 0.16.x; Manage Servers installs the matching ZLS serve
 
 ## XML and PowerShell
 
-These adapters connect through `ide-client` and the same completion, diagnostic and navigation frontends:
+These adapters connect through `ide` and the same completion, diagnostic and navigation frontends:
 
 | Adapter | Server | Runtime and project setup |
 | --- | --- | --- |
@@ -123,13 +123,13 @@ LemMinX provides schema and DTD diagnostics, schema completions, navigation, doc
 
 Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint uses the library and plugins from each project when available; bundled and managed server copies fall back to bundled ESLint v8 for legacy configuration or v10 for flat configuration. Its Configuration Format defaults to automatic detection; install project-specific plugins locally.
 
-Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy, a server shipped with the adapter when available, then automatic discovery through SDK locations and PATH. Removing a managed copy never removes a server installed by another tool.
+Run `ide:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy, a server shipped with the adapter when available, then automatic discovery through SDK locations and PATH. Removing a managed copy never removes a server installed by another tool.
 
 Install, update and removal requests for one managed server run one at a time across editor windows; requests made within one window keep their order. A replacement is downloaded and validated before the current server is stopped. If downloading, validation or stopping fails, the existing installation stays in place. Closing the window or deactivating the adapter cancels unfinished operations.
 
 **Server Path** and runtime executable settings take absolute paths to the intended file; settings such as **Server Directory** select a complete distribution. A missing, unsupported or incomplete configured or managed installation reports its error, so correct that selection or reinstall the managed copy. Automatic discovery can continue past an unusable SDK or server to a working installation.
 
-A corrupt managed installation record or missing installed payload also reports an error. Reinstall that managed server to repair it, or remove the managed copy to use a bundled or separately installed server.
+A corrupt managed installation record or missing installed payload reports an error when the managed source is selected. A valid explicit server selection bypasses that record and runs the chosen copy. Reinstall the managed server to repair it, or remove it to use a bundled or discovered server. Runtime selections are independent: Java Path, Ruby Path, PowerShell Path and Rscript Path choose runtimes; Server Directory, Server JAR, Server Path or R Library Path choose the corresponding server payload.
 
 The Bash adapter always runs its audited bundled server fork. Its managed install is a separately versioned, checksum-verified toolchain containing ShellCheck and shfmt, which provide diagnostics, fixes and formatting.
 
@@ -157,7 +157,7 @@ Ruff and ESLint also provide explicit project and tree-view scans through `ide-r
 
 ## File operations
 
-`ide-client` coordinates file changes from the protocol but does not implement filesystem access. It validates document versions and ordered changes and prepares text edits; when the optional `file-operations` package is installed, closed-path inspection plus every create, rename and delete step goes to its `file-operations.executor@1.0.0` service. The executor's `inspect()` and `prepare()` calls inspect affected paths, simulate the complete sequence without mutation, and return frozen results or an opaque identity-checked plan; `ide-client` executes plan steps in `documentChanges` order, applies the interleaved text edits, and retargets open buffers from the effects that remain.
+`ide` coordinates file changes from the protocol but does not implement filesystem access. It validates document versions and ordered changes and prepares text edits; when the optional `file-operations` package is installed, closed-path inspection plus every create, rename and delete step goes to its `file-operations.executor@1.0.0` service. The executor's `inspect()` and `prepare()` calls inspect affected paths, simulate the complete sequence without mutation, and return frozen results or an opaque identity-checked plan; `ide` executes plan steps in `documentChanges` order, applies the interleaved text edits, and retargets open buffers from the effects that remain.
 
 An edit prepared for a buffer is refused if that buffer's text, path, document generation or notebook binding changes while preparation or confirmation is waiting. Restoring the old text does not restore the old edit's validity. Invalid later text batches are detected before earlier buffers change, and repeated insertions at one position keep the server's order. Stopping the source server or closing the window cancels pending work before its next mutation; a failure after a completed step retains that step's changes for review.
 
@@ -165,13 +165,13 @@ The executor has no commands or user interface and deliberately exposes only its
 
 The bundled `tree-view` owns the interface, conflict choices, queue and will/did boundary for file operations initiated by the user. It publishes the exact planned paths through `tree-view.file-operations`. Creating files or folders, duplicating entries and pasting copies let matching servers prepare `workspace/willCreateFiles` edits; deleting entries lets them prepare `workspace/willDeleteFiles` edits. Ordinary renames and moves skip server preparation; the rename dialog's explicit reference-update action requests `workspace/willRenameFiles`. Preparation collects edits without changing buffers, and applies them only after all integrations accept the operation and its path checks pass. Cancellation, changed paths and expired requests discard pending preparations and late replies. The matching `workspace/did*Files` notifications contain only effects that actually completed and do not wait for server analysis. Copying or cutting entries to the clipboard alone changes no files. `tree-view` never executes a server-authored `WorkspaceEdit` itself.
 
-Document links from a server open through `hyperclick`. Four built-in commands expose protocol features that do not need another frontend package: `ide-client:fold-server-ranges` folds every server range, `ide-client:expand-selection-range` grows each selection to its next structural parent, `ide-client:select-linked-ranges` selects linked occurrences, and `ide-client:color-presentation` lets you choose and apply a server-provided spelling for the color under the cursor.
+Document links from a server open through `hyperclick`. Four built-in commands expose protocol features that do not need another frontend package: `ide:fold-server-ranges` folds every server range, `ide:expand-selection-range` grows each selection to its next structural parent, `ide:select-linked-ranges` selects linked occurrences, and `ide:color-presentation` lets you choose and apply a server-provided spelling for the color under the cursor.
 
 When filesystem observation recovers after lost delivery, affected language-server sessions restart and receive the current open documents again, including unsaved contents. This restores the server's state without pretending to replay changes that happened during the interruption.
 
 ## Custom servers
 
-Any other language server can be wired up without a package. `ide-client:open-custom-servers-file` opens `language-servers.json` in your configuration directory; each entry names a command and the grammar scopes it serves:
+Any other language server can be wired up without a package. `ide:open-custom-servers-file` opens `language-servers.json` in your configuration directory; each entry names a command and the grammar scopes it serves:
 
 ```json
 {
@@ -191,17 +191,17 @@ Configuration pulls read sections from that server's `settings` tree. For exampl
 
 ## Inspecting and controlling servers
 
-`ide-client:servers` lists running servers, with those serving the active editor first. A session is labeled **Root**, **Roots**, **Workspace**, or **File** according to what it covers; choose it to restart or stop it, open its log, or show its diagnostics.
+`ide:servers` lists running servers, with those serving the active editor first. A session is labeled **Root**, **Roots**, **Workspace**, or **File** according to what it covers; choose it to restart or stop it, open its log, or show its diagnostics.
 
 The status-bar item opens the same list and reports failures; disable it with the **Status Bar** setting. With `busy-signal` installed, the shared busy indicator shows server startup and common finite language requests after 400 ms, plus background work reported by the server, such as indexing. This is managed centrally for adapters and custom servers. Concurrent operations remain visible until each finishes; running servers are listed in the separate IDE status item.
 
-- `ide-client:restart` restarts every server for the active editor.
-- `ide-client:format` formats the active document through a server.
-- `ide-client:toggle-problems` opens `linter-panel` when it is installed.
+- `ide:restart` restarts every server for the active editor.
+- `ide:format` formats the active document through a server.
+- `ide:toggle-problems` opens `linter-panel` when it is installed.
 
 ## Troubleshooting
 
-Open the server log with `ide-client:show-log`; set **Protocol Trace** to `messages` or `verbose` for protocol traffic. Crashed servers restart up to **Maximum Automatic Restarts**, after which the failure notification links to the log. Fix the reported cause and restart the session from `ide-client:servers`.
+Open the server log with `ide:show-log`; set **Protocol Trace** to `messages` or `verbose` for protocol traffic. Crashed servers restart up to **Maximum Automatic Restarts**, after which the failure notification links to the log. Fix the reported cause and restart the session from `ide:servers`.
 
 When changing a server path, runtime or initialization setting, the client prepares the replacement launch and settings before stopping a healthy server. Failed preparation reports the cause and leaves that working session available. Correct the selected installation and retry the restart; installing another copy on PATH does not override an explicit path or managed selection.
 

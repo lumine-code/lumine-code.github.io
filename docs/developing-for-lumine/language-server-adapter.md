@@ -1,16 +1,16 @@
 # Writing a language-server adapter
 
-An adapter package teaches the minimal `ide-client` protocol hub how to launch and configure a language server. The adapter owns server discovery and server-specific settings; `ide-client` owns sessions, LSP synchronization and routing into editor services, while frontend packages own presentation.
+An adapter package teaches the minimal `ide` protocol hub how to launch and configure a language server. The adapter owns server discovery and server-specific settings; `ide` owns sessions, LSP synchronization and routing into editor services, while frontend packages own presentation.
 
 ## Registering
 
-Consume the `ide-client` service and register one adapter:
+Consume the `ide` service and register one adapter:
 
 ```json
 {
   "consumedServices": {
-    "ide-client": {
-      "versions": { "^1.0.0": "consumeIdeClient" }
+    "ide": {
+      "versions": { "^1.0.0": "consumeIde" }
     }
   }
 }
@@ -18,8 +18,8 @@ Consume the `ide-client` service and register one adapter:
 
 ```js
 module.exports = {
-  consumeIdeClient(ideClient) {
-    return ideClient.registerAdapter({
+  consumeIde(ide) {
+    return ide.registerAdapter({
       id: "ide-example",
       displayName: "Example Language Server",
       grammarScopes: ["source.example"],
@@ -27,14 +27,16 @@ module.exports = {
       async resolveServer(context) {
         const selected = await context.resolver.select({
           configuredPath: lumine.config.get("ide-example.serverPath"),
-          managedPath: context.managedServer?.binaryPath,
-          managedVersion: context.managedServer?.version,
+          managed: () => {
+            const installed = context.getManagedServer();
+            return installed ? { path: installed.binaryPath, version: installed.version } : null;
+          },
           kind: "executable",
           names: ["example-ls"],
           signal: context.signal,
         });
         if (!selected) {
-          ideClient.reportMissingServer("ide-example", {
+          ide.reportMissingServer("ide-example", {
             description: "Install Example Language Server or choose its Server Path.",
           });
           return null;
@@ -52,15 +54,15 @@ module.exports = {
 
 Returning the registration disposable from the consumer unregisters the adapter and stops its sessions when either package deactivates.
 
-The canonical contract, optional hooks and service methods live in [`ide-client`'s documentation](https://github.com/lumine-code/ide-client/blob/master/docs/ide-client.md); exact TypeScript shapes live in [`lib/main.d.ts`](https://github.com/lumine-code/ide-client/blob/master/lib/main.d.ts). Keep detailed API descriptions there rather than copying them into an adapter.
+The canonical contract, optional hooks and service methods live in [`ide`'s documentation](https://github.com/lumine-code/ide/blob/master/docs/ide.md); exact TypeScript shapes live in [`lib/main.d.ts`](https://github.com/lumine-code/ide/blob/master/lib/main.d.ts). Keep detailed API descriptions there rather than copying them into an adapter.
 
-Language-server hover responses reach [`context-help.provider`](https://github.com/lumine-code/documentation-view/blob/master/docs/context-help.provider.md) through `ide-client`. `documentation-view` aggregates and renders them for its persistent dock and for `hover` tooltips; adapters do not need separate panel or hover providers. Signature help continues through the separate `hover.signature-provider` service.
+Language-server hover responses reach [`context-help.provider`](https://github.com/lumine-code/documentation-view/blob/master/docs/context-help.provider.md) through `ide`. `documentation-view` aggregates and renders them for its persistent dock and for `hover` tooltips; adapters do not need separate panel or hover providers. Signature help continues through the separate `hover.signature-provider` service.
 
 ## Architecture boundaries
 
-An adapter describes one server; it does not apply `WorkspaceEdit` resource operations or depend on tree-view internals. When the optional, UI-less `file-operations` package is installed, `ide-client` delegates inspection plus create, rename and delete steps to `file-operations.executor@1.0.0`. Its `prepare()` method preflights the complete virtual sequence before returning an opaque plan for stepwise execution, while its neutral lifecycle distinguishes private staging roots from durable logical effects.
+An adapter describes one server; it does not apply `WorkspaceEdit` resource operations or depend on tree-view internals. When the optional, UI-less `file-operations` package is installed, `ide` delegates inspection plus create, rename and delete steps to `file-operations.executor@1.0.0`. Its `prepare()` method preflights the complete virtual sequence before returning an opaque plan for stepwise execution, while its neutral lifecycle distinguishes private staging roots from durable logical effects.
 
-User-initiated filesystem operations have a different owner. `tree-view` supplies their UI and the versioned `tree-view.file-operations` will/did boundary; `ide-client` translates that boundary to supported LSP file-operation requests and notifications. Ordinary renames and moves emit completion notifications without server preparation; `workspace/willRenameFiles` is requested only when the user explicitly chooses reference updates. Create and delete operations still request supported preparation before mutation. The executor lifecycle is infrastructure rather than a user-operation event bus, `tree-view` does not execute server-authored `WorkspaceEdit` objects, and adapters need to consume neither service directly.
+User-initiated filesystem operations have a different owner. `tree-view` supplies their UI and the versioned `tree-view.file-operations` will/did boundary; `ide` translates that boundary to supported LSP file-operation requests and notifications. Ordinary renames and moves emit completion notifications without server preparation; `workspace/willRenameFiles` is requested only when the user explicitly chooses reference updates. Create and delete operations still request supported preparation before mutation. The executor lifecycle is infrastructure rather than a user-operation event bus, `tree-view` does not execute server-authored `WorkspaceEdit` objects, and adapters need to consume neither service directly.
 
 File-operation preparation requests carry a cancellation signal and share a configurable deadline, 30 seconds by default. Adapter request hooks should honor that signal. The client discards cancelled or expired responses and stages returned edits until the tree operation's guards accept; asynchronous preflight checks the live operation and document snapshots again before mutating text.
 
@@ -76,15 +78,15 @@ File-operation preparation requests carry a cancellation signal and share a conf
 
 Declare user options in the package's `configSchema`, in the shape the server expects. `getSettings(context)` supplies `workspace/didChangeConfiguration`, and `settingsKeyPaths` names changes to resend. Put settings read during server resolution or initialization in `restartKeyPaths`; the client prepares a replacement before stopping a healthy server. Omit empty values so an untouched editor setting does not override the project's own configuration.
 
-Configuration hooks receive the current `{rootPath, rootUri, launch, resolver, session?}`. Keep launch-dependent settings against that exact `launch` object so concurrent projects and replacement sessions retain their own runtime and tool paths. The shared resolver is also available through `api.resolver` in installation and version hooks and `ideClient.getServerResolver()` outside startup.
+Configuration hooks receive the current `{rootPath, rootUri, launch, resolver, session?}`. Keep launch-dependent settings against that exact `launch` object so concurrent projects and replacement sessions retain their own runtime and tool paths. The shared resolver is also available through `api.resolver` in installation and version hooks and `ide.getServerResolver()` outside startup.
 
-Put feature switches under `configSchema.features`. Declare only capabilities present in the server's `initialize` response. Client routing always enforces the switch; only disable work inside the server when doing so cannot defeat a grammar-scoped true override elsewhere in the same session. The supported feature names and resolution rules are maintained in the canonical `ide-client` contract linked above.
+Put feature switches under `configSchema.features`. Declare only capabilities present in the server's `initialize` response. Client routing always enforces the switch; only disable work inside the server when doing so cannot defeat a grammar-scoped true override elsewhere in the same session. The supported feature names and resolution rules are maintained in the canonical `ide` contract linked above.
 
 ## Resolving and managing the server
 
-The shared resolver applies one priority order: the explicit `configuredPath`, `managedPath` from `context.managedServer`, a lazy `bundledPath`, then discovered candidates and command `names` on PATH. All selected paths are absolute and validated before launch. A configured, managed or bundled failure rejects with its cause; discovery skips unusable candidates and tries the next one. Call `reportMissingServer()` and return `null` when selection finds no server, and preserve errors from broken selected installations so the user can repair the intended copy.
+The shared resolver applies one priority order: the explicit `configuredPath`, a lazy `managed` callback reading `context.getManagedServer()`, a lazy `bundledPath`, then discovered candidates and command `names` on PATH. The managed callback returns `{path, version?}` or `null` when no copy is installed; it may be asynchronous. A configured path bypasses that callback entirely, so a corrupt unrelated managed record cannot block an explicitly selected server. The context caches the managed result or error for its startup attempt. All selected paths are absolute and validated before launch. A configured, managed or bundled failure rejects with its cause; discovery skips unusable candidates and tries the next one. Call `reportMissingServer()` and return `null` when selection finds no server, and preserve errors from broken selected installations so the user can repair the intended copy.
 
-Keep SDK and server-specific checks in `select`'s `validate(path, {source, signal})` callback. Return probe results as `selection.data` to reuse them when building arguments and environment overrides. The selection also records its `source`; a managed version belongs only to a managed selection. Java JARs and distributions can be selected as `"file"` or `"directory"` and launched through a separately validated runtime.
+Keep SDK and server-specific checks in `select`'s `validate(path, {source, signal})` callback. Return probe results as `selection.data` to reuse them when building arguments and environment overrides. The selection also records its `source`; a managed version belongs only to a managed selection. Java JARs and distributions can be selected as `"file"` or `"directory"` and launched through a separately validated runtime. Choosing a runtime does not override the server payload: selecting Java alone still reads a managed JDT LS or LemMinX installation, while an explicit Server Directory or Server JAR bypasses it. Ruby and PowerShell follow the same rule for their scripts; R Library Path selects the languageserver payload independently of Rscript Path.
 
 Select a JavaScript entry with `kind: "node"` and use `launch`, or call `nodeEntry` directly. Those helpers enforce `ELECTRON_RUN_AS_NODE=1` for the editor executable; IPC launches use the entry as the client's fork target. Use `configuredKind: "auto"` when an explicit server path may name either a native executable or a `.js`, `.cjs` or `.mjs` entry. Server payloads and SDK probes remain owned by the adapter; shared resolver code is supplied through the service rather than imported from another package's runtime.
 
@@ -100,4 +102,4 @@ Install, update and uninstall operations for one adapter are serialized, with an
 
 ## Specs
 
-Exercise the actual shared resolver in specs: verify resolution order, rejection of a broken explicit or managed selection, continued discovery after an unsupported candidate, and cancellation during a probe. Test every supported platform's exact asset name. Add a live protocol suite for the real server; a native server may be skipped locally, but CI downloads a pinned, checksum-verified binary so the suite cannot silently disappear there.
+Exercise the actual shared resolver in specs: verify resolution order, a valid configured payload with a throwing managed getter, rejection of a broken explicit or managed selection, continued discovery after an unsupported candidate, and cancellation during a probe. Test every supported platform's exact asset name. Add a live protocol suite for the real server; a native server may be skipped locally, but CI downloads a pinned, checksum-verified binary so the suite cannot silently disappear there.

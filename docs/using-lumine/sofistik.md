@@ -10,7 +10,7 @@ Install the language grammar, the language-server client and its SOFiSTiK adapte
 
 ```sh
 lumine --install lumine-code/language-sofistik
-lumine --install lumine-code/ide-client
+lumine --install lumine-code/ide
 lumine --install lumine-code/ide-sofistik
 ```
 
@@ -93,6 +93,6 @@ Press Enter to apply a quick-filter draft and Escape to cancel it. All whitespac
 
 ## Migration
 
-`autocomplete-sofistik`, `linter-sofistik` and `sofistik-environment` are archived and removed from the install catalogue. Uninstall those packages and use `ide-sofistik` with `ide-client`; keep `autocomplete` and `linter`, which provide the completion and diagnostics interfaces.
+`autocomplete-sofistik`, `linter-sofistik` and `sofistik-environment` are archived and removed from the install catalogue. Uninstall those packages and use `ide-sofistik` with `ide`; keep `autocomplete` and `linter`, which provide the completion and diagnostics interfaces.
 
 The new packages do not use the former `sofistik.environment` service or its settings. Move release, language and edition choices into `sofistik.def` alongside the files they describe; shared detection uses `C:\Program Files\SOFiSTiK` when installed programs are needed. See [Language servers](language-servers.md) for the client and frontend setup, and [Optional packages](../packages-and-themes/optional-packages.md) for the other maintained packages.

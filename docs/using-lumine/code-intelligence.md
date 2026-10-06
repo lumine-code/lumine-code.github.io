@@ -1,6 +1,6 @@
 # Code intelligence
 
-A working [language-server setup](language-servers.md#installation) uses `ide-client` as a protocol hub that exposes editor services without rendering every feature itself. Install only the UI packages for the features you want; other providers can supply the same services without a language server.
+A working [language-server setup](language-servers.md#installation) uses `ide` as a protocol hub that exposes editor services without rendering every feature itself. Install only the UI packages for the features you want; other providers can supply the same services without a language server.
 
 | Feature                                   | Package              |
 | ----------------------------------------- | -------------------- |
@@ -66,14 +66,14 @@ Moving the cursor keeps the previous highlights visible while the next lookup is
 {
   ".source.python": {
     "code-format": {
-      "defaultProvider": "ide-client",
+      "defaultProvider": "ide",
       "formatOnSave": true
     }
   }
 }
 ```
 
-The hub also owns save glob filters, session-only observed-file opt-ins and status-bar indicators. Provider eligibility checks still apply. `prettier:format` and `ide-client:format` explicitly choose their engine through the hub; Prettier project commands format files on disk.
+The hub also owns save glob filters, session-only observed-file opt-ins and status-bar indicators. Provider eligibility checks still apply. `prettier:format` and `ide:format` explicitly choose their engine through the hub; Prettier project commands format files on disk.
 
 ## Code lens
 

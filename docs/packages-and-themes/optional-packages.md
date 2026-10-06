@@ -18,17 +18,17 @@ Most optional features maintained by `lumine-code` are available from **Settings
 
 ## Code intelligence
 
-- **ide-client** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-basedpyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-sass**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, **ide-vue**, **ide-sofistik**, **ide-clangd**, **ide-rust**, **ide-gopls**, **ide-tombi**, **ide-r**, **ide-jdtls**, **ide-roslyn**, **ide-phpantom**, **ide-ruby**, **ide-luals**, **ide-dart**, **ide-swift**, **ide-zls**, **ide-lemminx**, and **ide-powershell**.
-- **file-operations** is optional, UI-less infrastructure that inspects and preflights ordered create, rename and delete plans before executing them for protocol orchestrators such as **ide-client**.
+- **ide** is the Language Server Protocol client. Adapters include **ide-typescript**, **ide-eslint**, **ide-basedpyright**, **ide-ruff**, **ide-bash**, **ide-css**, **ide-sass**, **ide-html**, **ide-json**, **ide-yaml**, **ide-texlab**, **ide-tinymist**, **ide-marksman**, **ide-dockerfile**, **ide-graphql**, **ide-vue**, **ide-sofistik**, **ide-clangd**, **ide-rust**, **ide-gopls**, **ide-tombi**, **ide-r**, **ide-jdtls**, **ide-roslyn**, **ide-phpantom**, **ide-ruby**, **ide-luals**, **ide-dart**, **ide-swift**, **ide-zls**, **ide-lemminx**, and **ide-powershell**.
+- **file-operations** is optional, UI-less infrastructure that inspects and preflights ordered create, rename and delete plans before executing them for protocol orchestrators such as **ide**.
 - **symbol**, **hyperclick**, **documentation-view**, **hover**, **outline-view**, **intentions**, **refactor**, **find-references**, **hierarchy-view**, **code-lens**, **inlay-hints**, and **semantic-tokens** present navigation, actions, and language-server results. **documentation-view** owns the shared context-help registry and an on-demand documentation dock; **hover** uses that registry for tooltips and separately shows signature help.
-- **ide-basedpyright** supplies Python intelligence through **ide-client**; **symbol**, **find-references**, and **refactor** provide definition navigation, usage searches, and renaming.
+- **ide-basedpyright** supplies Python intelligence through **ide**; **symbol**, **find-references**, and **refactor** provide definition navigation, usage searches, and renaming.
 - **linter** and **linter-panel** collect diagnostics; **code-format** coordinates formatting, with **prettier** and language servers supplying providers.
 
 See [Language servers](../using-lumine/language-servers.md) for how clients, providers, and user-interface packages fit together.
 
 ## Languages and completion
 
-Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; **snippets** supplies snippet suggestions, **fuzzy-files** supplies project paths, **autocomplete-lumine** supplies editor API suggestions, and **ide-client** connects language-server adapters.
+Search Install for `language-` packages to add grammars that are not bundled. **autocomplete** is the completion hub; **snippets** supplies snippet suggestions, **fuzzy-files** supplies project paths, **autocomplete-lumine** supplies editor API suggestions, and **ide** connects language-server adapters.
 
 For Tree-sitter query files such as `highlights.scm`, `folds.scm`, and `indents.scm`, install [`language-tree-sitter-query`](https://github.com/lumine-code/language-tree-sitter-query). It provides syntax highlighting, folding, indentation, and query symbols. `.scm` selects this query grammar; Scheme source needs a Scheme grammar.
 
@@ -36,9 +36,9 @@ For Tree-sitter query files such as `highlights.scm`, `folds.scm`, and `indents.
 
 Bare paths with whitespace in the filename query use literal prefix matching. An unescaped enclosing quote or a closing bracket around a bare path ends completion, and a line with several paths uses the last active one. Suggestions stay inside the current file's project root and replace the full typed path prefix.
 
-For CSS, SCSS and Less completions, install **autocomplete**, **ide-client** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
+For CSS, SCSS and Less completions, install **autocomplete**, **ide** and **ide-css**. HTML uses **ide-html** with the same completion hub and client; indented `.sass` files use **ide-sass**.
 
-For SOFiSTiK CADINP, use **language-sofistik**, **ide-client** and **ide-sofistik**. **autocomplete-sofistik**, **linter-sofistik** and **sofistik-environment** are archived and removed from the install catalogue. Uninstall the older providers to avoid duplicate results; shared SOFiSTiK detection now lives in the lightweight `sofistik-env` library. See [SOFiSTiK](../using-lumine/sofistik.md) for installation, project declarations and manual calculation-diagnostics import.
+For SOFiSTiK CADINP, use **language-sofistik**, **ide** and **ide-sofistik**. **autocomplete-sofistik**, **linter-sofistik** and **sofistik-environment** are archived and removed from the install catalogue. Uninstall the older providers to avoid duplicate results; shared SOFiSTiK detection now lives in the lightweight `sofistik-env` library. See [SOFiSTiK](../using-lumine/sofistik.md) for installation, project declarations and manual calculation-diagnostics import.
 
 **latex-tools**, **typst-tools**, **sofistik-tools**, **tasklist-tools**, and **bib-finder** add build and navigation workflows for their respective formats.
 
