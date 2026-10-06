@@ -11,7 +11,7 @@ Install the language grammar, the language-server client and its SOFiSTiK adapte
 ```sh
 lumine --install lumine-code/language-sofistik
 lumine --install lumine-code/ide
-lumine --install lumine-code/ide-sofistik
+lumine --install lumine-code/ide-sofistik~master
 ```
 
 Add `autocomplete` for completion, `hover` for declaration previews, parameter positions, complete enum lists and signature help, `linter` for diagnostics, and `symbol`, `find-references` or `semantic-tokens` for navigation and contextual colors. The adapter includes its server, which runs with the editor's Node runtime. Static language intelligence works without a SOFiSTiK installation.
