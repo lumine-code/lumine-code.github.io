@@ -23,12 +23,27 @@ module.exports = {
       id: "ide-example",
       displayName: "Example Language Server",
       grammarScopes: ["source.example"],
-      async resolveServer({ rootPath }) {
-        return {
-          command: "/absolute/path/to/example-ls",
+      restartKeyPaths: ["ide-example.serverPath"],
+      async resolveServer(context) {
+        const selected = await context.resolver.select({
+          configuredPath: lumine.config.get("ide-example.serverPath"),
+          managedPath: context.managedServer?.binaryPath,
+          managedVersion: context.managedServer?.version,
+          kind: "executable",
+          names: ["example-ls"],
+          signal: context.signal,
+        });
+        if (!selected) {
+          ideClient.reportMissingServer("ide-example", {
+            description: "Install Example Language Server or choose its Server Path.",
+          });
+          return null;
+        }
+        return context.resolver.launch(selected, {
           args: ["--stdio"],
-          cwd: rootPath,
-        };
+          cwd: context.rootPath,
+          signal: context.signal,
+        });
       },
     });
   },
@@ -52,20 +67,28 @@ File-operation preparation requests carry a cancellation signal and share a conf
 ## What the adapter owns
 
 - `id`, `displayName` and `grammarScopes` identify the adapter and the editors it serves.
-- `resolveServer(context)` returns `{ command, args, cwd, env, transport }` or `null` after reporting how to install a missing server. Commands run directly without a general-purpose shell, so every argument belongs in `args`; on Windows the client safely routes an explicit `.cmd` or `.bat` shim through `cmd.exe` for adapters and custom servers.
+- `resolveServer(context)` returns a validated launch or `null` after reporting how to install a missing server. Use `context.resolver` for path selection and launch construction, and put every command argument in `args`. Native selection rejects Windows `.cmd` and `.bat` wrappers by default; an adapter deliberately handling a wrapper opts into `allowShellWrapper`, while custom-server commands retain the client's explicit Windows wrapper route.
 - `languageIdForScope(scopeName, {editor, filePath})`, initialization options, settings, protocol-extension hooks and document transforms are optional; use only the hooks the server needs. The editor context lets one grammar scope distinguish file variants such as `.js` and `.jsx`.
 - `getInitializedNotifications({session, rootPath, rootUri})` may return `{method, params}` notifications that must follow the initial settings push, such as `css/customDataChanged`.
 - Leave `sessionScope` at its default, `"project-root"`, unless the server has no root concept. Servers advertising multi-root support are shared across folders automatically.
 
 ## Settings and feature switches
 
-Declare user options in the package's `configSchema`, in the shape the server expects. `getSettings()` supplies `workspace/didChangeConfiguration`, and `settingsKeyPaths` names changes to resend; restart sessions for options read only during initialization. Omit empty values so an untouched editor setting does not override the project's own configuration.
+Declare user options in the package's `configSchema`, in the shape the server expects. `getSettings(context)` supplies `workspace/didChangeConfiguration`, and `settingsKeyPaths` names changes to resend. Put settings read during server resolution or initialization in `restartKeyPaths`; the client prepares a replacement before stopping a healthy server. Omit empty values so an untouched editor setting does not override the project's own configuration.
+
+Configuration hooks receive the current `{rootPath, rootUri, launch, resolver, session?}`. Keep launch-dependent settings against that exact `launch` object so concurrent projects and replacement sessions retain their own runtime and tool paths. The shared resolver is also available through `api.resolver` in installation and version hooks and `ideClient.getServerResolver()` outside startup.
 
 Put feature switches under `configSchema.features`. Declare only capabilities present in the server's `initialize` response. Client routing always enforces the switch; only disable work inside the server when doing so cannot defeat a grammar-scoped true override elsewhere in the same session. The supported feature names and resolution rules are maintained in the canonical `ide-client` contract linked above.
 
 ## Resolving and managing the server
 
-Follow the adapter convention in priority order: an explicit `serverPath`, a copy in `context.managedServer`, a server bundled as an npm dependency, then an executable on `PATH`. Raise one actionable missing-server notification and return `null` instead of throwing.
+The shared resolver applies one priority order: the explicit `configuredPath`, `managedPath` from `context.managedServer`, a lazy `bundledPath`, then discovered candidates and command `names` on PATH. All selected paths are absolute and validated before launch. A configured, managed or bundled failure rejects with its cause; discovery skips unusable candidates and tries the next one. Call `reportMissingServer()` and return `null` when selection finds no server, and preserve errors from broken selected installations so the user can repair the intended copy.
+
+Keep SDK and server-specific checks in `select`'s `validate(path, {source, signal})` callback. Return probe results as `selection.data` to reuse them when building arguments and environment overrides. The selection also records its `source`; a managed version belongs only to a managed selection. Java JARs and distributions can be selected as `"file"` or `"directory"` and launched through a separately validated runtime.
+
+Select a JavaScript entry with `kind: "node"` and use `launch`, or call `nodeEntry` directly. Those helpers enforce `ELECTRON_RUN_AS_NODE=1` for the editor executable; IPC launches use the entry as the client's fork target. Use `configuredKind: "auto"` when an explicit server path may name either a native executable or a `.js`, `.cjs` or `.mjs` entry. Server payloads and SDK probes remain owned by the adapter; shared resolver code is supplied through the service rather than imported from another package's runtime.
+
+The startup context carries a cancellation signal, and its resolver is guarded by that attempt's lifetime. Forward the callback's signal to subprocesses and asynchronous probes. Cancelling or superseding startup settles pending helper waits and prevents retained helpers from constructing a stale launch; adapter-owned work still needs to honor the signal itself.
 
 A `managedServer` descriptor lets the editor install, update and remove a server. GitHub-release descriptors name an exact asset per platform and state their checksum policy; npm descriptors name the packages and entry module. A package entry may be a name or `{name, version}` when a companion must stay inside a compatible range — TypeScript 7, for example, cannot replace the TypeScript 6 runtime expected by the current language servers. `ide-basedpyright` and `ide-typescript` both use `source: "npm"` with `bundled: true`, so removing a managed upgrade falls back to the dependency shipped with the adapter.
 
@@ -73,4 +96,4 @@ Use `installServer` only when one descriptor cannot model the installation, such
 
 ## Specs
 
-Unit-test resolution order and every supported platform's exact asset name. Add a live protocol suite for the real server; a native server may be skipped locally, but CI downloads a pinned, checksum-verified binary so the suite cannot silently disappear there.
+Exercise the actual shared resolver in specs: verify resolution order, rejection of a broken explicit or managed selection, continued discovery after an unsupported candidate, and cancellation during a probe. Test every supported platform's exact asset name. Add a live protocol suite for the real server; a native server may be skipped locally, but CI downloads a pinned, checksum-verified binary so the suite cannot silently disappear there.

@@ -123,7 +123,9 @@ LemMinX provides schema and DTD diagnostics, schema completions, navigation, doc
 
 Some adapters include an npm-based server; standalone servers such as Ruff, Texlab, Tinymist, and Marksman must be on `PATH`, selected with **Server Path**, or installed by Lumine. ESLint uses the library and plugins from each project when available; bundled and managed server copies fall back to bundled ESLint v8 for legacy configuration or v10 for flat configuration. Its Configuration Format defaults to automatic detection; install project-specific plugins locally.
 
-Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy; standalone adapters then search `PATH`, while npm-based adapters fall back to the version shipped with the adapter. Removing a managed copy never removes a server installed by another tool.
+Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy, a server shipped with the adapter when available, then automatic discovery through SDK locations and PATH. Removing a managed copy never removes a server installed by another tool.
+
+**Server Path** and runtime executable settings take absolute paths to the intended file; settings such as **Server Directory** select a complete distribution. A missing, unsupported or incomplete configured or managed installation reports its error, so correct that selection or reinstall the managed copy. Automatic discovery can continue past an unusable SDK or server to a working installation.
 
 The Bash adapter always runs its audited bundled server fork. Its managed install is a separately versioned, checksum-verified toolchain containing ShellCheck and shfmt, which provide diagnostics, fixes and formatting.
 
@@ -196,5 +198,7 @@ The status-bar item opens the same list and reports failures; disable it with th
 ## Troubleshooting
 
 Open the server log with `ide-client:show-log`; set **Protocol Trace** to `messages` or `verbose` for protocol traffic. Crashed servers restart up to **Maximum Automatic Restarts**, after which the failure notification links to the log. Fix the reported cause and restart the session from `ide-client:servers`.
+
+When changing a server path, runtime or initialization setting, the client prepares the replacement launch and settings before stopping a healthy server. Failed preparation reports the cause and leaves that working session available. Correct the selected installation and retry the restart; installing another copy on PATH does not override an explicit path or managed selection.
 
 If stopping a server fails while its process remains alive, the client waits for the operating system to confirm that process has exited before starting a replacement for the same route. This also applies to an interrupted initial start or an obsolete replacement, so repeated restarts cannot leave overlapping processes behind. Closing the window cancels pending waits and still attempts cleanup of every server the window owns.
