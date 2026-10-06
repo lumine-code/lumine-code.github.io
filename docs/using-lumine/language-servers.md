@@ -125,7 +125,11 @@ Some adapters include an npm-based server; standalone servers such as Ruff, Texl
 
 Run `ide-client:manage-servers` to install, update, or remove managed copies under `language-servers/` in your configuration directory. A configured **Server Path** wins, followed by the managed copy, a server shipped with the adapter when available, then automatic discovery through SDK locations and PATH. Removing a managed copy never removes a server installed by another tool.
 
+Install, update and removal requests for one managed server run one at a time across editor windows; requests made within one window keep their order. A replacement is downloaded and validated before the current server is stopped. If downloading, validation or stopping fails, the existing installation stays in place. Closing the window or deactivating the adapter cancels unfinished operations.
+
 **Server Path** and runtime executable settings take absolute paths to the intended file; settings such as **Server Directory** select a complete distribution. A missing, unsupported or incomplete configured or managed installation reports its error, so correct that selection or reinstall the managed copy. Automatic discovery can continue past an unusable SDK or server to a working installation.
+
+A corrupt managed installation record or missing installed payload also reports an error. Reinstall that managed server to repair it, or remove the managed copy to use a bundled or separately installed server.
 
 The Bash adapter always runs its audited bundled server fork. Its managed install is a separately versioned, checksum-verified toolchain containing ShellCheck and shfmt, which provide diagnostics, fixes and formatting.
 

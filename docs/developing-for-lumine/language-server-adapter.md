@@ -94,6 +94,10 @@ A `managedServer` descriptor lets the editor install, update and remove a server
 
 Use `installServer` only when one descriptor cannot model the installation, such as several binaries or an unusual release layout. The hub still owns staging, atomic replacement, rollback and status reporting; the adapter owns checksum verification when it calls the low-level download primitive. `ide-bash` is the fleet example.
 
+Custom install hooks receive `{storagePath, version, api, adapter, signal}`. The same cancellation signal is available as `api.signal`, and all API helpers use it. Forward it to the adapter's own subprocesses, downloads and probes, and check it before direct writes. Cancellation expires retained resolver, download and status capabilities; `setServerInstallationStatus` throws `AbortError` after its operation ends.
+
+Install, update and uninstall operations for one adapter are serialized, with an installation lease coordinating editor windows. Other adapters remain independent. A hook that ignores cancellation keeps its private staging and lease until it settles; its late result cannot replace the selected installation. The hub validates the staged record and payload before stopping sessions, preserves the existing installation when stopping fails, and recovers only interrupted swaps with established ownership. Preserve corruption and missing-payload errors so users can repair or remove a damaged managed installation.
+
 ## Specs
 
 Exercise the actual shared resolver in specs: verify resolution order, rejection of a broken explicit or managed selection, continued discovery after an unsupported candidate, and cancellation during a probe. Test every supported platform's exact asset name. Add a live protocol suite for the real server; a native server may be skipped locally, but CI downloads a pinned, checksum-verified binary so the suite cannot silently disappear there.
