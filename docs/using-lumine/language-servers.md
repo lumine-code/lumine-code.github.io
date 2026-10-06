@@ -194,3 +194,5 @@ The status-bar item opens the same list and reports failures; disable it with th
 ## Troubleshooting
 
 Open the server log with `ide-client:show-log`; set **Protocol Trace** to `messages` or `verbose` for protocol traffic. Crashed servers restart up to **Maximum Automatic Restarts**, after which the failure notification links to the log. Fix the reported cause and restart the session from `ide-client:servers`.
+
+If stopping a server fails while its process remains alive, the client waits for the operating system to confirm that process has exited before starting a replacement for the same route. This also applies to an interrupted initial start or an obsolete replacement, so repeated restarts cannot leave overlapping processes behind. Closing the window cancels pending waits and still attempts cleanup of every server the window owns.
