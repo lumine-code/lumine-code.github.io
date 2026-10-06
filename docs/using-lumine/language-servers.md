@@ -179,6 +179,8 @@ Any other language server can be wired up without a package. `ide-client:open-cu
 
 `command` and `scopes` are required. `args`, `env`, `languageId`, `sessionScope`, `transport`, `initializationOptions`, `settings`, and `features` are optional; `settings` is handed to the server as its configuration, and `features` switches individual capabilities off, as an adapter package's settings page does. Saving the file restarts exactly the servers whose entries changed.
 
+Configuration pulls read sections from that server's `settings` tree. For example, `gopls.usePlaceholders` resolves to the nested value above. A missing section returns `null`; a custom server never receives unrelated editor settings through this request.
+
 ## Inspecting and controlling servers
 
 `ide-client:servers` lists running servers, with those serving the active editor first. A session is labeled **Root**, **Roots**, **Workspace**, or **File** according to what it covers; choose it to restart or stop it, open its log, or show its diagnostics.
