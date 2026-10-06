@@ -153,6 +153,8 @@ Each adapter's **Features** group exposes the capabilities that can be switched 
 
 Document diagnostics and workspace diagnostics use the same route into `linter`: open buffers update as you type, while a server that implements `workspace/diagnostic` can also report files that are not open. Install `linter-panel` to browse the combined project result.
 
+Stopping a server removes its diagnostics immediately, including notebook-cell results, while preserving reports owned by another running session. Late shutdown notifications and invalidated hint or semantic-token replies cannot restore old results.
+
 Ruff and ESLint also provide explicit project and tree-view scans through `ide-ruff:lint-projects`, `ide-ruff:lint-selected`, `ide-eslint:lint-projects`, and `ide-eslint:lint-selected`. These commands analyze project files directly and publish their results to `linter`; see [Linting](linting.md) for scan behavior.
 
 ## File operations
