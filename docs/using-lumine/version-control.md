@@ -21,7 +21,7 @@ The tree view and tabs color file names by Git status. `git:colorize-toggle` swi
 
 ## The repository, branch, and worktree tiles
 
-Install **`git-center`** to show the active repository, working-tree counts, and branch in the status bar. Its filterable pickers are also available through `git-center:select-repository` and `git-center:select-branch`.
+Install **`git-center`** to show the active repository, working-tree counts, and branch in the status bar. On the left side, the repository and branch appear before the linter counters. Its filterable pickers are also available through `git-center:select-repository` and `git-center:select-branch`.
 
 The active repository normally follows whatever you are editing. `git-center:toggle-lock` pins it in place so it stops following, and the repository picker's `Auto` row hands it back.
 
