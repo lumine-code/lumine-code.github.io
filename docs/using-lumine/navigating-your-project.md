@@ -26,6 +26,8 @@ The TS or LS status item immediately after the grammar name opens the document-s
 
 Remote document sources have a response timeout. If the server fails or times out, Auto detect lets local Tree-sitter extraction finish even when a large buffer takes longer than that timeout. The item shows TS while this fallback runs. Editing the buffer or changing its source cancels obsolete work.
 
+Outline and breadcrumbs keep their displayed symbols for up to 200 ms while refreshing the same document after edits or a save. A result arriving within that interval replaces the previous symbols directly, preserving the outline highlights and breadcrumb path through the refresh. Slower requests clear the old symbols after the interval; empty or unavailable results clear them when they arrive. Switching files or removing the symbol service clears the previous presentation immediately.
+
 A language server used for embedded fragments is not automatically a source for the host document's outline. HTML intelligence inside Markdown, PHP and Blade does not replace their document symbols; GraphQL intelligence inside JavaScript, TypeScript and Vue follows the same rule. When the host language's backend is unavailable, Auto detect uses the host's Tree-sitter symbols. Embedded completion, hover, definition lookup and workspace search keep their own routing.
 
 Workspace symbols and definitions require a language backend that supports the corresponding feature. Workspace search combines all active backends independently of the focused editor, including closed files in projects those backends have loaded. Searching does not start additional servers or index source files itself; backend activation follows the language package's normal lifecycle.
