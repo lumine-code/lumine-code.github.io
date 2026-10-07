@@ -30,7 +30,7 @@ A Tree-sitter grammar config and all of its runtime assets live directly in a pa
 - **`parserSource`** pins the exact upstream source as `github:org/repo#ref`, where `ref` is a tag or a full commit SHA — never a moving branch, so a build is always reproducible. For repositories that contain several grammars, add the subdirectory: `github:tree-sitter-grammars/tree-sitter-markdown/tree-sitter-markdown-inline#<ref>`.
 - **`wasmBuildTool`** records which `tree-sitter-cli` version built the committed wasm. It is provenance, not configuration.
 - **`grammar`** points at the committed wasm, relative to the config file.
-- The **query keys** (`highlightsQuery`, `injectionsQuery`, `indentsQuery`, `foldsQuery`, `tagsQuery`, `localsQuery`) point at `.scm` files. A key may hold an array; the files are concatenated in order, which lets grammars share a common base query. Query files may contain the `._LANG_` token, which is replaced with the config's `treeSitter.languageSegment` — this is how one query file serves both TypeScript and TSX.
+- The **query keys** (`highlightsQuery`, `injectionsQuery`, `indentsQuery`, `foldsQuery`, `tagsQuery`, `localsQuery`, and optional `parseBoundariesQuery`) point at `.scm` files. A key may hold an array; the files are concatenated in order, which lets grammars share a common base query. Query files may contain the `._LANG_` token, which is replaced with the config's `treeSitter.languageSegment` — this is how one query file serves both TypeScript and TSX.
 
 Several configs can share one wasm (JSON, JSONC, and Jupyter). Configs that pin the same `parserSource` and wasm filename always move together.
 
@@ -190,6 +190,31 @@ The performance benefit comes from structural selection in the query and fewer n
 Run `npm run test:only -- benchmark/tree-sitter-static-injections-spec.js` from the editor repository for a diagnostic comparison of equivalent JavaScript and static rules. It measures initial parsing with warm languages and queries, edits inside content and prefix shifts, and verifies owner ranges, content, syntax trees, scopes and layer counts outside the timers. It reports samples and medians without performance thresholds; set `LUMINE_STATIC_INJECTION_BENCHMARK_CONFIG` to a JSON object with `sizes`, `samples` and `warmups` to change the workload.
 
 ## Keeping grammar work local
+
+### Optional incremental parse boundaries
+
+A grammar that divides opaque text into bounded fragments can declare `parseBoundariesQuery` to preserve their alignment after edits that shift the fragment boundaries, including insertion of a physical newline. The scanner must recognize adjacent included-range starts as permitted fragment ends. This is an opt-in parser capability: a scanner that treats every included-range start as a separate language region must not enable it.
+
+```json
+{
+  "treeSitter": {
+    "grammar": "ipython.wasm",
+    "parseBoundariesQuery": "ipython-parse-boundaries.scm"
+  }
+}
+```
+
+```scheme
+(cell_body "opaque_fragment" @parse.boundary)
+```
+
+After applying `tree.edit()`, the editor reads the selected fragments' updated end indices and positions. It passes sparse adjacent included ranges to the root parser so the edited prefix can end at an existing fragment boundary and the remaining tree can be reused. The ranges cover exactly the same source as before; language ownership and injection ranges retain their semantic boundaries. The editor rejects boundaries inside UTF-16 pairs or CRLF and removes duplicate or nearby cuts. Injected parsers do not receive these root-parser hints.
+
+The query is loaded before parsing and participates in query validation and reloads. It should select bounded fragments whose boundaries the scanner can use, rather than every token in the document. Verify fresh and incremental syntax, complete source coverage, injections, and edits near fragment and Unicode boundaries. Parser bindings used outside the editor need to pass equivalent alignment options when reparsing an old tree; the IPython binding exposes a helper for this purpose.
+
+Repeated edits can create short fragments between surviving boundaries. The editor consolidates dense runs with bounded metadata-only invalidations before reparsing; it changes no source text, coordinates, or language ownership. This keeps fragment collection and reuse costs stable over a long editing session.
+
+### Parser and query costs
 
 Measure opening a file, editing a small range, and collecting symbols separately. A fast parser does not guarantee a fast grammar: query compilation, repeated sibling matches, and injection callbacks can dominate different phases. Use valid generated input as well as partially edited syntax, and compare captures and scopes before and after an optimization.
 
