@@ -81,6 +81,8 @@ With `hyperclick` active, holding Alt over a traceback location offers navigatio
 
 `jupyter-repl` renders interactive Matplotlib figures with `%matplotlib ipympl` and custom anywidget modules in isolated frames. Install `ipympl` or `anywidget` in the kernel environment first. Bokeh's `output_notebook()` and Panel's `pn.extension()` select their notebook renderers; their resource scripts and browser callbacks run inside isolated output frames. Python callbacks require the original kernel to remain connected.
 
+HTML frames with a percentage width, including Dash's default inline apps, use the available editor or output-panel width and follow window resizing. Dragging an inline result's resize grip sets a width for that result; **Reset Result Size** restores automatic sizing. Frames with a numeric width keep that width.
+
 ## AI access through MCP
 
 `jupyter-inspector` shows documentation for an expression, `jupyter-variables` browses and edits a Python namespace, and `jupyter-watches` re-evaluates selected expressions after execution. Watches keep their expressions and retained run history when the output renderer is replaced; reopening the panel recreates its editors around the same live-kernel models. See [Jupyter services and lifecycle](../developing-for-lumine/jupyter-services.md) for the shared API and resource ownership.
