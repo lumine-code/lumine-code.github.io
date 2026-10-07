@@ -26,6 +26,8 @@ For CSS, SCSS and Less completions, install `autocomplete`, `ide` and `ide-css`.
 
 Typing narrows the list by subsequence, not just by prefix: `sfn` finds `setFontName`. Prefix matches rank above looser matches, matched characters are highlighted, and a provider's relevance breaks ties.
 
+**Maximum Suggestions** limits how many entries the list holds. The scrollbar represents the whole list from the moment it opens, including entries outside the visible rows.
+
 ## Accepting an entry
 
 **Keymap For Confirming A Suggestion** controls whether Tab, Enter, both, or neither accepts the highlighted entry.
