@@ -56,6 +56,12 @@ Static findings use Ruff-style codes with a module prefix and three digits. `G` 
 
 Add `NOQA = G101,SL001` to the adjacent `sofistik.def` to suppress selected codes, or `NOQA = ALL` to suppress all static findings. Use `! noqa: G101` or `$ noqa: G101` on an original physical line of the offending record for a local suppression; bare `! noqa` suppresses all findings on that line. A pragma on a program header applies to its variable and module checks, and one on an invocation applies to that expansion. Preprocessing failures use the offending line, invocation or project selector. A module selector such as `SL` selects all its rules; `AQ` and `AQB` remain distinct. A partial numbered selector such as `G1` selects that numbered family. The [server's rule catalogue](https://github.com/lumine-code/sofistik-language-server/blob/master/docs/lint-rules.md) lists all codes and verified releases.
 
+## Preprocessor preview
+
+Run `ide-sofistik:open-parsed-code` or choose **Packages > IDE SOFiSTiK > Open Parsed Code** to open the current CADINP source after preprocessing in a new, unsaved editor. The command reuses the linter's expansion, including adjacent `sofistik.def` declarations, nested macros, active `#IF` branches and included files. Unsaved changes in the source and open include buffers are included; an untitled source can also be expanded.
+
+The preview keeps CADINP syntax highlighting and can be edited or saved independently. If unresolved input, unsupported directives or expansion limits leave the result incomplete, the command opens the available text and reports that limitation. Runtime expressions remain unchanged, and no SOFiSTiK programs are started.
+
 ## Existing calculation diagnostics
 
 Run `ide-sofistik:read-calculation-diagnostics` on a saved, unchanged CADINP file to read its existing `.error_positions` file. The file contains one JSON object per line, with an error number, severity flag and source position. The server validates the imported records and combines them with its static findings in the linter.
