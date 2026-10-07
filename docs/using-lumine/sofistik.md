@@ -71,7 +71,7 @@ Add `NOQA = G101,SL001` to the adjacent `sofistik.def` to suppress selected code
 
 Run `ide-sofistik:open-parsed-code` or choose **Packages > IDE SOFiSTiK > Open Parsed Code** to open the current CADINP source after preprocessing in a new, unsaved editor. The command reuses the same analysis snapshot as static diagnostics, including adjacent `sofistik.def` declarations, nested macros, active `#IF` branches and included files. Unsaved changes in the source and open include buffers are included; an untitled source can also be expanded. The editor synchronizes the source first and refuses an expansion whose document changed while the request was pending.
 
-The preview keeps CADINP syntax highlighting and can be edited or saved independently. If unresolved input, unsupported directives or expansion limits leave the result incomplete, the command opens the available text and reports that limitation. Runtime expressions remain unchanged, and no SOFiSTiK programs are started.
+The preview keeps CADINP syntax highlighting and can be edited or saved independently. If unresolved input, unsupported directives or expansion limits leave the result incomplete, the command opens the available text and reports that limitation. Runtime expressions and `APPLY` records remain unchanged for the calculation programs; `APPLY` alone does not trigger an incomplete-preprocessor warning. No SOFiSTiK programs are started.
 
 ## Existing calculation diagnostics
 

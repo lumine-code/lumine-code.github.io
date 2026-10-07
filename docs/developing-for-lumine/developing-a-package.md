@@ -56,6 +56,18 @@ module.exports = {
 
 Window hooks are available through `lumine.hooks`. Core emits one-shot events such as `core:pane-item-used`, `core:text-editor-used`, and `core:grammar-used`; packages subscribe in `activate()` and dispose subscriptions in `deactivate()`.
 
+## Opening a text editor
+
+Build and populate a detached editor, then open it in the workspace:
+
+```js
+const editor = lumine.workspace.buildTextEditor();
+editor.setText("Generated text\n");
+await lumine.workspace.open(editor);
+```
+
+A non-mini text editor without an explicit `autoHeight` setting adopts the pane's height when it becomes a pane item, so long content scrolls normally. This also applies to custom openers, direct `pane.addItem()` calls, docks and restored editors. Detached editors and editors embedded inside another view keep their content-based height. Pass `autoHeight: true` or `false` when the view deliberately owns that choice; core preserves explicit settings.
+
 ## Writing views in JSX
 
 Give a file the `.jsx` extension and Lumine compiles it through Babel on load — no build step and no configuration. Name the factory the file's tags compile to in a `/** @jsx … */` pragma at the top; for a Lumine view that is `etch.dom`, the virtual-DOM helper the editor's own views are written with, so a view is a plain object with `render` and `update` methods:
