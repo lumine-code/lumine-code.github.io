@@ -69,6 +69,15 @@ While authoring queries, do not iterate through the pin. Symlink the package int
 
 ## Updating a grammar
 
+Check the upstream sources declared by the grammar configs before choosing an update:
+
+```sh
+lem upstream --parsers
+lem upstream --parsers --all
+```
+
+This scan groups shared parser pins, uses the source checkouts under `lem/.parsers`, and compares each immutable pin with its upstream default branch. It reports changes to authored grammars, scanners and queries separately from generated parser files and repository tooling. Review those changes against Lumine's own queries and fixtures; a newer upstream commit alone does not establish that a parser update is useful.
+
 1. Run `lem grammar <config> --source github:org/repo#ref --diff-node-types` with the new tag or SHA.
 2. Read the diff: **removed** node types or fields are the breakage forecast — search the grammar's `.scm` files for each one. Renames surface as query compile errors; _shape_ changes (a node moving inside another) also surface as compile errors even when the inventory is unchanged.
 3. Run the three gates from the Lumine repo. A language package lives in its own repository, so its specs run against a real build rather than through `test:only`:
