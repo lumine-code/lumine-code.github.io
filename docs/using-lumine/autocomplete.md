@@ -40,7 +40,7 @@ Providers can attach markdown documentation, a signature, a source module, depre
 
 The documentation below the list shows the selected entry's full signature as soon as its language server returns it. This includes type information for entries without a documentation comment.
 
-When you select another entry, the previous documentation stays visible for up to 150 ms while its replacement loads. A ready description replaces it immediately, without briefly closing the panel.
+When you select another entry, the previous documentation stays visible for up to 50 ms while its replacement loads. A ready description replaces it immediately, without briefly closing the panel.
 
 For documentation supplied by `ide-basedpyright`, Python doctest examples beginning with `>>>` use Python syntax highlighting, including `...` continuation lines. The prompts and expected output remain visible and copyable; output is not parsed as Python. Examples supplied by other language servers keep their declared language. This also applies to [hover documentation](code-intelligence.md#hover-and-signature-help).
 
