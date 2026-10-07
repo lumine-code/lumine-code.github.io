@@ -6,6 +6,10 @@ Lumine's workspace is made of **panes** (which hold editors and other items) and
 
 The bundled `tabs` package puts a tab per open item at the top of each pane. Drag tabs to reorder them, or drag them between panes. `pane:show-next-item` and `pane:show-previous-item` cycle through a pane's items; `pane:reopen-closed-item` brings back the last item you closed.
 
+Packages → Tabs contains the tab commands. Close All Tabs closes the active pane's tabs; Close All Tabs in Workspace closes tabs in every pane of the window. From a tab's context menu, commands act on that tab. Batch closing stops when a close is refused.
+
+Open in New Window moves a tab into a new window, keeping its unsaved text, selections, and scroll position. Dragging a tab into another window preserves the same state. If that window already has unsaved changes for the file, the move is refused and both copies stay intact.
+
 With `core.allowPendingPaneItems` enabled, a single click in the tree opens a temporary preview tab. Opening another file replaces that preview. Image Editor, PDF View and Archive View can load the next compatible file into the existing preview, keeping the viewer in place; PDF View also keeps its iframe runtime. Archive View prepares the new contents before replacing its tree, so a loading failure keeps the previous archive available. Double-clicking a file keeps its tab, and editing an image keeps that image's tab. Replaced previews remain available through `pane:reopen-closed-item`.
 
 ## Splitting panes
