@@ -73,7 +73,7 @@ Syntax and kernel choice are separate. A cell with `%%bash` can be highlighted a
 
 ## Inspecting results and data
 
-`jupyter-repl` also contains the kernel monitor and command prompt. The monitor lists every running kernel and offers interrupt, restart, and shutdown. Each prompt run submits code to the session selected for its current context.
+`jupyter-monitor` lists every running kernel and offers interrupt, restart, and shutdown through the public session service. `jupyter-prompt` provides a command prompt with history; each run captures its selected session and generation and submits code through the shared execution service. Both packages activate independently of `jupyter-repl` and retain their own view lifecycle.
 
 With `hyperclick` active, holding Alt over a traceback location offers navigation to an existing local source file or to the source captured for an executed cell. Plain hover and click keep normal text behavior; Alt-click follows the verified destination, with the same hover delay as source symbols. Library frames can be folded. Notebook links follow stable cell IDs through reordering; changing or deleting the executed source disables its link until it is run again. Syntax errors select the reported source range when the kernel supplies one.
 

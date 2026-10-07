@@ -44,7 +44,7 @@ For SOFiSTiK CADINP, use **language-sofistik**, **ide** and **ide-sofistik**. **
 
 ## Jupyter
 
-**jupyter-repl** owns kernels, shared output rendering, the kernel monitor, and the command prompt. **jupyter-cells**, **jupyter-view**, **jupyter-inspector**, **jupyter-variables**, **jupyter-explorer**, and **jupyter-watches** add source-file cells, notebook editing, documentation inspection, namespace browsing, paged data exploration, and expression watches. These seven packages share explicit kernel sessions and owned requests while keeping their document and data models separate. See [IPython and Jupyter cells](../using-lumine/ipython.md) for usage and [Jupyter services and lifecycle](../developing-for-lumine/jupyter-services.md) for integration.
+**jupyter-repl** owns kernels, execution, and shared output rendering. **jupyter-prompt** adds a command prompt with history, and **jupyter-monitor** adds a kernel registry and session controls. **jupyter-cells**, **jupyter-view**, **jupyter-inspector**, **jupyter-variables**, **jupyter-explorer**, and **jupyter-watches** add source-file cells, notebook editing, documentation inspection, namespace browsing, paged data exploration, and expression watches. These nine packages activate independently and share public kernel sessions, owned requests, and execution receipts while keeping their views, documents, and data models separate. See [IPython and Jupyter cells](../using-lumine/ipython.md) for usage and [Jupyter services and lifecycle](../developing-for-lumine/jupyter-services.md) for integration.
 
 ## Themes and file icons
 

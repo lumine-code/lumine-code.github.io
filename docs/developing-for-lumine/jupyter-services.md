@@ -1,20 +1,22 @@
 # Jupyter services and lifecycle
 
-The Jupyter family uses one runtime and seven packages. Packages own their document or data models; they communicate through public services and never obtain a transport or internal kernel object.
+The Jupyter family uses one runtime and nine independently activated packages. Packages own their views, documents, or data models; they communicate through public services and never obtain a transport or internal kernel object.
 
 ## Package responsibilities
 
 | Package | Responsibility |
 | --- | --- |
-| `jupyter-repl` | Kernel discovery, connections, sessions, execution, shared output rendering, the kernel monitor, and the command prompt. |
+| `jupyter-repl` | Kernel discovery, connections, sessions, execution, shared output rendering, and kernel input. |
 | `jupyter-cells` | Source-file cell boundaries, navigation, execution targets, and notebook conversion. |
 | `jupyter-view` | Notebook documents, stable cell identities, split views, editing, and notebook execution adapters. |
 | `jupyter-inspector` | Documentation and introspection for the selected expression. |
 | `jupyter-variables` | Python namespace snapshots, filtering, editing, and cached namespace access. |
 | `jupyter-explorer` | Python data sessions, paged grids, filtering, search, profiles, and bounded chart samples. |
 | `jupyter-watches` | Watched expressions, execution policy, retained run history, and cached watch access. |
+| `jupyter-prompt` | A command prompt and retained history, executing code through the shared execution service. |
+| `jupyter-monitor` | A kernel registry view and session controls through the public kernel service. |
 
-The monitor and prompt are lazily opened views of the runtime. Notebook documents and source-file cell indexes remain independent, as do namespace discovery, documentation inspection, data exploration, and watch evaluation.
+Each package registers its commands and service edges during synchronous activation and creates expensive views lazily. The prompt and monitor can be activated, unloaded, and restored independently of the runtime. Notebook documents and source-file cell indexes remain independent, as do namespace discovery, documentation inspection, data exploration, and watch evaluation.
 
 ## Service boundaries
 
@@ -22,7 +24,7 @@ The monitor and prompt are lazily opened views of the runtime. Notebook document
 | --- | --- |
 | [`jupyter.kernel`](https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.kernel.md) | The session registry, session identity and generation, owned requests, status observations, and kernel control. |
 | [`jupyter.context`](https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.context.md) | The command's focused editor, expression, and source cell range. |
-| [`jupyter.execution`](https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.execution.md) | Explicit source-editor or notebook execution intents with captured targets. |
+| [`jupyter.execution`](https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.execution.md) | Captured source-editor or notebook targets, or editorless code with an explicit session and generation. |
 | [`jupyter.output`](https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.output.md) | Canonical output-event reduction, MIME rendering, and output actions. |
 | [`jupyter.cells`](https://github.com/lumine-code/jupyter-cells/blob/master/docs/jupyter.cells.md) | Source-file cell discovery and source ranges. |
 | [`jupyter.adapter`](https://github.com/lumine-code/jupyter-repl/blob/master/docs/jupyter.adapter.md) | Notebook ownership, stable targets, source snapshots, and output delivery. |
@@ -30,6 +32,8 @@ The monitor and prompt are lazily opened views of the runtime. Notebook document
 | [`jupyter.explorer`](https://github.com/lumine-code/jupyter-explorer/blob/master/docs/jupyter.explorer.md) | An explicit session and expression or data file to display. |
 
 Resolve the command editor once from its dispatch event. Ask `getKernelForEditor(editor)` or `getKernelForItem(item)` for that surface's session rather than substituting the active document's kernel. Notebook fragments belong to their notebook adapter; expression fields in inspection panels belong to the panel's `getJupyterKernel()` session. `onDidChangeJupyterKernel(callback)` observes changes to that pane-owned session. Mini editors are excluded from source-command context.
+
+The prompt captures its selected session, generation, and code before awaiting execution service availability. It sends an editorless execution intent and awaits the same receipt used by source and notebook runs. The monitor renders registry metadata and invokes public session controls; it owns neither the registry nor a transport. Removing either consumer leaves the runtime and other packages available.
 
 ## Owned requests
 
