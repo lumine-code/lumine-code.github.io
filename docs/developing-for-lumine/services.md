@@ -86,3 +86,7 @@ Each service's canonical contract belongs in the repository of the package that 
 Providers implement `getHelp(editor, position, {signal})` and optionally `getGutterHelp(editor, row, {signal})`. Each call owns its cancellation state so a tooltip request cannot cancel a simultaneous panel request. Custom content returns a `render()` factory that creates fresh DOM, with an optional disposer, for each surface. Consumers dispose their own rendering when it closes.
 
 This replaces `hover.provider` during preproduction. Migrate providers and consumers directly to the context-help contracts; there are no compatibility aliases. `hover.signature-provider` remains the independent contract for function signature help.
+
+## Jupyter integrations
+
+The seven Jupyter packages share kernel sessions, explicit editor contexts, owned asynchronous requests, and canonical output rendering. See [Jupyter services and lifecycle](jupyter-services.md) for package responsibilities and teardown rules.

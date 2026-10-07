@@ -73,6 +73,8 @@ Syntax and kernel choice are separate. A cell with `%%bash` can be highlighted a
 
 ## Inspecting results and data
 
+`jupyter-repl` also contains the kernel monitor and command prompt. The monitor lists every running kernel and offers interrupt, restart, and shutdown. Each prompt run submits code to the session selected for its current context.
+
 With `hyperclick` active, holding Alt over a traceback location offers navigation to an existing local source file or to the source captured for an executed cell. Plain hover and click keep normal text behavior; Alt-click follows the verified destination, with the same hover delay as source symbols. Library frames can be folded. Notebook links follow stable cell IDs through reordering; changing or deleting the executed source disables its link until it is run again. Syntax errors select the reported source range when the kernel supplies one.
 
 `jupyter-explorer` reads dataframes and arrays in pages from the kernel, with sorting, filtering, search and column profiles over the full selected data. Column histograms and frequent values can apply filters together. Charts use an explicitly labelled bounded sample. The package can also open Parquet, Feather and Arrow files when the kernel environment has the required readers.
@@ -80,6 +82,8 @@ With `hyperclick` active, holding Alt over a traceback location offers navigatio
 `jupyter-repl` renders interactive Matplotlib figures with `%matplotlib ipympl` and custom anywidget modules in isolated frames. Install `ipympl` or `anywidget` in the kernel environment first. Bokeh's `output_notebook()` and Panel's `pn.extension()` select their notebook renderers; their resource scripts and browser callbacks run inside isolated output frames. Python callbacks require the original kernel to remain connected.
 
 ## AI access through MCP
+
+`jupyter-inspector` shows documentation for an expression, `jupyter-variables` browses and edits a Python namespace, and `jupyter-watches` re-evaluates selected expressions after execution. Watches keep their expressions and retained run history when the output renderer is replaced; reopening the panel recreates its editors around the same live-kernel models. See [Jupyter services and lifecycle](../developing-for-lumine/jupyter-services.md) for the shared API and resource ownership.
 
 With `lumine-mcp` active and a client connected to this window, the Jupyter packages expose notebook, kernel, execution, variable and watch tools. Reads use the live notebook, including unsaved cell source. Edits preserve notebook undo and require the revision returned by a read. Execution names an existing kernel and returns a receipt that can be queried without running the code again; repeated requests with the same operation ID do not duplicate accepted work.
 
