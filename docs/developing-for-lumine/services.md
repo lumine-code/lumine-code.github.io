@@ -89,4 +89,4 @@ This replaces `hover.provider` during preproduction. Migrate providers and consu
 
 ## Jupyter integrations
 
-The seven Jupyter packages share kernel sessions, explicit editor contexts, owned asynchronous requests, and canonical output rendering. See [Jupyter services and lifecycle](jupyter-services.md) for package responsibilities and teardown rules.
+The nine Jupyter packages share kernel sessions, explicit editor contexts, owned asynchronous requests, execution receipts, and canonical output rendering. See [Jupyter services and lifecycle](jupyter-services.md) for package responsibilities and teardown rules.
