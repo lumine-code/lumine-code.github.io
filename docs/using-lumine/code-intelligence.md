@@ -30,6 +30,8 @@ The panel works without `hover`. Install `documentation-view` together with a pr
 
 `hover` shows provider documentation, types, and linter messages at the pointer or cursor through the `documentation-view` registry. Use `hover:toggle` at the cursor, `hover:toggle-signature-help` while entering arguments, and `hover:dismiss` to close either overlay. Signature help uses its own provider service. Pointer and cursor delays are configurable. Scrolling stays inside either overlay by default; enable `hover.scrollChaining` to pass wheel events to the editor when the overlay cannot scroll further.
 
+Trace mode follows the mouse pointer and requests help when it rests over a symbol. It starts from `hover.trace`, which defaults to `true`. Use `hover:toggle-trace` (`Ctrl+H`) to switch it for the current window. Enable `hover.statusBar`, which defaults to `false`, to show an eye icon on the right side of the status bar and switch trace by clicking it. These switches last until the window reloads and do not change saved configuration; a later change to `hover.trace` replaces the current mode. Cursor-triggered hover and explicit commands work independently of trace.
+
 Python doctest examples supplied by `ide-basedpyright` use Python syntax highlighting in hover documentation, with `>>>` prompts, `...` continuations, and expected output preserved. When several servers contribute to a hover, each example keeps its originating server's rendering. [Autocomplete documentation](autocomplete.md#documentation-and-detail) uses the same rendering.
 
 ## Outline
