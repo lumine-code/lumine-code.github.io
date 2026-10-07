@@ -18,9 +18,20 @@ Add `autocomplete` for completion, `hover` for declaration previews, parameter p
 
 With `busy-signal` installed, the shared busy indicator shows server startup and common finite language requests after 400 ms, plus workspace indexing. Indexing runs in the background and clears its indicator when it finishes.
 
+The components have separate responsibilities:
+
+| Component | Responsibility |
+| --- | --- |
+| `language-sofistik` | Syntax highlighting, folding and Tree-sitter structure. |
+| `ide-sofistik` | Connect the language server to the editor and present parsed code or calculation findings. |
+| `sofistik-tools` | Run calculations, open installed applications and manuals, and edit program activation. |
+| `graviss-sofistik` | Read CDB models and project their geometry and results into Graviss. |
+
+The shared libraries keep those workflows consistent: `sofistik-env` selects declarations and installations, `sofistik-data` supplies exact release-specific CADINP data, and `sofistik-reader` isolates native CDB access. Dataset lookup does not select an installation. See the [language-server architecture](https://github.com/lumine-code/sofistik-language-server/blob/master/docs/architecture.md) for the source and analysis contracts.
+
 ## Release, language and edition
 
-Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`, and finally the newest bundled dataset supplied by `sofistik-data`. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
+Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`. Language and manual consumers supply the newest bundled dataset as their offline fallback; native CDB access requires an installed interface. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
 
 For example, an adjacent definition can contain:
 
@@ -44,7 +55,7 @@ The language grammar supplies ordinary syntax colors. Record separators (`;`) us
 
 ## Live linting
 
-The SOFiSTiK language server expands CADINP preprocessor input in memory and runs static checks after a 300 ms pause in changes. A persistent worker keeps completion available, reuses unchanged program analysis and validates open include buffers ahead of disk copies. It checks ordered `LET` and `STO` declarations and 123 verified ERR-derived rule families with exact release and EN/DE bindings. The audit covers all 61 distinct local catalogue resources across 2018, 2020 and 2022–2026; modules with only CDB-dependent or calculation-dependent conditions retain general language checks. The server does not evaluate runtime CADINP expressions or execute calculation programs.
+The SOFiSTiK language server expands CADINP preprocessor input in memory and runs static checks after a 300 ms pause in changes. A persistent worker keeps completion available, reuses unchanged program analysis and validates open include buffers ahead of disk copies. Navigation and preprocessing resolve relative include names beside the including source and use the same open-buffer precedence. It checks ordered `LET` and `STO` declarations and 123 verified ERR-derived rule families with exact release and EN/DE bindings. The audit covers all 61 distinct local catalogue resources across 2018, 2020 and 2022–2026; modules with only CDB-dependent or calculation-dependent conditions retain general language checks. The server does not evaluate runtime CADINP expressions or execute calculation programs.
 
 Findings point to the offending variable, invalid literal value or record in the original source, including included files. A substituted value points to its complete `$(...)` use and links the definitions used during expansion. A reusable block points to the failing invocation and links the precise body location. Original program headers retain their suppression scope without appearing as boilerplate related links. Inactive `#IF` branches produce no program findings. Intermediate `END` input blocks remain inside their program; local declarations reset at a new `PROG`, while known `STO` exports remain available.
 
@@ -58,7 +69,7 @@ Add `NOQA = G101,SL001` to the adjacent `sofistik.def` to suppress selected code
 
 ## Preprocessor preview
 
-Run `ide-sofistik:open-parsed-code` or choose **Packages > IDE SOFiSTiK > Open Parsed Code** to open the current CADINP source after preprocessing in a new, unsaved editor. The command reuses the linter's expansion, including adjacent `sofistik.def` declarations, nested macros, active `#IF` branches and included files. Unsaved changes in the source and open include buffers are included; an untitled source can also be expanded.
+Run `ide-sofistik:open-parsed-code` or choose **Packages > IDE SOFiSTiK > Open Parsed Code** to open the current CADINP source after preprocessing in a new, unsaved editor. The command reuses the same analysis snapshot as static diagnostics, including adjacent `sofistik.def` declarations, nested macros, active `#IF` branches and included files. Unsaved changes in the source and open include buffers are included; an untitled source can also be expanded. The editor synchronizes the source first and refuses an expansion whose document changed while the request was pending.
 
 The preview keeps CADINP syntax highlighting and can be edited or saved independently. If unresolved input, unsupported directives or expansion limits leave the result incomplete, the command opens the available text and reports that limitation. Runtime expressions remain unchanged, and no SOFiSTiK programs are started.
 
@@ -72,6 +83,8 @@ This command reads an existing result; it never starts SOFiSTiK. Logs are not wa
 
 Install `sofistik-tools` and `code-lens` to display a Run action above active `+PROG` headers. Clicking Run saves that source file and starts its selected block in WPS, regardless of the cursor position or which other editor is active. Only `sofistik.def` alongside the clicked file selects its installation. A matching SOFiSTiK installation is required; language intelligence remains usable without it.
 
+Inline Run, calculation commands and program activation use the same source structure, so commented or quoted program names do not select a calculation target. Calculation waits for source writes, retains the selected file and environment through the operation, and checks for the requested executable. A declared child calculation uses its own adjacent definition and saves its open editor before launch.
+
 Use **Inline Run Actions** in the **SOFiSTiK Tools** settings to enable or disable these links, with overrides per grammar. Disabling it removes the links immediately.
 
 Inline Run is available on the `sofistik-tools#master` branch ahead of the next tagged release.
@@ -79,6 +92,8 @@ Inline Run is available on the `sofistik-tools#master` branch ahead of the next 
 ## FEM model views
 
 Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed. For a `.grv` view, the adapter selects release and edition from `sofistik.def` alongside that view file, even when its database is in another directory. Direct CDB calls use the definition alongside the database. Neither context inherits workspace-root or ancestor definitions.
+
+The chosen interface remains fixed until the model session is reopened. The reader uses described layouts and known optional record tails; the viewer does not opt into assumed cross-release layouts. Required undecodable records and unsupported quantity units report an error instead of producing a guessed model. Closing the view closes its owned native session.
 
 ```sh
 lumine --install lumine-code/graviss
