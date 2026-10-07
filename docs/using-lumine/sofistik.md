@@ -27,11 +27,11 @@ The components have separate responsibilities:
 | `sofistik-tools` | Run calculations, open installed applications and manuals, and edit program activation. |
 | `graviss-sofistik` | Read CDB models and project their geometry and results into Graviss. |
 
-The shared libraries keep those workflows consistent: `sofistik-env` selects declarations and installations, `sofistik-data` supplies exact release-specific CADINP data, and `sofistik-reader` isolates native CDB access. Dataset lookup does not select an installation. See the [language-server architecture](https://github.com/lumine-code/sofistik-language-server/blob/master/docs/architecture.md) for the source and analysis contracts.
+The shared libraries keep those workflows consistent: `sofistik-context` selects declarations and installations, `sofistik-schema` supplies exact release-specific CADINP data, and `sofistik-reader` isolates native CDB access. Dataset lookup does not select an installation. See the [language-server architecture](https://github.com/lumine-code/sofistik-language-server/blob/master/docs/architecture.md) for the source and analysis contracts.
 
 ## Release, language and edition
 
-Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-env` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`. Language and manual consumers supply the newest bundled dataset as their offline fallback; native CDB access requires an installed interface. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
+Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-context` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`. Language and manual consumers supply the newest bundled dataset as their offline fallback; native CDB access requires an installed interface. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
 
 For example, an adjacent definition can contain:
 
