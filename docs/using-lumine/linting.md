@@ -22,6 +22,8 @@ The `linter` package does not analyze code itself — it consumes the `linter.pr
 
 Providers receive open document editors, including unsaved buffers. Packages can register document editors embedded in another surface, such as a commit message or notebook source, through `linter.editors`.
 
+Packages that need fresh classic-linter diagnostics can consume [`linter.lint`](https://github.com/lumine-code/linter/blob/master/docs/linter.lint.md) and await `lintEditor(editor)` or `lintBuffer(buffer)`. The buffer method uses a private snapshot when no tab is open, preserving the caller's buffer and attaching accepted file results to it. Both methods finish after matching classic providers settle and their results are published; language servers and other providers that push diagnostics independently keep their own schedule.
+
 Install `spell-check` to report misspellings through the linter and offer corrections through [autocomplete](autocomplete.md) and code actions. Use **Checked Grammars**, **Excluded Scopes**, and **Severity** to control automatic checking; `spell-check:check-selected` checks a selection regardless of those scope settings.
 
 `ide-ruff:lint-projects` and `ide-eslint:lint-projects` scan project files on demand, including files that are not open. Their `lint-selected` commands scan the files or folders selected in the tree view. Results appear in `linter` and `linter-panel`; opening a file preserves the scan's findings. These scans complement the adapters' live language-server diagnostics.
