@@ -15,6 +15,8 @@ In the file, project, bibliography, Banager version, Jupyter kernel and SOFiSTiK
 
 While a PDF view has focus, run `pdf-view:list` to search its outline headings and jump to the chosen heading. The list keeps headings in document order and displays destination page numbers.
 
+While an image view has focus, run `image-editor:list` to search a flat list of image filenames in the same folder. Choosing a file loads it in the same editor and asks how to handle any unsaved edits.
+
 ## Git and hosting
 
 - **git-panel** manages the working tree, **github-panel** handles GitHub issues and reviews, and **git-command** offers common workflows in a searchable list.
