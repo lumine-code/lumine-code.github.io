@@ -29,6 +29,20 @@ The components have separate responsibilities:
 
 The shared libraries keep those workflows consistent: `sofistik-context` selects declarations and installations, `sofistik-schema` supplies exact release-specific CADINP data, and `sofistik-reader` isolates native CDB access. Dataset lookup does not select an installation. See the [language-server architecture](https://github.com/lumine-code/sofistik-language-server/blob/master/docs/architecture.md) for the source and analysis contracts.
 
+## Include files
+
+`language-sofistik` highlights `.include` files as CADINP. The [SOFiPLUS include filenames](https://docs.sofistik.com/2025/en/sofiplus/working_with_include_files/working_with_include_files.html) select an initial program context, so module records and parameters receive their normal highlighting without adding a `+PROG` header to the file:
+
+| Filename | Program context |
+| --- | --- |
+| `aqa.include` | AQUA |
+| `msh.include` | SOFIMSHC |
+| `lfd.include` | SOFILOAD |
+| `dsn.include` | DECREATOR |
+| `spt.include`, `tnd.include` | TENDON |
+
+Other `.include` filenames use the ordinary CADINP grammar; explicit `+PROG` or `$PROG` headers select their program context. SOFiPLUS exports English input, so its include files should use English keywords. Filename selection supplies syntax highlighting only.
+
 ## Release, language and edition
 
 Place `sofistik.def` alongside the source, view or database files it describes. The lightweight `sofistik-context` library resolves each file's release from that adjacent definition, then the newest installed release under `C:\Program Files\SOFiSTiK`. Language and manual consumers supply the newest bundled dataset as their offline fallback; native CDB access requires an installed interface. Workspace-root and ancestor definitions never apply to files in subdirectories, even when the adjacent definition is missing. Different directories in one editor project can use different releases, languages and editions. An explicitly selected release without a matching dataset is reported rather than replaced with another release.
