@@ -13,7 +13,7 @@ In the file, project, bibliography, Banager version, Jupyter kernel and SOFiSTiK
 
 **pdf-view** uses PDF.js to render documents with text selection, search, an outline, and optional scrollmap markers. Refreshing a rebuilt PDF preserves its page, zoom, rotation, and scroll position. **latex-tools** adds SyncTeX navigation, and **latex-tools** or **typst-tools** coordinates refresh with compilation.
 
-While a PDF view has focus, run `pdf-view:list` to search its outline headings and jump to the chosen heading. The list preserves heading nesting and displays destination page numbers.
+While a PDF view has focus, run `pdf-view:list` to search its outline headings and jump to the chosen heading. The list keeps headings in document order and displays destination page numbers.
 
 ## Git and hosting
 
