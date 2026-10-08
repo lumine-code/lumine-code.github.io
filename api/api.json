@@ -5025,6 +5025,22 @@
           "line": 232
         },
         {
+          "name": "getTrackingStrategy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getTrackingStrategy()",
+          "category": "TextEditorMarker Details",
+          "visibility": "Essential",
+          "description": "",
+          "summary": "",
+          "parameters": [],
+          "returnType": "String",
+          "returnDescription": "the geometry tracking strategy: `range` or `token`.",
+          "propertyType": null,
+          "line": 242
+        },
+        {
           "name": "getProperties",
           "kind": "method",
           "static": false,
@@ -5038,7 +5054,7 @@
           "returnType": "Object",
           "returnDescription": "containing any custom properties associated with the marker.",
           "propertyType": null,
-          "line": 242
+          "line": 252
         },
         {
           "name": "setProperties",
@@ -5064,7 +5080,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 255
+          "line": 265
         },
         {
           "name": "matchesProperties",
@@ -5090,7 +5106,7 @@
           "returnType": "Boolean",
           "returnDescription": "whether this marker matches the given parameters. The parameters are the same as {@link DisplayMarkerLayer#findMarkers}.",
           "propertyType": null,
-          "line": 265
+          "line": 275
         },
         {
           "name": "compare",
@@ -5116,7 +5132,7 @@
           "returnType": "Number",
           "returnDescription": "The ordering of this marker relative to `otherMarker`.",
           "propertyType": null,
-          "line": 282
+          "line": 292
         },
         {
           "name": "isEqual",
@@ -5142,7 +5158,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this marker is equivalent to another marker, meaning they have the same range and options.",
           "propertyType": null,
-          "line": 293
+          "line": 303
         },
         {
           "name": "getBufferRange",
@@ -5158,7 +5174,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 312
+          "line": 322
         },
         {
           "name": "getScreenRange",
@@ -5174,7 +5190,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 328
+          "line": 338
         },
         {
           "name": "setBufferRange",
@@ -5219,7 +5235,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 346
+          "line": 356
         },
         {
           "name": "setScreenRange",
@@ -5274,7 +5290,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 361
+          "line": 371
         },
         {
           "name": "getHeadBufferPosition",
@@ -5290,7 +5306,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 373
+          "line": 383
         },
         {
           "name": "setHeadBufferPosition",
@@ -5316,7 +5332,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 387
+          "line": 397
         },
         {
           "name": "getHeadScreenPosition",
@@ -5352,7 +5368,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's head screen position.",
           "propertyType": null,
-          "line": 401
+          "line": 411
         },
         {
           "name": "setHeadScreenPosition",
@@ -5397,7 +5413,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 419
+          "line": 429
         },
         {
           "name": "getTailBufferPosition",
@@ -5413,7 +5429,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 431
+          "line": 441
         },
         {
           "name": "setTailBufferPosition",
@@ -5439,7 +5455,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 445
+          "line": 455
         },
         {
           "name": "getTailScreenPosition",
@@ -5475,7 +5491,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's tail screen position.",
           "propertyType": null,
-          "line": 459
+          "line": 469
         },
         {
           "name": "setTailScreenPosition",
@@ -5520,7 +5536,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 477
+          "line": 487
         },
         {
           "name": "getStartBufferPosition",
@@ -5536,7 +5552,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 492
+          "line": 502
         },
         {
           "name": "getStartScreenPosition",
@@ -5572,7 +5588,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's start screen position.",
           "propertyType": null,
-          "line": 509
+          "line": 519
         },
         {
           "name": "getEndBufferPosition",
@@ -5588,7 +5604,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 522
+          "line": 532
         },
         {
           "name": "getEndScreenPosition",
@@ -5624,7 +5640,7 @@
           "returnType": "Point",
           "returnDescription": "The marker's end screen position.",
           "propertyType": null,
-          "line": 539
+          "line": 549
         },
         {
           "name": "hasTail",
@@ -5640,7 +5656,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker has a tail.",
           "propertyType": null,
-          "line": 549
+          "line": 559
         },
         {
           "name": "plantTail",
@@ -5656,7 +5672,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 561
+          "line": 571
         },
         {
           "name": "clearTail",
@@ -5672,7 +5688,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 573
+          "line": 583
         }
       ]
     },
@@ -5853,9 +5869,19 @@
               "nested": true
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default), or `'token'` for the edit rules in {@link TextBuffer#markRange}. Token tracking requires a nonempty, single-line buffer range with a tail and defaults `invalidate` to `'never'` and `exclusive` to `true`; invalid input throws an `Error`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -5865,7 +5891,7 @@
             {
               "name": "options.exclusive",
               "type": "Boolean",
-              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.",
+              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy, token tracking, or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides standard exclusivity; token tracking still controls the surviving range.",
               "optional": false,
               "defaultValue": null,
               "source": "options.exclusive",
@@ -5886,7 +5912,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 177
+          "line": 178
         },
         {
           "name": "markScreenPosition",
@@ -5918,9 +5944,19 @@
               "defaultValue": null
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default). Token tracking requires a nonempty range with a tail and throws an `Error` for a position marker; use {@link #markScreenRange}.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -5930,7 +5966,7 @@
             {
               "name": "options.exclusive",
               "type": "Boolean",
-              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.",
+              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy, token tracking, or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides standard exclusivity; token tracking still controls the surviving range.",
               "optional": false,
               "defaultValue": null,
               "source": "options.exclusive",
@@ -5951,7 +5987,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 197
+          "line": 199
         },
         {
           "name": "markBufferRange",
@@ -5993,9 +6029,19 @@
               "nested": true
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default), or `'token'` for the edit rules in {@link TextBuffer#markRange}. Token tracking requires a nonempty, single-line buffer range with a tail and defaults `invalidate` to `'never'` and `exclusive` to `true`; invalid input throws an `Error`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -6005,7 +6051,7 @@
             {
               "name": "options.exclusive",
               "type": "Boolean",
-              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.",
+              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy, token tracking, or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides standard exclusivity; token tracking still controls the surviving range.",
               "optional": false,
               "defaultValue": null,
               "source": "options.exclusive",
@@ -6016,7 +6062,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 216
+          "line": 219
         },
         {
           "name": "markBufferPosition",
@@ -6048,9 +6094,19 @@
               "defaultValue": null
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default). Token tracking requires a nonempty range with a tail and throws an `Error` for a position marker; use {@link #markBufferRange}.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -6060,7 +6116,7 @@
             {
               "name": "options.exclusive",
               "type": "Boolean",
-              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.",
+              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy, token tracking, or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides standard exclusivity; token tracking still controls the surviving range.",
               "optional": false,
               "defaultValue": null,
               "source": "options.exclusive",
@@ -6071,7 +6127,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 234
+          "line": 238
         },
         {
           "name": "getMarker",
@@ -6097,7 +6153,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 252
+          "line": 256
         },
         {
           "name": "getMarkers",
@@ -6113,7 +6169,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}.",
           "propertyType": null,
-          "line": 274
+          "line": 278
         },
         {
           "name": "getMarkerCount",
@@ -6129,7 +6185,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 286
+          "line": 290
         },
         {
           "name": "findMarkers",
@@ -6355,7 +6411,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}",
           "propertyType": null,
-          "line": 324
+          "line": 328
         }
       ]
     },
@@ -12934,7 +12990,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 111
+          "line": 112
         },
         {
           "name": "onDidChange",
@@ -13080,7 +13136,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 143
+          "line": 144
         },
         {
           "name": "getRange",
@@ -13096,7 +13152,7 @@
           "returnType": "Range",
           "returnDescription": "current {@link Range} of the marker. The range is immutable.",
           "propertyType": null,
-          "line": 166
+          "line": 167
         },
         {
           "name": "setRange",
@@ -13151,7 +13207,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 181
+          "line": 182
         },
         {
           "name": "getHeadPosition",
@@ -13167,7 +13223,7 @@
           "returnType": "Point",
           "returnDescription": "representing the marker's current head position.",
           "propertyType": null,
-          "line": 199
+          "line": 200
         },
         {
           "name": "setHeadPosition",
@@ -13193,7 +13249,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 215
+          "line": 216
         },
         {
           "name": "getTailPosition",
@@ -13209,7 +13265,7 @@
           "returnType": "Point",
           "returnDescription": "representing the marker's current tail position. If the marker has no tail, the head position will be returned instead.",
           "propertyType": null,
-          "line": 248
+          "line": 249
         },
         {
           "name": "setTailPosition",
@@ -13235,7 +13291,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 265
+          "line": 266
         },
         {
           "name": "getStartPosition",
@@ -13251,7 +13307,7 @@
           "returnType": "Point",
           "returnDescription": "representing the start position of the marker, which could be the head or tail position, depending on its orientation.",
           "propertyType": null,
-          "line": 295
+          "line": 296
         },
         {
           "name": "getEndPosition",
@@ -13267,7 +13323,7 @@
           "returnType": "Point",
           "returnDescription": "representing the end position of the marker, which could be the head or tail position, depending on its orientation.",
           "propertyType": null,
-          "line": 305
+          "line": 306
         },
         {
           "name": "clearTail",
@@ -13283,7 +13339,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 317
+          "line": 318
         },
         {
           "name": "plantTail",
@@ -13299,7 +13355,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 334
+          "line": 335
         },
         {
           "name": "isReversed",
@@ -13315,7 +13371,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the head precedes the tail.",
           "propertyType": null,
-          "line": 350
+          "line": 351
         },
         {
           "name": "hasTail",
@@ -13331,7 +13387,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker has a tail.",
           "propertyType": null,
-          "line": 360
+          "line": 361
         },
         {
           "name": "isValid",
@@ -13347,7 +13403,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 372
+          "line": 373
         },
         {
           "name": "isDestroyed",
@@ -13363,7 +13419,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 384
+          "line": 385
         },
         {
           "name": "isExclusive",
@@ -13379,7 +13435,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether changes that occur exactly at the marker's head or tail cause it to move.",
           "propertyType": null,
-          "line": 394
+          "line": 395
         },
         {
           "name": "isEqual",
@@ -13405,7 +13461,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether this marker is equivalent to another marker, meaning they have the same range and options.",
           "propertyType": null,
-          "line": 409
+          "line": 412
         },
         {
           "name": "getInvalidationStrategy",
@@ -13421,7 +13477,23 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 430
+          "line": 434
+        },
+        {
+          "name": "getTrackingStrategy",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getTrackingStrategy()",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Get the geometry tracking strategy: `range` or `token`.\nToken tracking keeps annotations on a single lexical token during edits.",
+          "summary": "Get the geometry tracking strategy: `range` or `token`. Token tracking keeps annotations on a single lexical token during edits.",
+          "parameters": [],
+          "returnType": "String",
+          "returnDescription": "",
+          "propertyType": null,
+          "line": 447
         },
         {
           "name": "getProperties",
@@ -13437,7 +13509,7 @@
           "returnType": "Object",
           "returnDescription": "containing any custom properties associated with the marker.",
           "propertyType": null,
-          "line": 440
+          "line": 457
         },
         {
           "name": "setProperties",
@@ -13463,7 +13535,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 453
+          "line": 470
         },
         {
           "name": "copy",
@@ -13489,7 +13561,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 468
+          "line": 485
         },
         {
           "name": "destroy",
@@ -13515,7 +13587,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 484
+          "line": 501
         },
         {
           "name": "compare",
@@ -13541,7 +13613,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 506
+          "line": 523
         },
         {
           "name": "containsPoint",
@@ -13567,7 +13639,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker's range contains the given point.",
           "propertyType": null,
-          "line": 517
+          "line": 534
         },
         {
           "name": "containsRange",
@@ -13593,7 +13665,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker's range contains the given range.",
           "propertyType": null,
-          "line": 528
+          "line": 545
         },
         {
           "name": "intersectsRow",
@@ -13619,7 +13691,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the marker's range intersects the given row.",
           "propertyType": null,
-          "line": 539
+          "line": 556
         }
       ]
     },
@@ -13632,7 +13704,7 @@
       "source": "src/marker-layer.js",
       "sourcePath": "src/marker-layer.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 22,
+      "line": 23,
       "members": [
         {
           "name": "copy",
@@ -13648,7 +13720,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 87
+          "line": 89
         },
         {
           "name": "destroy",
@@ -13664,7 +13736,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 107
+          "line": 109
         },
         {
           "name": "clear",
@@ -13680,7 +13752,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 130
+          "line": 132
         },
         {
           "name": "isDestroyed",
@@ -13696,7 +13768,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 151
+          "line": 154
         },
         {
           "name": "getMarker",
@@ -13722,7 +13794,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 170
+          "line": 173
         },
         {
           "name": "getMarkers",
@@ -13738,7 +13810,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 182
+          "line": 185
         },
         {
           "name": "getMarkerCount",
@@ -13754,7 +13826,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 194
+          "line": 197
         },
         {
           "name": "findMarkers",
@@ -13780,7 +13852,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 205
+          "line": 208
         },
         {
           "name": "getRole",
@@ -13796,7 +13868,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 295
+          "line": 298
         },
         {
           "name": "markRange",
@@ -13838,6 +13910,16 @@
               "nested": true
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "Range tracking strategy: `range` (default) or `token`. Token tracking requires a nonempty single-line range, retains classification-sized ranges through single-line edits, extends adjoining identifier fragments, excludes boundary whitespace, and trims at an inserted newline. It defaults to `invalidate: 'never'` and `exclusive: true`. Removing the whole token invalidates it regardless of its invalidation strategy.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
               "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
@@ -13861,7 +13943,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 316
+          "line": 320
         },
         {
           "name": "markPosition",
@@ -13916,7 +13998,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 333
+          "line": 337
         },
         {
           "name": "onDidUpdate",
@@ -13942,7 +14024,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 364
+          "line": 368
         },
         {
           "name": "onDidCreateMarker",
@@ -13968,7 +14050,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 384
+          "line": 388
         },
         {
           "name": "onDidDestroy",
@@ -13994,7 +14076,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 397
+          "line": 401
         }
       ]
     },
@@ -26358,6 +26440,32 @@
           "line": 483
         },
         {
+          "name": "onDidApplyChanges",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidApplyChanges(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Invoke the callback synchronously at the end of a transaction with its\nindividual edits in application order, before the consolidated change event.\nEach edit uses the coordinates of the buffer immediately before and after\nthat edit. Edits that cancel each other still appear, allowing external\ntoken-range snapshots to follow the same operations as token markers.",
+          "summary": "Invoke the callback synchronously at the end of a transaction with its individual edits in application order, before the consolidated change event. Each edit uses the coordinates of the buffer immediately before and after that edit. Edits that cancel each other still appear, allowing external token-range snapshots to follow the same operations as token markers.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "Receives an object containing a `changes` array of edits with `oldRange`, `newRange`, `oldText`, and `newText`, plus `isCurrent()` which returns false if an earlier observer has already applied another edit.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Subscription to the applied edit batches.",
+          "propertyType": null,
+          "line": 503
+        },
+        {
           "name": "onDidChangeText",
           "kind": "method",
           "static": false,
@@ -26381,7 +26489,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 493
+          "line": 513
         },
         {
           "name": "onDidStopChanging",
@@ -26467,7 +26575,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 518
+          "line": 538
         },
         {
           "name": "onDidChangeFileState",
@@ -26493,7 +26601,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 531
+          "line": 551
         },
         {
           "name": "onDidUpdateMarkers",
@@ -26519,7 +26627,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 557
+          "line": 577
         },
         {
           "name": "onDidCreateMarker",
@@ -26555,7 +26663,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 571
+          "line": 591
         },
         {
           "name": "onDidChangePath",
@@ -26591,7 +26699,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 585
+          "line": 605
         },
         {
           "name": "onDidChangeEncoding",
@@ -26627,7 +26735,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 599
+          "line": 619
         },
         {
           "name": "onWillSave",
@@ -26653,7 +26761,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 612
+          "line": 632
         },
         {
           "name": "onDidSave",
@@ -26699,7 +26807,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 627
+          "line": 647
         },
         {
           "name": "onWillReload",
@@ -26725,7 +26833,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 641
+          "line": 661
         },
         {
           "name": "onDidReload",
@@ -26751,7 +26859,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 655
+          "line": 675
         },
         {
           "name": "onDidDestroy",
@@ -26777,7 +26885,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 668
+          "line": 688
         },
         {
           "name": "onWillThrowWatchError",
@@ -26833,7 +26941,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 685
+          "line": 705
         },
         {
           "name": "getStoppedChangingDelay",
@@ -26849,7 +26957,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 698
+          "line": 718
         },
         {
           "name": "getFileState",
@@ -26865,7 +26973,7 @@
           "returnType": "String",
           "returnDescription": "`\"unmodified\"`, `\"modified\"`, `\"conflicted\"`, or `\"removed\"`.",
           "propertyType": null,
-          "line": 718
+          "line": 738
         },
         {
           "name": "getPath",
@@ -26881,7 +26989,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 730
+          "line": 750
         },
         {
           "name": "setPath",
@@ -26907,7 +27015,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 742
+          "line": 762
         },
         {
           "name": "setFile",
@@ -27013,7 +27121,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 799
+          "line": 819
         },
         {
           "name": "setEncoding",
@@ -27039,7 +27147,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 849
+          "line": 869
         },
         {
           "name": "getEncoding",
@@ -27055,7 +27163,7 @@
           "returnType": "String",
           "returnDescription": "encoding of this buffer.",
           "propertyType": null,
-          "line": 872
+          "line": 892
         },
         {
           "name": "getUri",
@@ -27071,7 +27179,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 892
+          "line": 912
         },
         {
           "name": "isEmpty",
@@ -27087,7 +27195,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 918
+          "line": 938
         },
         {
           "name": "getText",
@@ -27103,7 +27211,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 931
+          "line": 951
         },
         {
           "name": "getTextInRange",
@@ -27129,7 +27237,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 949
+          "line": 969
         },
         {
           "name": "getLines",
@@ -27145,7 +27253,7 @@
           "returnType": "Array",
           "returnDescription": "of `Strings`.",
           "propertyType": null,
-          "line": 961
+          "line": 981
         },
         {
           "name": "getLastLine",
@@ -27161,7 +27269,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 974
+          "line": 994
         },
         {
           "name": "lineForRow",
@@ -27187,7 +27295,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 988
+          "line": 1008
         },
         {
           "name": "lineEndingForRow",
@@ -27213,7 +27321,7 @@
           "returnType": "String",
           "returnDescription": "The returned newline is represented as a literal string: `'\\n'`, `'\\r\\n'`, or `''` for the last line of the buffer, which doesn't end in a newline.",
           "propertyType": null,
-          "line": 1001
+          "line": 1021
         },
         {
           "name": "lineLengthForRow",
@@ -27239,7 +27347,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1015
+          "line": 1035
         },
         {
           "name": "isRowBlank",
@@ -27265,7 +27373,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1028
+          "line": 1048
         },
         {
           "name": "previousNonBlankRow",
@@ -27291,7 +27399,7 @@
           "returnType": "Number",
           "returnDescription": "or `null` if there's no preceding non-blank row.",
           "propertyType": null,
-          "line": 1041
+          "line": 1061
         },
         {
           "name": "nextNonBlankRow",
@@ -27317,7 +27425,7 @@
           "returnType": "Number",
           "returnDescription": "or `null` if there's no next non-blank row.",
           "propertyType": null,
-          "line": 1059
+          "line": 1079
         },
         {
           "name": "hasAstral",
@@ -27333,7 +27441,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the buffer contains astral-plane Unicode characters encoded as surrogate pairs.",
           "propertyType": null,
-          "line": 1075
+          "line": 1095
         },
         {
           "name": "setText",
@@ -27359,7 +27467,7 @@
           "returnType": "Range",
           "returnDescription": "spanning the new buffer contents.",
           "propertyType": null,
-          "line": 1097
+          "line": 1117
         },
         {
           "name": "getChangesToText",
@@ -27385,7 +27493,7 @@
           "returnType": "Array",
           "returnDescription": "Changes containing oldRange, newRange, oldText and newText.",
           "propertyType": null,
-          "line": 1111
+          "line": 1131
         },
         {
           "name": "setTextViaDiff",
@@ -27411,7 +27519,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1132
+          "line": 1152
         },
         {
           "name": "setTextInRange",
@@ -27475,7 +27583,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text.",
           "propertyType": null,
-          "line": 1215
+          "line": 1235
         },
         {
           "name": "insert",
@@ -27539,7 +27647,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text.",
           "propertyType": null,
-          "line": 1272
+          "line": 1292
         },
         {
           "name": "append",
@@ -27594,7 +27702,7 @@
           "returnType": "Range",
           "returnDescription": "of the inserted text",
           "propertyType": null,
-          "line": 1288
+          "line": 1308
         },
         {
           "name": "delete",
@@ -27620,7 +27728,7 @@
           "returnType": "Range",
           "returnDescription": "empty {@link Range} starting at the start of deleted range.",
           "propertyType": null,
-          "line": 1408
+          "line": 1456
         },
         {
           "name": "deleteRow",
@@ -27646,7 +27754,7 @@
           "returnType": "Range",
           "returnDescription": "of the deleted text.",
           "propertyType": null,
-          "line": 1421
+          "line": 1469
         },
         {
           "name": "deleteRows",
@@ -27681,7 +27789,7 @@
           "returnType": "Range",
           "returnDescription": "of the deleted text.",
           "propertyType": null,
-          "line": 1438
+          "line": 1486
         },
         {
           "name": "addMarkerLayer",
@@ -27737,7 +27845,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1488
+          "line": 1536
         },
         {
           "name": "getMarkerLayer",
@@ -27763,7 +27871,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "or `undefined` if no layer exists with the given id.",
           "propertyType": null,
-          "line": 1503
+          "line": 1551
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -27779,7 +27887,7 @@
           "returnType": "MarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1518
+          "line": 1566
         },
         {
           "name": "markRange",
@@ -27789,7 +27897,7 @@
           "signature": "::markRange(range, properties)",
           "category": "Markers",
           "visibility": "Public",
-          "description": "Create a `Marker` with the given range in the default {@link MarkerLayer}.\nThis marker will maintain its logical location as the buffer is changed,\nso if you mark a particular word, the marker will remain over that word\neven if the word's location in the buffer changes.",
+          "description": "Create a `Marker` with the given range in the default {@link MarkerLayer}.\nThis marker will maintain its logical location as the buffer is changed,\nso if you mark a particular word, the marker will remain over that word\neven if the word's location in the buffer changes.\n\nSet `tracking: 'token'` to track a nonempty, single-line token rather than\nan arbitrary range. Edits inside the token on one line adjust its range.\nIdentifier characters inserted at either boundary extend it, including\nUnicode characters, `_` and `$`; adjacent whitespace and punctuation stay\noutside. A multiline insertion inside the token retains only the original\nprefix before the edit. Partial deletion trims the surviving range; removing\nthe whole token invalidates the marker even with `invalidate: 'never'`.\nLayers configured with `destroyInvalidatedMarkers` destroy it instead.\nToken tracking defaults `invalidate` to `'never'` and `exclusive` to `true`.\nExplicit values still control invalidation and standard exclusivity, while\ntoken tracking controls the surviving token's endpoints.",
           "summary": "Create a `Marker` with the given range in the default {@link MarkerLayer}. This marker will maintain its logical location as the buffer is changed, so if you mark a particular word, the marker will remain over that word even if the word's location in the buffer changes.",
           "parameters": [
             {
@@ -27821,9 +27929,19 @@
               "nested": true
             },
             {
+              "name": "properties.tracking",
+              "type": "String",
+              "description": "`'range'` (default) for standard tracking, or `'token'` for the token edit rules above. Token tracking requires a nonempty, single-line range with a tail; invalid input throws an `Error`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "properties.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "properties.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "properties.invalidate",
@@ -27833,7 +27951,7 @@
             {
               "name": "properties.exclusive",
               "type": "Boolean",
-              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.",
+              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy, token tracking, or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides standard exclusivity; token tracking still controls the surviving range.",
               "optional": true,
               "defaultValue": null,
               "source": "properties.exclusive",
@@ -27844,7 +27962,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1538
+          "line": 1599
         },
         {
           "name": "markPosition",
@@ -27876,9 +27994,19 @@
               "defaultValue": null
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default). Token tracking requires a nonempty range with a tail and throws an `Error` for a position marker; use {@link #markRange}.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -27888,7 +28016,7 @@
             {
               "name": "options.exclusive",
               "type": "Boolean",
-              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.",
+              "description": "indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy, token tracking, or when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides standard exclusivity; token tracking still controls the surviving range.",
               "optional": true,
               "defaultValue": null,
               "source": "options.exclusive",
@@ -27899,7 +28027,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1555
+          "line": 1617
         },
         {
           "name": "getMarkers",
@@ -27915,7 +28043,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers`.",
           "propertyType": null,
-          "line": 1567
+          "line": 1629
         },
         {
           "name": "getMarker",
@@ -27941,7 +28069,7 @@
           "returnType": "Marker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1580
+          "line": 1642
         },
         {
           "name": "findMarkers",
@@ -28057,7 +28185,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers`.",
           "propertyType": null,
-          "line": 1606
+          "line": 1668
         },
         {
           "name": "getMarkerCount",
@@ -28073,7 +28201,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1618
+          "line": 1680
         },
         {
           "name": "undo",
@@ -28109,7 +28237,7 @@
           "returnType": "Boolean",
           "returnDescription": "of whether or not a change was made.",
           "propertyType": null,
-          "line": 1678
+          "line": 1740
         },
         {
           "name": "redo",
@@ -28145,7 +28273,7 @@
           "returnType": "Boolean",
           "returnDescription": "of whether or not a change was made.",
           "propertyType": null,
-          "line": 1707
+          "line": 1769
         },
         {
           "name": "transact",
@@ -28200,7 +28328,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1745
+          "line": 1807
         },
         {
           "name": "abortTransaction",
@@ -28216,7 +28344,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1809
+          "line": 1871
         },
         {
           "name": "clearUndoStack",
@@ -28232,7 +28360,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1819
+          "line": 1881
         },
         {
           "name": "createCheckpoint",
@@ -28268,7 +28396,7 @@
           "returnType": "Number",
           "returnDescription": "checkpoint id value.",
           "propertyType": null,
-          "line": 1834
+          "line": 1896
         },
         {
           "name": "revertToCheckpoint",
@@ -28313,7 +28441,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the operation succeeded.",
           "propertyType": null,
-          "line": 1857
+          "line": 1919
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -28358,7 +28486,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 1891
+          "line": 1953
         },
         {
           "name": "groupLastChanges",
@@ -28374,7 +28502,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether the operation succeeded.",
           "propertyType": null,
-          "line": 1909
+          "line": 1971
         },
         {
           "name": "getChangesSinceCheckpoint",
@@ -28400,7 +28528,7 @@
           "returnType": "Array<Object>",
           "returnDescription": "Changes since the checkpoint. See *Working With Aggregated Changes* in the {@link TextBuffer} class description for the fields.",
           "propertyType": null,
-          "line": 1931
+          "line": 1993
         },
         {
           "name": "scan",
@@ -28534,7 +28662,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1967
+          "line": 2029
         },
         {
           "name": "backwardsScan",
@@ -28668,7 +28796,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1996
+          "line": 2058
         },
         {
           "name": "scanInRange",
@@ -28820,7 +28948,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2026
+          "line": 2088
         },
         {
           "name": "backwardsScanInRange",
@@ -28943,7 +29071,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2096
+          "line": 2158
         },
         {
           "name": "replace",
@@ -28978,7 +29106,7 @@
           "returnType": "Number",
           "returnDescription": "representing the number of replacements made.",
           "propertyType": null,
-          "line": 2115
+          "line": 2177
         },
         {
           "name": "find",
@@ -29004,7 +29132,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2169
+          "line": 2231
         },
         {
           "name": "findInRange",
@@ -29039,7 +29167,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with the first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2183
+          "line": 2245
         },
         {
           "name": "findSync",
@@ -29065,7 +29193,7 @@
           "returnType": "Range",
           "returnDescription": "first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2196
+          "line": 2258
         },
         {
           "name": "findInRangeSync",
@@ -29100,7 +29228,7 @@
           "returnType": "Range",
           "returnDescription": "first {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2210
+          "line": 2272
         },
         {
           "name": "findAll",
@@ -29126,7 +29254,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an `Array` containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2223
+          "line": 2285
         },
         {
           "name": "findAllInRange",
@@ -29161,7 +29289,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with an `Array` containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2237
+          "line": 2299
         },
         {
           "name": "findAllSync",
@@ -29187,7 +29315,7 @@
           "returnType": "Array",
           "returnDescription": "containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2250
+          "line": 2312
         },
         {
           "name": "findAllInRangeSync",
@@ -29222,7 +29350,7 @@
           "returnType": "Array",
           "returnDescription": "containing every {@link Range} of text that matches the given regex.",
           "propertyType": null,
-          "line": 2264
+          "line": 2326
         },
         {
           "name": "findAndMarkAllInRangeSync",
@@ -29275,7 +29403,7 @@
           "returnType": "Array",
           "returnDescription": "of `Markers` representing the matches.",
           "propertyType": null,
-          "line": 2280
+          "line": 2342
         },
         {
           "name": "findWordsWithSubsequence",
@@ -29319,7 +29447,7 @@
           "returnType": "Promise<Array>",
           "returnDescription": "Resolves with every `SubsequenceMatch` of text that matches the given query.",
           "propertyType": null,
-          "line": 2311
+          "line": 2373
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -29372,7 +29500,7 @@
           "returnType": "Promise<Array>",
           "returnDescription": "Resolves with every `SubsequenceMatch` of text that matches the given query in the given range.",
           "propertyType": null,
-          "line": 2327
+          "line": 2389
         },
         {
           "name": "getRange",
@@ -29388,7 +29516,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2348
+          "line": 2410
         },
         {
           "name": "getLineCount",
@@ -29404,7 +29532,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2360
+          "line": 2422
         },
         {
           "name": "getLastRow",
@@ -29420,7 +29548,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2372
+          "line": 2434
         },
         {
           "name": "getFirstPosition",
@@ -29436,7 +29564,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2384
+          "line": 2446
         },
         {
           "name": "getEndPosition",
@@ -29452,7 +29580,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2397
+          "line": 2459
         },
         {
           "name": "getLength",
@@ -29468,7 +29596,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2407
+          "line": 2469
         },
         {
           "name": "getMaxCharacterIndex",
@@ -29484,7 +29612,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2419
+          "line": 2481
         },
         {
           "name": "rangeForRow",
@@ -29519,7 +29647,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2433
+          "line": 2495
         },
         {
           "name": "characterIndexForPosition",
@@ -29545,7 +29673,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2455
+          "line": 2517
         },
         {
           "name": "positionForCharacterIndex",
@@ -29571,7 +29699,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 2471
+          "line": 2533
         },
         {
           "name": "clipRange",
@@ -29597,7 +29725,7 @@
           "returnType": "Range",
           "returnDescription": "given {@link Range} if it is already in bounds, or a new clipped {@link Range} if the given range is out-of-bounds.",
           "propertyType": null,
-          "line": 2487
+          "line": 2549
         },
         {
           "name": "clipPosition",
@@ -29632,7 +29760,7 @@
           "returnType": "Point",
           "returnDescription": "new {@link Point} if the given position is invalid, otherwise returns the given position.",
           "propertyType": null,
-          "line": 2533
+          "line": 2595
         },
         {
           "name": "save",
@@ -29648,7 +29776,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2572
+          "line": 2634
         },
         {
           "name": "saveAs",
@@ -29674,7 +29802,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save has completed.",
           "propertyType": null,
-          "line": 2585
+          "line": 2647
         },
         {
           "name": "reload",
@@ -29690,7 +29818,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the load is complete.",
           "propertyType": null,
-          "line": 2671
+          "line": 2733
         },
         {
           "name": "getLanguageMode",
@@ -29706,7 +29834,7 @@
           "returnType": "Object",
           "returnDescription": "language mode `Object` (See {@link TextBuffer#setLanguageMode} for its interface).",
           "propertyType": null,
-          "line": 2715
+          "line": 2777
         },
         {
           "name": "setLanguageMode",
@@ -29872,7 +30000,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 2741
+          "line": 2803
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -29918,7 +30046,7 @@
           "returnType": "Disposable",
           "returnDescription": "that can be used to stop the callback from being called.",
           "propertyType": null,
-          "line": 2770
+          "line": 2832
         },
         {
           "name": "getFileWatchStartPromise",
@@ -29934,7 +30062,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once this buffer's file watcher has been armed and is delivering external-change events. Watching is served asynchronously by the file-watcher worker; this lets callers wait for it before relying on external-change detection. Resolves immediately when the buffer has no path or a custom data source that watches synchronously.",
           "propertyType": null,
-          "line": 3311
+          "line": 3384
         }
       ]
     },
@@ -33291,9 +33419,19 @@
               "nested": true
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default), or `'token'` for the edit rules in {@link TextBuffer#markRange}. Token tracking requires a nonempty, single-line buffer range with a tail and defaults `invalidate` to `'never'` and `exclusive` to `true`; invalid input throws an `Error`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -33304,7 +33442,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3490
+          "line": 3491
         },
         {
           "name": "markScreenRange",
@@ -33356,9 +33494,19 @@
               "nested": true
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default), or `'token'` for the edit rules in {@link TextBuffer#markRange}. Token tracking requires a nonempty, single-line buffer range with a tail and defaults `invalidate` to `'never'` and `exclusive` to `true`; invalid input throws an `Error`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -33369,7 +33517,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3510
+          "line": 3512
         },
         {
           "name": "markBufferPosition",
@@ -33401,9 +33549,19 @@
               "defaultValue": null
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default). Token tracking requires a nonempty range with a tail and throws an `Error` for a position marker; use {@link #markBufferRange}.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -33414,7 +33572,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3527
+          "line": 3530
         },
         {
           "name": "markScreenPosition",
@@ -33446,9 +33604,19 @@
               "defaultValue": null
             },
             {
+              "name": "options.tracking",
+              "type": "String",
+              "description": "`'range'` (default). Token tracking requires a nonempty range with a tail and throws an `Error` for a position marker; use {@link #markScreenRange}.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.tracking",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.invalidate",
               "type": "String",
-              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
+              "description": "Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap' for range tracking, 'never' for token tracking) It can be any of the following strategies, in order of fragility: * __never__: The marker is never marked as invalid. This is a good choice for markers representing selections in an editor. * __surround__: The marker is invalidated by changes that completely surround it. * __overlap__: The marker is invalidated by changes that surround the start or end of the marker. This is the default for range tracking. * __inside__: The marker is invalidated by changes that extend into the inside of the marker. Changes that end at the marker's start or start at the marker's end do not invalidate the marker. * __touch__: The marker is invalidated by a change that touches the marked region in any way, including changes that end at the marker's start or start at the marker's end. This is the most fragile strategy.",
               "optional": true,
               "defaultValue": null,
               "source": "options.invalidate",
@@ -33469,7 +33637,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 3545
+          "line": 3549
         },
         {
           "name": "findMarkers",
@@ -33535,7 +33703,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}",
           "propertyType": null,
-          "line": 3568
+          "line": 3572
         },
         {
           "name": "getMarker",
@@ -33561,7 +33729,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3581
+          "line": 3585
         },
         {
           "name": "getMarkers",
@@ -33577,7 +33745,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3592
+          "line": 3596
         },
         {
           "name": "getMarkerCount",
@@ -33593,7 +33761,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3604
+          "line": 3608
         },
         {
           "name": "addMarkerLayer",
@@ -33639,7 +33807,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3624
+          "line": 3628
         },
         {
           "name": "getMarkerLayer",
@@ -33665,7 +33833,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "or `undefined` if no layer exists with the given id.",
           "propertyType": null,
-          "line": 3637
+          "line": 3641
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -33681,7 +33849,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3652
+          "line": 3656
         },
         {
           "name": "getCursorBufferPosition",
@@ -33697,7 +33865,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3669
+          "line": 3673
         },
         {
           "name": "getCursorBufferPositions",
@@ -33713,7 +33881,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Point Points} in the order they were added",
           "propertyType": null,
-          "line": 3681
+          "line": 3685
         },
         {
           "name": "setCursorBufferPosition",
@@ -33758,7 +33926,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3697
+          "line": 3701
         },
         {
           "name": "getCursorAtScreenPosition",
@@ -33784,7 +33952,7 @@
           "returnType": "Cursor|undefined",
           "returnDescription": "first matched {@link Cursor} or undefined",
           "propertyType": null,
-          "line": 3710
+          "line": 3714
         },
         {
           "name": "getCursorScreenPosition",
@@ -33800,7 +33968,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3726
+          "line": 3730
         },
         {
           "name": "getCursorScreenPositions",
@@ -33816,7 +33984,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Point Points} in the order the cursors were added",
           "propertyType": null,
-          "line": 3738
+          "line": 3742
         },
         {
           "name": "setCursorScreenPosition",
@@ -33861,7 +34029,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3754
+          "line": 3758
         },
         {
           "name": "addCursorAtBufferPosition",
@@ -33896,7 +34064,7 @@
           "returnType": "Cursor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3767
+          "line": 3771
         },
         {
           "name": "addCursorAtScreenPosition",
@@ -33931,7 +34099,7 @@
           "returnType": "Cursor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3784
+          "line": 3788
         },
         {
           "name": "hasMultipleCursors",
@@ -33947,7 +34115,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether or not there are multiple cursors.",
           "propertyType": null,
-          "line": 3798
+          "line": 3802
         },
         {
           "name": "moveUp",
@@ -33973,7 +34141,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3810
+          "line": 3814
         },
         {
           "name": "moveDown",
@@ -33999,7 +34167,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3822
+          "line": 3826
         },
         {
           "name": "moveLeft",
@@ -34025,7 +34193,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3834
+          "line": 3838
         },
         {
           "name": "moveRight",
@@ -34051,7 +34219,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3848
+          "line": 3852
         },
         {
           "name": "moveToBeginningOfLine",
@@ -34067,7 +34235,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3860
+          "line": 3864
         },
         {
           "name": "moveToBeginningOfScreenLine",
@@ -34083,7 +34251,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3870
+          "line": 3874
         },
         {
           "name": "moveToFirstCharacterOfLine",
@@ -34099,7 +34267,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3880
+          "line": 3884
         },
         {
           "name": "moveToEndOfLine",
@@ -34115,7 +34283,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3890
+          "line": 3894
         },
         {
           "name": "moveToEndOfScreenLine",
@@ -34131,7 +34299,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3900
+          "line": 3904
         },
         {
           "name": "moveToBeginningOfWord",
@@ -34147,7 +34315,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3910
+          "line": 3914
         },
         {
           "name": "moveToEndOfWord",
@@ -34163,7 +34331,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3920
+          "line": 3924
         },
         {
           "name": "moveToTop",
@@ -34179,7 +34347,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3934
+          "line": 3938
         },
         {
           "name": "moveToBottom",
@@ -34195,7 +34363,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3946
+          "line": 3950
         },
         {
           "name": "moveToBeginningOfNextWord",
@@ -34211,7 +34379,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3956
+          "line": 3960
         },
         {
           "name": "moveToPreviousWordBoundary",
@@ -34227,7 +34395,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3966
+          "line": 3970
         },
         {
           "name": "moveToNextWordBoundary",
@@ -34243,7 +34411,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3976
+          "line": 3980
         },
         {
           "name": "moveToPreviousSubwordBoundary",
@@ -34259,7 +34427,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3986
+          "line": 3990
         },
         {
           "name": "moveToNextSubwordBoundary",
@@ -34275,7 +34443,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3996
+          "line": 4000
         },
         {
           "name": "moveToBeginningOfNextParagraph",
@@ -34291,7 +34459,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4006
+          "line": 4010
         },
         {
           "name": "moveToBeginningOfPreviousParagraph",
@@ -34307,7 +34475,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4016
+          "line": 4020
         },
         {
           "name": "getLastCursor",
@@ -34323,7 +34491,7 @@
           "returnType": "Cursor",
           "returnDescription": "most recently added {@link Cursor}",
           "propertyType": null,
-          "line": 4026
+          "line": 4030
         },
         {
           "name": "getWordUnderCursor",
@@ -34349,7 +34517,7 @@
           "returnType": "String",
           "returnDescription": "word surrounding the most recently added cursor.",
           "propertyType": null,
-          "line": 4038
+          "line": 4042
         },
         {
           "name": "getCursors",
@@ -34365,7 +34533,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4048
+          "line": 4052
         },
         {
           "name": "getCursorsOrderedByBufferPosition",
@@ -34381,7 +34549,7 @@
           "returnType": "Array<Cursor>",
           "returnDescription": "The cursors ordered by buffer position.",
           "propertyType": null,
-          "line": 4062
+          "line": 4066
         },
         {
           "name": "getSelectedText",
@@ -34397,7 +34565,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4128
+          "line": 4132
         },
         {
           "name": "getSelectedBufferRange",
@@ -34413,7 +34581,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4141
+          "line": 4145
         },
         {
           "name": "getSelectedBufferRanges",
@@ -34429,7 +34597,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Range Ranges}.",
           "propertyType": null,
-          "line": 4155
+          "line": 4159
         },
         {
           "name": "setSelectedBufferRange",
@@ -34484,7 +34652,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4171
+          "line": 4175
         },
         {
           "name": "setSelectedBufferRanges",
@@ -34539,7 +34707,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4187
+          "line": 4191
         },
         {
           "name": "getSelectedScreenRange",
@@ -34555,7 +34723,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4215
+          "line": 4219
         },
         {
           "name": "getSelectedScreenRanges",
@@ -34571,7 +34739,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Range Ranges}.",
           "propertyType": null,
-          "line": 4229
+          "line": 4233
         },
         {
           "name": "setSelectedScreenRange",
@@ -34616,7 +34784,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4244
+          "line": 4248
         },
         {
           "name": "setSelectedScreenRanges",
@@ -34661,7 +34829,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4262
+          "line": 4266
         },
         {
           "name": "addSelectionForBufferRange",
@@ -34716,7 +34884,7 @@
           "returnType": "Selection",
           "returnDescription": "added {@link Selection}.",
           "propertyType": null,
-          "line": 4293
+          "line": 4297
         },
         {
           "name": "addSelectionForScreenRange",
@@ -34771,7 +34939,7 @@
           "returnType": "Selection",
           "returnDescription": "added {@link Selection}.",
           "propertyType": null,
-          "line": 4321
+          "line": 4325
         },
         {
           "name": "selectToBufferPosition",
@@ -34797,7 +34965,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4336
+          "line": 4340
         },
         {
           "name": "selectToScreenPosition",
@@ -34832,7 +35000,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4355
+          "line": 4359
         },
         {
           "name": "selectUp",
@@ -34858,7 +35026,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4377
+          "line": 4381
         },
         {
           "name": "selectDown",
@@ -34884,7 +35052,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4393
+          "line": 4397
         },
         {
           "name": "selectLeft",
@@ -34910,7 +35078,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4409
+          "line": 4413
         },
         {
           "name": "selectRight",
@@ -34936,7 +35104,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4425
+          "line": 4429
         },
         {
           "name": "selectToTop",
@@ -34952,7 +35120,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4438
+          "line": 4442
         },
         {
           "name": "selectToBottom",
@@ -34968,7 +35136,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4451
+          "line": 4455
         },
         {
           "name": "selectAll",
@@ -34984,7 +35152,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4463
+          "line": 4467
         },
         {
           "name": "selectToBeginningOfLine",
@@ -35000,7 +35168,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4476
+          "line": 4480
         },
         {
           "name": "selectToFirstCharacterOfLine",
@@ -35016,7 +35184,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4491
+          "line": 4495
         },
         {
           "name": "selectToEndOfLine",
@@ -35032,7 +35200,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4504
+          "line": 4508
         },
         {
           "name": "selectToBeginningOfWord",
@@ -35048,7 +35216,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4517
+          "line": 4521
         },
         {
           "name": "selectToEndOfWord",
@@ -35064,7 +35232,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4530
+          "line": 4534
         },
         {
           "name": "selectToPreviousSubwordBoundary",
@@ -35080,7 +35248,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4543
+          "line": 4547
         },
         {
           "name": "selectToNextSubwordBoundary",
@@ -35096,7 +35264,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4558
+          "line": 4562
         },
         {
           "name": "selectLinesContainingCursors",
@@ -35112,7 +35280,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4570
+          "line": 4574
         },
         {
           "name": "selectWordsContainingCursors",
@@ -35128,7 +35296,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4580
+          "line": 4584
         },
         {
           "name": "selectSubwordsContainingCursors",
@@ -35144,7 +35312,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4590
+          "line": 4594
         },
         {
           "name": "selectToPreviousWordBoundary",
@@ -35160,7 +35328,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4605
+          "line": 4609
         },
         {
           "name": "selectToNextWordBoundary",
@@ -35176,7 +35344,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4618
+          "line": 4622
         },
         {
           "name": "selectToBeginningOfNextWord",
@@ -35192,7 +35360,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4631
+          "line": 4635
         },
         {
           "name": "selectToBeginningOfNextParagraph",
@@ -35208,7 +35376,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4644
+          "line": 4648
         },
         {
           "name": "selectToBeginningOfPreviousParagraph",
@@ -35224,7 +35392,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4659
+          "line": 4663
         },
         {
           "name": "selectLargerSyntaxNode",
@@ -35240,7 +35408,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4672
+          "line": 4676
         },
         {
           "name": "selectSmallerSyntaxNode",
@@ -35256,7 +35424,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4693
+          "line": 4697
         },
         {
           "name": "selectMarker",
@@ -35282,7 +35450,7 @@
           "returnType": "Range|undefined",
           "returnDescription": "selected {@link Range} or `undefined` if the marker is invalid.",
           "propertyType": null,
-          "line": 4714
+          "line": 4718
         },
         {
           "name": "getLastSelection",
@@ -35298,7 +35466,7 @@
           "returnType": "Selection",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4730
+          "line": 4734
         },
         {
           "name": "getSelections",
@@ -35314,7 +35482,7 @@
           "returnType": "Array<Selection>",
           "returnDescription": "The current selections.",
           "propertyType": null,
-          "line": 4750
+          "line": 4754
         },
         {
           "name": "getSelectionsOrderedByBufferPosition",
@@ -35330,7 +35498,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Selection Selections}.",
           "propertyType": null,
-          "line": 4764
+          "line": 4768
         },
         {
           "name": "selectionIntersectsBufferRange",
@@ -35356,7 +35524,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4778
+          "line": 4782
         },
         {
           "name": "destroySelections",
@@ -35382,7 +35550,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4799
+          "line": 4803
         },
         {
           "name": "scan",
@@ -35506,7 +35674,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5080
+          "line": 5084
         },
         {
           "name": "scanInBufferRange",
@@ -35600,7 +35768,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5105
+          "line": 5109
         },
         {
           "name": "backwardsScanInBufferRange",
@@ -35694,7 +35862,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5125
+          "line": 5129
         },
         {
           "name": "getSoftTabs",
@@ -35710,7 +35878,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether softTabs are enabled for this editor.",
           "propertyType": null,
-          "line": 5139
+          "line": 5143
         },
         {
           "name": "setSoftTabs",
@@ -35736,7 +35904,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5151
+          "line": 5155
         },
         {
           "name": "toggleSoftTabs",
@@ -35752,7 +35920,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5167
+          "line": 5171
         },
         {
           "name": "getTabLength",
@@ -35768,7 +35936,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5179
+          "line": 5183
         },
         {
           "name": "setTabLength",
@@ -35794,7 +35962,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5192
+          "line": 5196
         },
         {
           "name": "usesSoftTabs",
@@ -35810,7 +35978,7 @@
           "returnType": "Boolean|undefined",
           "returnDescription": "`true` for leading spaces, `false` for a leading hard tab (`\\t`), or `undefined` when no non-comment line has leading whitespace.",
           "propertyType": null,
-          "line": 5220
+          "line": 5224
         },
         {
           "name": "getTabText",
@@ -35826,7 +35994,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5246
+          "line": 5250
         },
         {
           "name": "isSoftWrapped",
@@ -35842,7 +36010,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5271
+          "line": 5275
         },
         {
           "name": "setSoftWrapped",
@@ -35868,7 +36036,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5284
+          "line": 5288
         },
         {
           "name": "toggleSoftWrapped",
@@ -35884,7 +36052,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5301
+          "line": 5305
         },
         {
           "name": "isOvertypeMode",
@@ -35900,7 +36068,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5315
+          "line": 5319
         },
         {
           "name": "setOvertypeMode",
@@ -35926,7 +36094,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5328
+          "line": 5332
         },
         {
           "name": "toggleOvertypeMode",
@@ -35942,7 +36110,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5345
+          "line": 5349
         },
         {
           "name": "applyOvertype",
@@ -35958,7 +36126,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5361
+          "line": 5365
         },
         {
           "name": "getSoftWrapColumn",
@@ -35974,7 +36142,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5376
+          "line": 5380
         },
         {
           "name": "indentationForBufferRow",
@@ -36000,7 +36168,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5410
+          "line": 5414
         },
         {
           "name": "setIndentationForBufferRow",
@@ -36054,7 +36222,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5431
+          "line": 5435
         },
         {
           "name": "indentSelectedRows",
@@ -36090,7 +36258,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5457
+          "line": 5461
         },
         {
           "name": "outdentSelectedRows",
@@ -36126,7 +36294,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5471
+          "line": 5475
         },
         {
           "name": "indentLevelForLine",
@@ -36152,7 +36320,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5490
+          "line": 5494
         },
         {
           "name": "autoIndentSelectedRows",
@@ -36188,7 +36356,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5516
+          "line": 5520
         },
         {
           "name": "getGrammar",
@@ -36204,7 +36372,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5556
+          "line": 5560
         },
         {
           "name": "onDidTokenize",
@@ -36230,7 +36398,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5578
+          "line": 5582
         },
         {
           "name": "whenGrammarSettled",
@@ -36266,7 +36434,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise that resolves to whether the current grammar settled successfully.",
           "propertyType": null,
-          "line": 5597
+          "line": 5601
         },
         {
           "name": "getRootScopeDescriptor",
@@ -36282,7 +36450,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "that includes this editor's language. e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with {@link Config#get} to get language specific config values.",
           "propertyType": null,
-          "line": 5680
+          "line": 5684
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -36308,7 +36476,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5699
+          "line": 5703
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -36334,7 +36502,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5720
+          "line": 5724
         },
         {
           "name": "getSyntaxNodeAtBufferPosition",
@@ -36369,7 +36537,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5747
+          "line": 5751
         },
         {
           "name": "getSyntaxNodeContainingBufferRange",
@@ -36404,7 +36572,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5771
+          "line": 5775
         },
         {
           "name": "hasGrammarQuery",
@@ -36430,7 +36598,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the query is declared by a current language layer.",
           "propertyType": null,
-          "line": 5790
+          "line": 5794
         },
         {
           "name": "getGrammarQueryCaptureGroups",
@@ -36475,7 +36643,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise resolving to `{grammar, captures}` groups for current language layers.",
           "propertyType": null,
-          "line": 5816
+          "line": 5820
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -36501,7 +36669,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5847
+          "line": 5851
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -36536,7 +36704,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5865
+          "line": 5869
         },
         {
           "name": "isBufferRowCommented",
@@ -36562,7 +36730,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5877
+          "line": 5881
         },
         {
           "name": "copySelectedText",
@@ -36588,7 +36756,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5913
+          "line": 5917
         },
         {
           "name": "cutSelectedText",
@@ -36624,7 +36792,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5957
+          "line": 5961
         },
         {
           "name": "pasteText",
@@ -36650,7 +36818,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the clipboard text has been inserted.",
           "propertyType": null,
-          "line": 5988
+          "line": 5992
         },
         {
           "name": "cutToEndOfLine",
@@ -36686,7 +36854,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6094
+          "line": 6098
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -36722,7 +36890,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6118
+          "line": 6122
         },
         {
           "name": "getFoldableRangeAtBufferRow",
@@ -36748,7 +36916,7 @@
           "returnType": "Range|null",
           "returnDescription": "The exact foldable range, or `null` when the row does not start one.",
           "propertyType": null,
-          "line": 6148
+          "line": 6152
         },
         {
           "name": "foldCurrentRow",
@@ -36764,7 +36932,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6163
+          "line": 6167
         },
         {
           "name": "unfoldCurrentRow",
@@ -36780,7 +36948,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6178
+          "line": 6182
         },
         {
           "name": "foldBufferRow",
@@ -36806,7 +36974,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6195
+          "line": 6199
         },
         {
           "name": "unfoldBufferRow",
@@ -36832,7 +37000,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6228
+          "line": 6232
         },
         {
           "name": "foldSelectedLines",
@@ -36848,7 +37016,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6239
+          "line": 6243
         },
         {
           "name": "foldAll",
@@ -36864,7 +37032,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6251
+          "line": 6255
         },
         {
           "name": "unfoldAll",
@@ -36880,7 +37048,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6267
+          "line": 6271
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -36906,7 +37074,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6281
+          "line": 6285
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -36932,7 +37100,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6303
+          "line": 6307
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -36958,7 +37126,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6329
+          "line": 6333
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -36984,7 +37152,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6340
+          "line": 6344
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -37000,7 +37168,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6356
+          "line": 6360
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -37026,7 +37194,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6369
+          "line": 6373
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -37052,7 +37220,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6386
+          "line": 6390
         },
         {
           "name": "addGutter",
@@ -37278,7 +37446,7 @@
           "returnType": "Gutter",
           "returnDescription": "newly-created {@link Gutter}.",
           "propertyType": null,
-          "line": 6450
+          "line": 6454
         },
         {
           "name": "getGutters",
@@ -37294,7 +37462,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Gutter Gutters}.",
           "propertyType": null,
-          "line": 6462
+          "line": 6466
         },
         {
           "name": "gutterWithName",
@@ -37320,7 +37488,7 @@
           "returnType": "Gutter",
           "returnDescription": ", or `null` if no gutter exists for the given name.",
           "propertyType": null,
-          "line": 6478
+          "line": 6482
         },
         {
           "name": "scrollToCursorPosition",
@@ -37366,7 +37534,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6497
+          "line": 6501
         },
         {
           "name": "scrollToBufferPosition",
@@ -37421,7 +37589,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6520
+          "line": 6524
         },
         {
           "name": "scrollToScreenPosition",
@@ -37476,7 +37644,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6538
+          "line": 6542
         },
         {
           "name": "scrollToScreenRange",
@@ -37551,7 +37719,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6555
+          "line": 6559
         },
         {
           "name": "shouldAutoIndent",
@@ -37567,7 +37735,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6602
+          "line": 6606
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -37583,7 +37751,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6614
+          "line": 6618
         },
         {
           "name": "getScrollPastEnd",
@@ -37599,7 +37767,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6626
+          "line": 6630
         },
         {
           "name": "getScrollSensitivity",
@@ -37615,7 +37783,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6643
+          "line": 6647
         },
         {
           "name": "getSmoothScrolling",
@@ -37631,7 +37799,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6655
+          "line": 6659
         },
         {
           "name": "getWheelSmoothness",
@@ -37647,7 +37815,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6669
+          "line": 6673
         },
         {
           "name": "getCommandSmoothness",
@@ -37663,7 +37831,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6683
+          "line": 6687
         },
         {
           "name": "getAltWheelMultiplier",
@@ -37679,7 +37847,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6697
+          "line": 6701
         },
         {
           "name": "getScrollCommandDistance",
@@ -37695,7 +37863,7 @@
           "returnType": "Number",
           "returnDescription": "positive `Number`.",
           "propertyType": null,
-          "line": 6711
+          "line": 6715
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -37711,7 +37879,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative `Number`.",
           "propertyType": null,
-          "line": 6724
+          "line": 6728
         },
         {
           "name": "doesShowLineNumbers",
@@ -37727,7 +37895,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6736
+          "line": 6740
         },
         {
           "name": "getUndoGroupingInterval",
@@ -37743,7 +37911,7 @@
           "returnType": "Number",
           "returnDescription": "time interval `Number` in milliseconds.",
           "propertyType": null,
-          "line": 6749
+          "line": 6753
         },
         {
           "name": "getNonWordCharacters",
@@ -37769,7 +37937,7 @@
           "returnType": "String",
           "returnDescription": "containing the non-word characters.",
           "propertyType": null,
-          "line": 6762
+          "line": 6766
         },
         {
           "name": "getPlaceholderText",
@@ -37785,7 +37953,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6831
+          "line": 6835
         },
         {
           "name": "setPlaceholderText",
@@ -37811,7 +37979,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6844
+          "line": 6848
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -37837,7 +38005,7 @@
           "returnType": "Object",
           "returnDescription": "Information about the appropriate comment delimiters at the buffer position.",
           "propertyType": null,
-          "line": 7345
+          "line": 7349
         }
       ]
     },
@@ -45426,6 +45594,60 @@
       "line": 89
     },
     {
+      "name": "updateTokenRanges",
+      "accessPath": "updateTokenRanges",
+      "signature": "updateTokenRanges(tokens, change)",
+      "visibility": "Public",
+      "description": "Update token ranges optimistically after one buffer replacement. Single-line\nedits retain classifications; splitting a token retains its original prefix.\nBoundary insertions extend only the adjoining Unicode identifier fragment.\n\nRecords contain `row`, `column` and `length`, plus arbitrary metadata that is\npreserved on surviving tokens. Columns and lengths use UTF-16 code units.\nThe input records are not mutated, and unchanged records may be reused.\n\nPrefer {@link TextBuffer#onDidApplyChanges} when tracking a token cache.\nApply its changes in the reported order, including intermediate edits that\ncancel each other, to follow the same sequence as token-tracking markers.\nEach change uses the coordinates immediately before that individual edit.\n\nConsolidated {@link TextBuffer#onDidChange} transaction changes report old\nranges in the original coordinate space. Apply those in descending order,\nusing each `oldRange.start` even when its `newRange.start` has moved because\nof another change in that transaction.",
+      "summary": "Update token ranges optimistically after one buffer replacement. Single-line edits retain classifications; splitting a token retains its original prefix. Boundary insertions extend only the adjoining Unicode identifier fragment.",
+      "parameters": [
+        {
+          "name": "tokens",
+          "source": "tokens",
+          "optional": false,
+          "rest": false,
+          "type": "Array<Object>",
+          "description": "Sorted, nonoverlapping, nonempty single-line token records.",
+          "defaultValue": null
+        },
+        {
+          "name": "change",
+          "source": "change",
+          "optional": false,
+          "rest": false,
+          "type": "Object",
+          "description": "One edit in the current token coordinate space.",
+          "defaultValue": null
+        },
+        {
+          "name": "change.oldRange",
+          "type": "Range|Array",
+          "description": "Range of the replaced text.",
+          "optional": false,
+          "defaultValue": null,
+          "source": "change.oldRange",
+          "rest": false,
+          "nested": true
+        },
+        {
+          "name": "change.newText",
+          "type": "String",
+          "description": "Text inserted in place of the old range.",
+          "optional": false,
+          "defaultValue": null,
+          "source": "change.newText",
+          "rest": false,
+          "nested": true
+        }
+      ],
+      "returnType": "Array<Object>",
+      "returnDescription": "Updated token records, excluding fully deleted tokens.",
+      "source": "src/token-range-tracking.js",
+      "sourcePath": "src/token-range-tracking.js",
+      "repository": "https://github.com/lumine-code/lumine",
+      "line": 103
+    },
+    {
       "name": "watchDirectory",
       "accessPath": "require('lumine').watchDirectory",
       "signature": "require('lumine').watchDirectory(directoryPath, options)",
@@ -45495,6 +45717,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1448,
-  "generatedAt": "2026-10-07T18:21:12.950Z"
+  "memberCount": 1452,
+  "generatedAt": "2026-10-08T00:15:18.902Z"
 }

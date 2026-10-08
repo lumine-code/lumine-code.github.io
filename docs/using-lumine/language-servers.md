@@ -155,6 +155,10 @@ Document diagnostics and workspace diagnostics use the same route into `linter`:
 
 Stopping a server removes its diagnostics immediately, including notebook-cell results, while preserving reports owned by another running session. Late shutdown notifications and invalidated hint or semantic-token replies cannot restore old results.
 
+Semantic highlighting from `semantic-tokens` keeps the last server classification while you edit. Changes within a line adjust the colored range, and identifier characters typed or pasted immediately beside a token extend its color, including Unicode characters, `_` and `$`. Adjacent spaces, punctuation and newlines keep their own colors. Inserting a newline or multiline text inside a token retains color only on the original prefix before the edit; partial deletion shortens the range and deleting the whole token removes it. The next server answer supplies the updated classification, and replies for an earlier version of the text are ignored. Large files preserve the same behavior when scrolling while a refresh is pending.
+
+Unused-code fading, such as Ruff's unused imports, comes from diagnostics tagged `Unnecessary` and is rendered by `linter` independently of semantic highlighting.
+
 Ruff and ESLint also provide explicit project and tree-view scans through `ide-ruff:lint-projects`, `ide-ruff:lint-selected`, `ide-eslint:lint-projects`, and `ide-eslint:lint-selected`. These commands analyze project files directly and publish their results to `linter`; see [Linting](linting.md) for scan behavior.
 
 ## File operations
