@@ -67,6 +67,8 @@ Document symbols form a PROG → command hierarchy with complete program and com
 
 Parameter positions follow both named and positional values. In a WING record, `GRP NUMB 57 OFF SPRI` resolves to `NUMB /1`, `OPTI /2` and `ETYP /3`, just like `GRP NUMB 57 OPTI OFF ETYP SPRI`. Comma-separated alternatives stay in one slot: `BEAM` and `GLN` in `GRP NUMB 31+#grp YES BEAM,GLN` both resolve to `ETYP /3` and receive their own enum colors, hover and completion.
 
+Variable statements such as `STO#value 1` and `LET #value 2` retain their keyword highlighting after a tabular record definition. They can also appear between table rows without discarding the active header; subsequent rows keep their table context. Preprocessor directives such as `#INCLUDE` and `#UNDEF` retain their own highlighting in the same positions.
+
 The language grammar supplies ordinary syntax colors. Record separators (`;`) use the theme's ordinary text color. Semantic tokens add color only to unquoted enum values recognized in the current record, slot, release and language; quoted strings, comments, numbers, variables and unknown values keep their grammar colors. While the server refreshes, edits within an enum keep its last semantic color and adjust the range; adding a space or newline immediately beside it preserves the color without extending it to the inserted whitespace. A newline inside the enum retains color only before the break. The next server answer reclassifies the edited value. Quoted enum values still offer completion and parameter hover. Disabling semantic tokens leaves ordinary highlighting visible. The adapter does not format or rename source files or run calculations.
 
 ## Live linting
