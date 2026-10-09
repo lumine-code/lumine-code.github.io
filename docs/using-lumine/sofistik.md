@@ -69,6 +69,8 @@ Parameter positions follow both named and positional values. In a WING record, `
 
 Variable statements such as `STO#value 1` and `LET #value 2` end the active table and retain their keyword highlighting. Later records no longer inherit that table's columns; a new explicit header starts another table. This also applies to `RCL`, `DEL`, `PRT` and `DBG` variable statements. Preprocessor directives such as `#INCLUDE` and `#UNDEF` can appear between table rows without ending the table.
 
+`HEAD` (`KOPF` with German keywords) takes the remaining title as implicit text. Parentheses, commas, apostrophes and semicolons belong to the title, so `HEAD calc (part 2)` produces no generator warning and a semicolon does not start another record. Native comments and `$$` continuations still apply, and variable and macro substitutions retain navigation and their own diagnostics.
+
 The language grammar supplies ordinary syntax colors. Record separators (`;`) use the theme's ordinary text color. Semantic tokens add color only to unquoted enum values recognized in the current record, slot, release and language; quoted strings, comments, numbers, variables and unknown values keep their grammar colors. While the server refreshes, edits within an enum keep its last semantic color and adjust the range; adding a space or newline immediately beside it preserves the color without extending it to the inserted whitespace. A newline inside the enum retains color only before the break. The next server answer reclassifies the edited value. Quoted enum values still offer completion and parameter hover. Disabling semantic tokens leaves ordinary highlighting visible. The adapter does not format or rename source files or run calculations.
 
 ## Live linting
