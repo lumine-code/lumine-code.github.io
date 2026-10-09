@@ -10,6 +10,20 @@ Configuration pages have a checkbox immediately to the left of the scope selecto
 
 With the window checkbox checked, check an individual setting's override checkbox to give it a local value. Uncheck that setting's checkbox to inherit the current global value again. Settings that apply to the entire application are unavailable locally, with an explanation beside the control. Theme selection, package installation, and system integration panels continue to make global changes.
 
+## Scrolling
+
+The Editor settings separate how far scrolling moves from how long its animation lasts. Enable `editor.smoothScrolling` for animated scrolling; turning it off applies wheel and scroll-command movement immediately. These five settings control distance and timing:
+
+| Setting | Unit | Default | Effect |
+| --- | --- | --- | --- |
+| `editor.wheelScrollMultiplier` | Factor | `0.5` | Multiplies the wheel's pixel distance. `1` preserves the incoming distance; `2` doubles it. |
+| `editor.wheelScrollDuration` | Milliseconds | `120` | Maximum animation duration for wheel scrolling; shorter values respond faster. |
+| `editor.commandScrollDuration` | Milliseconds | `180` | Maximum animation duration for scrolling commands. |
+| `editor.altWheelScrollMultiplier` | Factor | `8` | Multiplies wheel distance while Alt is held. |
+| `editor.commandScrollDistance` | Editor heights | `1` | Distance moved by the scroll-up and scroll-down commands; `1` moves one editor height. |
+
+Large movements can use shorter animation segments, and a new wheel pulse carries forward the current motion. A duration of `0` skips interpolation. Command duration and distance apply to `editor:scroll-up` and `editor:scroll-down`, not cursor movement or Page Up and Page Down. Alt increases the distance while keeping the timing of the same wheel input. When the system marks wheel input as momentum, Lumine follows that supplied deceleration without adding another easing tail. `editor.scrollPastEnd` separately controls whether the view can move below the last line. Ctrl+wheel scrolls the visible center-pane editors together when `editor.ctrlWheelScrollsAllPanes` is enabled.
+
 ## The config file
 
 Settings are stored in **`config.json`** inside the active configuration directory (normally `~/.lumine`). A manually created `config.jsonc` works too. Open the active file with the `application:open-your-config` command. Lumine accepts JSON comments and trailing commas:
