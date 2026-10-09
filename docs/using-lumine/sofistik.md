@@ -43,6 +43,8 @@ The shared libraries keep those workflows consistent: `sofistik-context` selects
 
 Other `.include` filenames use the ordinary CADINP grammar; explicit `+PROG` or `$PROG` headers select their program context. SOFiPLUS exports English input, so its include files should use English keywords.
 
+Include fragments without a program header still highlight variables, comments and `$$` continuation markers, including repeated numeric continuation lines. These markers do not select a module or assign command and parameter meanings to otherwise unscoped text.
+
 With `sofistik-tools`, **Current Help** and **Separate Help** use the include module context without a PROG header. They open the installed PDF manual at the nearest recognized record at or above the cursor. Current Help reuses the help viewer; Separate Help opens another. An explicit `+PROG` or `$PROG` header above the cursor takes precedence over the filename.
 
 ## Release, language and edition
