@@ -117,7 +117,7 @@ Inline Run is available on the `sofistik-tools#master` branch ahead of the next 
 
 ## FEM model views
 
-Use `graviss` with `graviss-sofistik` to explore CDB geometry and displacement results. Reading a CDB requires the matching SOFiSTiK release to be installed. For a `.grv` view, the adapter selects release and edition from `sofistik.def` alongside that view file, even when its database is in another directory. Direct CDB calls use the definition alongside the database. Neither context inherits workspace-root or ancestor definitions.
+Use `graviss` with `graviss-sofistik` to explore CDB geometry, displacement results, and beam internal forces. Reading a CDB requires the matching SOFiSTiK release to be installed. For a `.grv` view, the adapter selects release and edition from `sofistik.def` alongside that view file, even when its database is in another directory. Direct CDB calls use the definition alongside the database. Neither context inherits workspace-root or ancestor definitions.
 
 The chosen interface remains fixed until the model session is reopened. The reader uses described layouts and known optional record tails; the viewer does not opt into assumed cross-release layouts. Required undecodable records and unsupported quantity units report an error instead of producing a guessed model. Closing the view closes its owned native session.
 
@@ -133,6 +133,8 @@ Create `model.grv` beside the database and open it in the editor:
 ```
 
 The source path is relative to the `.grv` file. A document containing `{}` also discovers a same-basename `.cdb` beside it. Use Results to search load cases, choose exact or automatic amplification, and pause or seek the deformation; Filter offers model values and ordered Add/Subtract rules.
+
+Choose Member results in Results, then a category and quantity from the CDB source's catalogue. The diagram engine accepts forces, moments, bimoments, local displacement and rotation components, bedding forces, stresses and discrete reactions with their own units. Graviss draws signed values in the member's local axes on the undeformed model, preserving discontinuities and unavailable intervals; discrete results remain separate ordinates. Choose automatic or manual diagram scale, local drawing plane, flipped side, fill, and labels; selecting a member lists its station values. Filters and construction-stage activity restrict both diagrams and extrema. Each graphic saves its quantity and settings, and image export includes diagrams and labels. Cases containing member results without nodal displacements are available too.
 
 The toolbar's quick filter accepts expressions such as `G12-15;-Q1??1*`: add groups 12–15, then subtract shells matching the element-number pattern. `G12` selects group 12, `GB12` restricts it to beams, and `GQ12` restricts it to shells. `SG:DECK` selects the secondary group named DECK. `L1030` selects members generated along structural line 1030; `Q1030` instead names finite shell element 1030. The `?` help lists the codes available for the current model.
 
