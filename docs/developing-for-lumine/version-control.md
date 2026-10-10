@@ -64,6 +64,6 @@ A failed workflow that completed earlier steps reports `outcome: "partial"` and 
 
 ## Render patches and host links
 
-Consume the `patch-view` service for native unified and side-by-side rendering. Feed local structured diff records to `buildPatch({files}, options)` and forge patches to `buildPatch({rawPatch}, options)`. Consumers dispose their own patch snapshots and release provider-owned view state when the service disappears. Rendering requires no Git Panel context or navigation service.
+Consume the `git-panel.diff` service provided by `git-panel` for native unified and side-by-side rendering. Feed local structured diff records to `buildPatch({files}, options)` and forge patches to `buildPatch({rawPatch}, options)`. Consumers dispose their own patch snapshots and release provider-owned view state when the service disappears. Rendering requires no Git Panel context or navigation service.
 
 `parseGitRemote(url)` returns a transport, host, port, namespace, repository and credential-free web URL. Build host-specific links and API requests in the forge integration. Git discovery and execution do not assume GitHub.
