@@ -33181,6 +33181,16 @@
               "nested": true
             },
             {
+              "name": "decorationParams.lockSide",
+              "type": null,
+              "description": "Only applicable to decorations of type `overlay` with overflow avoidance enabled. If `true`, retains the side selected when the mounted overlay first has a nonzero width and height. Scrolling and resizing keep following its marker without switching sides, even if the overlay later overflows the window. A new decoration or remounted overlay chooses again. Defaults to `false`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "decorationParams.lockSide",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "decorationParams.priority",
               "type": null,
               "description": "Only applicable to decorations of type `overlay`. When several overlays want the same side of the same line, the higher priority chooses first and the others work around it; it also decides which one paints on top. Defaults to `0`. The convention across the bundled packages is `autocomplete` 2, `intentions` 1, `hover` 0.",
@@ -33194,7 +33204,7 @@
           "returnType": "Decoration",
           "returnDescription": "created {@link Decoration} object.",
           "propertyType": null,
-          "line": 3381
+          "line": 3382
         },
         {
           "name": "decorateMarkerLayer",
@@ -33229,7 +33239,7 @@
           "returnType": "LayerDecoration",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3397
+          "line": 3398
         },
         {
           "name": "getDecorations",
@@ -33255,7 +33265,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3429
+          "line": 3430
         },
         {
           "name": "getLineDecorations",
@@ -33281,7 +33291,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3442
+          "line": 3443
         },
         {
           "name": "getLineNumberDecorations",
@@ -33307,7 +33317,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3455
+          "line": 3456
         },
         {
           "name": "getHighlightDecorations",
@@ -33333,7 +33343,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3468
+          "line": 3469
         },
         {
           "name": "getOverlayDecorations",
@@ -33359,7 +33369,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Decoration Decorations}.",
           "propertyType": null,
-          "line": 3481
+          "line": 3482
         },
         {
           "name": "markBufferRange",
@@ -33424,7 +33434,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3505
+          "line": 3506
         },
         {
           "name": "markScreenRange",
@@ -33489,7 +33499,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3525
+          "line": 3526
         },
         {
           "name": "markBufferPosition",
@@ -33534,7 +33544,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3542
+          "line": 3543
         },
         {
           "name": "markScreenPosition",
@@ -33589,7 +33599,7 @@
           "returnType": "DisplayMarker",
           "returnDescription": "The new marker.",
           "propertyType": null,
-          "line": 3560
+          "line": 3561
         },
         {
           "name": "findMarkers",
@@ -33655,7 +33665,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link DisplayMarker DisplayMarkers}",
           "propertyType": null,
-          "line": 3583
+          "line": 3584
         },
         {
           "name": "getMarker",
@@ -33681,7 +33691,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3596
+          "line": 3597
         },
         {
           "name": "getMarkers",
@@ -33697,7 +33707,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3607
+          "line": 3608
         },
         {
           "name": "getMarkerCount",
@@ -33713,7 +33723,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3619
+          "line": 3620
         },
         {
           "name": "addMarkerLayer",
@@ -33769,7 +33779,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3640
+          "line": 3641
         },
         {
           "name": "getMarkerLayer",
@@ -33795,7 +33805,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "or `undefined` if no layer exists with the given id.",
           "propertyType": null,
-          "line": 3653
+          "line": 3654
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -33811,7 +33821,7 @@
           "returnType": "DisplayMarkerLayer",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3668
+          "line": 3669
         },
         {
           "name": "getCursorBufferPosition",
@@ -33827,7 +33837,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3685
+          "line": 3686
         },
         {
           "name": "getCursorBufferPositions",
@@ -33843,7 +33853,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Point Points} in the order they were added",
           "propertyType": null,
-          "line": 3697
+          "line": 3698
         },
         {
           "name": "setCursorBufferPosition",
@@ -33888,7 +33898,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3713
+          "line": 3714
         },
         {
           "name": "getCursorAtScreenPosition",
@@ -33914,7 +33924,7 @@
           "returnType": "Cursor|undefined",
           "returnDescription": "first matched {@link Cursor} or undefined",
           "propertyType": null,
-          "line": 3726
+          "line": 3727
         },
         {
           "name": "getCursorScreenPosition",
@@ -33930,7 +33940,7 @@
           "returnType": "Point",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3742
+          "line": 3743
         },
         {
           "name": "getCursorScreenPositions",
@@ -33946,7 +33956,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Point Points} in the order the cursors were added",
           "propertyType": null,
-          "line": 3754
+          "line": 3755
         },
         {
           "name": "setCursorScreenPosition",
@@ -33991,7 +34001,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3770
+          "line": 3771
         },
         {
           "name": "addCursorAtBufferPosition",
@@ -34026,7 +34036,7 @@
           "returnType": "Cursor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3783
+          "line": 3784
         },
         {
           "name": "addCursorAtScreenPosition",
@@ -34061,7 +34071,7 @@
           "returnType": "Cursor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3800
+          "line": 3801
         },
         {
           "name": "hasMultipleCursors",
@@ -34077,7 +34087,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether or not there are multiple cursors.",
           "propertyType": null,
-          "line": 3814
+          "line": 3815
         },
         {
           "name": "moveUp",
@@ -34103,7 +34113,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3826
+          "line": 3827
         },
         {
           "name": "moveDown",
@@ -34129,7 +34139,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3838
+          "line": 3839
         },
         {
           "name": "moveLeft",
@@ -34155,7 +34165,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3850
+          "line": 3851
         },
         {
           "name": "moveRight",
@@ -34181,7 +34191,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3864
+          "line": 3865
         },
         {
           "name": "moveToBeginningOfLine",
@@ -34197,7 +34207,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3876
+          "line": 3877
         },
         {
           "name": "moveToBeginningOfScreenLine",
@@ -34213,7 +34223,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3886
+          "line": 3887
         },
         {
           "name": "moveToFirstCharacterOfLine",
@@ -34229,7 +34239,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3896
+          "line": 3897
         },
         {
           "name": "moveToEndOfLine",
@@ -34245,7 +34255,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3906
+          "line": 3907
         },
         {
           "name": "moveToEndOfScreenLine",
@@ -34261,7 +34271,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3916
+          "line": 3917
         },
         {
           "name": "moveToBeginningOfWord",
@@ -34277,7 +34287,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3926
+          "line": 3927
         },
         {
           "name": "moveToEndOfWord",
@@ -34293,7 +34303,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3936
+          "line": 3937
         },
         {
           "name": "moveToTop",
@@ -34309,7 +34319,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3950
+          "line": 3951
         },
         {
           "name": "moveToBottom",
@@ -34325,7 +34335,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3962
+          "line": 3963
         },
         {
           "name": "moveToBeginningOfNextWord",
@@ -34341,7 +34351,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3972
+          "line": 3973
         },
         {
           "name": "moveToPreviousWordBoundary",
@@ -34357,7 +34367,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3982
+          "line": 3983
         },
         {
           "name": "moveToNextWordBoundary",
@@ -34373,7 +34383,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3992
+          "line": 3993
         },
         {
           "name": "moveToPreviousSubwordBoundary",
@@ -34389,7 +34399,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4002
+          "line": 4003
         },
         {
           "name": "moveToNextSubwordBoundary",
@@ -34405,7 +34415,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4012
+          "line": 4013
         },
         {
           "name": "moveToBeginningOfNextParagraph",
@@ -34421,7 +34431,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4022
+          "line": 4023
         },
         {
           "name": "moveToBeginningOfPreviousParagraph",
@@ -34437,7 +34447,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4032
+          "line": 4033
         },
         {
           "name": "getLastCursor",
@@ -34453,7 +34463,7 @@
           "returnType": "Cursor",
           "returnDescription": "most recently added {@link Cursor}",
           "propertyType": null,
-          "line": 4042
+          "line": 4043
         },
         {
           "name": "getWordUnderCursor",
@@ -34479,7 +34489,7 @@
           "returnType": "String",
           "returnDescription": "word surrounding the most recently added cursor.",
           "propertyType": null,
-          "line": 4054
+          "line": 4055
         },
         {
           "name": "getCursors",
@@ -34495,7 +34505,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4064
+          "line": 4065
         },
         {
           "name": "getCursorsOrderedByBufferPosition",
@@ -34511,7 +34521,7 @@
           "returnType": "Array<Cursor>",
           "returnDescription": "The cursors ordered by buffer position.",
           "propertyType": null,
-          "line": 4078
+          "line": 4079
         },
         {
           "name": "getSelectedText",
@@ -34527,7 +34537,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4144
+          "line": 4145
         },
         {
           "name": "getSelectedBufferRange",
@@ -34543,7 +34553,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4157
+          "line": 4158
         },
         {
           "name": "getSelectedBufferRanges",
@@ -34559,7 +34569,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Range Ranges}.",
           "propertyType": null,
-          "line": 4171
+          "line": 4172
         },
         {
           "name": "setSelectedBufferRange",
@@ -34614,7 +34624,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4187
+          "line": 4188
         },
         {
           "name": "setSelectedBufferRanges",
@@ -34669,7 +34679,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4203
+          "line": 4204
         },
         {
           "name": "getSelectedScreenRange",
@@ -34685,7 +34695,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4231
+          "line": 4232
         },
         {
           "name": "getSelectedScreenRanges",
@@ -34701,7 +34711,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Range Ranges}.",
           "propertyType": null,
-          "line": 4245
+          "line": 4246
         },
         {
           "name": "setSelectedScreenRange",
@@ -34746,7 +34756,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4260
+          "line": 4261
         },
         {
           "name": "setSelectedScreenRanges",
@@ -34791,7 +34801,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4278
+          "line": 4279
         },
         {
           "name": "addSelectionForBufferRange",
@@ -34846,7 +34856,7 @@
           "returnType": "Selection",
           "returnDescription": "added {@link Selection}.",
           "propertyType": null,
-          "line": 4309
+          "line": 4310
         },
         {
           "name": "addSelectionForScreenRange",
@@ -34901,7 +34911,7 @@
           "returnType": "Selection",
           "returnDescription": "added {@link Selection}.",
           "propertyType": null,
-          "line": 4337
+          "line": 4338
         },
         {
           "name": "selectToBufferPosition",
@@ -34927,7 +34937,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4352
+          "line": 4353
         },
         {
           "name": "selectToScreenPosition",
@@ -34962,7 +34972,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4371
+          "line": 4372
         },
         {
           "name": "selectUp",
@@ -34988,7 +34998,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4393
+          "line": 4394
         },
         {
           "name": "selectDown",
@@ -35014,7 +35024,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4409
+          "line": 4410
         },
         {
           "name": "selectLeft",
@@ -35040,7 +35050,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4425
+          "line": 4426
         },
         {
           "name": "selectRight",
@@ -35066,7 +35076,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4441
+          "line": 4442
         },
         {
           "name": "selectToTop",
@@ -35082,7 +35092,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4454
+          "line": 4455
         },
         {
           "name": "selectToBottom",
@@ -35098,7 +35108,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4467
+          "line": 4468
         },
         {
           "name": "selectAll",
@@ -35114,7 +35124,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4479
+          "line": 4480
         },
         {
           "name": "selectToBeginningOfLine",
@@ -35130,7 +35140,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4492
+          "line": 4493
         },
         {
           "name": "selectToFirstCharacterOfLine",
@@ -35146,7 +35156,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4507
+          "line": 4508
         },
         {
           "name": "selectToEndOfLine",
@@ -35162,7 +35172,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4520
+          "line": 4521
         },
         {
           "name": "selectToBeginningOfWord",
@@ -35178,7 +35188,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4533
+          "line": 4534
         },
         {
           "name": "selectToEndOfWord",
@@ -35194,7 +35204,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4546
+          "line": 4547
         },
         {
           "name": "selectToPreviousSubwordBoundary",
@@ -35210,7 +35220,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4559
+          "line": 4560
         },
         {
           "name": "selectToNextSubwordBoundary",
@@ -35226,7 +35236,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4574
+          "line": 4575
         },
         {
           "name": "selectLinesContainingCursors",
@@ -35242,7 +35252,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4586
+          "line": 4587
         },
         {
           "name": "selectWordsContainingCursors",
@@ -35258,7 +35268,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4596
+          "line": 4597
         },
         {
           "name": "selectSubwordsContainingCursors",
@@ -35274,7 +35284,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4606
+          "line": 4607
         },
         {
           "name": "selectToPreviousWordBoundary",
@@ -35290,7 +35300,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4621
+          "line": 4622
         },
         {
           "name": "selectToNextWordBoundary",
@@ -35306,7 +35316,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4634
+          "line": 4635
         },
         {
           "name": "selectToBeginningOfNextWord",
@@ -35322,7 +35332,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4647
+          "line": 4648
         },
         {
           "name": "selectToBeginningOfNextParagraph",
@@ -35338,7 +35348,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4660
+          "line": 4661
         },
         {
           "name": "selectToBeginningOfPreviousParagraph",
@@ -35354,7 +35364,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4675
+          "line": 4676
         },
         {
           "name": "selectLargerSyntaxNode",
@@ -35370,7 +35380,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4688
+          "line": 4689
         },
         {
           "name": "selectSmallerSyntaxNode",
@@ -35386,7 +35396,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4709
+          "line": 4710
         },
         {
           "name": "selectMarker",
@@ -35412,7 +35422,7 @@
           "returnType": "Range|undefined",
           "returnDescription": "selected {@link Range} or `undefined` if the marker is invalid.",
           "propertyType": null,
-          "line": 4730
+          "line": 4731
         },
         {
           "name": "getLastSelection",
@@ -35428,7 +35438,7 @@
           "returnType": "Selection",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4746
+          "line": 4747
         },
         {
           "name": "getSelections",
@@ -35444,7 +35454,7 @@
           "returnType": "Array<Selection>",
           "returnDescription": "The current selections.",
           "propertyType": null,
-          "line": 4766
+          "line": 4767
         },
         {
           "name": "getSelectionsOrderedByBufferPosition",
@@ -35460,7 +35470,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Selection Selections}.",
           "propertyType": null,
-          "line": 4780
+          "line": 4781
         },
         {
           "name": "selectionIntersectsBufferRange",
@@ -35486,7 +35496,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4794
+          "line": 4795
         },
         {
           "name": "destroySelections",
@@ -35512,7 +35522,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4815
+          "line": 4816
         },
         {
           "name": "scan",
@@ -35636,7 +35646,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5096
+          "line": 5097
         },
         {
           "name": "scanInBufferRange",
@@ -35730,7 +35740,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5121
+          "line": 5122
         },
         {
           "name": "backwardsScanInBufferRange",
@@ -35824,7 +35834,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5141
+          "line": 5142
         },
         {
           "name": "getSoftTabs",
@@ -35840,7 +35850,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether softTabs are enabled for this editor.",
           "propertyType": null,
-          "line": 5155
+          "line": 5156
         },
         {
           "name": "setSoftTabs",
@@ -35866,7 +35876,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5167
+          "line": 5168
         },
         {
           "name": "toggleSoftTabs",
@@ -35882,7 +35892,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5183
+          "line": 5184
         },
         {
           "name": "getTabLength",
@@ -35898,7 +35908,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5195
+          "line": 5196
         },
         {
           "name": "setTabLength",
@@ -35924,7 +35934,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5208
+          "line": 5209
         },
         {
           "name": "usesSoftTabs",
@@ -35940,7 +35950,7 @@
           "returnType": "Boolean|undefined",
           "returnDescription": "`true` for leading spaces, `false` for a leading hard tab (`\\t`), or `undefined` when no non-comment line has leading whitespace.",
           "propertyType": null,
-          "line": 5236
+          "line": 5237
         },
         {
           "name": "getTabText",
@@ -35956,7 +35966,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5262
+          "line": 5263
         },
         {
           "name": "isSoftWrapped",
@@ -35972,7 +35982,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5287
+          "line": 5288
         },
         {
           "name": "setSoftWrapped",
@@ -35998,7 +36008,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5300
+          "line": 5301
         },
         {
           "name": "toggleSoftWrapped",
@@ -36014,7 +36024,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5317
+          "line": 5318
         },
         {
           "name": "isOvertypeMode",
@@ -36030,7 +36040,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5331
+          "line": 5332
         },
         {
           "name": "setOvertypeMode",
@@ -36056,7 +36066,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5344
+          "line": 5345
         },
         {
           "name": "toggleOvertypeMode",
@@ -36072,7 +36082,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5361
+          "line": 5362
         },
         {
           "name": "applyOvertype",
@@ -36088,7 +36098,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5377
+          "line": 5378
         },
         {
           "name": "getSoftWrapColumn",
@@ -36104,7 +36114,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5392
+          "line": 5393
         },
         {
           "name": "indentationForBufferRow",
@@ -36130,7 +36140,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5426
+          "line": 5427
         },
         {
           "name": "setIndentationForBufferRow",
@@ -36184,7 +36194,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5447
+          "line": 5448
         },
         {
           "name": "indentSelectedRows",
@@ -36220,7 +36230,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5473
+          "line": 5474
         },
         {
           "name": "outdentSelectedRows",
@@ -36256,7 +36266,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5487
+          "line": 5488
         },
         {
           "name": "indentLevelForLine",
@@ -36282,7 +36292,7 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5506
+          "line": 5507
         },
         {
           "name": "autoIndentSelectedRows",
@@ -36318,7 +36328,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5532
+          "line": 5533
         },
         {
           "name": "getGrammar",
@@ -36334,7 +36344,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5572
+          "line": 5573
         },
         {
           "name": "onDidTokenize",
@@ -36360,7 +36370,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5594
+          "line": 5595
         },
         {
           "name": "whenGrammarSettled",
@@ -36396,7 +36406,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise that resolves to whether the current grammar settled successfully.",
           "propertyType": null,
-          "line": 5613
+          "line": 5614
         },
         {
           "name": "getRootScopeDescriptor",
@@ -36412,7 +36422,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "that includes this editor's language. e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with {@link Config#get} to get language specific config values.",
           "propertyType": null,
-          "line": 5696
+          "line": 5697
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -36438,7 +36448,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5715
+          "line": 5716
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -36464,7 +36474,7 @@
           "returnType": "ScopeDescriptor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5736
+          "line": 5737
         },
         {
           "name": "getSyntaxNodeAtBufferPosition",
@@ -36499,7 +36509,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5763
+          "line": 5764
         },
         {
           "name": "getSyntaxNodeContainingBufferRange",
@@ -36534,7 +36544,7 @@
           "returnType": "Object|null",
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "propertyType": null,
-          "line": 5787
+          "line": 5788
         },
         {
           "name": "hasGrammarQuery",
@@ -36560,7 +36570,7 @@
           "returnType": "Boolean",
           "returnDescription": "Whether the query is declared by a current language layer.",
           "propertyType": null,
-          "line": 5806
+          "line": 5807
         },
         {
           "name": "getGrammarQueryCaptureGroups",
@@ -36605,7 +36615,7 @@
           "returnType": "Promise",
           "returnDescription": "A promise resolving to `{grammar, captures}` groups for current language layers.",
           "propertyType": null,
-          "line": 5832
+          "line": 5833
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -36631,7 +36641,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5863
+          "line": 5864
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -36666,7 +36676,7 @@
           "returnType": "Range",
           "returnDescription": "",
           "propertyType": null,
-          "line": 5881
+          "line": 5882
         },
         {
           "name": "isBufferRowCommented",
@@ -36692,7 +36702,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 5893
+          "line": 5894
         },
         {
           "name": "copySelectedText",
@@ -36718,7 +36728,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5929
+          "line": 5930
         },
         {
           "name": "cutSelectedText",
@@ -36754,7 +36764,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the system clipboard has been updated.",
           "propertyType": null,
-          "line": 5973
+          "line": 5974
         },
         {
           "name": "pasteText",
@@ -36780,7 +36790,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves after the clipboard text has been inserted.",
           "propertyType": null,
-          "line": 6004
+          "line": 6005
         },
         {
           "name": "cutToEndOfLine",
@@ -36816,7 +36826,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6110
+          "line": 6111
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -36852,7 +36862,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6134
+          "line": 6135
         },
         {
           "name": "getFoldableRangeAtBufferRow",
@@ -36878,7 +36888,7 @@
           "returnType": "Range|null",
           "returnDescription": "The exact foldable range, or `null` when the row does not start one.",
           "propertyType": null,
-          "line": 6164
+          "line": 6165
         },
         {
           "name": "foldCurrentRow",
@@ -36894,7 +36904,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6179
+          "line": 6180
         },
         {
           "name": "unfoldCurrentRow",
@@ -36910,7 +36920,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6194
+          "line": 6195
         },
         {
           "name": "foldBufferRow",
@@ -36936,7 +36946,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6211
+          "line": 6212
         },
         {
           "name": "unfoldBufferRow",
@@ -36962,7 +36972,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6244
+          "line": 6245
         },
         {
           "name": "foldSelectedLines",
@@ -36978,7 +36988,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6255
+          "line": 6256
         },
         {
           "name": "foldAll",
@@ -36994,7 +37004,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6267
+          "line": 6268
         },
         {
           "name": "unfoldAll",
@@ -37010,7 +37020,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6283
+          "line": 6284
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -37036,7 +37046,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6297
+          "line": 6298
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -37062,7 +37072,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6319
+          "line": 6320
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -37088,7 +37098,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6345
+          "line": 6346
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -37114,7 +37124,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6356
+          "line": 6357
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -37130,7 +37140,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6372
+          "line": 6373
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -37156,7 +37166,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6385
+          "line": 6386
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -37182,7 +37192,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6402
+          "line": 6403
         },
         {
           "name": "addGutter",
@@ -37408,7 +37418,7 @@
           "returnType": "Gutter",
           "returnDescription": "newly-created {@link Gutter}.",
           "propertyType": null,
-          "line": 6466
+          "line": 6467
         },
         {
           "name": "getGutters",
@@ -37424,7 +37434,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Gutter Gutters}.",
           "propertyType": null,
-          "line": 6478
+          "line": 6479
         },
         {
           "name": "gutterWithName",
@@ -37450,7 +37460,7 @@
           "returnType": "Gutter",
           "returnDescription": ", or `null` if no gutter exists for the given name.",
           "propertyType": null,
-          "line": 6494
+          "line": 6495
         },
         {
           "name": "scrollToCursorPosition",
@@ -37496,7 +37506,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6513
+          "line": 6514
         },
         {
           "name": "scrollToBufferPosition",
@@ -37551,7 +37561,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6536
+          "line": 6537
         },
         {
           "name": "scrollToScreenPosition",
@@ -37606,7 +37616,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6554
+          "line": 6555
         },
         {
           "name": "scrollToScreenRange",
@@ -37681,7 +37691,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6571
+          "line": 6572
         },
         {
           "name": "shouldAutoIndent",
@@ -37697,7 +37707,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6618
+          "line": 6619
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -37713,7 +37723,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6630
+          "line": 6631
         },
         {
           "name": "getScrollPastEnd",
@@ -37729,7 +37739,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6642
+          "line": 6643
         },
         {
           "name": "getWheelScrollMultiplier",
@@ -37745,7 +37755,7 @@
           "returnType": "Number",
           "returnDescription": "positive distance multiplier.",
           "propertyType": null,
-          "line": 6658
+          "line": 6659
         },
         {
           "name": "getSmoothScrolling",
@@ -37761,7 +37771,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6670
+          "line": 6671
         },
         {
           "name": "getWheelScrollDuration",
@@ -37777,7 +37787,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative duration in milliseconds.",
           "propertyType": null,
-          "line": 6685
+          "line": 6686
         },
         {
           "name": "getCommandScrollDuration",
@@ -37793,7 +37803,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative duration in milliseconds.",
           "propertyType": null,
-          "line": 6700
+          "line": 6701
         },
         {
           "name": "getAltWheelScrollMultiplier",
@@ -37809,7 +37819,7 @@
           "returnType": "Number",
           "returnDescription": "positive distance multiplier.",
           "propertyType": null,
-          "line": 6714
+          "line": 6715
         },
         {
           "name": "getCommandScrollDistance",
@@ -37825,7 +37835,7 @@
           "returnType": "Number",
           "returnDescription": "positive distance in editor heights.",
           "propertyType": null,
-          "line": 6728
+          "line": 6729
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -37841,7 +37851,7 @@
           "returnType": "Number",
           "returnDescription": "non-negative `Number`.",
           "propertyType": null,
-          "line": 6741
+          "line": 6742
         },
         {
           "name": "doesShowLineNumbers",
@@ -37857,7 +37867,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6753
+          "line": 6754
         },
         {
           "name": "getUndoGroupingInterval",
@@ -37873,7 +37883,7 @@
           "returnType": "Number",
           "returnDescription": "time interval `Number` in milliseconds.",
           "propertyType": null,
-          "line": 6766
+          "line": 6767
         },
         {
           "name": "getNonWordCharacters",
@@ -37899,7 +37909,7 @@
           "returnType": "String",
           "returnDescription": "containing the non-word characters.",
           "propertyType": null,
-          "line": 6779
+          "line": 6780
         },
         {
           "name": "getPlaceholderText",
@@ -37915,7 +37925,7 @@
           "returnType": "String",
           "returnDescription": "",
           "propertyType": null,
-          "line": 6848
+          "line": 6849
         },
         {
           "name": "setPlaceholderText",
@@ -37941,7 +37951,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 6861
+          "line": 6862
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -37967,7 +37977,7 @@
           "returnType": "Object",
           "returnDescription": "Information about the appropriate comment delimiters at the buffer position.",
           "propertyType": null,
-          "line": 7362
+          "line": 7363
         }
       ]
     },
@@ -45626,5 +45636,5 @@
     }
   ],
   "memberCount": 1453,
-  "generatedAt": "2026-10-09T22:48:36.946Z"
+  "generatedAt": "2026-10-10T00:43:53.634Z"
 }
