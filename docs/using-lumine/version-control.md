@@ -51,7 +51,7 @@ The `git-panel` diff viewer uses **Unified** by default, with removed and added 
 
 Staging or discarding a hunk updates the open diff in place and preserves its scroll position and wrapping. Changes made outside the panel use the same refresh behavior. If the remaining diff is shorter, scrolling stops at its new end; when all changes are gone, the viewer shows **No changes to display**.
 
-Selecting another changed file in the same repository reloads the pending diff tab in place, keeping the chosen layout and starting at the new file's first hunk. The previous diff stays visible until the new data is ready, and a newer selection supersedes an earlier load. Promoting the pending tab keeps that diff open separately.
+The pending diff tab is shared by staged and unstaged files, all staged changes, and commits across repositories. Opening another patch replaces its document in place, keeping the native editors and chosen layout and starting at the new document's first hunk. The previous diff stays visible until the new data is ready, and a newer selection supersedes an earlier load. Empty patches keep the same renderer ready for the next document. Promoting the pending tab keeps that diff open separately.
 
 `github-panel` and `git-command` use the diff renderer supplied by the active `git-panel` package through its `git-panel.diff` service. Its scrolling, wrapping, and layout behavior applies to all three interfaces.
 
