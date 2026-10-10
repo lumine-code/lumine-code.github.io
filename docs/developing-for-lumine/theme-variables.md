@@ -46,6 +46,8 @@ For example, set the general foreground and spacing, then give tooltips their ow
 
 Derived values are computed where they are declared. Changing a semantic input on `:root` updates the core defaults that depend on it. Changing that input only on a descendant does not recompute a derived value inherited from `:root`; override the relevant component tokens in that scope as well when restyling a local surface.
 
+Floating documentation surfaces share `--overlay-documentation-background-color`: the hover and signature help panels, their arrows and toolbar, and the documentation below autocomplete suggestions. Its default derives from `--overlay-background-color` with HSL lightness reduced by four points. The suggestion list itself uses `--overlay-background-color`; documentation in a dock uses `--tool-panel-background-color`. Override the documentation token on `:root` to change all floating documentation surfaces together.
+
 Keep foregrounds paired with their intended backgrounds. The accent exposes separate indicator and filled-surface pairs: `--accent-indicator-color` with `--accent-indicator-text-color`, and `--accent-background-color` with `--accent-foreground-color`. `--accent-link-color` is accent text on the surrounding interface. A system accent overrides the indicator and filled-surface pairs while leaving the theme's link color in place; user styles take precedence over both.
 
 ## Interface sizing and editor typography
