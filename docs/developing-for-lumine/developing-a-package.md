@@ -68,6 +68,12 @@ await lumine.workspace.open(editor);
 
 A non-mini text editor without an explicit `autoHeight` setting adopts the pane's height when it becomes a pane item, so long content scrolls normally. This also applies to custom openers, direct `pane.addItem()` calls, docks and restored editors. Detached editors and editors embedded inside another view keep their content-based height. Pass `autoHeight: true` or `false` when the view deliberately owns that choice; core preserves explicit settings.
 
+## Observing text changes
+
+Buffer changes carry `origin`: `edit` for editor and API mutations, `reload` for text loaded from the backing file, and `mixed` when a transaction combines both. All origins reach text consumers, so syntax, language servers and decorations follow external edits. Automatic editing assistance should inspect this origin before opening UI or modifying text. `textChanged` on a cursor or selection event means that text moved the marker; its `origin` tells you whether that came from a reload.
+
+`onDidStopChanging` exposes the combined `changes` plus immutable `transactions` in application order. Each transaction has its own `origin` and `changes`, with ranges in that transaction's coordinates. Use the last transaction for an action that depends on the latest insertion: typing immediately after a reload can share the same idle interval. Use `onWillReload` to cancel pending suggestions or signatures and end snippet expansions before the patch moves their markers. See [Buffer change origins](https://github.com/lumine-code/lumine/blob/master/docs/file-watching.md#buffer-change-origins) for the contract.
+
 ## Writing views in JSX
 
 Give a file the `.jsx` extension and Lumine compiles it through Babel on load — no build step and no configuration. Name the factory the file's tags compile to in a `/** @jsx … */` pragma at the top; for a Lumine view that is `etch.dom`, the virtual-DOM helper the editor's own views are written with, so a view is a plain object with `render` and `update` methods:
