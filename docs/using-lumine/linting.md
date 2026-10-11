@@ -10,9 +10,11 @@ Inline decorations are skipped for very large files to keep editing responsive â
 
 ## Controlling what gets linted
 
+`marker:toggle-focus` opens the shared marker layer picker for the scrollbar map and minimap. Its linter layer switch changes only the overview markers: inline underlines and the diagnostic list remain available. A disabled layer releases its subscriptions and cached markers; enabling it rebuilds them from current diagnostics. Layer changes do not restart language servers.
+
 `linter:toggle-current-file` pauses the active file; `linter:toggle-linter` enables or disables providers. **Ignore files matching this Glob** excludes matching paths, and the core **Exclude VCS Ignored Paths** setting skips ignored files. Unsaved buffers can still be linted.
 
-The provider list combines classic linters, project scans, and language servers. Language server providers appear as soon as their adapter is registered, even before it reports a problem. Disabling a provider immediately hides its messages throughout the linter while the server and its other IDE features continue running; enabling it restores the latest pushed diagnostics or runs a fresh classic lint. The list updates when providers are added or removed, and your choices persist between editor sessions. An adapter's own **Diagnostics** feature setting still determines whether it publishes diagnostics at all.
+The provider list combines classic linters, project scans, and language servers. Language server providers appear as soon as their adapter is registered, even before it reports a problem. Disabling a provider immediately hides its messages throughout the linter while the server and its other IDE features continue running; enabling it restores the latest pushed diagnostics or runs a fresh classic lint. The list updates when providers are added or removed, and your choices persist between editor sessions. An adapter's own **Diagnostics** feature setting controls whether its diagnostics are presented; switching it preserves the running server and restores current cached reports when enabled.
 
 By default files are linted when opened (**Lint on Open**) and as you type (**Lint on Change**, throttled by **Lint on Change Interval**); disable either to lint only on save. `linter:lint` lints the current file on demand, and `linter:debug` reports which providers apply to it.
 
