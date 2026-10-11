@@ -12,6 +12,8 @@ Open in New Window moves a tab into a new window, keeping its unsaved text, sele
 
 With `core.allowPendingPaneItems` enabled, a single click in the tree opens a temporary preview tab. Opening another file replaces that preview. Image Editor, PDF View and Archive View can load the next compatible file into the existing preview, keeping the viewer in place; PDF View also keeps its iframe runtime. Archive View prepares the new contents before replacing its tree, so a loading failure keeps the previous archive available. Double-clicking a file keeps its tab, and editing an image keeps that image's tab. Replaced previews remain available through `pane:reopen-closed-item`.
 
+Double-clicking a tab toggles its pending preview state, just like `pane:toggle-pending-item` does for the active tab. Double-click a permanent tab to make it a preview, or a preview tab to keep it open. If another tab in the pane was pending, it stays open as a permanent tab. Editing or saving a preview makes it permanent.
+
 ## Splitting panes
 
 Split the current pane and copy the active item into the new one with:
