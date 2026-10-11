@@ -26,3 +26,7 @@ Outside the panel, `search-panel:select-next` and `search-panel:select-all` add 
 ## Project search and replace
 
 Search across every file in the project with `search-panel:project-toggle` (or `search-panel:project-show`). Project search uses Lumine's bundled **ripgrep** searcher unless a package provides another one. Replace across all results with `search-panel:project-replace-all`; to search one folder, select it in the tree view and run `search-panel:project-show-in-current-directory`.
+
+Project search and replace use the files saved on disk. Matches that exist only in an open editor's unsaved text are excluded. Project replacement writes each affected file and sends those same changes to any open text buffer, preserving unsaved edits elsewhere in the buffer without saving them automatically.
+
+If a replacement overlaps different unsaved text, Lumine preserves the edited text and marks the buffer as conflicted; other replacements in that file still reach the buffer. Resolve the conflict before saving so that you can choose which content to keep. Undo in an open editor reverses its buffer changes only: it does not undo the project replacement already written to disk.
