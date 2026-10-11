@@ -57,7 +57,7 @@ The pending diff tab is shared by staged and unstaged files, all staged changes,
 
 With **Navigation Panel** enabled, the current `git-panel` patch appears as a tree of files and their hunks. This works for a single file, all staged changes, and commits in both layouts. Select a file to reveal its header or a hunk to jump to that part of the diff. The navigation list's scroll action previews the selection while keeping the list focused. The tree updates when the patch changes. Collapsed and deferred large files keep their hunk entries available; choosing a hunk loads and expands only that file.
 
-With **Scrollmap** enabled, file headers and loaded hunk ranges appear as centered markers in different colors on the diff's right scrollbar. The current file and hunk have stronger opacity. Markers follow wrapping, collapsed files, patch refreshes, and layout changes; Side by Side uses the single scrollbar on the right.
+With **Scrollmap** enabled, file and hunk headers appear as short, centered markers in different colors on the diff's right scrollbar. The current file and hunk have stronger opacity. Markers follow wrapping, collapsed files, patch refreshes, and layout changes; Side by Side uses the single scrollbar on the right.
 
 `github-panel` and `git-command` use the diff renderer supplied by the active `git-panel` package through its `git-panel.diff` service. Its scrolling, wrapping, and layout behavior applies to all three interfaces.
 
