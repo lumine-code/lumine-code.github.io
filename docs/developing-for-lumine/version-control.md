@@ -36,6 +36,12 @@ const subscription = lumine.repositories.observeForPath(
 
 The observer owns discovery delivery, repository retention, routing changes and initial readiness. It reports unresolved paths with `ready: false` and a completed lookup with `ready: true`, including a `null` repository. Dispose it with the owning view. A consumer that renders later snapshot changes subscribes to the repository itself; the path observer does not duplicate rendering events. Large trees and tab bars can retain their own shared rendering scheduler.
 
+## Read line diffs
+
+`repository.getLineDiffsAsync(path, text, {base: "head", signal})` compares the current buffer with the last commit; `base: "index"` compares it with the staged version. Both comparisons run in the Git host worker and return line hunks in the buffer's coordinates. The default is `"head"`. A file absent from the selected baseline, including a new file on an unborn branch, is compared with empty text. HEAD comparisons resolve the original path of a staged rename.
+
+Status entries expose `headBlobOid` and `indexBlobOid`, with `null` when the corresponding baseline has no file. Use the index identity when caching unstaged line diffs: staging new contents can change `indexBlobOid` while the status remains `MM` and the editor buffer stays unchanged. Subscribe to `onDidChangeStatusSnapshot`, include the relevant baseline identities in the cache key, and validate them before applying an asynchronous result. Dispose the subscription and cancel outstanding requests with the owning view.
+
 ## Execute a complete workflow
 
 Use named methods on `repository.getOperations()` for writes. Multi-step actions use one workflow, so another interface cannot insert a write between staging and committing.

@@ -9,7 +9,9 @@ The **`git-diff`** package marks lines in the editor gutter that have been added
 - move between changes with `git-diff:move-to-next-diff` and `git-diff:move-to-previous-diff`, and
 - open a searchable list of every change in the file with `git-diff:toggle-diff-list`.
 
-The markers can be shown as colored icons or colored gutter marks — choose in the package's settings.
+The markers can be shown as colored icons or colored gutter marks — choose in the package's settings. Added, edited and deleted changes keep their usual colors; staged changes use muted colors with readable contrast in One Night and One Day. The scrollbar and minimap use the same staging colors.
+
+Unstaged markers compare the current editor buffer, including unsaved edits, with the staged version. Staged markers compare the buffer with the last commit and appear where no unstaged block overlaps or touches them. An unstaged block takes priority over the whole overlapping staged block. Navigation and the diff list follow the visible markers, and each list entry identifies its staging status. Use the staged diff in `git-panel` or `git-command` to inspect the exact snapshot prepared for the next commit.
 
 ## Reverting changes
 

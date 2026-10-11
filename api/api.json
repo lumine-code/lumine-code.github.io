@@ -9279,11 +9279,11 @@
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::getLineDiffsAsync(filePath, text, { signal } = {})",
+          "signature": "::getLineDiffsAsync(filePath, text, { base = \"head\", signal } = {})",
           "category": "Retrieving Diffs",
           "visibility": "Public",
-          "description": "Computes gutter line diffs off the renderer thread via the git-host worker,\nfetching and caching the HEAD blob before comparing it with the buffer.",
-          "summary": "Computes gutter line diffs off the renderer thread via the git-host worker, fetching and caching the HEAD blob before comparing it with the buffer.",
+          "description": "Computes gutter line diffs off the renderer thread via the git-host worker,\nfetching and caching the selected baseline blob before comparing it with\nthe buffer. A path absent from that baseline is compared as empty text.",
+          "summary": "Computes gutter line diffs off the renderer thread via the git-host worker, fetching and caching the selected baseline blob before comparing it with the buffer. A path absent from that baseline is compared as empty text.",
           "parameters": [
             {
               "name": "filePath",
@@ -9300,17 +9300,27 @@
               "optional": false,
               "rest": false,
               "type": null,
-              "description": "The `String` to compare against the `HEAD` contents.",
+              "description": "The `String` buffer contents to compare.",
               "defaultValue": null
             },
             {
               "name": "options",
-              "source": "{ signal } = {}",
+              "source": "{ base = \"head\", signal } = {}",
               "optional": true,
               "rest": false,
               "type": "Object",
               "description": "Diff options.",
               "defaultValue": "{}"
+            },
+            {
+              "name": "options.base",
+              "type": "\"head\"|\"index\"",
+              "description": "The comparison baseline.",
+              "optional": true,
+              "defaultValue": "\"head\"",
+              "source": "options.base",
+              "rest": false,
+              "nested": true
             },
             {
               "name": "options.signal",
@@ -9326,7 +9336,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to an `Array` of hunk `Objects`, each with `oldStart`, `newStart`, `oldLines`, and `newLines`.",
           "propertyType": null,
-          "line": 1826
+          "line": 1828
         },
         {
           "name": "checkoutHead",
@@ -9352,7 +9362,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1865
+          "line": 1883
         },
         {
           "name": "checkoutReference",
@@ -9387,7 +9397,7 @@
           "returnType": "Promise",
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "propertyType": null,
-          "line": 1887
+          "line": 1905
         }
       ]
     },
@@ -45808,5 +45818,5 @@
     }
   ],
   "memberCount": 1455,
-  "generatedAt": "2026-10-11T21:50:22.446Z"
+  "generatedAt": "2026-10-11T23:42:21.071Z"
 }
