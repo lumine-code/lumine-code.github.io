@@ -14,7 +14,9 @@ The `core:move-left`, `core:move-right`, `core:move-up`, and `core:move-down` co
 
 ## Scrolling
 
-`editor:scroll-up` and `editor:scroll-down` scroll the view without moving the cursor; `editor:scroll-to-cursor` brings the cursor back into view.
+`editor:scroll-up` and `editor:scroll-down` scroll the view without moving the cursor. `editor:scroll-to-cursor` reveals the cursor with the smallest necessary movement; `editor:scroll-to-zone` brings it into the configured scroll zone without moving the cursor.
+
+Navigation to a line, symbol, diagnostic, or other destination uses the shared `editor.scrollZone` setting. Its default `[0, 50]` keeps the destination in the upper half of the available vertical space. Ordinary typing, cursor movement, and selection changes use the nearest visible position. See [Scrolling configuration](../customizing-lumine/configuration.md#scrolling) for the zone's percentages and landing behavior.
 
 ## Jumping to a line
 

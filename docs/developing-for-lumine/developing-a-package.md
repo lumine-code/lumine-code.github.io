@@ -68,6 +68,36 @@ await lumine.workspace.open(editor);
 
 A non-mini text editor without an explicit `autoHeight` setting adopts the pane's height when it becomes a pane item, so long content scrolls normally. This also applies to custom openers, direct `pane.addItem()` calls, docks and restored editors. Detached editors and editors embedded inside another view keep their content-based height. Pass `autoHeight: true` or `false` when the view deliberately owns that choice; core preserves explicit settings.
 
+## Revealing positions
+
+The text editor's `scrollToBufferPosition`, `scrollToScreenPosition`, `scrollToScreenRange`, and `scrollToCursorPosition` methods accept one `mode` option:
+
+| Mode                           | Behavior                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| `"nearest"`                    | Default. Reveal the position or range with the smallest necessary scroll.      |
+| `"zone"`                       | Use the live `editor.scrollZone` setting for this editor's root grammar scope. |
+| `"center"`                     | Center the position or range.                                                  |
+| A number                       | Pin the position or range to that vertical percentage, from `0` to `100`.      |
+| An array of one or two numbers | Use explicit landing percentages, preserving their order.                      |
+
+Use `mode: "zone"` for a navigation destination, and keep the nearest default for editing or extending selections. Read [Scrolling configuration](../customizing-lumine/configuration.md#scrolling) for ordered and inverted bands. `getScrollZone()` reads the shared setting in the target editor's root scope; packages need no copy of that setting. `scrollToZone()` reveals the last cursor with this mode, and the `editor:scroll-to-zone` command exposes the same action.
+
+```js
+// Navigate and reveal the destination in the shared zone.
+editor.setCursorBufferPosition([line, column], { mode: "zone" });
+editor.setSelectedBufferRange(range, { mode: "zone" });
+
+// Reveal a position without moving the cursor or changing selections.
+editor.scrollToBufferPosition([line, column], { mode: "zone" });
+editor.scrollToCursorPosition({ mode: "center" });
+editor.scrollToScreenRange(screenRange, { mode: [70, 20], reversed: false });
+
+// Keep exact viewport restoration separate from revealing a destination.
+editor.setCursorBufferPosition(savedPosition, { autoscroll: false });
+```
+
+Cursor and selection setters forward `mode` when their normal autoscroll runs; `autoscroll: false` suppresses it. Range reveals retain the `reversed` and `clip` options, and modes affect vertical placement while horizontal scrolling still reveals the range. The API uses `mode` only; `center` and `zone` options are rejected. `workspace.open(uri, { initialLine, initialColumn })` reveals the initial location in the shared zone, while opening without an initial location preserves the existing viewport.
+
 ## Observing text changes
 
 Buffer changes carry `origin`: `edit` for editor and API mutations, `reload` for text loaded from the backing file, and `mixed` when a transaction combines both. All origins reach text consumers, so syntax, language servers and decorations follow external edits. Automatic editing assistance should inspect this origin before opening UI or modifying text. `textChanged` on a cursor or selection event means that text moved the marker; its `origin` tells you whether that came from a reload.
