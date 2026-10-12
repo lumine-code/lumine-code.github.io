@@ -29,6 +29,8 @@ npm run docs:api -- --editor /path/to/lumine
 
 The generator uses the canonical JSDoc extractor and source registry from the selected editor checkout, then rewrites `api/index.html` and `api/api.json`. Registered dependency sources are resolved from sibling repositories first and the editor's `node_modules` second, so a full workspace keeps `event-kit` beside `lumine`. `LUMINE_CORE_ROOT` may be set instead of passing `--editor`.
 
+A standalone `/** @category Layout */` comment in a class or object body starts a section for following API members. An `@category` tag inside a member's own JSDoc overrides only that member's category. Place it after the description and other tags, preserving the `@public`, `@status`, blank-line header. Public members cannot appear under a category starting with `Private`.
+
 ## Local preview
 
 Serve the folder over HTTP and open the printed URL:

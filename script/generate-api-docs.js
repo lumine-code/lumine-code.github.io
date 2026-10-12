@@ -364,7 +364,7 @@ function renderSignature(signature) {
 }
 
 // The article and the member rail split a class the same way, so they read the
-// same grouping: declaration order, one entry per Section: marker.
+// same grouping: declaration order, using JSDoc sections and member overrides.
 function byCategory(members) {
   const groups = new Map();
   for (const member of members) {
