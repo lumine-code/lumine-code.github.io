@@ -169,3 +169,27 @@ test("checks generated object documentation for drift without rewriting output",
   assert.match(result.stderr, /index\.html does not match/);
   assert.equal(fs.readFileSync(htmlPath, "utf8"), before);
 });
+
+test("checks CRLF checkout output without rewriting it and still detects contract drift", (context) => {
+  const fixture = renderFixture(context);
+  assert.equal(fixture.generate().status, 0);
+  const files = ["api.json", "index.html"].map((file) =>
+    path.join(fixture.output, file),
+  );
+  const before = files.map((file) => {
+    const contents = fs.readFileSync(file, "utf8").replace(/\n/g, "\r\n");
+    fs.writeFileSync(file, contents);
+    return contents;
+  });
+  const unchanged = fixture.generate(true);
+  assert.equal(unchanged.status, 0, unchanged.stderr);
+  fixture.api.objects[0].description = "An updated object contract.";
+  fixture.saveApi();
+  const changed = fixture.generate(true);
+  assert.equal(changed.status, 1);
+  assert.match(changed.stderr, /api\.json does not match/);
+  assert.match(changed.stderr, /index\.html does not match/);
+  files.forEach((file, index) =>
+    assert.equal(fs.readFileSync(file, "utf8"), before[index]),
+  );
+});

@@ -831,11 +831,12 @@ const rendered = {
 };
 const summary = `${api.classes.length} classes, ${api.objects.length} objects and ${api.memberCount} documented members`;
 
-// The timestamp is the one thing that differs on every run, so comparing it
-// would make the check useless. Everything else — the version, the members,
+// Timestamps differ on every run and checkout line endings depend on Git's
+// platform settings. Everything else — the version, the members,
 // the source line each one links to — is a real difference worth failing on:
 // a moved line number is a reference link that now points at the wrong code.
-function withoutTimestamp(contents, file) {
+function normalizeGeneratedOutput(contents, file) {
+  contents = contents.replace(/\r\n/g, "\n");
   if (file !== "api.json") return contents;
   return contents.replace(/^(\s*"generatedAt": ).*$/m, "$1null,");
 }
@@ -849,7 +850,8 @@ if (checkOnly) {
       : null;
     if (before === null) stale.push(`${file} has never been generated`);
     else if (
-      withoutTimestamp(before, file) !== withoutTimestamp(contents, file)
+      normalizeGeneratedOutput(before, file) !==
+      normalizeGeneratedOutput(contents, file)
     )
       stale.push(
         `${file} does not match the editor source it is generated from`,
