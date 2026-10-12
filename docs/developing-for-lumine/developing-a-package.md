@@ -68,7 +68,7 @@ await lumine.workspace.open(editor);
 
 A non-mini text editor without an explicit `autoHeight` setting adopts the pane's height when it becomes a pane item, so long content scrolls normally. This also applies to custom openers, direct `pane.addItem()` calls, docks and restored editors. Detached editors and editors embedded inside another view keep their content-based height. Pass `autoHeight: true` or `false` when the view deliberately owns that choice; core preserves explicit settings.
 
-Custom center items implement `copy({ signal })` or explicitly declare `isSingleton() === true`. The workspace provides the shared focus, move and copy commands; see [Pane items](./pane-items.md) for identity, document ownership and lifecycle requirements.
+Custom center items implement `copy({ signal })` or explicitly declare `canCopy() === false`. Resource uniqueness independently uses `getSingletonKey()`. The workspace provides the shared focus, move and copy commands; see [Pane items](./pane-items.md) for identity, document ownership and lifecycle requirements.
 
 ## Revealing positions
 
