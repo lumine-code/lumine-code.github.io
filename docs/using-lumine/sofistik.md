@@ -29,6 +29,10 @@ The components have separate responsibilities:
 
 The shared libraries keep those workflows consistent: `sofistik-context` selects declarations and installations, `sofistik-schema` supplies exact release-specific CADINP data, and `sofistik-reader` isolates native CDB access. Dataset lookup does not select an installation. See the [language-server architecture](https://github.com/lumine-code/sofistik-language-server/blob/master/docs/architecture.md) for the source and analysis contracts.
 
+## Program outline
+
+In `navigation-panel`, select a SOFiSTiK program in the outline and press Space to switch its header between `+PROG` and `-PROG`. The action keeps focus in the panel and works with program icons hidden. Space in the panel's search field remains text input.
+
 ## Include files
 
 `language-sofistik` highlights `.include` files as CADINP. The [SOFiPLUS include filenames](https://docs.sofistik.com/2025/en/sofiplus/working_with_include_files/working_with_include_files.html) select an initial program context, so module records and parameters receive their normal highlighting without adding a `+PROG` header to the file:
