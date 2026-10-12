@@ -23,7 +23,22 @@ Split the current pane and copy the active item into the new one with:
 - `pane:split-up-and-copy-active-item`
 - `pane:split-down-and-copy-active-item`
 
-Move between panes with `window:focus-pane-on-left`, `window:focus-pane-on-right`, `window:focus-pane-above`, `window:focus-pane-below`, or cycle with `window:focus-next-pane` / `window:focus-previous-pane`.
+Move focus between visible panes and docks with `window:focus-pane-left`, `window:focus-pane-right`, `window:focus-pane-up`, or `window:focus-pane-down`. Cycle with `window:focus-next-pane` / `window:focus-previous-pane`.
+
+## Moving and copying items
+
+Every central workspace item supports moving between panes. Use the direction `up`, `down`, `left`, or `right` with these command families:
+
+| Command | Behavior |
+| --- | --- |
+| `pane:move-active-item-<direction>` | Move the active item into the nearest pane that allows it. |
+| `pane:copy-active-item-<direction>` | Open another view of the active item in the nearest allowed pane. |
+| `pane:split-<direction>-and-move-active-item` | Create a pane and move the active item into it. |
+| `pane:split-<direction>-and-copy-active-item` | Create a pane containing another view of the active item. |
+
+Moving keeps the same item, live view and resources. Splitting and moving the only item keeps the emptied source pane so the requested split remains visible. An explicit move or copy makes a preview permanent. Failed or cancelled operations keep the current layout and focus.
+
+Copies have independent view state, such as selections, scrolling and layout, while editable documents share their content and history. Copying a terminal starts another shell; moving one preserves its running process and scrollback. Singleton surfaces, including Settings, About and Jupyter Explorer, support move and split-and-move; trying to copy one explains why it cannot be duplicated and leaves the layout intact.
 
 ## Resizing and closing
 
