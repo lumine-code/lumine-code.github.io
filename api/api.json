@@ -19059,7 +19059,7 @@
       "source": "src/pane-item-transfer-service.js",
       "sourcePath": "src/pane-item-transfer-service.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 417,
+      "line": 416,
       "members": [
         {
           "name": "createTransfer",
@@ -19094,7 +19094,7 @@
           "returnType": "Object",
           "returnDescription": "A serializable workspace drag descriptor.",
           "propertyType": null,
-          "line": 438
+          "line": 437
         },
         {
           "name": "release",
@@ -19129,7 +19129,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 519
+          "line": 518
         },
         {
           "name": "prepareDrop",
@@ -19164,7 +19164,7 @@
           "returnType": "Object|null",
           "returnDescription": "Prepared transfer state, or null for an unsupported payload.",
           "propertyType": null,
-          "line": 535
+          "line": 534
         },
         {
           "name": "performDrop",
@@ -19199,7 +19199,7 @@
           "returnType": "Promise<Object>",
           "returnDescription": "The destination pane and item.",
           "propertyType": null,
-          "line": 587
+          "line": 586
         },
         {
           "name": "openInNewWindow",
@@ -19234,7 +19234,7 @@
           "returnType": "Promise<Object>",
           "returnDescription": "The destination window id after source commit.",
           "propertyType": null,
-          "line": 845
+          "line": 844
         },
         {
           "name": "dispose",
@@ -19250,7 +19250,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 873
+          "line": 872
         }
       ]
     },
@@ -41677,12 +41677,12 @@
       "name": "Workspace",
       "superClass": "Model",
       "visibility": "Essential",
-      "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `lumine.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {@link Workspace#addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {@link WorkspaceCenter} or in one\nof the three {@link Dock Docks}. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a `String` containing the title of the item to display on its\nassociated tab.\n\n#### `copy({signal})` or `canCopy()`\n\nEvery center item must implement `copy({signal})`, returning a fresh live item\nor a Promise for one, with an independent detached view root. Views may share\ntheir underlying document, but own their subscriptions, selection and viewport.\nHonor the AbortSignal before publishing a copy and release abandoned resources.\nA view that does not support copying declares `canCopy() === false`.\nCopy and split-copy operations then silently resolve to null without changing\npanes, focus or preview state. Focus and move, including split-move, remain available.\nCopy policy is independent of uniqueness: `getSingletonKey()` returns a\nnamespaced non-empty String to allow one item per logical resource in this\nworkspace. A constant key identifies a workspace tool; a resource key permits\nseparate result sets. Omit it or return null when uniqueness is not required.\nChanging a singleton key emits `onDidChangeSingletonKey`, or `onDidChangeURI`\nwhen the key follows the URI. Reopening a key activates its existing item.\nSerialization and URI openers are not substitutes for this copy contract.\nCopy factories capture document and view state before awaiting initialization.\nRetargeting items emit `onDidChangeURI` after every document publication, even\nif its URI returns to an earlier value. An optional `getPaneItemRevision()`\nreturns a monotonic revision so asynchronous copies also detect document\nreplacement with an unchanged URI. Moving and copying promote previews only\nafter committing and invoke `terminatePendingState()` to cancel pending reuse.\n\n### Optional Methods\n\n#### Presentation window lifecycle\n\n`didAttachToWindow({window, document})` synchronously binds presentation-only\nlisteners after first mounting or DOM adoption. Use that document and its\ndefaultView for UI, while retaining workspace-owned models and resources.\n\n`prepareWindowChange({sourceWindow, targetWindow})` may asynchronously capture\nstate that DOM adoption cannot retain, such as an iframe's browsing context.\nIts returned state is passed to `didChangeWindow({...context, state})` after\nmovement. Rollback invokes that method with reversed windows and\n`rollback: true`; a preparation cancelled before movement invokes\n`cancelWindowChange({...context, state})`. A returned state may implement\n`dispose()` to release temporary resources after commit or rollback.\nThese methods preserve the live document, terminal or kernel; they do not\nreopen an item through its URI. Layout mutations in participating windows\nremain locked while their presentation operation is pending.\n\n`getPaneItemDocument()` may return a shared document object used by independent\nviews. Close batches confirm that document once, passing `lastView` to\n`shouldPromptToSave`. Text editors use their buffer as the document identity.\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a `Disposable`.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `onDidChangeURI(callback)`\n\nNotifies the workspace when the item begins representing a different URI.\nEmit after committing the new document, and return a `Disposable`.\nThe workspace publishes {@link Workspace#onDidChangePaneItemURI} for consumers\nwhose context depends on the document rather than the item identity.\n\n#### `getLongTitle()`\n\nReturns a `String` containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a `Disposable`.\n\n#### `getIconName()`\n\nReturn a `String` with the semantic name of an icon. The icon registry\nresolves that name to a descriptor, so an icon provider may render it as\nclasses, an image, SVG, or a letter.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the icon binding so it can be notified when the item's icon\nchanges. Must return a `Disposable`.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a `String` with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an `Array` of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`. If this method is not defined, the item is allowed only in the\nlocation returned by `getDefaultLocation()`, or in `'center'` when that\nmethod is not defined either.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `getFileState()`\n\nReturns one mutually exclusive state string: `\"unmodified\"` when the document\nmatches its saved base, `\"modified\"` when it has local changes, `\"conflicted\"`\nwhen it has diverged from its backing file, or `\"removed\"` when its backing\nfile no longer exists.\n\n#### `onDidChangeFileState(callback)`\n\nCalled by the workspace so it can be notified when the item's file state\nchanges. The callback receives the new state. Must return a `Disposable`.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {@link Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a `Number`.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {@link Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a `Number`.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a `Disposable`.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
+      "description": "Represents the state of the user interface for the entire window.\nAn instance of this class is available via the `lumine.workspace` global.\n\nInteract with this object to open files, be notified of current and future\neditors, and manipulate panes. To add panels, use {@link Workspace#addTopPanel}\nand friends.\n\n## Workspace Items\n\nThe term \"item\" refers to anything that can be displayed\nin a pane within the workspace, either in the {@link WorkspaceCenter} or in one\nof the three {@link Dock Docks}. The workspace expects items to conform to the\nfollowing interface:\n\n### Required Methods\n\n#### `getTitle()`\n\nReturns a `String` containing the title of the item to display on its\nassociated tab.\n\n### Optional Methods\n\n#### `copy({signal})`\n\nReturns a fresh live item or a Promise for one, with an independent detached\nview root. If omitted, copy and split-copy operations silently resolve to\nnull without changing panes, focus or preview state. Focus and move,\nincluding split-move, remain available. Views may share\ntheir underlying document, but own their subscriptions, selection and viewport.\nHonor the AbortSignal before publishing a copy and release abandoned resources.\nSerialization and URI openers are not substitutes for this copy contract.\nCopy factories capture document and view state before awaiting initialization.\nRetargeting items emit `onDidChangeURI` after every document publication, even\nif its URI returns to an earlier value. Moving and copying promote previews\nonly after committing and invoke `terminatePendingState()` to cancel pending reuse.\n\n#### `canCopy()`\n\nReturns a Boolean to restrict an item's copy capability. Returning false\nsilently skips copy and split-copy without notifications or changes to panes,\nfocus or preview state. If omitted, a callable `copy()` method enables copying.\nReturning true does not enable copying when the item has no `copy()` method.\n\n#### `getSingletonKey()`\n\nReturns a namespaced non-empty String to allow one item per logical resource\nin this workspace. A constant key identifies a workspace tool; a resource key\npermits separate result sets. Omit it or return null when uniqueness is not\nrequired. Resource uniqueness is independent of copy capability.\nChanging a singleton key emits `onDidChangeSingletonKey`, or `onDidChangeURI`\nwhen the key follows the URI. Reopening a key activates its existing item.\n\n#### `getPaneItemRevision()`\n\nReturns a monotonic document revision so asynchronous copies detect document\nreplacement with an unchanged URI. Omit it when the item does not retarget its\ndocument, or use `onDidChangeURI` when its URI always changes with the document.\n\n#### Presentation window lifecycle\n\n`didAttachToWindow({window, document})` synchronously binds presentation-only\nlisteners after first mounting or DOM adoption. Use that document and its\ndefaultView for UI, while retaining workspace-owned models and resources.\n\n`prepareWindowChange({sourceWindow, targetWindow})` may asynchronously capture\nstate that DOM adoption cannot retain, such as an iframe's browsing context.\nIts returned state is passed to `didChangeWindow({...context, state})` after\nmovement. Rollback invokes that method with reversed windows and\n`rollback: true`; a preparation cancelled before movement invokes\n`cancelWindowChange({...context, state})`. A returned state may implement\n`dispose()` to release temporary resources after commit or rollback.\nThese methods preserve the live document, terminal or kernel; they do not\nreopen an item through its URI. Layout mutations in participating windows\nremain locked while their presentation operation is pending.\n\n`getPaneItemDocument()` may return a shared document object used by independent\nviews. Close batches confirm that document once, passing `lastView` to\n`shouldPromptToSave`. Text editors use their buffer as the document identity.\n\n#### `getElement()`\n\nIf your item already *is* a DOM element, you do not need to implement this\nmethod. Otherwise it should return the element you want to display to\nrepresent this item.\n\n#### `destroy()`\n\nDestroys the item. This will be called when the item is removed from its\nparent pane.\n\n#### `onDidDestroy(callback)`\n\nCalled by the workspace so it can be notified when the item is destroyed.\nMust return a `Disposable`.\n\n#### `serialize()`\n\nSerialize the state of the item. Must return an object that can be passed to\n`JSON.stringify`. The state should include a field called `deserializer`,\nwhich names a deserializer declared in your `package.json`. This method is\ninvoked on items when serializing the workspace so they can be restored to\nthe same location later.\n\n#### `getURI()`\n\nReturns the URI associated with the item.\n\n#### `onDidChangeURI(callback)`\n\nNotifies the workspace when the item begins representing a different URI.\nEmit after committing the new document, and return a `Disposable`.\nThe workspace publishes {@link Workspace#onDidChangePaneItemURI} for consumers\nwhose context depends on the document rather than the item identity.\n\n#### `getLongTitle()`\n\nReturns a `String` containing a longer version of the title to display in\nplaces like the window title or on tabs their short titles are ambiguous.\n\n#### `onDidChangeTitle(callback)`\n\nCalled by the workspace so it can be notified when the item's title changes.\nMust return a `Disposable`.\n\n#### `getIconName()`\n\nReturn a `String` with the semantic name of an icon. The icon registry\nresolves that name to a descriptor, so an icon provider may render it as\nclasses, an image, SVG, or a letter.\n\n### `onDidChangeIcon(callback)`\n\nCalled by the icon binding so it can be notified when the item's icon\nchanges. Must return a `Disposable`.\n\n#### `getDefaultLocation()`\n\nTells the workspace where your item should be opened in absence of a user\noverride. Items can appear in the center or in a dock on the left, right, or\nbottom of the workspace.\n\nReturns a `String` with one of the following values: `'center'`, `'left'`,\n`'right'`, `'bottom'`. If this method is not defined, `'center'` is the\ndefault.\n\n#### `getAllowedLocations()`\n\nTells the workspace where this item can be moved. Returns an `Array` of one\nor more of the following values: `'center'`, `'left'`, `'right'`, or\n`'bottom'`. If this method is not defined, the item is allowed only in the\nlocation returned by `getDefaultLocation()`, or in `'center'` when that\nmethod is not defined either.\n\n#### `isPersistentDockItem()`\n\nTells the workspace that this item should survive restoring a saved\nworkspace layout into the current window. Persistent items are carried over\nto the restored layout instead of being destroyed along with the previous\none. Unlike permanent dock items, the user can still close them at any time.\n\n#### `isPermanentDockItem()`\n\nTells the workspace whether or not this item can be closed by the user by\nclicking an `x` on its tab. Use of this feature is discouraged unless there's\na very good reason not to allow users to close your item. Items can be made\npermanent *only* when they are contained in docks. Center pane items can\nalways be removed. Note that it is currently still possible to close dock\nitems via the `Close Pane` option in the context menu and via Lumine APIs, so\nyou should still be prepared to handle your dock items being destroyed by the\nuser even if you implement this method.\n\n#### `save()`\n\nSaves the item.\n\n#### `saveAs(path)`\n\nSaves the item to the specified path.\n\n#### `getPath()`\n\nReturns the local path associated with this item. This is only used to set\nthe initial location of the \"save as\" dialog.\n\n#### `getFileState()`\n\nReturns one mutually exclusive state string: `\"unmodified\"` when the document\nmatches its saved base, `\"modified\"` when it has local changes, `\"conflicted\"`\nwhen it has diverged from its backing file, or `\"removed\"` when its backing\nfile no longer exists.\n\n#### `onDidChangeFileState(callback)`\n\nCalled by the workspace so it can be notified when the item's file state\nchanges. The callback receives the new state. Must return a `Disposable`.\n\n#### `getPreferredHeight()`\n\nIf this item is displayed in the bottom {@link Dock}, called by the workspace when\ninitially displaying the dock to set its height. Once the dock has been\nresized by the user, their height will override this value.\n\nReturns a `Number`.\n\n#### `getPreferredWidth()`\n\nIf this item is displayed in the left or right {@link Dock}, called by the\nworkspace when initially displaying the dock to set its width. Once the dock\nhas been resized by the user, their width will override this value.\n\nReturns a `Number`.\n\n#### `onDidTerminatePendingState(callback)`\n\nIf the workspace is configured to use *pending pane items*, the workspace\nwill subscribe to this method to terminate the pending state of the item.\nMust return a `Disposable`.\n\n#### `shouldPromptToSave()`\n\nThis method indicates whether Lumine should prompt the user to save this item\nwhen the user closes or reloads the window. Returns a boolean.",
       "summary": "Represents the state of the user interface for the entire window. An instance of this class is available via the `lumine.workspace` global.",
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 317,
+      "line": 330,
       "members": [
         {
           "name": "getMainWindow",
@@ -41698,7 +41698,7 @@
           "returnType": "EditorWindow|null",
           "returnDescription": "The main window, or null before window initialization.",
           "propertyType": null,
-          "line": 476
+          "line": 489
         },
         {
           "name": "getWindows",
@@ -41714,7 +41714,7 @@
           "returnType": "Array<EditorWindow>",
           "returnDescription": "The current windows.",
           "propertyType": null,
-          "line": 487
+          "line": 500
         },
         {
           "name": "openEditorWindow",
@@ -41740,7 +41740,7 @@
           "returnType": "Promise<EditorWindow>",
           "returnDescription": "The ready presentation window.",
           "propertyType": null,
-          "line": 499
+          "line": 512
         },
         {
           "name": "observeWindows",
@@ -41766,7 +41766,7 @@
           "returnType": "Disposable",
           "returnDescription": "Removes the observation.",
           "propertyType": null,
-          "line": 544
+          "line": 557
         },
         {
           "name": "getFocusedWindow",
@@ -41782,7 +41782,7 @@
           "returnType": "EditorWindow|null",
           "returnDescription": "The focused window, or null when the workspace lacks focus.",
           "propertyType": null,
-          "line": 556
+          "line": 569
         },
         {
           "name": "getWindowForElement",
@@ -41808,7 +41808,7 @@
           "returnType": "EditorWindow|null",
           "returnDescription": "The owning presentation.",
           "propertyType": null,
-          "line": 568
+          "line": 581
         },
         {
           "name": "resolveCommandContext",
@@ -41834,7 +41834,7 @@
           "returnType": "Object",
           "returnDescription": "window, pane, item, editor, fileEditor and embeddedEditor.",
           "propertyType": null,
-          "line": 592
+          "line": 605
         },
         {
           "name": "closeEditorWindow",
@@ -41860,7 +41860,7 @@
           "returnType": "Promise<Boolean>",
           "returnDescription": "Whether the window closed.",
           "propertyType": null,
-          "line": 639
+          "line": 652
         },
         {
           "name": "detachPane",
@@ -41886,7 +41886,7 @@
           "returnType": "Promise<EditorWindow>",
           "returnDescription": "The new presentation.",
           "propertyType": null,
-          "line": 706
+          "line": 719
         },
         {
           "name": "detachItem",
@@ -41912,7 +41912,7 @@
           "returnType": "Promise<EditorWindow>",
           "returnDescription": "The additional presentation.",
           "propertyType": null,
-          "line": 737
+          "line": 750
         },
         {
           "name": "attachWindow",
@@ -41938,7 +41938,7 @@
           "returnType": "Promise<EditorWindow>",
           "returnDescription": "The main presentation after reattachment.",
           "propertyType": null,
-          "line": 766
+          "line": 779
         },
         {
           "name": "registerFileDocument",
@@ -42014,7 +42014,7 @@
           "returnType": "Disposable",
           "returnDescription": "The document registration.",
           "propertyType": null,
-          "line": 820
+          "line": 833
         },
         {
           "name": "beginFileMove",
@@ -42040,7 +42040,7 @@
           "returnType": "Object",
           "returnDescription": "A transaction with a ready promise and an asynchronous complete(confirmedRenames) method.",
           "propertyType": null,
-          "line": 834
+          "line": 847
         },
         {
           "name": "clear",
@@ -42085,7 +42085,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves once they are empty.",
           "propertyType": null,
-          "line": 1212
+          "line": 1225
         },
         {
           "name": "observeTextEditors",
@@ -42121,7 +42121,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1772
+          "line": 1785
         },
         {
           "name": "observePaneItems",
@@ -42157,7 +42157,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1790
+          "line": 1803
         },
         {
           "name": "onDidChangePaneItemURI",
@@ -42183,7 +42183,7 @@
           "returnType": "Disposable",
           "returnDescription": "Subscription to the URI changes.",
           "propertyType": null,
-          "line": 1807
+          "line": 1820
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -42219,7 +42219,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1851
+          "line": 1864
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -42255,7 +42255,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1872
+          "line": 1885
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -42291,7 +42291,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1887
+          "line": 1900
         },
         {
           "name": "observeActivePaneItem",
@@ -42327,7 +42327,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1902
+          "line": 1915
         },
         {
           "name": "observeActiveTextEditor",
@@ -42363,7 +42363,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1919
+          "line": 1932
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -42399,7 +42399,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1936
+          "line": 1949
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -42435,7 +42435,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1951
+          "line": 1964
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -42471,7 +42471,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1968
+          "line": 1981
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -42507,7 +42507,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 1983
+          "line": 1996
         },
         {
           "name": "onDidOpen",
@@ -42583,7 +42583,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2005
+          "line": 2018
         },
         {
           "name": "onDidAddPane",
@@ -42629,7 +42629,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2020
+          "line": 2033
         },
         {
           "name": "onWillDestroyPane",
@@ -42675,7 +42675,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2038
+          "line": 2051
         },
         {
           "name": "onDidDestroyPane",
@@ -42721,7 +42721,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2056
+          "line": 2069
         },
         {
           "name": "observePanes",
@@ -42757,7 +42757,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2073
+          "line": 2086
         },
         {
           "name": "onDidChangeActivePane",
@@ -42793,7 +42793,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2089
+          "line": 2102
         },
         {
           "name": "observeActivePane",
@@ -42829,7 +42829,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2104
+          "line": 2117
         },
         {
           "name": "onDidAddPaneItem",
@@ -42895,7 +42895,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2123
+          "line": 2136
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -42961,7 +42961,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2143
+          "line": 2156
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -43027,7 +43027,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2162
+          "line": 2175
         },
         {
           "name": "onDidAddTextEditor",
@@ -43093,7 +43093,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 2182
+          "line": 2195
         },
         {
           "name": "open",
@@ -43228,7 +43228,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the opened item, or `undefined` when cancelled or refused.",
           "propertyType": null,
-          "line": 2217
+          "line": 2230
         },
         {
           "name": "hide",
@@ -43254,7 +43254,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether any visible matching items were found and hiding or closing was requested.",
           "propertyType": null,
-          "line": 2665
+          "line": 2678
         },
         {
           "name": "toggle",
@@ -43280,7 +43280,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the item is shown or hidden, or to `false` if closing a center item is prevented or cancelled. Rejects if closing fails.",
           "propertyType": null,
-          "line": 2719
+          "line": 2732
         },
         {
           "name": "createItemForURI",
@@ -43333,7 +43333,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "propertyType": null,
-          "line": 2844
+          "line": 2857
         },
         {
           "name": "isTextEditor",
@@ -43359,7 +43359,7 @@
           "returnType": "Boolean",
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "propertyType": null,
-          "line": 3009
+          "line": 3022
         },
         {
           "name": "buildTextEditor",
@@ -43385,7 +43385,7 @@
           "returnType": "TextEditor",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3021
+          "line": 3034
         },
         {
           "name": "buildSelectList",
@@ -43411,7 +43411,7 @@
           "returnType": "SelectList",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3064
+          "line": 3077
         },
         {
           "name": "addSelectList",
@@ -43516,7 +43516,7 @@
           "returnType": "SelectListHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3098
+          "line": 3111
         },
         {
           "name": "buildInputDialog",
@@ -43542,7 +43542,7 @@
           "returnType": "InputDialog",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3125
+          "line": 3138
         },
         {
           "name": "addInputDialog",
@@ -43637,7 +43637,7 @@
           "returnType": "InputDialogHost",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3148
+          "line": 3161
         },
         {
           "name": "popModal",
@@ -43663,7 +43663,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when there is no step to go back to.",
           "propertyType": null,
-          "line": 3180
+          "line": 3193
         },
         {
           "name": "popModalTo",
@@ -43689,7 +43689,7 @@
           "returnType": "Boolean",
           "returnDescription": "— `false` when the index is not an earlier step.",
           "propertyType": null,
-          "line": 3194
+          "line": 3207
         },
         {
           "name": "getModalTrail",
@@ -43705,7 +43705,7 @@
           "returnType": "Array",
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "propertyType": null,
-          "line": 3206
+          "line": 3219
         },
         {
           "name": "onDidChangeModalTrail",
@@ -43731,7 +43731,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 3220
+          "line": 3233
         },
         {
           "name": "reopenItem",
@@ -43747,7 +43747,7 @@
           "returnType": "Promise",
           "returnDescription": "that is resolved when the item is opened",
           "propertyType": null,
-          "line": 3233
+          "line": 3246
         },
         {
           "name": "addOpener",
@@ -43802,7 +43802,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "propertyType": null,
-          "line": 3279
+          "line": 3292
         },
         {
           "name": "getPaneItems",
@@ -43818,7 +43818,7 @@
           "returnType": "Array",
           "returnDescription": "of items.",
           "propertyType": null,
-          "line": 3307
+          "line": 3320
         },
         {
           "name": "getActivePaneItem",
@@ -43834,7 +43834,7 @@
           "returnType": "Object",
           "returnDescription": "pane item `Object`.",
           "propertyType": null,
-          "line": 3319
+          "line": 3332
         },
         {
           "name": "getTextEditors",
@@ -43850,7 +43850,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "propertyType": null,
-          "line": 3331
+          "line": 3344
         },
         {
           "name": "getActiveTextEditor",
@@ -43866,7 +43866,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "propertyType": null,
-          "line": 3360
+          "line": 3373
         },
         {
           "name": "getTextEditorForElement",
@@ -43911,7 +43911,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The containing editor, or `null`.",
           "propertyType": null,
-          "line": 3382
+          "line": 3395
         },
         {
           "name": "getFocusedTextEditor",
@@ -43947,7 +43947,7 @@
           "returnType": "TextEditor|null",
           "returnDescription": "The focused editor, or `null`.",
           "propertyType": null,
-          "line": 3405
+          "line": 3418
         },
         {
           "name": "getActiveFileTextEditor",
@@ -43963,7 +43963,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "propertyType": null,
-          "line": 3423
+          "line": 3436
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -43979,7 +43979,7 @@
           "returnType": "TextEditor",
           "returnDescription": "or `undefined` when nothing editable is active.",
           "propertyType": null,
-          "line": 3452
+          "line": 3465
         },
         {
           "name": "saveActivePaneItem",
@@ -44005,7 +44005,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3493
+          "line": 3506
         },
         {
           "name": "saveActivePaneItemAs",
@@ -44031,7 +44031,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3512
+          "line": 3525
         },
         {
           "name": "destroyActivePaneItem",
@@ -44047,7 +44047,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3538
+          "line": 3551
         },
         {
           "name": "getActivePaneContainer",
@@ -44063,7 +44063,7 @@
           "returnType": "Dock",
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "propertyType": null,
-          "line": 3554
+          "line": 3567
         },
         {
           "name": "getPanes",
@@ -44079,7 +44079,7 @@
           "returnType": "Array",
           "returnDescription": "of {@link Pane Panes}.",
           "propertyType": null,
-          "line": 3566
+          "line": 3579
         },
         {
           "name": "getActivePane",
@@ -44095,7 +44095,7 @@
           "returnType": "Pane",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3582
+          "line": 3595
         },
         {
           "name": "focusPaneInDirection",
@@ -44140,7 +44140,7 @@
           "returnType": "Pane|undefined",
           "returnDescription": "The pane that received focus.",
           "propertyType": null,
-          "line": 3596
+          "line": 3609
         },
         {
           "name": "movePaneItem",
@@ -44175,7 +44175,7 @@
           "returnType": "Promise<Object>",
           "returnDescription": "The final {pane, item}.",
           "propertyType": null,
-          "line": 3612
+          "line": 3625
         },
         {
           "name": "copyPaneItem",
@@ -44185,8 +44185,8 @@
           "signature": "::copyPaneItem(item, options = {})",
           "category": "Panes",
           "visibility": "Extended",
-          "description": "Copy an exact item before creating its destination. Singleton items refuse copying.",
-          "summary": "Copy an exact item before creating its destination. Singleton items refuse copying.",
+          "description": "Copy an exact item before creating its destination, if the item supports copying.",
+          "summary": "Copy an exact item before creating its destination, if the item supports copying.",
           "parameters": [
             {
               "name": "item",
@@ -44208,9 +44208,9 @@
             }
           ],
           "returnType": "Promise<Object|null>",
-          "returnDescription": "The final {pane, item}, or null when copying is disabled; cancellation rejects with ABORT_ERR.",
+          "returnDescription": "The final {pane, item}, or null when copy() is absent or canCopy() returns false; cancellation rejects with ABORT_ERR.",
           "propertyType": null,
-          "line": 3625
+          "line": 3638
         },
         {
           "name": "activateNextPane",
@@ -44226,7 +44226,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3635
+          "line": 3648
         },
         {
           "name": "activatePreviousPane",
@@ -44242,7 +44242,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3645
+          "line": 3658
         },
         {
           "name": "paneContainerForURI",
@@ -44268,7 +44268,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 3659
+          "line": 3672
         },
         {
           "name": "paneContainerForItem",
@@ -44294,7 +44294,7 @@
           "returnType": "Dock",
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "propertyType": null,
-          "line": 3672
+          "line": 3685
         },
         {
           "name": "paneForURI",
@@ -44320,7 +44320,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "propertyType": null,
-          "line": 3685
+          "line": 3698
         },
         {
           "name": "paneForItem",
@@ -44346,7 +44346,7 @@
           "returnType": "Pane",
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "propertyType": null,
-          "line": 3703
+          "line": 3716
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -44372,7 +44372,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3730
+          "line": 3743
         },
         {
           "name": "getCenter",
@@ -44388,7 +44388,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3832
+          "line": 3845
         },
         {
           "name": "getLeftDock",
@@ -44404,7 +44404,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3842
+          "line": 3855
         },
         {
           "name": "getRightDock",
@@ -44420,7 +44420,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3852
+          "line": 3865
         },
         {
           "name": "getBottomDock",
@@ -44436,7 +44436,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3862
+          "line": 3875
         },
         {
           "name": "beginLayoutDrag",
@@ -44452,7 +44452,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "propertyType": null,
-          "line": 3901
+          "line": 3914
         },
         {
           "name": "getBottomPanels",
@@ -44468,7 +44468,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3915
+          "line": 3928
         },
         {
           "name": "addBottomPanel",
@@ -44524,7 +44524,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3931
+          "line": 3944
         },
         {
           "name": "getLeftPanels",
@@ -44540,7 +44540,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3941
+          "line": 3954
         },
         {
           "name": "addLeftPanel",
@@ -44596,7 +44596,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3957
+          "line": 3970
         },
         {
           "name": "getRightPanels",
@@ -44612,7 +44612,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3967
+          "line": 3980
         },
         {
           "name": "addRightPanel",
@@ -44668,7 +44668,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 3983
+          "line": 3996
         },
         {
           "name": "getTopPanels",
@@ -44684,7 +44684,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 3993
+          "line": 4006
         },
         {
           "name": "addTopPanel",
@@ -44740,7 +44740,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4009
+          "line": 4022
         },
         {
           "name": "getHeaderPanels",
@@ -44756,7 +44756,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4019
+          "line": 4032
         },
         {
           "name": "addHeaderPanel",
@@ -44812,7 +44812,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4035
+          "line": 4048
         },
         {
           "name": "getFooterPanels",
@@ -44828,7 +44828,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4045
+          "line": 4058
         },
         {
           "name": "addFooterPanel",
@@ -44884,7 +44884,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4061
+          "line": 4074
         },
         {
           "name": "getModalPanels",
@@ -44900,7 +44900,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 4071
+          "line": 4084
         },
         {
           "name": "addModalPanel",
@@ -44996,7 +44996,7 @@
           "returnType": "Panel",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4091
+          "line": 4104
         },
         {
           "name": "panelForItem",
@@ -45022,7 +45022,7 @@
           "returnType": "Panel",
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "propertyType": null,
-          "line": 4103
+          "line": 4116
         },
         {
           "name": "scan",
@@ -45136,7 +45136,7 @@
           "returnType": "Promise",
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "propertyType": null,
-          "line": 4167
+          "line": 4180
         },
         {
           "name": "replace",
@@ -45199,7 +45199,7 @@
           "returnType": "Promise",
           "returnDescription": "",
           "propertyType": null,
-          "line": 4433
+          "line": 4446
         }
       ]
     },
@@ -47348,5 +47348,5 @@
     }
   ],
   "memberCount": 1515,
-  "generatedAt": "2026-10-12T22:48:28.696Z"
+  "generatedAt": "2026-10-12T23:08:09.847Z"
 }

@@ -8,7 +8,7 @@ One item instance belongs to at most one pane, and owns one view root for its li
 
 Items implement `getTitle()` and expose a DOM element through `getElement()`, their element identity, or a registered view provider. `getAllowedLocations()` restricts the item to `center`, `left`, `right` and/or `bottom`; its default is the location returned by `getDefaultLocation()`, which itself defaults to `center`.
 
-Every item inserted into the center implements `copy({ signal })` or declares `canCopy() === false`. A missing copy method is a contract error. Copy capability and resource uniqueness are independent: disabling copy does not impose one global instance of the item's type.
+`copy({ signal })` and `canCopy()` are optional. Implement `copy` when an item supports creating another view; omit it when copying is unsupported. An optional `canCopy()` returning false disables copying even when `copy` exists. Copy capability and resource uniqueness are independent: disabling copy does not impose one global instance of the item's type.
 
 `getSingletonKey()` returns a namespaced non-empty string for a resource that has one item in this workspace, or null when uniqueness is not required. Workspace tools use a constant key; independent search results and command executions use different resource keys. Reopening an existing key activates its existing item without making a split. Changing the key emits `onDidChangeSingletonKey(callback)`, or `onDidChangeURI(callback)` when it follows the URI; subscriptions return a Disposable. Publish the change before awaiting rendering so the former resource slot is immediately available. Closing the item releases its key.
 
@@ -28,13 +28,13 @@ const copied = await lumine.workspace.copyPaneItem(moved.item, {
 });
 ```
 
-Move resolves to `{ pane, item }`; copy resolves to that pair or null when `canCopy() === false`. Disabled copy and split-copy silently skip without notifications, provider calls, layout mutation, preview promotion or focus changes. Focus and move, including split-move, remain available. Supply a destination `targetPane` or a relative `splitDirection` (`up`, `down`, `left`, `right`), optionally an insertion `index`. `activatePane: false` suppresses activation. Copy also accepts an `AbortSignal`. Empty `pane.splitUp()`, `splitDown()`, `splitLeft()` and `splitRight()` calls manipulate geometry; item movement and duplication use the Workspace methods.
+Move resolves to `{ pane, item }`; copy resolves to that pair or null when `copy` is absent or `canCopy() === false`. Disabled copy and split-copy silently skip without notifications, provider calls, layout mutation, preview promotion or focus changes. Focus and move, including split-move, remain available. Supply a destination `targetPane` or a relative `splitDirection` (`up`, `down`, `left`, `right`), optionally an insertion `index`. `activatePane: false` suppresses activation. Copy also accepts an `AbortSignal`. Empty `pane.splitUp()`, `splitDown()`, `splitLeft()` and `splitRight()` calls manipulate geometry; item movement and duplication use the Workspace methods.
 
 `workspace.focusPaneInDirection(direction, { sourcePane })` focuses the nearest visible pane, including panes in docks. Window focus commands use `window:focus-pane-up/down/left/right`; item transfer commands use `pane:move-active-item-up/down/left/right` and `pane:copy-active-item-up/down/left/right`. Split commands use `pane:split-<direction>-and-move-active-item` and `pane:split-<direction>-and-copy-active-item`. Core registers these commands once on the workspace and resolves their containing pane from the dispatch target.
 
 ## Implementing copy
 
-`copy({ signal })` returns a fresh item or a Promise for one. Capture the displayed document and presentation state before asynchronous work. The result must be alive, detached, unowned and allowed at the destination. Construction and state restoration must not activate a pane or take focus; core decides activation when the operation commits.
+The optional `copy({ signal })` method returns a fresh item or a Promise for one. Capture the displayed document and presentation state before asynchronous work. The result must be alive, detached, unowned and allowed at the destination. Construction and state restoration must not activate a pane or take focus; core decides activation when the operation commits.
 
 Document editors share a retained document, including mutable contents, undo history, save state and backing-file observation. Their views keep independent selections, cursors, scrolling and layouts. Read-only result or patch views can clone their displayed snapshot and keep independent mutable buffers and markers. A terminal copy intentionally starts a separate process with the captured shell and working directory.
 

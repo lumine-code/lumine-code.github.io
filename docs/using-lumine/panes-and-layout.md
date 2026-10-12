@@ -38,7 +38,7 @@ Every central workspace item supports moving between panes. Use the direction `u
 
 Moving keeps the same item, live view and resources. Splitting and moving the only item keeps the emptied source pane so the requested split remains visible. An explicit move or copy makes a preview permanent. Failed or cancelled operations keep the current layout and focus.
 
-Copies have independent view state, such as selections, scrolling and layout, while editable documents share their content and history. Copying a terminal starts another shell; moving one preserves its running process and scrollback. Singleton surfaces, including Settings, About and Jupyter Explorer, support move and split-and-move; trying to copy one explains why it cannot be duplicated and leaves the layout intact.
+Copies have independent view state, such as selections, scrolling and layout, while editable documents share their content and history. Copying a terminal starts another shell; moving one preserves its running process and scrollback. Views that do not support copying, including Settings, About and Jupyter Explorer, support move and split-and-move; copy and split-and-copy silently skip, preserving layout, focus and preview state.
 
 ## Resizing and closing
 

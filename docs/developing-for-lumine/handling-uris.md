@@ -62,4 +62,4 @@ The workspace checks reuse at that opener's usual position in the registration o
 
 A viewer whose URI can change exposes `onDidChangeURI(callback)`, returning a disposable subscription. Emit after committing the new document, together with the existing path, title and file-state notifications that changed. The workspace reads `getURI()` and publishes `onDidChangePaneItemURI(callback)` with `{ item, pane, oldURI, newURI }`. Consumers use this event when their context follows the resource inside an item, rather than only reacting to a different active item. Reuse preserves item and view identity and emits neither an item-add nor an item-destroy event.
 
-Openers create or reuse resource items; explicit copying uses the item's `copy({ signal })` contract. See [Pane items](./pane-items.md) for shared pane operations and ownership rules.
+Openers create or reuse resource items; explicit copying uses the item's optional `copy({ signal })` method. Copying silently skips when it is absent or the optional `canCopy()` returns false. See [Pane items](./pane-items.md) for shared pane operations and ownership rules.
