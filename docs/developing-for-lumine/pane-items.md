@@ -48,6 +48,12 @@ The item's view root must accept focus or redirect it to a useful remembered des
 
 Core uses connected DOM moves to preserve iframe runtimes and focused descendants during transfers and pane restructuring. Custom elements in item subtrees implement `connectedMoveCallback()` to preserve their attachment resources; it may update measurements or ancestor-dependent state, but must not perform teardown or recreate the view. Reserve `disconnectedCallback()` for real removal. See the [HTML custom-element move lifecycle](https://html.spec.whatwg.org/dev/custom-elements.html#preserving-custom-element-state-when-moved).
 
+Core routes the twenty directional pane and focus commands from focused iframe documents, including sandboxed notebook results and remote content. Bindings use the parent iframe element's workspace scope. Ordinary input remains in the child document; unsuccessful chords restore the suppressed keys there, and moving preserves the focused descendant.
+
+The workspace registers live pane item frames automatically. A composite view that retains frames after its host retires also owns `lumine.keymaps.registerFrameHost(root)`, which returns a Disposable. Dispose that registration before moving a retired frame into a cache or destroying its host. Child scripts send no keyboard messages or command names to the workspace. Custom keystroke resolver functions disable native frame routing because they cannot cross processes.
+
+For a trusted same-origin viewer that forwards other keyboard events itself, `lumine.keymaps.shouldContinuePendingKeyboardEvent(event, { target: host })` reports whether a plain input event continues that host's pending chord or expected keyup. Forward matching suffixes, including wrong suffixes that end the chord, and keyup events; leave ordinary editable input native.
+
 ## Verification
 
 Test the real pane item through `workspace.movePaneItem` and `workspace.copyPaneItem`, including loading, cancellation, pending preview replacement, sibling closure and provider unload. Assert a stable model/root during move, a fresh root during copy, retained shared documents where appropriate, and unchanged focus/layout after rejection. Reacquire package constructors and helpers after unload before testing the next generation. `lem pane-items` detects obsolete command names and removed split options across the active fleet.

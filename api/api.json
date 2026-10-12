@@ -12142,7 +12142,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 129
+          "line": 125
         },
         {
           "name": "constructor",
@@ -12178,7 +12178,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 150
+          "line": 146
         },
         {
           "name": "clear",
@@ -12194,7 +12194,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 170
+          "line": 166
         },
         {
           "name": "destroy",
@@ -12210,7 +12210,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 188
+          "line": 186
         },
         {
           "name": "onDidMatchBinding",
@@ -12276,7 +12276,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 213
+          "line": 215
         },
         {
           "name": "onDidPartiallyMatchBindings",
@@ -12342,7 +12342,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 231
+          "line": 233
         },
         {
           "name": "onDidFailToMatchBinding",
@@ -12398,7 +12398,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 248
+          "line": 250
         },
         {
           "name": "onDidFailToReadFile",
@@ -12454,7 +12454,7 @@
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "propertyType": null,
-          "line": 286
+          "line": 288
         },
         {
           "name": "build",
@@ -12507,7 +12507,7 @@
           "returnType": "Array<KeyBinding>",
           "returnDescription": "The constructed bindings.",
           "propertyType": null,
-          "line": 308
+          "line": 310
         },
         {
           "name": "add",
@@ -12560,7 +12560,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the bindings.",
           "propertyType": null,
-          "line": 374
+          "line": 376
         },
         {
           "name": "getKeyBindings",
@@ -12576,7 +12576,7 @@
           "returnType": "Array",
           "returnDescription": "of `KeyBindings`.",
           "propertyType": null,
-          "line": 415
+          "line": 420
         },
         {
           "name": "findKeyBindings",
@@ -12632,7 +12632,7 @@
           "returnType": "Array",
           "returnDescription": "of key bindings.",
           "propertyType": null,
-          "line": 431
+          "line": 436
         },
         {
           "name": "loadKeymap",
@@ -12687,7 +12687,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 478
+          "line": 483
         },
         {
           "name": "watchKeymap",
@@ -12732,7 +12732,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 519
+          "line": 524
         },
         {
           "name": "handleKeyboardEvent",
@@ -12767,7 +12767,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 630
+          "line": 635
         },
         {
           "name": "keystrokeForKeyboardEvent",
@@ -12793,7 +12793,52 @@
           "returnType": "String",
           "returnDescription": "describing the keystroke.",
           "propertyType": null,
-          "line": 910
+          "line": 916
+        },
+        {
+          "name": "shouldContinuePendingKeyboardEvent",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::shouldContinuePendingKeyboardEvent(event, { target = event?.target } = {})",
+          "category": "Managing Keyboard Events",
+          "visibility": "Extended",
+          "description": "Determine whether an iframe bridge should relay a pending chord event for\nits host target. This query does not dispatch, prevent default or advance\nmatching state. Relay wrong suffixes too so they can end a pending chord;\nordinary editable input stays native when this returns false. A retained\nkeyup rule only requests its next matching keyup, even after a timeout.",
+          "summary": "Determine whether an iframe bridge should relay a pending chord event for its host target. This query does not dispatch, prevent default or advance matching state. Relay wrong suffixes too so they can end a pending chord; ordinary editable input stays native when this returns false. A retained keyup rule only requests its next matching keyup, even after a timeout.",
+          "parameters": [
+            {
+              "name": "event",
+              "source": "event",
+              "optional": false,
+              "rest": false,
+              "type": null,
+              "description": "A keydown or keyup KeyboardEvent from the embedded document.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ target = event?.target } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.target",
+              "type": "HTMLElement",
+              "description": "Stable host element used when relaying events. Defaults to event.target.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.target",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Boolean",
+          "returnDescription": "Whether this event belongs to that target's pending keyboard sequence.",
+          "propertyType": null,
+          "line": 934
         },
         {
           "name": "addKeystrokeResolver",
@@ -12859,7 +12904,7 @@
           "returnType": "Disposable",
           "returnDescription": "A disposable that removes the resolver.",
           "propertyType": null,
-          "line": 931
+          "line": 973
         },
         {
           "name": "getPartialMatchTimeout",
@@ -12875,7 +12920,33 @@
           "returnType": "Number",
           "returnDescription": "",
           "propertyType": null,
-          "line": 950
+          "line": 994
+        },
+        {
+          "name": "registerFrameHost",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::registerFrameHost(root)",
+          "category": "Managing Keyboard Events",
+          "visibility": "Extended",
+          "description": "Register iframe descendants of a pane item host for native directional\npane shortcuts. The parent iframe element supplies the keymap scope;\nchild scripts do not send commands or keyboard messages. Dispose before\nretaining a retired frame outside its host. Custom keystroke resolvers\ndisable native routing because their functions cannot cross processes.",
+          "summary": "Register iframe descendants of a pane item host for native directional pane shortcuts. The parent iframe element supplies the keymap scope; child scripts do not send commands or keyboard messages. Dispose before retaining a retired frame outside its host. Custom keystroke resolvers disable native routing because their functions cannot cross processes.",
+          "parameters": [
+            {
+              "name": "root",
+              "source": "root",
+              "optional": false,
+              "rest": false,
+              "type": "HTMLElement",
+              "description": "Host element in the workspace document.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Registration to dispose before retiring the host.",
+          "propertyType": null,
+          "line": 1010
         }
       ]
     },
@@ -17606,7 +17677,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the item is destroyed.",
           "propertyType": null,
-          "line": 1130
+          "line": 1133
         },
         {
           "name": "destroyItem",
@@ -17660,7 +17731,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves with a `Boolean` indicating whether or not the item was destroyed.",
           "propertyType": null,
-          "line": 1154
+          "line": 1157
         },
         {
           "name": "destroyItems",
@@ -17676,7 +17747,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1211
+          "line": 1214
         },
         {
           "name": "destroyInactiveItems",
@@ -17692,7 +17763,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1221
+          "line": 1224
         },
         {
           "name": "saveActiveItem",
@@ -17718,7 +17789,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1341
+          "line": 1344
         },
         {
           "name": "saveActiveItemAs",
@@ -17744,7 +17815,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save is complete",
           "propertyType": null,
-          "line": 1355
+          "line": 1358
         },
         {
           "name": "saveItem",
@@ -17779,7 +17850,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when the save is complete, or rejects if the save could not be completed.",
           "propertyType": null,
-          "line": 1369
+          "line": 1372
         },
         {
           "name": "saveItemAs",
@@ -17814,7 +17885,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1434
+          "line": 1437
         },
         {
           "name": "saveItems",
@@ -17830,7 +17901,7 @@
           "returnType": "Promise",
           "returnDescription": "that resolves when all items have been saved.",
           "propertyType": null,
-          "line": 1466
+          "line": 1469
         },
         {
           "name": "itemForURI",
@@ -17856,7 +17927,7 @@
           "returnType": "*|undefined",
           "returnDescription": "first item that matches the given URI or undefined if none exists.",
           "propertyType": null,
-          "line": 1487
+          "line": 1490
         },
         {
           "name": "activateItemForURI",
@@ -17882,7 +17953,7 @@
           "returnType": "Boolean",
           "returnDescription": "indicating whether an item matching the URI was found.",
           "propertyType": null,
-          "line": 1506
+          "line": 1509
         },
         {
           "name": "isActive",
@@ -17898,7 +17969,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1528
+          "line": 1531
         },
         {
           "name": "activate",
@@ -17914,7 +17985,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1538
+          "line": 1541
         },
         {
           "name": "destroy",
@@ -17930,7 +18001,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": null,
-          "line": 1566
+          "line": 1569
         },
         {
           "name": "isDestroyed",
@@ -17946,7 +18017,7 @@
           "returnType": "Boolean",
           "returnDescription": "",
           "propertyType": null,
-          "line": 1603
+          "line": 1606
         },
         {
           "name": "splitLeft",
@@ -17992,7 +18063,7 @@
           "returnType": "Pane",
           "returnDescription": "new {@link Pane}.",
           "propertyType": null,
-          "line": 1622
+          "line": 1625
         },
         {
           "name": "splitRight",
@@ -18038,7 +18109,7 @@
           "returnType": "Pane",
           "returnDescription": "new {@link Pane}.",
           "propertyType": null,
-          "line": 1637
+          "line": 1640
         },
         {
           "name": "splitUp",
@@ -18084,7 +18155,7 @@
           "returnType": "Pane",
           "returnDescription": "new {@link Pane}.",
           "propertyType": null,
-          "line": 1652
+          "line": 1655
         },
         {
           "name": "splitDown",
@@ -18130,7 +18201,7 @@
           "returnType": "Pane",
           "returnDescription": "new {@link Pane}.",
           "propertyType": null,
-          "line": 1667
+          "line": 1670
         }
       ]
     },
@@ -45901,6 +45972,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1458,
-  "generatedAt": "2026-10-12T02:40:31.651Z"
+  "memberCount": 1460,
+  "generatedAt": "2026-10-12T04:33:28.657Z"
 }
