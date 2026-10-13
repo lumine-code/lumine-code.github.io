@@ -240,11 +240,20 @@ function renderDoc(
   currentClass,
   firstHeadingLevel = 5,
 ) {
-  const html = markdown.render(text, {
+  const environment = {
     classNames,
     memberAnchors,
     currentClass,
-  });
+  };
+  return renderDocTokens(
+    markdown.parse(text, environment),
+    environment,
+    firstHeadingLevel,
+  );
+}
+
+function renderDocTokens(tokens, environment, firstHeadingLevel) {
+  const html = markdown.renderer.render(tokens, markdown.options, environment);
   const headings = [...html.matchAll(/<h([1-6])(?:\s|>)/g)].map((match) =>
     Number(match[1]),
   );
@@ -254,6 +263,83 @@ function renderDoc(
     (_tag, closing, level, attributes) =>
       `<${closing}h${Math.min(6, firstHeadingLevel + Number(level) - originalFirstLevel)}${attributes}>`,
   );
+}
+
+markdown.renderer.rules.api_heading_anchor = (tokens, index) => {
+  const { id, label } = tokens[index].meta;
+  return `<a class="api-anchor api-description-anchor" href="#${id}" aria-label="Link to ${escapeHtml(label)}">#</a>`;
+};
+
+function renderClassDescription(item, classNames, memberAnchors) {
+  const description = item.description?.trim();
+  if (!description) return "";
+  const environment = { classNames, memberAnchors, currentClass: item.name };
+  const tokens = markdown.parse(description, environment);
+  const headingPrefix = `${slug(item.name)}-description-section`;
+  const headingCounts = new Map();
+  const headingTargets = new Map();
+  for (let index = 0; index < tokens.length; index++) {
+    if (tokens[index].type !== "heading_open") continue;
+    const inline = tokens[index + 1];
+    const label = (inline.children || [])
+      .filter((token) => ["text", "code_inline"].includes(token.type))
+      .map((token) => token.content)
+      .join("");
+    const headingSlug = slug(label) || "section";
+    const count = (headingCounts.get(headingSlug) || 0) + 1;
+    headingCounts.set(headingSlug, count);
+    const id = `${headingPrefix}-${headingSlug}${count > 1 ? `-${count}` : ""}`;
+    tokens[index].attrSet("id", id);
+    if (!headingTargets.has(headingSlug)) headingTargets.set(headingSlug, id);
+    inline.children.push({
+      type: "api_heading_anchor",
+      nesting: 0,
+      content: "",
+      meta: { id, label },
+    });
+  }
+  // References within a class contract resolve to that class's own headings,
+  // while generated API references keep their member or class destinations.
+  const apiTargets = new Set([
+    ...classNames.values(),
+    ...[...memberAnchors].map((id) => `#${id}`),
+  ]);
+  for (const token of tokens.flatMap((entry) => entry.children || [])) {
+    if (token.type !== "link_open") continue;
+    const href = token.attrGet("href");
+    if (!href?.startsWith("#") || apiTargets.has(href)) continue;
+    const target = headingTargets.get(href.slice(1));
+    if (target) token.attrSet("href", `#${target}`);
+  }
+  const structured = tokens.some((token) =>
+    [
+      "heading_open",
+      "fence",
+      "code_block",
+      "bullet_list_open",
+      "ordered_list_open",
+      "table_open",
+    ].includes(token.type),
+  );
+  if (description.length <= 400 && !structured) {
+    return `<div class="api-description-body api-class-description">${renderDocTokens(tokens, environment, 3)}</div>`;
+  }
+  const firstParagraphEnd =
+    tokens[0]?.type === "paragraph_open"
+      ? tokens.findIndex(
+          (token) => token.type === "paragraph_close" && token.level === 0,
+        ) + 1
+      : 0;
+  const brief = firstParagraphEnd
+    ? renderDocTokens(tokens.slice(0, firstParagraphEnd), environment, 3)
+    : `<p>${renderInlineDoc(item.summary || item.name, classNames, memberAnchors, item.name)}</p>`;
+  const remainder = renderDocTokens(
+    tokens.slice(firstParagraphEnd),
+    environment,
+    3,
+  );
+  const prefix = `${slug(item.name)}-description`;
+  return `<div class="api-description-body api-class-description api-class-description-folded"><div class="api-class-summary" id="${prefix}-intro">${brief}</div><details class="api-class-description-details" data-api-class-description><summary aria-label="Full description of ${escapeHtml(item.name)}" aria-controls="${prefix}-intro ${prefix}-body"><span class="api-class-description-disclosure" aria-hidden="true"></span>Full description</summary><div class="api-class-description-content" id="${prefix}-body">${remainder}</div></details></div>`;
 }
 
 function renderInlineDoc(text, classNames, memberAnchors, currentClass) {
@@ -560,7 +646,7 @@ function renderHtml(api) {
           ${item.accessPath ? `<p class="api-access-path"><code>${escapeHtml(item.accessPath)}</code></p>` : ""}
           ${item.superClass && classNames.has(item.superClass) ? `<p class="api-extends">Extends <a href="#class-${slug(item.superClass)}"><code>${escapeHtml(item.superClass)}</code></a></p>` : ""}
           ${sectionIndex}
-          ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name, 3)}</div>` : ""}</header>
+          ${renderClassDescription(item, classNames, memberAnchors)}</header>
           ${members || (item.description ? "" : '<p class="api-empty">No documented public members.</p>')}
         </section>`;
     })
@@ -646,6 +732,20 @@ function renderHtml(api) {
       .api-description-body pre code { padding: 0; border: 0; border-radius: 0; background: none; font-size: .82rem; }
       .api-description-body a { color: var(--green); }
       .api-class-description { max-width: none; margin: 10px 0 0; font-size: .98rem; }
+      .api-class-summary { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+      .api-class-description:has(> .api-class-description-details[open]) > .api-class-summary { display: block; -webkit-line-clamp: unset; overflow: visible; }
+      .api-class-description-details { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--api-divider); }
+      .api-class-description-details > summary { display: flex; align-items: center; gap: 9px; width: fit-content; color: var(--soft); font-size: .82rem; font-weight: 600; list-style: none; cursor: pointer; }
+      .api-class-description-details > summary::-webkit-details-marker { display: none; }
+      .api-class-description-details > summary:hover, .api-class-description-details[open] > summary { color: var(--gold-strong); }
+      .api-class-description-details > summary:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 4px; border-radius: 3px; }
+      .api-class-description-disclosure { width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .15s ease; }
+      .api-class-description-details[open] > summary .api-class-description-disclosure { transform: rotate(45deg); }
+      .api-class-description-content { margin-top: 16px; }
+      .api-class-description-content > :first-child { margin-top: 0; }
+      .api-description-anchor { margin-left: 8px; font-size: .8em; }
+      .api-class-description :is(h3, h4, h5, h6):hover .api-description-anchor { opacity: 1; }
+      .api-class-description :is(h3, h4, h5, h6)[id] { scroll-margin-top: 88px; }
       .api-argument-table-wrap { margin-top: 16px; overflow: hidden; border: 1px solid var(--api-divider); border-radius: 8px; background: rgba(7, 10, 13, .24); }
       .api-argument-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
       .api-argument-table th { padding: 9px 12px; border-bottom: 1px solid var(--api-divider); background: rgba(255, 255, 255, .035); color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
@@ -847,6 +947,8 @@ function renderHtml(api) {
           else link.removeAttribute('aria-current');
         }
         const target = hash ? document.getElementById(hash) : null;
+        const classDescription = target?.closest('details[data-api-class-description]');
+        if (classDescription) classDescription.open = true;
         const targetMember = target?.matches('[data-api-expandable]') ? target : null;
         if (targetMember) setMemberExpanded(targetMember, true);
         if (hash && !sectionIds.has(hash)) {

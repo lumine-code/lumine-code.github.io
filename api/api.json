@@ -2865,6 +2865,56 @@
               "nested": true
             },
             {
+              "name": "itemsBySelector.id",
+              "type": "String",
+              "description": "A stable identifier for this item. Defaults to its normalized label. Give shared submenu contributions the same id so they merge into one item.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.id",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.before",
+              "type": "Array",
+              "description": "References to items that this item precedes. Strings name commands; objects such as `{ id: \"terminal:tree-context\" }` name item ids, including commandless submenu parents. These references merge the corresponding separator groups and order their items.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.before",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.after",
+              "type": "Array",
+              "description": "References to items that this item follows, using the same command-string or id-object format as `before`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.after",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.beforeGroupContaining",
+              "type": "Array",
+              "description": "References to items whose whole separator group this item's group precedes. The first existing reference is used as a fallback anchor; only the first matching group rule applies within a group.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.beforeGroupContaining",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.afterGroupContaining",
+              "type": "Array",
+              "description": "References to items whose whole separator group this item's group follows, using the same reference format and fallback behavior as `beforeGroupContaining`. Group positioning preserves the separator between groups.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.afterGroupContaining",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "itemsBySelector.created",
               "type": "Function",
               "description": "A `Function` that is called on the item each time a context menu is created via a right click. You can assign properties to `this` to dynamically compute the command, label, etc. This method is actually called on a clone of the original item template to prevent state from leaking across context menu deployments. Called with the following argument:",
@@ -2909,7 +2959,7 @@
           "returnDescription": "Removes the added context-menu items.",
           "throws": [],
           "propertyType": null,
-          "line": 133
+          "line": 138
         },
         {
           "name": "show",
@@ -2994,7 +3044,7 @@
           "returnDescription": "the popup controller.",
           "throws": [],
           "propertyType": null,
-          "line": 263
+          "line": 268
         }
       ]
     },
@@ -6868,7 +6918,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 144
+          "line": 142
         },
         {
           "name": "show",
@@ -6885,7 +6935,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 155
+          "line": 153
         },
         {
           "name": "hide",
@@ -6902,7 +6952,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 171
+          "line": 169
         },
         {
           "name": "toggle",
@@ -6919,7 +6969,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 187
+          "line": 185
         },
         {
           "name": "isVisible",
@@ -6936,7 +6986,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 206
+          "line": 204
         },
         {
           "name": "onDidChangeVisible",
@@ -6973,7 +7023,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 577
+          "line": 579
         },
         {
           "name": "observeVisible",
@@ -7010,7 +7060,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 591
+          "line": 593
         },
         {
           "name": "observePaneItems",
@@ -7047,7 +7097,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 607
+          "line": 609
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -7084,7 +7134,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 626
+          "line": 628
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -7121,7 +7171,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 647
+          "line": 649
         },
         {
           "name": "observeActivePaneItem",
@@ -7158,7 +7208,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 662
+          "line": 664
         },
         {
           "name": "onDidAddPane",
@@ -7205,7 +7255,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 677
+          "line": 679
         },
         {
           "name": "onWillDestroyPane",
@@ -7252,7 +7302,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 693
+          "line": 695
         },
         {
           "name": "onDidDestroyPane",
@@ -7299,7 +7349,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 708
+          "line": 710
         },
         {
           "name": "observePanes",
@@ -7336,7 +7386,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 723
+          "line": 725
         },
         {
           "name": "onDidChangeActivePane",
@@ -7373,7 +7423,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 737
+          "line": 739
         },
         {
           "name": "observeActivePane",
@@ -7410,7 +7460,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 752
+          "line": 754
         },
         {
           "name": "onDidAddPaneItem",
@@ -7477,7 +7527,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 769
+          "line": 771
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -7544,7 +7594,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 787
+          "line": 789
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -7611,7 +7661,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 804
+          "line": 806
         },
         {
           "name": "onDidChangeHovered",
@@ -7648,7 +7698,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 818
+          "line": 820
         },
         {
           "name": "getPaneItems",
@@ -7665,7 +7715,7 @@
           "returnDescription": "of items.",
           "throws": [],
           "propertyType": null,
-          "line": 834
+          "line": 836
         },
         {
           "name": "getActivePaneItem",
@@ -7682,7 +7732,7 @@
           "returnDescription": "pane item `Object`.",
           "throws": [],
           "propertyType": null,
-          "line": 846
+          "line": 848
         },
         {
           "name": "getPanes",
@@ -7699,7 +7749,7 @@
           "returnDescription": "of {@link Pane Panes}.",
           "throws": [],
           "propertyType": null,
-          "line": 871
+          "line": 873
         },
         {
           "name": "getActivePane",
@@ -7716,7 +7766,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 883
+          "line": 885
         },
         {
           "name": "activateNextPane",
@@ -7733,7 +7783,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 893
+          "line": 895
         },
         {
           "name": "activatePreviousPane",
@@ -7750,7 +7800,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 903
+          "line": 905
         }
       ]
     },
@@ -49030,14 +49080,14 @@
           "signature": "::beginLayoutDrag()",
           "category": "Layout",
           "visibility": "Extended",
-          "description": "Declare that a drag which resizes editors has begun — a pane divider, a\ndock handle, a panel's own resize grip, a gutter's width handle.\n\nSuch a drag moves editor widths once per animation frame for as long as the\nbutton is held, and work derived from those widths is worth deferring until\nit stops. Soft wrap is the one that ships: it re-wraps on every width\nchange except while a drag is live, when it waits for the width to settle\nrather than reflowing a frame the next one abandons. Anything that resizes\nan editor from a `mousemove` should declare it; a one-shot layout change\nshould not, since it is already the final width.",
+          "description": "Declare that a drag which resizes editors has begun — a pane divider, a\ndock handle, a panel's own resize grip, a gutter's width handle.\n\nSuch a drag moves editor widths once per animation frame for as long as the\nbutton is held, and work derived from those widths is worth deferring until\nit stops. Soft wrap is the one that ships: it re-wraps on every width\nchange except while a drag is live, when it waits for the width to settle\nrather than reflowing a frame the next one abandons. Anything that resizes\nan editor from a `mousemove` should declare it; a one-shot layout change\nshould not, since it is already the final width.\n\nEmbedded surfaces in the focused presentation temporarily stop taking mouse\nevents until the drag ends. Resize handles should also prevent the primary\nmousedown's default focus change so the current editor or frame keeps focus.",
           "summary": "Declare that a drag which resizes editors has begun — a pane divider, a dock handle, a panel's own resize grip, a gutter's width handle.",
           "parameters": [],
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "throws": [],
           "propertyType": null,
-          "line": 4005
+          "line": 4009
         },
         {
           "name": "getBottomPanels",
@@ -49054,7 +49104,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4020
+          "line": 4025
         },
         {
           "name": "addBottomPanel",
@@ -49111,7 +49161,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4036
+          "line": 4041
         },
         {
           "name": "getLeftPanels",
@@ -49128,7 +49178,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4047
+          "line": 4052
         },
         {
           "name": "addLeftPanel",
@@ -49185,7 +49235,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4063
+          "line": 4068
         },
         {
           "name": "getRightPanels",
@@ -49202,7 +49252,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4074
+          "line": 4079
         },
         {
           "name": "addRightPanel",
@@ -49259,7 +49309,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4090
+          "line": 4095
         },
         {
           "name": "getTopPanels",
@@ -49276,7 +49326,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4101
+          "line": 4106
         },
         {
           "name": "addTopPanel",
@@ -49333,7 +49383,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4117
+          "line": 4122
         },
         {
           "name": "getHeaderPanels",
@@ -49350,7 +49400,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4128
+          "line": 4133
         },
         {
           "name": "addHeaderPanel",
@@ -49407,7 +49457,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4144
+          "line": 4149
         },
         {
           "name": "getFooterPanels",
@@ -49424,7 +49474,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4155
+          "line": 4160
         },
         {
           "name": "addFooterPanel",
@@ -49481,7 +49531,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4171
+          "line": 4176
         },
         {
           "name": "getModalPanels",
@@ -49498,7 +49548,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4182
+          "line": 4187
         },
         {
           "name": "addModalPanel",
@@ -49595,7 +49645,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4202
+          "line": 4207
         },
         {
           "name": "panelForItem",
@@ -49622,7 +49672,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 4216
+          "line": 4221
         },
         {
           "name": "scan",
@@ -49737,7 +49787,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 4280
+          "line": 4285
         },
         {
           "name": "replace",
@@ -49801,7 +49851,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4546
+          "line": 4551
         }
       ]
     },
@@ -52037,5 +52087,5 @@
     }
   ],
   "memberCount": 1527,
-  "generatedAt": "2026-10-13T01:53:09.081Z"
+  "generatedAt": "2026-10-13T02:19:55.789Z"
 }

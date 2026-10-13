@@ -18,6 +18,10 @@ styles.css      # centered static styles, no build step
 assets/         # logo assets
 ```
 
+The manual has seven pages in six chapters: Getting started, Workspace, Customization, Packages and themes, Troubleshooting, and Extending Lumine. Detailed guides live in the editor's or owning package's `docs/`. `docs/manifest.json` declares the pages and redirects from retired routes, including heading-specific redirects when a section moved separately.
+
+Run `npm run test:docs` to check navigation, legacy redirects and links in the manual. External GitHub documentation links stay external; relative Markdown links and heading links are routed inside the manual.
+
 ## Regenerating the API reference
 
 Install the website's small documentation toolchain and run the generator:

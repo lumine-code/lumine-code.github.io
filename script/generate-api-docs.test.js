@@ -6,6 +6,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const test = require("node:test");
+const vm = require("node:vm");
 
 const generatorPath = path.join(__dirname, "generate-api-docs.js");
 
@@ -19,6 +20,12 @@ function hasClass(node, name) {
 
 function elements(node) {
   return [node, ...(node.childNodes || []).flatMap(elements)];
+}
+
+function textContent(node) {
+  return node.nodeName === "#text"
+    ? node.value
+    : (node.childNodes || []).map(textContent).join("");
 }
 
 function owningClass(node) {
@@ -250,7 +257,10 @@ test("renders linked section navigation, nested headings and typed failure contr
     html,
     /href="#widget-group-event-subscription">Event Subscription<span>1<\/span>/,
   );
-  assert.match(html, /<h3>Contracts<\/h3>/);
+  assert.match(
+    html,
+    /<h3 id="environment-description-section-contracts">Contracts/,
+  );
   assert.match(html, /<h5>Examples<\/h5>/);
   assert.match(html, /api-throws-section"><h5>Throws<\/h5>/);
   assert.match(html, /<code class="api-type-expression">Error<\/code>/);
@@ -271,8 +281,14 @@ test("normalizes deeply numbered source headings without skipping API heading le
   const result = fixture.generate();
   assert.equal(result.status, 0, result.stderr);
   const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
-  assert.match(html, /<h3>Contracts<\/h3>/);
-  assert.match(html, /<h4>Details<\/h4>/);
+  assert.match(
+    html,
+    /<h3 id="environment-description-section-contracts">Contracts/,
+  );
+  assert.match(
+    html,
+    /<h4 id="environment-description-section-details">Details/,
+  );
   assert.match(html, /<h5>Examples<\/h5>/);
   assert.match(html, /<h6>More Examples<\/h6>/);
 });
@@ -336,6 +352,185 @@ test("keeps malformed HTML examples inside their method and preserves references
   assert.match(html, /&lt;div class=&quot;region&quot;&gt;/);
   assert.match(html, /class="api-ref" href="#texteditor-instance-getmarkers"/);
   assert.match(html, /<code>\{@link \.run\}<\/code>/);
+});
+
+test("folds the complete Config and Workspace descriptions without repeating their introduction", async (context) => {
+  const fixture = renderFixture(context);
+  const corpus = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, "..", "api", "api.json"), "utf8"),
+  );
+  const descriptions = corpus.classes.filter(({ name }) =>
+    ["Config", "Workspace"].includes(name),
+  );
+  assert.equal(descriptions.length, 2);
+  fixture.api.classes.push(...descriptions);
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  for (const type of descriptions) {
+    const description = nodes.find(
+      (node) =>
+        hasClass(node, "api-class-description-folded") &&
+        owningClass(node) === `class-${type.name.toLowerCase()}`,
+    );
+    const intro = description.childNodes.find((node) =>
+      hasClass(node, "api-class-summary"),
+    );
+    const details = description.childNodes.find(
+      (node) => node.tagName === "details",
+    );
+    const summary = details.childNodes.find(
+      (node) => node.tagName === "summary",
+    );
+    const body = details.childNodes.find((node) =>
+      hasClass(node, "api-class-description-content"),
+    );
+    assert.equal(
+      attribute(details, "open"),
+      undefined,
+      `${type.name} should begin folded`,
+    );
+    assert.equal(
+      attribute(summary, "aria-label"),
+      `Full description of ${type.name}`,
+    );
+    const controls = attribute(summary, "aria-controls").split(" ");
+    assert.deepEqual(controls, [attribute(intro, "id"), attribute(body, "id")]);
+    const introduction = textContent(intro).trim();
+    assert.ok(introduction.length > 0 && introduction.length < 300);
+    assert.equal(
+      textContent(body).includes(introduction),
+      false,
+      `${type.name} repeats its introduction`,
+    );
+    assert.ok(
+      textContent(body).length > 4000,
+      `${type.name} lost its detailed contract`,
+    );
+    assert.ok(elements(body).some((node) => node.tagName === "h3"));
+    assert.ok(elements(body).every((node) => node.tagName !== "h2"));
+  }
+  const ids = nodes.map((node) => attribute(node, "id")).filter(Boolean);
+  assert.equal(
+    new Set(ids).size,
+    ids.length,
+    "description anchors must remain unique",
+  );
+});
+
+test("keeps short class descriptions visible and unfolds long single paragraphs without duplicating them", async (context) => {
+  const fixture = renderFixture(context);
+  const longParagraph =
+    "A detailed description of one class remains available in full. "
+      .repeat(15)
+      .trim();
+  fixture.api.objects[0].description = longParagraph;
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  const overview = nodes.find(
+    (node) => attribute(node, "id") === "class-environment",
+  );
+  assert.equal(
+    elements(overview).some(
+      (node) => attribute(node, "data-api-class-description") != null,
+    ),
+    false,
+  );
+  assert.ok(textContent(overview).includes("The global API."));
+  const intro = nodes.find(
+    (node) => attribute(node, "id") === "widget-description-intro",
+  );
+  const body = nodes.find(
+    (node) => attribute(node, "id") === "widget-description-body",
+  );
+  assert.equal(textContent(intro).trim(), longParagraph);
+  assert.equal(textContent(body).trim(), "");
+  assert.match(html, /\.api-class-summary \{[^}]*-webkit-line-clamp: 3/);
+  assert.match(
+    html,
+    /:has\(> \.api-class-description-details\[open\]\)[^}]*overflow: visible/,
+  );
+});
+
+test("class description headings have scoped anchors and deep links reveal the folded contract", async (context) => {
+  const fixture = renderFixture(context);
+  fixture.api.classes[0].description =
+    "The global API.\n\nSee [details](#details).\n\n## Details\n\nA contract.\n\n## Details\n\nAnother contract.";
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  const id = "environment-description-section-details";
+  const heading = nodes.find((node) => attribute(node, "id") === id);
+  const duplicate = nodes.find((node) => attribute(node, "id") === `${id}-2`);
+  assert.ok(heading && duplicate, "duplicate titles need distinct anchors");
+  assert.ok(
+    nodes.some(
+      (node) =>
+        node.tagName === "a" &&
+        attribute(node, "href") === `#${id}` &&
+        textContent(node) === "details",
+    ),
+  );
+  const permalink = heading.childNodes.find((node) =>
+    hasClass(node, "api-description-anchor"),
+  );
+  assert.equal(attribute(permalink, "aria-label"), "Link to Details");
+
+  const section = { id: "class-environment", hidden: true };
+  const details = { open: false };
+  let scrolls = 0;
+  const target = {
+    closest: (selector) => (selector === ".api-class" ? section : details),
+    matches: () => false,
+    scrollIntoView: () => {
+      assert.equal(section.hidden, false);
+      assert.equal(
+        details.open,
+        true,
+        "the contract must unfold before scrolling",
+      );
+      scrolls++;
+    },
+  };
+  const handlers = {};
+  const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  vm.runInNewContext(script, {
+    location: { hash: `#${id}` },
+    document: {
+      querySelectorAll: (selector) =>
+        selector === ".api-class" ? [section] : [],
+      querySelector: () => null,
+      getElementById: () => target,
+      addEventListener: (name, callback) => {
+        handlers[name] = callback;
+      },
+    },
+    window: { addEventListener: () => {}, scrollTo: () => {} },
+    matchMedia: () => ({ matches: false, addEventListener: () => {} }),
+    requestAnimationFrame: (callback) => callback(),
+    navigator: {},
+  });
+  assert.equal(scrolls, 1, "an initial deep link should reveal its contract");
+  details.open = false;
+  const anchor = { hash: `#${id}` };
+  handlers.click({
+    target: {
+      closest: (selector) => (selector === ".api-anchor" ? anchor : null),
+    },
+  });
+  assert.equal(
+    details.open,
+    true,
+    "a repeated anchor click should reopen the contract",
+  );
+  assert.equal(scrolls, 2);
 });
 
 test("every generated API member stays in its class and every class stays in the layout", async () => {
