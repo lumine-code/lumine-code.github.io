@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   manual:
-    name: Manual navigation and links
+    name: Site behavior and manual navigation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -24,6 +24,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:docs
+      - run: npm run test:site
 
   api-reference:
     name: API reference is current

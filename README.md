@@ -12,15 +12,18 @@ Served via GitHub Pages at **https://lumine-code.github.io**.
 
 ```text
 index.html      # landing page
-api/            # generated Lumine API reference (HTML and JSON)
+api/            # generated API reference and its presentation stylesheet
 docs/           # Markdown documentation rendered by docs.html
-styles.css      # centered static styles, no build step
+styles.css      # shared themes, typography, landing page and manual styles
+script/site.js  # theme preference and shared keyboard navigation
 assets/         # logo assets
 ```
 
 The manual has seven pages in six chapters: Getting started, Workspace, Customization, Packages and themes, Troubleshooting, and Extending Lumine. Detailed guides live in the editor's or owning package's `docs/`. `docs/manifest.json` declares the pages and redirects from retired routes, including heading-specific redirects when a section moved separately.
 
 Run `npm run test:docs` to check navigation, legacy redirects and links in the manual. External GitHub documentation links stay external; relative Markdown links and heading links are routed inside the manual.
+
+The landing page, manual and API share light and dark themes. The theme follows the system preference until a visitor chooses one; that choice is saved across pages. Shared colors and typography live in `styles.css`, and API-specific presentation lives in `api/styles.css`. Edit the API markup in `script/generate-api-docs.js`, then regenerate the reference. Run `npm run test:site` to check theme selection, storage fallback and keyboard navigation.
 
 ## Regenerating the API reference
 
@@ -46,7 +49,7 @@ npm start
 # serves http://127.0.0.1:8000 (pass a port with `npm start -- 8080`)
 ```
 
-The manual loads its manifest and Markdown with `fetch()`, so preview the site over HTTP instead of opening `docs.html` directly from `file://`. The API reference is self-contained HTML, but serving the whole site keeps navigation consistent.
+The manual loads its manifest and Markdown with `fetch()`, so preview the site over HTTP instead of opening `docs.html` directly from `file://`. Serve the whole site so the manual and generated API can load their shared styles and theme script.
 
 ## Deploying
 

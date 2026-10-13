@@ -9,6 +9,10 @@ const test = require("node:test");
 const vm = require("node:vm");
 
 const generatorPath = path.join(__dirname, "generate-api-docs.js");
+const apiStyles = fs.readFileSync(
+  path.resolve(__dirname, "..", "api", "styles.css"),
+  "utf8",
+);
 
 function attribute(node, name) {
   return node.attrs?.find((entry) => entry.name === name)?.value;
@@ -195,6 +199,68 @@ function renderFixture(context) {
   return { api, output, saveApi, generate };
 }
 
+test("loads shared presentation and an external API stylesheet without embedding styles", async (context) => {
+  const fixture = renderFixture(context);
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const { parse } = await import("parse5");
+  const nodes = elements(parse(html));
+  assert.deepEqual(
+    nodes
+      .filter(
+        (node) =>
+          node.tagName === "link" &&
+          attribute(node, "rel") === "stylesheet" &&
+          !attribute(node, "href").startsWith("https://"),
+      )
+      .map((node) => attribute(node, "href")),
+    ["../styles.css", "styles.css"],
+  );
+  assert.equal(
+    nodes.some((node) => node.tagName === "style"),
+    false,
+  );
+  assert.ok(
+    nodes.some(
+      (node) =>
+        node.tagName === "script" &&
+        attribute(node, "src") === "../script/site.js" &&
+        attribute(node, "defer") === undefined,
+    ),
+  );
+  assert.ok(
+    html.indexOf('src="../script/site.js"') <
+      html.indexOf('href="../styles.css"'),
+    "the saved palette must be applied before styles are loaded",
+  );
+  const main = nodes.find((node) => node.tagName === "main");
+  assert.equal(attribute(main, "id"), "top");
+  assert.equal(attribute(main, "tabindex"), "-1");
+  assert.ok(
+    nodes.some(
+      (node) =>
+        hasClass(node, "skip-link") && attribute(node, "href") === "#top",
+    ),
+  );
+  assert.ok(
+    nodes.some(
+      (node) =>
+        node.tagName === "button" &&
+        attribute(node, "data-theme-toggle") !== undefined &&
+        Boolean(attribute(node, "aria-label")),
+    ),
+  );
+  assert.ok(
+    nodes.some(
+      (node) =>
+        node.tagName === "a" &&
+        attribute(node, "href") === "./" &&
+        attribute(node, "aria-current") === "page",
+    ),
+  );
+});
+
 test("renders object APIs, callable paths, property contracts and reference links", (context) => {
   const fixture = renderFixture(context);
   const result = fixture.generate();
@@ -296,10 +362,10 @@ test("keeps property names and colons together while long linked types can wrap 
       "source metadata must retain its separate column",
     );
   }
-  assert.match(html, /\.api-content \{[^}]*max-width: 1000px/);
+  assert.match(apiStyles, /\.api-content \{[^}]*max-width: 1000px/);
   assert.match(
-    html,
-    /@media \(max-width: 1000px\) \{\s*\.api-group-properties \.api-group-entries \{ grid-template-columns: 1fr; \}/,
+    apiStyles,
+    /@media \(max-width: 1000px\) \{\s*\.api-group-properties \.api-group-entries \{\s*grid-template-columns: 1fr;\s*\}/,
   );
 });
 
@@ -527,9 +593,9 @@ test("keeps short class descriptions visible and unfolds long single paragraphs 
   );
   assert.equal(textContent(intro).trim(), longParagraph);
   assert.equal(textContent(body).trim(), "");
-  assert.match(html, /\.api-class-summary \{[^}]*-webkit-line-clamp: 3/);
+  assert.match(apiStyles, /\.api-class-summary \{[^}]*-webkit-line-clamp: 3/);
   assert.match(
-    html,
+    apiStyles,
     /:has\(> \.api-class-description-details\[open\]\)[^}]*overflow: visible/,
   );
 });

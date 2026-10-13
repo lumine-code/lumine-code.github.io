@@ -18,33 +18,46 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="script/site.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#top">Skip to documentation</a>
     <header class="nav">
       <a class="brand" href="index.html" aria-label="Lumine home">
         <img src="assets/lumine.svg" alt="" width="34" height="34" />
         <span>Lumine</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="docs.html">Docs</a>
+        <a href="docs.html" aria-current="page">Docs</a>
         <a href="api/">API</a>
-        <a
-          class="nav-github"
-          href="https://github.com/lumine-code/lumine"
-          aria-label="GitHub"
-          ><svg viewBox="0 0 16 16" aria-hidden="true">
+        <a class="nav-github" href="https://github.com/lumine-code/lumine">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
             <path
               d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-            /></svg
-        ></a>
+            />
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-label="Switch to dark theme"
+        >
+          Dark
+        </button>
       </nav>
     </header>
 
-    <main id="top" class="doc-main doc-manual">
+    <main id="top" class="doc-main doc-manual" tabindex="-1">
+      <div class="doc-context">
+        <p class="section-label">02 / Documentation</p>
+        <p class="doc-breadcrumb" data-breadcrumb></p>
+      </div>
       <aside class="doc-sidebar" aria-label="Documentation navigation">
         <details class="doc-tree">
           <summary class="doc-tree-summary">Browse docs</summary>
@@ -53,8 +66,12 @@
       </aside>
 
       <div class="doc-content">
+        <nav class="doc-toc" aria-label="On this page" data-toc hidden>
+          <p class="doc-toc-label">On this page</p>
+          <ul class="doc-toc-links" data-toc-links></ul>
+        </nav>
         <article class="prose" data-doc>
-          <p class="doc-status">Loading documentation&hellip;</p>
+          <p class="doc-status" role="status">Loading documentation&hellip;</p>
           <noscript>
             <p>
               This manual renders Markdown with JavaScript. You can read the
@@ -66,7 +83,11 @@
             </p>
           </noscript>
         </article>
-        <nav class="doc-pager" data-pager></nav>
+        <nav
+          class="doc-pager"
+          aria-label="Documentation pages"
+          data-pager
+        ></nav>
       </div>
     </main>
 
@@ -98,6 +119,9 @@
         const article = document.querySelector("[data-doc]");
         const navEl = document.querySelector("[data-nav]");
         const pagerEl = document.querySelector("[data-pager]");
+        const breadcrumbEl = document.querySelector("[data-breadcrumb]");
+        const tocEl = document.querySelector("[data-toc]");
+        const tocLinksEl = document.querySelector("[data-toc-links]");
         const docTree = document.querySelector(".doc-tree");
         const compactNavigation = matchMedia("(max-width: 900px)");
 
@@ -119,8 +143,11 @@
         });
 
         const fail = (message) => {
+          article.setAttribute("aria-busy", "false");
+          tocEl.hidden = true;
+          pagerEl.replaceChildren();
           article.innerHTML =
-            '<p class="doc-status">' +
+            '<p class="doc-status" role="alert">' +
             message +
             ' Read the source on <a href="https://github.com/lumine-code/lumine-code.github.io/tree/master/docs">GitHub</a>.</p>';
         };
@@ -128,7 +155,10 @@
         let manifest;
         try {
           if (!window.marked) throw new Error("renderer");
-          manifest = await (await fetch("docs/manifest.json")).json();
+          const response = await fetch("docs/manifest.json");
+          if (!response.ok)
+            throw new Error("manifest (" + response.status + ")");
+          manifest = await response.json();
         } catch (error) {
           console.error(error);
           return fail("Could not load the documentation.");
@@ -136,6 +166,15 @@
 
         const navigation = window.LumineDocs.createNavigation(manifest);
         const flat = navigation.pages;
+
+        const expandCategory = (group, expanded) => {
+          group.classList.toggle("open", expanded);
+          group
+            .querySelector("button")
+            ?.setAttribute("aria-expanded", String(expanded));
+          const list = group.querySelector(".nav-pages");
+          if (list) list.hidden = !expanded;
+        };
 
         // A one-page chapter is a direct link; only Getting started needs a list.
         for (const category of manifest.categories) {
@@ -160,6 +199,9 @@
           heading.setAttribute("aria-expanded", "false");
           const list = document.createElement("ul");
           list.className = "nav-pages";
+          list.id = "doc-category-" + category.slug;
+          list.hidden = true;
+          heading.setAttribute("aria-controls", list.id);
           for (const page of category.pages) {
             const li = document.createElement("li");
             const link = document.createElement("a");
@@ -170,8 +212,7 @@
             list.appendChild(li);
           }
           heading.addEventListener("click", () => {
-            const open = group.classList.toggle("open");
-            heading.setAttribute("aria-expanded", String(open));
+            expandCategory(group, !group.classList.contains("open"));
           });
           group.appendChild(heading);
           group.appendChild(list);
@@ -203,12 +244,44 @@
           };
         };
 
-        const scrollToFragment = () => {
+        const scrollToFragment = (focusPage) => {
           const fragment = currentFragment();
           const target =
             fragment && article.querySelector("#" + CSS.escape(fragment));
-          if (target) target.scrollIntoView();
-          else window.scrollTo(0, 0);
+          if (target) {
+            target.tabIndex = -1;
+            target.focus({ preventScroll: true });
+            target.scrollIntoView();
+          } else {
+            if (focusPage) {
+              const heading = article.querySelector("h1");
+              if (heading) {
+                heading.tabIndex = -1;
+                heading.focus({ preventScroll: true });
+              }
+            }
+            window.scrollTo(0, 0);
+          }
+        };
+
+        const pageContext = (page) => {
+          breadcrumbEl.textContent =
+            page.categoryTitle === page.title
+              ? page.title
+              : page.categoryTitle + " / " + page.title;
+          tocLinksEl.replaceChildren();
+          const headings = article.querySelectorAll("h2");
+          tocEl.hidden = headings.length < 2;
+          if (tocEl.hidden) return;
+          article.insertBefore(tocEl, headings[0]);
+          for (const heading of headings) {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = "#" + page.route + "#" + heading.id;
+            link.textContent = heading.textContent;
+            item.appendChild(link);
+            tocLinksEl.appendChild(item);
+          }
         };
 
         const pager = (page) => {
@@ -218,6 +291,7 @@
             const a = document.createElement("a");
             a.className = "doc-pager-link doc-pager-" + rel;
             a.href = "#" + target.route;
+            a.rel = rel;
             a.innerHTML =
               '<span class="doc-pager-rel">' +
               (rel === "prev" ? "Previous" : "Next") +
@@ -233,6 +307,7 @@
 
         const cache = new Map();
         let renderVersion = 0;
+        let renderedRoute = null;
         const render = async () => {
           const version = ++renderVersion;
           const { href, page } = navigation.resolve(location.hash);
@@ -241,13 +316,15 @@
             return;
           }
 
+          article.setAttribute("aria-busy", "true");
           let markdown = cache.get(page.file);
           if (markdown === undefined) {
             // Keep the current page visible and only show a loader if the fetch
             // is slow, so fast or cached page switches do not flash.
             const loader = setTimeout(() => {
               if (version === renderVersion)
-                article.innerHTML = '<p class="doc-status">Loading&hellip;</p>';
+                article.innerHTML =
+                  '<p class="doc-status" role="status">Loading&hellip;</p>';
             }, 150);
             try {
               const response = await fetch(page.file);
@@ -298,16 +375,18 @@
             if (on) {
               link.setAttribute("aria-current", "page");
               const group = link.closest(".nav-group");
-              group.classList.add("open");
-              group
-                .querySelector("button")
-                ?.setAttribute("aria-expanded", "true");
+              expandCategory(group, true);
             } else link.removeAttribute("aria-current");
           });
 
+          article.setAttribute("aria-busy", "false");
+          pageContext(page);
           pager(page);
           document.title = page.title + " — Lumine Documentation";
-          scrollToFragment();
+          scrollToFragment(
+            renderedRoute !== null && renderedRoute !== page.route,
+          );
+          renderedRoute = page.route;
         };
 
         // Cached pages render immediately. Every navigation also invalidates a

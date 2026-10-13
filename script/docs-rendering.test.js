@@ -28,9 +28,17 @@ function renderingHarness() {
   const timers = new Map();
   const failures = [];
   const errors = [];
+  const focusedPages = [];
   let nextTimer = 0;
   let hashchange;
-  const article = { innerHTML: "", querySelectorAll: () => [] };
+  const article = {
+    innerHTML: "",
+    attributes: new Map(),
+    setAttribute(name, value) {
+      this.attributes.set(name, value);
+    },
+    querySelectorAll: () => [],
+  };
   const document = { title: "" };
   const location = {
     hash: "",
@@ -45,8 +53,12 @@ function renderingHarness() {
     location,
     navEl: { querySelectorAll: () => [] },
     pager() {},
+    pageContext() {},
+    expandCategory() {},
     slugger: () => () => "",
-    scrollToFragment() {},
+    scrollToFragment(focusPage) {
+      focusedPages.push(focusPage);
+    },
     fail(message) {
       failures.push(message);
       article.innerHTML = message;
@@ -88,6 +100,7 @@ function renderingHarness() {
     location,
     failures,
     errors,
+    focusedPages,
     cache: context.testRenderer.cache,
     navigate(page) {
       location.hash = `#${page.route}`;
@@ -130,6 +143,171 @@ test("returning to a cached page prevents a slower page from replacing it", asyn
   assert.equal(harness.location.hash, `#${pageA.route}`);
   assert.equal(harness.document.title, `${pageA.title} — Lumine Documentation`);
   assert.deepEqual(harness.failures, []);
+});
+
+test("page navigation moves focus to the page heading only after the initial page", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  harness.cache.set(pageB.file, "page B");
+  await harness.navigate(pageA);
+  await harness.navigate(pageB);
+  await harness.navigate(pageB);
+  assert.deepEqual(harness.focusedPages, [false, true, false]);
+  assert.equal(harness.article.attributes.get("aria-busy"), "false");
+});
+
+test("the article is busy during a fetch and ready after the requested page renders", async () => {
+  const harness = renderingHarness();
+  const [page] = harness.pages;
+  const rendering = harness.navigate(page);
+  assert.equal(harness.article.attributes.get("aria-busy"), "true");
+  harness.succeed(page, "page");
+  await rendering;
+  assert.equal(harness.article.attributes.get("aria-busy"), "false");
+});
+
+test("collapsed chapter links are hidden and the toggle controls their list", () => {
+  const start = source.indexOf("const expandCategory =");
+  const end = source.indexOf("// The hash carries", start);
+  assert.ok(start >= 0 && end > start);
+
+  function element(tag) {
+    const classes = new Set();
+    return {
+      tag,
+      children: [],
+      attributes: new Map(),
+      dataset: {},
+      listeners: new Map(),
+      classList: {
+        contains: (name) => classes.has(name),
+        toggle(name, enabled) {
+          const on = enabled ?? !classes.has(name);
+          if (on) classes.add(name);
+          else classes.delete(name);
+          return on;
+        },
+      },
+      appendChild(child) {
+        this.children.push(child);
+      },
+      setAttribute(name, value) {
+        this.attributes.set(name, value);
+      },
+      addEventListener(name, listener) {
+        this.listeners.set(name, listener);
+      },
+      querySelector(selector) {
+        return this.children.find((child) =>
+          selector === "button"
+            ? child.tag === "button"
+            : child.className === selector.slice(1),
+        );
+      },
+    };
+  }
+
+  const navEl = element("nav");
+  const context = vm.createContext({
+    manifest,
+    navEl,
+    document: { createElement: element },
+  });
+  vm.runInContext(
+    `${source.slice(start, end)}\nglobalThis.expandCategory = expandCategory;`,
+    context,
+  );
+
+  const group = navEl.children[0];
+  const heading = group.querySelector("button");
+  const list = group.querySelector(".nav-pages");
+  assert.equal(heading.attributes.get("aria-controls"), list.id);
+  assert.equal(heading.attributes.get("aria-expanded"), "false");
+  assert.equal(list.hidden, true);
+
+  heading.listeners.get("click")();
+  assert.equal(list.hidden, false);
+  assert.equal(heading.attributes.get("aria-expanded"), "true");
+  heading.listeners.get("click")();
+  assert.equal(list.hidden, true);
+  assert.equal(heading.attributes.get("aria-expanded"), "false");
+
+  // Selecting a page in a closed category must reveal its navigation again.
+  context.expandCategory(group, true);
+  assert.equal(list.hidden, false);
+  assert.equal(heading.attributes.get("aria-expanded"), "true");
+});
+
+test("page contents follow the introduction and link to the canonical heading route", () => {
+  const start = source.indexOf("const pageContext =");
+  const end = source.indexOf("const pager =", start);
+  assert.ok(start >= 0 && end > start);
+  const headings = [
+    { id: "build-from-source", textContent: "Build from source" },
+    { id: "open-files-and-projects", textContent: "Open files and projects" },
+  ];
+  const breadcrumbEl = { textContent: "" };
+  const tocEl = { hidden: true };
+  const tocLinksEl = {
+    children: [],
+    replaceChildren() {
+      this.children = [];
+    },
+    appendChild(child) {
+      this.children.push(child);
+    },
+  };
+  const article = {
+    querySelectorAll: () => headings,
+    insertBefore(node, heading) {
+      assert.equal(node, tocEl);
+      assert.equal(heading, headings[0]);
+    },
+  };
+  const context = vm.createContext({
+    article,
+    breadcrumbEl,
+    tocEl,
+    tocLinksEl,
+    document: {
+      createElement(tag) {
+        return {
+          tag,
+          children: [],
+          appendChild(child) {
+            this.children.push(child);
+          },
+        };
+      },
+    },
+  });
+  vm.runInContext(
+    `${source.slice(start, end)}\nglobalThis.pageContext = pageContext;`,
+    context,
+  );
+  const navigation = createNavigation(manifest);
+  const [page] = navigation.pages;
+  context.pageContext(page);
+  assert.equal(
+    breadcrumbEl.textContent,
+    "Getting started / Install and launch",
+  );
+  assert.equal(tocEl.hidden, false);
+  assert.deepEqual(
+    tocLinksEl.children.map((item) => item.children[0].href),
+    headings.map((heading) => `#${page.route}#${heading.id}`),
+  );
+  assert.deepEqual(
+    tocLinksEl.children.map((item) => item.children[0].textContent),
+    headings.map((heading) => heading.textContent),
+  );
+
+  headings.pop();
+  context.pageContext(navigation.pages[2]);
+  assert.equal(breadcrumbEl.textContent, "Workspace");
+  assert.equal(tocEl.hidden, true);
+  assert.deepEqual(tocLinksEl.children, []);
 });
 
 test("a stale fetch failure cannot replace the cached page with an error", async () => {
