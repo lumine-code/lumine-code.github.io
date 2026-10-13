@@ -3,6 +3,22 @@ html {
   scroll-behavior: auto;
 }
 
+/* The full reference is streamed as HTML. Do not paint unselected classes or
+   inflate the page before the router has chosen the initial destination. */
+:root[data-api-initializing] .api-layout,
+:root[data-api-initializing] .footer {
+  visibility: hidden;
+}
+:root[data-api-initializing] .api-class {
+  display: none;
+}
+.api-loading-bar {
+  display: none;
+}
+:root[data-api-initializing] .api-loading-bar {
+  display: block;
+}
+
 .api-main {
   width: 100%;
   margin: 0;

@@ -199,6 +199,257 @@ function renderFixture(context) {
   return { api, output, saveApi, generate };
 }
 
+// Give the generated DOM only the browser APIs used by the router. Recording
+// state at reveal and scroll catches the first-paint race, not just its end state.
+async function initialRoute(html, hash, compact) {
+  const { parse } = await import("parse5");
+  const nodes = elements(parse(html)).filter((node) => node.tagName);
+  const root = nodes.find((node) => node.tagName === "html");
+  const events = [];
+  const frames = [];
+  const matches = (node, selector) =>
+    selector.split(",").some((part) => {
+      const match = part.trim().match(/^(\w+)?(?:\.([\w-]+)|\[([\w-]+)\])?$/);
+      assert.ok(match, `Unsupported test selector: ${part}`);
+      return (
+        (!match[1] || node.tagName === match[1]) &&
+        (!match[2] || hasClass(node, match[2])) &&
+        (!match[3] || attribute(node, match[3]) !== undefined)
+      );
+    });
+  const snapshot = (kind, id) => ({
+    kind,
+    id,
+    gated: attribute(root, "data-api-initializing") !== undefined,
+    visible: nodes
+      .filter((node) => hasClass(node, "api-class") && !node.hidden)
+      .map((node) => node.id),
+    active: nodes
+      .filter(
+        (node) =>
+          attribute(node, "aria-current") === "page" &&
+          attribute(node, "data-api-nav") !== undefined,
+      )
+      .map((node) => node.hash),
+    expanded: nodes
+      .filter((node) => attribute(node, "aria-expanded") === "true")
+      .map((node) => node.id),
+    descriptions: nodes
+      .filter(
+        (node) =>
+          attribute(node, "data-api-class-description") !== undefined &&
+          node.open,
+      )
+      .map((node) => node.id),
+    trees: nodes
+      .filter((node) => hasClass(node, "api-tree"))
+      .map((node) => ({
+        open: node.open,
+        tabIndex: node.querySelector("summary").tabIndex,
+      })),
+  });
+  for (const node of nodes) {
+    node.id = attribute(node, "id") || "";
+    node.hash = attribute(node, "href") || "";
+    node.matches = (selector) => matches(node, selector);
+    node.querySelector = (selector) =>
+      elements(node)
+        .slice(1)
+        .find((child) => child.tagName && matches(child, selector)) || null;
+    node.closest = (selector) => {
+      for (
+        let candidate = node;
+        candidate?.tagName;
+        candidate = candidate.parentNode
+      ) {
+        if (matches(candidate, selector)) return candidate;
+      }
+      return null;
+    };
+    node.setAttribute = (name, value) => {
+      const entry = node.attrs.find((entry) => entry.name === name);
+      if (entry) entry.value = String(value);
+      else node.attrs.push({ name, value: String(value) });
+    };
+    node.removeAttribute = (name) => {
+      node.attrs = node.attrs.filter((entry) => entry.name !== name);
+      if (node === root && name === "data-api-initializing")
+        events.push(snapshot("reveal"));
+    };
+    node.getAttribute = (name) => attribute(node, name) ?? null;
+    for (const name of ["hidden", "open"]) {
+      Object.defineProperty(node, name, {
+        get: () => attribute(node, name) !== undefined,
+        set: (value) =>
+          value ? node.setAttribute(name, "") : node.removeAttribute(name),
+      });
+    }
+    node.classList = {
+      toggle(name, enabled) {
+        const classes = new Set((attribute(node, "class") || "").split(/\s+/));
+        if (enabled) classes.add(name);
+        else classes.delete(name);
+        node.setAttribute("class", [...classes].join(" "));
+      },
+    };
+    node.addEventListener = () => {};
+    node.scrollIntoView = (options) => {
+      assert.equal(options.behavior, "auto");
+      events.push(snapshot("target", node.id));
+    };
+  }
+  const history = { scrollRestoration: "auto" };
+  const context = vm.createContext({
+    document: {
+      documentElement: root,
+      querySelectorAll: (selector) =>
+        nodes.filter((node) => matches(node, selector)),
+      querySelector: (selector) =>
+        nodes.find((node) => matches(node, selector)) || null,
+      getElementById: (id) => nodes.find((node) => node.id === id) || null,
+      addEventListener: () => {},
+    },
+    history,
+    location: { hash },
+    window: {
+      addEventListener: () => {},
+      scrollTo: (x, y) => {
+        assert.deepEqual([x, y], [0, 0]);
+        events.push(snapshot("top"));
+      },
+    },
+    matchMedia: () => ({ matches: compact, addEventListener: () => {} }),
+    requestAnimationFrame: (callback) => frames.push(callback),
+    navigator: {},
+  });
+  vm.runInContext(
+    fs.readFileSync(path.join(__dirname, "api-initial-state.js"), "utf8"),
+    context,
+  );
+  assert.equal(attribute(root, "data-api-initializing"), "");
+  assert.equal(history.scrollRestoration, "manual");
+  const router = nodes.find(
+    (node) => node.tagName === "script" && !attribute(node, "src"),
+  );
+  vm.runInContext(textContent(router), context);
+  return { events, frames };
+}
+
+test("initial API navigation selects and scrolls the final destination before yielding to paint", async (context) => {
+  const fixture = renderFixture(context);
+  fixture.api.objects[0].description =
+    "Widget factories.\n\n## Details\n\nA folded contract.";
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  const group = nodes.find(
+    (node) =>
+      hasClass(node, "api-group") && owningClass(node) === "class-widget",
+  );
+  const destinations = [
+    { hash: "", section: "class-environment" },
+    { hash: "#missing-section", section: "class-environment" },
+    { hash: "#class-widget", section: "class-widget" },
+    {
+      hash: "#widget-static-run",
+      section: "class-widget",
+      member: "widget-static-run",
+    },
+    { hash: `#${attribute(group, "id")}`, section: "class-widget" },
+    {
+      hash: "#widget-description-section-details",
+      section: "class-widget",
+      description: true,
+    },
+    { hash: "#functions", section: "functions" },
+    {
+      hash: "#function-render",
+      section: "functions",
+      member: "function-render",
+    },
+  ];
+  for (const compact of [false, true]) {
+    for (const destination of destinations) {
+      const label = `${compact ? "mobile" : "desktop"} ${destination.hash || "/api/"}`;
+      await context.test(label, async () => {
+        const { events, frames } = await initialRoute(
+          html,
+          destination.hash,
+          compact,
+        );
+        const scrollTarget = nodes.find(
+          (node) => attribute(node, "id") === destination.hash.slice(1),
+        );
+        const deepLink = scrollTarget && !hasClass(scrollTarget, "api-class");
+        assert.deepEqual(
+          events.map((event) => event.kind),
+          ["reveal", deepLink ? "target" : "top"],
+        );
+        assert.equal(
+          frames.length,
+          0,
+          "initial scrolling must not wait for another animation frame",
+        );
+        for (const state of events) {
+          assert.equal(state.gated, false);
+          assert.deepEqual(state.visible, [destination.section]);
+          assert.deepEqual(state.active, [`#${destination.section}`]);
+          assert.deepEqual(state.trees, [
+            { open: !compact, tabIndex: compact ? 0 : -1 },
+          ]);
+          assert.deepEqual(
+            state.expanded,
+            destination.member ? [`${destination.member}-toggle`] : [],
+          );
+          assert.equal(
+            state.descriptions.length,
+            destination.description ? 1 : 0,
+          );
+        }
+        if (deepLink) assert.equal(events[1].id, destination.hash.slice(1));
+      });
+    }
+  }
+});
+
+test("API first-paint initialization precedes local styles while static HTML remains browsable without JavaScript", async (context) => {
+  const fixture = renderFixture(context);
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  const bootstrap = nodes.find(
+    (node) => attribute(node, "src") === "../script/api-initial-state.js",
+  );
+  assert.ok(bootstrap);
+  assert.equal(bootstrap.parentNode.tagName, "head");
+  assert.equal(attribute(bootstrap, "defer"), undefined);
+  assert.equal(attribute(bootstrap, "async"), undefined);
+  const localStyles = nodes.filter(
+    (node) =>
+      attribute(node, "rel") === "stylesheet" &&
+      !attribute(node, "href").startsWith("https://"),
+  );
+  for (const style of localStyles) {
+    assert.ok(nodes.indexOf(bootstrap) < nodes.indexOf(style));
+  }
+  assert.equal(
+    attribute(
+      nodes.find((node) => node.tagName === "html"),
+      "data-api-initializing",
+    ),
+    undefined,
+  );
+  for (const section of nodes.filter((node) => hasClass(node, "api-class"))) {
+    assert.equal(attribute(section, "hidden"), undefined);
+  }
+  for (const tree of nodes.filter((node) => hasClass(node, "api-tree"))) {
+    assert.equal(attribute(tree, "open"), "");
+  }
+});
+
 test("loads shared presentation and an external API stylesheet without embedding styles", async (context) => {
   const fixture = renderFixture(context);
   const result = fixture.generate();
@@ -733,6 +984,7 @@ test("class description headings have scoped anchors and deep links reveal the f
   vm.runInNewContext(script, {
     location: { hash: `#${id}` },
     document: {
+      documentElement: { removeAttribute() {} },
       querySelectorAll: (selector) =>
         selector === ".api-class" ? [section] : [],
       querySelector: () => null,

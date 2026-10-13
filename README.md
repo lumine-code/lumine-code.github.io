@@ -29,6 +29,8 @@ The API search finds classes, methods and properties by name or description. Qua
 
 Documentation uses proportional columns and rules spanning the page and its content column. While a guide loads, the current article stays visible and a thin progress bar overlays the header border. Heading links reuse the displayed article. Overview tiles open their referenced API, or the source declaration when no documented API target exists.
 
+The API initializes its route before displaying the reference layout, so opening the page or a direct member link does not briefly show another class. Its initial-state script runs before styles; the router then selects the section, prepares the index and scrolls before revealing the content.
+
 ## Regenerating the API reference
 
 Install the website's small documentation toolchain and run the generator:
