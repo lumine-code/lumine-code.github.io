@@ -44234,8 +44234,8 @@
             },
             {
               "name": "options.keyBindingTarget",
-              "type": "HTMLElement",
-              "description": "An `HTMLElement` on which to look up the key binding. If this option is not supplied, the first of all matching key bindings for the given command will be rendered.",
+              "type": "HTMLElement|Function",
+              "description": "An `HTMLElement` on which to look up the key binding, or a function evaluated when the tooltip opens. Returning `null` suppresses a scoped binding. If this option is not supplied, the first of all matching key bindings for the given command will be rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.keyBindingTarget",
@@ -44320,7 +44320,7 @@
           "returnDescription": "of `Tooltip` objects that match the `target`.",
           "throws": [],
           "propertyType": null,
-          "line": 273
+          "line": 280
         }
       ]
     },
@@ -52087,5 +52087,5 @@
     }
   ],
   "memberCount": 1527,
-  "generatedAt": "2026-10-13T04:35:18.210Z"
+  "generatedAt": "2026-10-13T04:47:56.970Z"
 }
