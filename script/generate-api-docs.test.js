@@ -155,6 +155,64 @@ test("renders object APIs, callable paths, property contracts and reference link
   }
 });
 
+test("renders linked section navigation, nested headings and typed failure contracts", (context) => {
+  const fixture = renderFixture(context);
+  fixture.api.classes[0].description =
+    "The global API.\n\n## Contracts\n\nRead the property contracts.";
+  const method = fixture.api.objects[0].members[0];
+  method.description =
+    "Run a widget.\n\n## Examples\n\nCall run with valid input.";
+  method.category = "Operations";
+  method.throws = [
+    { type: "Error", description: "When {@link .run} receives invalid input." },
+  ];
+  fixture.api.objects[0].members.push({
+    ...method,
+    name: "observe",
+    signature: ".observe()",
+    category: "Event Subscription",
+    throws: [],
+  });
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  assert.match(html, /aria-label="Widget sections"/);
+  assert.match(
+    html,
+    /href="#widget-group-operations">Operations<span>1<\/span>/,
+  );
+  assert.match(
+    html,
+    /href="#widget-group-event-subscription">Event Subscription<span>1<\/span>/,
+  );
+  assert.match(html, /<h3>Contracts<\/h3>/);
+  assert.match(html, /<h5>Examples<\/h5>/);
+  assert.match(html, /api-throws-section"><h5>Throws<\/h5>/);
+  assert.match(html, /<code class="api-type-expression">Error<\/code>/);
+  assert.match(
+    html,
+    /When <a class="api-ref" href="#widget-static-run">\.run<\/a> receives invalid input/,
+  );
+  assert.doesNotMatch(html, /<h2>(?:Contracts|Examples)<\/h2>/);
+});
+
+test("normalizes deeply numbered source headings without skipping API heading levels", (context) => {
+  const fixture = renderFixture(context);
+  fixture.api.classes[0].description =
+    "The global API.\n\n#### Contracts\n\n##### Details\n\nProperty details.";
+  fixture.api.objects[0].members[0].description =
+    "Run a widget.\n\n#### Examples\n\n##### More Examples\n\nCall run.";
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  assert.match(html, /<h3>Contracts<\/h3>/);
+  assert.match(html, /<h4>Details<\/h4>/);
+  assert.match(html, /<h5>Examples<\/h5>/);
+  assert.match(html, /<h6>More Examples<\/h6>/);
+});
+
 test("checks generated object documentation for drift without rewriting output", (context) => {
   const fixture = renderFixture(context);
   assert.equal(fixture.generate().status, 0);

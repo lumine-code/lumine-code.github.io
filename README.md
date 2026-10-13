@@ -31,6 +31,8 @@ The generator uses the canonical JSDoc extractor and source registry from the se
 
 A standalone `/** @category Layout */` comment in a class or object body starts a section for following API members. An `@category` tag inside a member's own JSDoc overrides only that member's category. Place it after the description and other tags, preserving the `@public`, `@status`, blank-line header. Public members cannot appear under a category starting with `Private`.
 
+Run `npm run check:api-docs` and `npm run test:api-extractor` in the editor checkout before regenerating. Public methods need a description and typed parameters, including nested options and callback payloads; asynchronous methods declare their Promise result. Typed properties may omit descriptions when the type already explains them. Use `@throws {ErrorType}` for failure conditions. The reference includes documented class fields, typed failure contracts, section links and a consistent heading hierarchy.
+
 ## Local preview
 
 Serve the folder over HTTP and open the printed URL:

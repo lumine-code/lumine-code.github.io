@@ -201,9 +201,24 @@ function linkReferences(text, classNames, memberAnchors, currentClass) {
     .join("");
 }
 
-function renderDoc(text, classNames, memberAnchors, currentClass) {
-  return markdown.render(
+function renderDoc(
+  text,
+  classNames,
+  memberAnchors,
+  currentClass,
+  firstHeadingLevel = 5,
+) {
+  const html = markdown.render(
     linkReferences(text, classNames, memberAnchors, currentClass),
+  );
+  const headings = [...html.matchAll(/<h([1-6])(?:\s|>)/g)].map((match) =>
+    Number(match[1]),
+  );
+  const originalFirstLevel = Math.min(...headings);
+  return html.replace(
+    /<(\/?)h([1-6])(\b[^>]*)>/g,
+    (_tag, closing, level, attributes) =>
+      `<${closing}h${Math.min(6, firstHeadingLevel + Number(level) - originalFirstLevel)}${attributes}>`,
   );
 }
 
@@ -350,6 +365,17 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
     );
   }
 
+  if (entry.throws?.length) {
+    sections.push(
+      `<section class="api-return-section api-throws-section"><h5>Throws</h5><div>${entry.throws
+        .map(
+          (error) =>
+            `<p class="api-return-value">${renderType(error.type, classNames)}${error.description ? ` — ${renderInlineDoc(error.description, classNames, memberAnchors, currentClass)}` : ""}</p>`,
+        )
+        .join("")}</div></section>`,
+    );
+  }
+
   return sections.join("");
 }
 
@@ -363,7 +389,7 @@ function renderSignature(signature) {
   return `<code class="api-signature"><span class="api-signature-name">${renderIdentifier(signature.slice(0, openingParen))}</span><span class="api-signature-parameters">${escapeHtml(signature.slice(openingParen))}</span></code>`;
 }
 
-// The article and the member rail split a class the same way, so they read the
+// The article and the section index split a class the same way, so they read the
 // same grouping: declaration order, using JSDoc sections and member overrides.
 function byCategory(members) {
   const groups = new Map();
@@ -422,7 +448,12 @@ function renderHtml(api) {
   // title. Functions are gathered from across the tree and keep theirs.
   const classes = apiTypes
     .map((item) => {
-      const members = byCategory(item.members)
+      const categories = byCategory(item.members);
+      const sectionIndex =
+        categories.length > 1
+          ? `<nav class="api-group-index" aria-label="${escapeHtml(item.name)} sections">${categories.map(([category, entries]) => `<a href="#${groupId(item.name, category)}">${escapeHtml(category)}<span>${entries.length}</span></a>`).join("")}</nav>`
+          : "";
+      const members = categories
         .map(([category, entries]) => {
           return `
             <section class="api-group api-group-${slug(category)}" id="${groupId(item.name, category)}">
@@ -492,8 +523,9 @@ function renderHtml(api) {
           <h2>${escapeHtml(item.name)}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${item.line}">${escapeHtml(item.source)}:${item.line}</a></h2>
           ${item.accessPath ? `<p class="api-access-path"><code>${escapeHtml(item.accessPath)}</code></p>` : ""}
           ${item.superClass && classNames.has(item.superClass) ? `<p class="api-extends">Extends <a href="#class-${slug(item.superClass)}"><code>${escapeHtml(item.superClass)}</code></a></p>` : ""}
-          ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name)}</div>` : ""}</header>
-          ${members || '<p class="api-empty">No documented public members.</p>'}
+          ${sectionIndex}
+          ${item.description ? `<div class="api-description-body api-class-description">${renderDoc(item.description, classNames, memberAnchors, item.name, 3)}</div>` : ""}</header>
+          ${members || (item.description ? "" : '<p class="api-empty">No documented public members.</p>')}
         </section>`;
     })
     .join("\n");
@@ -606,6 +638,11 @@ function renderHtml(api) {
       .api-return-value { margin: 0; color: var(--soft); line-height: 1.55; }
       .api-source { color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 400; white-space: nowrap; transition: color .15s ease; }
       .api-source:hover { color: var(--gold-strong); }
+      .api-group-index { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 18px 0; padding: 14px 0; border-block: 1px solid var(--api-divider); }
+      .api-group-index a { display: inline-flex; gap: 6px; align-items: baseline; color: var(--soft); font-size: .8rem; line-height: 1.5; }
+      .api-group-index a:hover, .api-group-index a:focus-visible { color: var(--gold-strong); }
+      .api-group-index a span { color: var(--muted); font-size: .7rem; }
+      .api-throws-section .api-return-value + .api-return-value { margin-top: 8px; }
       .api-group { margin-top: 36px; scroll-margin-top: 88px; }
       .api-group > h3 { display: flex; align-items: center; gap: 9px; margin: 0 0 11px; color: var(--text); font-size: 1rem; }
       .api-group-count { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6rem; height: 1.3rem; padding: 0 6px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: .66rem; font-weight: 700; }
