@@ -6,6 +6,8 @@ const path = require("node:path");
 const { execFileSync } = require("node:child_process");
 const site = path.resolve(__dirname, "..");
 const workspace = path.resolve(process.argv[2] || path.join(site, ".."));
+// Maintainer-only packages stay out even if a repository is publicly readable.
+const excludedRepositories = new Set(["bacadra-tools", "banager-tools"]);
 const git = (cwd, args) =>
   execFileSync("git", args, {
     cwd,
@@ -32,7 +34,7 @@ async function main() {
   for (const directory of fs.readdirSync(workspace, { withFileTypes: true })) {
     if (!directory.isDirectory() || directory.name.startsWith(".")) continue;
     const repo = directory.name;
-    if (!publicRepos.has(repo)) continue;
+    if (excludedRepositories.has(repo) || !publicRepos.has(repo)) continue;
     const cwd = path.join(workspace, repo);
     try {
       const manifest = JSON.parse(

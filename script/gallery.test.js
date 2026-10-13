@@ -9,6 +9,12 @@ const { entries } = JSON.parse(
   fs.readFileSync(path.join(root, "gallery.json"), "utf8"),
 );
 
+test("the gallery excludes private maintainer packages", () => {
+  for (const item of entries) {
+    assert.ok(!["bacadra-tools", "banager-tools"].includes(item.repo));
+  }
+});
+
 test("gallery assets link to immutable public repository images with intrinsic dimensions", () => {
   assert.ok(entries.length > 0);
   assert.equal(new Set(entries.map((item) => item.id)).size, entries.length);
