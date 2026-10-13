@@ -25,6 +25,8 @@ Run `npm run test:docs` to check navigation, legacy redirects and links in the m
 
 The landing page, manual and API share light and dark themes. The theme follows the system preference until a visitor chooses one; that choice is saved across pages. Shared colors and typography live in `styles.css`, and API-specific presentation lives in `api/styles.css`. Edit the API markup in `script/generate-api-docs.js`, then regenerate the reference. Run `npm run test:site` to check theme selection, storage fallback and keyboard navigation.
 
+The API search finds classes, methods and properties by name or description. Qualified names such as `TextEditor.getText` work too. Search results open the matching contract, and the index remains available while reading. The manual provides an on-page contents list and a direct link to each guide's source.
+
 ## Regenerating the API reference
 
 Install the website's small documentation toolchain and run the generator:

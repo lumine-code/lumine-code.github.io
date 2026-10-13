@@ -6,19 +6,19 @@ html {
 .api-main {
   width: min(var(--maxw), calc(100% - 64px));
   margin: 0 auto;
-  padding: 64px 0 80px;
+  padding: 40px 0 64px;
 }
 
 .api-header {
-  padding-bottom: 40px;
-  margin-bottom: 40px;
+  padding-bottom: 28px;
+  margin-bottom: 32px;
   border-bottom: 1px solid var(--border);
 }
 
 .api-header h1 {
-  margin: 16px 0 20px;
+  margin: 12px 0 16px;
   font-family: var(--display);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.05em;
@@ -39,17 +39,113 @@ html {
 
 .api-layout {
   display: grid;
-  grid-template-columns: 236px minmax(0, 1000px);
+  grid-template-columns: 260px minmax(0, 1000px);
   grid-template-areas: "sidebar content";
-  gap: 40px;
+  gap: 32px;
   align-items: start;
 }
 
 .api-sidebar {
   grid-area: sidebar;
+  position: sticky;
+  top: calc(var(--nav-height) + 20px);
   min-width: 0;
+  max-height: calc(100svh - var(--nav-height) - 40px);
+  overflow: auto;
+  overscroll-behavior: contain;
   padding-right: 24px;
   border-right: 1px solid var(--border);
+}
+
+.api-search {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-bottom: 16px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.api-search label {
+  display: block;
+  margin-bottom: 8px;
+}
+.api-search-field {
+  display: flex;
+  min-width: 0;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+.api-search-field:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+.api-search-field input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: 400 14px/1.4 var(--font);
+}
+.api-search-field input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+.api-search-field input:focus {
+  outline: none;
+}
+.api-search-field input::-webkit-search-cancel-button {
+  display: none;
+}
+.api-search-field button {
+  flex: none;
+  width: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 22px;
+  cursor: pointer;
+}
+.api-search-field button:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+.api-search-status {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.api-search-results {
+  display: flex;
+  flex-direction: column;
+}
+.api-search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.api-search-result:hover,
+.api-search-result:focus-visible {
+  background: var(--surface);
+}
+.api-search-result:focus-visible {
+  outline-offset: -3px;
+}
+.api-search-name {
+  color: var(--text);
+  font: 500 14px/1.5 var(--mono);
+  overflow-wrap: anywhere;
+}
+.api-search-owner {
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .api-tree {
@@ -75,7 +171,7 @@ html {
   margin: 0;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -88,7 +184,7 @@ html {
   border-left: 2px solid transparent;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   overflow-wrap: anywhere;
   transition:
@@ -156,7 +252,7 @@ html {
 .api-class-header :is(.api-extends, .api-access-path) {
   margin: 12px 0 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   overflow-wrap: anywhere;
 }
 
@@ -261,7 +357,7 @@ html {
 .api-description-body pre code {
   padding: 0;
   background: none;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 
 .api-description-body blockquote {
@@ -319,7 +415,7 @@ html {
   gap: 10px;
   width: fit-content;
   color: var(--soft);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   font-weight: 500;
   list-style: none;
   cursor: pointer;
@@ -371,7 +467,7 @@ html {
 .api-argument-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.86rem;
+  font-size: 0.9375rem;
 }
 
 .api-argument-table th {
@@ -380,7 +476,7 @@ html {
   background: var(--surface);
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   text-align: left;
@@ -420,14 +516,14 @@ html {
   padding: 0;
   background: none;
   color: var(--text);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   overflow-wrap: anywhere;
 }
 
 .api-argument-note {
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
 }
 
 .api-argument-type .api-type-expression {
@@ -462,7 +558,7 @@ html {
   background: none;
   color: var(--accent);
   font-family: var(--mono);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   white-space: nowrap;
 }
 
@@ -489,7 +585,7 @@ html {
   margin: 0;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -505,7 +601,7 @@ html {
 .api-source {
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 400;
   white-space: nowrap;
 }
@@ -530,7 +626,7 @@ html {
   align-items: baseline;
   gap: 8px;
   color: var(--soft);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
 }
 
 .api-group-index a:hover {
@@ -540,7 +636,7 @@ html {
 .api-group-index a span {
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
 }
 
 .api-throws-section .api-return-value + .api-return-value {
@@ -565,7 +661,7 @@ html {
 .api-group-count {
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 400;
 }
 
@@ -635,7 +731,7 @@ html {
   gap: 7px;
   min-width: 0;
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.9375rem;
   overflow-wrap: anywhere;
 }
 
@@ -665,7 +761,7 @@ html {
 
 .api-property-colon {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 
@@ -750,7 +846,7 @@ html {
   align-items: baseline;
   gap: 7px;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 
@@ -798,7 +894,7 @@ html {
 .api-badge {
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.035em;
   line-height: 1.5;
@@ -870,8 +966,8 @@ html {
 
 @media (max-width: 1200px) {
   .api-layout {
-    grid-template-columns: 208px minmax(0, 1fr);
-    gap: 28px;
+    grid-template-columns: 236px minmax(0, 1fr);
+    gap: 24px;
   }
 
   .api-sidebar {
@@ -892,7 +988,7 @@ html {
 @media (max-width: 900px) {
   .api-main {
     width: calc(100% - 40px);
-    padding-top: 40px;
+    padding-top: 28px;
   }
 
   .api-layout {
@@ -902,7 +998,28 @@ html {
   }
 
   .api-sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
     padding: 0;
+    border: 0;
+  }
+
+  .api-search {
+    position: static;
+    padding: 0;
+    border: 0;
+    margin-bottom: 16px;
+  }
+  .api-search-field input {
+    font-size: 16px;
+  }
+  .api-search-results {
+    max-height: 50svh;
+    overflow: auto;
+    border: 1px solid var(--border);
+  }
+  .api-tree {
     border: 1px solid var(--border);
   }
 
@@ -943,7 +1060,7 @@ html {
 @media (max-width: 620px) {
   .api-main {
     width: calc(100% - 32px);
-    padding: 32px 0 48px;
+    padding: 24px 0 48px;
   }
 
   .api-header {
@@ -1029,7 +1146,7 @@ html {
     margin-right: 8px;
     color: var(--muted);
     font-family: var(--mono);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
   }
 

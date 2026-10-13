@@ -683,6 +683,7 @@ function renderHtml(api) {
     <script src="../script/site.js"></script>
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="../script/api-search.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -691,8 +692,11 @@ function renderHtml(api) {
       <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./" aria-current="page">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">Dark</button></nav>
     </header>
     <main class="api-main" id="top" tabindex="-1">
-      <header class="api-header"><p class="eyebrow">03 / Reference</p><h1>Lumine API reference</h1><p>Public APIs extracted directly from Lumine&rsquo;s JSDoc source comments.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.objects.length} objects &middot; ${api.memberCount} documented members</p></header>
-      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar><details class="api-tree"><summary class="api-rail-heading">Browse API</summary><nav class="api-tree-scroll" aria-label="API index">${apiIndexList}</nav></details></aside><article class="api-content">${classes}${functions}</article></div>
+      <header class="api-header"><p class="eyebrow">03 / Reference</p><h1>Lumine API reference</h1><p>Explore the classes and methods you can use to extend Lumine.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.objects.length} objects &middot; ${api.memberCount} documented members</p></header>
+      <div class="api-layout"><aside class="api-sidebar" data-api-sidebar>
+        <form class="api-search" role="search"><label class="api-rail-heading" for="api-search-input">Find an API</label><div class="api-search-field"><input id="api-search-input" data-api-search type="search" placeholder="Class or method name" autocomplete="off" spellcheck="false" aria-controls="api-search-results" /><button type="button" aria-label="Clear API search" hidden>&times;</button></div></form>
+        <p class="api-search-status" data-api-search-status role="status" hidden></p><nav class="api-search-results" id="api-search-results" data-api-search-results aria-label="API search results" hidden></nav>
+        <details class="api-tree"><summary class="api-rail-heading">Browse API</summary><nav class="api-tree-scroll" aria-label="API index">${apiIndexList}</nav></details></aside><article class="api-content">${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
     <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links" aria-label="Footer navigation"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
@@ -744,7 +748,7 @@ function renderHtml(api) {
       }
 
       // Split-pane router: show one class at a time, driven by the hash.
-      const showClass = () => {
+      const showClass = (focusTarget = false) => {
         const key = currentKey();
         for (const section of sections) section.hidden = section.id !== key;
         const hash = location.hash.slice(1);
@@ -760,6 +764,13 @@ function renderHtml(api) {
         if (classDescription) classDescription.open = true;
         const targetMember = target?.matches('[data-api-expandable]') ? target : null;
         if (targetMember) setMemberExpanded(targetMember, true);
+        if (focusTarget) {
+          const focus = targetMember?.querySelector('.api-member-toggle') || target?.querySelector('h2') || target;
+          if (focus) {
+            if (!focus.matches('a, button, input')) focus.tabIndex = -1;
+            focus.focus({ preventScroll: true });
+          }
+        }
         if (hash && !sectionIds.has(hash)) {
           if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'auto' }));
         } else {
@@ -781,7 +792,7 @@ function renderHtml(api) {
         }
         const anchor = event.target.closest('.api-anchor');
         if ((navigationLink || anchor)?.hash === location.hash) {
-          requestAnimationFrame(showClass);
+          requestAnimationFrame(() => showClass(true));
         }
         if (!anchor || !navigator.clipboard) return;
         navigator.clipboard
@@ -794,7 +805,7 @@ function renderHtml(api) {
           .catch(() => {});
       });
 
-      window.addEventListener('hashchange', showClass);
+      window.addEventListener('hashchange', () => showClass(true));
       showClass();
     </script>
   </body>

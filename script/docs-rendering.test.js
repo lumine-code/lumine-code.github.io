@@ -248,6 +248,7 @@ test("page contents follow the introduction and link to the canonical heading ro
     { id: "open-files-and-projects", textContent: "Open files and projects" },
   ];
   const breadcrumbEl = { textContent: "" };
+  const sourceLink = { href: "", hidden: true };
   const tocEl = { hidden: true };
   const tocLinksEl = {
     children: [],
@@ -271,6 +272,10 @@ test("page contents follow the introduction and link to the canonical heading ro
     tocEl,
     tocLinksEl,
     document: {
+      querySelector(selector) {
+        assert.equal(selector, "[data-doc-source]");
+        return sourceLink;
+      },
       createElement(tag) {
         return {
           tag,
@@ -289,6 +294,11 @@ test("page contents follow the introduction and link to the canonical heading ro
   const navigation = createNavigation(manifest);
   const [page] = navigation.pages;
   context.pageContext(page);
+  assert.equal(
+    sourceLink.href,
+    "https://github.com/lumine-code/lumine-code.github.io/blob/master/docs/getting-started/install-and-launch.md",
+  );
+  assert.equal(sourceLink.hidden, false);
   assert.equal(
     breadcrumbEl.textContent,
     "Getting started / Install and launch",

@@ -629,9 +629,16 @@ test("class description headings have scoped anchors and deep links reveal the f
   const section = { id: "class-environment", hidden: true };
   const details = { open: false };
   let scrolls = 0;
+  let focuses = 0;
   const target = {
     closest: (selector) => (selector === ".api-class" ? section : details),
+    querySelector: () => null,
     matches: () => false,
+    focus: (options) => {
+      assert.equal(options.preventScroll, true);
+      assert.equal(details.open, true);
+      focuses++;
+    },
     scrollIntoView: () => {
       assert.equal(section.hidden, false);
       assert.equal(
@@ -674,6 +681,12 @@ test("class description headings have scoped anchors and deep links reveal the f
     "a repeated anchor click should reopen the contract",
   );
   assert.equal(scrolls, 2);
+  assert.equal(
+    focuses,
+    1,
+    "activating a deep link should focus the revealed heading",
+  );
+  assert.equal(target.tabIndex, -1);
 });
 
 test("every generated API member stays in its class and every class stays in the layout", async () => {

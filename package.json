@@ -7,7 +7,7 @@
     "start": "node script/serve.js",
     "docs:api": "node script/generate-api-docs.js",
     "docs:api:check": "node script/generate-api-docs.js --check",
-    "test:api-docs": "node --test script/generate-api-docs.test.js",
+    "test:api-docs": "node --test script/generate-api-docs.test.js script/api-search.test.js",
     "test:docs": "node --test script/docs-navigation.test.js script/docs-rendering.test.js",
     "test:site": "node --test script/site.test.js",
     "assets:sync": "node script/check-assets.js --write",

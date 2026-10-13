@@ -88,6 +88,9 @@
           aria-label="Documentation pages"
           data-pager
         ></nav>
+        <a class="doc-source-link" data-doc-source hidden
+          >View this guide on GitHub <span aria-hidden="true">↗</span></a
+        >
       </div>
     </main>
 
@@ -265,6 +268,11 @@
         };
 
         const pageContext = (page) => {
+          const sourceLink = document.querySelector("[data-doc-source]");
+          sourceLink.href =
+            "https://github.com/lumine-code/lumine-code.github.io/blob/master/" +
+            page.file;
+          sourceLink.hidden = false;
           breadcrumbEl.textContent =
             page.categoryTitle === page.title
               ? page.title
