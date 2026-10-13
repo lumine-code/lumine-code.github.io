@@ -94,22 +94,20 @@ async function main() {
     "View Lumine version information.",
   ];
   for (let index = 1; index <= 4; index++) {
-    for (const palette of ["light", "dark"]) {
-      const file = `.github/gallery/${String(index).padStart(2, "0")}-${palette}.png`;
-      git(main, ["cat-file", "-e", `origin/master:${file}`]);
-      entries.push({
-        id: `lumine-${index}-${palette}`,
-        repo: "lumine",
-        category: "editor",
-        description: "The Lumine editor.",
-        caption: captions[index - 1],
-        width: 1600,
-        height: 1088,
-        src: `https://raw.githubusercontent.com/lumine-code/lumine/${revision}/${file}`,
-        repository: "https://github.com/lumine-code/lumine",
-        source: `https://github.com/lumine-code/lumine/blob/${revision}/${file}`,
-      });
-    }
+    const file = `.github/gallery/view-${index}.png`;
+    git(main, ["cat-file", "-e", `origin/master:${file}`]);
+    entries.push({
+      id: `lumine-${index}`,
+      repo: "lumine",
+      category: "editor",
+      description: "The Lumine editor.",
+      caption: captions[index - 1],
+      width: 1440,
+      height: 900,
+      src: `https://raw.githubusercontent.com/lumine-code/lumine/${revision}/${file}`,
+      repository: "https://github.com/lumine-code/lumine",
+      source: `https://github.com/lumine-code/lumine/blob/${revision}/${file}`,
+    });
   }
   entries.sort(
     (a, b) =>

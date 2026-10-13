@@ -70,7 +70,9 @@
         );
         button.disabled = true;
       });
-      button.append(img);
+      const imageFrame = make("span", "gallery-image");
+      imageFrame.append(img);
+      button.append(imageFrame);
       button.addEventListener("click", () => {
         opener = button;
         preview(index);
