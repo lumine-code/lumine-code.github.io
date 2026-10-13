@@ -468,14 +468,6 @@ html {
   text-transform: uppercase;
 }
 
-.api-argument-table th:first-child {
-  width: 11rem;
-}
-
-.api-argument-table th:nth-child(2) {
-  width: 6rem;
-}
-
 .api-argument-table td {
   padding: 12px;
   border-bottom: 1px solid var(--border);
@@ -483,6 +475,13 @@ html {
   line-height: 1.6;
   vertical-align: top;
   overflow-wrap: anywhere;
+}
+
+/* Let the automatic table layout reserve the natural width of names and
+   types before distributing spare space to descriptions. */
+.api-argument-table td:first-child,
+.api-argument-type {
+  overflow-wrap: break-word;
 }
 
 .api-argument-table tr:last-child td {
@@ -502,7 +501,7 @@ html {
   background: none;
   color: var(--text);
   font-size: 0.875rem;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .api-argument-note {
@@ -513,7 +512,7 @@ html {
 
 .api-argument-type .api-type-expression {
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .api-argument-description,
@@ -1142,6 +1141,12 @@ html {
   .api-argument-table td {
     padding: 0 12px;
     border: 0;
+  }
+
+  .api-argument-table td,
+  .api-argument-name code,
+  .api-argument-type .api-type-expression {
+    overflow-wrap: anywhere;
   }
 
   .api-argument-table td.api-argument-type {

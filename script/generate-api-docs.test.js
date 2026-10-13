@@ -243,23 +243,18 @@ test("loads shared presentation and an external API stylesheet without embedding
         hasClass(node, "skip-link") && attribute(node, "href") === "#top",
     ),
   );
-  assert.ok(
-    nodes.some(
-      (node) =>
-        node.tagName === "select" &&
-        attribute(node, "data-theme-select") !== undefined &&
-        Boolean(attribute(node, "aria-label")),
-    ),
+  const themeButton = nodes.find(
+    (node) => attribute(node, "data-theme-toggle") !== undefined,
   );
-  const themeSelect = nodes.find(
-    (node) => attribute(node, "data-theme-select") !== undefined,
+  assert.equal(themeButton.tagName, "button");
+  assert.equal(attribute(themeButton, "type"), "button");
+  assert.equal(textContent(themeButton), "System");
+  assert.equal(
+    attribute(themeButton, "aria-label"),
+    "Color theme: System. Switch to Light.",
   );
-  assert.deepEqual(
-    themeSelect.childNodes
-      .filter((node) => node.tagName === "option")
-      .map((node) => attribute(node, "value")),
-    ["system", "dark", "light"],
-  );
+  assert.equal(attribute(themeButton, "aria-pressed"), undefined);
+  assert.equal(attribute(themeButton, "aria-haspopup"), undefined);
   assert.ok(
     nodes.some(
       (node) =>

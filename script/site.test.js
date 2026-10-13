@@ -9,8 +9,14 @@ const vm = require("node:vm");
 const source = fs.readFileSync(path.join(__dirname, "site.js"), "utf8");
 
 function siteHarness(options = {}) {
-  const select = { value: "system" };
-  const controls = options.lateControls ? [] : [select];
+  const button = {
+    textContent: "System",
+    attributes: {},
+    setAttribute(name, value) {
+      this.attributes[name] = value;
+    },
+  };
+  const controls = options.lateControls ? [] : [button];
   const handlers = new Map();
   const stored = new Map();
   if (options.savedTheme != null)
@@ -34,7 +40,7 @@ function siteHarness(options = {}) {
     document: {
       documentElement: root,
       querySelectorAll(selector) {
-        assert.equal(selector, "[data-theme-select]");
+        assert.equal(selector, "[data-theme-toggle]");
         return controls;
       },
       querySelector(selector) {
@@ -84,7 +90,7 @@ function siteHarness(options = {}) {
 
   return {
     root,
-    select,
+    button,
     stored,
     writes,
     removals,
@@ -92,34 +98,66 @@ function siteHarness(options = {}) {
     scrollCalls,
     location,
     click,
-    selectTheme(value, defaultPrevented = false) {
-      select.value = value;
-      handlers.get("change")({
-        defaultPrevented,
-        target: {
-          closest: (selector) => selector === "[data-theme-select]" && select,
-        },
-      });
-    },
+    cycleTheme: (defaultPrevented = false) =>
+      click("[data-theme-toggle]", defaultPrevented),
     changeSystemPreference(dark) {
       mediaQuery.matches = dark;
       preferenceListener({ matches: dark });
     },
     finishParsing() {
-      if (!controls.length) controls.push(select);
+      if (!controls.length) controls.push(button);
       handlers.get("DOMContentLoaded")();
     },
   };
 }
 
-test("System is the default selection and follows live OS changes without storing them", () => {
+function assertThemeButton(button, current, next) {
+  const label = `Color theme: ${current}. Switch to ${next}.`;
+  assert.equal(button.textContent, current);
+  assert.equal(button.attributes["aria-label"], label);
+  assert.equal(button.attributes.title, label);
+  assert.equal(button.attributes["aria-pressed"], undefined);
+  assert.equal(button.attributes["aria-haspopup"], undefined);
+}
+
+test("the home page and manual expose the same native theme button and initialize before paint", async () => {
+  const { parse } = await import("parse5");
+  const elements = (node) => [
+    node,
+    ...(node.childNodes || []).flatMap(elements),
+  ];
+  const attribute = (node, name) =>
+    node.attrs?.find((entry) => entry.name === name)?.value;
+  for (const filename of ["index.html", "docs.html"]) {
+    const html = fs.readFileSync(path.join(__dirname, "..", filename), "utf8");
+    const nodes = elements(parse(html));
+    const buttons = nodes.filter(
+      (node) => attribute(node, "data-theme-toggle") !== undefined,
+    );
+    assert.equal(buttons.length, 1, filename);
+    assert.equal(buttons[0].tagName, "button", filename);
+    assert.equal(attribute(buttons[0], "type"), "button", filename);
+    const initialization = nodes.find(
+      (node) => attribute(node, "src") === "script/site.js",
+    );
+    assert.equal(initialization.parentNode.tagName, "head", filename);
+    assert.equal(attribute(initialization, "defer"), undefined, filename);
+    assert.equal(attribute(initialization, "async"), undefined, filename);
+    assert.ok(
+      html.indexOf('src="script/site.js"') < html.indexOf('href="styles.css"'),
+      filename,
+    );
+  }
+});
+
+test("System is the default preference and follows live OS changes without storing them", () => {
   for (const systemDark of [false, true]) {
     const harness = siteHarness({ systemDark });
     assert.equal(harness.root.dataset.theme, systemDark ? "dark" : "light");
-    assert.equal(harness.select.value, "system");
+    assertThemeButton(harness.button, "System", "Light");
     harness.changeSystemPreference(!systemDark);
     assert.equal(harness.root.dataset.theme, systemDark ? "light" : "dark");
-    assert.equal(harness.select.value, "system");
+    assertThemeButton(harness.button, "System", "Light");
     assert.deepEqual(harness.writes, []);
     assert.deepEqual(harness.removals, []);
   }
@@ -132,7 +170,11 @@ test("existing saved Light and Dark choices override the OS", () => {
       systemDark: savedTheme === "light",
     });
     assert.equal(harness.root.dataset.theme, savedTheme);
-    assert.equal(harness.select.value, savedTheme);
+    assertThemeButton(
+      harness.button,
+      savedTheme === "light" ? "Light" : "Dark",
+      savedTheme === "light" ? "Dark" : "System",
+    );
     harness.changeSystemPreference(savedTheme === "light");
     assert.equal(harness.root.dataset.theme, savedTheme);
   }
@@ -142,7 +184,7 @@ test("System and invalid stored values fall back to the live OS preference", () 
   for (const savedTheme of ["system", "sepia", ""]) {
     const harness = siteHarness({ savedTheme, systemDark: true });
     assert.equal(harness.root.dataset.theme, "dark");
-    assert.equal(harness.select.value, "system");
+    assertThemeButton(harness.button, "System", "Light");
     harness.changeSystemPreference(false);
     assert.equal(harness.root.dataset.theme, "light");
   }
@@ -157,35 +199,60 @@ test("controls parsed after the head script show the selected preference", () =>
     });
     assert.equal(harness.root.dataset.theme, savedTheme || "dark");
     harness.finishParsing();
-    assert.equal(harness.select.value, savedTheme || "system");
+    assertThemeButton(
+      harness.button,
+      savedTheme === "light"
+        ? "Light"
+        : savedTheme === "dark"
+          ? "Dark"
+          : "System",
+      savedTheme === "light"
+        ? "Dark"
+        : savedTheme === "dark"
+          ? "System"
+          : "Light",
+    );
   }
 });
 
-test("selecting Dark or Light persists that choice and ignores later OS changes", () => {
-  for (const preference of ["dark", "light"]) {
-    const harness = siteHarness({ systemDark: preference === "light" });
-    harness.selectTheme(preference);
+test("the button cycles System, Light, Dark and back to System with matching labels", () => {
+  const harness = siteHarness({ systemDark: true });
+  assertThemeButton(harness.button, "System", "Light");
+  for (const preference of ["light", "dark"]) {
+    harness.cycleTheme();
     assert.equal(harness.root.dataset.theme, preference);
     assert.equal(harness.stored.get("lumine-theme"), preference);
-    assert.equal(harness.select.value, preference);
+    assertThemeButton(
+      harness.button,
+      preference === "light" ? "Light" : "Dark",
+      preference === "light" ? "Dark" : "System",
+    );
     harness.changeSystemPreference(false);
     harness.changeSystemPreference(true);
     assert.equal(harness.root.dataset.theme, preference);
-    assert.deepEqual(harness.writes, [["lumine-theme", preference]]);
   }
+  harness.cycleTheme();
+  assertThemeButton(harness.button, "System", "Light");
+  assert.equal(harness.root.dataset.theme, "dark");
+  assert.equal(harness.stored.has("lumine-theme"), false);
+  assert.deepEqual(harness.writes, [
+    ["lumine-theme", "light"],
+    ["lumine-theme", "dark"],
+  ]);
+  assert.deepEqual(harness.removals, ["lumine-theme"]);
 });
 
 test("returning to System clears the saved override and immediately follows the current OS", () => {
-  const harness = siteHarness({ savedTheme: "light" });
-  harness.changeSystemPreference(true);
-  assert.equal(harness.root.dataset.theme, "light");
-  harness.selectTheme("system");
-  assert.equal(harness.select.value, "system");
+  const harness = siteHarness({ savedTheme: "dark", systemDark: true });
+  harness.changeSystemPreference(false);
   assert.equal(harness.root.dataset.theme, "dark");
+  harness.cycleTheme();
+  assertThemeButton(harness.button, "System", "Light");
+  assert.equal(harness.root.dataset.theme, "light");
   assert.equal(harness.stored.has("lumine-theme"), false);
   assert.deepEqual(harness.removals, ["lumine-theme"]);
-  harness.changeSystemPreference(false);
-  assert.equal(harness.root.dataset.theme, "light");
+  harness.changeSystemPreference(true);
+  assert.equal(harness.root.dataset.theme, "dark");
 });
 
 test("blocked storage still permits theme selection for the current page", () => {
@@ -196,11 +263,14 @@ test("blocked storage still permits theme selection for the current page", () =>
     systemDark: true,
   });
   assert.equal(harness.root.dataset.theme, "dark");
-  assert.doesNotThrow(() => harness.selectTheme("light"));
+  assert.doesNotThrow(() => harness.cycleTheme());
   assert.equal(harness.root.dataset.theme, "light");
   harness.changeSystemPreference(true);
   assert.equal(harness.root.dataset.theme, "light");
-  assert.doesNotThrow(() => harness.selectTheme("system"));
+  assert.doesNotThrow(() => harness.cycleTheme());
+  assertThemeButton(harness.button, "Dark", "System");
+  assert.doesNotThrow(() => harness.cycleTheme());
+  assertThemeButton(harness.button, "System", "Light");
   assert.equal(harness.root.dataset.theme, "dark");
   harness.changeSystemPreference(false);
   assert.equal(harness.root.dataset.theme, "light");
@@ -210,9 +280,9 @@ test("blocked storage still permits theme selection for the current page", () =>
 
 test("a failed storage removal still restores System behavior for the current page", () => {
   const harness = siteHarness({ savedTheme: "dark", blockRemove: true });
-  assert.doesNotThrow(() => harness.selectTheme("system"));
+  assert.doesNotThrow(() => harness.cycleTheme());
   assert.equal(harness.root.dataset.theme, "light");
-  assert.equal(harness.select.value, "system");
+  assertThemeButton(harness.button, "System", "Light");
   harness.changeSystemPreference(true);
   assert.equal(harness.root.dataset.theme, "dark");
 });
@@ -235,7 +305,7 @@ test("skip links focus the content while preserving manual and API routes", () =
 test("handled events do not repeat skip navigation or theme changes", () => {
   const harness = siteHarness();
   harness.click(".skip-link", true);
-  harness.selectTheme("dark", true);
+  harness.cycleTheme(true);
   assert.deepEqual(harness.focusCalls, []);
   assert.deepEqual(harness.scrollCalls, []);
   assert.deepEqual(harness.writes, []);

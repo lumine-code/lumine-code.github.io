@@ -42,11 +42,15 @@
           </svg>
           <span>GitHub</span>
         </a>
-        <select class="theme-select" data-theme-select aria-label="Color theme">
-          <option value="system">System</option>
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-        </select>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-label="Color theme: System. Switch to Light."
+          title="Color theme: System. Switch to Light."
+        >
+          System
+        </button>
       </nav>
       <div
         class="page-loading-bar"
@@ -322,6 +326,8 @@
               (rel === "prev" ? "Previous" : "Next") +
               '</span><span class="doc-pager-title">' +
               label +
+              '</span><span class="doc-pager-arrow" aria-hidden="true">' +
+              (rel === "prev" ? "←" : "→") +
               "</span>";
             pagerEl.appendChild(a);
           };

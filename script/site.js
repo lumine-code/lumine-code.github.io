@@ -4,18 +4,25 @@
 (() => {
   const root = document.documentElement;
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  const preferences = ["system", "light", "dark"];
+  const labels = { system: "System", light: "Light", dark: "Dark" };
   let preference = "system";
   try {
     const savedTheme = window.localStorage.getItem("lumine-theme");
     if (savedTheme === "light" || savedTheme === "dark")
       preference = savedTheme;
   } catch {
-    // Private or restricted browsing still gets a working theme selector.
+    // Private or restricted browsing still gets a working theme button.
   }
 
+  const nextPreference = () =>
+    preferences[(preferences.indexOf(preference) + 1) % preferences.length];
   const updateControls = () => {
-    document.querySelectorAll("[data-theme-select]").forEach((select) => {
-      select.value = preference;
+    const label = `Color theme: ${labels[preference]}. Switch to ${labels[nextPreference()]}.`;
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      button.textContent = labels[preference];
+      button.setAttribute("aria-label", label);
+      button.setAttribute("title", label);
     });
   };
   const applyTheme = () => {
@@ -35,13 +42,10 @@
       event.preventDefault();
       document.querySelector("main")?.focus({ preventScroll: true });
       window.scrollTo(0, 0);
+      return;
     }
-  });
-  document.addEventListener("change", (event) => {
-    if (event.defaultPrevented) return;
-    const select = event.target.closest?.("[data-theme-select]");
-    if (!select || !["system", "dark", "light"].includes(select.value)) return;
-    preference = select.value;
+    if (!event.target.closest?.("[data-theme-toggle]")) return;
+    preference = nextPreference();
     applyTheme();
     try {
       if (preference === "system")

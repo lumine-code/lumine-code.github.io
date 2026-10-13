@@ -23,7 +23,7 @@ The manual has seven pages in six chapters: Getting started, Workspace, Customiz
 
 Run `npm run test:docs` to check navigation, legacy redirects and links in the manual. External GitHub documentation links stay external; relative Markdown links and heading links are routed inside the manual.
 
-The landing page, manual and API share System, Dark and Light theme choices. System follows live operating-system changes; an explicit theme is saved across pages. Shared colors and typography live in `styles.css`, and API-specific presentation lives in `api/styles.css`. Edit the API markup in `script/generate-api-docs.js`, then regenerate the reference. Run `npm run test:site` to check theme selection, storage fallback and keyboard navigation.
+The theme button cycles through System, Light and Dark and shows the current preference. System follows live operating-system changes; an explicit theme is saved across pages. Shared colors and typography live in `styles.css`, and API-specific presentation lives in `api/styles.css`. Edit the API markup in `script/generate-api-docs.js`, then regenerate the reference. Run `npm run test:site` to check theme selection, storage fallback and keyboard navigation.
 
 The API search finds classes, methods and properties by name or description. Qualified names such as `TextEditor.getText` work too. Search results open the matching contract, and the index scrolls with the page. The manual provides an on-page contents list and a direct link to each guide's source.
 

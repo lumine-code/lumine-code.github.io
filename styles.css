@@ -160,7 +160,7 @@ pre {
   min-width: 0;
 }
 .nav-links > a,
-.theme-select {
+.theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -177,7 +177,7 @@ pre {
   cursor: pointer;
 }
 .nav-links > a:hover,
-.theme-select:hover {
+.theme-toggle:hover {
   background: var(--surface);
   color: var(--text);
 }
@@ -185,12 +185,12 @@ pre {
   background: var(--text);
   color: var(--bg);
 }
-.theme-select {
+.theme-toggle {
   min-width: 112px;
   border-radius: 0;
 }
 .nav a:focus-visible,
-.theme-select:focus-visible {
+.theme-toggle:focus-visible {
   outline-offset: -5px;
 }
 .eyebrow,
@@ -487,9 +487,14 @@ button.nav-group-title::after {
 }
 .doc-content {
   --reading-padding: var(--doc-content-padding);
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-width: 0;
-  padding: 32px var(--reading-padding) 64px;
+  padding: 32px var(--reading-padding) 0;
+}
+.doc-content > .prose {
+  flex: 1;
 }
 .doc-content > .prose > :not(.doc-toc),
 .doc-toc > * {
@@ -575,46 +580,76 @@ button.nav-group-title::after {
   }
 }
 .doc-pager {
-  display: flex;
-  gap: 24px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   margin: 48px calc(-1 * var(--reading-padding)) 0;
-  padding: 20px var(--reading-padding) 0;
+  padding: 0;
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.doc-pager:empty {
+  display: none;
 }
 .doc-pager-link {
-  display: flex;
-  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "label arrow" "title arrow";
+  align-content: center;
+  align-items: center;
   min-width: 0;
-  flex-direction: column;
-  gap: 6px;
-  padding: 8px 0;
+  min-height: 104px;
+  gap: 6px 24px;
+  padding: 22px var(--reading-padding);
+  text-align: left;
+}
+.doc-pager-link + .doc-pager-link {
+  border-left: 1px solid var(--border);
+}
+.doc-pager-link:hover {
+  background: var(--surface);
+}
+.doc-pager-link:focus-visible,
+.doc-source-link:focus-visible {
+  outline-offset: -4px;
 }
 .doc-pager-link:hover .doc-pager-title {
   color: var(--accent);
 }
-.doc-pager-next {
-  text-align: right;
+.doc-pager-prev {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "arrow label" "arrow title";
 }
 .doc-pager-rel {
+  grid-area: label;
   color: var(--muted);
   font: 500 12px/1.5 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .doc-pager-title {
-  font: 500 17px/1.4 var(--display);
+  grid-area: title;
+  font: 500 20px/1.4 var(--display);
+  overflow-wrap: anywhere;
+}
+.doc-pager-arrow {
+  grid-area: arrow;
+  color: var(--accent);
+  font: 400 24px/1 var(--font);
 }
 .doc-source-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 28px;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  margin: 0 calc(-1 * var(--reading-padding));
+  padding: 16px var(--reading-padding);
   color: var(--muted);
   font-size: 13px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 .doc-source-link:hover {
+  background: var(--surface);
   color: var(--accent);
 }
 .prose {
@@ -754,7 +789,7 @@ button.nav-group-title::after {
   }
   .doc-content {
     --reading-padding: var(--page-padding);
-    padding: 28px var(--reading-padding) 48px;
+    padding: 28px var(--reading-padding) 0;
   }
   .doc-tree-summary {
     display: flex;
@@ -809,12 +844,12 @@ button.nav-group-title::after {
     height: 26px;
   }
   .nav-links > a,
-  .theme-select {
+  .theme-toggle {
     padding: 0 12px;
     font-size: 12px;
     letter-spacing: 0.03em;
   }
-  .theme-select {
+  .theme-toggle {
     min-width: 88px;
   }
   .nav-github svg {
@@ -879,7 +914,7 @@ button.nav-group-title::after {
   }
   .doc-content {
     --reading-padding: 20px;
-    padding: 24px var(--reading-padding) 40px;
+    padding: 24px var(--reading-padding) 0;
   }
   .doc-context {
     gap: 8px;
@@ -891,7 +926,17 @@ button.nav-group-title::after {
     flex-direction: column;
   }
   .doc-pager {
-    gap: 18px;
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 36px;
+  }
+  .doc-pager-link {
+    min-height: 88px;
+    padding-block: 18px;
+  }
+  .doc-pager-link + .doc-pager-link {
+    border-left: 0;
+    border-top: 1px solid var(--border);
   }
   .prose {
     font-size: 15px;
@@ -915,7 +960,7 @@ button.nav-group-title::after {
     flex: 1;
   }
   .nav-links > a,
-  .theme-select {
+  .theme-toggle {
     flex: 1;
     padding: 0 10px;
   }
