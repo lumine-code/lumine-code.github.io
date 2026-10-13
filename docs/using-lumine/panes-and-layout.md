@@ -6,13 +6,23 @@ Lumine's workspace is made of **panes** (which hold editors and other items) and
 
 The bundled `tabs` package puts a tab per open item at the top of each pane. Drag tabs to reorder them, or drag them between panes. `pane:show-next-item` and `pane:show-previous-item` cycle through a pane's items; `pane:reopen-closed-item` brings back the last item you closed.
 
-Packages → Tabs contains the tab commands. Close All Tabs closes the active pane's tabs; Close All Tabs in Workspace closes tabs in every pane of the window. From a tab's context menu, commands act on that tab. Batch closing stops when a close is refused.
+Packages → Tabs contains the tab commands. Close All Tabs closes the active pane's tabs; Close All Tabs in Workspace closes tabs in every pane across all windows of the workspace. From a tab's context menu, commands act on that tab. Batch closing stops when a close is refused.
 
 Open in New Window moves a tab into a new window, keeping its unsaved text, selections, and scroll position. Dragging a tab into another window preserves the same state. If that window already has unsaved changes for the file, the move is refused and both copies stay intact.
 
 With `core.allowPendingPaneItems` enabled, a single click in the tree opens a temporary preview tab. Opening another file replaces that preview. Image Editor, PDF View and Archive View can load the next compatible file into the existing preview, keeping the viewer in place; PDF View also keeps its iframe runtime. Archive View prepares the new contents before replacing its tree, so a loading failure keeps the previous archive available. Double-clicking a file keeps its tab, and editing an image keeps that image's tab. Replaced previews remain available through `pane:reopen-closed-item`.
 
 Double-clicking a tab toggles its pending preview state, just like `pane:toggle-pending-item` does for the active tab. Double-click a permanent tab to make it a preview, or a preview tab to keep it open. If another tab in the pane was pending, it stays open as a permanent tab. Editing or saving a preview makes it permanent.
+
+## Detached windows
+
+Use **Detach Tab** in a tab's context menu to move that tab into an additional window of the same workspace. **Detach Pane**, directly above **Close Pane**, moves the complete pane and its tabs. It is also available on the tab bar's empty space, an empty pane, and through View → Panes. These windows have their own title bar, status bar, tabs and split layout; they share the project's documents, package runtime and running backends.
+
+Open another view of a file in either window to keep independent selections, scrolling and folds while editing the same buffer and undo history. Moving an existing view preserves its model, unsaved contents and resources. Tool docks remain in the main window. Layout controls affect the window from which they are invoked.
+
+The pin in an additional window's title bar means **Attach to Main Window**. It reattaches the entire split layout. An empty main editor area is replaced; otherwise the returning layout is placed to its right, keeping its internal splits and tab order.
+
+The × of an additional window closes its own tabs, asking about unsaved changes when the final view of a document closes. Other windows remain open. Closing an already empty window with Close Tab follows the separate **Close Empty Detached Windows** setting, whose default is off. Closing or reloading the main window coordinates the whole workspace. Restart restores the window layouts and positions alongside one shared document snapshot, moving an unavailable display's window back onto a current display.
 
 ## Splitting panes
 
@@ -54,4 +64,4 @@ The left, right, and bottom docks hold tool UIs such as the tree view. Items tha
 
 ## Window and font
 
-`window:increase-font-size`, `window:decrease-font-size`, and `window:reset-font-size` adjust the editor font on the fly. `window:toggle-full-screen` and `window:reload` control the window itself.
+`window:increase-font-size`, `window:decrease-font-size`, and `window:reset-font-size` adjust the editor font on the fly. `window:toggle-full-screen` controls the invoking window; `window:reload` reloads the shared workspace and all of its windows.

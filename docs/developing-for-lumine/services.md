@@ -10,7 +10,7 @@ A provider declares what it offers in its `package.json`:
 {
   "providedServices": {
     "status-bar": {
-      "versions": { "1.0.0": "provideStatusBar" }
+      "versions": { "2.0.0": "provideStatusBar" }
     }
   }
 }
@@ -22,7 +22,7 @@ A consumer declares what it wants, with a semver range:
 {
   "consumedServices": {
     "status-bar": {
-      "versions": { "^1.0.0": "consumeStatusBar" }
+      "versions": { "^2.0.0": "consumeStatusBar" }
     }
   }
 }
@@ -41,11 +41,21 @@ module.exports = {
 ```js
 module.exports = {
   consumeStatusBar(service) {
-    this.statusBar = service;
-    return new Disposable(() => (this.statusBar = null));
+    return service.addLeftTile({
+      windows: "all",
+      create({ document, editorContainer }) {
+        const element = document.createElement("span");
+        const subscription = editorContainer.observeActivePaneItem((item) => {
+          element.textContent = item?.getTitle?.() ?? "No active tab";
+        });
+        return { element, dispose: () => subscription.dispose() };
+      },
+    });
   },
 };
 ```
+
+Title-bar and status-bar contributions default to the main window. An explicit `windows: "all"` factory creates independent DOM and subscriptions in every current and future `EditorWindow`, while the package activates once. A contribution's disposal removes all of its instances. Use `context.editorContainer` for local activity and `context.window` for native window actions; shared document services remain workspace-owned. See the [title-bar contract](https://github.com/lumine-code/title-bar/blob/master/docs/title-bar.md) and [status-bar contract](https://github.com/lumine-code/status-bar/blob/master/docs/status-bar.md).
 
 Return a `Disposable` from a consumer method and Lumine calls it when the provider goes away, so a package can cleanly drop a service it is no longer being offered.
 
