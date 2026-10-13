@@ -17557,12 +17557,12 @@
       "name": "MenuManager",
       "superClass": null,
       "visibility": "Extended",
-      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `lumine.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/main.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        { \"label\": \"Toggle Tree View\", \"command\": \"tree-view:toggle\" }\n      ]\n    }\n  ]\n}\n```\n\nSee {@link #add} for more information about adding menus directly.",
+      "description": "Provides a registry for menu items that you'd like to appear in the\napplication menu.\n\nAn instance of this class is always available as the `lumine.menu` global.\n\n## Menu Object Format\n\nHere is an example from Lumine's bundled\n[tree-view](https://github.com/lumine-code/tree-view/blob/master/menus/main.json):\n\n```json\n[\n  {\n    \"label\": \"View\",\n    \"submenu\": [\n      {\n        \"label\": \"Toggle View\",\n        \"submenu\": [{ \"label\": \"Tree View\", \"command\": \"tree-view:toggle\" }]\n      }\n    ]\n  },\n  {\n    \"label\": \"Packages\",\n    \"submenu\": [\n      {\n        \"label\": \"Tree View\",\n        \"submenu\": [\n          { \"label\": \"Focus\", \"command\": \"tree-view:toggle-focus\" },\n          { \"label\": \"Toggle\", \"command\": \"tree-view:toggle\" },\n          { \"label\": \"Reveal Active File\", \"command\": \"tree-view:reveal-active-file\" },\n          { \"label\": \"Toggle Tree Side\", \"command\": \"tree-view:toggle-side\" }\n        ]\n      }\n    ]\n  }\n]\n```\n\nA package declares its menu in a file under `menus/`, with the structure\nabove under a `menu` key:\n\n```json\n{\n  \"menu\": [\n    {\n      \"label\": \"View\",\n      \"submenu\": [\n        {\n          \"label\": \"Toggle View\",\n          \"submenu\": [{ \"label\": \"Tree View\", \"command\": \"tree-view:toggle\" }]\n        }\n      ]\n    }\n  ]\n}\n```\n\nSee {@link #add} for more information about adding menus directly.",
       "summary": "Provides a registry for menu items that you'd like to appear in the application menu.",
       "source": "src/menu-manager.js",
       "sourcePath": "src/menu-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 73,
+      "line": 79,
       "members": [
         {
           "name": "onDidChange",
@@ -17589,7 +17589,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 135
+          "line": 140
         },
         {
           "name": "createMenuBar",
@@ -17646,7 +17646,7 @@
           "returnDescription": "a disposable menu-bar controller and its `element`.",
           "throws": [],
           "propertyType": null,
-          "line": 174
+          "line": 179
         },
         {
           "name": "showPopup",
@@ -17733,7 +17733,7 @@
           "returnDescription": "a disposable popup controller.",
           "throws": [],
           "propertyType": null,
-          "line": 195
+          "line": 200
         },
         {
           "name": "createSelectBox",
@@ -17820,7 +17820,7 @@
           "returnDescription": "a disposable select-box controller and its `element`.",
           "throws": [],
           "propertyType": null,
-          "line": 220
+          "line": 225
         },
         {
           "name": "add",
@@ -17887,7 +17887,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the added menu items.",
           "throws": [],
           "propertyType": null,
-          "line": 253
+          "line": 258
         },
         {
           "name": "update",
@@ -17904,7 +17904,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 344
+          "line": 349
         }
       ]
     },
@@ -52087,5 +52087,5 @@
     }
   ],
   "memberCount": 1527,
-  "generatedAt": "2026-10-13T05:10:39.909Z"
+  "generatedAt": "2026-10-13T05:20:17.463Z"
 }
