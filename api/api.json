@@ -2783,7 +2783,7 @@
           "signature": "::add(itemsBySelector, throwOnInvalidSelector = true)",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\nlumine.contextMenu.add({\n  'lumine-workspace': [{label: 'Help', command: 'application:open-documentation'}],\n  'lumine-text-editor:not([mini])': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'},\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\n## Arguments",
+          "description": "Add context menu items scoped by CSS selectors.\n\n## Examples\n\nTo add a context menu, pass a selector matching the elements to which you\nwant the menu to apply as the top level key, followed by a menu descriptor.\nThe invocation below adds a global 'Help' context menu item and a 'History'\nsubmenu on the editor supporting undo/redo. This is only an example and is\nnot how Lumine's menu is configured by default.\n\n```javascript\nlumine.contextMenu.add({\n  'lumine-workspace': [{label: 'Help', command: 'application:open-documentation'}],\n  'lumine-text-editor:not([mini])': [{\n    label: 'History',\n    submenu: [\n      {label: 'Undo', command:'core:undo'},\n      {label: 'Redo', command:'core:redo'}\n    ]\n  }]\n})\n```\n\nA selector can also declare named groups. The nearest matching DOM element\nsupplies the group order; when several policies match that element, the\nmost specific selector wins, with the most recently added policy breaking\na tie. A context-menu boundary stops both item and policy inheritance.\nContributions from other selectors can join these groups without adding\nseparators. Unclassified items retain their existing separator blocks in\nthe `extensions` group.\n\n```javascript\nlumine.contextMenu.add({\n  'lumine-text-editor:not([mini])': {\n    groupOrder: ['history', 'clipboard', 'extensions'],\n    items: [\n      {label: 'Undo', command: 'core:undo', group: 'history', order: 10},\n      {label: 'Redo', command: 'core:redo', group: 'history', order: 20},\n      {label: 'Copy', command: 'core:copy', group: 'clipboard', order: 10}\n    ]\n  }\n})\n```\n\n## Arguments",
           "summary": "Add context menu items scoped by CSS selectors.",
           "parameters": [
             {
@@ -2792,7 +2792,7 @@
               "optional": false,
               "rest": false,
               "type": "Object",
-              "description": "An `Object` whose keys are CSS selectors and whose values are `Arrays` of item `Objects` containing the following keys:",
+              "description": "An `Object` whose keys are CSS selectors and whose values are item `Arrays` or `{items, groupOrder, sortBy}` descriptors. A descriptor's `groupOrder` lists named groups in display order; `sortBy: 'label'` sorts its items by label. Items contain the following keys:",
               "defaultValue": null
             },
             {
@@ -2821,6 +2821,26 @@
               "optional": true,
               "defaultValue": null,
               "source": "itemsBySelector.command",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.keyBindingCommand",
+              "type": "String",
+              "description": "An equivalent public command whose keyboard shortcut should be displayed. Use this for a contextual wrapper that preserves the same operation; behavior-changing command variants must not borrow a different action's shortcut.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.keyBindingCommand",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.keyBindingTarget",
+              "type": "Element|Function",
+              "description": "The element used only to resolve the shortcut. A function is called with the invoking element as `this` and its first argument, matching tooltip target callbacks; return its editor or another binding scope, or `null` to suppress the shortcut. The selected command still dispatches to the original menu target.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.keyBindingTarget",
               "rest": false,
               "nested": true
             },
@@ -2871,6 +2891,46 @@
               "optional": true,
               "defaultValue": null,
               "source": "itemsBySelector.id",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.group",
+              "type": "String",
+              "description": "The named group this item joins in the selected layout policy. Unknown or omitted groups join `extensions`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.group",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.order",
+              "type": "Number",
+              "description": "The item's position within its named group. Lower numbers appear first; equal or omitted positions sort by label.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.order",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.groupOrder",
+              "type": "Array<String>",
+              "description": "Named groups for this item's submenu, in display order. Empty groups are omitted and surviving groups receive one separator between them.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.groupOrder",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.sortBy",
+              "type": "String",
+              "description": "Set to `'label'` to sort this item's submenu by label.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.sortBy",
               "rest": false,
               "nested": true
             },
@@ -2959,7 +3019,7 @@
           "returnDescription": "Removes the added context-menu items.",
           "throws": [],
           "propertyType": null,
-          "line": 138
+          "line": 165
         },
         {
           "name": "show",
@@ -3044,7 +3104,7 @@
           "returnDescription": "the popup controller.",
           "throws": [],
           "propertyType": null,
-          "line": 268
+          "line": 303
         }
       ]
     },
@@ -17562,7 +17622,7 @@
       "source": "src/menu-manager.js",
       "sourcePath": "src/menu-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 79,
+      "line": 80,
       "members": [
         {
           "name": "onDidChange",
@@ -17589,7 +17649,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 140
+          "line": 142
         },
         {
           "name": "createMenuBar",
@@ -17646,7 +17706,7 @@
           "returnDescription": "a disposable menu-bar controller and its `element`.",
           "throws": [],
           "propertyType": null,
-          "line": 179
+          "line": 197
         },
         {
           "name": "showPopup",
@@ -17733,7 +17793,7 @@
           "returnDescription": "a disposable popup controller.",
           "throws": [],
           "propertyType": null,
-          "line": 200
+          "line": 218
         },
         {
           "name": "createSelectBox",
@@ -17820,7 +17880,7 @@
           "returnDescription": "a disposable select-box controller and its `element`.",
           "throws": [],
           "propertyType": null,
-          "line": 225
+          "line": 243
         },
         {
           "name": "add",
@@ -17873,6 +17933,46 @@
               "nested": true
             },
             {
+              "name": "items.group",
+              "type": "String",
+              "description": "An optional group declared by the containing core menu; defaults to its extensions group.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "items.group",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "items.order",
+              "type": "Number",
+              "description": "An optional position within the group; items without a position follow ordered items.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "items.order",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "items.groupOrder",
+              "type": "Array<String>",
+              "description": "The ordered group names for a submenu the caller owns.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "items.groupOrder",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "items.sortBy",
+              "type": "String",
+              "description": "Set to `label` for an alphabetical list of surfaces; omit for an authored action sequence.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "items.sortBy",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "items.id",
               "type": "String",
               "description": "(internal) A `String` containing the menu item's id.",
@@ -17887,7 +17987,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the added menu items.",
           "throws": [],
           "propertyType": null,
-          "line": 258
+          "line": 280
         },
         {
           "name": "update",
@@ -17904,7 +18004,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 349
+          "line": 371
         }
       ]
     },
@@ -44121,7 +44221,7 @@
       "source": "src/tooltip-manager.js",
       "sourcePath": "src/tooltip-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 70,
+      "line": 71,
       "members": [
         {
           "name": "add",
@@ -44235,7 +44335,7 @@
             {
               "name": "options.keyBindingTarget",
               "type": "HTMLElement|Function",
-              "description": "An `HTMLElement` on which to look up the key binding, or a function evaluated when the tooltip opens. Returning `null` suppresses a scoped binding. If this option is not supplied, the first of all matching key bindings for the given command will be rendered.",
+              "description": "An `HTMLElement` on which to look up the key binding, or a function evaluated when the tooltip opens with the triggering element as `this` and its first argument. An explicit `null` or a function returning `null` suppresses a scoped binding. If this option is not supplied, the first of all matching key bindings for the given command will be rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.keyBindingTarget",
@@ -44257,7 +44357,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the tooltip.",
           "throws": [],
           "propertyType": null,
-          "line": 137
+          "line": 138
         },
         {
           "name": "addComposite",
@@ -44293,7 +44393,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the composite tooltip.",
           "throws": [],
           "propertyType": null,
-          "line": 159
+          "line": 160
         },
         {
           "name": "findTooltips",
@@ -46235,7 +46335,7 @@
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 330,
+      "line": 355,
       "members": [
         {
           "name": "getMainWindow",
@@ -46252,7 +46352,7 @@
           "returnDescription": "The main window, or null before window initialization.",
           "throws": [],
           "propertyType": null,
-          "line": 490
+          "line": 525
         },
         {
           "name": "getWindows",
@@ -46269,7 +46369,7 @@
           "returnDescription": "The current windows.",
           "throws": [],
           "propertyType": null,
-          "line": 502
+          "line": 537
         },
         {
           "name": "openEditorWindow",
@@ -46296,7 +46396,7 @@
           "returnDescription": "The ready presentation window.",
           "throws": [],
           "propertyType": null,
-          "line": 515
+          "line": 550
         },
         {
           "name": "observeWindows",
@@ -46323,7 +46423,7 @@
           "returnDescription": "Removes the observation.",
           "throws": [],
           "propertyType": null,
-          "line": 561
+          "line": 618
         },
         {
           "name": "getFocusedWindow",
@@ -46340,7 +46440,7 @@
           "returnDescription": "The focused window, or null when the workspace lacks focus.",
           "throws": [],
           "propertyType": null,
-          "line": 574
+          "line": 631
         },
         {
           "name": "getWindowForElement",
@@ -46367,7 +46467,7 @@
           "returnDescription": "The owning presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 587
+          "line": 644
         },
         {
           "name": "resolveCommandContext",
@@ -46394,7 +46494,7 @@
           "returnDescription": "window, pane, item, editor, fileEditor and embeddedEditor.",
           "throws": [],
           "propertyType": null,
-          "line": 612
+          "line": 669
         },
         {
           "name": "closeEditorWindow",
@@ -46421,7 +46521,7 @@
           "returnDescription": "Whether the auxiliary window closed or the main-window close request was sent. False means the window was unavailable, busy, or refused closing.",
           "throws": [],
           "propertyType": null,
-          "line": 660
+          "line": 717
         },
         {
           "name": "detachPane",
@@ -46448,7 +46548,7 @@
           "returnDescription": "The new presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 728
+          "line": 793
         },
         {
           "name": "detachItem",
@@ -46475,7 +46575,7 @@
           "returnDescription": "The additional presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 760
+          "line": 825
         },
         {
           "name": "attachWindow",
@@ -46502,7 +46602,7 @@
           "returnDescription": "The main presentation after reattachment.",
           "throws": [],
           "propertyType": null,
-          "line": 790
+          "line": 855
         },
         {
           "name": "registerFileDocument",
@@ -46579,7 +46679,7 @@
           "returnDescription": "The document registration.",
           "throws": [],
           "propertyType": null,
-          "line": 876
+          "line": 952
         },
         {
           "name": "beginFileMove",
@@ -46606,7 +46706,7 @@
           "returnDescription": "A transaction with a ready promise and an asynchronous complete(confirmedRenames) method.",
           "throws": [],
           "propertyType": null,
-          "line": 891
+          "line": 967
         },
         {
           "name": "clear",
@@ -46652,7 +46752,7 @@
           "returnDescription": "that resolves once they are empty.",
           "throws": [],
           "propertyType": null,
-          "line": 1271
+          "line": 1349
         },
         {
           "name": "observeTextEditors",
@@ -46689,7 +46789,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1837
+          "line": 1915
         },
         {
           "name": "observePaneItems",
@@ -46726,7 +46826,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1855
+          "line": 1933
         },
         {
           "name": "onDidChangePaneItemURI",
@@ -46753,7 +46853,7 @@
           "returnDescription": "Subscription to the URI changes.",
           "throws": [],
           "propertyType": null,
-          "line": 1872
+          "line": 1950
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -46790,7 +46890,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1916
+          "line": 1994
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -46827,7 +46927,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1937
+          "line": 2015
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -46864,7 +46964,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1952
+          "line": 2030
         },
         {
           "name": "observeActivePaneItem",
@@ -46901,7 +47001,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1967
+          "line": 2045
         },
         {
           "name": "observeActiveTextEditor",
@@ -46938,7 +47038,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1984
+          "line": 2062
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -46975,7 +47075,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2001
+          "line": 2079
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -47012,7 +47112,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2016
+          "line": 2094
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -47049,7 +47149,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2033
+          "line": 2111
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -47086,7 +47186,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2048
+          "line": 2126
         },
         {
           "name": "onDidOpen",
@@ -47163,7 +47263,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2070
+          "line": 2148
         },
         {
           "name": "onDidAddPane",
@@ -47210,7 +47310,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2085
+          "line": 2163
         },
         {
           "name": "onWillDestroyPane",
@@ -47257,7 +47357,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2103
+          "line": 2181
         },
         {
           "name": "onDidDestroyPane",
@@ -47304,7 +47404,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2121
+          "line": 2199
         },
         {
           "name": "observePanes",
@@ -47341,7 +47441,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2138
+          "line": 2216
         },
         {
           "name": "onDidChangeActivePane",
@@ -47378,7 +47478,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2154
+          "line": 2232
         },
         {
           "name": "observeActivePane",
@@ -47415,7 +47515,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2169
+          "line": 2247
         },
         {
           "name": "onDidAddPaneItem",
@@ -47482,7 +47582,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2188
+          "line": 2266
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -47549,7 +47649,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2208
+          "line": 2286
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -47616,7 +47716,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2227
+          "line": 2305
         },
         {
           "name": "onDidAddTextEditor",
@@ -47683,7 +47783,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2247
+          "line": 2325
         },
         {
           "name": "open",
@@ -47713,6 +47813,36 @@
               "type": "Object",
               "description": "",
               "defaultValue": "{}"
+            },
+            {
+              "name": "options.opener",
+              "type": "String",
+              "description": "The registered file opener ID to use, or 'text-editor'. An explicit choice bypasses automatic opener preferences and only reuses an item of that opener's type.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.opener",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.uriFragment",
+              "type": "String",
+              "description": "The fragment of a local file URL, forwarded to the selected file opener after its path is normalized.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.uriFragment",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancels an unfinished opening and disposes an unpresented opener-owned result.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
             },
             {
               "name": "options.initialLine",
@@ -47787,7 +47917,7 @@
             {
               "name": "options.pane",
               "type": "Pane",
-              "description": "A {@link Pane} in which to open the item. When combined with `split`, the new pane is created directly beside this pane after the item is ready.",
+              "description": "A {@link Pane} in which to open the item. File openings with searchAllPanes reuse a matching item before using this pane as their destination. When combined with `split`, the new pane is created directly beside this pane after the item is ready.",
               "optional": true,
               "defaultValue": null,
               "source": "options.pane",
@@ -47819,7 +47949,7 @@
           "returnDescription": "that resolves to the opened item, or `undefined` when cancelled or refused.",
           "throws": [],
           "propertyType": null,
-          "line": 2282
+          "line": 2363
         },
         {
           "name": "hide",
@@ -47846,7 +47976,7 @@
           "returnDescription": "indicating whether any visible matching items were found and hiding or closing was requested.",
           "throws": [],
           "propertyType": null,
-          "line": 2730
+          "line": 2830
         },
         {
           "name": "toggle",
@@ -47873,7 +48003,7 @@
           "returnDescription": "that resolves when the item is shown or hidden, or to `false` if closing a center item is prevented or cancelled. Rejects if closing fails.",
           "throws": [],
           "propertyType": null,
-          "line": 2784
+          "line": 2884
         },
         {
           "name": "createItemForURI",
@@ -47927,7 +48057,7 @@
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 2912
+          "line": 3021
         },
         {
           "name": "isTextEditor",
@@ -47954,7 +48084,7 @@
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "throws": [],
           "propertyType": null,
-          "line": 3080
+          "line": 3203
         },
         {
           "name": "buildTextEditor",
@@ -47981,7 +48111,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3094
+          "line": 3217
         },
         {
           "name": "buildSelectList",
@@ -48008,7 +48138,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3138
+          "line": 3261
         },
         {
           "name": "addSelectList",
@@ -48114,7 +48244,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3173
+          "line": 3296
         },
         {
           "name": "buildInputDialog",
@@ -48141,7 +48271,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3201
+          "line": 3324
         },
         {
           "name": "addInputDialog",
@@ -48237,7 +48367,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3225
+          "line": 3348
         },
         {
           "name": "popModal",
@@ -48264,7 +48394,7 @@
           "returnDescription": "— `false` when there is no step to go back to.",
           "throws": [],
           "propertyType": null,
-          "line": 3258
+          "line": 3381
         },
         {
           "name": "popModalTo",
@@ -48291,7 +48421,7 @@
           "returnDescription": "— `false` when the index is not an earlier step.",
           "throws": [],
           "propertyType": null,
-          "line": 3272
+          "line": 3395
         },
         {
           "name": "getModalTrail",
@@ -48308,7 +48438,7 @@
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3284
+          "line": 3407
         },
         {
           "name": "onDidChangeModalTrail",
@@ -48335,7 +48465,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 3299
+          "line": 3422
         },
         {
           "name": "reopenItem",
@@ -48352,7 +48482,7 @@
           "returnDescription": "that is resolved when the item is opened",
           "throws": [],
           "propertyType": null,
-          "line": 3313
+          "line": 3436
         },
         {
           "name": "addOpener",
@@ -48362,8 +48492,8 @@
           "signature": "::addOpener(opener, options = {})",
           "category": "Opening",
           "visibility": "Public",
-          "description": "Register an opener for a uri.\n\nWhen a URI is opened via {@link Workspace#open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {@link ViewRegistry}.\nA {@link TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\nlumine.workspace.addOpener((uri) => {\n  if (path.extname(uri) === '.toml') return new TomlEditor(uri)\n})\n```\n\n\n\nNote that the opener will be called if and only if the URI is not already open\nin the current pane. The searchAllPanes flag expands the search from the\ncurrent pane to all panes. If you wish to open a view of a different type for\na file that is already open, consider changing the protocol of the URI. For\nexample, perhaps you wish to preview a rendered version of the file `/foo/bar/baz.quux`\nthat is already open in a text editor view. You could signal this by calling\n{@link Workspace#open} on the URI `quux-preview://foo/bar/baz.quux`. Then your opener\ncan check the protocol for quux-preview and only handle those URIs that match.",
-          "summary": "Register an opener for a uri.",
+          "description": "Register an opener for an internal workspace URI.\n\nWhen a URI is opened via {@link Workspace#open}, Lumine loops through its registered\nopener functions until one returns a value for the given uri.\nOpeners are expected to return an object that inherits from HTMLElement or\na model which has an associated view in the {@link ViewRegistry}.\nA {@link TextEditor} will be used if no opener returns a value.\n\n## Examples\n\n```js\nlumine.workspace.addOpener((uri) => {\n  if (uri === 'lumine://my-package/panel') return new PackagePanel()\n})\n```\n\n\n\nThe opener is called only when its URI is not already open in the searched\npane. The searchAllPanes flag expands that search. File viewers use\n{@link Workspace#addFileOpener}, which distinguishes existing item types\nfor the same path and makes alternative views available through Open With.",
+          "summary": "Register an opener for an internal workspace URI.",
           "parameters": [
             {
               "name": "opener",
@@ -48371,7 +48501,7 @@
               "optional": false,
               "rest": false,
               "type": "Function",
-              "description": "A `Function` to be called when a path is being opened.",
+              "description": "A `Function` to be called when an internal URI is being opened. Register named file viewers with {@link Workspace#addFileOpener}.",
               "defaultValue": null
             },
             {
@@ -48408,7 +48538,150 @@
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "throws": [],
           "propertyType": null,
-          "line": 3360
+          "line": 3479
+        },
+        {
+          "name": "addFileOpener",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::addFileOpener(descriptor)",
+          "category": "Opening",
+          "visibility": "Extended",
+          "description": "Register a named file opener for automatic opening and Open With.\nAvailability is checked without constructing a view or opening a file.",
+          "summary": "Register a named file opener for automatic opening and Open With. Availability is checked without constructing a view or opening a file.",
+          "parameters": [
+            {
+              "name": "descriptor",
+              "source": "descriptor",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "The file opener descriptor.",
+              "defaultValue": null
+            },
+            {
+              "name": "descriptor.id",
+              "type": "String",
+              "description": "A unique stable opener ID.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "descriptor.id",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.label",
+              "type": "String",
+              "description": "The name shown in Open With.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "descriptor.label",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.canOpen",
+              "type": "Function",
+              "description": "Synchronously return a boolean for `(uri, options)` without side effects.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "descriptor.canOpen",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.open",
+              "type": "Function",
+              "description": "Create an item for `(uri, options)`, or perform an action and return an empty string. May return a Promise.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "descriptor.open",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.isDefaultEligible",
+              "type": "Function",
+              "description": "Synchronously return whether this opener participates in automatic opening; defaults to true. Explicit selection bypasses this preference.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "descriptor.isDefaultEligible",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.handlesItem",
+              "type": "Function",
+              "description": "Recognize an existing or restored item for `(item, uri, options)`, including this opener's type and any fragment-specific identity.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "descriptor.handlesItem",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.canReusePendingItem",
+              "type": "Function",
+              "description": "Check whether an unmodified pending item can be reused.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "descriptor.canReusePendingItem",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "descriptor.reusePendingItem",
+              "type": "Function",
+              "description": "Replace a pending document with `(item, uri, options, {signal})`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "descriptor.reusePendingItem",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Removes this opener and its preview capabilities.",
+          "throws": [],
+          "propertyType": null,
+          "line": 3514
+        },
+        {
+          "name": "getAvailableFileOpeners",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getAvailableFileOpeners(uri, options = {})",
+          "category": "Opening",
+          "visibility": "Extended",
+          "description": "List file openers without invoking their opening callbacks.\nThe automatic default is first, followed by the other available openers.\nText Editor is always included for file paths.",
+          "summary": "List file openers without invoking their opening callbacks. The automatic default is first, followed by the other available openers. Text Editor is always included for file paths.",
+          "parameters": [
+            {
+              "name": "uri",
+              "source": "uri",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "The file path or URI.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "options = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Opening context supplied to the predicates.",
+              "defaultValue": "{}"
+            }
+          ],
+          "returnType": "Array<Object>",
+          "returnDescription": "Descriptors containing `id`, `label` and `isDefault`.",
+          "throws": [],
+          "propertyType": null,
+          "line": 3589
         },
         {
           "name": "getPaneItems",
@@ -48425,7 +48698,7 @@
           "returnDescription": "of items.",
           "throws": [],
           "propertyType": null,
-          "line": 3388
+          "line": 3668
         },
         {
           "name": "getActivePaneItem",
@@ -48442,7 +48715,7 @@
           "returnDescription": "The active item, or undefined when the active pane is empty.",
           "throws": [],
           "propertyType": null,
-          "line": 3400
+          "line": 3680
         },
         {
           "name": "getTextEditors",
@@ -48459,7 +48732,7 @@
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "throws": [],
           "propertyType": null,
-          "line": 3413
+          "line": 3693
         },
         {
           "name": "getActiveTextEditor",
@@ -48476,7 +48749,7 @@
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "throws": [],
           "propertyType": null,
-          "line": 3443
+          "line": 3723
         },
         {
           "name": "getTextEditorForElement",
@@ -48522,7 +48795,7 @@
           "returnDescription": "The containing editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 3466
+          "line": 3746
         },
         {
           "name": "getFocusedTextEditor",
@@ -48559,7 +48832,7 @@
           "returnDescription": "The focused editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 3490
+          "line": 3770
         },
         {
           "name": "getActiveFileTextEditor",
@@ -48576,7 +48849,7 @@
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "throws": [],
           "propertyType": null,
-          "line": 3509
+          "line": 3789
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -48593,7 +48866,7 @@
           "returnDescription": "or `undefined` when nothing editable is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3539
+          "line": 3819
         },
         {
           "name": "saveActivePaneItem",
@@ -48620,7 +48893,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3582
+          "line": 3862
         },
         {
           "name": "saveActivePaneItemAs",
@@ -48647,7 +48920,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3603
+          "line": 3883
         },
         {
           "name": "destroyActivePaneItem",
@@ -48664,7 +48937,7 @@
           "returnDescription": "Whether the active item was closed.",
           "throws": [],
           "propertyType": null,
-          "line": 3630
+          "line": 3910
         },
         {
           "name": "getActivePaneContainer",
@@ -48681,7 +48954,7 @@
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "throws": [],
           "propertyType": null,
-          "line": 3646
+          "line": 3926
         },
         {
           "name": "getPanes",
@@ -48698,7 +48971,7 @@
           "returnDescription": "of {@link Pane Panes}.",
           "throws": [],
           "propertyType": null,
-          "line": 3658
+          "line": 3938
         },
         {
           "name": "getActivePane",
@@ -48715,7 +48988,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3674
+          "line": 3954
         },
         {
           "name": "focusPaneInDirection",
@@ -48761,7 +49034,7 @@
           "returnDescription": "The pane that received focus.",
           "throws": [],
           "propertyType": null,
-          "line": 3688
+          "line": 3968
         },
         {
           "name": "movePaneItem",
@@ -48797,7 +49070,7 @@
           "returnDescription": "The final {pane, item}.",
           "throws": [],
           "propertyType": null,
-          "line": 3705
+          "line": 3985
         },
         {
           "name": "copyPaneItem",
@@ -48833,7 +49106,7 @@
           "returnDescription": "The final {pane, item}, or null when copy() is absent or canCopy() returns false; cancellation rejects with ABORT_ERR.",
           "throws": [],
           "propertyType": null,
-          "line": 3719
+          "line": 3999
         },
         {
           "name": "activateNextPane",
@@ -48850,7 +49123,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3729
+          "line": 4009
         },
         {
           "name": "activatePreviousPane",
@@ -48867,7 +49140,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3739
+          "line": 4019
         },
         {
           "name": "paneContainerForURI",
@@ -48894,7 +49167,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 3754
+          "line": 4034
         },
         {
           "name": "paneContainerForItem",
@@ -48921,7 +49194,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 3768
+          "line": 4048
         },
         {
           "name": "paneForURI",
@@ -48948,7 +49221,7 @@
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 3781
+          "line": 4061
         },
         {
           "name": "paneForItem",
@@ -48975,7 +49248,7 @@
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 3799
+          "line": 4079
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -49002,7 +49275,7 @@
           "returnDescription": "The selected close operation, or undefined when closing an empty window is disabled.",
           "throws": [],
           "propertyType": null,
-          "line": 3829
+          "line": 4109
         },
         {
           "name": "getCenter",
@@ -49019,7 +49292,7 @@
           "returnDescription": "The document-pane aggregate for this workspace.",
           "throws": [],
           "propertyType": null,
-          "line": 3932
+          "line": 4212
         },
         {
           "name": "getLeftDock",
@@ -49036,7 +49309,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 3943
+          "line": 4223
         },
         {
           "name": "getRightDock",
@@ -49053,7 +49326,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 3954
+          "line": 4234
         },
         {
           "name": "getBottomDock",
@@ -49070,7 +49343,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 3965
+          "line": 4245
         },
         {
           "name": "beginLayoutDrag",
@@ -49087,7 +49360,7 @@
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "throws": [],
           "propertyType": null,
-          "line": 4009
+          "line": 4289
         },
         {
           "name": "getBottomPanels",
@@ -49104,7 +49377,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4025
+          "line": 4305
         },
         {
           "name": "addBottomPanel",
@@ -49161,7 +49434,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4041
+          "line": 4321
         },
         {
           "name": "getLeftPanels",
@@ -49178,7 +49451,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4052
+          "line": 4332
         },
         {
           "name": "addLeftPanel",
@@ -49235,7 +49508,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4068
+          "line": 4348
         },
         {
           "name": "getRightPanels",
@@ -49252,7 +49525,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4079
+          "line": 4359
         },
         {
           "name": "addRightPanel",
@@ -49309,7 +49582,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4095
+          "line": 4375
         },
         {
           "name": "getTopPanels",
@@ -49326,7 +49599,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4106
+          "line": 4386
         },
         {
           "name": "addTopPanel",
@@ -49383,7 +49656,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4122
+          "line": 4402
         },
         {
           "name": "getHeaderPanels",
@@ -49400,7 +49673,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4133
+          "line": 4413
         },
         {
           "name": "addHeaderPanel",
@@ -49457,7 +49730,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4149
+          "line": 4429
         },
         {
           "name": "getFooterPanels",
@@ -49474,7 +49747,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4160
+          "line": 4440
         },
         {
           "name": "addFooterPanel",
@@ -49531,7 +49804,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4176
+          "line": 4456
         },
         {
           "name": "getModalPanels",
@@ -49548,7 +49821,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4187
+          "line": 4467
         },
         {
           "name": "addModalPanel",
@@ -49645,7 +49918,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4207
+          "line": 4487
         },
         {
           "name": "panelForItem",
@@ -49672,7 +49945,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 4221
+          "line": 4501
         },
         {
           "name": "scan",
@@ -49787,7 +50060,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 4285
+          "line": 4565
         },
         {
           "name": "replace",
@@ -49851,7 +50124,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4551
+          "line": 4831
         }
       ]
     },
@@ -52086,6 +52359,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1527,
-  "generatedAt": "2026-10-13T05:20:17.463Z"
+  "memberCount": 1529,
+  "generatedAt": "2026-10-13T21:28:49.530Z"
 }

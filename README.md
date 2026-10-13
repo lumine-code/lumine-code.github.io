@@ -46,6 +46,12 @@ A standalone `/** @category Layout */` comment in a class or object body starts 
 
 Run `npm run check:api-docs` and `npm run test:api-extractor` in the editor checkout before regenerating. Public methods need a description and typed parameters, including nested options and callback payloads; asynchronous methods declare their Promise result. Typed properties may omit descriptions when the type already explains them. Use `@throws {ErrorType}` for failure conditions. The reference includes documented class fields, typed failure contracts, section links and a consistent heading hierarchy.
 
+## Screenshot gallery
+
+`gallery.html` displays authentic editor and package screenshots loaded directly from public repositories. Search and category filters can be shared through the URL; previews support keyboard navigation and link to their original repository images. The website keeps no duplicate screenshot binaries.
+
+Run `npm run gallery:generate -- /path/to/workspace` to refresh `gallery.json` from committed `.github/demo.json` metadata and README image references on the sibling repositories' `origin/master` refs. The generator checks the public GitHub repository list, includes only normal-mode captures with default fonts, and pins every image URL to its source commit. Private repositories, npm libraries and packages without published screenshots are omitted. The editor's eight gallery presentation images are included too.
+
 ## Local preview
 
 Serve the folder over HTTP and open the printed URL:
