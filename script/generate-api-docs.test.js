@@ -9,6 +9,70 @@ const test = require("node:test");
 
 const generatorPath = path.join(__dirname, "generate-api-docs.js");
 
+function attribute(node, name) {
+  return node.attrs?.find((entry) => entry.name === name)?.value;
+}
+
+function hasClass(node, name) {
+  return (attribute(node, "class") || "").split(/\s+/).includes(name);
+}
+
+function elements(node) {
+  return [node, ...(node.childNodes || []).flatMap(elements)];
+}
+
+function owningClass(node) {
+  for (let parent = node.parentNode; parent; parent = parent.parentNode) {
+    if (hasClass(parent, "api-class")) return attribute(parent, "id");
+  }
+  return null;
+}
+
+function memberAnchor(type, member) {
+  const slug = (name) =>
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  return `${slug(type.name)}-${member.static ? "static" : "instance"}-${slug(member.name)}`;
+}
+
+async function assertApiStructure(html, api) {
+  const { parse } = await import("parse5");
+  const document = parse(html);
+  const nodes = elements(document);
+  const byId = new Map(nodes.map((node) => [attribute(node, "id"), node]));
+  const types = [...api.classes, ...api.objects];
+  const content = nodes.find((node) => hasClass(node, "api-content"));
+  const sections = nodes.filter((node) => hasClass(node, "api-class"));
+  assert.equal(sections.length, types.length + (api.functions.length ? 1 : 0));
+  for (const section of sections) {
+    assert.ok(
+      section.parentNode === content,
+      `${attribute(section, "id")} escaped the API content`,
+    );
+  }
+  for (const type of types) {
+    const classId = `class-${type.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")}`;
+    for (const member of type.members) {
+      const id = memberAnchor(type, member);
+      assert.ok(byId.has(id), `Missing member ${id}`);
+      assert.equal(
+        owningClass(byId.get(id)),
+        classId,
+        `${id} escaped its class`,
+      );
+    }
+  }
+  for (const node of nodes.filter((entry) => hasClass(entry, "api-group"))) {
+    assert.ok(owningClass(node), "A method group escaped its class");
+  }
+  return nodes;
+}
+
 function renderFixture(context) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "lumine-api-renderer-"));
   context.after(() => fs.rmSync(root, { recursive: true, force: true }));
@@ -211,6 +275,76 @@ test("normalizes deeply numbered source headings without skipping API heading le
   assert.match(html, /<h4>Details<\/h4>/);
   assert.match(html, /<h5>Examples<\/h5>/);
   assert.match(html, /<h6>More Examples<\/h6>/);
+});
+
+test("keeps malformed HTML examples inside their method and preserves references and key names", async (context) => {
+  const fixture = renderFixture(context);
+  const base = fixture.api.objects[0];
+  const member = base.members[0];
+  fixture.api.classes.push({
+    ...base,
+    name: "TextEditor",
+    members: [
+      {
+        ...member,
+        name: "decorateMarker",
+        static: false,
+        signature: "::decorateMarker(marker)",
+        category: "Decorations",
+        description:
+          '* Highlight example:\n\n    ```html\n    <div class="highlight">\n <!-- An accidentally outdented example. -->\n <div class="region"></div>\n    </div>\n    ```\n\nUse {@link #getMarkers} or <kbd>Ctrl</kbd>.',
+      },
+      {
+        ...member,
+        name: "getMarkers",
+        static: false,
+        signature: "::getMarkers()",
+        category: "Markers",
+      },
+    ],
+  });
+  fixture.api.classes.push({
+    ...base,
+    name: "Workspace",
+    members: [
+      {
+        ...member,
+        name: "getCenter",
+        static: false,
+        signature: "::getCenter()",
+      },
+    ],
+  });
+  member.description =
+    'Untrusted markup: </div><section id="injected">example</section>. A type is Promise<Boolean>.';
+  member.parameters = [
+    {
+      name: "value",
+      type: "String",
+      description: "{@link .run} and `{@link .run}`.",
+    },
+  ];
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  assert.ok(!nodes.some((node) => hasClass(node, "region")));
+  assert.ok(!nodes.some((node) => attribute(node, "id") === "injected"));
+  assert.ok(!nodes.some((node) => node.tagName === "boolean"));
+  assert.ok(nodes.some((node) => node.tagName === "kbd"));
+  assert.match(html, /&lt;div class=&quot;region&quot;&gt;/);
+  assert.match(html, /class="api-ref" href="#texteditor-instance-getmarkers"/);
+  assert.match(html, /<code>\{@link \.run\}<\/code>/);
+});
+
+test("every generated API member stays in its class and every class stays in the layout", async () => {
+  const apiRoot = path.resolve(__dirname, "..", "api");
+  const api = JSON.parse(
+    fs.readFileSync(path.join(apiRoot, "api.json"), "utf8"),
+  );
+  const html = fs.readFileSync(path.join(apiRoot, "index.html"), "utf8");
+  await assertApiStructure(html, api);
 });
 
 test("checks generated object documentation for drift without rewriting output", (context) => {

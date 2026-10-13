@@ -12773,7 +12773,7 @@
             {
               "name": "source.load.context",
               "type": "Object",
-              "description": "The query, parsedQuery, AbortSignal signal, and publish(value) callback. publish returns Promise<Boolean> indicating whether the progressive value was applied.",
+              "description": "The query, parsedQuery, AbortSignal signal, and publish(value) callback. publish returns `Promise<Boolean>` indicating whether the progressive value was applied.",
               "optional": false,
               "defaultValue": null,
               "source": "source.load.context",
@@ -38013,7 +38013,7 @@
           "signature": "::decorateMarker(marker, decorationParams)",
           "category": "Decorations",
           "visibility": "Essential",
-          "description": "Add a decoration that tracks a {@link DisplayMarker}. When the\nmarker moves, is invalidated, or is destroyed, the decoration will be\nupdated to reflect the marker's state.\n\nThe following are the supported decorations types:\n\n* __line__: Adds the given CSS `class` to the lines overlapping the rows\n    spanned by the marker.\n* __line-number__: Adds the given CSS `class` to the line numbers overlapping\n    the rows spanned by the marker\n* __text__: Injects spans into all text overlapping the marked range, then adds\n    the given `class` or `style` to these spans. Use this to manipulate the foreground\n    color or styling of text in a range.\n* __highlight__: Creates an absolutely-positioned `.highlight` div to the editor\n    containing nested divs that cover the marked region. For example, when the user\n    selects text, the selection is implemented with a highlight decoration. The structure\n    of this highlight will be:\n    ```html\n    <div class=\"highlight <your-class>\">\n <!-- Will be one region for each row in the range. Spans 2 lines? There will be 2 regions. -->\n <div class=\"region\"></div>\n    </div>\n    ```\n* __overlay__: Positions the view associated with the given item at the head\n    or tail of the given `DisplayMarker`, depending on the `position` property.\n* __gutter__: Tracks a {@link DisplayMarker} in a {@link Gutter}. Gutter decorations are created\n    by calling {@link Gutter#decorateMarker} on the desired `Gutter` instance.\n* __block__: Positions the view associated with the given item before or\n    after the row of the given {@link DisplayMarker}, depending on the `position` property.\n    Block decorations at the same screen row are ordered by their `order` property.\n    A block item takes the editor's selection background whenever its visual position\n    before or after that row lies within a non-empty selection.\n* __cursor__: Render a cursor at the head of the {@link DisplayMarker}. If multiple cursor decorations\n    are created for the same marker, their class strings and style objects are combined\n    into a single cursor. This decoration type may be used to style existing cursors\n    by passing in their markers or to render artificial cursors that don't actually\n    exist in the model by passing a marker that isn't associated with a real cursor.\n\nAn overlay that can have neither side — the one it asked for is taken,\nthe other will not fit — is pushed clear of whatever is in its way\nrather than drawn over it, and the wrapper is marked\n`data-overlay-displaced` to say it is no longer touching its line.",
+          "description": "Add a decoration that tracks a {@link DisplayMarker}. When the\nmarker moves, is invalidated, or is destroyed, the decoration will be\nupdated to reflect the marker's state.\n\nThe following are the supported decorations types:\n\n* __line__: Adds the given CSS `class` to the lines overlapping the rows\n    spanned by the marker.\n* __line-number__: Adds the given CSS `class` to the line numbers overlapping\n    the rows spanned by the marker\n* __text__: Injects spans into all text overlapping the marked range, then adds\n    the given `class` or `style` to these spans. Use this to manipulate the foreground\n    color or styling of text in a range.\n* __highlight__: Creates an absolutely-positioned `.highlight` div to the editor\n    containing nested divs that cover the marked region. For example, when the user\n    selects text, the selection is implemented with a highlight decoration. The structure\n    of this highlight will be:\n    ```html\n    <div class=\"highlight <your-class>\">\n      <!-- One region per row in the marked range. -->\n      <div class=\"region\"></div>\n    </div>\n    ```\n* __overlay__: Positions the view associated with the given item at the head\n    or tail of the given `DisplayMarker`, depending on the `position` property.\n* __gutter__: Tracks a {@link DisplayMarker} in a {@link Gutter}. Gutter decorations are created\n    by calling {@link Gutter#decorateMarker} on the desired `Gutter` instance.\n* __block__: Positions the view associated with the given item before or\n    after the row of the given {@link DisplayMarker}, depending on the `position` property.\n    Block decorations at the same screen row are ordered by their `order` property.\n    A block item takes the editor's selection background whenever its visual position\n    before or after that row lies within a non-empty selection.\n* __cursor__: Render a cursor at the head of the {@link DisplayMarker}. If multiple cursor decorations\n    are created for the same marker, their class strings and style objects are combined\n    into a single cursor. This decoration type may be used to style existing cursors\n    by passing in their markers or to render artificial cursors that don't actually\n    exist in the model by passing a marker that isn't associated with a real cursor.\n\nAn overlay that can have neither side — the one it asked for is taken,\nthe other will not fit — is pushed clear of whatever is in its way\nrather than drawn over it, and the wrapper is marked\n`data-overlay-displaced` to say it is no longer touching its line.",
           "summary": "Add a decoration that tracks a {@link DisplayMarker}. When the marker moves, is invalidated, or is destroyed, the decoration will be updated to reflect the marker's state.",
           "parameters": [
             {
@@ -44879,7 +44879,7 @@
           "returnDescription": "Dispose to remove the added provider.",
           "throws": [],
           "propertyType": null,
-          "line": 208
+          "line": 216
         },
         {
           "name": "getView",
@@ -44906,7 +44906,7 @@
           "returnDescription": "The DOM element, or `undefined` for a null or undefined input.",
           "throws": [],
           "propertyType": null,
-          "line": 266
+          "line": 274
         }
       ]
     },
@@ -46529,7 +46529,7 @@
           "returnDescription": "The document registration.",
           "throws": [],
           "propertyType": null,
-          "line": 845
+          "line": 876
         },
         {
           "name": "beginFileMove",
@@ -46556,7 +46556,7 @@
           "returnDescription": "A transaction with a ready promise and an asynchronous complete(confirmedRenames) method.",
           "throws": [],
           "propertyType": null,
-          "line": 860
+          "line": 891
         },
         {
           "name": "clear",
@@ -46602,7 +46602,7 @@
           "returnDescription": "that resolves once they are empty.",
           "throws": [],
           "propertyType": null,
-          "line": 1240
+          "line": 1271
         },
         {
           "name": "observeTextEditors",
@@ -46639,7 +46639,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1806
+          "line": 1837
         },
         {
           "name": "observePaneItems",
@@ -46676,7 +46676,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1824
+          "line": 1855
         },
         {
           "name": "onDidChangePaneItemURI",
@@ -46703,7 +46703,7 @@
           "returnDescription": "Subscription to the URI changes.",
           "throws": [],
           "propertyType": null,
-          "line": 1841
+          "line": 1872
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -46740,7 +46740,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1885
+          "line": 1916
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -46777,7 +46777,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1906
+          "line": 1937
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -46814,7 +46814,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1921
+          "line": 1952
         },
         {
           "name": "observeActivePaneItem",
@@ -46851,7 +46851,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1936
+          "line": 1967
         },
         {
           "name": "observeActiveTextEditor",
@@ -46888,7 +46888,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1953
+          "line": 1984
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -46925,7 +46925,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1970
+          "line": 2001
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -46962,7 +46962,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1985
+          "line": 2016
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -46999,7 +46999,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2002
+          "line": 2033
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -47036,7 +47036,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2017
+          "line": 2048
         },
         {
           "name": "onDidOpen",
@@ -47113,7 +47113,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2039
+          "line": 2070
         },
         {
           "name": "onDidAddPane",
@@ -47160,7 +47160,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2054
+          "line": 2085
         },
         {
           "name": "onWillDestroyPane",
@@ -47207,7 +47207,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2072
+          "line": 2103
         },
         {
           "name": "onDidDestroyPane",
@@ -47254,7 +47254,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2090
+          "line": 2121
         },
         {
           "name": "observePanes",
@@ -47291,7 +47291,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2107
+          "line": 2138
         },
         {
           "name": "onDidChangeActivePane",
@@ -47328,7 +47328,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2123
+          "line": 2154
         },
         {
           "name": "observeActivePane",
@@ -47365,7 +47365,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2138
+          "line": 2169
         },
         {
           "name": "onDidAddPaneItem",
@@ -47432,7 +47432,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2157
+          "line": 2188
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -47499,7 +47499,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2177
+          "line": 2208
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -47566,7 +47566,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2196
+          "line": 2227
         },
         {
           "name": "onDidAddTextEditor",
@@ -47633,7 +47633,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2216
+          "line": 2247
         },
         {
           "name": "open",
@@ -47769,7 +47769,7 @@
           "returnDescription": "that resolves to the opened item, or `undefined` when cancelled or refused.",
           "throws": [],
           "propertyType": null,
-          "line": 2251
+          "line": 2282
         },
         {
           "name": "hide",
@@ -47796,7 +47796,7 @@
           "returnDescription": "indicating whether any visible matching items were found and hiding or closing was requested.",
           "throws": [],
           "propertyType": null,
-          "line": 2699
+          "line": 2730
         },
         {
           "name": "toggle",
@@ -47823,7 +47823,7 @@
           "returnDescription": "that resolves when the item is shown or hidden, or to `false` if closing a center item is prevented or cancelled. Rejects if closing fails.",
           "throws": [],
           "propertyType": null,
-          "line": 2753
+          "line": 2784
         },
         {
           "name": "createItemForURI",
@@ -47877,7 +47877,7 @@
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 2881
+          "line": 2912
         },
         {
           "name": "isTextEditor",
@@ -47904,7 +47904,7 @@
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "throws": [],
           "propertyType": null,
-          "line": 3049
+          "line": 3080
         },
         {
           "name": "buildTextEditor",
@@ -47931,7 +47931,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3063
+          "line": 3094
         },
         {
           "name": "buildSelectList",
@@ -47958,7 +47958,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3107
+          "line": 3138
         },
         {
           "name": "addSelectList",
@@ -48064,7 +48064,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3142
+          "line": 3173
         },
         {
           "name": "buildInputDialog",
@@ -48091,7 +48091,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3170
+          "line": 3201
         },
         {
           "name": "addInputDialog",
@@ -48187,7 +48187,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3194
+          "line": 3225
         },
         {
           "name": "popModal",
@@ -48214,7 +48214,7 @@
           "returnDescription": "— `false` when there is no step to go back to.",
           "throws": [],
           "propertyType": null,
-          "line": 3227
+          "line": 3258
         },
         {
           "name": "popModalTo",
@@ -48241,7 +48241,7 @@
           "returnDescription": "— `false` when the index is not an earlier step.",
           "throws": [],
           "propertyType": null,
-          "line": 3241
+          "line": 3272
         },
         {
           "name": "getModalTrail",
@@ -48258,7 +48258,7 @@
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3253
+          "line": 3284
         },
         {
           "name": "onDidChangeModalTrail",
@@ -48285,7 +48285,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 3268
+          "line": 3299
         },
         {
           "name": "reopenItem",
@@ -48302,7 +48302,7 @@
           "returnDescription": "that is resolved when the item is opened",
           "throws": [],
           "propertyType": null,
-          "line": 3282
+          "line": 3313
         },
         {
           "name": "addOpener",
@@ -48358,7 +48358,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "throws": [],
           "propertyType": null,
-          "line": 3329
+          "line": 3360
         },
         {
           "name": "getPaneItems",
@@ -48375,7 +48375,7 @@
           "returnDescription": "of items.",
           "throws": [],
           "propertyType": null,
-          "line": 3357
+          "line": 3388
         },
         {
           "name": "getActivePaneItem",
@@ -48392,7 +48392,7 @@
           "returnDescription": "The active item, or undefined when the active pane is empty.",
           "throws": [],
           "propertyType": null,
-          "line": 3369
+          "line": 3400
         },
         {
           "name": "getTextEditors",
@@ -48409,7 +48409,7 @@
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "throws": [],
           "propertyType": null,
-          "line": 3382
+          "line": 3413
         },
         {
           "name": "getActiveTextEditor",
@@ -48426,7 +48426,7 @@
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "throws": [],
           "propertyType": null,
-          "line": 3412
+          "line": 3443
         },
         {
           "name": "getTextEditorForElement",
@@ -48472,7 +48472,7 @@
           "returnDescription": "The containing editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 3435
+          "line": 3466
         },
         {
           "name": "getFocusedTextEditor",
@@ -48509,7 +48509,7 @@
           "returnDescription": "The focused editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 3459
+          "line": 3490
         },
         {
           "name": "getActiveFileTextEditor",
@@ -48526,7 +48526,7 @@
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "throws": [],
           "propertyType": null,
-          "line": 3478
+          "line": 3509
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -48543,7 +48543,7 @@
           "returnDescription": "or `undefined` when nothing editable is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3508
+          "line": 3539
         },
         {
           "name": "saveActivePaneItem",
@@ -48570,7 +48570,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3551
+          "line": 3582
         },
         {
           "name": "saveActivePaneItemAs",
@@ -48597,7 +48597,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3572
+          "line": 3603
         },
         {
           "name": "destroyActivePaneItem",
@@ -48614,7 +48614,7 @@
           "returnDescription": "Whether the active item was closed.",
           "throws": [],
           "propertyType": null,
-          "line": 3599
+          "line": 3630
         },
         {
           "name": "getActivePaneContainer",
@@ -48631,7 +48631,7 @@
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "throws": [],
           "propertyType": null,
-          "line": 3615
+          "line": 3646
         },
         {
           "name": "getPanes",
@@ -48648,7 +48648,7 @@
           "returnDescription": "of {@link Pane Panes}.",
           "throws": [],
           "propertyType": null,
-          "line": 3627
+          "line": 3658
         },
         {
           "name": "getActivePane",
@@ -48665,7 +48665,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3643
+          "line": 3674
         },
         {
           "name": "focusPaneInDirection",
@@ -48711,7 +48711,7 @@
           "returnDescription": "The pane that received focus.",
           "throws": [],
           "propertyType": null,
-          "line": 3657
+          "line": 3688
         },
         {
           "name": "movePaneItem",
@@ -48747,7 +48747,7 @@
           "returnDescription": "The final {pane, item}.",
           "throws": [],
           "propertyType": null,
-          "line": 3674
+          "line": 3705
         },
         {
           "name": "copyPaneItem",
@@ -48783,7 +48783,7 @@
           "returnDescription": "The final {pane, item}, or null when copy() is absent or canCopy() returns false; cancellation rejects with ABORT_ERR.",
           "throws": [],
           "propertyType": null,
-          "line": 3688
+          "line": 3719
         },
         {
           "name": "activateNextPane",
@@ -48800,7 +48800,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3698
+          "line": 3729
         },
         {
           "name": "activatePreviousPane",
@@ -48817,7 +48817,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3708
+          "line": 3739
         },
         {
           "name": "paneContainerForURI",
@@ -48844,7 +48844,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 3723
+          "line": 3754
         },
         {
           "name": "paneContainerForItem",
@@ -48871,7 +48871,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 3737
+          "line": 3768
         },
         {
           "name": "paneForURI",
@@ -48898,7 +48898,7 @@
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 3750
+          "line": 3781
         },
         {
           "name": "paneForItem",
@@ -48925,7 +48925,7 @@
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 3768
+          "line": 3799
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -48952,7 +48952,7 @@
           "returnDescription": "The selected close operation, or undefined when closing an empty window is disabled.",
           "throws": [],
           "propertyType": null,
-          "line": 3798
+          "line": 3829
         },
         {
           "name": "getCenter",
@@ -48969,7 +48969,7 @@
           "returnDescription": "The document-pane aggregate for this workspace.",
           "throws": [],
           "propertyType": null,
-          "line": 3901
+          "line": 3932
         },
         {
           "name": "getLeftDock",
@@ -48986,7 +48986,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 3912
+          "line": 3943
         },
         {
           "name": "getRightDock",
@@ -49003,7 +49003,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 3923
+          "line": 3954
         },
         {
           "name": "getBottomDock",
@@ -49020,7 +49020,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 3934
+          "line": 3965
         },
         {
           "name": "beginLayoutDrag",
@@ -49037,7 +49037,7 @@
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "throws": [],
           "propertyType": null,
-          "line": 3974
+          "line": 4005
         },
         {
           "name": "getBottomPanels",
@@ -49054,7 +49054,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 3989
+          "line": 4020
         },
         {
           "name": "addBottomPanel",
@@ -49111,7 +49111,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4005
+          "line": 4036
         },
         {
           "name": "getLeftPanels",
@@ -49128,7 +49128,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4016
+          "line": 4047
         },
         {
           "name": "addLeftPanel",
@@ -49185,7 +49185,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4032
+          "line": 4063
         },
         {
           "name": "getRightPanels",
@@ -49202,7 +49202,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4043
+          "line": 4074
         },
         {
           "name": "addRightPanel",
@@ -49259,7 +49259,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4059
+          "line": 4090
         },
         {
           "name": "getTopPanels",
@@ -49276,7 +49276,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4070
+          "line": 4101
         },
         {
           "name": "addTopPanel",
@@ -49333,7 +49333,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4086
+          "line": 4117
         },
         {
           "name": "getHeaderPanels",
@@ -49350,7 +49350,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4097
+          "line": 4128
         },
         {
           "name": "addHeaderPanel",
@@ -49407,7 +49407,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4113
+          "line": 4144
         },
         {
           "name": "getFooterPanels",
@@ -49424,7 +49424,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4124
+          "line": 4155
         },
         {
           "name": "addFooterPanel",
@@ -49481,7 +49481,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4140
+          "line": 4171
         },
         {
           "name": "getModalPanels",
@@ -49498,7 +49498,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4151
+          "line": 4182
         },
         {
           "name": "addModalPanel",
@@ -49595,7 +49595,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4171
+          "line": 4202
         },
         {
           "name": "panelForItem",
@@ -49622,7 +49622,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 4185
+          "line": 4216
         },
         {
           "name": "scan",
@@ -49737,7 +49737,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 4249
+          "line": 4280
         },
         {
           "name": "replace",
@@ -49801,7 +49801,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4515
+          "line": 4546
         }
       ]
     },
@@ -52037,5 +52037,5 @@
     }
   ],
   "memberCount": 1527,
-  "generatedAt": "2026-10-13T00:38:40.961Z"
+  "generatedAt": "2026-10-13T01:37:10.229Z"
 }

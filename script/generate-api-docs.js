@@ -162,44 +162,76 @@ function memberId(className, member) {
   return `${slug(className)}-${member.static ? "static" : "instance"}-${slug(member.name)}`;
 }
 
-function linkReferences(text, classNames, memberAnchors, currentClass) {
-  if (!text) return "";
-  const token = (kind, label, href) =>
-    href
-      ? `<a class="api-${kind}" href="${href}">${escapeHtml(label)}</a>`
-      : `<code class="api-${kind}">${escapeHtml(label)}</code>`;
-
-  const linkFor = (target, label = target) => {
-    if (/^(?:https?:|mailto:)/.test(target))
-      return token("ref", label, escapeHtml(target));
-    const normalized = target
-      .replace(/^#/, `${currentClass || ""}#`)
-      .replace(/^\./, `${currentClass || ""}.`);
-    if (classNames.has(normalized))
-      return token("type", label, classNames.get(normalized));
-    const match = normalized.match(/^([^#.]+)(#|\.)(.+)$/);
-    if (match && classNames.has(match[1])) {
-      const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
-      return token("ref", label, memberAnchors.has(id) ? `#${id}` : null);
-    }
-    return token("type", label, null);
-  };
-
-  const rewrite = (prose) =>
-    prose.replace(
-      /\{@link\s+([^}\s|]+)(?:\|([^}]+)|\s+([^}]+))?\}/g,
-      (_all, target, pipeLabel, spaceLabel) =>
-        linkFor(target, pipeLabel || spaceLabel || target),
-    );
-
-  // Only prose. Braces inside a fenced block or a code span are the example's
-  // own — an object literal, a destructured argument, a template placeholder —
-  // and rewriting them turned every such example into nonsense.
-  return text
-    .split(/(```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]*`)/g)
-    .map((segment, index) => (index % 2 ? segment : rewrite(segment)))
-    .join("");
+function resolveReference(
+  target,
+  label,
+  classNames,
+  memberAnchors,
+  currentClass,
+) {
+  const token = (kind, href = null) => ({ kind, label, href });
+  if (/^(?:https?:|mailto:)/.test(target)) return token("ref", target);
+  const normalized = target
+    .replace(/^#/, `${currentClass || ""}#`)
+    .replace(/^\./, `${currentClass || ""}.`);
+  if (classNames.has(normalized))
+    return token("type", classNames.get(normalized));
+  const match = normalized.match(/^([^#.]+)(#|\.)(.+)$/);
+  if (match && classNames.has(match[1])) {
+    const id = `${slug(match[1])}-${match[2] === "." ? "static" : "instance"}-${slug(match[3])}`;
+    return token("ref", memberAnchors.has(id) ? `#${id}` : null);
+  }
+  return token("type");
 }
+
+// References are Markdown tokens, so source HTML can be escaped independently
+// without escaping the links we generate. Code spans and fences never enter
+// this inline rule and retain their literal examples.
+markdown.inline.ruler.before("link", "api_reference", (state, silent) => {
+  if (
+    !state.env.classNames ||
+    state.linkLevel > 0 ||
+    state.src[state.pos] !== "{"
+  )
+    return false;
+  const match = state.src
+    .slice(state.pos, state.posMax)
+    .match(/^\{@link\s+([^}\s|]+)(?:\|([^}]+)|\s+([^}]+))?\}/);
+  if (!match) return false;
+  if (!silent) {
+    const reference = resolveReference(
+      match[1],
+      match[2] || match[3] || match[1],
+      state.env.classNames,
+      state.env.memberAnchors,
+      state.env.currentClass,
+    );
+    if (reference.href) {
+      const opening = state.push("link_open", "a", 1);
+      opening.attrs = [
+        ["class", `api-${reference.kind}`],
+        ["href", reference.href],
+      ];
+      state.push("text", "", 0).content = reference.label;
+      state.push("link_close", "a", -1);
+    } else {
+      const literal = state.push("code_inline", "code", 0);
+      literal.attrs = [["class", `api-${reference.kind}`]];
+      literal.content = reference.label;
+    }
+  }
+  state.pos += match[0].length;
+  return true;
+});
+
+// A broken example must remain text rather than closing the API layout. kbd is
+// the one intentional inline HTML convention in the source documentation.
+markdown.renderer.rules.html_inline = (tokens, index) =>
+  /^<\/?kbd\s*>$/i.test(tokens[index].content)
+    ? tokens[index].content
+    : escapeHtml(tokens[index].content);
+markdown.renderer.rules.html_block = (tokens, index) =>
+  `<pre><code>${escapeHtml(tokens[index].content)}</code></pre>\n`;
 
 function renderDoc(
   text,
@@ -208,9 +240,11 @@ function renderDoc(
   currentClass,
   firstHeadingLevel = 5,
 ) {
-  const html = markdown.render(
-    linkReferences(text, classNames, memberAnchors, currentClass),
-  );
+  const html = markdown.render(text, {
+    classNames,
+    memberAnchors,
+    currentClass,
+  });
   const headings = [...html.matchAll(/<h([1-6])(?:\s|>)/g)].map((match) =>
     Number(match[1]),
   );
@@ -223,9 +257,11 @@ function renderDoc(
 }
 
 function renderInlineDoc(text, classNames, memberAnchors, currentClass) {
-  return markdown.renderInline(
-    linkReferences(text, classNames, memberAnchors, currentClass),
-  );
+  return markdown.renderInline(text, {
+    classNames,
+    memberAnchors,
+    currentClass,
+  });
 }
 
 function escapeHtml(value) {
