@@ -25256,7 +25256,7 @@
           "returnDescription": "that resolves to a {@link GitRepository}, or to `null` when the path is not in one.",
           "throws": [],
           "propertyType": null,
-          "line": 1167
+          "line": 1171
         },
         {
           "name": "retain",
@@ -25292,7 +25292,7 @@
           "returnDescription": "that releases the hold.",
           "throws": [],
           "propertyType": null,
-          "line": 1403
+          "line": 1407
         },
         {
           "name": "runOperation",
@@ -25328,7 +25328,7 @@
           "returnDescription": "for whatever the operation returned.",
           "throws": [],
           "propertyType": null,
-          "line": 1431
+          "line": 1435
         },
         {
           "name": "addOperationProvider",
@@ -25374,7 +25374,7 @@
           "returnDescription": "that removes the provider and everything it implemented.",
           "throws": [],
           "propertyType": null,
-          "line": 1492
+          "line": 1496
         },
         {
           "name": "getOperations",
@@ -25401,7 +25401,7 @@
           "returnDescription": "The stable operation facade, or `null` when the repository is not registered. Use {@link #canPerformOperation} to check which methods providers can run.",
           "throws": [],
           "propertyType": null,
-          "line": 1505
+          "line": 1509
         },
         {
           "name": "canPerformOperation",
@@ -25437,7 +25437,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1523
+          "line": 1527
         },
         {
           "name": "getOperationCapabilities",
@@ -25464,7 +25464,7 @@
           "returnDescription": "frozen `Array` of `String` operation names.",
           "throws": [],
           "propertyType": null,
-          "line": 1536
+          "line": 1540
         },
         {
           "name": "getPendingOperations",
@@ -25491,7 +25491,7 @@
           "returnDescription": "frozen `Array` of frozen `Objects`.",
           "throws": [],
           "propertyType": null,
-          "line": 1559
+          "line": 1563
         },
         {
           "name": "getWorkspaceOperationCapabilities",
@@ -25508,7 +25508,7 @@
           "returnDescription": "frozen `Array` of `String` operation names.",
           "throws": [],
           "propertyType": null,
-          "line": 1578
+          "line": 1582
         },
         {
           "name": "canPerformWorkspaceOperation",
@@ -25535,7 +25535,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1591
+          "line": 1595
         },
         {
           "name": "canExecuteGitCommands",
@@ -25552,7 +25552,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1607
+          "line": 1611
         },
         {
           "name": "executeGit",
@@ -25597,7 +25597,7 @@
           "returnDescription": "for the provider's result. It rejects with a `TypeError` if `args` is not an array, and with an `Error` whose `code` is `ERR_GIT_EXECUTION_UNAVAILABLE` when no provider runs Git commands.",
           "throws": [],
           "propertyType": null,
-          "line": 1626
+          "line": 1630
         },
         {
           "name": "initialize",
@@ -25633,7 +25633,7 @@
           "returnDescription": "that resolves to the new {@link GitRepository}. It rejects when no provider implements `initialize`, and with an `Error` whose `code` is `ERR_REPOSITORY_DISCOVERY_FAILED` if the command succeeded but nothing was found at the path afterwards.",
           "throws": [],
           "propertyType": null,
-          "line": 1644
+          "line": 1648
         },
         {
           "name": "clone",
@@ -25678,7 +25678,7 @@
           "returnDescription": "that resolves to the new {@link GitRepository}, and rejects the same way {@link #initialize} does.",
           "throws": [],
           "propertyType": null,
-          "line": 1659
+          "line": 1663
         },
         {
           "name": "performWorkflow",
@@ -25732,7 +25732,7 @@
           "returnDescription": "callback result, with partial/unknown outcomes on failure.",
           "throws": [],
           "propertyType": null,
-          "line": 1712
+          "line": 1716
         },
         {
           "name": "performRemoteOperation",
@@ -25777,7 +25777,7 @@
           "returnDescription": "the named operation result.",
           "throws": [],
           "propertyType": null,
-          "line": 1728
+          "line": 1732
         },
         {
           "name": "add",
@@ -25823,7 +25823,7 @@
           "returnDescription": "that resolves to an `Object`, or to `null` when no live repository remains registered after discovery.",
           "throws": [],
           "propertyType": null,
-          "line": 1832
+          "line": 1836
         },
         {
           "name": "forget",
@@ -25850,7 +25850,7 @@
           "returnDescription": ": `true` if the repository was registered.",
           "throws": [],
           "propertyType": null,
-          "line": 1873
+          "line": 1877
         },
         {
           "name": "update",
@@ -25867,7 +25867,7 @@
           "returnDescription": "that resolves to an `Array` of every registered {@link GitRepository}.",
           "throws": [],
           "propertyType": null,
-          "line": 2043
+          "line": 2047
         }
       ]
     },
@@ -52037,5 +52037,5 @@
     }
   ],
   "memberCount": 1527,
-  "generatedAt": "2026-10-13T01:37:10.229Z"
+  "generatedAt": "2026-10-13T01:53:09.081Z"
 }
