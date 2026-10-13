@@ -14,11 +14,11 @@
       html { scroll-behavior: auto; }
       .api-main { --border: #364253; --muted: #aeb9c8; --soft: #d2d9e2; --green: #9be391; --cyan: #75ddd8; --api-panel: rgba(17, 22, 28, .88); --api-panel-raised: rgba(24, 30, 38, .9); --api-divider: rgba(174, 185, 200, .17); width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 48px 0 76px; }
       .api-main a:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 3px; border-radius: 3px; }
-      .api-header { width: min(100%, 1132px); margin: 0 auto 38px; }
+      .api-header { width: min(100%, 1332px); margin: 0 auto 38px; }
       .api-header h1 { margin: 7px 0 8px; font-size: clamp(2.1rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -.025em; }
       .api-header p:not(.eyebrow) { max-width: 780px; margin: 0; color: var(--soft); }
       .api-header .api-meta { margin-top: 8px; color: var(--muted); font-size: .86rem; }
-      .api-layout { display: grid; grid-template-columns: minmax(270px, 300px) minmax(0, 800px); grid-template-areas: "sidebar content"; gap: 32px; align-items: start; justify-content: center; }
+      .api-layout { display: grid; grid-template-columns: minmax(270px, 300px) minmax(0, 1000px); grid-template-areas: "sidebar content"; gap: 32px; align-items: start; justify-content: center; }
       .api-sidebar { grid-area: sidebar; display: block; align-self: stretch; padding-right: 30px; border-right: 1px solid var(--api-divider); }
       .api-tree { min-width: 0; }
       .api-tree > summary { display: none; list-style: none; pointer-events: none; }
@@ -37,7 +37,7 @@
       .api-nav-link-featured::after { content: ""; position: absolute; right: 0; bottom: -7px; left: 0; height: 1px; background: var(--border); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-      .api-content { grid-area: content; width: 100%; min-width: 0; max-width: 800px; }
+      .api-content { grid-area: content; width: 100%; min-width: 0; max-width: 1000px; }
       .api-class { margin-bottom: 52px; scroll-margin-top: 88px; }
       .api-class-header { padding: 0 0 28px; border: 0; border-radius: 0; background: transparent; }
       .api-class-header .eyebrow { margin: 0 0 6px; color: var(--cyan); }
@@ -127,8 +127,16 @@
       .api-group-properties .api-member-has-description { grid-column: 1 / -1; }
       .api-member-heading { display: flex; gap: 14px; align-items: flex-start; justify-content: space-between; }
       .api-member[data-api-expandable] .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 14px 18px; cursor: default; }
-      .api-member-property .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; }
+      .api-member-property .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; align-items: baseline; }
       .api-member-property .api-member-meta { margin-left: 0; }
+      .api-member-property h4 { flex-wrap: nowrap; }
+      .api-property-signature { display: inline-flex; gap: 7px; align-items: baseline; min-width: 0; max-width: 100%; }
+      .api-property-name { display: inline-flex; flex: none; align-items: baseline; white-space: nowrap; overflow-wrap: normal; }
+      .api-property-name .api-signature-name { white-space: nowrap; }
+      .api-property-colon { color: var(--muted); font-size: .78rem; font-weight: 400; }
+      .api-member-property .api-property-type { display: inline; min-width: 0; overflow-wrap: anywhere; }
+      .api-member-property .api-property-type::before { content: none; }
+      .api-member-property .api-property-type .api-type-expression { white-space: normal; overflow-wrap: anywhere; }
       .api-member[data-api-expandable] h4 { min-width: 0; }
       .api-member-toggle { display: flex; gap: 11px; align-items: baseline; width: 100%; min-width: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: default; }
       .api-member-toggle:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 4px; border-radius: 3px; }
@@ -173,10 +181,15 @@
         .api-tree:not([open]) > .api-tree-scroll { display: none; }
         .api-tree[open] > .api-tree-scroll { display: block; padding: 12px 4px 2px; }
       }
-      @media (max-width: 760px) {
-        .api-main { width: min(100% - 30px, 1440px); padding-top: 34px; }
+      @media (max-width: 1000px) {
         .api-group-properties .api-group-entries { grid-template-columns: 1fr; }
         .api-group-properties .api-member-has-description { grid-column: auto; }
+        .api-group-properties .api-member:nth-child(even) { border-left: 0; }
+        .api-group-properties .api-member:nth-last-child(-n+2) { border-bottom: 0; }
+        .api-group-properties .api-member:last-child { border-bottom: 1px solid var(--api-divider); }
+      }
+      @media (max-width: 760px) {
+        .api-main { width: min(100% - 30px, 1440px); padding-top: 34px; }
       }
       @media (max-width: 620px) {
         .api-header { margin-bottom: 28px; }
@@ -307,7 +320,7 @@ an instance of this class is always available as the `lumine` global.">
               <div class="api-group-entries">
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-application" data-api-entry="environment application ::application ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-application" aria-label="Link to ::application">#</a><code class="api-signature"><span class="api-signature-name">application</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-applicationservice">ApplicationService</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-application" aria-label="Link to ::application">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">application</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-applicationservice">Application<wbr>Service</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L146" title="src/environment.js:146" aria-label="View source for application, line 146">L146</a></div>
                       </div>
 
@@ -315,7 +328,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-clipboard" data-api-entry="environment clipboard ::clipboard ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-clipboard" aria-label="Link to ::clipboard">#</a><code class="api-signature"><span class="api-signature-name">clipboard</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-clipboard">Clipboard</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-clipboard" aria-label="Link to ::clipboard">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">clipboard</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-clipboard">Clipboard</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L117" title="src/environment.js:117" aria-label="View source for clipboard, line 117">L117</a></div>
                       </div>
 
@@ -323,7 +336,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-commands" data-api-entry="environment commands ::commands ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-commands" aria-label="Link to ::commands">#</a><code class="api-signature"><span class="api-signature-name">commands</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-commandregistry">CommandRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-commands" aria-label="Link to ::commands">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">commands</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-commandregistry">Command<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L258" title="src/environment.js:258" aria-label="View source for commands, line 258">L258</a></div>
                       </div>
 
@@ -331,7 +344,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-config" data-api-entry="environment config ::config ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-config" aria-label="Link to ::config">#</a><code class="api-signature"><span class="api-signature-name">config</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-config">Config</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-config" aria-label="Link to ::config">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">config</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-config">Config</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L210" title="src/environment.js:210" aria-label="View source for config, line 210">L210</a></div>
                       </div>
 
@@ -339,7 +352,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-contextmenu" data-api-entry="environment contextmenu ::contextmenu ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-contextmenu" aria-label="Link to ::contextMenu">#</a><code class="api-signature"><span class="api-signature-name">context<wbr>Menu</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-contextmenumanager">ContextMenuManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-contextmenu" aria-label="Link to ::contextMenu">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">contextMenu</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-contextmenumanager">Context<wbr>Menu<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L346" title="src/environment.js:346" aria-label="View source for contextMenu, line 346">L346</a></div>
                       </div>
 
@@ -347,7 +360,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-deserializers" data-api-entry="environment deserializers ::deserializers ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-deserializers" aria-label="Link to ::deserializers">#</a><code class="api-signature"><span class="api-signature-name">deserializers</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-deserializermanager">DeserializerManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-deserializers" aria-label="Link to ::deserializers">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">deserializers</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-deserializermanager">Deserializer<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L178" title="src/environment.js:178" aria-label="View source for deserializers, line 178">L178</a></div>
                       </div>
 
@@ -355,7 +368,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-deserializetimings" data-api-entry="environment deserializetimings ::deserializetimings ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-deserializetimings" aria-label="Link to ::deserializeTimings">#</a><code class="api-signature"><span class="api-signature-name">deserialize<wbr>Timings</span></code><span class="api-property-type"><code class="api-type-expression">Object</code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-deserializetimings" aria-label="Link to ::deserializeTimings">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">deserializeTimings</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression">Object</code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L186" title="src/environment.js:186" aria-label="View source for deserializeTimings, line 186">L186</a></div>
                       </div>
 
@@ -363,7 +376,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-grammars" data-api-entry="environment grammars ::grammars ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-grammars" aria-label="Link to ::grammars">#</a><code class="api-signature"><span class="api-signature-name">grammars</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-grammarregistry">GrammarRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-grammars" aria-label="Link to ::grammars">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">grammars</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-grammarregistry">Grammar<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L274" title="src/environment.js:274" aria-label="View source for grammars, line 274">L274</a></div>
                       </div>
 
@@ -371,7 +384,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-history" data-api-entry="environment history ::history ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-history" aria-label="Link to ::history">#</a><code class="api-signature"><span class="api-signature-name">history</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-historymanager">HistoryManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-history" aria-label="Link to ::history">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">history</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-historymanager">History<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L551" title="src/environment.js:551" aria-label="View source for history, line 551">L551</a></div>
                       </div>
 
@@ -379,7 +392,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-hooks" data-api-entry="environment hooks ::hooks ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-hooks" aria-label="Link to ::hooks">#</a><code class="api-signature"><span class="api-signature-name">hooks</span></code><span class="api-property-type"><code class="api-type-expression">Object</code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-hooks" aria-label="Link to ::hooks">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">hooks</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression">Object</code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L311" title="src/environment.js:311" aria-label="View source for hooks, line 311">L311</a></div>
                       </div>
 
@@ -387,7 +400,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-icons" data-api-entry="environment icons ::icons ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-icons" aria-label="Link to ::icons">#</a><code class="api-signature"><span class="api-signature-name">icons</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-iconregistry">IconRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-icons" aria-label="Link to ::icons">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">icons</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-iconregistry">Icon<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L365" title="src/environment.js:365" aria-label="View source for icons, line 365">L365</a></div>
                       </div>
 
@@ -395,7 +408,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-keymaps" data-api-entry="environment keymaps ::keymaps ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-keymaps" aria-label="Link to ::keymaps">#</a><code class="api-signature"><span class="api-signature-name">keymaps</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-keymapmanager">KeymapManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-keymaps" aria-label="Link to ::keymaps">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">keymaps</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-keymapmanager">Keymap<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L236" title="src/environment.js:236" aria-label="View source for keymaps, line 236">L236</a></div>
                       </div>
 
@@ -403,7 +416,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-menu" data-api-entry="environment menu ::menu ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-menu" aria-label="Link to ::menu">#</a><code class="api-signature"><span class="api-signature-name">menu</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-menumanager">MenuManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-menu" aria-label="Link to ::menu">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">menu</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-menumanager">Menu<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L335" title="src/environment.js:335" aria-label="View source for menu, line 335">L335</a></div>
                       </div>
 
@@ -411,7 +424,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-notifications" data-api-entry="environment notifications ::notifications ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-notifications" aria-label="Link to ::notifications">#</a><code class="api-signature"><span class="api-signature-name">notifications</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-notificationmanager">NotificationManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-notifications" aria-label="Link to ::notifications">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">notifications</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-notificationmanager">Notification<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L202" title="src/environment.js:202" aria-label="View source for notifications, line 202">L202</a></div>
                       </div>
 
@@ -419,7 +432,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-packages" data-api-entry="environment packages ::packages ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-packages" aria-label="Link to ::packages">#</a><code class="api-signature"><span class="api-signature-name">packages</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-packagemanager">PackageManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-packages" aria-label="Link to ::packages">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">packages</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-packagemanager">Package<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L293" title="src/environment.js:293" aria-label="View source for packages, line 293">L293</a></div>
                       </div>
 
@@ -427,7 +440,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-paneitemtransfers" data-api-entry="environment paneitemtransfers ::paneitemtransfers ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-paneitemtransfers" aria-label="Link to ::paneItemTransfers">#</a><code class="api-signature"><span class="api-signature-name">pane<wbr>Item<wbr>Transfers</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-paneitemtransferservice">PaneItemTransferService</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-paneitemtransfers" aria-label="Link to ::paneItemTransfers">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">paneItemTransfers</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-paneitemtransferservice">Pane<wbr>Item<wbr>Transfer<wbr>Service</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L521" title="src/environment.js:521" aria-label="View source for paneItemTransfers, line 521">L521</a></div>
                       </div>
 
@@ -435,7 +448,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-pasteproviders" data-api-entry="environment pasteproviders ::pasteproviders ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-pasteproviders" aria-label="Link to ::pasteProviders">#</a><code class="api-signature"><span class="api-signature-name">paste<wbr>Providers</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-pasteproviderregistry">PasteProviderRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-pasteproviders" aria-label="Link to ::pasteProviders">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">pasteProviders</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-pasteproviderregistry">Paste<wbr>Provider<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L454" title="src/environment.js:454" aria-label="View source for pasteProviders, line 454">L454</a></div>
                       </div>
 
@@ -443,7 +456,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-project" data-api-entry="environment project ::project ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-project" aria-label="Link to ::project">#</a><code class="api-signature"><span class="api-signature-name">project</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-project">Project</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-project" aria-label="Link to ::project">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">project</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-project">Project</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L414" title="src/environment.js:414" aria-label="View source for project, line 414">L414</a></div>
                       </div>
 
@@ -451,7 +464,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-repositories" data-api-entry="environment repositories ::repositories ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-repositories" aria-label="Link to ::repositories">#</a><code class="api-signature"><span class="api-signature-name">repositories</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-repositoryregistry">RepositoryRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-repositories" aria-label="Link to ::repositories">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">repositories</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-repositoryregistry">Repository<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L378" title="src/environment.js:378" aria-label="View source for repositories, line 378">L378</a></div>
                       </div>
 
@@ -459,7 +472,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-runtime" data-api-entry="environment runtime ::runtime ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-runtime" aria-label="Link to ::runtime">#</a><code class="api-signature"><span class="api-signature-name">runtime</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-runtimeservice">RuntimeService</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-runtime" aria-label="Link to ::runtime">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">runtime</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-runtimeservice">Runtime<wbr>Service</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L160" title="src/environment.js:160" aria-label="View source for runtime, line 160">L160</a></div>
                       </div>
 
@@ -467,7 +480,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-secrets" data-api-entry="environment secrets ::secrets ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-secrets" aria-label="Link to ::secrets">#</a><code class="api-signature"><span class="api-signature-name">secrets</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-secretstore">SecretStore</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-secrets" aria-label="Link to ::secrets">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">secrets</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-secretstore">Secret<wbr>Store</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L402" title="src/environment.js:402" aria-label="View source for secrets, line 402">L402</a></div>
                       </div>
 
@@ -475,7 +488,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-shell" data-api-entry="environment shell ::shell ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-shell" aria-label="Link to ::shell">#</a><code class="api-signature"><span class="api-signature-name">shell</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-shellservice">ShellService</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-shell" aria-label="Link to ::shell">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">shell</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-shellservice">Shell<wbr>Service</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L153" title="src/environment.js:153" aria-label="View source for shell, line 153">L153</a></div>
                       </div>
 
@@ -483,7 +496,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-styles" data-api-entry="environment styles ::styles ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-styles" aria-label="Link to ::styles">#</a><code class="api-signature"><span class="api-signature-name">styles</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-stylemanager">StyleManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-styles" aria-label="Link to ::styles">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">styles</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-stylemanager">Style<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L285" title="src/environment.js:285" aria-label="View source for styles, line 285">L285</a></div>
                       </div>
 
@@ -491,7 +504,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-texteditors" data-api-entry="environment texteditors ::texteditors ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-texteditors" aria-label="Link to ::textEditors">#</a><code class="api-signature"><span class="api-signature-name">text<wbr>Editors</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-texteditorregistry">TextEditorRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-texteditors" aria-label="Link to ::textEditors">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">textEditors</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-texteditorregistry">Text<wbr>Editor<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L440" title="src/environment.js:440" aria-label="View source for textEditors, line 440">L440</a></div>
                       </div>
 
@@ -499,7 +512,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-themes" data-api-entry="environment themes ::themes ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-themes" aria-label="Link to ::themes">#</a><code class="api-signature"><span class="api-signature-name">themes</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-thememanager">ThemeManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-themes" aria-label="Link to ::themes">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">themes</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-thememanager">Theme<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L319" title="src/environment.js:319" aria-label="View source for themes, line 319">L319</a></div>
                       </div>
 
@@ -507,7 +520,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-tools" data-api-entry="environment tools ::tools ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-tools" aria-label="Link to ::tools">#</a><code class="api-signature"><span class="api-signature-name">tools</span></code><span class="api-property-type"><code class="api-type-expression">Object</code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-tools" aria-label="Link to ::tools">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">tools</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression">Object</code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L572" title="src/environment.js:572" aria-label="View source for tools, line 572">L572</a></div>
                       </div>
 
@@ -515,7 +528,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-tooltips" data-api-entry="environment tooltips ::tooltips ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-tooltips" aria-label="Link to ::tooltips">#</a><code class="api-signature"><span class="api-signature-name">tooltips</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-tooltipmanager">TooltipManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-tooltips" aria-label="Link to ::tooltips">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">tooltips</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-tooltipmanager">Tooltip<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L247" title="src/environment.js:247" aria-label="View source for tooltips, line 247">L247</a></div>
                       </div>
 
@@ -523,7 +536,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-urihandlers" data-api-entry="environment urihandlers ::urihandlers ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-urihandlers" aria-label="Link to ::uriHandlers">#</a><code class="api-signature"><span class="api-signature-name">uri<wbr>Handlers</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-urihandlerregistry">URIHandlerRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-urihandlers" aria-label="Link to ::uriHandlers">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">uriHandlers</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-urihandlerregistry">URIHandler<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L266" title="src/environment.js:266" aria-label="View source for uriHandlers, line 266">L266</a></div>
                       </div>
 
@@ -531,7 +544,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-views" data-api-entry="environment views ::views ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-views" aria-label="Link to ::views">#</a><code class="api-signature"><span class="api-signature-name">views</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-viewregistry">ViewRegistry</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-views" aria-label="Link to ::views">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">views</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-viewregistry">View<wbr>Registry</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L194" title="src/environment.js:194" aria-label="View source for views, line 194">L194</a></div>
                       </div>
 
@@ -539,7 +552,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-window" data-api-entry="environment window ::window ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-window" aria-label="Link to ::window">#</a><code class="api-signature"><span class="api-signature-name">window</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-windowservice">WindowService</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-window" aria-label="Link to ::window">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">window</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-windowservice">Window<wbr>Service</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L139" title="src/environment.js:139" aria-label="View source for window, line 139">L139</a></div>
                       </div>
 
@@ -547,7 +560,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-workspace" data-api-entry="environment workspace ::workspace ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-workspace" aria-label="Link to ::workspace">#</a><code class="api-signature"><span class="api-signature-name">workspace</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-workspace">Workspace</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-workspace" aria-label="Link to ::workspace">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">workspace</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-workspace">Workspace</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L463" title="src/environment.js:463" aria-label="View source for workspace, line 463">L463</a></div>
                       </div>
 
@@ -555,7 +568,7 @@ an instance of this class is always available as the `lumine` global.">
 
                     <article class="api-member api-member-property api-member-compact" id="environment-instance-workspacedrops" data-api-entry="environment workspacedrops ::workspacedrops ">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#environment-instance-workspacedrops" aria-label="Link to ::workspaceDrops">#</a><code class="api-signature"><span class="api-signature-name">workspace<wbr>Drops</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-workspacedropmanager">WorkspaceDropManager</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#environment-instance-workspacedrops" aria-label="Link to ::workspaceDrops">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">workspaceDrops</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-workspacedropmanager">Workspace<wbr>Drop<wbr>Manager</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/environment.js#L508" title="src/environment.js:508" aria-label="View source for workspaceDrops, line 508">L508</a></div>
                       </div>
 
@@ -10056,7 +10069,7 @@ row and column. So the following are equivalent:</p>
               <div class="api-group-entries">
                     <article class="api-member api-member-property api-member-has-description" id="point-static-zero" data-api-entry="point zero .zero the shared frozen point at row zero and column zero.">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#point-static-zero" aria-label="Link to .ZERO">#</a><code class="api-signature"><span class="api-signature-name">.ZERO</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-point">Point</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#point-static-zero" aria-label="Link to .ZERO">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">.ZERO</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-point">Point</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/point.js#L34" title="src/point.js:34" aria-label="View source for .ZERO, line 34">L34</a></div>
                       </div>
                       <div class="api-description-body"><p>The shared frozen point at row zero and column zero.</p>
@@ -10065,7 +10078,7 @@ row and column. So the following are equivalent:</p>
 
                     <article class="api-member api-member-property api-member-has-description" id="point-static-infinity" data-api-entry="point infinity .infinity the shared frozen point with an infinite row and column.">
                       <div class="api-member-heading">
-                        <h4><a class="api-anchor" href="#point-static-infinity" aria-label="Link to .INFINITY">#</a><code class="api-signature"><span class="api-signature-name">.INFINITY</span></code><span class="api-property-type"><code class="api-type-expression"><a href="#class-point">Point</a></code></span></h4>
+                        <h4><a class="api-anchor" href="#point-static-infinity" aria-label="Link to .INFINITY">#</a><span class="api-property-signature"><span class="api-property-name"><code class="api-signature"><span class="api-signature-name">.INFINITY</span></code><span class="api-property-colon">:</span></span><span class="api-property-type"><code class="api-type-expression"><a href="#class-point">Point</a></code></span></span></h4>
                         <div class="api-member-meta"><a class="api-source" href="https://github.com/lumine-code/lumine/blob/master/src/point.js#L45" title="src/point.js:45" aria-label="View source for .INFINITY, line 45">L45</a></div>
                       </div>
                       <div class="api-description-body"><p>The shared frozen point with an infinite row and column.</p>

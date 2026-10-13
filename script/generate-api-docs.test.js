@@ -226,6 +226,83 @@ test("renders object APIs, callable paths, property contracts and reference link
   }
 });
 
+test("keeps property names and colons together while long linked types can wrap independently", async (context) => {
+  const fixture = renderFixture(context);
+  const property = fixture.api.classes[0].members[0];
+  const cases = [
+    ["paneItemTransfers", "PaneItemTransferService"],
+    ["workspaceDrops", "WorkspaceDropManager"],
+    [
+      "largeValue",
+      "AnUnusuallyLongTypeWithManyDistinctPartsAndAReallyLongUnbrokenIdentifierSegment",
+    ],
+  ];
+  fixture.api.classes[0].members = cases.map(([name, type]) => ({
+    ...property,
+    name,
+    signature: `::${name}`,
+    propertyType: type,
+    description: "",
+  }));
+  fixture.api.classes.push(
+    ...cases.map(([, name]) => ({
+      ...fixture.api.classes[0],
+      name,
+      description: "A service exposed by the overview.",
+      members: [],
+    })),
+  );
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  for (const [name, type] of cases) {
+    const member = nodes.find(
+      (node) =>
+        attribute(node, "id") === `environment-instance-${name.toLowerCase()}`,
+    );
+    const signature = elements(member).find((node) =>
+      hasClass(node, "api-property-signature"),
+    );
+    const propertyName = signature.childNodes.find((node) =>
+      hasClass(node, "api-property-name"),
+    );
+    const propertyType = signature.childNodes.find((node) =>
+      hasClass(node, "api-property-type"),
+    );
+    assert.equal(textContent(propertyName), `${name}:`);
+    assert.ok(
+      !elements(propertyName).some((node) => node.tagName === "wbr"),
+      "a property name must not break between its words",
+    );
+    assert.equal(textContent(propertyType), type);
+    assert.ok(
+      elements(propertyType).some((node) => node.tagName === "wbr"),
+      "long type names need their own wrap opportunities",
+    );
+    assert.ok(
+      elements(propertyType).some(
+        (node) =>
+          node.tagName === "a" &&
+          attribute(node, "href") === `#class-${type.toLowerCase()}`,
+      ),
+    );
+    const metadata = elements(member).find((node) =>
+      hasClass(node, "api-member-meta"),
+    );
+    assert.ok(
+      !elements(signature).includes(metadata),
+      "source metadata must retain its separate column",
+    );
+  }
+  assert.match(html, /\.api-content \{[^}]*max-width: 1000px/);
+  assert.match(
+    html,
+    /@media \(max-width: 1000px\) \{\s*\.api-group-properties \.api-group-entries \{ grid-template-columns: 1fr; \}/,
+  );
+});
+
 test("renders linked section navigation, nested headings and typed failure contracts", (context) => {
   const fixture = renderFixture(context);
   fixture.api.classes[0].description =

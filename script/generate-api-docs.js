@@ -358,7 +358,7 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-function renderType(type, classNames) {
+function renderType(type, classNames, breakIdentifiers = false) {
   if (!type) return "";
 
   let html = "";
@@ -366,9 +366,12 @@ function renderType(type, classNames) {
   for (const match of type.matchAll(/[A-Za-z_$][A-Za-z0-9_$]*/g)) {
     html += escapeHtml(type.slice(offset, match.index));
     const token = match[0];
-    html += classNames.has(token)
-      ? `<a href="${classNames.get(token)}">${escapeHtml(token)}</a>`
+    const label = breakIdentifiers
+      ? escapeHtml(token).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2")
       : escapeHtml(token);
+    html += classNames.has(token)
+      ? `<a href="${classNames.get(token)}">${label}</a>`
+      : label;
     offset = match.index + token.length;
   }
   html += escapeHtml(type.slice(offset));
@@ -611,6 +614,7 @@ function renderHtml(api) {
                     : " api-member-compact";
                   const entryId = memberId(item.name, member);
                   const signature = `${renderSignature(displaySignature)}${member.propertyType ? `<span class="api-property-type">${renderType(displayPropertyType, classNames)}</span>` : ""}`;
+                  const propertySignature = `<span class="api-property-signature"><span class="api-property-name">${renderSignature(displaySignature).replaceAll("<wbr>", "")}${member.propertyType ? '<span class="api-property-colon">:</span>' : ""}</span>${member.propertyType ? `<span class="api-property-type">${renderType(displayPropertyType, classNames, true)}</span>` : ""}</span>`;
                   const permalink = `<a class="api-anchor" href="#${entryId}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>`;
                   const sourceMeta = `${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}${memberBadge}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}" aria-label="View source for ${escapeHtml(displaySignature)}, line ${member.line}">L${member.line}</a>`;
                   const meta = `${sourceMeta}${permalink}`;
@@ -629,7 +633,7 @@ function renderHtml(api) {
                   return `
                     <article class="api-member api-member-${member.kind}${descriptionClass}" ${attributes}>
                       <div class="api-member-heading">
-                        <h4>${permalink}${signature}</h4>
+                        <h4>${permalink}${propertySignature}</h4>
                         <div class="api-member-meta">${sourceMeta}</div>
                       </div>
                       ${body}
@@ -681,11 +685,11 @@ function renderHtml(api) {
       html { scroll-behavior: auto; }
       .api-main { --border: #364253; --muted: #aeb9c8; --soft: #d2d9e2; --green: #9be391; --cyan: #75ddd8; --api-panel: rgba(17, 22, 28, .88); --api-panel-raised: rgba(24, 30, 38, .9); --api-divider: rgba(174, 185, 200, .17); width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 48px 0 76px; }
       .api-main a:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 3px; border-radius: 3px; }
-      .api-header { width: min(100%, 1132px); margin: 0 auto 38px; }
+      .api-header { width: min(100%, 1332px); margin: 0 auto 38px; }
       .api-header h1 { margin: 7px 0 8px; font-size: clamp(2.1rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -.025em; }
       .api-header p:not(.eyebrow) { max-width: 780px; margin: 0; color: var(--soft); }
       .api-header .api-meta { margin-top: 8px; color: var(--muted); font-size: .86rem; }
-      .api-layout { display: grid; grid-template-columns: minmax(270px, 300px) minmax(0, 800px); grid-template-areas: "sidebar content"; gap: 32px; align-items: start; justify-content: center; }
+      .api-layout { display: grid; grid-template-columns: minmax(270px, 300px) minmax(0, 1000px); grid-template-areas: "sidebar content"; gap: 32px; align-items: start; justify-content: center; }
       .api-sidebar { grid-area: sidebar; display: block; align-self: stretch; padding-right: 30px; border-right: 1px solid var(--api-divider); }
       .api-tree { min-width: 0; }
       .api-tree > summary { display: none; list-style: none; pointer-events: none; }
@@ -704,7 +708,7 @@ function renderHtml(api) {
       .api-nav-link-featured::after { content: ""; position: absolute; right: 0; bottom: -7px; left: 0; height: 1px; background: var(--border); }
       .api-toast { position: fixed; left: 50%; bottom: 26px; z-index: 100; padding: 10px 18px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: .85rem; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s ease, transform .2s ease; }
       .api-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-      .api-content { grid-area: content; width: 100%; min-width: 0; max-width: 800px; }
+      .api-content { grid-area: content; width: 100%; min-width: 0; max-width: 1000px; }
       .api-class { margin-bottom: 52px; scroll-margin-top: 88px; }
       .api-class-header { padding: 0 0 28px; border: 0; border-radius: 0; background: transparent; }
       .api-class-header .eyebrow { margin: 0 0 6px; color: var(--cyan); }
@@ -794,8 +798,16 @@ function renderHtml(api) {
       .api-group-properties .api-member-has-description { grid-column: 1 / -1; }
       .api-member-heading { display: flex; gap: 14px; align-items: flex-start; justify-content: space-between; }
       .api-member[data-api-expandable] .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 14px 18px; cursor: default; }
-      .api-member-property .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; }
+      .api-member-property .api-member-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; align-items: baseline; }
       .api-member-property .api-member-meta { margin-left: 0; }
+      .api-member-property h4 { flex-wrap: nowrap; }
+      .api-property-signature { display: inline-flex; gap: 7px; align-items: baseline; min-width: 0; max-width: 100%; }
+      .api-property-name { display: inline-flex; flex: none; align-items: baseline; white-space: nowrap; overflow-wrap: normal; }
+      .api-property-name .api-signature-name { white-space: nowrap; }
+      .api-property-colon { color: var(--muted); font-size: .78rem; font-weight: 400; }
+      .api-member-property .api-property-type { display: inline; min-width: 0; overflow-wrap: anywhere; }
+      .api-member-property .api-property-type::before { content: none; }
+      .api-member-property .api-property-type .api-type-expression { white-space: normal; overflow-wrap: anywhere; }
       .api-member[data-api-expandable] h4 { min-width: 0; }
       .api-member-toggle { display: flex; gap: 11px; align-items: baseline; width: 100%; min-width: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: default; }
       .api-member-toggle:focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 4px; border-radius: 3px; }
@@ -840,10 +852,15 @@ function renderHtml(api) {
         .api-tree:not([open]) > .api-tree-scroll { display: none; }
         .api-tree[open] > .api-tree-scroll { display: block; padding: 12px 4px 2px; }
       }
-      @media (max-width: 760px) {
-        .api-main { width: min(100% - 30px, 1440px); padding-top: 34px; }
+      @media (max-width: 1000px) {
         .api-group-properties .api-group-entries { grid-template-columns: 1fr; }
         .api-group-properties .api-member-has-description { grid-column: auto; }
+        .api-group-properties .api-member:nth-child(even) { border-left: 0; }
+        .api-group-properties .api-member:nth-last-child(-n+2) { border-bottom: 0; }
+        .api-group-properties .api-member:last-child { border-bottom: 1px solid var(--api-divider); }
+      }
+      @media (max-width: 760px) {
+        .api-main { width: min(100% - 30px, 1440px); padding-top: 34px; }
       }
       @media (max-width: 620px) {
         .api-header { margin-bottom: 28px; }
