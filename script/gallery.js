@@ -9,6 +9,7 @@
   const dialog = document.querySelector("#gallery-viewer");
   const viewerImage = dialog.querySelector("img");
   const viewerTitle = dialog.querySelector("h2");
+  const viewerBadge = dialog.querySelector(".gallery-optional");
   const viewerCaption = dialog.querySelector("p");
   const viewerSource = dialog.querySelector(".gallery-source");
   const previous = dialog.querySelector("[data-previous]");
@@ -29,6 +30,7 @@
     active = index;
     const item = filtered[index];
     viewerTitle.textContent = item.repo;
+    viewerBadge.hidden = item.distribution !== "optional";
     viewerCaption.textContent = item.caption;
     viewerImage.alt = item.caption;
     viewerImage.width = item.width;
@@ -82,7 +84,14 @@
       const link = make("a", "", item.repo);
       link.href = item.repository;
       heading.append(link);
-      details.append(heading, make("p", "", item.caption));
+      const headingRow = make("div", "gallery-card-heading");
+      headingRow.append(heading);
+      if (item.distribution === "optional") {
+        const badge = make("span", "gallery-optional", "optional");
+        badge.title = "Installed separately";
+        headingRow.append(badge);
+      }
+      details.append(headingRow, make("p", "", item.caption));
       card.append(button, details);
       fragment.append(card);
     }

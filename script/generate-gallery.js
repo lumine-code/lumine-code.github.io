@@ -16,6 +16,11 @@ const git = (cwd, args) =>
     stdio: ["ignore", "pipe", "ignore"],
   }).trim();
 async function main() {
+  const main = path.join(workspace, "lumine");
+  const revision = git(main, ["rev-parse", "origin/master"]);
+  const editorManifest = JSON.parse(
+    git(main, ["show", `${revision}:package.json`]),
+  );
   const publicRepos = new Set();
   for (let page = 1; ; page++) {
     const response = await fetch(
@@ -41,6 +46,14 @@ async function main() {
         git(cwd, ["show", "origin/master:package.json"]),
       );
       if (!manifest.engines?.lumine || repo === "dev-live-reload") continue;
+      // The engine check above supplies the package marker; membership in the
+      // editor's dependencies supplies the pin, as in core's bundled scan.
+      const distribution = Object.hasOwn(
+        editorManifest.dependencies || {},
+        manifest.name,
+      )
+        ? "bundled"
+        : "optional";
       if (
         !/^https:\/\/github\.com\/lumine-code\//.test(
           git(cwd, ["remote", "get-url", "origin"]),
@@ -70,6 +83,7 @@ async function main() {
           id: `${repo}-${index + 1}`,
           repo,
           category,
+          distribution,
           description: manifest.description,
           caption: item.label,
           width: item.width,
@@ -83,10 +97,8 @@ async function main() {
       // A repository with no published screenshot contributes no preview.
     }
   }
-  const main = path.join(workspace, "lumine");
   if (!publicRepos.has("lumine"))
     throw new Error("The editor repository is not public");
-  const revision = git(main, ["rev-parse", "origin/master"]);
   const captions = [
     "Edit source code in Lumine.",
     "Preview Markdown beside its source.",
@@ -100,6 +112,7 @@ async function main() {
       id: `lumine-${index}`,
       repo: "lumine",
       category: "editor",
+      distribution: "editor",
       description: "The Lumine editor.",
       caption: captions[index - 1],
       width: 1440,
@@ -117,7 +130,7 @@ async function main() {
   );
   fs.writeFileSync(
     path.join(site, "gallery.json"),
-    JSON.stringify({ entries }, null, 2) + "\n",
+    JSON.stringify({ editorRevision: revision, entries }, null, 2) + "\n",
   );
   console.log(
     `${entries.length} published images from ${new Set(entries.map((item) => item.repo)).size} repositories`,

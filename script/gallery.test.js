@@ -5,7 +5,7 @@ const path = require("node:path");
 const assert = require("node:assert/strict");
 const test = require("node:test");
 const root = path.resolve(__dirname, "..");
-const { entries } = JSON.parse(
+const { editorRevision, entries } = JSON.parse(
   fs.readFileSync(path.join(root, "gallery.json"), "utf8"),
 );
 
@@ -16,6 +16,7 @@ test("the gallery excludes private maintainer packages", () => {
 });
 
 test("gallery assets link to immutable public repository images with intrinsic dimensions", () => {
+  assert.match(editorRevision, /^[a-f\d]{40}$/);
   assert.ok(entries.length > 0);
   assert.equal(new Set(entries.map((item) => item.id)).size, entries.length);
   for (const item of entries) {
@@ -35,6 +36,8 @@ test("gallery assets link to immutable public repository images with intrinsic d
     assert.ok(
       ["editor", "packages", "grammars", "themes"].includes(item.category),
     );
+    assert.ok(["editor", "bundled", "optional"].includes(item.distribution));
+    assert.equal(item.distribution === "editor", item.category === "editor");
   }
 });
 

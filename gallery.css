@@ -119,9 +119,29 @@
   padding: 22px clamp(20px, 2vw, 32px) 28px;
 }
 .gallery-card h2 {
-  margin: 0 0 8px;
+  margin: 0;
   font: 500 18px/1.4 var(--mono);
   overflow-wrap: anywhere;
+}
+.gallery-card-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+  min-width: 0;
+}
+.gallery-optional {
+  display: inline-block;
+  flex: none;
+  color: var(--muted);
+  font: 400 12px/1.5 var(--mono);
+}
+.gallery-optional[hidden] {
+  display: none;
+}
+.gallery-viewer .gallery-card-heading {
+  margin-bottom: 0;
 }
 .gallery-card h2 a:hover {
   color: var(--accent);
