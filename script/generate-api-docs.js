@@ -367,7 +367,7 @@ function renderType(type, classNames, breakIdentifiers = false) {
     html += escapeHtml(type.slice(offset, match.index));
     const token = match[0];
     const label = breakIdentifiers
-      ? escapeHtml(token).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2")
+      ? renderIdentifier(token)
       : escapeHtml(token);
     html += classNames.has(token)
       ? `<a href="${classNames.get(token)}">${label}</a>`
@@ -504,9 +504,11 @@ function renderEntryDetails(entry, classNames, memberAnchors, currentClass) {
   return sections.join("");
 }
 
+function renderIdentifier(identifier) {
+  return escapeHtml(identifier).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
+}
+
 function renderSignature(signature) {
-  const renderIdentifier = (identifier) =>
-    escapeHtml(identifier).replace(/([a-z0-9])([A-Z])/g, "$1<wbr>$2");
   const openingParen = signature.indexOf("(");
   if (openingParen === -1) {
     return `<code class="api-signature"><span class="api-signature-name">${renderIdentifier(signature)}</span></code>`;
@@ -564,7 +566,7 @@ function renderHtml(api) {
     .sort(byName)
     .map(
       (item) =>
-        `<a class="api-nav-link" href="${item.href}" data-api-nav>${escapeHtml(item.name)}</a>`,
+        `<a class="api-nav-link" href="${item.href}" data-api-nav>${renderIdentifier(item.name)}</a>`,
     )
     .join("\n");
   const apiIndexList = `<a class="api-nav-link api-nav-link-featured" href="#${overviewId}" data-api-nav>Overview</a>${apiIndex}`;
@@ -613,10 +615,32 @@ function renderHtml(api) {
                     ? " api-member-has-description"
                     : " api-member-compact";
                   const entryId = memberId(item.name, member);
+                  const sourceUrl = `${item.repository}/blob/master/${item.sourcePath}#L${member.line}`;
+                  const isOverviewProperty =
+                    item === overviewClass && member.kind === "property";
+                  // A plain documented type is an unambiguous destination.
+                  // Object maps and undocumented types have no class page, so
+                  // take readers to their declaration instead of a dead anchor.
+                  const propertyTarget = isOverviewProperty
+                    ? classNames.get(member.propertyType) || sourceUrl
+                    : null;
+                  const propertyTargetLabel = propertyTarget?.startsWith("#")
+                    ? `Open ${member.name}: ${member.propertyType} API`
+                    : `View ${member.name} source`;
+                  const propertyName = renderSignature(
+                    displaySignature,
+                  ).replaceAll("<wbr>", "");
+                  const linkedPropertyName = propertyTarget
+                    ? `<a class="api-card-link" href="${escapeHtml(propertyTarget)}" aria-label="${escapeHtml(propertyTargetLabel)}" title="${escapeHtml(propertyTargetLabel)}">${propertyName}</a>`
+                    : propertyName;
+                  const propertyExternal =
+                    propertyTarget && !propertyTarget.startsWith("#")
+                      ? '<span class="api-card-external" aria-hidden="true">↗</span>'
+                      : "";
                   const signature = `${renderSignature(displaySignature)}${member.propertyType ? `<span class="api-property-type">${renderType(displayPropertyType, classNames)}</span>` : ""}`;
-                  const propertySignature = `<span class="api-property-signature"><span class="api-property-name">${renderSignature(displaySignature).replaceAll("<wbr>", "")}${member.propertyType ? '<span class="api-property-colon">:</span>' : ""}</span>${member.propertyType ? `<span class="api-property-type">${renderType(displayPropertyType, classNames, true)}</span>` : ""}</span>`;
+                  const propertySignature = `<span class="api-property-signature"><span class="api-property-name">${linkedPropertyName}${member.propertyType ? '<span class="api-property-colon">:</span>' : ""}</span>${member.propertyType ? `<span class="api-property-type">${renderType(displayPropertyType, classNames, true)}</span>` : ""}${propertyExternal}</span>`;
                   const permalink = `<a class="api-anchor" href="#${entryId}" aria-label="Link to ${escapeHtml(member.signature)}">#</a>`;
-                  const sourceMeta = `${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}${memberBadge}<a class="api-source" href="${item.repository}/blob/master/${item.sourcePath}#L${member.line}" title="${escapeHtml(item.source)}:${member.line}" aria-label="View source for ${escapeHtml(displaySignature)}, line ${member.line}">L${member.line}</a>`;
+                  const sourceMeta = `${member.async ? '<span class="api-badge api-badge-async">async</span>' : ""}${memberBadge}<a class="api-source" href="${sourceUrl}" title="${escapeHtml(item.source)}:${member.line}" aria-label="View source for ${escapeHtml(displaySignature)}, line ${member.line}">L${member.line}</a>`;
                   const meta = `${sourceMeta}${permalink}`;
                   const body = `${description}${details || (!member.description && !member.propertyType ? '<p class="api-empty">No description.</p>' : "")}`;
                   const attributes = `id="${entryId}" data-api-entry="${escapeHtml(`${item.name} ${member.name} ${member.signature} ${member.description}`.toLowerCase())}"`;
@@ -631,10 +655,10 @@ function renderHtml(api) {
                     </article>`;
                   }
                   return `
-                    <article class="api-member api-member-${member.kind}${descriptionClass}" ${attributes}>
+                    <article class="api-member api-member-${member.kind}${descriptionClass}${propertyTarget ? " api-member-linked" : ""}" ${attributes}>
                       <div class="api-member-heading">
-                        <h4>${permalink}${propertySignature}</h4>
-                        <div class="api-member-meta">${sourceMeta}</div>
+                        <h4>${propertyTarget ? "" : permalink}${propertySignature}</h4>
+                        <div class="api-member-meta">${propertyTarget ? meta : sourceMeta}</div>
                       </div>
                       ${body}
                     </article>`;
@@ -689,7 +713,7 @@ function renderHtml(api) {
     <a class="skip-link" href="#top">Skip to content</a>
     <header class="nav">
       <a class="brand" href="../index.html" aria-label="Lumine home"><img src="../assets/lumine.svg" alt="" width="34" height="34" /><span>Lumine</span></a>
-      <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./" aria-current="page">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">Dark</button></nav>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="../docs.html">Docs</a><a href="./" aria-current="page">API</a><a class="nav-github" href="https://github.com/lumine-code/lumine" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><select class="theme-select" data-theme-select aria-label="Color theme"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select></nav>
     </header>
     <main class="api-main" id="top" tabindex="-1">
       <header class="api-header"><p class="eyebrow">03 / Reference</p><h1>Lumine API reference</h1><p>Explore the classes and methods you can use to extend Lumine.</p><p class="api-meta">Version ${escapeHtml(api.version)} &middot; ${api.classes.length} classes &middot; ${api.objects.length} objects &middot; ${api.memberCount} documented members</p></header>
@@ -699,7 +723,7 @@ function renderHtml(api) {
         <details class="api-tree"><summary class="api-rail-heading">Browse API</summary><nav class="api-tree-scroll" aria-label="API index">${apiIndexList}</nav></details></aside><article class="api-content">${classes}${functions}</article></div>
     </main>
     <div class="api-toast" data-api-toast role="status" aria-live="polite">Link copied</div>
-    <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links" aria-label="Footer navigation"><a href="../docs.html">Docs</a><a href="./">API reference</a><a href="https://github.com/lumine-code/lumine">GitHub</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
+    <footer class="footer"><a class="footer-brand" href="../index.html"><img src="../assets/lumine.svg" alt="" width="28" height="28" /><span>Lumine</span></a><nav class="footer-links" aria-label="Footer navigation"><a href="../docs.html">Docs</a><a href="./">API</a><a href="https://github.com/lumine-code/lumine">GitHub</a><a href="https://github.com/lumine-code/lumine/issues">Issues</a><a href="https://github.com/lumine-code/lumine/discussions">Discussions</a><a href="https://github.com/lumine-code/lumine/releases">Releases</a></nav><p class="footer-legal">MIT licensed &middot; &copy; 2026 lumine-code</p></footer>
     <script>
       const navLinks = [...document.querySelectorAll('[data-api-nav]')];
       const expandableMembers = [...document.querySelectorAll('[data-api-expandable]')];

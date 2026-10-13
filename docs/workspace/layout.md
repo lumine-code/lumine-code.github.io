@@ -16,7 +16,7 @@ Items that do not support copying still support moving. Docks accept only the lo
 
 ## Additional windows
 
-**Detach Tab** moves a tab into another window of the same workspace. **Detach Pane** moves a whole pane and its split layout can be reattached with **Attach to Main Window** in the additional window's title bar. These windows share documents, packages and running backends; tool docks remain in the main window.
+**Detach Tab** moves a tab into another window of the same workspace. **Detach Pane** moves a pane with its tabs. To bring the additional window and its layout back, click the Lumine icon in its title bar, labelled **Attach to Main Window**. These windows share documents, packages and running backends; tool docks remain in the main window.
 
 Moving an existing view preserves its unsaved contents, selections and live resources. Opening another view of a file gives it independent view state while sharing the same document. Closing the final view can prompt you to save; closing or reloading the main window coordinates the whole workspace.
 

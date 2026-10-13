@@ -4,14 +4,14 @@ html {
 }
 
 .api-main {
-  width: min(var(--maxw), calc(100% - 64px));
-  margin: 0 auto;
-  padding: 40px 0 64px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .api-header {
-  padding-bottom: 28px;
-  margin-bottom: 32px;
+  padding: 40px var(--page-padding);
+  margin: 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -25,7 +25,7 @@ html {
 }
 
 .api-header p:not(.eyebrow) {
-  max-width: 72ch;
+  max-width: var(--reading-width);
   margin: 0;
   color: var(--soft);
 }
@@ -39,28 +39,20 @@ html {
 
 .api-layout {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1000px);
+  grid-template-columns: var(--doc-sidebar-width) minmax(0, 1fr);
   grid-template-areas: "sidebar content";
-  gap: 32px;
-  align-items: start;
+  gap: 0;
+  align-items: stretch;
 }
 
 .api-sidebar {
   grid-area: sidebar;
-  position: sticky;
-  top: calc(var(--nav-height) + 20px);
   min-width: 0;
-  max-height: calc(100svh - var(--nav-height) - 40px);
-  overflow: auto;
-  overscroll-behavior: contain;
-  padding-right: 24px;
+  padding: 32px 24px 56px var(--sidebar-padding);
   border-right: 1px solid var(--border);
 }
 
 .api-search {
-  position: sticky;
-  top: 0;
-  z-index: 2;
   padding-bottom: 16px;
   margin-bottom: 12px;
   border-bottom: 1px solid var(--border);
@@ -211,19 +203,16 @@ html {
 }
 
 .api-content {
+  --api-content-gutter: var(--doc-content-padding);
   grid-area: content;
   width: 100%;
   min-width: 0;
-  max-width: 1000px;
+  max-width: none;
+  padding: 32px var(--api-content-gutter) 64px;
 }
 
 .api-class {
   margin-bottom: 48px;
-}
-
-:is(.api-class, .api-group, .api-member),
-.api-class-description :is(h3, h4, h5, h6)[id] {
-  scroll-margin-top: calc(var(--nav-height) + 24px);
 }
 
 .api-class-header {
@@ -261,7 +250,7 @@ html {
 }
 
 .api-description-body {
-  max-width: 74ch;
+  max-width: var(--reading-width);
   margin: 12px 0 0;
   font-size: 0.94rem;
 }
@@ -326,18 +315,14 @@ html {
   overflow-wrap: anywhere;
 }
 
-.api-description-body a,
-:is(.api-description-body, .api-argument-copy, .api-return-copy)
-  a:is(.api-type, .api-ref) {
+:is(.api-description-body, .api-argument-copy, .api-return-copy) a {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-color: var(--border);
   text-underline-offset: 3px;
 }
 
-.api-description-body a:hover,
-:is(.api-description-body, .api-argument-copy, .api-return-copy)
-  a:is(.api-type, .api-ref):hover {
+:is(.api-description-body, .api-argument-copy, .api-return-copy) a:hover {
   text-decoration-color: currentColor;
 }
 
@@ -385,7 +370,7 @@ html {
 }
 
 .api-class-description {
-  max-width: none;
+  max-width: var(--reading-width);
   margin-top: 16px;
 }
 
@@ -616,8 +601,8 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 20px;
-  padding: 16px 0;
-  margin: 20px 0;
+  padding: 16px var(--api-content-gutter);
+  margin: 20px calc(-1 * var(--api-content-gutter));
   border-block: 1px solid var(--border);
 }
 
@@ -668,13 +653,13 @@ html {
 .api-group-entries {
   display: grid;
   min-width: 0;
+  margin-inline: calc(-1 * var(--api-content-gutter));
   border-bottom: 1px solid var(--border);
 }
 
 .api-group-properties .api-group-entries {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
   border-bottom: 0;
 }
 
@@ -692,7 +677,7 @@ html {
 }
 
 .api-group-properties .api-member {
-  padding: 14px;
+  padding: 14px var(--api-content-gutter);
   border-top: 0;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -713,7 +698,7 @@ html {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  padding: 16px;
+  padding: 16px var(--api-content-gutter);
   cursor: pointer;
 }
 
@@ -737,6 +722,50 @@ html {
 
 .api-member-property h4 {
   flex-wrap: nowrap;
+}
+
+.api-member-linked {
+  position: relative;
+  isolation: isolate;
+}
+
+.api-card-link {
+  color: inherit;
+}
+
+/* Extend the native link to the card edges while leaving its other links
+   independently clickable, selectable and available to keyboard navigation. */
+.api-card-link::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+}
+
+.api-member-linked a:not(.api-card-link) {
+  position: relative;
+  z-index: 2;
+}
+
+.api-member-linked:has(.api-card-link:hover) {
+  box-shadow: inset 3px 0 var(--accent);
+}
+
+.api-member-linked:has(.api-card-link:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  background: var(--surface);
+}
+
+.api-card-link:focus-visible {
+  outline: none;
+}
+
+.api-card-external {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 400;
 }
 
 .api-property-signature {
@@ -816,7 +845,8 @@ html {
 }
 
 .api-member-panel {
-  padding: 0 16px 20px 39px;
+  padding: 0 var(--api-content-gutter) 20px
+    calc(var(--api-content-gutter) + 23px);
 }
 
 /* Preserve browser Find-in-page and beforematch for collapsed contracts. */
@@ -964,17 +994,6 @@ html {
   transform: translateX(-50%) translateY(0);
 }
 
-@media (max-width: 1200px) {
-  .api-layout {
-    grid-template-columns: 236px minmax(0, 1fr);
-    gap: 24px;
-  }
-
-  .api-sidebar {
-    padding-right: 16px;
-  }
-}
-
 @media (max-width: 1000px) {
   .api-group-properties .api-group-entries {
     grid-template-columns: 1fr;
@@ -986,27 +1005,23 @@ html {
 }
 
 @media (max-width: 900px) {
-  .api-main {
-    width: calc(100% - 40px);
-    padding-top: 28px;
-  }
-
   .api-layout {
     grid-template-columns: 1fr;
     grid-template-areas: "sidebar" "content";
-    gap: 32px;
   }
 
   .api-sidebar {
-    position: static;
-    max-height: none;
-    overflow: visible;
-    padding: 0;
-    border: 0;
+    padding: 24px var(--page-padding);
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .api-content {
+    --api-content-gutter: var(--page-padding);
+    padding-bottom: 56px;
   }
 
   .api-search {
-    position: static;
     padding: 0;
     border: 0;
     margin-bottom: 16px;
@@ -1015,8 +1030,6 @@ html {
     font-size: 16px;
   }
   .api-search-results {
-    max-height: 50svh;
-    overflow: auto;
     border: 1px solid var(--border);
   }
   .api-tree {
@@ -1050,22 +1063,20 @@ html {
 
   .api-tree[open] > .api-tree-scroll {
     display: block;
-    max-height: 55vh;
     padding: 12px;
     border-top: 1px solid var(--border);
-    overflow: auto;
   }
 }
 
 @media (max-width: 620px) {
-  .api-main {
-    width: calc(100% - 32px);
-    padding: 24px 0 48px;
+  .api-header,
+  .api-sidebar {
+    padding: 24px 20px;
   }
 
-  .api-header {
-    padding-bottom: 28px;
-    margin-bottom: 24px;
+  .api-content {
+    --api-content-gutter: 20px;
+    padding-block: 24px 48px;
   }
 
   .api-class-header h2 .api-source {
@@ -1077,7 +1088,7 @@ html {
   .api-member[data-api-expandable] .api-member-heading {
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
-    padding: 14px 12px;
+    padding: 14px var(--api-content-gutter);
   }
 
   .api-member[data-api-expandable] .api-member-meta {
@@ -1090,11 +1101,11 @@ html {
   }
 
   .api-member-panel {
-    padding: 0 12px 16px;
+    padding: 0 var(--api-content-gutter) 16px;
   }
 
   .api-group-properties .api-member {
-    padding: 12px;
+    padding: 12px var(--api-content-gutter);
   }
 
   .api-property-signature {

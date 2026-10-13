@@ -109,24 +109,8 @@
     function reset(focus) {
       input.value = "";
       render();
-      revealCurrentLink();
       if (focus) input.focus();
     }
-    function revealCurrentLink() {
-      if (!tree.open || tree.hidden) return;
-      const sidebar = tree.closest("[data-api-sidebar]");
-      const active = tree.querySelector('[aria-current="page"]');
-      if (active && sidebar.scrollHeight > sidebar.clientHeight) {
-        sidebar.scrollTop = Math.max(
-          0,
-          active.offsetTop - form.offsetHeight - 16,
-        );
-      }
-    }
-    document.defaultView.addEventListener("hashchange", () =>
-      setTimeout(revealCurrentLink, 0),
-    );
-    revealCurrentLink();
     input.addEventListener("input", render);
     clear.addEventListener("click", () => reset(true));
     form.addEventListener("submit", (event) => {

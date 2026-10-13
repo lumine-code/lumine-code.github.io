@@ -23,9 +23,11 @@ The manual has seven pages in six chapters: Getting started, Workspace, Customiz
 
 Run `npm run test:docs` to check navigation, legacy redirects and links in the manual. External GitHub documentation links stay external; relative Markdown links and heading links are routed inside the manual.
 
-The landing page, manual and API share light and dark themes. The theme follows the system preference until a visitor chooses one; that choice is saved across pages. Shared colors and typography live in `styles.css`, and API-specific presentation lives in `api/styles.css`. Edit the API markup in `script/generate-api-docs.js`, then regenerate the reference. Run `npm run test:site` to check theme selection, storage fallback and keyboard navigation.
+The landing page, manual and API share System, Dark and Light theme choices. System follows live operating-system changes; an explicit theme is saved across pages. Shared colors and typography live in `styles.css`, and API-specific presentation lives in `api/styles.css`. Edit the API markup in `script/generate-api-docs.js`, then regenerate the reference. Run `npm run test:site` to check theme selection, storage fallback and keyboard navigation.
 
-The API search finds classes, methods and properties by name or description. Qualified names such as `TextEditor.getText` work too. Search results open the matching contract, and the index remains available while reading. The manual provides an on-page contents list and a direct link to each guide's source.
+The API search finds classes, methods and properties by name or description. Qualified names such as `TextEditor.getText` work too. Search results open the matching contract, and the index scrolls with the page. The manual provides an on-page contents list and a direct link to each guide's source.
+
+Documentation uses proportional columns and rules spanning the page and its content column. While a guide loads, the current article stays visible and a thin progress bar overlays the header border. Heading links reuse the displayed article. Overview tiles open their referenced API, or the source declaration when no documented API target exists.
 
 ## Regenerating the API reference
 

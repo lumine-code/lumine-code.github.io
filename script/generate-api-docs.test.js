@@ -246,10 +246,19 @@ test("loads shared presentation and an external API stylesheet without embedding
   assert.ok(
     nodes.some(
       (node) =>
-        node.tagName === "button" &&
-        attribute(node, "data-theme-toggle") !== undefined &&
+        node.tagName === "select" &&
+        attribute(node, "data-theme-select") !== undefined &&
         Boolean(attribute(node, "aria-label")),
     ),
+  );
+  const themeSelect = nodes.find(
+    (node) => attribute(node, "data-theme-select") !== undefined,
+  );
+  assert.deepEqual(
+    themeSelect.childNodes
+      .filter((node) => node.tagName === "option")
+      .map((node) => attribute(node, "value")),
+    ["system", "dark", "light"],
   );
   assert.ok(
     nodes.some(
@@ -362,10 +371,85 @@ test("keeps property names and colons together while long linked types can wrap 
       "source metadata must retain its separate column",
     );
   }
-  assert.match(apiStyles, /\.api-content \{[^}]*max-width: 1000px/);
   assert.match(
     apiStyles,
     /@media \(max-width: 1000px\) \{\s*\.api-group-properties \.api-group-entries \{\s*grid-template-columns: 1fr;\s*\}/,
+  );
+});
+
+test("gives overview tiles native primary links and independent source, permalink and type links", async (context) => {
+  const fixture = renderFixture(context);
+  const property = fixture.api.classes[0].members[0];
+  fixture.api.classes[0].members.push(
+    {
+      ...property,
+      name: "widget",
+      signature: "::widget",
+      propertyType: "Widget",
+      description: "Use {@link Widget} to create a widget.",
+    },
+    {
+      ...property,
+      name: "unknown",
+      signature: "::unknown",
+      propertyType: "UnknownType",
+    },
+    {
+      ...property,
+      name: "untyped",
+      signature: "::untyped",
+      propertyType: null,
+    },
+  );
+  // A property on an ordinary reference page remains a contract, not a tile.
+  fixture.api.objects[0].members.push({ ...property, name: "options" });
+  fixture.saveApi();
+  const result = fixture.generate();
+  assert.equal(result.status, 0, result.stderr);
+  const html = fs.readFileSync(path.join(fixture.output, "index.html"), "utf8");
+  const nodes = await assertApiStructure(html, fixture.api);
+  const cards = nodes.filter((node) => hasClass(node, "api-member-linked"));
+  assert.equal(cards.length, 4);
+  for (const card of cards) {
+    const links = elements(card).filter((node) => node.tagName === "a");
+    const primary = links.find((node) => hasClass(node, "api-card-link"));
+    const source = links.find((node) => hasClass(node, "api-source"));
+    const permalink = links.find((node) => hasClass(node, "api-anchor"));
+    assert.ok(
+      primary,
+      "the tile must be a native link, without click handlers",
+    );
+    assert.ok(source, "source remains a separate link");
+    assert.equal(attribute(permalink, "href"), `#${attribute(card, "id")}`);
+    assert.equal(attribute(primary, "tabindex"), undefined);
+    assert.equal(attribute(primary, "role"), undefined);
+    assert.ok(
+      !elements(primary).some(
+        (node) => node !== primary && node.tagName === "a",
+      ),
+    );
+    if (attribute(card, "id") === "environment-instance-widget") {
+      assert.equal(attribute(primary, "href"), "#class-widget");
+      assert.equal(attribute(primary, "aria-label"), "Open widget: Widget API");
+      assert.equal(
+        links.filter((node) => attribute(node, "href") === "#class-widget")
+          .length,
+        3,
+        "the primary, type and description reference links must all survive",
+      );
+    } else {
+      assert.equal(attribute(primary, "href"), attribute(source, "href"));
+      assert.match(attribute(primary, "aria-label"), /^View .+ source$/);
+      assert.ok(
+        elements(card).some((node) => hasClass(node, "api-card-external")),
+      );
+    }
+  }
+  const ordinaryProperty = nodes.find(
+    (node) => attribute(node, "id") === "widget-instance-options",
+  );
+  assert.ok(
+    !elements(ordinaryProperty).some((node) => hasClass(node, "api-card-link")),
   );
 });
 
@@ -695,7 +779,31 @@ test("every generated API member stays in its class and every class stays in the
     fs.readFileSync(path.join(apiRoot, "api.json"), "utf8"),
   );
   const html = fs.readFileSync(path.join(apiRoot, "index.html"), "utf8");
-  await assertApiStructure(html, api);
+  const nodes = await assertApiStructure(html, api);
+  const ids = new Set(nodes.map((node) => attribute(node, "id")));
+  const overviewProperties = api.classes[0].members.filter(
+    (member) => member.kind === "property",
+  );
+  const cards = nodes.filter((node) => hasClass(node, "api-member-linked"));
+  assert.equal(cards.length, overviewProperties.length);
+  for (const card of cards) {
+    const primary = elements(card).find((node) =>
+      hasClass(node, "api-card-link"),
+    );
+    const href = attribute(primary, "href");
+    if (href.startsWith("#")) {
+      assert.ok(
+        ids.has(href.slice(1)),
+        `Tile destination does not exist: ${href}`,
+      );
+    } else {
+      const source = elements(card).find((node) =>
+        hasClass(node, "api-source"),
+      );
+      assert.equal(href, attribute(source, "href"));
+      assert.match(href, /^https:\/\/github\.com\/lumine-code\/.+#L\d+$/);
+    }
+  }
 });
 
 test("checks generated object documentation for drift without rewriting output", (context) => {

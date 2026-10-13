@@ -4,26 +4,30 @@
 (() => {
   const root = document.documentElement;
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
-  let savedTheme;
+  let preference = "system";
   try {
-    savedTheme = window.localStorage.getItem("lumine-theme");
+    const savedTheme = window.localStorage.getItem("lumine-theme");
+    if (savedTheme === "light" || savedTheme === "dark")
+      preference = savedTheme;
   } catch {
-    // Private or restricted browsing still gets a working theme toggle.
+    // Private or restricted browsing still gets a working theme selector.
   }
-  if (savedTheme !== "light" && savedTheme !== "dark") savedTheme = null;
 
   const updateControls = () => {
-    const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
-    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-      button.textContent = nextTheme === "dark" ? "Dark" : "Light";
-      button.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
+    document.querySelectorAll("[data-theme-select]").forEach((select) => {
+      select.value = preference;
     });
   };
-  const applyTheme = (theme) => {
-    root.dataset.theme = theme;
+  const applyTheme = () => {
+    root.dataset.theme =
+      preference === "system"
+        ? systemTheme.matches
+          ? "dark"
+          : "light"
+        : preference;
     updateControls();
   };
-  applyTheme(savedTheme || (systemTheme.matches ? "dark" : "light"));
+  applyTheme();
   document.addEventListener("DOMContentLoaded", updateControls);
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented) return;
@@ -31,18 +35,23 @@
       event.preventDefault();
       document.querySelector("main")?.focus({ preventScroll: true });
       window.scrollTo(0, 0);
-      return;
     }
-    if (!event.target.closest?.("[data-theme-toggle]")) return;
-    savedTheme = root.dataset.theme === "dark" ? "light" : "dark";
-    applyTheme(savedTheme);
+  });
+  document.addEventListener("change", (event) => {
+    if (event.defaultPrevented) return;
+    const select = event.target.closest?.("[data-theme-select]");
+    if (!select || !["system", "dark", "light"].includes(select.value)) return;
+    preference = select.value;
+    applyTheme();
     try {
-      window.localStorage.setItem("lumine-theme", savedTheme);
+      if (preference === "system")
+        window.localStorage.removeItem("lumine-theme");
+      else window.localStorage.setItem("lumine-theme", preference);
     } catch {
       // Keep the choice for this page even when storage is unavailable.
     }
   });
-  systemTheme.addEventListener("change", (event) => {
-    if (!savedTheme) applyTheme(event.matches ? "dark" : "light");
+  systemTheme.addEventListener("change", () => {
+    if (preference === "system") applyTheme();
   });
 })();

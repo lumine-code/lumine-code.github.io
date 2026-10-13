@@ -29,17 +29,51 @@ function renderingHarness() {
   const failures = [];
   const errors = [];
   const focusedPages = [];
+  const loadingEl = { textContent: "" };
+  const progressChanges = [];
+  let progressHidden = true;
+  const progressEl = {
+    get hidden() {
+      return progressHidden;
+    },
+    set hidden(value) {
+      progressHidden = value;
+      progressChanges.push(value);
+    },
+  };
+  let articleHTML = "";
+  let articleWrites = 0;
   let nextTimer = 0;
   let hashchange;
+  let click;
   const article = {
-    innerHTML: "",
+    get innerHTML() {
+      return articleHTML;
+    },
+    set innerHTML(html) {
+      articleHTML = html;
+      articleWrites++;
+      // A new innerHTML assignment discards every existing DOM node.
+      this.contentNode = {};
+    },
     attributes: new Map(),
     setAttribute(name, value) {
       this.attributes.set(name, value);
     },
     querySelectorAll: () => [],
   };
-  const document = { title: "" };
+  const sourceLink = { hidden: true };
+  const document = {
+    title: "",
+    addEventListener(name, listener) {
+      assert.equal(name, "click");
+      click = listener;
+    },
+    querySelector(selector) {
+      assert.equal(selector, "[data-doc-source]");
+      return sourceLink;
+    },
+  };
   const location = {
     hash: "",
     replace(href) {
@@ -49,6 +83,10 @@ function renderingHarness() {
   const context = vm.createContext({
     navigation,
     article,
+    loadingEl,
+    progressEl,
+    tocEl: { hidden: true },
+    pagerEl: { replaceChildren() {} },
     document,
     location,
     navEl: { querySelectorAll: () => [] },
@@ -61,7 +99,7 @@ function renderingHarness() {
     },
     fail(message) {
       failures.push(message);
-      article.innerHTML = message;
+      context.handleFailure(message);
     },
     console: { error: (error) => errors.push(error) },
     window: {
@@ -86,6 +124,12 @@ function renderingHarness() {
       );
     },
   });
+  const failStart = source.indexOf("const fail =");
+  const failEnd = source.indexOf("let manifest;", failStart);
+  vm.runInContext(
+    `{ ${source.slice(failStart, failEnd)}\nglobalThis.handleFailure = fail; }`,
+    context,
+  );
   vm.runInContext(
     `${source.slice(start, end)}\nglobalThis.testRenderer = { render, cache };`,
     context,
@@ -96,15 +140,40 @@ function renderingHarness() {
   return {
     pages: navigation.pages,
     article,
+    loadingEl,
+    progressEl,
+    progressChanges,
     document,
     location,
     failures,
     errors,
     focusedPages,
+    get articleWrites() {
+      return articleWrites;
+    },
     cache: context.testRenderer.cache,
-    navigate(page) {
-      location.hash = `#${page.route}`;
+    navigate(page, fragment = "") {
+      location.hash = `#${page.route}${fragment ? "#" + fragment : ""}`;
       return hashchange();
+    },
+    clickLink(href, eventOptions = {}, linkOptions = {}) {
+      const link = {
+        target: "",
+        hasAttribute: (name) => name === "download" && !!linkOptions.download,
+        getAttribute: () => href,
+        ...linkOptions,
+      };
+      const event = {
+        button: 0,
+        defaultPrevented: false,
+        target: { closest: () => link },
+        preventDefault() {
+          this.defaultPrevented = true;
+        },
+        ...eventOptions,
+      };
+      click(event);
+      return event;
     },
     showLoaders() {
       for (const callback of timers.values()) callback();
@@ -132,10 +201,15 @@ test("returning to a cached page prevents a slower page from replacing it", asyn
   await harness.navigate(pageA);
 
   const loadingB = harness.navigate(pageB);
+  assert.equal(harness.progressEl.hidden, false);
   harness.showLoaders();
-  assert.match(harness.article.innerHTML, /Loading/);
+  assert.equal(harness.article.innerHTML, "page A");
+  assert.equal(harness.loadingEl.textContent, `Loading ${pageB.title}…`);
   await harness.navigate(pageA);
   assert.equal(harness.article.innerHTML, "page A");
+  assert.equal(harness.loadingEl.textContent, "");
+  assert.equal(harness.progressEl.hidden, true);
+  assert.equal(harness.article.attributes.get("aria-busy"), "false");
 
   harness.succeed(pageB, "page B");
   await loadingB;
@@ -143,6 +217,218 @@ test("returning to a cached page prevents a slower page from replacing it", asyn
   assert.equal(harness.location.hash, `#${pageA.route}`);
   assert.equal(harness.document.title, `${pageA.title} — Lumine Documentation`);
   assert.deepEqual(harness.failures, []);
+});
+
+test("a cold slow page fetch preserves the displayed article until the new page is ready", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  await harness.navigate(pageA);
+  const currentNode = harness.article.contentNode;
+
+  const loadingB = harness.navigate(pageB);
+  assert.equal(harness.progressEl.hidden, false);
+  harness.showLoaders();
+  assert.equal(harness.article.contentNode, currentNode);
+  assert.equal(harness.articleWrites, 1);
+  assert.equal(harness.document.title, `${pageA.title} — Lumine Documentation`);
+  assert.equal(harness.loadingEl.textContent, `Loading ${pageB.title}…`);
+
+  harness.succeed(pageB, "page B");
+  await loadingB;
+  assert.equal(harness.article.innerHTML, "page B");
+  assert.equal(harness.articleWrites, 2);
+  assert.equal(harness.loadingEl.textContent, "");
+  assert.equal(harness.progressEl.hidden, true);
+  assert.equal(harness.article.attributes.get("aria-busy"), "false");
+});
+
+test("heading navigation preserves the current article and cancels an in-flight page switch", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  await harness.navigate(pageA);
+  const currentNode = harness.article.contentNode;
+  await harness.navigate(pageA, "first-heading");
+  assert.equal(harness.article.contentNode, currentNode);
+
+  const loadingB = harness.navigate(pageB);
+  harness.showLoaders();
+  await harness.navigate(pageA, "second-heading");
+  assert.equal(harness.article.contentNode, currentNode);
+  assert.equal(harness.article.attributes.get("aria-busy"), "false");
+  assert.equal(harness.loadingEl.textContent, "");
+  assert.equal(harness.progressEl.hidden, true);
+  assert.deepEqual(harness.focusedPages, [false, false, false]);
+
+  harness.succeed(pageB, "page B");
+  await loadingB;
+  assert.equal(harness.article.contentNode, currentNode);
+  assert.equal(harness.articleWrites, 1);
+  assert.equal(harness.location.hash, `#${pageA.route}#second-heading`);
+});
+
+test("only the newest cold navigation can update the article or loading status", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB, pageC] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  await harness.navigate(pageA);
+
+  const loadingB = harness.navigate(pageB);
+  harness.showLoaders();
+  const loadingC = harness.navigate(pageC);
+  assert.equal(harness.loadingEl.textContent, "");
+  assert.equal(harness.progressEl.hidden, false);
+  harness.showLoaders();
+  assert.equal(harness.loadingEl.textContent, `Loading ${pageC.title}…`);
+
+  harness.succeed(pageB, "page B");
+  await loadingB;
+  assert.equal(harness.article.innerHTML, "page A");
+  assert.equal(harness.loadingEl.textContent, `Loading ${pageC.title}…`);
+  assert.equal(harness.article.attributes.get("aria-busy"), "true");
+  assert.equal(harness.progressEl.hidden, false);
+
+  harness.succeed(pageC, "page C");
+  await loadingC;
+  assert.equal(harness.article.innerHTML, "page C");
+  assert.equal(harness.articleWrites, 2);
+  assert.equal(harness.loadingEl.textContent, "");
+  assert.equal(harness.progressEl.hidden, true);
+  assert.equal(harness.document.title, `${pageC.title} — Lumine Documentation`);
+});
+
+test("a failed page clears loading state and the previously displayed page can be restored", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  await harness.navigate(pageA);
+
+  const loadingB = harness.navigate(pageB);
+  harness.showLoaders();
+  harness.reject(pageB);
+  await loadingB;
+  assert.deepEqual(harness.failures, ["Could not load this page."]);
+  assert.equal(harness.loadingEl.textContent, "");
+  assert.equal(harness.progressEl.hidden, true);
+  assert.equal(harness.article.attributes.get("aria-busy"), "false");
+
+  await harness.navigate(pageA, "heading");
+  assert.equal(harness.article.innerHTML, "page A");
+  assert.equal(harness.articleWrites, 3);
+});
+
+test("cached pages and current-page headings never show the loading bar", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  harness.cache.set(pageB.file, "page B");
+  await harness.navigate(pageA);
+  await harness.navigate(pageA, "heading");
+  await harness.navigate(pageB);
+  assert.equal(harness.progressEl.hidden, true);
+  assert.ok(harness.progressChanges.every((hidden) => hidden));
+});
+
+test("clicking the same heading or page link again scrolls without rerendering", async () => {
+  const harness = renderingHarness();
+  const [page] = harness.pages;
+  harness.cache.set(page.file, "page");
+  await harness.navigate(page, "heading");
+  const currentNode = harness.article.contentNode;
+  const progressUpdates = harness.progressChanges.length;
+
+  for (let count = 0; count < 2; count++) {
+    const event = harness.clickLink(`#${page.route}#heading`);
+    assert.equal(event.defaultPrevented, true);
+  }
+  assert.deepEqual(harness.focusedPages, [false, false, false]);
+  assert.equal(harness.article.contentNode, currentNode);
+  assert.equal(harness.progressChanges.length, progressUpdates);
+
+  await harness.navigate(page);
+  const event = harness.clickLink(`#${page.route}`);
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(harness.focusedPages.length, 5);
+  assert.equal(harness.articleWrites, 1);
+  assert.equal(harness.progressEl.hidden, true);
+});
+
+test("same-hash scrolling preserves modified clicks, other destinations and pending navigation", async () => {
+  const harness = renderingHarness();
+  const [pageA, pageB] = harness.pages;
+  harness.cache.set(pageA.file, "page A");
+  await harness.navigate(pageA, "heading");
+  const href = harness.location.hash;
+  const progressUpdates = harness.progressChanges.length;
+  const modifiedClicks = [
+    { button: 1 },
+    { button: 2 },
+    { metaKey: true },
+    { ctrlKey: true },
+    { shiftKey: true },
+    { altKey: true },
+  ];
+  for (const eventOptions of modifiedClicks)
+    assert.equal(harness.clickLink(href, eventOptions).defaultPrevented, false);
+  harness.clickLink(href, { defaultPrevented: true });
+  for (const linkOptions of [{ target: "_blank" }, { download: true }])
+    assert.equal(
+      harness.clickLink(href, {}, linkOptions).defaultPrevented,
+      false,
+    );
+  for (const otherHref of [
+    "https://example.com/docs.html" + href,
+    `#${pageA.route}#another-heading`,
+    `#${pageB.route}`,
+  ])
+    assert.equal(harness.clickLink(otherHref).defaultPrevented, false);
+  assert.deepEqual(harness.focusedPages, [false]);
+  assert.equal(harness.progressChanges.length, progressUpdates);
+
+  const loadingB = harness.navigate(pageB);
+  assert.equal(harness.clickLink(`#${pageB.route}`).defaultPrevented, false);
+  assert.deepEqual(harness.focusedPages, [false]);
+  assert.equal(harness.progressEl.hidden, false);
+  harness.succeed(pageB, "page B");
+  await loadingB;
+});
+
+test("the manifest shows progress while fetching and clears it after success or failure", async (t) => {
+  for (const succeeds of [true, false]) {
+    await t.test(succeeds ? "success" : "failure", async () => {
+      const start = source.indexOf("const fail =");
+      const end = source.indexOf("const navigation =", start);
+      const progressEl = { hidden: true };
+      const article = { setAttribute() {} };
+      let finishFetch;
+      const context = vm.createContext({
+        article,
+        progressEl,
+        loadingEl: { textContent: "" },
+        tocEl: { hidden: true },
+        pagerEl: { replaceChildren() {} },
+        document: { querySelector: () => ({ hidden: true }) },
+        console: { error() {} },
+        window: { marked: {} },
+        fetch(file) {
+          assert.equal(file, "docs/manifest.json");
+          return new Promise((resolve) => {
+            finishFetch = resolve;
+          });
+        },
+      });
+      const loading = vm.runInContext(
+        `(async () => { ${source.slice(start, end)} })()`,
+        context,
+      );
+      assert.equal(progressEl.hidden, false);
+      finishFetch({ ok: succeeds, status: 503, json: async () => manifest });
+      await loading;
+      assert.equal(progressEl.hidden, true);
+      if (!succeeds) assert.match(article.innerHTML, /role="alert"/);
+    });
+  }
 });
 
 test("page navigation moves focus to the page heading only after the initial page", async () => {
@@ -162,9 +448,11 @@ test("the article is busy during a fetch and ready after the requested page rend
   const [page] = harness.pages;
   const rendering = harness.navigate(page);
   assert.equal(harness.article.attributes.get("aria-busy"), "true");
+  assert.equal(harness.progressEl.hidden, false);
   harness.succeed(page, "page");
   await rendering;
   assert.equal(harness.article.attributes.get("aria-busy"), "false");
+  assert.equal(harness.progressEl.hidden, true);
 });
 
 test("collapsed chapter links are hidden and the toggle controls their list", () => {

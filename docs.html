@@ -42,15 +42,18 @@
           </svg>
           <span>GitHub</span>
         </a>
-        <button
-          class="theme-toggle"
-          type="button"
-          data-theme-toggle
-          aria-label="Switch to dark theme"
-        >
-          Dark
-        </button>
+        <select class="theme-select" data-theme-select aria-label="Color theme">
+          <option value="system">System</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
       </nav>
+      <div
+        class="page-loading-bar"
+        data-doc-progress
+        aria-hidden="true"
+        hidden
+      ></div>
     </header>
 
     <main id="top" class="doc-main doc-manual" tabindex="-1">
@@ -66,11 +69,17 @@
       </aside>
 
       <div class="doc-content">
+        <p
+          class="doc-loading-status"
+          data-doc-loading
+          role="status"
+          aria-atomic="true"
+        ></p>
         <nav class="doc-toc" aria-label="On this page" data-toc hidden>
           <p class="doc-toc-label">On this page</p>
           <ul class="doc-toc-links" data-toc-links></ul>
         </nav>
-        <article class="prose" data-doc>
+        <article class="prose" data-doc aria-busy="true">
           <p class="doc-status" role="status">Loading documentation&hellip;</p>
           <noscript>
             <p>
@@ -101,6 +110,7 @@
       </a>
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="docs.html">Docs</a>
+        <a href="api/">API</a>
         <a href="https://github.com/lumine-code/lumine">GitHub</a>
         <a href="https://github.com/lumine-code/lumine/issues">Issues</a>
         <a href="https://github.com/orgs/lumine-code/discussions"
@@ -125,6 +135,8 @@
         const breadcrumbEl = document.querySelector("[data-breadcrumb]");
         const tocEl = document.querySelector("[data-toc]");
         const tocLinksEl = document.querySelector("[data-toc-links]");
+        const loadingEl = document.querySelector("[data-doc-loading]");
+        const progressEl = document.querySelector("[data-doc-progress]");
         const docTree = document.querySelector(".doc-tree");
         const compactNavigation = matchMedia("(max-width: 900px)");
 
@@ -147,8 +159,11 @@
 
         const fail = (message) => {
           article.setAttribute("aria-busy", "false");
+          loadingEl.textContent = "";
+          progressEl.hidden = true;
           tocEl.hidden = true;
           pagerEl.replaceChildren();
+          document.querySelector("[data-doc-source]").hidden = true;
           article.innerHTML =
             '<p class="doc-status" role="alert">' +
             message +
@@ -158,10 +173,12 @@
         let manifest;
         try {
           if (!window.marked) throw new Error("renderer");
+          progressEl.hidden = false;
           const response = await fetch("docs/manifest.json");
           if (!response.ok)
             throw new Error("manifest (" + response.status + ")");
           manifest = await response.json();
+          progressEl.hidden = true;
         } catch (error) {
           console.error(error);
           return fail("Could not load the documentation.");
@@ -318,21 +335,32 @@
         let renderedRoute = null;
         const render = async () => {
           const version = ++renderVersion;
+          loadingEl.textContent = "";
+          progressEl.hidden = true;
           const { href, page } = navigation.resolve(location.hash);
           if (href !== location.hash) {
             location.replace(href);
             return;
           }
 
+          // A heading link only moves within the current document. Keep its
+          // nodes (including the focused link) and cancel any pending page
+          // navigation instead of rebuilding the article from cached Markdown.
+          if (page.route === renderedRoute) {
+            article.setAttribute("aria-busy", "false");
+            scrollToFragment(false);
+            return;
+          }
+
           article.setAttribute("aria-busy", "true");
           let markdown = cache.get(page.file);
           if (markdown === undefined) {
-            // Keep the current page visible and only show a loader if the fetch
-            // is slow, so fast or cached page switches do not flash.
+            progressEl.hidden = false;
+            // Keep the rendered article and its height while fetching. Replacing
+            // it with a loader collapses the page, then flashes the new content.
             const loader = setTimeout(() => {
-              if (version === renderVersion)
-                article.innerHTML =
-                  '<p class="doc-status" role="status">Loading&hellip;</p>';
+              if (version === renderVersion && renderedRoute !== null)
+                loadingEl.textContent = "Loading " + page.title + "…";
             }, 150);
             try {
               const response = await fetch(page.file);
@@ -343,6 +371,7 @@
               console.error(error);
               clearTimeout(loader);
               if (version !== renderVersion) return;
+              renderedRoute = null;
               return fail("Could not load this page.");
             }
             cache.set(page.file, markdown);
@@ -350,6 +379,8 @@
           }
           if (version !== renderVersion) return;
 
+          loadingEl.textContent = "";
+          progressEl.hidden = true;
           article.innerHTML = window.marked.parse(markdown, { gfm: true });
 
           // marked does not emit heading ids, so anchors have nothing to land
@@ -396,6 +427,32 @@
           );
           renderedRoute = page.route;
         };
+
+        // Clicking the current hash does not emit hashchange. Our route and
+        // fragment share that hash, so native anchor scrolling cannot resolve it.
+        document.addEventListener("click", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          )
+            return;
+          const link = event.target.closest?.("a[href]");
+          if (
+            !link ||
+            link.hasAttribute("download") ||
+            (link.target && link.target !== "_self")
+          )
+            return;
+          const href = link.getAttribute("href");
+          if (!href?.startsWith("#") || href !== location.hash) return;
+          if (navigation.resolve(href).page?.route !== renderedRoute) return;
+          event.preventDefault();
+          scrollToFragment(false);
+        });
 
         // Cached pages render immediately. Every navigation also invalidates a
         // slower request, including returning to the page already on screen.
