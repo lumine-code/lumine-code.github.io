@@ -12,6 +12,7 @@ Served via GitHub Pages at **https://lumine-code.github.io**.
 
 ```text
 index.html      # landing page
+packages.html   # live package catalog
 api/            # generated API reference and its presentation stylesheet
 docs/           # Markdown documentation rendered by docs.html
 styles.css      # shared themes, typography, landing page and manual styles
@@ -45,6 +46,14 @@ The generator uses the canonical JSDoc extractor and source registry from the se
 A standalone `/** @category Layout */` comment in a class or object body starts a section for following API members. An `@category` tag inside a member's own JSDoc overrides only that member's category. Place it after the description and other tags, preserving the `@public`, `@status`, blank-line header. Public members cannot appear under a category starting with `Private`.
 
 Run `npm run check:api-docs` and `npm run test:api-extractor` in the editor checkout before regenerating. Public methods need a description and typed parameters, including nested options and callback payloads; asynchronous methods declare their Promise result. Typed properties may omit descriptions when the type already explains them. Use `@throws {ErrorType}` for failure conditions. The reference includes documented class fields, typed failure contracts, section links and a consistent heading hierarchy.
+
+## Package catalog
+
+`packages.html` reads `lumine-code/packages`'s `master/index.json` directly on each visit, with HTTP cache revalidation. Catalog updates need no website rebuild. Both resolved snapshots and source-only entries are supported; source-only entries link to their repository until the catalog supplies metadata. Search covers names, descriptions and keywords, with category and bundled/optional filters saved in the URL. Featured entries lead only an empty search.
+
+The editor's current `master/package.json` supplies dependency origins for bundled classification. If that request fails, the catalog remains usable without distribution labels or filtering. If the catalog itself is unavailable, the page offers a retry and a GitHub link. Install links use `lumine://settings-view/install?source=<encoded-source>` to open the selected repository in the editor’s Install panel; installation is confirmed there. Private maintainer packages remain excluded. `npm run test:site` also checks catalog normalization, safe sources, filtering and shared navigation.
+
+Clicking a package name opens its details without losing list filters or position. The version selector uses the catalog's tags and default branch; changing it updates the README, manifest details and Install URI together. Branch previews follow the branch head, while tagged previews use their recorded commit. Detail links include the source and selected ref in the URL. README HTML is rendered with markdown-it and sanitized with DOMPurify; relative images and links resolve against the selected revision. Browser distributions of those libraries live in `script/vendor/`, with their licenses recorded in `LICENSE`.
 
 ## Screenshot gallery
 

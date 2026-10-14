@@ -979,6 +979,48 @@ button.nav-group-title::after {
     padding: 0 10px;
   }
 }
+@media (max-width: 700px) {
+  :root {
+    --nav-height: 100px;
+  }
+  .nav {
+    flex-wrap: wrap;
+  }
+  .brand {
+    width: 100%;
+    min-height: 44px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand span {
+    display: inline;
+  }
+  .nav-links {
+    width: 100%;
+    flex: 0 0 100%;
+    margin-left: 0;
+  }
+  .nav-links > a,
+  .theme-toggle {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 55px;
+    padding-inline: 5px;
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+  .nav-links > a:first-child {
+    border-left: 0;
+  }
+  .nav-github span {
+    display: none;
+  }
+  .nav-github svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+}
 @media (max-height: 740px) {
   .home-hero {
     padding-top: 20px;

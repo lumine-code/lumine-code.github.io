@@ -1,0 +1,199 @@
+.packages-page .section-line {
+  flex-wrap: wrap;
+}
+.packages-page .gallery-intro a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.packages-controls {
+  grid-template-columns:
+    minmax(180px, 1fr) minmax(150px, 0.45fr) minmax(170px, 0.45fr)
+    auto;
+}
+.package-card {
+  padding: 28px clamp(20px, 2vw, 32px);
+  gap: 18px;
+}
+.package-card h2 {
+  font-size: 19px;
+}
+.package-card .package-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  color: var(--muted);
+  font: 400 12px/1.5 var(--mono);
+}
+.package-card .package-description {
+  flex: 1;
+}
+.package-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+.package-actions a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.package-actions .package-install {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: 400 14px/1.5 var(--mono);
+  cursor: pointer;
+  text-decoration: none;
+}
+.package-actions .package-install:hover {
+  background: var(--surface);
+}
+.packages-page .gallery-more-wrap:has(button:not([hidden])) {
+  display: block;
+}
+@media (max-width: 900px) {
+  .packages-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+  .packages-controls label:first-child {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--border);
+    border-right: 0;
+  }
+  .packages-controls button {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border);
+    padding: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .packages-controls {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.package-back {
+  display: block;
+  padding: 18px var(--page-padding);
+  border-bottom: 1px solid var(--border);
+  color: var(--soft);
+}
+.package-back:hover {
+  background: var(--surface);
+}
+.package-detail-header {
+  padding: 36px var(--page-padding);
+  border-bottom: 1px solid var(--border);
+}
+.package-detail-header h1 {
+  margin: 0 0 16px;
+  font: 500 clamp(30px, 4vw, 60px)/1.15 var(--mono);
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+}
+.package-detail-description {
+  font-size: 20px;
+  color: var(--soft);
+  margin: 0 0 28px;
+  max-width: 75ch;
+}
+.package-detail-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 24px 36px;
+}
+.package-detail-controls label {
+  display: grid;
+  gap: 8px;
+  font: 500 12px/1.5 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.package-detail-controls select {
+  min-width: 220px;
+  max-width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/1.5 var(--mono);
+}
+.package-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 25%);
+  border-bottom: 1px solid var(--border);
+}
+.package-readme.prose {
+  padding: 36px var(--page-padding);
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  border-right: 1px solid var(--border);
+}
+.package-readme img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.package-readme table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.package-readme pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.package-readme h1 {
+  font-size: 34px;
+}
+.package-facts {
+  padding: 30px clamp(20px, 2vw, 36px);
+  min-width: 0;
+  color: var(--soft);
+  overflow-wrap: anywhere;
+}
+.package-facts h2 {
+  font: 500 13px/1.5 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 22px;
+}
+.package-facts dt {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.package-facts dd {
+  margin: 0 0 22px;
+}
+.package-facts a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.package-image-missing {
+  display: block;
+  color: var(--muted);
+  padding: 20px 0;
+}
+@media (max-width: 750px) {
+  .package-detail-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .package-readme.prose {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 26px 20px;
+  }
+  .package-detail-controls label {
+    min-width: 0;
+    width: 100%;
+  }
+  .package-detail-controls select {
+    min-width: 0;
+    width: 100%;
+  }
+}

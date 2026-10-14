@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Packages — Lumine</title>
+    <meta
+      name="description"
+      content="Browse the Lumine package catalog and find your next extension."
+    />
+
+    <meta
+      property="og:title"
+      content="Lumine &mdash; A modern, extensible text editor"
+    />
+    <meta
+      property="og:description"
+      content="Browse the Lumine package catalog and find your next extension."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/lumine.png" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/lumine.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="script/site.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="gallery.css" />
+    <link rel="stylesheet" href="packages.css" />
+    <script src="script/package-catalog.js" defer></script>
+    <script src="script/vendor/markdown-it.min.js" defer></script>
+    <script src="script/vendor/purify.min.js" defer></script>
+    <script src="script/package-details.js" defer></script>
+    <script src="script/packages.js" defer></script>
+  </head>
+
+  <body class="packages-page">
+    <a class="skip-link" href="#packages">Skip to content</a>
+    <header class="nav">
+      <a class="brand" href="index.html" aria-label="Lumine home">
+        <img src="assets/lumine.svg" alt="" width="34" height="34" />
+        <span>Lumine</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="docs.html">Docs</a>
+        <a href="api/">API</a>
+        <a href="packages.html" aria-current="page">Packages</a>
+        <a href="gallery.html">Gallery</a>
+        <a
+          class="nav-github"
+          href="https://github.com/lumine-code/lumine"
+          aria-label="GitHub"
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            />
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-label="Color theme: System. Switch to Light."
+          title="Color theme: System. Switch to Light."
+        >
+          System
+        </button>
+      </nav>
+    </header>
+    <main id="packages" tabindex="-1">
+      <div class="section-line">
+        <p>Packages / Extend Lumine</p>
+        <p id="packages-total">The public catalog</p>
+      </div>
+      <div id="packages-list">
+        <section class="gallery-intro" aria-labelledby="packages-title">
+          <h1 id="packages-title">Make room for your workflow.</h1>
+          <p>
+            Find languages, themes, and tools in the
+            <a href="https://github.com/lumine-code/packages"
+              >Lumine package catalog ↗</a
+            >. Choose Install to open a package in Lumine. You can also find it
+            in Settings → Install.
+          </p>
+        </section>
+        <div
+          class="gallery-controls packages-controls"
+          role="search"
+          aria-label="Filter packages"
+        >
+          <label for="packages-search"
+            >Search packages<input
+              id="packages-search"
+              type="search"
+              placeholder="Try Python, notebook, dark theme…"
+              autocomplete="off"
+          /></label>
+          <label for="packages-category"
+            >Category<select id="packages-category">
+              <option value="all">Everything</option>
+              <option value="packages">Packages</option>
+              <option value="grammars">Grammars</option>
+              <option value="themes">Themes</option>
+            </select></label
+          >
+          <label for="packages-distribution"
+            >Included in Lumine<select id="packages-distribution" disabled>
+              <option value="all">All packages</option>
+              <option value="bundled">Bundled</option>
+              <option value="optional">Optional</option>
+            </select></label
+          >
+          <button type="button" id="packages-clear">Clear filters</button>
+        </div>
+        <p class="gallery-status" id="packages-status" role="status">
+          Loading the latest catalog…
+        </p>
+        <p class="gallery-status" id="packages-notice" hidden></p>
+        <noscript
+          ><p class="gallery-status">
+            Enable JavaScript to search, or
+            <a href="https://github.com/lumine-code/packages"
+              >browse the catalog on GitHub</a
+            >.
+          </p></noscript
+        >
+        <div class="gallery-grid" id="packages-grid"></div>
+        <div class="gallery-more-wrap">
+          <button class="btn" id="packages-more" type="button" hidden>
+            Show more packages</button
+          ><button class="btn" id="packages-retry" type="button" hidden>
+            Try again
+          </button>
+        </div>
+      </div>
+      <section
+        id="package-details"
+        hidden
+        aria-labelledby="package-title"
+      ></section>
+    </main>
+    <footer class="home-footer">
+      <p>MIT licensed<span>© 2026 lumine-code</span></p>
+      <nav aria-label="Community">
+        <a href="https://github.com/lumine-code/lumine/releases">Releases</a
+        ><a href="https://github.com/lumine-code/lumine/issues">Issues</a
+        ><a href="https://github.com/orgs/lumine-code/discussions"
+          >Discussions</a
+        >
+      </nav>
+    </footer>
+  </body>
+</html>
