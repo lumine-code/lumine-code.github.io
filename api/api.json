@@ -19066,7 +19066,7 @@
       "source": "src/package.js",
       "sourcePath": "src/package.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 43,
+      "line": 42,
       "members": [
         {
           "name": "onDidDeactivate",
@@ -19093,7 +19093,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 88
+          "line": 87
         },
         {
           "name": "isCompatible",
@@ -19103,14 +19103,14 @@
           "signature": "::isCompatible()",
           "category": "Native Module Compatibility",
           "visibility": "Extended",
-          "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nIncompatible packages cannot be activated.",
+          "description": "Are all native modules depended on by this package correctly\ncompiled against the current version of Lumine?\n\nThis explicit diagnostic loads every discovered native binding. Startup\nloads only bindings actually required by the package; unused optional\nbindings do not prevent its JavaScript bootstrap from activating.",
           "summary": "Are all native modules depended on by this package correctly compiled against the current version of Lumine?",
           "parameters": [],
           "returnType": "Boolean",
           "returnDescription": ", true if compatible, false if incompatible.",
           "throws": [],
           "propertyType": null,
-          "line": 1323
+          "line": 1319
         },
         {
           "name": "rebuild",
@@ -19127,7 +19127,7 @@
           "returnDescription": "that resolves with an object containing `code`, `stdout`, and `stderr` properties based on the results of running `npm rebuild` on the package.",
           "throws": [],
           "propertyType": null,
-          "line": 1344
+          "line": 1340
         },
         {
           "name": "getBuildFailureOutput",
@@ -19144,7 +19144,7 @@
           "returnDescription": "or null if no previous build failure occurred.",
           "throws": [],
           "propertyType": null,
-          "line": 1367
+          "line": 1363
         }
       ]
     },
@@ -19157,7 +19157,7 @@
       "source": "src/package-manager.js",
       "sourcePath": "src/package-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 71,
+      "line": 72,
       "members": [
         {
           "name": "onDidLoadInitialPackages",
@@ -19184,7 +19184,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 187
+          "line": 188
         },
         {
           "name": "onDidActivateInitialPackages",
@@ -19211,7 +19211,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 200
+          "line": 201
         },
         {
           "name": "onDidInitializeInitialPackages",
@@ -19238,7 +19238,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 213
+          "line": 214
         },
         {
           "name": "onDidActivatePackage",
@@ -19275,7 +19275,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 235
+          "line": 236
         },
         {
           "name": "onDidDeactivatePackage",
@@ -19312,7 +19312,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 249
+          "line": 250
         },
         {
           "name": "onDidLoadPackage",
@@ -19349,7 +19349,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 263
+          "line": 264
         },
         {
           "name": "onDidUnloadPackage",
@@ -19386,7 +19386,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 277
+          "line": 278
         },
         {
           "name": "getPackageDirPaths",
@@ -19403,7 +19403,7 @@
           "returnDescription": "of `String` directory paths.",
           "throws": [],
           "propertyType": null,
-          "line": 293
+          "line": 294
         },
         {
           "name": "resolvePackagePath",
@@ -19430,7 +19430,7 @@
           "returnDescription": "folder path or `null` if it could not be resolved.",
           "throws": [],
           "propertyType": null,
-          "line": 310
+          "line": 311
         },
         {
           "name": "isBundledPackage",
@@ -19457,7 +19457,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 371
+          "line": 372
         },
         {
           "name": "enablePackage",
@@ -19484,7 +19484,7 @@
           "returnDescription": "Resolves when the enabled package is initialized or active.",
           "throws": [],
           "propertyType": null,
-          "line": 388
+          "line": 389
         },
         {
           "name": "disablePackage",
@@ -19511,7 +19511,7 @@
           "returnDescription": "Resolves after the package is fully deactivated.",
           "throws": [],
           "propertyType": null,
-          "line": 409
+          "line": 410
         },
         {
           "name": "isPackageDisabled",
@@ -19538,7 +19538,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 430
+          "line": 431
         },
         {
           "name": "getActivePackages",
@@ -19555,7 +19555,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 445
+          "line": 446
         },
         {
           "name": "getActivePackage",
@@ -19582,7 +19582,7 @@
           "returnDescription": "or undefined.",
           "throws": [],
           "propertyType": null,
-          "line": 474
+          "line": 475
         },
         {
           "name": "isPackageActive",
@@ -19609,7 +19609,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 488
+          "line": 489
         },
         {
           "name": "getPackageLifecycleState",
@@ -19636,7 +19636,7 @@
           "returnDescription": "One of `loaded`, `activating`, `active`, or `deactivating`. An unloaded or unknown package has no current lifecycle record.",
           "throws": [],
           "propertyType": null,
-          "line": 503
+          "line": 504
         },
         {
           "name": "hasActivatedInitialPackages",
@@ -19653,7 +19653,7 @@
           "returnDescription": "indicating whether package activation has occurred.",
           "throws": [],
           "propertyType": null,
-          "line": 541
+          "line": 542
         },
         {
           "name": "getLoadedPackages",
@@ -19670,7 +19670,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 556
+          "line": 557
         },
         {
           "name": "getLoadedPackage",
@@ -19697,7 +19697,7 @@
           "returnDescription": "or undefined.",
           "throws": [],
           "propertyType": null,
-          "line": 576
+          "line": 577
         },
         {
           "name": "isPackageLoaded",
@@ -19724,7 +19724,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 589
+          "line": 590
         },
         {
           "name": "hasLoadedInitialPackages",
@@ -19741,7 +19741,7 @@
           "returnDescription": "indicating whether package loading has occurred.",
           "throws": [],
           "propertyType": null,
-          "line": 602
+          "line": 603
         },
         {
           "name": "hasInitializedInitialPackages",
@@ -19758,7 +19758,7 @@
           "returnDescription": "indicating whether the initial package bootstrap has completed.",
           "throws": [],
           "propertyType": null,
-          "line": 616
+          "line": 617
         },
         {
           "name": "getAvailablePackagePaths",
@@ -19775,7 +19775,7 @@
           "returnDescription": "of `Strings` of all the available package paths.",
           "throws": [],
           "propertyType": null,
-          "line": 632
+          "line": 633
         },
         {
           "name": "getAvailablePackageNames",
@@ -19792,7 +19792,7 @@
           "returnDescription": "of `Strings` of all the available package names.",
           "throws": [],
           "propertyType": null,
-          "line": 644
+          "line": 645
         },
         {
           "name": "getAvailablePackageMetadata",
@@ -19809,7 +19809,7 @@
           "returnDescription": "of manifest metadata objects for all available packages.",
           "throws": [],
           "propertyType": null,
-          "line": 656
+          "line": 657
         },
         {
           "name": "getAvailablePackages",
@@ -19846,7 +19846,7 @@
           "returnDescription": "Available package descriptors that own their names, sorted by name.",
           "throws": [],
           "propertyType": null,
-          "line": 677
+          "line": 678
         },
         {
           "name": "getAvailablePackage",
@@ -19873,7 +19873,7 @@
           "returnDescription": "package descriptor or undefined.",
           "throws": [],
           "propertyType": null,
-          "line": 693
+          "line": 694
         },
         {
           "name": "refreshPackageIndex",
@@ -19890,7 +19890,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 709
+          "line": 710
         },
         {
           "name": "initializePackages",
@@ -19907,7 +19907,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1019
+          "line": 1020
         },
         {
           "name": "unloadPackage",
@@ -19963,7 +19963,7 @@
           "returnDescription": "Resolves with the unloaded package after teardown.",
           "throws": [],
           "propertyType": null,
-          "line": 1382
+          "line": 1392
         },
         {
           "name": "requestService",
@@ -19999,7 +19999,7 @@
           "returnDescription": "Whether a compatible non-null service is published.",
           "throws": [],
           "propertyType": null,
-          "line": 1541
+          "line": 1551
         },
         {
           "name": "startPackage",
@@ -20026,7 +20026,7 @@
           "returnDescription": "The started package. This never waits for a future trigger.",
           "throws": [],
           "propertyType": null,
-          "line": 1576
+          "line": 1602
         },
         {
           "name": "activatePackage",
@@ -20053,7 +20053,7 @@
           "returnDescription": "The active package.",
           "throws": [],
           "propertyType": null,
-          "line": 1608
+          "line": 1634
         },
         {
           "name": "deactivatePackage",
@@ -20099,7 +20099,7 @@
           "returnDescription": "Resolves when the package reaches `loaded`.",
           "throws": [],
           "propertyType": null,
-          "line": 1901
+          "line": 1942
         }
       ]
     },
@@ -52784,5 +52784,5 @@
     }
   ],
   "memberCount": 1537,
-  "generatedAt": "2026-10-14T04:36:30.671Z"
+  "generatedAt": "2026-10-14T05:32:43.976Z"
 }
