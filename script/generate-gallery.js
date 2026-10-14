@@ -66,7 +66,6 @@ async function main() {
       if (metadata.mode !== "normal" || metadata.fontSettings !== "default")
         continue;
       const readme = git(cwd, ["show", "origin/master:README.md"]);
-      const revision = git(cwd, ["rev-parse", "origin/master"]);
       const category = repo.startsWith("language-")
         ? "grammars"
         : manifest.themes
@@ -74,7 +73,7 @@ async function main() {
           : "packages";
       for (const [index, item] of metadata.images.entries()) {
         if (
-          !/^demo(?:-\d+)?\.png$/.test(item.file) ||
+          !/^demo(?:-[a-z0-9]+)*\.png$/.test(item.file) ||
           !readme.includes(`](.github/${item.file})`)
         )
           continue;
@@ -88,9 +87,9 @@ async function main() {
           caption: item.label,
           width: item.width,
           height: item.height,
-          src: `https://raw.githubusercontent.com/lumine-code/${repo}/${revision}/.github/${item.file}`,
+          src: `https://raw.githubusercontent.com/lumine-code/${repo}/master/.github/${item.file}`,
           repository: `https://github.com/lumine-code/${repo}#features`,
-          source: `https://github.com/lumine-code/${repo}/blob/${revision}/.github/${item.file}`,
+          source: `https://github.com/lumine-code/${repo}/blob/master/.github/${item.file}`,
         });
       }
     } catch {
@@ -117,9 +116,9 @@ async function main() {
       caption: captions[index - 1],
       width: 1440,
       height: 900,
-      src: `https://raw.githubusercontent.com/lumine-code/lumine/${revision}/${file}`,
+      src: `https://raw.githubusercontent.com/lumine-code/lumine/master/${file}`,
       repository: "https://github.com/lumine-code/lumine",
-      source: `https://github.com/lumine-code/lumine/blob/${revision}/${file}`,
+      source: `https://github.com/lumine-code/lumine/blob/master/${file}`,
     });
   }
   entries.sort(

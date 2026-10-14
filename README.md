@@ -52,7 +52,9 @@ Run `npm run check:api-docs` and `npm run test:api-extractor` in the editor chec
 
 Packages installed separately carry a subtle `optional` label in the gallery and enlarged preview. The generator derives this label from the editor's committed dependency pins and each package's `engines.lumine` marker; `editorRevision` records which editor commit was used.
 
-Run `npm run gallery:generate -- /path/to/workspace` to refresh `gallery.json` from committed `.github/demo.json` metadata and README image references on the sibling repositories' `origin/master` refs. The generator checks the public GitHub repository list, includes only normal-mode captures with default fonts, and pins every image URL to its source commit. Private repositories, npm libraries and packages without published screenshots are omitted. The editor contributes its four original captures without the decorative backgrounds and captions used in its README.
+Images and their source links follow each repository's `master` branch. Replacing an existing image at the same path and pushing it updates the gallery automatically after GitHub's image cache expires; no website regeneration is needed. Keep filenames stable. New images, removed images, captions and package classifications still require refreshing the catalogue.
+
+Run `npm run gallery:generate -- /path/to/workspace` to refresh `gallery.json` from committed `.github/demo.json` metadata and README image references on the sibling repositories' `origin/master` refs. The generator checks the public GitHub repository list and includes only normal-mode captures with default fonts. Private repositories, npm libraries and packages without published screenshots are omitted. The editor contributes its four original captures without the decorative backgrounds and captions used in its README.
 
 ## Local preview
 

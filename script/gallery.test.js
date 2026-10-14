@@ -15,14 +15,14 @@ test("the gallery excludes private maintainer packages", () => {
   }
 });
 
-test("gallery assets link to immutable public repository images with intrinsic dimensions", () => {
+test("gallery assets follow master so replacing an image does not require rebuilding the site", () => {
   assert.match(editorRevision, /^[a-f\d]{40}$/);
   assert.ok(entries.length > 0);
   assert.equal(new Set(entries.map((item) => item.id)).size, entries.length);
   for (const item of entries) {
     assert.match(
       item.src,
-      /^https:\/\/raw\.githubusercontent\.com\/lumine-code\/[a-z\d-]+\/[a-f\d]{40}\/.+\.png$/,
+      /^https:\/\/raw\.githubusercontent\.com\/lumine-code\/[a-z\d-]+\/master\/.+\.png$/,
     );
     assert.ok(item.width > 0 && item.height > 0);
     assert.ok(item.caption?.trim());
