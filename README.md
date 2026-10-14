@@ -57,7 +57,7 @@ Clicking a package name opens its details without losing list filters or positio
 
 ## Screenshot gallery
 
-`gallery.html` displays authentic editor and package screenshots loaded directly from public repositories. Search and category filters can be shared through the URL; previews support keyboard navigation and link to their original repository images. The website keeps no duplicate screenshot binaries.
+`gallery.html` displays authentic editor and package screenshots loaded directly from public repositories. Search and category filters can be shared through the URL; package names open their catalog detail pages, including from enlarged previews. Previews support keyboard navigation and retain links to their original repository images. The website keeps no duplicate screenshot binaries.
 
 Packages installed separately carry a subtle `optional` label in the gallery and enlarged preview. The generator derives this label from the editor's committed dependency pins and each package's `engines.lumine` marker; `editorRevision` records which editor commit was used.
 

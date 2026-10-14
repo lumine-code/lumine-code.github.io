@@ -20,6 +20,10 @@
     active = 0,
     opener;
   const pageSize = 18;
+  const packageHref = (item) =>
+    item.category === "editor"
+      ? item.repository
+      : `packages.html#package=${encodeURIComponent(`lumine-code/${item.repo}`)}`;
   const make = (tag, className, text) => {
     const element = document.createElement(tag);
     element.className = className;
@@ -29,7 +33,9 @@
   function preview(index) {
     active = index;
     const item = filtered[index];
-    viewerTitle.textContent = item.repo;
+    const titleLink = make("a", "", item.repo);
+    titleLink.href = packageHref(item);
+    viewerTitle.replaceChildren(titleLink);
     viewerBadge.hidden = item.distribution !== "optional";
     viewerCaption.textContent = item.caption;
     viewerImage.alt = item.caption;
@@ -82,7 +88,7 @@
       const details = make("div", "gallery-card-details");
       const heading = make("h2", "");
       const link = make("a", "", item.repo);
-      link.href = item.repository;
+      link.href = packageHref(item);
       heading.append(link);
       const headingRow = make("div", "gallery-card-heading");
       headingRow.append(heading);

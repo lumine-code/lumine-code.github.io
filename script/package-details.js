@@ -142,7 +142,11 @@
       event.preventDefault();
       location.hash = "";
     });
-    const item = entries.find((entry) => entry.source === source);
+    const origin = catalog.sourceInfo(source)?.repository;
+    const item = entries.find(
+      (entry) =>
+        entry.source === source || (origin && entry.repository === origin),
+    );
     if (!item) {
       detail.replaceChildren(
         back,
