@@ -48176,16 +48176,6 @@
               "nested": true
             },
             {
-              "name": "options.forcePending",
-              "type": "Boolean",
-              "description": "Honor an explicit pending opening even when core.allowPendingPaneItems is disabled.",
-              "optional": true,
-              "defaultValue": "false",
-              "source": "options.forcePending",
-              "rest": false,
-              "nested": true
-            },
-            {
               "name": "options.transferred",
               "type": "Boolean",
               "description": "A `Boolean` marking a staged cross-window item whose requested placement should be preserved by tab surfaces.",
@@ -48230,7 +48220,7 @@
           "returnDescription": "that resolves to the opened item, or `undefined` when cancelled or refused.",
           "throws": [],
           "propertyType": null,
-          "line": 2380
+          "line": 2379
         },
         {
           "name": "hide",
@@ -48257,7 +48247,7 @@
           "returnDescription": "indicating whether any visible matching items were found and hiding or closing was requested.",
           "throws": [],
           "propertyType": null,
-          "line": 2847
+          "line": 2846
         },
         {
           "name": "toggle",
@@ -48284,7 +48274,7 @@
           "returnDescription": "that resolves when the item is shown or hidden, or to `false` if closing a center item is prevented or cancelled. Rejects if closing fails.",
           "throws": [],
           "propertyType": null,
-          "line": 2901
+          "line": 2900
         },
         {
           "name": "createItemForURI",
@@ -48338,7 +48328,7 @@
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 3038
+          "line": 3037
         },
         {
           "name": "isTextEditor",
@@ -48365,7 +48355,7 @@
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "throws": [],
           "propertyType": null,
-          "line": 3220
+          "line": 3219
         },
         {
           "name": "buildTextEditor",
@@ -48392,7 +48382,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3234
+          "line": 3233
         },
         {
           "name": "buildSelectList",
@@ -48419,7 +48409,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3278
+          "line": 3277
         },
         {
           "name": "addSelectList",
@@ -48525,7 +48515,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3313
+          "line": 3312
         },
         {
           "name": "buildInputDialog",
@@ -48552,7 +48542,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3341
+          "line": 3340
         },
         {
           "name": "addInputDialog",
@@ -48648,7 +48638,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3365
+          "line": 3364
         },
         {
           "name": "popModal",
@@ -48675,7 +48665,7 @@
           "returnDescription": "— `false` when there is no step to go back to.",
           "throws": [],
           "propertyType": null,
-          "line": 3398
+          "line": 3397
         },
         {
           "name": "popModalTo",
@@ -48702,7 +48692,7 @@
           "returnDescription": "— `false` when the index is not an earlier step.",
           "throws": [],
           "propertyType": null,
-          "line": 3412
+          "line": 3411
         },
         {
           "name": "getModalTrail",
@@ -48719,7 +48709,7 @@
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3424
+          "line": 3423
         },
         {
           "name": "onDidChangeModalTrail",
@@ -48746,7 +48736,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 3439
+          "line": 3438
         },
         {
           "name": "reopenItem",
@@ -48763,7 +48753,7 @@
           "returnDescription": "that is resolved when the item is opened",
           "throws": [],
           "propertyType": null,
-          "line": 3453
+          "line": 3452
         },
         {
           "name": "addOpener",
@@ -48819,7 +48809,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "throws": [],
           "propertyType": null,
-          "line": 3496
+          "line": 3495
         },
         {
           "name": "addPathOpener",
@@ -48946,7 +48936,7 @@
           "returnDescription": "Removes this opener and its preview capabilities.",
           "throws": [],
           "propertyType": null,
-          "line": 3533
+          "line": 3532
         },
         {
           "name": "getAvailablePathOpeners",
@@ -48992,7 +48982,7 @@
           "returnDescription": "Descriptors containing `id`, `label`, `isDefault` and `destinations`.",
           "throws": [],
           "propertyType": null,
-          "line": 3629
+          "line": 3628
         },
         {
           "name": "openPathInNewWindow",
@@ -49088,7 +49078,7 @@
           "returnDescription": "Resolves after requesting the new window.",
           "throws": [],
           "propertyType": null,
-          "line": 3731
+          "line": 3730
         },
         {
           "name": "getPaneItems",
@@ -49105,7 +49095,7 @@
           "returnDescription": "of items.",
           "throws": [],
           "propertyType": null,
-          "line": 3789
+          "line": 3788
         },
         {
           "name": "getActivePaneItem",
@@ -49122,7 +49112,7 @@
           "returnDescription": "The active item, or undefined when the active pane is empty.",
           "throws": [],
           "propertyType": null,
-          "line": 3801
+          "line": 3800
         },
         {
           "name": "getTextEditors",
@@ -49139,7 +49129,7 @@
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "throws": [],
           "propertyType": null,
-          "line": 3814
+          "line": 3813
         },
         {
           "name": "getActiveTextEditor",
@@ -49156,7 +49146,7 @@
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "throws": [],
           "propertyType": null,
-          "line": 3844
+          "line": 3843
         },
         {
           "name": "getTextEditorForElement",
@@ -49202,7 +49192,7 @@
           "returnDescription": "The containing editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 3867
+          "line": 3866
         },
         {
           "name": "getFocusedTextEditor",
@@ -49239,7 +49229,7 @@
           "returnDescription": "The focused editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 3891
+          "line": 3890
         },
         {
           "name": "getActiveFileTextEditor",
@@ -49256,7 +49246,7 @@
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "throws": [],
           "propertyType": null,
-          "line": 3910
+          "line": 3909
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -49273,7 +49263,7 @@
           "returnDescription": "or `undefined` when nothing editable is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3940
+          "line": 3939
         },
         {
           "name": "saveActivePaneItem",
@@ -49300,7 +49290,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3983
+          "line": 3982
         },
         {
           "name": "saveActivePaneItemAs",
@@ -49327,7 +49317,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4004
+          "line": 4003
         },
         {
           "name": "destroyActivePaneItem",
@@ -49344,7 +49334,7 @@
           "returnDescription": "Whether the active item was closed.",
           "throws": [],
           "propertyType": null,
-          "line": 4031
+          "line": 4030
         },
         {
           "name": "getActivePaneContainer",
@@ -49361,7 +49351,7 @@
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "throws": [],
           "propertyType": null,
-          "line": 4047
+          "line": 4046
         },
         {
           "name": "getPanes",
@@ -49378,7 +49368,7 @@
           "returnDescription": "of {@link Pane Panes}.",
           "throws": [],
           "propertyType": null,
-          "line": 4059
+          "line": 4058
         },
         {
           "name": "getActivePane",
@@ -49395,7 +49385,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4075
+          "line": 4074
         },
         {
           "name": "focusPaneInDirection",
@@ -49441,7 +49431,7 @@
           "returnDescription": "The pane that received focus.",
           "throws": [],
           "propertyType": null,
-          "line": 4089
+          "line": 4088
         },
         {
           "name": "movePaneItem",
@@ -49477,7 +49467,7 @@
           "returnDescription": "The final {pane, item}.",
           "throws": [],
           "propertyType": null,
-          "line": 4106
+          "line": 4105
         },
         {
           "name": "copyPaneItem",
@@ -49513,7 +49503,7 @@
           "returnDescription": "The final {pane, item}, or null when copy() is absent or canCopy() returns false; cancellation rejects with ABORT_ERR.",
           "throws": [],
           "propertyType": null,
-          "line": 4120
+          "line": 4119
         },
         {
           "name": "activateNextPane",
@@ -49530,7 +49520,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4130
+          "line": 4129
         },
         {
           "name": "activatePreviousPane",
@@ -49547,7 +49537,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4140
+          "line": 4139
         },
         {
           "name": "paneContainerForURI",
@@ -49574,7 +49564,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 4155
+          "line": 4154
         },
         {
           "name": "paneContainerForItem",
@@ -49601,7 +49591,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 4169
+          "line": 4168
         },
         {
           "name": "paneForURI",
@@ -49628,7 +49618,7 @@
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 4182
+          "line": 4181
         },
         {
           "name": "paneForItem",
@@ -49655,7 +49645,7 @@
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 4200
+          "line": 4199
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -49682,7 +49672,7 @@
           "returnDescription": "The selected close operation, or undefined when closing an empty window is disabled.",
           "throws": [],
           "propertyType": null,
-          "line": 4230
+          "line": 4229
         },
         {
           "name": "getCenter",
@@ -49699,7 +49689,7 @@
           "returnDescription": "The document-pane aggregate for this workspace.",
           "throws": [],
           "propertyType": null,
-          "line": 4333
+          "line": 4332
         },
         {
           "name": "getLeftDock",
@@ -49716,7 +49706,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4344
+          "line": 4343
         },
         {
           "name": "getRightDock",
@@ -49733,7 +49723,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4355
+          "line": 4354
         },
         {
           "name": "getBottomDock",
@@ -49750,7 +49740,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4366
+          "line": 4365
         },
         {
           "name": "beginLayoutDrag",
@@ -49767,7 +49757,7 @@
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "throws": [],
           "propertyType": null,
-          "line": 4410
+          "line": 4409
         },
         {
           "name": "getBottomPanels",
@@ -49784,7 +49774,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4426
+          "line": 4425
         },
         {
           "name": "addBottomPanel",
@@ -49841,7 +49831,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4442
+          "line": 4441
         },
         {
           "name": "getLeftPanels",
@@ -49858,7 +49848,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4453
+          "line": 4452
         },
         {
           "name": "addLeftPanel",
@@ -49915,7 +49905,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4469
+          "line": 4468
         },
         {
           "name": "getRightPanels",
@@ -49932,7 +49922,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4480
+          "line": 4479
         },
         {
           "name": "addRightPanel",
@@ -49989,7 +49979,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4496
+          "line": 4495
         },
         {
           "name": "getTopPanels",
@@ -50006,7 +49996,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4507
+          "line": 4506
         },
         {
           "name": "addTopPanel",
@@ -50063,7 +50053,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4523
+          "line": 4522
         },
         {
           "name": "getHeaderPanels",
@@ -50080,7 +50070,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4534
+          "line": 4533
         },
         {
           "name": "addHeaderPanel",
@@ -50137,7 +50127,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4550
+          "line": 4549
         },
         {
           "name": "getFooterPanels",
@@ -50154,7 +50144,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4561
+          "line": 4560
         },
         {
           "name": "addFooterPanel",
@@ -50211,7 +50201,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4577
+          "line": 4576
         },
         {
           "name": "getModalPanels",
@@ -50228,7 +50218,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4588
+          "line": 4587
         },
         {
           "name": "addModalPanel",
@@ -50325,7 +50315,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4608
+          "line": 4607
         },
         {
           "name": "panelForItem",
@@ -50352,7 +50342,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 4622
+          "line": 4621
         },
         {
           "name": "scan",
@@ -50467,7 +50457,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 4686
+          "line": 4685
         },
         {
           "name": "replace",
@@ -50531,7 +50521,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4952
+          "line": 4951
         }
       ]
     },
@@ -52794,5 +52784,5 @@
     }
   ],
   "memberCount": 1537,
-  "generatedAt": "2026-10-14T00:54:40.940Z"
+  "generatedAt": "2026-10-14T01:26:04.135Z"
 }
