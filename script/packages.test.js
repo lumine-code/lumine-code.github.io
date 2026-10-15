@@ -20,6 +20,7 @@ test("mixed catalogs keep source-only entries and exclude private packages and l
     },
     { source: "lumine-code/aura-theme", metadata: { themes: [{}] } },
     "lumine-code/bacadra-tools",
+    "bacadra/lumine-bacadra-tools",
     "lumine-code/banager-tools",
     { source: "lumine-code/library", metadata: { engines: { node: ">=24" } } },
   ]);

@@ -11,7 +11,11 @@ const { editorRevision, entries } = JSON.parse(
 
 test("the gallery excludes private maintainer packages", () => {
   for (const item of entries) {
-    assert.ok(!["bacadra-tools", "banager-tools"].includes(item.repo));
+    assert.ok(
+      !["bacadra-tools", "lumine-bacadra-tools", "banager-tools"].includes(
+        item.repo,
+      ),
+    );
   }
 });
 

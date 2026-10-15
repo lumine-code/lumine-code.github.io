@@ -47,6 +47,7 @@
       if (
         [
           "https://github.com/lumine-code/bacadra-tools",
+          "https://github.com/bacadra/lumine-bacadra-tools",
           "https://github.com/lumine-code/banager-tools",
         ].includes(info.repository)
       )

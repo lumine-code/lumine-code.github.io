@@ -7,7 +7,11 @@ const { execFileSync } = require("node:child_process");
 const site = path.resolve(__dirname, "..");
 const workspace = path.resolve(process.argv[2] || path.join(site, ".."));
 // Maintainer-only packages stay out even if a repository is publicly readable.
-const excludedRepositories = new Set(["bacadra-tools", "banager-tools"]);
+const excludedRepositories = new Set([
+  "bacadra-tools",
+  "lumine-bacadra-tools",
+  "banager-tools",
+]);
 const git = (cwd, args) =>
   execFileSync("git", args, {
     cwd,
