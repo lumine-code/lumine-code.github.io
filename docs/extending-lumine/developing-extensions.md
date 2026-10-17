@@ -33,12 +33,14 @@ module.exports = {
   },
 
   deactivate() {
-    this.subscriptions.dispose();
+    this.subscriptions?.dispose();
   },
 };
 ```
 
 Register commands and lightweight service facades synchronously in `activate()`. Load expensive work when the command or service needs it. Dispose subscriptions, views and other owned resources in `deactivate()`.
+
+Core initializes every enabled package before restoring the workspace, including packages without an `initialize()` hook. `deactivate()` can run before `activate()`, so release resources from initialization and recovery while allowing resources created during activation to be absent. See the [package lifecycle contract](https://github.com/lumine-code/lumine/blob/master/docs/developing-a-package.md#bootstrap-and-lazy-work).
 
 ## Develop locally
 
