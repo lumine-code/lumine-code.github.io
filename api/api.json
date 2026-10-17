@@ -29071,12 +29071,12 @@
       "name": "SelectList",
       "superClass": "InputDialog",
       "visibility": "Experimental",
-      "description": "Detached fuzzy-searchable select-list model. Extends InputDialog with items,\nfiltering, selection and list rendering. Call {@link InputDialog#getElement} to lazily\ncreate its unmounted surface, or use {@link Workspace#addSelectList} to give\nit a modal host.\n\nA flat `items` source may also supply `overflowSections`, an alternative\ngrouping of exactly the same items. It applies only while the unfiltered\nlist actually overflows its viewport; shorter lists retain their natural\norder without section separators. Pass `null` to remove this alternative.\n\nA recents adapter's `save(ids, change)` receives the operation's intent:\n`{type: 'record'|'remove'|'clear'|'limit'|'replace', id?, limit}`. Apply it to\nthe latest stored IDs with {@link updateRecentItemIds} inside a scoped\nstate's `mutate()` callback. Returning the committed IDs synchronizes a\nsuccessful no-op too; returning nothing remains valid for other adapters.\nProject adapters notify `onDidChange` on a project rebind even when the IDs\nare equal. Use the scoped state's `observe()` subscription, skipping its\ninitial callback, so a pending save cannot project into a different project.\n\nDestroy this model with the inherited {@link InputDialog#destroy}; calling\nthe inherited {@link InputDialog#confirm} delegates to {@link #confirmSelection}.",
+      "description": "Detached fuzzy-searchable select-list model. Extends InputDialog with items,\nfiltering, selection and list rendering. Call {@link InputDialog#getElement} to lazily\ncreate its unmounted surface, or use {@link Workspace#addSelectList} to give\nit a modal host.\n\nA flat `items` source may also supply `overflowSections`, an alternative\ngrouping of exactly the same items. It applies only while the unfiltered\nlist actually overflows its viewport; shorter lists retain their natural\norder without section separators. Pass `null` to remove this alternative.\n\nA recents adapter's `save(ids, change)` receives the operation's intent:\n`{type: 'record'|'remove'|'clear'|'limit'|'replace', id?, limit}`. Apply it to\nthe latest stored IDs with {@link updateRecentItemIds} inside a scoped\nstate's `mutate()` callback. Returning the committed IDs synchronizes a\nsuccessful no-op too; returning nothing remains valid for other adapters.\nSet `adapter.serializesWrites: true` when the adapter owns write ordering.\nCore then invokes save immediately, letting scoped state capture the current\nproject before a rebind. Other adapters retain core's serial save queue.\nProject adapters notify `onDidChange` on a project rebind even when the IDs\nare equal. Use the scoped state's `observe()` subscription, skipping its\ninitial callback, so a pending save cannot project into a different project.\n\nDestroy this model with the inherited {@link InputDialog#destroy}; calling\nthe inherited {@link InputDialog#confirm} delegates to {@link #confirmSelection}.",
       "summary": "Detached fuzzy-searchable select-list model. Extends InputDialog with items, filtering, selection and list rendering. Call {@link InputDialog#getElement} to lazily create its unmounted surface, or use {@link Workspace#addSelectList} to give it a modal host.",
       "source": "src/select-list.js",
       "sourcePath": "src/select-list.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 52,
+      "line": 55,
       "members": [
         {
           "name": "getParsedQuery",
@@ -29093,7 +29093,7 @@
           "returnDescription": "A frozen {text, data} record; data is the arbitrary metadata returned by search.parseQuery.",
           "throws": [],
           "propertyType": null,
-          "line": 568
+          "line": 575
         },
         {
           "name": "setSource",
@@ -29120,7 +29120,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 583
+          "line": 590
         },
         {
           "name": "getItems",
@@ -29137,7 +29137,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 858
+          "line": 865
         },
         {
           "name": "getFilteredItems",
@@ -29154,7 +29154,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 870
+          "line": 877
         },
         {
           "name": "getDisplayedItems",
@@ -29171,7 +29171,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 882
+          "line": 889
         },
         {
           "name": "getItemCount",
@@ -29188,7 +29188,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 893
+          "line": 900
         },
         {
           "name": "getMatchCount",
@@ -29205,7 +29205,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 905
+          "line": 912
         },
         {
           "name": "onDidChangeItems",
@@ -29262,7 +29262,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 921
+          "line": 928
         },
         {
           "name": "onDidChangeSelection",
@@ -29359,7 +29359,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 941
+          "line": 948
         },
         {
           "name": "setItems",
@@ -29405,7 +29405,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 955
+          "line": 962
         },
         {
           "name": "setSections",
@@ -29451,7 +29451,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 969
+          "line": 976
         },
         {
           "name": "refresh",
@@ -29478,7 +29478,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 981
+          "line": 988
         },
         {
           "name": "getItemId",
@@ -29505,7 +29505,7 @@
           "returnDescription": "A non-null primitive stable ID from getItemId, object.id, or a primitive item.",
           "throws": [],
           "propertyType": null,
-          "line": 996
+          "line": 1003
         },
         {
           "name": "showMore",
@@ -29542,7 +29542,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1164
+          "line": 1171
         },
         {
           "name": "getFilterKey",
@@ -29569,7 +29569,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1229
+          "line": 1236
         },
         {
           "name": "getMatchIndices",
@@ -29605,7 +29605,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1246
+          "line": 1253
         },
         {
           "name": "getSelectedItem",
@@ -29622,7 +29622,7 @@
           "returnDescription": "The selected source item, or null when no item is selected.",
           "throws": [],
           "propertyType": null,
-          "line": 1295
+          "line": 1302
         },
         {
           "name": "getSelectedItemId",
@@ -29639,7 +29639,7 @@
           "returnDescription": "The selected non-null primitive stable ID, or null when none is selected.",
           "throws": [],
           "propertyType": null,
-          "line": 1306
+          "line": 1313
         },
         {
           "name": "getSelectedIndex",
@@ -29656,7 +29656,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1317
+          "line": 1324
         },
         {
           "name": "selectPrevious",
@@ -29673,7 +29673,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1407
+          "line": 1414
         },
         {
           "name": "selectNext",
@@ -29690,7 +29690,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1420
+          "line": 1427
         },
         {
           "name": "selectFirst",
@@ -29707,7 +29707,7 @@
           "returnDescription": "Resolves after selection or after revealing another page.",
           "throws": [],
           "propertyType": null,
-          "line": 1450
+          "line": 1457
         },
         {
           "name": "selectLast",
@@ -29724,7 +29724,7 @@
           "returnDescription": "Resolves after selection or after revealing another page.",
           "throws": [],
           "propertyType": null,
-          "line": 1461
+          "line": 1468
         },
         {
           "name": "selectNone",
@@ -29741,7 +29741,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1490
+          "line": 1497
         },
         {
           "name": "selectIndex",
@@ -29786,7 +29786,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1504
+          "line": 1511
         },
         {
           "name": "selectItem",
@@ -29813,7 +29813,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1547
+          "line": 1554
         },
         {
           "name": "selectItemById",
@@ -29840,7 +29840,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1572
+          "line": 1579
         },
         {
           "name": "getScrollTop",
@@ -29857,7 +29857,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1588
+          "line": 1595
         },
         {
           "name": "setScrollTop",
@@ -29884,7 +29884,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1600
+          "line": 1607
         },
         {
           "name": "scrollToItem",
@@ -29911,7 +29911,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1612
+          "line": 1619
         },
         {
           "name": "scrollToSelectedItem",
@@ -29928,7 +29928,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1629
+          "line": 1636
         },
         {
           "name": "hasMoreItems",
@@ -29945,7 +29945,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1644
+          "line": 1651
         },
         {
           "name": "getRemainingItemCount",
@@ -29962,7 +29962,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1655
+          "line": 1662
         },
         {
           "name": "resetDisplayedItemLimit",
@@ -29979,7 +29979,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1666
+          "line": 1673
         },
         {
           "name": "getRecentItemIds",
@@ -29996,7 +29996,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1685
+          "line": 1692
         },
         {
           "name": "setRecentItemIds",
@@ -30042,7 +30042,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1699
+          "line": 1706
         },
         {
           "name": "getRecentLimit",
@@ -30059,7 +30059,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1728
+          "line": 1735
         },
         {
           "name": "setRecentLimit",
@@ -30086,7 +30086,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1740
+          "line": 1747
         },
         {
           "name": "isRecentItem",
@@ -30113,7 +30113,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1759
+          "line": 1766
         },
         {
           "name": "recordRecentItem",
@@ -30140,7 +30140,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1772
+          "line": 1779
         },
         {
           "name": "removeRecentItem",
@@ -30167,7 +30167,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1787
+          "line": 1794
         },
         {
           "name": "clearRecentItems",
@@ -30184,7 +30184,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1802
+          "line": 1809
         },
         {
           "name": "onDidChangeRecentItemIds",
@@ -30241,7 +30241,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1818
+          "line": 1825
         },
         {
           "name": "confirmSelection",
@@ -30258,7 +30258,7 @@
           "returnDescription": "Primary action completion, a paging result for the Show more row, or undefined after a confirmation event.",
           "throws": [],
           "propertyType": null,
-          "line": 1832
+          "line": 1839
         },
         {
           "name": "onDidConfirmSelection",
@@ -30325,7 +30325,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1864
+          "line": 1871
         },
         {
           "name": "onDidConfirmEmptySelection",
@@ -30372,7 +30372,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1878
+          "line": 1885
         }
       ]
     },
@@ -53566,5 +53566,5 @@
     }
   ],
   "memberCount": 1554,
-  "generatedAt": "2026-10-16T23:44:01.138Z"
+  "generatedAt": "2026-10-17T00:01:37.159Z"
 }
