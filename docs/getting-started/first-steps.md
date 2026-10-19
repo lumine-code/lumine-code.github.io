@@ -12,7 +12,7 @@ Open **Settings → Keybindings** to search by command or keystroke and see whic
 
 Use the file menu to open a folder, then browse its files in the [tree view](https://github.com/lumine-code/tree-view#readme). The optional [file finder](https://github.com/lumine-code/fuzzy-files#readme) jumps to a file by name; [symbol tools](https://github.com/lumine-code/symbol#readme) navigate definitions and headings when a provider is available. The grammar selector in the status bar lets you check or change the active language.
 
-Reopen projects from **File → Reopen Project**, or install [Recent List](https://github.com/lumine-code/recent-list#readme) and [Project List](https://github.com/lumine-code/project-list#readme) to search recent or saved projects.
+Reopen projects from **File → Recent Projects**; install [Recent List](https://github.com/lumine-code/recent-list#readme) to search that history with **Browse All Recent Projects…**. For a saved project list, install [Project List](https://github.com/lumine-code/project-list#readme) and use **File → Projects → Saved Projects…**.
 
 A single click can open a preview tab that the next file replaces. Double-click the file to keep its tab; editing or saving also makes a preview permanent. See [Workspace](../workspace/layout.md) for splits, docks and additional windows.
 
