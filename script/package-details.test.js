@@ -5,6 +5,18 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { JSDOM } = require("jsdom");
 
+test("the shipped Markdown renderer matches the installed dependency", () => {
+  const shipped = fs.readFileSync(
+    path.join(__dirname, "vendor/markdown-it.min.js"),
+    "utf8",
+  );
+  const installed = fs.readFileSync(require.resolve("markdown-it/browser"), "utf8");
+  assert.ok(
+    shipped.replaceAll("\r\n", "\n") === installed.replaceAll("\r\n", "\n"),
+    "Copy markdown-it/browser to script/vendor/markdown-it.min.js after updating the dependency.",
+  );
+});
+
 async function harness(t, read) {
   const dom = new JSDOM(
     '<div id="packages-list"><h2><a href="#package=org%2Fexample">example</a></h2></div><section id="package-details" hidden></section>',
