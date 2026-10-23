@@ -30978,7 +30978,7 @@
           "signature": "::openPath(filePath)",
           "category": "File Operations",
           "visibility": "Public",
-          "description": "Open a path with its operating system default application.",
+          "description": "Open a path with its operating system default application.\n\nRejects when the path is unavailable, the system refuses the request, or\nthe operating-system request does not settle within 60 seconds. A timed-out\nsystem operation may still complete later.",
           "summary": "Open a path with its operating system default application.",
           "parameters": [
             {
@@ -30991,11 +30991,11 @@
               "defaultValue": null
             }
           ],
-          "returnType": "Promise<String>",
-          "returnDescription": "An empty string on success, or an operating-system error message.",
+          "returnType": "Promise<void>",
+          "returnDescription": "that resolves when the request completes.",
           "throws": [],
           "propertyType": null,
-          "line": 51
+          "line": 55
         },
         {
           "name": "openApplication",
@@ -31040,7 +31040,7 @@
           "returnDescription": "resolving to the process ID when the application starts, or rejecting if it cannot start. Window activation remains subject to the operating system and the application's own behavior.",
           "throws": [],
           "propertyType": null,
-          "line": 71
+          "line": 75
         },
         {
           "name": "openExternal",
@@ -31050,7 +31050,7 @@
           "signature": "::openExternal(url)",
           "category": "External URLs",
           "visibility": "Public",
-          "description": "Open an HTTP, HTTPS, or mailto URL with its operating system default handler.\n\nRelative, malformed, and other-scheme URLs are rejected before they reach\nthe operating system.",
+          "description": "Open an HTTP, HTTPS, or mailto URL with its operating system default handler.\n\nRelative, malformed, and other-scheme URLs are rejected before they reach\nthe operating system. Requests that do not settle within 60 seconds reject;\nthe operating-system operation may still complete later.",
           "summary": "Open an HTTP, HTTPS, or mailto URL with its operating system default handler.",
           "parameters": [
             {
@@ -31067,7 +31067,7 @@
           "returnDescription": "that resolves when the request completes.",
           "throws": [],
           "propertyType": null,
-          "line": 89
+          "line": 94
         }
       ]
     },
@@ -54589,5 +54589,5 @@
     }
   ],
   "memberCount": 1583,
-  "generatedAt": "2026-10-22T21:45:55.926Z"
+  "generatedAt": "2026-10-23T00:16:52.275Z"
 }
