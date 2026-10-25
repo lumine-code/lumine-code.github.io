@@ -92,7 +92,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "ContextMenuManager",
-          "line": 355
+          "line": 356
         },
         {
           "name": "deserializers",
@@ -156,7 +156,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "HistoryManager",
-          "line": 569
+          "line": 570
         },
         {
           "name": "hooks",
@@ -172,7 +172,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 319
+          "line": 320
         },
         {
           "name": "icons",
@@ -188,7 +188,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "IconRegistry",
-          "line": 374
+          "line": 375
         },
         {
           "name": "keymaps",
@@ -220,7 +220,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "MenuManager",
-          "line": 343
+          "line": 344
         },
         {
           "name": "notifications",
@@ -252,7 +252,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PackageManager",
-          "line": 298
+          "line": 299
         },
         {
           "name": "paneItemTransfers",
@@ -268,7 +268,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PaneItemTransferService",
-          "line": 539
+          "line": 540
         },
         {
           "name": "pasteProviders",
@@ -284,7 +284,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PasteProviderRegistry",
-          "line": 469
+          "line": 470
         },
         {
           "name": "project",
@@ -300,7 +300,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Project",
-          "line": 429
+          "line": 430
         },
         {
           "name": "repositories",
@@ -316,7 +316,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "RepositoryRegistry",
-          "line": 387
+          "line": 388
         },
         {
           "name": "runtime",
@@ -348,7 +348,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "SecretStore",
-          "line": 417
+          "line": 418
         },
         {
           "name": "shell",
@@ -380,7 +380,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "StyleManager",
-          "line": 290
+          "line": 291
         },
         {
           "name": "textEditors",
@@ -396,7 +396,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "TextEditorRegistry",
-          "line": 455
+          "line": 456
         },
         {
           "name": "themes",
@@ -412,7 +412,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "ThemeManager",
-          "line": 327
+          "line": 328
         },
         {
           "name": "tools",
@@ -428,7 +428,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 590
+          "line": 591
         },
         {
           "name": "tooltips",
@@ -508,7 +508,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Workspace",
-          "line": 478
+          "line": 479
         },
         {
           "name": "workspaceDrops",
@@ -524,7 +524,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "WorkspaceDropManager",
-          "line": 526
+          "line": 527
         }
       ]
     },
@@ -11155,7 +11155,7 @@
           "returnDescription": "that indicates whether the language was successfully found.",
           "throws": [],
           "propertyType": null,
-          "line": 195
+          "line": 197
         },
         {
           "name": "setRootLanguageRanges",
@@ -11191,7 +11191,7 @@
           "returnDescription": "Removes this policy and restores full-buffer parsing, unless a newer policy replaced it.",
           "throws": [],
           "propertyType": null,
-          "line": 230
+          "line": 233
         },
         {
           "name": "assignGrammar",
@@ -11227,7 +11227,7 @@
           "returnDescription": "that indicates whether the assignment was successful",
           "throws": [],
           "propertyType": null,
-          "line": 289
+          "line": 292
         },
         {
           "name": "getAssignedLanguageId",
@@ -11251,10 +11251,10 @@
             }
           ],
           "returnType": "String|null|undefined",
-          "returnDescription": "The explicit language id, `null` for a null-grammar assignment, or `undefined` when none is assigned.",
+          "returnDescription": "The explicit language id, including `text.plain.null-grammar` for None, or `null`/`undefined` when no id is assigned.",
           "throws": [],
           "propertyType": null,
-          "line": 331
+          "line": 335
         },
         {
           "name": "autoAssignLanguageMode",
@@ -11281,7 +11281,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 345
+          "line": 349
         },
         {
           "name": "selectGrammar",
@@ -11317,7 +11317,7 @@
           "returnDescription": "a Tree-sitter grammar or the null grammar sentinel.",
           "throws": [],
           "propertyType": null,
-          "line": 407
+          "line": 455
         },
         {
           "name": "selectGrammarAsync",
@@ -11363,7 +11363,7 @@
           "returnDescription": "Resolves to the best grammar or the null grammar sentinel.",
           "throws": [],
           "propertyType": null,
-          "line": 425
+          "line": 473
         },
         {
           "name": "getGrammarScore",
@@ -11408,7 +11408,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 543
+          "line": 596
         },
         {
           "name": "onDidAddGrammar",
@@ -11445,7 +11445,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 742
+          "line": 798
         },
         {
           "name": "onDidUpdateGrammar",
@@ -11482,7 +11482,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 757
+          "line": 813
         },
         {
           "name": "registerSyntaxModule",
@@ -11538,7 +11538,7 @@
           "returnDescription": "Removes this module and its injection points.",
           "throws": [],
           "propertyType": null,
-          "line": 775
+          "line": 831
         },
         {
           "name": "onDidRemoveGrammar",
@@ -11575,7 +11575,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 835
+          "line": 891
         },
         {
           "name": "addInjectionPoint",
@@ -11741,7 +11741,7 @@
           "returnDescription": "A disposable that removes the injection point.",
           "throws": [],
           "propertyType": null,
-          "line": 866
+          "line": 922
         },
         {
           "name": "loadGrammar",
@@ -11797,7 +11797,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1148
+          "line": 1204
         },
         {
           "name": "loadGrammarSync",
@@ -11824,7 +11824,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1165
+          "line": 1221
         },
         {
           "name": "readGrammar",
@@ -11880,7 +11880,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1183
+          "line": 1239
         },
         {
           "name": "readGrammarSync",
@@ -11907,7 +11907,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1206
+          "line": 1262
         },
         {
           "name": "getGrammars",
@@ -11924,7 +11924,7 @@
           "returnDescription": "Registered grammar instances; excludes the null sentinel and unloaded stubs.",
           "throws": [],
           "propertyType": null,
-          "line": 1229
+          "line": 1285
         }
       ]
     },
@@ -54616,5 +54616,5 @@
     }
   ],
   "memberCount": 1584,
-  "generatedAt": "2026-10-23T20:05:49.281Z"
+  "generatedAt": "2026-10-25T23:52:25.427Z"
 }
