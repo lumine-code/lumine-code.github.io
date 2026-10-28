@@ -5269,7 +5269,7 @@
       "source": "src/display-marker.js",
       "sourcePath": "src/display-marker.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 50,
+      "line": 51,
       "members": [
         {
           "name": "destroy",
@@ -5286,7 +5286,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 71
+          "line": 72
         },
         {
           "name": "copy",
@@ -5313,7 +5313,7 @@
           "returnDescription": "The copied marker, or `undefined` when it was merged into a selection.",
           "throws": [],
           "propertyType": null,
-          "line": 105
+          "line": 121
         },
         {
           "name": "onDidChange",
@@ -5510,7 +5510,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 139
+          "line": 155
         },
         {
           "name": "onDidDestroy",
@@ -5537,7 +5537,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 174
+          "line": 190
         },
         {
           "name": "isValid",
@@ -5554,7 +5554,7 @@
           "returnDescription": "indicating whether the marker is valid. Markers can be invalidated when a region surrounding them in the buffer is changed.",
           "throws": [],
           "propertyType": null,
-          "line": 197
+          "line": 213
         },
         {
           "name": "isDestroyed",
@@ -5571,7 +5571,7 @@
           "returnDescription": "indicating whether the marker has been destroyed. A marker can be invalid without being destroyed, in which case undoing the invalidating operation would restore the marker. Once a marker is destroyed by calling {@link DisplayMarker#destroy}, no undo/redo operation can ever bring it back.",
           "throws": [],
           "propertyType": null,
-          "line": 209
+          "line": 225
         },
         {
           "name": "isReversed",
@@ -5588,7 +5588,7 @@
           "returnDescription": "indicating whether the head precedes the tail.",
           "throws": [],
           "propertyType": null,
-          "line": 221
+          "line": 237
         },
         {
           "name": "isExclusive",
@@ -5605,7 +5605,7 @@
           "returnDescription": "Whether insertions at either endpoint remain outside the marked range.",
           "throws": [],
           "propertyType": null,
-          "line": 233
+          "line": 249
         },
         {
           "name": "getInvalidationStrategy",
@@ -5622,7 +5622,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 247
+          "line": 263
         },
         {
           "name": "getProperties",
@@ -5639,7 +5639,7 @@
           "returnDescription": "containing any custom properties associated with the marker.",
           "throws": [],
           "propertyType": null,
-          "line": 260
+          "line": 276
         },
         {
           "name": "setProperties",
@@ -5666,7 +5666,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 275
+          "line": 291
         },
         {
           "name": "matchesProperties",
@@ -5693,7 +5693,7 @@
           "returnDescription": "whether this marker matches the given parameters. The parameters are the same as {@link DisplayMarkerLayer#findMarkers}.",
           "throws": [],
           "propertyType": null,
-          "line": 289
+          "line": 305
         },
         {
           "name": "compare",
@@ -5720,7 +5720,7 @@
           "returnDescription": "The ordering of this marker relative to `otherMarker`.",
           "throws": [],
           "propertyType": null,
-          "line": 306
+          "line": 322
         },
         {
           "name": "isEqual",
@@ -5747,7 +5747,7 @@
           "returnDescription": "indicating whether this marker is equivalent to another marker, meaning they have the same range and options.",
           "throws": [],
           "propertyType": null,
-          "line": 319
+          "line": 335
         },
         {
           "name": "getBufferRange",
@@ -5764,7 +5764,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 338
+          "line": 354
         },
         {
           "name": "getScreenRange",
@@ -5781,7 +5781,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 354
+          "line": 370
         },
         {
           "name": "setBufferRange",
@@ -5837,7 +5837,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 374
+          "line": 390
         },
         {
           "name": "setScreenRange",
@@ -5903,7 +5903,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 391
+          "line": 407
         },
         {
           "name": "getHeadBufferPosition",
@@ -5920,7 +5920,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 403
+          "line": 419
         },
         {
           "name": "setHeadBufferPosition",
@@ -5947,7 +5947,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 418
+          "line": 434
         },
         {
           "name": "getHeadScreenPosition",
@@ -5984,7 +5984,7 @@
           "returnDescription": "The marker's head screen position.",
           "throws": [],
           "propertyType": null,
-          "line": 432
+          "line": 448
         },
         {
           "name": "setHeadScreenPosition",
@@ -6030,7 +6030,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 451
+          "line": 467
         },
         {
           "name": "getTailBufferPosition",
@@ -6047,7 +6047,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 463
+          "line": 479
         },
         {
           "name": "setTailBufferPosition",
@@ -6074,7 +6074,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 478
+          "line": 494
         },
         {
           "name": "getTailScreenPosition",
@@ -6111,7 +6111,7 @@
           "returnDescription": "The marker's tail screen position.",
           "throws": [],
           "propertyType": null,
-          "line": 492
+          "line": 508
         },
         {
           "name": "setTailScreenPosition",
@@ -6157,7 +6157,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 511
+          "line": 527
         },
         {
           "name": "getStartBufferPosition",
@@ -6174,7 +6174,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 526
+          "line": 542
         },
         {
           "name": "getStartScreenPosition",
@@ -6211,7 +6211,7 @@
           "returnDescription": "The marker's start screen position.",
           "throws": [],
           "propertyType": null,
-          "line": 543
+          "line": 559
         },
         {
           "name": "getEndBufferPosition",
@@ -6228,7 +6228,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 556
+          "line": 572
         },
         {
           "name": "getEndScreenPosition",
@@ -6265,7 +6265,7 @@
           "returnDescription": "The marker's end screen position.",
           "throws": [],
           "propertyType": null,
-          "line": 573
+          "line": 589
         },
         {
           "name": "hasTail",
@@ -6282,7 +6282,7 @@
           "returnDescription": "indicating whether the marker has a tail.",
           "throws": [],
           "propertyType": null,
-          "line": 586
+          "line": 602
         },
         {
           "name": "plantTail",
@@ -6299,7 +6299,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 599
+          "line": 615
         },
         {
           "name": "clearTail",
@@ -6316,7 +6316,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 612
+          "line": 628
         }
       ]
     },
@@ -16548,7 +16548,7 @@
       "source": "src/marker.js",
       "sourcePath": "src/marker.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 40,
+      "line": 41,
       "members": [
         {
           "name": "onDidDestroy",
@@ -16575,7 +16575,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 111
+          "line": 112
         },
         {
           "name": "onDidChange",
@@ -16732,7 +16732,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 144
+          "line": 145
         },
         {
           "name": "getRange",
@@ -16749,7 +16749,7 @@
           "returnDescription": "current {@link Range} of the marker. The range is immutable.",
           "throws": [],
           "propertyType": null,
-          "line": 173
+          "line": 174
         },
         {
           "name": "setRange",
@@ -16805,7 +16805,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 189
+          "line": 190
         },
         {
           "name": "getHeadPosition",
@@ -16822,7 +16822,7 @@
           "returnDescription": "representing the marker's current head position.",
           "throws": [],
           "propertyType": null,
-          "line": 209
+          "line": 210
         },
         {
           "name": "setHeadPosition",
@@ -16849,7 +16849,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 226
+          "line": 227
         },
         {
           "name": "getTailPosition",
@@ -16866,7 +16866,7 @@
           "returnDescription": "representing the marker's current tail position. If the marker has no tail, the head position will be returned instead.",
           "throws": [],
           "propertyType": null,
-          "line": 261
+          "line": 262
         },
         {
           "name": "setTailPosition",
@@ -16893,7 +16893,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 279
+          "line": 280
         },
         {
           "name": "getStartPosition",
@@ -16910,7 +16910,7 @@
           "returnDescription": "representing the start position of the marker, which could be the head or tail position, depending on its orientation.",
           "throws": [],
           "propertyType": null,
-          "line": 311
+          "line": 312
         },
         {
           "name": "getEndPosition",
@@ -16927,7 +16927,7 @@
           "returnDescription": "representing the end position of the marker, which could be the head or tail position, depending on its orientation.",
           "throws": [],
           "propertyType": null,
-          "line": 323
+          "line": 324
         },
         {
           "name": "clearTail",
@@ -16944,7 +16944,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 336
+          "line": 337
         },
         {
           "name": "plantTail",
@@ -16961,7 +16961,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 354
+          "line": 355
         },
         {
           "name": "isReversed",
@@ -16978,7 +16978,7 @@
           "returnDescription": "indicating whether the head precedes the tail.",
           "throws": [],
           "propertyType": null,
-          "line": 376
+          "line": 377
         },
         {
           "name": "hasTail",
@@ -16995,7 +16995,7 @@
           "returnDescription": "indicating whether the marker has a tail.",
           "throws": [],
           "propertyType": null,
-          "line": 388
+          "line": 389
         },
         {
           "name": "isValid",
@@ -17012,7 +17012,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 400
+          "line": 401
         },
         {
           "name": "isDestroyed",
@@ -17029,7 +17029,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 412
+          "line": 413
         },
         {
           "name": "isExclusive",
@@ -17046,7 +17046,7 @@
           "returnDescription": "Whether insertions at either endpoint remain outside the marked range.",
           "throws": [],
           "propertyType": null,
-          "line": 424
+          "line": 425
         },
         {
           "name": "isEqual",
@@ -17073,7 +17073,7 @@
           "returnDescription": "indicating whether this marker is equivalent to another marker, meaning they have the same range and options.",
           "throws": [],
           "propertyType": null,
-          "line": 442
+          "line": 443
         },
         {
           "name": "getInvalidationStrategy",
@@ -17090,7 +17090,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 463
+          "line": 464
         },
         {
           "name": "getProperties",
@@ -17107,7 +17107,7 @@
           "returnDescription": "containing any custom properties associated with the marker.",
           "throws": [],
           "propertyType": null,
-          "line": 479
+          "line": 480
         },
         {
           "name": "setProperties",
@@ -17134,7 +17134,7 @@
           "returnDescription": "Whether the marker changed, or `undefined` when no update is attempted.",
           "throws": [],
           "propertyType": null,
-          "line": 493
+          "line": 494
         },
         {
           "name": "copy",
@@ -17161,7 +17161,7 @@
           "returnDescription": "A new marker on the same layer.",
           "throws": [],
           "propertyType": null,
-          "line": 513
+          "line": 514
         },
         {
           "name": "destroy",
@@ -17188,7 +17188,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 531
+          "line": 532
         },
         {
           "name": "compare",
@@ -17215,7 +17215,7 @@
           "returnDescription": "The range ordering: earlier starts sort first, then longer ranges.",
           "throws": [],
           "propertyType": null,
-          "line": 563
+          "line": 570
         },
         {
           "name": "containsPoint",
@@ -17242,7 +17242,7 @@
           "returnDescription": "indicating whether the marker's range contains the given point.",
           "throws": [],
           "propertyType": null,
-          "line": 581
+          "line": 588
         },
         {
           "name": "containsRange",
@@ -17269,7 +17269,7 @@
           "returnDescription": "indicating whether the marker's range contains the given range.",
           "throws": [],
           "propertyType": null,
-          "line": 594
+          "line": 601
         },
         {
           "name": "intersectsRow",
@@ -17296,7 +17296,7 @@
           "returnDescription": "indicating whether the marker's range intersects the given row.",
           "throws": [],
           "propertyType": null,
-          "line": 607
+          "line": 614
         }
       ]
     },
@@ -33859,7 +33859,7 @@
           "returnDescription": "of the inserted text.",
           "throws": [],
           "propertyType": null,
-          "line": 2034
+          "line": 2057
         },
         {
           "name": "append",
@@ -33915,7 +33915,7 @@
           "returnDescription": "of the inserted text",
           "throws": [],
           "propertyType": null,
-          "line": 2050
+          "line": 2073
         },
         {
           "name": "delete",
@@ -33942,7 +33942,7 @@
           "returnDescription": "empty {@link Range} starting at the start of deleted range.",
           "throws": [],
           "propertyType": null,
-          "line": 2261
+          "line": 2290
         },
         {
           "name": "deleteRow",
@@ -33969,7 +33969,7 @@
           "returnDescription": "of the deleted text.",
           "throws": [],
           "propertyType": null,
-          "line": 2274
+          "line": 2303
         },
         {
           "name": "deleteRows",
@@ -34005,7 +34005,7 @@
           "returnDescription": "of the deleted text.",
           "throws": [],
           "propertyType": null,
-          "line": 2291
+          "line": 2320
         },
         {
           "name": "addMarkerLayer",
@@ -34072,7 +34072,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2342
+          "line": 2371
         },
         {
           "name": "getMarkerLayer",
@@ -34099,7 +34099,7 @@
           "returnDescription": "The layer, or undefined when the id is unknown.",
           "throws": [],
           "propertyType": null,
-          "line": 2357
+          "line": 2386
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -34116,7 +34116,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2372
+          "line": 2401
         },
         {
           "name": "markRange",
@@ -34182,7 +34182,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2392
+          "line": 2421
         },
         {
           "name": "markPosition",
@@ -34238,7 +34238,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2409
+          "line": 2438
         },
         {
           "name": "getMarkers",
@@ -34255,7 +34255,7 @@
           "returnDescription": "The matching markers.",
           "throws": [],
           "propertyType": null,
-          "line": 2421
+          "line": 2450
         },
         {
           "name": "getMarker",
@@ -34282,7 +34282,7 @@
           "returnDescription": "The marker on the default layer, or undefined when the id is unknown.",
           "throws": [],
           "propertyType": null,
-          "line": 2434
+          "line": 2463
         },
         {
           "name": "findMarkers",
@@ -34399,7 +34399,7 @@
           "returnDescription": "The matching markers.",
           "throws": [],
           "propertyType": null,
-          "line": 2460
+          "line": 2489
         },
         {
           "name": "getMarkerCount",
@@ -34416,7 +34416,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2472
+          "line": 2501
         },
         {
           "name": "undo",
@@ -34453,7 +34453,7 @@
           "returnDescription": "of whether or not a change was made.",
           "throws": [],
           "propertyType": null,
-          "line": 2535
+          "line": 2572
         },
         {
           "name": "redo",
@@ -34490,7 +34490,7 @@
           "returnDescription": "of whether or not a change was made.",
           "throws": [],
           "propertyType": null,
-          "line": 2562
+          "line": 2590
         },
         {
           "name": "transact",
@@ -34546,7 +34546,7 @@
           "returnDescription": "The callback result, or undefined when the transaction is aborted.",
           "throws": [],
           "propertyType": null,
-          "line": 2603
+          "line": 2647
         },
         {
           "name": "abortTransaction",
@@ -34563,7 +34563,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2721
+          "line": 2765
         },
         {
           "name": "clearUndoStack",
@@ -34580,7 +34580,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2731
+          "line": 2775
         },
         {
           "name": "clearRedoStack",
@@ -34597,7 +34597,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2742
+          "line": 2786
         },
         {
           "name": "createCheckpoint",
@@ -34634,7 +34634,7 @@
           "returnDescription": "checkpoint id value.",
           "throws": [],
           "propertyType": null,
-          "line": 2758
+          "line": 2802
         },
         {
           "name": "revertToCheckpoint",
@@ -34680,7 +34680,7 @@
           "returnDescription": "Whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 2781
+          "line": 2825
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -34726,7 +34726,7 @@
           "returnDescription": "indicating whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 2814
+          "line": 2858
         },
         {
           "name": "groupLastChanges",
@@ -34743,7 +34743,7 @@
           "returnDescription": "indicating whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 2832
+          "line": 2876
         },
         {
           "name": "getChangesSinceCheckpoint",
@@ -34770,7 +34770,7 @@
           "returnDescription": "Changes since the checkpoint. See *Working With Aggregated Changes* in the {@link TextBuffer} class description for the fields.",
           "throws": [],
           "propertyType": null,
-          "line": 2855
+          "line": 2899
         },
         {
           "name": "scan",
@@ -34915,7 +34915,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2894
+          "line": 2938
         },
         {
           "name": "backwardsScan",
@@ -35060,7 +35060,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2926
+          "line": 2970
         },
         {
           "name": "scanInRange",
@@ -35233,7 +35233,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2961
+          "line": 3005
         },
         {
           "name": "backwardsScanInRange",
@@ -35377,7 +35377,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3030
+          "line": 3074
         },
         {
           "name": "replace",
@@ -35413,7 +35413,7 @@
           "returnDescription": "representing the number of replacements made.",
           "throws": [],
           "propertyType": null,
-          "line": 3052
+          "line": 3096
         },
         {
           "name": "createSearch",
@@ -35449,7 +35449,7 @@
           "returnDescription": "Revision-bound search session.",
           "throws": [],
           "propertyType": null,
-          "line": 3144
+          "line": 3188
         },
         {
           "name": "replaceAllMatches",
@@ -35494,7 +35494,7 @@
           "returnDescription": "Number of replaced matches.",
           "throws": [],
           "propertyType": null,
-          "line": 3164
+          "line": 3208
         },
         {
           "name": "prepareReplaceAllMatches",
@@ -35539,7 +35539,7 @@
           "returnDescription": "Revision-bound replacement plan.",
           "throws": [],
           "propertyType": null,
-          "line": 3179
+          "line": 3223
         },
         {
           "name": "commitPreparedReplacements",
@@ -35575,7 +35575,7 @@
           "returnDescription": "Replaced occurrences; observer failures are marked committed.",
           "throws": [],
           "propertyType": null,
-          "line": 3261
+          "line": 3305
         },
         {
           "name": "find",
@@ -35602,7 +35602,7 @@
           "returnDescription": "Resolves to the first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3274
+          "line": 3318
         },
         {
           "name": "findInRange",
@@ -35638,7 +35638,7 @@
           "returnDescription": "Resolves to the first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3288
+          "line": 3332
         },
         {
           "name": "findSync",
@@ -35665,7 +35665,7 @@
           "returnDescription": "The first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3301
+          "line": 3345
         },
         {
           "name": "findInRangeSync",
@@ -35701,7 +35701,7 @@
           "returnDescription": "The first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3315
+          "line": 3359
         },
         {
           "name": "findAll",
@@ -35728,7 +35728,7 @@
           "returnDescription": "Resolves to range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3328
+          "line": 3372
         },
         {
           "name": "findAllInRange",
@@ -35764,7 +35764,7 @@
           "returnDescription": "Resolves to range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3342
+          "line": 3386
         },
         {
           "name": "findAllSync",
@@ -35791,7 +35791,7 @@
           "returnDescription": "Range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3355
+          "line": 3399
         },
         {
           "name": "findAllInRangeSync",
@@ -35827,7 +35827,7 @@
           "returnDescription": "Range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3369
+          "line": 3413
         },
         {
           "name": "findAndMarkAllInRangeSync",
@@ -35911,7 +35911,7 @@
           "returnDescription": "The matching markers.",
           "throws": [],
           "propertyType": null,
-          "line": 3389
+          "line": 3433
         },
         {
           "name": "findWordsWithSubsequence",
@@ -35956,7 +35956,7 @@
           "returnDescription": "Resolves to subsequence matches containing plain row/column positions, or null when the search provides no result.",
           "throws": [],
           "propertyType": null,
-          "line": 3418
+          "line": 3462
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -36010,7 +36010,7 @@
           "returnDescription": "Resolves to subsequence matches containing plain row/column positions, or null when the search provides no result.",
           "throws": [],
           "propertyType": null,
-          "line": 3434
+          "line": 3478
         },
         {
           "name": "findWordCandidates",
@@ -36096,7 +36096,7 @@
           "returnDescription": "Ranked candidates. Distance is Infinity without a position.",
           "throws": [],
           "propertyType": null,
-          "line": 3463
+          "line": 3507
         },
         {
           "name": "getRange",
@@ -36113,7 +36113,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3483
+          "line": 3527
         },
         {
           "name": "getLineCount",
@@ -36130,7 +36130,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3495
+          "line": 3539
         },
         {
           "name": "getLastRow",
@@ -36147,7 +36147,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3507
+          "line": 3551
         },
         {
           "name": "getFirstPosition",
@@ -36164,7 +36164,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3519
+          "line": 3563
         },
         {
           "name": "getEndPosition",
@@ -36181,7 +36181,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3532
+          "line": 3576
         },
         {
           "name": "getLength",
@@ -36198,7 +36198,7 @@
           "returnDescription": "The number of UTF-16 code units, including line endings.",
           "throws": [],
           "propertyType": null,
-          "line": 3543
+          "line": 3587
         },
         {
           "name": "getMaxCharacterIndex",
@@ -36215,7 +36215,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3555
+          "line": 3599
         },
         {
           "name": "rangeForRow",
@@ -36251,7 +36251,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3569
+          "line": 3613
         },
         {
           "name": "characterIndexForPosition",
@@ -36278,7 +36278,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3591
+          "line": 3635
         },
         {
           "name": "positionForCharacterIndex",
@@ -36305,7 +36305,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3607
+          "line": 3651
         },
         {
           "name": "clipRange",
@@ -36332,7 +36332,7 @@
           "returnDescription": "given {@link Range} if it is already in bounds, or a new clipped {@link Range} if the given range is out-of-bounds.",
           "throws": [],
           "propertyType": null,
-          "line": 3623
+          "line": 3667
         },
         {
           "name": "clipPosition",
@@ -36378,7 +36378,7 @@
           "returnDescription": "new {@link Point} if the given position is invalid, otherwise returns the given position.",
           "throws": [],
           "propertyType": null,
-          "line": 3671
+          "line": 3715
         },
         {
           "name": "save",
@@ -36415,7 +36415,7 @@
           "returnDescription": "Resolves to the saved buffer, or rejects with SaveCancelledError when confirmation is cancelled.",
           "throws": [],
           "propertyType": null,
-          "line": 3715
+          "line": 3759
         },
         {
           "name": "saveAs",
@@ -36461,7 +36461,7 @@
           "returnDescription": "Resolves to the saved buffer, or rejects with SaveCancelledError when confirmation is cancelled. A successful save to another path clears the confirmation policy.",
           "throws": [],
           "propertyType": null,
-          "line": 3730
+          "line": 3774
         },
         {
           "name": "setSaveConfirmation",
@@ -36508,7 +36508,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3757
+          "line": 3801
         },
         {
           "name": "getSaveConfirmation",
@@ -36525,7 +36525,7 @@
           "returnDescription": "The message and optional detail, or null.",
           "throws": [],
           "propertyType": null,
-          "line": 3798
+          "line": 3842
         },
         {
           "name": "canSaveAutomatically",
@@ -36542,7 +36542,7 @@
           "returnDescription": "Whether an automatic save may proceed.",
           "throws": [],
           "propertyType": null,
-          "line": 3816
+          "line": 3860
         },
         {
           "name": "reload",
@@ -36559,7 +36559,7 @@
           "returnDescription": "Resolves to this buffer after loading, or undefined when a newer operation supersedes the load.",
           "throws": [],
           "propertyType": null,
-          "line": 3956
+          "line": 4000
         },
         {
           "name": "getLanguageMode",
@@ -36576,7 +36576,7 @@
           "returnDescription": "language mode `Object` (See {@link TextBuffer#setLanguageMode} for its interface).",
           "throws": [],
           "propertyType": null,
-          "line": 4000
+          "line": 4044
         },
         {
           "name": "setLanguageMode",
@@ -36753,7 +36753,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4027
+          "line": 4071
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -36800,7 +36800,7 @@
           "returnDescription": "that can be used to stop the callback from being called.",
           "throws": [],
           "propertyType": null,
-          "line": 4058
+          "line": 4102
         },
         {
           "name": "destroy",
@@ -36817,7 +36817,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4414
+          "line": 4458
         },
         {
           "name": "isDestroyed",
@@ -36834,7 +36834,7 @@
           "returnDescription": "Whether the buffer has been destroyed.",
           "throws": [],
           "propertyType": null,
-          "line": 4461
+          "line": 4505
         },
         {
           "name": "getFileWatchStartPromise",
@@ -36851,7 +36851,7 @@
           "returnDescription": "that resolves once this buffer's file watcher has been armed and is delivering external-change events. Watching is served asynchronously by the file-watcher worker; this lets callers wait for it before relying on external-change detection. Resolves immediately when the buffer has no path or a custom data source that watches synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 4889
+          "line": 4933
         }
       ]
     },
@@ -55435,5 +55435,5 @@
     }
   ],
   "memberCount": 1601,
-  "generatedAt": "2026-10-28T03:16:41.032Z"
+  "generatedAt": "2026-10-28T14:26:36.677Z"
 }
