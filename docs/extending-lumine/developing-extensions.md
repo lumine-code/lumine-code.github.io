@@ -61,6 +61,8 @@ Use the [API reference](https://lumine-code.github.io/api/) to find methods and 
 
 The editor's [developer guides](https://github.com/lumine-code/lumine/blob/master/docs/README.md) cover package structure, pane items, multiple windows, file watching and repositories. Start with [Developing a theme](https://github.com/lumine-code/lumine/blob/master/docs/developing-a-theme.md) or [Creating a grammar](https://github.com/lumine-code/lumine/blob/master/docs/creating-a-grammar.md) for those extension types. Package-specific integrations are documented by their owners.
 
+Use `lumine.scrollbars` for shared track geometry and custom scrollbars. The [scrollbar guide](https://github.com/lumine-code/lumine/blob/master/docs/overlay-scrollbars.md) explains primary panel overlays, reserved gutters for nested views and noninteractive marker layers.
+
 ## Publish
 
 Publish your source in Git with a valid package manifest. Tag release commits as `vX.Y.Z`, with the same version in `package.json`; users can install the repository or an explicit ref. The [publishing guide](https://github.com/lumine-code/lumine/blob/master/docs/publishing-a-package.md) explains release requirements and inclusion in the Install catalog.
