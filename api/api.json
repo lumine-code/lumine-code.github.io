@@ -156,7 +156,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "HistoryManager",
-          "line": 572
+          "line": 573
         },
         {
           "name": "hooks",
@@ -268,7 +268,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PaneItemTransferService",
-          "line": 542
+          "line": 543
         },
         {
           "name": "pasteProviders",
@@ -284,7 +284,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PasteProviderRegistry",
-          "line": 471
+          "line": 472
         },
         {
           "name": "project",
@@ -300,7 +300,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Project",
-          "line": 431
+          "line": 432
         },
         {
           "name": "repositories",
@@ -348,7 +348,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "SecretStore",
-          "line": 419
+          "line": 420
         },
         {
           "name": "shell",
@@ -396,7 +396,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "TextEditorRegistry",
-          "line": 457
+          "line": 458
         },
         {
           "name": "themes",
@@ -428,7 +428,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 593
+          "line": 594
         },
         {
           "name": "tooltips",
@@ -508,7 +508,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Workspace",
-          "line": 480
+          "line": 481
         },
         {
           "name": "workspaceDrops",
@@ -524,7 +524,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "WorkspaceDropManager",
-          "line": 529
+          "line": 530
         }
       ]
     },
@@ -1831,13 +1831,33 @@
               "source": "listener.isAvailable",
               "rest": false,
               "nested": true
+            },
+            {
+              "name": "listener.checked",
+              "type": "Function|Boolean|String",
+              "description": "Persistent choice state, or a synchronous, side-effect-free function receiving the same context as `isAvailable`. Return a Boolean, or `mixed` for a checkbox. Menus and command presentations share this state.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "listener.checked",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "listener.type",
+              "type": "String",
+              "description": "Use `radio` for an exclusive choice or `checkbox` for an independent choice when `checked` is supplied.",
+              "optional": true,
+              "defaultValue": "checkbox",
+              "source": "listener.type",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Disposable",
           "returnDescription": "on which `.dispose()` can be called to remove the added command handler(s).",
           "throws": [],
           "propertyType": null,
-          "line": 151
+          "line": 153
         },
         {
           "name": "canDispatch",
@@ -1882,7 +1902,7 @@
           "returnDescription": "Whether dispatch can reach an enabled handler.",
           "throws": [],
           "propertyType": null,
-          "line": 257
+          "line": 275
         },
         {
           "name": "findCommands",
@@ -1919,7 +1939,63 @@
           "returnDescription": "Command descriptors containing the documented keys.",
           "throws": [],
           "propertyType": null,
-          "line": 311
+          "line": 329
+        },
+        {
+          "name": "getCommandState",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getCommandState(commandName, { target, detail } = {})",
+          "category": "Accessing Commands",
+          "visibility": "Experimental",
+          "description": "Read persistent choice state from the nearest scoped command registration.\nThis never dispatches the command or loads its implementation. A matching\nhandler without state shadows an ancestor's state as it does its label.",
+          "summary": "Read persistent choice state from the nearest scoped command registration. This never dispatches the command or loads its implementation. A matching handler without state shadows an ancestor's state as it does its label.",
+          "parameters": [
+            {
+              "name": "commandName",
+              "source": "commandName",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "Command whose state should be read.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ target, detail } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.target",
+              "type": "Node|Window",
+              "description": "Dispatch target.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "options.target",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.detail",
+              "type": "*",
+              "description": "Arguments that would be passed to the command.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.detail",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Object|null",
+          "returnDescription": "Frozen `{type, checked}` or null for an ordinary command.",
+          "throws": [],
+          "propertyType": null,
+          "line": 373
         },
         {
           "name": "getCommandPresentation",
@@ -1985,7 +2061,7 @@
           "returnDescription": "The scoped command descriptor with `keystrokes` and Boolean `enabled`, or null when no registration matches the scope.",
           "throws": [],
           "propertyType": null,
-          "line": 356
+          "line": 445
         },
         {
           "name": "getCommandPresentations",
@@ -2032,7 +2108,7 @@
           "returnDescription": "One frozen descriptor per scoped command, each with Boolean `enabled` and frozen `keystrokes`.",
           "throws": [],
           "propertyType": null,
-          "line": 392
+          "line": 482
         },
         {
           "name": "dispatch",
@@ -2077,7 +2153,7 @@
           "returnDescription": "Resolves to the listener results after all enabled matching handlers finish, or `null` when none is available. Rejected handler promises reject the returned promise; synchronous handler errors are thrown.",
           "throws": [],
           "propertyType": null,
-          "line": 452
+          "line": 543
         },
         {
           "name": "onWillDispatch",
@@ -2114,7 +2190,7 @@
           "returnDescription": "Removes the event subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 472
+          "line": 563
         },
         {
           "name": "onDidDispatch",
@@ -2151,7 +2227,7 @@
           "returnDescription": "Removes the event subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 486
+          "line": 577
         },
         {
           "name": "onDidChange",
@@ -2198,7 +2274,7 @@
           "returnDescription": "Removes the event subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 503
+          "line": 594
         },
         {
           "name": "invalidateAvailability",
@@ -2208,8 +2284,8 @@
           "signature": "::invalidateAvailability({ target } = {})",
           "category": "Event Subscription",
           "visibility": "Public",
-          "description": "Notify command surfaces that state used by `isAvailable` predicates changed.\nPredicates are evaluated afresh on every query; this asks live presentations\nsuch as the native application menu to refresh without a focus change.",
-          "summary": "Notify command surfaces that state used by `isAvailable` predicates changed. Predicates are evaluated afresh on every query; this asks live presentations such as the native application menu to refresh without a focus change.",
+          "description": "Notify command surfaces that state used by `isAvailable` or `checked` changed.\nPredicates are evaluated afresh on every query; this asks live presentations\nsuch as the native application menu to refresh without a focus change.",
+          "summary": "Notify command surfaces that state used by `isAvailable` or `checked` changed. Predicates are evaluated afresh on every query; this asks live presentations such as the native application menu to refresh without a focus change.",
           "parameters": [
             {
               "name": "options",
@@ -2235,7 +2311,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 518
+          "line": 609
         }
       ]
     },
@@ -2998,6 +3074,26 @@
               "nested": true
             },
             {
+              "name": "itemsBySelector.type",
+              "type": "String",
+              "description": "Use `checkbox` for an independent option, `radio` for an exclusive choice, or `separator` with no other keys for a divider. Ordinary actions have no choice type.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.type",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "itemsBySelector.checked",
+              "type": "Boolean|String|Function",
+              "description": "Explicit state or a synchronous `({target, detail})` callback; otherwise the row inherits its command's scoped state. A checkbox may use `mixed`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "itemsBySelector.checked",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "itemsBySelector.command",
               "type": "String",
               "description": "A `String` containing the command to invoke on the target of the right click that invoked the context menu.",
@@ -3064,16 +3160,6 @@
               "optional": true,
               "defaultValue": null,
               "source": "itemsBySelector.submenu",
-              "rest": false,
-              "nested": true
-            },
-            {
-              "name": "itemsBySelector.type",
-              "type": "String",
-              "description": "If you want to create a separator, provide an item with `type: 'separator'` and no other keys.",
-              "optional": true,
-              "defaultValue": null,
-              "source": "itemsBySelector.type",
               "rest": false,
               "nested": true
             },
@@ -3242,7 +3328,7 @@
           "returnDescription": "Removes the added context-menu items.",
           "throws": [],
           "propertyType": null,
-          "line": 169
+          "line": 170
         },
         {
           "name": "show",
@@ -3327,7 +3413,7 @@
           "returnDescription": "the popup controller.",
           "throws": [],
           "propertyType": null,
-          "line": 344
+          "line": 345
         }
       ]
     },
@@ -8344,13 +8430,50 @@
               "type": "Object",
               "description": "Panel content, visibility and modal options.",
               "defaultValue": null
+            },
+            {
+              "name": "options.dismissOnBlur",
+              "type": "Boolean|Function",
+              "description": "Hide after an outside click or same-document focus departure. A synchronous predicate must return true to permit dismissal. Window blur preserves the panel. Supplying this option enables autoFocus unless explicitly disabled.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.dismissOnBlur",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Panel",
           "returnDescription": "The local modal panel.",
           "throws": [],
           "propertyType": null,
-          "line": 184
+          "line": 185
+        },
+        {
+          "name": "observeModalPanels",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::observeModalPanels(callback)",
+          "category": "Panels",
+          "visibility": "Extended",
+          "description": "Observe this window's existing and newly added modal panels.",
+          "summary": "Observe this window's existing and newly added modal panels.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "Receives each Panel once; observe its visibility and destruction separately.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Stops observing new panels.",
+          "throws": [],
+          "propertyType": null,
+          "line": 199
         },
         {
           "name": "isDestroyed",
@@ -8367,7 +8490,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 221
+          "line": 242
         },
         {
           "name": "onWillDestroy",
@@ -8404,7 +8527,7 @@
           "returnDescription": "Dispose to remove the callback.",
           "throws": [],
           "propertyType": null,
-          "line": 236
+          "line": 257
         },
         {
           "name": "onDidDestroy",
@@ -8441,7 +8564,7 @@
           "returnDescription": "Dispose to remove the callback.",
           "throws": [],
           "propertyType": null,
-          "line": 250
+          "line": 271
         },
         {
           "name": "onDidFocus",
@@ -8468,7 +8591,7 @@
           "returnDescription": "Dispose to remove the callback.",
           "throws": [],
           "propertyType": null,
-          "line": 263
+          "line": 284
         },
         {
           "name": "onDidBlur",
@@ -8495,7 +8618,7 @@
           "returnDescription": "Dispose to remove the callback.",
           "throws": [],
           "propertyType": null,
-          "line": 275
+          "line": 296
         },
         {
           "name": "onDidMaximize",
@@ -8522,7 +8645,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 287
+          "line": 308
         },
         {
           "name": "onDidUnmaximize",
@@ -8549,7 +8672,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 299
+          "line": 320
         },
         {
           "name": "onDidEnterFullScreen",
@@ -8576,7 +8699,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 311
+          "line": 332
         },
         {
           "name": "onDidLeaveFullScreen",
@@ -8603,7 +8726,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 323
+          "line": 344
         },
         {
           "name": "setBounds",
@@ -8670,7 +8793,7 @@
           "returnDescription": "Completes when the bounds have been applied.",
           "throws": [],
           "propertyType": null,
-          "line": 341
+          "line": 362
         },
         {
           "name": "setRepresentedFilename",
@@ -8697,7 +8820,7 @@
           "returnDescription": "Completes after the native property is set.",
           "throws": [],
           "propertyType": null,
-          "line": 358
+          "line": 379
         },
         {
           "name": "setSheetOffset",
@@ -8724,7 +8847,7 @@
           "returnDescription": "Completes when supported by the platform.",
           "throws": [],
           "propertyType": null,
-          "line": 371
+          "line": 392
         },
         {
           "name": "showOpenDialog",
@@ -8751,7 +8874,7 @@
           "returnDescription": "The selected filePaths or a cancelled result.",
           "throws": [],
           "propertyType": null,
-          "line": 385
+          "line": 406
         },
         {
           "name": "showSaveDialog",
@@ -8778,7 +8901,7 @@
           "returnDescription": "The selected filePath or a cancelled result.",
           "throws": [],
           "propertyType": null,
-          "line": 397
+          "line": 418
         },
         {
           "name": "confirm",
@@ -8805,7 +8928,7 @@
           "returnDescription": "The selected button index.",
           "throws": [],
           "propertyType": null,
-          "line": 409
+          "line": 430
         },
         {
           "name": "getState",
@@ -8822,7 +8945,7 @@
           "returnDescription": "The native window state snapshot.",
           "throws": [],
           "propertyType": null,
-          "line": 421
+          "line": 442
         },
         {
           "name": "show",
@@ -8839,7 +8962,7 @@
           "returnDescription": "Resolves when the native window has been shown.",
           "throws": [],
           "propertyType": null,
-          "line": 434
+          "line": 455
         },
         {
           "name": "focus",
@@ -8856,7 +8979,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 445
+          "line": 466
         },
         {
           "name": "minimize",
@@ -8873,7 +8996,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 456
+          "line": 477
         },
         {
           "name": "maximize",
@@ -8890,7 +9013,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 467
+          "line": 488
         },
         {
           "name": "unmaximize",
@@ -8907,7 +9030,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 478
+          "line": 499
         },
         {
           "name": "close",
@@ -8924,7 +9047,7 @@
           "returnDescription": "The workspace close decision, or completion of the native close request when no workspace coordinator is installed.",
           "throws": [],
           "propertyType": null,
-          "line": 489
+          "line": 510
         }
       ]
     },
@@ -14810,7 +14933,7 @@
       "source": "src/input-dialog-host.js",
       "sourcePath": "src/input-dialog-host.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 27,
+      "line": 24,
       "members": [
         {
           "name": "getModel",
@@ -14827,7 +14950,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 93
+          "line": 90
         },
         {
           "name": "getPanel",
@@ -14844,7 +14967,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 105
+          "line": 102
         },
         {
           "name": "show",
@@ -14901,7 +15024,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 155
+          "line": 157
         },
         {
           "name": "hide",
@@ -14918,7 +15041,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 181
+          "line": 183
         },
         {
           "name": "toggle",
@@ -14945,7 +15068,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 203
+          "line": 205
         },
         {
           "name": "cancel",
@@ -14972,7 +15095,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 215
+          "line": 217
         },
         {
           "name": "isVisible",
@@ -14989,7 +15112,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 234
+          "line": 236
         },
         {
           "name": "isDestroyed",
@@ -15006,7 +15129,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 246
+          "line": 248
         },
         {
           "name": "focus",
@@ -15023,7 +15146,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 259
+          "line": 261
         },
         {
           "name": "restoreQuery",
@@ -15040,7 +15163,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 271
+          "line": 273
         },
         {
           "name": "showActions",
@@ -15057,7 +15180,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 286
+          "line": 288
         },
         {
           "name": "onDidChangeVisible",
@@ -15124,7 +15247,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 329
+          "line": 331
         },
         {
           "name": "onDidOpen",
@@ -15181,7 +15304,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 344
+          "line": 346
         },
         {
           "name": "onDidResume",
@@ -15238,7 +15361,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 359
+          "line": 361
         },
         {
           "name": "onDidHide",
@@ -15295,7 +15418,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 374
+          "line": 376
         },
         {
           "name": "onDidCancel",
@@ -15362,7 +15485,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 390
+          "line": 392
         },
         {
           "name": "onDidDestroy",
@@ -15419,7 +15542,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 405
+          "line": 407
         },
         {
           "name": "destroy",
@@ -15436,7 +15559,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 450
+          "line": 452
         }
       ]
     },
@@ -18404,6 +18527,26 @@
               "nested": true
             },
             {
+              "name": "items.type",
+              "type": "String",
+              "description": "Use `checkbox` for an independent option, `radio` for an exclusive option, or `separator` for a divider. Ordinary actions need no choice type.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "items.type",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "items.checked",
+              "type": "Boolean|String|Function",
+              "description": "Explicit persistent state, or a synchronous `({target, detail})` callback. A checkbox may use `mixed`; otherwise return a Boolean. Omit to inherit the command's scoped state.",
+              "optional": false,
+              "defaultValue": null,
+              "source": "items.checked",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "items.submenu",
               "type": "Array",
               "description": "An optional `Array` of sub menu items.",
@@ -18498,7 +18641,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the added menu items.",
           "throws": [],
           "propertyType": null,
-          "line": 431
+          "line": 433
         },
         {
           "name": "update",
@@ -18515,7 +18658,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 521
+          "line": 534
         }
       ]
     },
@@ -22818,7 +22961,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 47
+          "line": 50
         },
         {
           "name": "onDidChangeVisible",
@@ -22855,7 +22998,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 80
+          "line": 83
         },
         {
           "name": "onDidDestroy",
@@ -22892,7 +23035,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 104
+          "line": 107
         },
         {
           "name": "getItem",
@@ -22909,7 +23052,7 @@
           "returnDescription": "panel's item.",
           "throws": [],
           "propertyType": null,
-          "line": 130
+          "line": 133
         },
         {
           "name": "getPriority",
@@ -22926,7 +23069,7 @@
           "returnDescription": "indicating this panel's priority.",
           "throws": [],
           "propertyType": null,
-          "line": 142
+          "line": 152
         },
         {
           "name": "isVisible",
@@ -22943,7 +23086,7 @@
           "returnDescription": "true when the panel is visible.",
           "throws": [],
           "propertyType": null,
-          "line": 159
+          "line": 169
         },
         {
           "name": "hide",
@@ -22960,7 +23103,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 170
+          "line": 180
         },
         {
           "name": "show",
@@ -22997,7 +23140,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 188
+          "line": 198
         }
       ]
     },
@@ -30828,7 +30971,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 47
+          "line": 52
         }
       ]
     },
@@ -46690,7 +46833,7 @@
       "source": "src/theme-manager.js",
       "sourcePath": "src/theme-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 92,
+      "line": 93,
       "members": [
         {
           "name": "getVariables",
@@ -46707,7 +46850,7 @@
           "returnDescription": "The public CSS variable definitions.",
           "throws": [],
           "propertyType": null,
-          "line": 142
+          "line": 143
         },
         {
           "name": "onDidChangeVariables",
@@ -46734,7 +46877,7 @@
           "returnDescription": "Dispose to stop observing variable changes.",
           "throws": [],
           "propertyType": null,
-          "line": 158
+          "line": 159
         },
         {
           "name": "onDidChangeActiveThemes",
@@ -46761,7 +46904,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 194
+          "line": 195
         },
         {
           "name": "onDidChangeThemePacks",
@@ -46788,7 +46931,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 207
+          "line": 208
         },
         {
           "name": "registerThemePack",
@@ -46845,7 +46988,7 @@
           "returnDescription": "that removes the pack.",
           "throws": [],
           "propertyType": null,
-          "line": 234
+          "line": 235
         },
         {
           "name": "getThemePacks",
@@ -46862,7 +47005,7 @@
           "returnDescription": "registered theme packs sorted by their user-facing names.",
           "throws": [],
           "propertyType": null,
-          "line": 273
+          "line": 274
         },
         {
           "name": "isThemePackActive",
@@ -46889,7 +47032,7 @@
           "returnDescription": "whether both configured mode pairs match `themePack`.",
           "throws": [],
           "propertyType": null,
-          "line": 286
+          "line": 287
         },
         {
           "name": "getActiveThemePack",
@@ -46906,7 +47049,7 @@
           "returnDescription": "The matching theme pack, or `null` when none is registered.",
           "throws": [],
           "propertyType": null,
-          "line": 308
+          "line": 309
         },
         {
           "name": "setThemePack",
@@ -46933,7 +47076,7 @@
           "returnDescription": "Whether the configured appearance modes changed.",
           "throws": [],
           "propertyType": null,
-          "line": 320
+          "line": 321
         },
         {
           "name": "getLoadedThemeNames",
@@ -46950,7 +47093,7 @@
           "returnDescription": "of `Strings` of all the loaded theme names.",
           "throws": [],
           "propertyType": null,
-          "line": 345
+          "line": 346
         },
         {
           "name": "getLoadedThemes",
@@ -46967,7 +47110,7 @@
           "returnDescription": "of all the loaded themes.",
           "throws": [],
           "propertyType": null,
-          "line": 357
+          "line": 358
         },
         {
           "name": "getActiveThemeNames",
@@ -46984,7 +47127,7 @@
           "returnDescription": "of `Strings` of all the active theme names.",
           "throws": [],
           "propertyType": null,
-          "line": 373
+          "line": 374
         },
         {
           "name": "getActiveThemes",
@@ -47001,7 +47144,7 @@
           "returnDescription": "of all the active themes.",
           "throws": [],
           "propertyType": null,
-          "line": 385
+          "line": 386
         },
         {
           "name": "getEnabledThemeNames",
@@ -47018,7 +47161,7 @@
           "returnDescription": "array of theme names in the order that they should be activated.",
           "throws": [],
           "propertyType": null,
-          "line": 448
+          "line": 449
         },
         {
           "name": "updateAppearance",
@@ -47045,7 +47188,7 @@
           "returnDescription": "that resolves once the change has been applied.",
           "throws": [],
           "propertyType": null,
-          "line": 966
+          "line": 967
         }
       ]
     },
@@ -52948,6 +53091,16 @@
               "nested": true
             },
             {
+              "name": "options.dismissOnBlur",
+              "type": "Boolean|Function",
+              "description": "Hide after an outside click or same-document focus departure. A synchronous predicate must return true to permit dismissal. Window blur and owned menus preserve the panel. Enabling this option defaults autoFocus to true unless explicitly disabled.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.dismissOnBlur",
+              "rest": false,
+              "nested": true
+            },
+            {
               "name": "options.crumb",
               "type": "String",
               "description": "the label this panel carries on the modal breadcrumb trail. Used when the panel is shown as a flow step without an explicit label — `panel.show({crumb: true})` — and when a step shown on top of this panel adopts it as the trail root. See {@link Panel#show}.",
@@ -52962,7 +53115,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5022
+          "line": 5023
         },
         {
           "name": "panelForItem",
@@ -52989,7 +53142,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 5036
+          "line": 5037
         },
         {
           "name": "scan",
@@ -53104,7 +53257,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 5100
+          "line": 5101
         },
         {
           "name": "replace",
@@ -53168,7 +53321,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5366
+          "line": 5367
         }
       ]
     },
@@ -55542,6 +55695,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1605,
-  "generatedAt": "2026-10-30T03:51:28.395Z"
+  "memberCount": 1607,
+  "generatedAt": "2026-10-30T05:01:28.825Z"
 }
