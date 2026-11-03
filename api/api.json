@@ -34067,8 +34067,8 @@
           "signature": "::applyTextEdits(edits, options = {})",
           "category": "Mutating Text",
           "visibility": "Experimental",
-          "description": "Prepare an ordered stream of disjoint edits with shared text and compressed\ncoordinate runs, then publish one atomic undo operation. Ranges address the\ncaptured revision and must be ordered, in bounds, with distinct starts.\nMarker positions and invalidation follow forward individual edit semantics.\nText and markers remain unchanged on cancellation or stale preparation.\nCustom range trackers requiring intermediate live text reject before edits.",
-          "summary": "Prepare an ordered stream of disjoint edits with shared text and compressed coordinate runs, then publish one atomic undo operation. Ranges address the captured revision and must be ordered, in bounds, with distinct starts. Marker positions and invalidation follow forward individual edit semantics. Text and markers remain unchanged on cancellation or stale preparation. Custom range trackers requiring intermediate live text reject before edits.",
+          "description": "Prepare an ordered stream of disjoint edits with shared text and compressed\ncoordinate runs, then publish one atomic undo operation. Ranges address the\ncaptured revision and must be ordered, in bounds, with distinct starts.\nMarker positions and invalidation follow forward individual edit semantics.\nText and markers remain unchanged on cancellation or stale preparation.\nCustom range trackers receive each intermediate edit inside the transaction.",
+          "summary": "Prepare an ordered stream of disjoint edits with shared text and compressed coordinate runs, then publish one atomic undo operation. Ranges address the captured revision and must be ordered, in bounds, with distinct starts. Marker positions and invalidation follow forward individual edit semantics. Text and markers remain unchanged on cancellation or stale preparation. Custom range trackers receive each intermediate edit inside the transaction.",
           "parameters": [
             {
               "name": "edits",
@@ -34218,7 +34218,7 @@
           "returnDescription": "of the inserted text.",
           "throws": [],
           "propertyType": null,
-          "line": 2057
+          "line": 2131
         },
         {
           "name": "append",
@@ -34274,7 +34274,7 @@
           "returnDescription": "of the inserted text",
           "throws": [],
           "propertyType": null,
-          "line": 2073
+          "line": 2147
         },
         {
           "name": "delete",
@@ -34301,7 +34301,7 @@
           "returnDescription": "empty {@link Range} starting at the start of deleted range.",
           "throws": [],
           "propertyType": null,
-          "line": 2290
+          "line": 2364
         },
         {
           "name": "deleteRow",
@@ -34328,7 +34328,7 @@
           "returnDescription": "of the deleted text.",
           "throws": [],
           "propertyType": null,
-          "line": 2303
+          "line": 2377
         },
         {
           "name": "deleteRows",
@@ -34364,7 +34364,7 @@
           "returnDescription": "of the deleted text.",
           "throws": [],
           "propertyType": null,
-          "line": 2320
+          "line": 2394
         },
         {
           "name": "addMarkerLayer",
@@ -34431,7 +34431,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2371
+          "line": 2445
         },
         {
           "name": "getMarkerLayer",
@@ -34458,7 +34458,7 @@
           "returnDescription": "The layer, or undefined when the id is unknown.",
           "throws": [],
           "propertyType": null,
-          "line": 2386
+          "line": 2460
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -34475,7 +34475,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2401
+          "line": 2475
         },
         {
           "name": "markRange",
@@ -34541,7 +34541,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2421
+          "line": 2495
         },
         {
           "name": "markPosition",
@@ -34597,7 +34597,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2438
+          "line": 2512
         },
         {
           "name": "getMarkers",
@@ -34614,7 +34614,7 @@
           "returnDescription": "The matching markers.",
           "throws": [],
           "propertyType": null,
-          "line": 2450
+          "line": 2524
         },
         {
           "name": "getMarker",
@@ -34641,7 +34641,7 @@
           "returnDescription": "The marker on the default layer, or undefined when the id is unknown.",
           "throws": [],
           "propertyType": null,
-          "line": 2463
+          "line": 2537
         },
         {
           "name": "findMarkers",
@@ -34758,7 +34758,7 @@
           "returnDescription": "The matching markers.",
           "throws": [],
           "propertyType": null,
-          "line": 2489
+          "line": 2563
         },
         {
           "name": "getMarkerCount",
@@ -34775,7 +34775,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2501
+          "line": 2575
         },
         {
           "name": "undo",
@@ -34812,7 +34812,7 @@
           "returnDescription": "of whether or not a change was made.",
           "throws": [],
           "propertyType": null,
-          "line": 2572
+          "line": 2646
         },
         {
           "name": "redo",
@@ -34849,7 +34849,7 @@
           "returnDescription": "of whether or not a change was made.",
           "throws": [],
           "propertyType": null,
-          "line": 2590
+          "line": 2664
         },
         {
           "name": "transact",
@@ -34905,7 +34905,7 @@
           "returnDescription": "The callback result, or undefined when the transaction is aborted.",
           "throws": [],
           "propertyType": null,
-          "line": 2647
+          "line": 2721
         },
         {
           "name": "abortTransaction",
@@ -34922,7 +34922,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2765
+          "line": 2839
         },
         {
           "name": "clearUndoStack",
@@ -34939,7 +34939,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2775
+          "line": 2849
         },
         {
           "name": "clearRedoStack",
@@ -34956,7 +34956,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2786
+          "line": 2860
         },
         {
           "name": "createCheckpoint",
@@ -34993,7 +34993,7 @@
           "returnDescription": "checkpoint id value.",
           "throws": [],
           "propertyType": null,
-          "line": 2802
+          "line": 2876
         },
         {
           "name": "revertToCheckpoint",
@@ -35039,7 +35039,7 @@
           "returnDescription": "Whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 2825
+          "line": 2899
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -35085,7 +35085,7 @@
           "returnDescription": "indicating whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 2858
+          "line": 2932
         },
         {
           "name": "groupLastChanges",
@@ -35102,7 +35102,7 @@
           "returnDescription": "indicating whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 2876
+          "line": 2950
         },
         {
           "name": "getChangesSinceCheckpoint",
@@ -35129,7 +35129,7 @@
           "returnDescription": "Changes since the checkpoint. See *Working With Aggregated Changes* in the {@link TextBuffer} class description for the fields.",
           "throws": [],
           "propertyType": null,
-          "line": 2899
+          "line": 2973
         },
         {
           "name": "scan",
@@ -35274,7 +35274,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2938
+          "line": 3012
         },
         {
           "name": "backwardsScan",
@@ -35419,7 +35419,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2970
+          "line": 3044
         },
         {
           "name": "scanInRange",
@@ -35592,7 +35592,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3005
+          "line": 3079
         },
         {
           "name": "backwardsScanInRange",
@@ -35736,7 +35736,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3074
+          "line": 3148
         },
         {
           "name": "replace",
@@ -35772,7 +35772,7 @@
           "returnDescription": "representing the number of replacements made.",
           "throws": [],
           "propertyType": null,
-          "line": 3096
+          "line": 3170
         },
         {
           "name": "createSearch",
@@ -35808,7 +35808,7 @@
           "returnDescription": "Revision-bound search session.",
           "throws": [],
           "propertyType": null,
-          "line": 3188
+          "line": 3262
         },
         {
           "name": "replaceAllMatches",
@@ -35847,13 +35847,23 @@
               "type": "Object",
               "description": "Ranges, signal, literalReplacement and transformReplacement.",
               "defaultValue": "{}"
+            },
+            {
+              "name": "options.didCommit",
+              "type": "Function",
+              "description": "Synchronous finalizer run after all text changes and before public change observers.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.didCommit",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Promise<Number>",
           "returnDescription": "Number of replaced matches.",
           "throws": [],
           "propertyType": null,
-          "line": 3208
+          "line": 3283
         },
         {
           "name": "prepareReplaceAllMatches",
@@ -35898,7 +35908,7 @@
           "returnDescription": "Revision-bound replacement plan.",
           "throws": [],
           "propertyType": null,
-          "line": 3223
+          "line": 3298
         },
         {
           "name": "commitPreparedReplacements",
@@ -35934,7 +35944,7 @@
           "returnDescription": "Replaced occurrences; observer failures are marked committed.",
           "throws": [],
           "propertyType": null,
-          "line": 3305
+          "line": 3399
         },
         {
           "name": "find",
@@ -35961,7 +35971,7 @@
           "returnDescription": "Resolves to the first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3318
+          "line": 3412
         },
         {
           "name": "findInRange",
@@ -35997,7 +36007,7 @@
           "returnDescription": "Resolves to the first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3332
+          "line": 3426
         },
         {
           "name": "findSync",
@@ -36024,7 +36034,7 @@
           "returnDescription": "The first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3345
+          "line": 3439
         },
         {
           "name": "findInRangeSync",
@@ -36060,7 +36070,7 @@
           "returnDescription": "The first range-compatible object with start/end points, or null when no match exists. Use {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3359
+          "line": 3453
         },
         {
           "name": "findAll",
@@ -36087,7 +36097,7 @@
           "returnDescription": "Resolves to range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3372
+          "line": 3466
         },
         {
           "name": "findAllInRange",
@@ -36123,7 +36133,7 @@
           "returnDescription": "Resolves to range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3386
+          "line": 3480
         },
         {
           "name": "findAllSync",
@@ -36150,7 +36160,7 @@
           "returnDescription": "Range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3399
+          "line": 3493
         },
         {
           "name": "findAllInRangeSync",
@@ -36186,7 +36196,7 @@
           "returnDescription": "Range-compatible objects with start/end points. Convert an entry with {@link Range.fromObject} when a Range instance is needed.",
           "throws": [],
           "propertyType": null,
-          "line": 3413
+          "line": 3507
         },
         {
           "name": "findAndMarkAllInRangeSync",
@@ -36270,7 +36280,7 @@
           "returnDescription": "The matching markers.",
           "throws": [],
           "propertyType": null,
-          "line": 3433
+          "line": 3527
         },
         {
           "name": "findWordsWithSubsequence",
@@ -36315,7 +36325,7 @@
           "returnDescription": "Resolves to subsequence matches containing plain row/column positions, or null when the search provides no result.",
           "throws": [],
           "propertyType": null,
-          "line": 3462
+          "line": 3556
         },
         {
           "name": "findWordsWithSubsequenceInRange",
@@ -36369,7 +36379,7 @@
           "returnDescription": "Resolves to subsequence matches containing plain row/column positions, or null when the search provides no result.",
           "throws": [],
           "propertyType": null,
-          "line": 3478
+          "line": 3572
         },
         {
           "name": "findWordCandidates",
@@ -36455,7 +36465,7 @@
           "returnDescription": "Ranked candidates. Distance is Infinity without a position.",
           "throws": [],
           "propertyType": null,
-          "line": 3507
+          "line": 3601
         },
         {
           "name": "getRange",
@@ -36472,7 +36482,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3527
+          "line": 3621
         },
         {
           "name": "getLineCount",
@@ -36489,7 +36499,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3539
+          "line": 3633
         },
         {
           "name": "getLastRow",
@@ -36506,7 +36516,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3551
+          "line": 3645
         },
         {
           "name": "getFirstPosition",
@@ -36523,7 +36533,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3563
+          "line": 3657
         },
         {
           "name": "getEndPosition",
@@ -36540,7 +36550,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3576
+          "line": 3670
         },
         {
           "name": "getLength",
@@ -36557,7 +36567,7 @@
           "returnDescription": "The number of UTF-16 code units, including line endings.",
           "throws": [],
           "propertyType": null,
-          "line": 3587
+          "line": 3681
         },
         {
           "name": "getMaxCharacterIndex",
@@ -36574,7 +36584,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3599
+          "line": 3693
         },
         {
           "name": "rangeForRow",
@@ -36610,7 +36620,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3613
+          "line": 3707
         },
         {
           "name": "characterIndexForPosition",
@@ -36637,7 +36647,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3635
+          "line": 3729
         },
         {
           "name": "positionForCharacterIndex",
@@ -36664,7 +36674,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3651
+          "line": 3745
         },
         {
           "name": "clipRange",
@@ -36691,7 +36701,7 @@
           "returnDescription": "given {@link Range} if it is already in bounds, or a new clipped {@link Range} if the given range is out-of-bounds.",
           "throws": [],
           "propertyType": null,
-          "line": 3667
+          "line": 3761
         },
         {
           "name": "clipPosition",
@@ -36737,7 +36747,7 @@
           "returnDescription": "new {@link Point} if the given position is invalid, otherwise returns the given position.",
           "throws": [],
           "propertyType": null,
-          "line": 3715
+          "line": 3809
         },
         {
           "name": "save",
@@ -36774,7 +36784,7 @@
           "returnDescription": "Resolves to the saved buffer, or rejects with SaveCancelledError when confirmation is cancelled.",
           "throws": [],
           "propertyType": null,
-          "line": 3759
+          "line": 3853
         },
         {
           "name": "saveAs",
@@ -36820,7 +36830,7 @@
           "returnDescription": "Resolves to the saved buffer, or rejects with SaveCancelledError when confirmation is cancelled. A successful save to another path clears the confirmation policy.",
           "throws": [],
           "propertyType": null,
-          "line": 3774
+          "line": 3868
         },
         {
           "name": "setSaveConfirmation",
@@ -36867,7 +36877,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3801
+          "line": 3895
         },
         {
           "name": "getSaveConfirmation",
@@ -36884,7 +36894,7 @@
           "returnDescription": "The message and optional detail, or null.",
           "throws": [],
           "propertyType": null,
-          "line": 3842
+          "line": 3936
         },
         {
           "name": "canSaveAutomatically",
@@ -36901,7 +36911,7 @@
           "returnDescription": "Whether an automatic save may proceed.",
           "throws": [],
           "propertyType": null,
-          "line": 3860
+          "line": 3954
         },
         {
           "name": "reload",
@@ -36918,7 +36928,7 @@
           "returnDescription": "Resolves to this buffer after loading, or undefined when a newer operation supersedes the load.",
           "throws": [],
           "propertyType": null,
-          "line": 4000
+          "line": 4094
         },
         {
           "name": "getLanguageMode",
@@ -36935,7 +36945,7 @@
           "returnDescription": "language mode `Object` (See {@link TextBuffer#setLanguageMode} for its interface).",
           "throws": [],
           "propertyType": null,
-          "line": 4044
+          "line": 4138
         },
         {
           "name": "setLanguageMode",
@@ -37112,7 +37122,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4071
+          "line": 4165
         },
         {
           "name": "onDidChangeLanguageMode",
@@ -37159,7 +37169,7 @@
           "returnDescription": "that can be used to stop the callback from being called.",
           "throws": [],
           "propertyType": null,
-          "line": 4102
+          "line": 4196
         },
         {
           "name": "destroy",
@@ -37176,7 +37186,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4458
+          "line": 4552
         },
         {
           "name": "isDestroyed",
@@ -37193,7 +37203,7 @@
           "returnDescription": "Whether the buffer has been destroyed.",
           "throws": [],
           "propertyType": null,
-          "line": 4505
+          "line": 4599
         },
         {
           "name": "getFileWatchStartPromise",
@@ -37210,7 +37220,7 @@
           "returnDescription": "that resolves once this buffer's file watcher has been armed and is delivering external-change events. Watching is served asynchronously by the file-watcher worker; this lets callers wait for it before relying on external-change detection. Resolves immediately when the buffer has no path or a custom data source that watches synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 4933
+          "line": 5027
         }
       ]
     },
@@ -46689,7 +46699,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 304
+          "line": 296
         },
         {
           "name": "scrollToBottom",
@@ -46706,7 +46716,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 314
+          "line": 306
         },
         {
           "name": "pixelPositionForBufferPosition",
@@ -46733,7 +46743,7 @@
           "returnDescription": "with two values: `top` and `left`, representing the pixel position.",
           "throws": [],
           "propertyType": null,
-          "line": 341
+          "line": 333
         },
         {
           "name": "pixelPositionForScreenPosition",
@@ -46760,7 +46770,7 @@
           "returnDescription": "with two values: `top` and `left`, representing the pixel position.",
           "throws": [],
           "propertyType": null,
-          "line": 360
+          "line": 352
         },
         {
           "name": "pixelPositionBeforeBlocksForScreenRow",
@@ -46806,7 +46816,7 @@
           "returnDescription": "Vertical pixel offset before this row's blocks.",
           "throws": [],
           "propertyType": null,
-          "line": 379
+          "line": 371
         },
         {
           "name": "pixelPositionAfterBlocksForScreenRow",
@@ -46852,7 +46862,7 @@
           "returnDescription": "Vertical pixel offset after this row's blocks.",
           "throws": [],
           "propertyType": null,
-          "line": 398
+          "line": 390
         },
         {
           "name": "invalidateBlockDecorationDimensions",
@@ -46879,7 +46889,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 472
+          "line": 464
         },
         {
           "name": "pinScrollAnchorToBlockDecoration",
@@ -46906,7 +46916,7 @@
           "returnDescription": "ends the pin",
           "throws": [],
           "propertyType": null,
-          "line": 494
+          "line": 486
         }
       ]
     },
@@ -55973,5 +55983,5 @@
     }
   ],
   "memberCount": 1618,
-  "generatedAt": "2026-11-01T04:17:57.197Z"
+  "generatedAt": "2026-11-03T08:05:44.074Z"
 }
