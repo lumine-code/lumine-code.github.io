@@ -26545,7 +26545,7 @@
           "returnDescription": "that releases the hold.",
           "throws": [],
           "propertyType": null,
-          "line": 1454
+          "line": 1458
         },
         {
           "name": "runOperation",
@@ -26581,7 +26581,7 @@
           "returnDescription": "for whatever the operation returned.",
           "throws": [],
           "propertyType": null,
-          "line": 1482
+          "line": 1486
         },
         {
           "name": "addOperationProvider",
@@ -26627,7 +26627,7 @@
           "returnDescription": "that removes the provider and everything it implemented.",
           "throws": [],
           "propertyType": null,
-          "line": 1543
+          "line": 1547
         },
         {
           "name": "getOperations",
@@ -26654,7 +26654,7 @@
           "returnDescription": "The stable operation facade, or `null` when the repository is not registered. Use {@link #canPerformOperation} to check which methods providers can run.",
           "throws": [],
           "propertyType": null,
-          "line": 1556
+          "line": 1560
         },
         {
           "name": "canPerformOperation",
@@ -26690,7 +26690,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1574
+          "line": 1578
         },
         {
           "name": "getOperationCapabilities",
@@ -26717,7 +26717,7 @@
           "returnDescription": "frozen `Array` of `String` operation names.",
           "throws": [],
           "propertyType": null,
-          "line": 1587
+          "line": 1591
         },
         {
           "name": "getPendingOperations",
@@ -26744,7 +26744,7 @@
           "returnDescription": "frozen `Array` of frozen `Objects`.",
           "throws": [],
           "propertyType": null,
-          "line": 1610
+          "line": 1614
         },
         {
           "name": "getWorkspaceOperationCapabilities",
@@ -26761,7 +26761,7 @@
           "returnDescription": "frozen `Array` of `String` operation names.",
           "throws": [],
           "propertyType": null,
-          "line": 1629
+          "line": 1633
         },
         {
           "name": "canPerformWorkspaceOperation",
@@ -26788,7 +26788,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1642
+          "line": 1646
         },
         {
           "name": "canExecuteGitCommands",
@@ -26805,7 +26805,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1658
+          "line": 1662
         },
         {
           "name": "executeGit",
@@ -26850,7 +26850,7 @@
           "returnDescription": "for the provider's result. It rejects with a `TypeError` if `args` is not an array, and with an `Error` whose `code` is `ERR_GIT_EXECUTION_UNAVAILABLE` when no provider runs Git commands.",
           "throws": [],
           "propertyType": null,
-          "line": 1677
+          "line": 1681
         },
         {
           "name": "initialize",
@@ -26886,7 +26886,7 @@
           "returnDescription": "that resolves to the new {@link GitRepository}. It rejects when no provider implements `initialize`, and with an `Error` whose `code` is `ERR_REPOSITORY_DISCOVERY_FAILED` if the command succeeded but nothing was found at the path afterwards.",
           "throws": [],
           "propertyType": null,
-          "line": 1695
+          "line": 1699
         },
         {
           "name": "clone",
@@ -26931,7 +26931,7 @@
           "returnDescription": "that resolves to the new {@link GitRepository}, and rejects the same way {@link #initialize} does.",
           "throws": [],
           "propertyType": null,
-          "line": 1710
+          "line": 1714
         },
         {
           "name": "performWorkflow",
@@ -26985,7 +26985,7 @@
           "returnDescription": "callback result, with partial/unknown outcomes on failure.",
           "throws": [],
           "propertyType": null,
-          "line": 1763
+          "line": 1767
         },
         {
           "name": "performRemoteOperation",
@@ -27030,7 +27030,7 @@
           "returnDescription": "the named operation result.",
           "throws": [],
           "propertyType": null,
-          "line": 1779
+          "line": 1783
         },
         {
           "name": "add",
@@ -27076,7 +27076,7 @@
           "returnDescription": "that resolves to an `Object`, or to `null` when no live repository remains registered after discovery.",
           "throws": [],
           "propertyType": null,
-          "line": 1883
+          "line": 1887
         },
         {
           "name": "forget",
@@ -27103,7 +27103,7 @@
           "returnDescription": ": `true` if the repository was registered.",
           "throws": [],
           "propertyType": null,
-          "line": 1924
+          "line": 1928
         },
         {
           "name": "update",
@@ -27120,7 +27120,7 @@
           "returnDescription": "that resolves to an `Array` of every registered {@link GitRepository}.",
           "throws": [],
           "propertyType": null,
-          "line": 2095
+          "line": 2099
         }
       ]
     },
@@ -27367,6 +27367,42 @@
           "line": 83
         },
         {
+          "name": "navigationCommands",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::navigationCommands(element, commands)",
+          "category": "DOM Surfaces",
+          "visibility": "Public",
+          "description": "Apply shared scrollbar activity to an explicit group of handled navigation commands.\nRegister the returned map with commands.add; its scope, availability and disposal stay with that registration.",
+          "summary": "Apply shared scrollbar activity to an explicit group of handled navigation commands. Register the returned map with commands.add; its scope, availability and disposal stay with that registration.",
+          "parameters": [
+            {
+              "name": "element",
+              "source": "element",
+              "optional": false,
+              "rest": false,
+              "type": "HTMLElement|Function",
+              "description": "Actual scrollport or a resolver returning that element or null. A resolver runs after the handler's synchronous return, with the same receiver and arguments, so it can select the current port after a view update.",
+              "defaultValue": null
+            },
+            {
+              "name": "commands",
+              "source": "commands",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "Navigation command names mapped to handlers or command descriptors. Include boundary operations even when they do not move the viewport; omit commands that abort or delegate their key binding.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Object",
+          "returnDescription": "Wrapped command map preserving descriptor metadata and each handler's exact return value, including its original Promise. A thrown handler does not reveal chrome; asynchronous completion does not postpone the activity deadline.",
+          "throws": [],
+          "propertyType": null,
+          "line": 100
+        },
+        {
           "name": "createActivity",
           "kind": "method",
           "static": false,
@@ -27400,7 +27436,7 @@
           "returnDescription": "Controller with active, reveal(), clear() and dispose(), or null for an inert document. Dispose when the surface is removed or moves to another document.",
           "throws": [],
           "propertyType": null,
-          "line": 99
+          "line": 133
         },
         {
           "name": "getGeometry",
@@ -27427,7 +27463,7 @@
           "returnDescription": "layout (overlay or gutter); CSS-pixel verticalSize and horizontalSize track thicknesses, scrollEndInset (extra bottom extent for an overflowing horizontal overlay), viewportWidth and viewportHeight excluding reserved gutters, verticalTrackSize and horizontalTrackSize lengths (vertical spans the full height including any horizontal gutter, horizontal excludes the vertical rail), scrollWidth and scrollHeight, canScrollVertically and canScrollHorizontally. Editor snapshots also include rowGeometryVersion for marker projection invalidation.",
           "throws": [],
           "propertyType": null,
-          "line": 114
+          "line": 148
         },
         {
           "name": "getVerticalTrack",
@@ -27454,7 +27490,7 @@
           "returnDescription": "Track owned by this scroll surface.",
           "throws": [],
           "propertyType": null,
-          "line": 182
+          "line": 216
         },
         {
           "name": "observe",
@@ -27490,7 +27526,7 @@
           "returnDescription": "Removes exactly this observation.",
           "throws": [],
           "propertyType": null,
-          "line": 200
+          "line": 234
         },
         {
           "name": "getFrameSource",
@@ -27507,7 +27543,7 @@
           "returnDescription": "Standalone browser script; contains no Node integration.",
           "throws": [],
           "propertyType": null,
-          "line": 304
+          "line": 338
         }
       ]
     },
@@ -30071,7 +30107,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1221
+          "line": 1219
         },
         {
           "name": "prepareItems",
@@ -30107,7 +30143,7 @@
           "returnDescription": "The same array, ready for a subsequent update.",
           "throws": [],
           "propertyType": null,
-          "line": 1236
+          "line": 1234
         },
         {
           "name": "getFilteredItems",
@@ -30124,7 +30160,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1248
+          "line": 1246
         },
         {
           "name": "getDisplayedItems",
@@ -30141,7 +30177,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1269
+          "line": 1267
         },
         {
           "name": "getItemCount",
@@ -30158,7 +30194,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1280
+          "line": 1278
         },
         {
           "name": "getMatchCount",
@@ -30175,7 +30211,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1292
+          "line": 1290
         },
         {
           "name": "onDidChangeItems",
@@ -30232,7 +30268,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1308
+          "line": 1306
         },
         {
           "name": "onDidChangeSelection",
@@ -30329,7 +30365,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1328
+          "line": 1326
         },
         {
           "name": "setItems",
@@ -30375,7 +30411,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1342
+          "line": 1340
         },
         {
           "name": "setSections",
@@ -30421,7 +30457,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1356
+          "line": 1354
         },
         {
           "name": "refresh",
@@ -30448,7 +30484,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1368
+          "line": 1366
         },
         {
           "name": "refreshScores",
@@ -30465,7 +30501,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1384
+          "line": 1382
         },
         {
           "name": "getItemId",
@@ -30492,7 +30528,7 @@
           "returnDescription": "A non-null primitive stable ID from getItemId, object.id, or a primitive item.",
           "throws": [],
           "propertyType": null,
-          "line": 1403
+          "line": 1401
         },
         {
           "name": "showMore",
@@ -30529,7 +30565,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1919
+          "line": 1917
         },
         {
           "name": "getFilterKey",
@@ -30556,7 +30592,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2009
+          "line": 2007
         },
         {
           "name": "getMatchIndices",
@@ -30592,7 +30628,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2026
+          "line": 2024
         },
         {
           "name": "getSelectedItem",
@@ -30609,7 +30645,7 @@
           "returnDescription": "The selected source item, or null when no item is selected.",
           "throws": [],
           "propertyType": null,
-          "line": 2066
+          "line": 2064
         },
         {
           "name": "getSelectedItemId",
@@ -30626,7 +30662,7 @@
           "returnDescription": "The selected non-null primitive stable ID, or null when none is selected.",
           "throws": [],
           "propertyType": null,
-          "line": 2077
+          "line": 2075
         },
         {
           "name": "getSelectedIndex",
@@ -30643,7 +30679,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2088
+          "line": 2086
         },
         {
           "name": "selectPrevious",
@@ -30660,7 +30696,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2179
+          "line": 2177
         },
         {
           "name": "selectNext",
@@ -30677,7 +30713,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2192
+          "line": 2190
         },
         {
           "name": "selectFirst",
@@ -30694,7 +30730,7 @@
           "returnDescription": "Resolves after selection or after revealing another page.",
           "throws": [],
           "propertyType": null,
-          "line": 2222
+          "line": 2220
         },
         {
           "name": "selectLast",
@@ -30711,7 +30747,7 @@
           "returnDescription": "Resolves after selection or after revealing another page.",
           "throws": [],
           "propertyType": null,
-          "line": 2233
+          "line": 2231
         },
         {
           "name": "selectNone",
@@ -30728,7 +30764,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2262
+          "line": 2260
         },
         {
           "name": "selectIndex",
@@ -30773,7 +30809,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2276
+          "line": 2274
         },
         {
           "name": "selectItem",
@@ -30800,7 +30836,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2320
+          "line": 2318
         },
         {
           "name": "selectItemById",
@@ -30827,7 +30863,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2346
+          "line": 2344
         },
         {
           "name": "getScrollTop",
@@ -30844,7 +30880,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2362
+          "line": 2360
         },
         {
           "name": "setScrollTop",
@@ -30871,7 +30907,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2374
+          "line": 2372
         },
         {
           "name": "scrollToItem",
@@ -30898,7 +30934,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2386
+          "line": 2384
         },
         {
           "name": "scrollToSelectedItem",
@@ -30915,7 +30951,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2403
+          "line": 2401
         },
         {
           "name": "hasMoreItems",
@@ -30932,7 +30968,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2418
+          "line": 2416
         },
         {
           "name": "getRemainingItemCount",
@@ -30949,7 +30985,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2429
+          "line": 2427
         },
         {
           "name": "resetDisplayedItemLimit",
@@ -30966,7 +31002,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2440
+          "line": 2438
         },
         {
           "name": "getRecentItemIds",
@@ -30983,7 +31019,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2459
+          "line": 2457
         },
         {
           "name": "setRecentItemIds",
@@ -31029,7 +31065,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2473
+          "line": 2471
         },
         {
           "name": "getRecentLimit",
@@ -31046,7 +31082,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2502
+          "line": 2500
         },
         {
           "name": "setRecentLimit",
@@ -31073,7 +31109,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2514
+          "line": 2512
         },
         {
           "name": "isRecentItem",
@@ -31100,7 +31136,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2533
+          "line": 2531
         },
         {
           "name": "recordRecentItem",
@@ -31127,7 +31163,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2546
+          "line": 2544
         },
         {
           "name": "removeRecentItem",
@@ -31154,7 +31190,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2561
+          "line": 2559
         },
         {
           "name": "clearRecentItems",
@@ -31171,7 +31207,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2576
+          "line": 2574
         },
         {
           "name": "onDidChangeRecentItemIds",
@@ -31228,7 +31264,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2592
+          "line": 2590
         },
         {
           "name": "confirmSelection",
@@ -31245,7 +31281,7 @@
           "returnDescription": "Primary action completion, a paging result for the Show more row, or undefined after a confirmation event.",
           "throws": [],
           "propertyType": null,
-          "line": 2606
+          "line": 2604
         },
         {
           "name": "onDidConfirmSelection",
@@ -31312,7 +31348,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2639
+          "line": 2637
         },
         {
           "name": "onDidConfirmEmptySelection",
@@ -31359,7 +31395,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2653
+          "line": 2651
         }
       ]
     },
@@ -56458,6 +56494,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1639,
-  "generatedAt": "2026-11-11T08:57:06.304Z"
+  "memberCount": 1640,
+  "generatedAt": "2026-11-13T09:47:04.869Z"
 }
