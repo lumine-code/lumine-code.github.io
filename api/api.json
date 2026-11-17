@@ -156,7 +156,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "HistoryManager",
-          "line": 583
+          "line": 584
         },
         {
           "name": "hooks",
@@ -268,7 +268,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PaneItemTransferService",
-          "line": 553
+          "line": 554
         },
         {
           "name": "pasteProviders",
@@ -284,7 +284,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "PasteProviderRegistry",
-          "line": 481
+          "line": 482
         },
         {
           "name": "project",
@@ -300,7 +300,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Project",
-          "line": 441
+          "line": 442
         },
         {
           "name": "repositories",
@@ -412,7 +412,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "TextEditorRegistry",
-          "line": 467
+          "line": 468
         },
         {
           "name": "themes",
@@ -444,7 +444,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Object",
-          "line": 604
+          "line": 605
         },
         {
           "name": "tooltips",
@@ -524,7 +524,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "Workspace",
-          "line": 490
+          "line": 491
         },
         {
           "name": "workspaceDrops",
@@ -540,7 +540,7 @@
           "returnType": null,
           "returnDescription": "",
           "propertyType": "WorkspaceDropManager",
-          "line": 540
+          "line": 541
         }
       ]
     },
@@ -18821,12 +18821,12 @@
       "name": "Notification",
       "superClass": null,
       "visibility": "Public",
-      "description": "A notification to the user containing a message and type.",
+      "description": "A notification to the user containing a message and type.\n\nThe message is a concise authored Markdown summary. Paths, error messages and\nother raw data belong in `options.detail`, which is displayed literally. Use\n`options.description` for authored Markdown explanations and links.",
       "summary": "A notification to the user containing a message and type.",
       "source": "src/notification.js",
       "sourcePath": "src/notification.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 10,
+      "line": 14,
       "members": [
         {
           "name": "onDidDismiss",
@@ -18853,7 +18853,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 46
+          "line": 50
         },
         {
           "name": "onDidDisplay",
@@ -18880,7 +18880,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 59
+          "line": 63
         },
         {
           "name": "getType",
@@ -18897,7 +18897,7 @@
           "returnDescription": "type.",
           "throws": [],
           "propertyType": null,
-          "line": 79
+          "line": 83
         },
         {
           "name": "getMessage",
@@ -18907,14 +18907,14 @@
           "signature": "::getMessage()",
           "category": "Methods",
           "visibility": "Public",
-          "description": "Get the notification message.",
-          "summary": "Get the notification message.",
+          "description": "Get the authored Markdown source of the notification summary.",
+          "summary": "Get the authored Markdown source of the notification summary.",
           "parameters": [],
           "returnType": "String",
           "returnDescription": "message.",
           "throws": [],
           "propertyType": null,
-          "line": 91
+          "line": 95
         },
         {
           "name": "dismiss",
@@ -18931,7 +18931,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 118
+          "line": 122
         }
       ]
     },
@@ -18939,12 +18939,12 @@
       "name": "NotificationManager",
       "superClass": null,
       "visibility": "Public",
-      "description": "A notification manager used to create {@link Notification Notifications} to be shown\nto the user.\n\nAn instance of this class is always available as the `lumine.notifications`\nglobal.",
+      "description": "A notification manager used to create {@link Notification Notifications} to be shown\nto the user.\n\nAn instance of this class is always available as the `lumine.notifications`\nglobal.\n\nMessages are concise authored Markdown summaries. Put paths, error messages and\nother raw data in `options.detail`, which is displayed literally. Reserve\n`options.description` for authored Markdown explanations and links. Markdown\nsanitization does not make interpolated raw data literal.",
       "summary": "A notification manager used to create {@link Notification Notifications} to be shown to the user.",
       "source": "src/notification-manager.js",
       "sourcePath": "src/notification-manager.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 14,
+      "line": 19,
       "members": [
         {
           "name": "onDidAddNotification",
@@ -18981,7 +18981,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 34
+          "line": 39
         },
         {
           "name": "onDidClearNotifications",
@@ -19008,7 +19008,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 47
+          "line": 52
         },
         {
           "name": "onDidBeep",
@@ -19035,7 +19035,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 60
+          "line": 65
         },
         {
           "name": "addSuccess",
@@ -19054,7 +19054,7 @@
               "optional": false,
               "rest": false,
               "type": "String",
-              "description": "A `String` message",
+              "description": "A concise authored Markdown summary. Put paths and raw error messages in `detail`.",
               "defaultValue": null
             },
             {
@@ -19119,7 +19119,7 @@
             {
               "name": "options.description",
               "type": "String",
-              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "description": "An authored Markdown `String` containing a longer explanation and links. Put raw paths and error messages in `detail` instead. By default, this **will not** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.description",
@@ -19129,7 +19129,7 @@
             {
               "name": "options.detail",
               "type": "String",
-              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "description": "A literal plain-text `String` containing paths, error messages or other additional details. By default, this **will** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.detail",
@@ -19171,7 +19171,7 @@
           "returnDescription": "that was added.",
           "throws": [],
           "propertyType": null,
-          "line": 88
+          "line": 93
         },
         {
           "name": "addHint",
@@ -19190,7 +19190,7 @@
               "optional": false,
               "rest": false,
               "type": "String",
-              "description": "A `String` message",
+              "description": "A concise authored Markdown summary. Put paths and raw error messages in `detail`.",
               "defaultValue": null
             },
             {
@@ -19255,7 +19255,7 @@
             {
               "name": "options.description",
               "type": "String",
-              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "description": "An authored Markdown `String` containing a longer explanation and links. Put raw paths and error messages in `detail` instead. By default, this **will not** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.description",
@@ -19265,7 +19265,7 @@
             {
               "name": "options.detail",
               "type": "String",
-              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "description": "A literal plain-text `String` containing paths, error messages or other additional details. By default, this **will** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.detail",
@@ -19307,7 +19307,7 @@
           "returnDescription": "that was added.",
           "throws": [],
           "propertyType": null,
-          "line": 120
+          "line": 125
         },
         {
           "name": "addInfo",
@@ -19326,7 +19326,7 @@
               "optional": false,
               "rest": false,
               "type": "String",
-              "description": "A `String` message",
+              "description": "A concise authored Markdown summary. Put paths and raw error messages in `detail`.",
               "defaultValue": null
             },
             {
@@ -19391,7 +19391,7 @@
             {
               "name": "options.description",
               "type": "String",
-              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "description": "An authored Markdown `String` containing a longer explanation and links. Put raw paths and error messages in `detail` instead. By default, this **will not** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.description",
@@ -19401,7 +19401,7 @@
             {
               "name": "options.detail",
               "type": "String",
-              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "description": "A literal plain-text `String` containing paths, error messages or other additional details. By default, this **will** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.detail",
@@ -19443,7 +19443,7 @@
           "returnDescription": "that was added.",
           "throws": [],
           "propertyType": null,
-          "line": 144
+          "line": 149
         },
         {
           "name": "addWarning",
@@ -19462,7 +19462,7 @@
               "optional": false,
               "rest": false,
               "type": "String",
-              "description": "A `String` message",
+              "description": "A concise authored Markdown summary. Put paths and raw error messages in `detail`.",
               "defaultValue": null
             },
             {
@@ -19527,7 +19527,7 @@
             {
               "name": "options.description",
               "type": "String",
-              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "description": "An authored Markdown `String` containing a longer explanation and links. Put raw paths and error messages in `detail` instead. By default, this **will not** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.description",
@@ -19537,7 +19537,7 @@
             {
               "name": "options.detail",
               "type": "String",
-              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "description": "A literal plain-text `String` containing paths, error messages or other additional details. By default, this **will** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.detail",
@@ -19579,7 +19579,7 @@
           "returnDescription": "that was added.",
           "throws": [],
           "propertyType": null,
-          "line": 168
+          "line": 173
         },
         {
           "name": "addError",
@@ -19598,7 +19598,7 @@
               "optional": false,
               "rest": false,
               "type": "String",
-              "description": "A `String` message",
+              "description": "A concise authored Markdown summary. Put paths and raw error messages in `detail`.",
               "defaultValue": null
             },
             {
@@ -19663,7 +19663,7 @@
             {
               "name": "options.description",
               "type": "String",
-              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "description": "An authored Markdown `String` containing a longer explanation and links. Put raw paths and error messages in `detail` instead. By default, this **will not** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.description",
@@ -19673,7 +19673,7 @@
             {
               "name": "options.detail",
               "type": "String",
-              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "description": "A literal plain-text `String` containing paths, error messages or other additional details. By default, this **will** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.detail",
@@ -19725,7 +19725,7 @@
           "returnDescription": "that was added.",
           "throws": [],
           "propertyType": null,
-          "line": 193
+          "line": 198
         },
         {
           "name": "addFatalError",
@@ -19744,7 +19744,7 @@
               "optional": false,
               "rest": false,
               "type": "String",
-              "description": "A `String` message",
+              "description": "A concise authored Markdown summary. Put paths and raw error messages in `detail`.",
               "defaultValue": null
             },
             {
@@ -19809,7 +19809,7 @@
             {
               "name": "options.description",
               "type": "String",
-              "description": "A Markdown `String` containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.",
+              "description": "An authored Markdown `String` containing a longer explanation and links. Put raw paths and error messages in `detail` instead. By default, this **will not** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.description",
@@ -19819,7 +19819,7 @@
             {
               "name": "options.detail",
               "type": "String",
-              "description": "A plain-text `String` containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.",
+              "description": "A literal plain-text `String` containing paths, error messages or other additional details. By default, this **will** preserve newlines and whitespace when it is rendered.",
               "optional": true,
               "defaultValue": null,
               "source": "options.detail",
@@ -19865,13 +19865,33 @@
               "source": "options.stack",
               "rest": false,
               "nested": true
+            },
+            {
+              "name": "options.reportTitle",
+              "type": "String",
+              "description": "A plain-text diagnostic summary used only for issue titles and searches, preserving the exception identity when the displayed message is concise. Defaults to `message`.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.reportTitle",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.sourcePath",
+              "type": "String",
+              "description": "The literal source file path used to identify the package responsible for the error. Separate from the displayed `detail` text; an explicit `packageName` takes precedence.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.sourcePath",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Notification",
           "returnDescription": "that was added.",
           "throws": [],
           "propertyType": null,
-          "line": 218
+          "line": 225
         },
         {
           "name": "beep",
@@ -19888,7 +19908,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 239
+          "line": 246
         },
         {
           "name": "getNotifications",
@@ -19905,7 +19925,7 @@
           "returnDescription": "of {@link Notification Notifications}.",
           "throws": [],
           "propertyType": null,
-          "line": 255
+          "line": 262
         },
         {
           "name": "clear",
@@ -19922,7 +19942,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 269
+          "line": 276
         }
       ]
     },
@@ -27337,7 +27357,7 @@
           "returnDescription": "A controller with refresh() and dispose(), or null for an inert document.",
           "throws": [],
           "propertyType": null,
-          "line": 69
+          "line": 71
         },
         {
           "name": "reveal",
@@ -27347,8 +27367,8 @@
           "signature": "::reveal(element)",
           "category": "DOM Surfaces",
           "visibility": "Public",
-          "description": "Reveal transient overlay chrome after a handled navigation action, even at a boundary.\nHover and dragging retain visibility; activity expires 700 ms after the last action.",
-          "summary": "Reveal transient overlay chrome after a handled navigation action, even at a boundary. Hover and dragging retain visibility; activity expires 700 ms after the last action.",
+          "description": "Reveal transient overlay chrome after a handled navigation action, even at a boundary.\nHover and dragging retain visibility; activity expires 700 ms after the last navigation action. Wheel, position updates and automatic scrolling do not extend or cancel it.",
+          "summary": "Reveal transient overlay chrome after a handled navigation action, even at a boundary. Hover and dragging retain visibility; activity expires 700 ms after the last navigation action. Wheel, position updates and automatic scrolling do not extend or cancel it.",
           "parameters": [
             {
               "name": "element",
@@ -27364,7 +27384,7 @@
           "returnDescription": "Whether transient chrome accepted the activity. Persistent surfaces are unchanged.",
           "throws": [],
           "propertyType": null,
-          "line": 83
+          "line": 85
         },
         {
           "name": "navigationCommands",
@@ -27400,7 +27420,34 @@
           "returnDescription": "Wrapped command map preserving descriptor metadata and each handler's exact return value, including its original Promise. A thrown handler does not reveal chrome; asynchronous completion does not postpone the activity deadline.",
           "throws": [],
           "propertyType": null,
-          "line": 100
+          "line": 102
+        },
+        {
+          "name": "bindNavigation",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::bindNavigation(element)",
+          "category": "DOM Surfaces",
+          "visibility": "Public",
+          "description": "Bind shared viewport navigation to a read-only DOM scrollport.\nOwns scoped arrow, page, document-edge and Space bindings while leaving controls, editable content and nested scrollports to their own handlers. Accepted navigation reveals transient chrome even at a boundary; wheel, rendering and automatic scrolling remain quiet.",
+          "summary": "Bind shared viewport navigation to a read-only DOM scrollport. Owns scoped arrow, page, document-edge and Space bindings while leaving controls, editable content and nested scrollports to their own handlers. Accepted navigation reveals transient chrome even at a boundary; wheel, rendering and automatic scrolling remain quiet.",
+          "parameters": [
+            {
+              "name": "element",
+              "source": "element",
+              "optional": false,
+              "rest": false,
+              "type": "HTMLElement",
+              "description": "Actual HTML content scrollport. Use navigationCommands for lists with their own selection model.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Dispose with the view to remove its commands and key bindings. A scrollport has one navigation owner.",
+          "throws": [],
+          "propertyType": null,
+          "line": 135
         },
         {
           "name": "createActivity",
@@ -27428,7 +27475,7 @@
               "optional": false,
               "rest": false,
               "type": "Function",
-              "description": "Receives the active Boolean when recent activity starts or expires; combine it with hover and dragging in the renderer.",
+              "description": "Receives the active Boolean when recent navigation starts or expires; combine it with hover and dragging in the renderer. Report handled navigation rather than raw scroll notifications.",
               "defaultValue": null
             }
           ],
@@ -27436,7 +27483,7 @@
           "returnDescription": "Controller with active, reveal(), clear() and dispose(), or null for an inert document. Dispose when the surface is removed or moves to another document.",
           "throws": [],
           "propertyType": null,
-          "line": 133
+          "line": 156
         },
         {
           "name": "getGeometry",
@@ -27463,7 +27510,7 @@
           "returnDescription": "layout (overlay or gutter); CSS-pixel verticalSize and horizontalSize track thicknesses, scrollEndInset (extra bottom extent for an overflowing horizontal overlay), viewportWidth and viewportHeight excluding reserved gutters, verticalTrackSize and horizontalTrackSize lengths (vertical spans the full height including any horizontal gutter, horizontal excludes the vertical rail), scrollWidth and scrollHeight, canScrollVertically and canScrollHorizontally. Editor snapshots also include rowGeometryVersion for marker projection invalidation.",
           "throws": [],
           "propertyType": null,
-          "line": 148
+          "line": 171
         },
         {
           "name": "getVerticalTrack",
@@ -27490,7 +27537,7 @@
           "returnDescription": "Track owned by this scroll surface.",
           "throws": [],
           "propertyType": null,
-          "line": 216
+          "line": 239
         },
         {
           "name": "observe",
@@ -27526,7 +27573,7 @@
           "returnDescription": "Removes exactly this observation.",
           "throws": [],
           "propertyType": null,
-          "line": 234
+          "line": 257
         },
         {
           "name": "getFrameSource",
@@ -27543,7 +27590,7 @@
           "returnDescription": "Standalone browser script; contains no Node integration.",
           "throws": [],
           "propertyType": null,
-          "line": 338
+          "line": 361
         }
       ]
     },
@@ -27600,7 +27647,7 @@
           "returnDescription": "that resolves to the `String` value, or to `null` when nothing is stored under the key or it can no longer be decrypted — which happens after the OS credential store is reset, or when this session has no encryption and an earlier one did.",
           "throws": [],
           "propertyType": null,
-          "line": 195
+          "line": 199
         },
         {
           "name": "set",
@@ -27636,7 +27683,7 @@
           "returnDescription": "that resolves once the value is written.",
           "throws": [],
           "propertyType": null,
-          "line": 246
+          "line": 250
         },
         {
           "name": "delete",
@@ -27663,7 +27710,7 @@
           "returnDescription": "that resolves once the key is gone.",
           "throws": [],
           "propertyType": null,
-          "line": 282
+          "line": 286
         },
         {
           "name": "onDidChange",
@@ -27700,7 +27747,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 311
+          "line": 315
         }
       ]
     },
@@ -37093,7 +37140,7 @@
             {
               "name": "confirmation.message",
               "type": "String",
-              "description": "The question shown before saving.",
+              "description": "A concise authored Markdown question shown before saving. Put paths and other raw data in `detail`.",
               "optional": false,
               "defaultValue": null,
               "source": "confirmation.message",
@@ -37103,7 +37150,7 @@
             {
               "name": "confirmation.detail",
               "type": "String",
-              "description": "Additional plain-text context.",
+              "description": "Literal plain-text context, including paths and other raw data.",
               "optional": true,
               "defaultValue": null,
               "source": "confirmation.detail",
@@ -47804,7 +47851,7 @@
           "returnDescription": "that resolves once the change has been applied.",
           "throws": [],
           "propertyType": null,
-          "line": 969
+          "line": 967
         }
       ]
     },
@@ -51883,7 +51930,7 @@
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "throws": [],
           "propertyType": null,
-          "line": 3578
+          "line": 3579
         },
         {
           "name": "buildTextEditor",
@@ -51910,7 +51957,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3592
+          "line": 3593
         },
         {
           "name": "buildSelectList",
@@ -51937,7 +51984,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3636
+          "line": 3637
         },
         {
           "name": "addSelectList",
@@ -52043,7 +52090,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3671
+          "line": 3672
         },
         {
           "name": "buildInputDialog",
@@ -52070,7 +52117,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3699
+          "line": 3700
         },
         {
           "name": "addInputDialog",
@@ -52166,7 +52213,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3723
+          "line": 3724
         },
         {
           "name": "popModal",
@@ -52193,7 +52240,7 @@
           "returnDescription": "— `false` when there is no step to go back to.",
           "throws": [],
           "propertyType": null,
-          "line": 3756
+          "line": 3757
         },
         {
           "name": "popModalTo",
@@ -52220,7 +52267,7 @@
           "returnDescription": "— `false` when the index is not an earlier step.",
           "throws": [],
           "propertyType": null,
-          "line": 3770
+          "line": 3771
         },
         {
           "name": "getModalTrail",
@@ -52237,7 +52284,7 @@
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3782
+          "line": 3783
         },
         {
           "name": "onDidChangeModalTrail",
@@ -52264,7 +52311,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 3797
+          "line": 3798
         },
         {
           "name": "reopenItem",
@@ -52281,7 +52328,7 @@
           "returnDescription": "that is resolved when the item is opened",
           "throws": [],
           "propertyType": null,
-          "line": 3811
+          "line": 3812
         },
         {
           "name": "addOpener",
@@ -52337,7 +52384,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "throws": [],
           "propertyType": null,
-          "line": 3854
+          "line": 3855
         },
         {
           "name": "onWillResolvePathOpeners",
@@ -52364,7 +52411,7 @@
           "returnDescription": "Removes this callback; opener registrations remain separately owned.",
           "throws": [],
           "propertyType": null,
-          "line": 3884
+          "line": 3885
         },
         {
           "name": "addPathOpener",
@@ -52491,7 +52538,7 @@
           "returnDescription": "Removes this opener and its preview capabilities.",
           "throws": [],
           "propertyType": null,
-          "line": 3928
+          "line": 3929
         },
         {
           "name": "getAvailablePathOpeners",
@@ -52537,7 +52584,7 @@
           "returnDescription": "Descriptors containing `id`, `label`, `isDefault` and `destinations`.",
           "throws": [],
           "propertyType": null,
-          "line": 4024
+          "line": 4025
         },
         {
           "name": "openPathInNewWindow",
@@ -52633,7 +52680,7 @@
           "returnDescription": "Resolves after requesting the new window.",
           "throws": [],
           "propertyType": null,
-          "line": 4130
+          "line": 4131
         },
         {
           "name": "getPaneItems",
@@ -52650,7 +52697,7 @@
           "returnDescription": "of items.",
           "throws": [],
           "propertyType": null,
-          "line": 4188
+          "line": 4189
         },
         {
           "name": "getActivePaneItem",
@@ -52667,7 +52714,7 @@
           "returnDescription": "The active item, or undefined when the active pane is empty.",
           "throws": [],
           "propertyType": null,
-          "line": 4200
+          "line": 4201
         },
         {
           "name": "getTextEditors",
@@ -52684,7 +52731,7 @@
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "throws": [],
           "propertyType": null,
-          "line": 4213
+          "line": 4214
         },
         {
           "name": "getActiveTextEditor",
@@ -52701,7 +52748,7 @@
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "throws": [],
           "propertyType": null,
-          "line": 4243
+          "line": 4244
         },
         {
           "name": "getTextEditorForElement",
@@ -52747,7 +52794,7 @@
           "returnDescription": "The containing editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 4266
+          "line": 4267
         },
         {
           "name": "getFocusedTextEditor",
@@ -52784,7 +52831,7 @@
           "returnDescription": "The focused editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 4290
+          "line": 4291
         },
         {
           "name": "getActiveFileTextEditor",
@@ -52801,7 +52848,7 @@
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "throws": [],
           "propertyType": null,
-          "line": 4313
+          "line": 4314
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -52818,7 +52865,7 @@
           "returnDescription": "or `undefined` when nothing editable is active.",
           "throws": [],
           "propertyType": null,
-          "line": 4343
+          "line": 4344
         },
         {
           "name": "saveActivePaneItem",
@@ -52845,7 +52892,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4386
+          "line": 4387
         },
         {
           "name": "saveActivePaneItemAs",
@@ -52872,7 +52919,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4407
+          "line": 4408
         },
         {
           "name": "destroyActivePaneItem",
@@ -52889,7 +52936,7 @@
           "returnDescription": "Whether the active item was closed.",
           "throws": [],
           "propertyType": null,
-          "line": 4434
+          "line": 4435
         },
         {
           "name": "getActivePaneContainer",
@@ -52906,7 +52953,7 @@
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "throws": [],
           "propertyType": null,
-          "line": 4450
+          "line": 4451
         },
         {
           "name": "getPanes",
@@ -52923,7 +52970,7 @@
           "returnDescription": "of {@link Pane Panes}.",
           "throws": [],
           "propertyType": null,
-          "line": 4462
+          "line": 4463
         },
         {
           "name": "getVisiblePanes",
@@ -52940,7 +52987,7 @@
           "returnDescription": "The panes available in the current presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 4476
+          "line": 4477
         },
         {
           "name": "getActivePane",
@@ -52957,7 +53004,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4493
+          "line": 4494
         },
         {
           "name": "focusPaneInDirection",
@@ -53003,7 +53050,7 @@
           "returnDescription": "The pane that received focus.",
           "throws": [],
           "propertyType": null,
-          "line": 4507
+          "line": 4508
         },
         {
           "name": "movePaneItem",
@@ -53039,7 +53086,7 @@
           "returnDescription": "The final {pane, item}.",
           "throws": [],
           "propertyType": null,
-          "line": 4524
+          "line": 4525
         },
         {
           "name": "copyPaneItem",
@@ -53075,7 +53122,7 @@
           "returnDescription": "The final {pane, item}, or null when copy() is absent or canCopy() returns false; cancellation rejects with ABORT_ERR.",
           "throws": [],
           "propertyType": null,
-          "line": 4538
+          "line": 4539
         },
         {
           "name": "activateNextPane",
@@ -53092,7 +53139,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4548
+          "line": 4549
         },
         {
           "name": "activatePreviousPane",
@@ -53109,7 +53156,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4558
+          "line": 4559
         },
         {
           "name": "paneContainerForURI",
@@ -53136,7 +53183,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 4573
+          "line": 4574
         },
         {
           "name": "paneContainerForItem",
@@ -53163,7 +53210,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 4587
+          "line": 4588
         },
         {
           "name": "paneForURI",
@@ -53190,7 +53237,7 @@
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 4600
+          "line": 4601
         },
         {
           "name": "paneForItem",
@@ -53217,7 +53264,7 @@
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 4618
+          "line": 4619
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -53244,7 +53291,7 @@
           "returnDescription": "The selected close operation, or undefined when closing an empty window is disabled.",
           "throws": [],
           "propertyType": null,
-          "line": 4648
+          "line": 4649
         },
         {
           "name": "getCenter",
@@ -53261,7 +53308,7 @@
           "returnDescription": "The document-pane aggregate for this workspace.",
           "throws": [],
           "propertyType": null,
-          "line": 4743
+          "line": 4744
         },
         {
           "name": "getLeftDock",
@@ -53278,7 +53325,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4754
+          "line": 4755
         },
         {
           "name": "getRightDock",
@@ -53295,7 +53342,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4765
+          "line": 4766
         },
         {
           "name": "getBottomDock",
@@ -53312,7 +53359,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4776
+          "line": 4777
         },
         {
           "name": "beginLayoutResize",
@@ -53329,7 +53376,7 @@
           "returnDescription": "Ends this resize session; repeated disposal is safe.",
           "throws": [],
           "propertyType": null,
-          "line": 4809
+          "line": 4810
         },
         {
           "name": "beginLayoutDrag",
@@ -53346,7 +53393,7 @@
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "throws": [],
           "propertyType": null,
-          "line": 4838
+          "line": 4839
         },
         {
           "name": "getBottomPanels",
@@ -53363,7 +53410,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4854
+          "line": 4855
         },
         {
           "name": "addBottomPanel",
@@ -53420,7 +53467,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4870
+          "line": 4871
         },
         {
           "name": "getLeftPanels",
@@ -53437,7 +53484,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4881
+          "line": 4882
         },
         {
           "name": "addLeftPanel",
@@ -53494,7 +53541,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4897
+          "line": 4898
         },
         {
           "name": "getRightPanels",
@@ -53511,7 +53558,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4908
+          "line": 4909
         },
         {
           "name": "addRightPanel",
@@ -53568,7 +53615,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4924
+          "line": 4925
         },
         {
           "name": "getTopPanels",
@@ -53585,7 +53632,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4935
+          "line": 4936
         },
         {
           "name": "addTopPanel",
@@ -53642,7 +53689,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4951
+          "line": 4952
         },
         {
           "name": "getHeaderPanels",
@@ -53659,7 +53706,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4962
+          "line": 4963
         },
         {
           "name": "addHeaderPanel",
@@ -53716,7 +53763,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4978
+          "line": 4979
         },
         {
           "name": "getFooterPanels",
@@ -53733,7 +53780,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4989
+          "line": 4990
         },
         {
           "name": "addFooterPanel",
@@ -53790,7 +53837,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5005
+          "line": 5006
         },
         {
           "name": "getModalPanels",
@@ -53807,7 +53854,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 5016
+          "line": 5017
         },
         {
           "name": "addModalPanel",
@@ -53914,7 +53961,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5037
+          "line": 5038
         },
         {
           "name": "panelForItem",
@@ -53941,7 +53988,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 5051
+          "line": 5052
         },
         {
           "name": "scan",
@@ -54056,7 +54103,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 5115
+          "line": 5116
         },
         {
           "name": "replace",
@@ -54120,7 +54167,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5381
+          "line": 5382
         }
       ]
     },
@@ -56494,6 +56541,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1640,
-  "generatedAt": "2026-11-15T10:24:08.008Z"
+  "memberCount": 1641,
+  "generatedAt": "2026-11-17T23:58:11.096Z"
 }
