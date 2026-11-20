@@ -9603,7 +9603,7 @@
       "source": "src/git-repository.js",
       "sourcePath": "src/git-repository.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 162,
+      "line": 163,
       "members": [
         {
           "name": "open",
@@ -9639,7 +9639,7 @@
           "returnDescription": "resolving to an instance or `null` if the repository could not be opened.",
           "throws": [],
           "propertyType": null,
-          "line": 177
+          "line": 178
         },
         {
           "name": "destroy",
@@ -9656,7 +9656,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 257
+          "line": 258
         },
         {
           "name": "isDestroyed",
@@ -9673,7 +9673,7 @@
           "returnDescription": "indicating if this repository has been destroyed.",
           "throws": [],
           "propertyType": null,
-          "line": 301
+          "line": 302
         },
         {
           "name": "getOperations",
@@ -9690,7 +9690,7 @@
           "returnDescription": "stable write facade assigned by lumine.repositories. Its methods are enabled by repositories.operations-provider services.",
           "throws": [],
           "propertyType": null,
-          "line": 314
+          "line": 315
         },
         {
           "name": "onDidDestroy",
@@ -9717,7 +9717,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 333
+          "line": 334
         },
         {
           "name": "onDidChangeStatusSnapshot",
@@ -9744,7 +9744,34 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 402
+          "line": 403
+        },
+        {
+          "name": "onDidChangeStatusPaths",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidChangeStatusPaths(callback)",
+          "category": "Event Subscription",
+          "visibility": "Public",
+          "description": "Observe accepted status changes by path. Subscribing declares background status interest.",
+          "summary": "Observe accepted status changes by path. Subscribing declares background status interest.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "Receives a frozen change containing `generation`, `reset`, `files`, `directories`, `ignoredFiles`, `ignoredDirectories`, and `headChanged`. Path arrays contain worktree-relative keys as returned by {@link #getStatusPathKey}. A reset replaces all previous answers. An ignored directory change can affect its entire subtree.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Disposes the subscription.",
+          "throws": [],
+          "propertyType": null,
+          "line": 416
         },
         {
           "name": "onDidChangeRefsSnapshot",
@@ -9771,7 +9798,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 428
+          "line": 446
         },
         {
           "name": "onDidChangeCachedState",
@@ -9798,7 +9825,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 454
+          "line": 472
         },
         {
           "name": "getType",
@@ -9815,7 +9842,7 @@
           "returnDescription": ".",
           "throws": [],
           "propertyType": null,
-          "line": 478
+          "line": 496
         },
         {
           "name": "getPath",
@@ -9832,7 +9859,7 @@
           "returnDescription": "path of the repository.",
           "throws": [],
           "propertyType": null,
-          "line": 490
+          "line": 508
         },
         {
           "name": "getWorkingDirectory",
@@ -9849,7 +9876,7 @@
           "returnDescription": "The working directory path, or `null` for a bare repository.",
           "throws": [],
           "propertyType": null,
-          "line": 506
+          "line": 524
         },
         {
           "name": "getCommonDirectory",
@@ -9866,7 +9893,7 @@
           "returnDescription": "directory shared by linked worktrees for refs and configuration.",
           "throws": [],
           "propertyType": null,
-          "line": 518
+          "line": 536
         },
         {
           "name": "relativize",
@@ -9893,7 +9920,7 @@
           "returnDescription": "A relative path inside the working directory, or the input path when it lies outside.",
           "throws": [],
           "propertyType": null,
-          "line": 571
+          "line": 589
         },
         {
           "name": "hasBranch",
@@ -9920,7 +9947,7 @@
           "returnDescription": "true if the given branch exists.",
           "throws": [],
           "propertyType": null,
-          "line": 642
+          "line": 660
         },
         {
           "name": "getShortHead",
@@ -9937,7 +9964,7 @@
           "returnDescription": "The shortened `HEAD` reference.",
           "throws": [],
           "propertyType": null,
-          "line": 658
+          "line": 676
         },
         {
           "name": "isSubmodule",
@@ -9964,7 +9991,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 679
+          "line": 697
         },
         {
           "name": "getAheadBehindCount",
@@ -9991,7 +10018,7 @@
           "returnDescription": "The `ahead` and `behind` commit counts.",
           "throws": [],
           "propertyType": null,
-          "line": 693
+          "line": 711
         },
         {
           "name": "getCachedUpstreamAheadBehindCount",
@@ -10008,7 +10035,7 @@
           "returnDescription": "with the following keys:",
           "throws": [],
           "propertyType": null,
-          "line": 715
+          "line": 733
         },
         {
           "name": "getConfigValueAsync",
@@ -10054,7 +10081,7 @@
           "returnDescription": "The configured value.",
           "throws": [],
           "propertyType": null,
-          "line": 741
+          "line": 759
         },
         {
           "name": "getConfigValuesAsync",
@@ -10100,7 +10127,44 @@
           "returnDescription": "Values keyed by the requested names.",
           "throws": [],
           "propertyType": null,
-          "line": 759
+          "line": 777
+        },
+        {
+          "name": "readRemotes",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::readRemotes({ signal } = {})",
+          "category": "References",
+          "visibility": "Public",
+          "description": "Read the effective fetch and push URLs of the repository's remotes via\ngit-host without initializing or refreshing its refs snapshot.",
+          "summary": "Read the effective fetch and push URLs of the repository's remotes via git-host without initializing or refreshing its refs snapshot.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "{ signal } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Read options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancellation signal.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise<Array<Object>>",
+          "returnDescription": "Immutable entries with `name`, `fetchUrl`, and `pushUrl`.",
+          "throws": [],
+          "propertyType": null,
+          "line": 810
         },
         {
           "name": "getOriginURL",
@@ -10117,7 +10181,7 @@
           "returnDescription": "origin url of the repository, read from the refs snapshot's remotes. Returns `null` until the snapshot has loaded or when the repository has no `origin` remote.",
           "throws": [],
           "propertyType": null,
-          "line": 789
+          "line": 829
         },
         {
           "name": "getUpstreamBranch",
@@ -10134,7 +10198,7 @@
           "returnDescription": "The upstream branch, such as `refs/remotes/origin/master`, or `null` when HEAD has no upstream.",
           "throws": [],
           "propertyType": null,
-          "line": 805
+          "line": 845
         },
         {
           "name": "getReferences",
@@ -10151,7 +10215,7 @@
           "returnDescription": "with the following keys:",
           "throws": [],
           "propertyType": null,
-          "line": 825
+          "line": 865
         },
         {
           "name": "getReferenceTarget",
@@ -10178,7 +10242,7 @@
           "returnDescription": "The current SHA for the reference, or `null` when it is unavailable.",
           "throws": [],
           "propertyType": null,
-          "line": 844
+          "line": 884
         },
         {
           "name": "isPathModified",
@@ -10205,7 +10269,7 @@
           "returnDescription": "Whether the path is modified in the detailed status snapshot. Returns `false` until the snapshot loads.",
           "throws": [],
           "propertyType": null,
-          "line": 894
+          "line": 934
         },
         {
           "name": "isPathNew",
@@ -10232,7 +10296,7 @@
           "returnDescription": "Whether the path is new in the detailed status snapshot. Returns `false` until the snapshot loads.",
           "throws": [],
           "propertyType": null,
-          "line": 908
+          "line": 948
         },
         {
           "name": "isPathIgnored",
@@ -10259,7 +10323,7 @@
           "returnDescription": "that's true if the `path` is ignored.",
           "throws": [],
           "propertyType": null,
-          "line": 923
+          "line": 963
         },
         {
           "name": "isPathIgnoredCached",
@@ -10286,7 +10350,127 @@
           "returnDescription": "that's true if the `filePath` is ignored.",
           "throws": [],
           "propertyType": null,
-          "line": 938
+          "line": 978
+        },
+        {
+          "name": "getStatusPathKey",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getStatusPathKey(filePath)",
+          "category": "Reading Status",
+          "visibility": "Public",
+          "description": "Return the key used by status path notifications.",
+          "summary": "Return the key used by status path notifications.",
+          "parameters": [
+            {
+              "name": "filePath",
+              "source": "filePath",
+              "optional": false,
+              "rest": false,
+              "type": "String",
+              "description": "An absolute or worktree-relative path.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "String|null",
+          "returnDescription": "A worktree-relative key, or `null` for a path outside the worktree.",
+          "throws": [],
+          "propertyType": null,
+          "line": 1002
+        },
+        {
+          "name": "checkIgnoredPaths",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::checkIgnoredPaths(filePaths, { signal } = {})",
+          "category": "Reading Status",
+          "visibility": "Public",
+          "description": "Check current worktree ignore rules for a batch of paths without loading a status snapshot.\nTracked paths follow the same ignore rules as other paths in a project crawl.",
+          "summary": "Check current worktree ignore rules for a batch of paths without loading a status snapshot. Tracked paths follow the same ignore rules as other paths in a project crawl.",
+          "parameters": [
+            {
+              "name": "filePaths",
+              "source": "filePaths",
+              "optional": false,
+              "rest": false,
+              "type": "Array<String>",
+              "description": "Absolute or worktree-relative paths.",
+              "defaultValue": null
+            },
+            {
+              "name": "options",
+              "source": "{ signal } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Read options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancellation signal.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise<Array<String>>",
+          "returnDescription": "The ignored paths in the input spelling and order.",
+          "throws": [],
+          "propertyType": null,
+          "line": 1023
+        },
+        {
+          "name": "readHead",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::readHead({ signal, priority } = {})",
+          "category": "Reading Status",
+          "visibility": "Public",
+          "description": "Read the current Git HEAD without refreshing repository snapshots.",
+          "summary": "Read the current Git HEAD without refreshing repository snapshots.",
+          "parameters": [
+            {
+              "name": "options",
+              "source": "{ signal, priority } = {}",
+              "optional": true,
+              "rest": false,
+              "type": "Object",
+              "description": "Read options.",
+              "defaultValue": "{}"
+            },
+            {
+              "name": "options.signal",
+              "type": "AbortSignal",
+              "description": "Cancellation signal.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.signal",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.priority",
+              "type": "\"background\"|\"interactive\"",
+              "description": "Git runner priority.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.priority",
+              "rest": false,
+              "nested": true
+            }
+          ],
+          "returnType": "Promise<Object>",
+          "returnDescription": "The frozen current HEAD with ref, name, OID, detached and unborn state.",
+          "throws": [],
+          "propertyType": null,
+          "line": 1053
         },
         {
           "name": "getStatusSnapshot",
@@ -10303,7 +10487,7 @@
           "returnDescription": "latest immutable detailed status snapshot. It contains `head`, `upstream`, `submodulePaths`, per-file staged/unstaged/conflict state, aggregate `counts`, and a monotonic `generation`. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeStatusSnapshot} or call {@link #ensureStatusSnapshot} to load it.",
           "throws": [],
           "propertyType": null,
-          "line": 956
+          "line": 1070
         },
         {
           "name": "ensureStatusSnapshot",
@@ -10350,7 +10534,7 @@
           "returnDescription": "that resolves to the snapshot.",
           "throws": [],
           "propertyType": null,
-          "line": 972
+          "line": 1086
         },
         {
           "name": "getStatusEntry",
@@ -10377,7 +10561,7 @@
           "returnDescription": "detailed cached status for a repository path, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 1000
+          "line": 1114
         },
         {
           "name": "refreshStatusSnapshot",
@@ -10434,7 +10618,7 @@
           "returnDescription": "The refreshed immutable status snapshot.",
           "throws": [],
           "propertyType": null,
-          "line": 1569
+          "line": 1701
         },
         {
           "name": "getPathStatusSummary",
@@ -10461,7 +10645,7 @@
           "returnDescription": "frozen `{source, conflicted, modified, added, renamed, staged, unstaged}` object (`source` is always `\"snapshot\"`), or `null` for clean, ignored, unknown, and pre-snapshot paths. Both `staged` and `unstaged` can be true.",
           "throws": [],
           "propertyType": null,
-          "line": 1584
+          "line": 1716
         },
         {
           "name": "getDirectoryStatusSummary",
@@ -10488,7 +10672,7 @@
           "returnDescription": "The aggregate classified status, or `null` when the directory has no reportable changes.",
           "throws": [],
           "propertyType": null,
-          "line": 1603
+          "line": 1735
         },
         {
           "name": "getRefsSnapshot",
@@ -10505,7 +10689,7 @@
           "returnDescription": "latest immutable refs snapshot. It contains `head`, local `branches` with upstream tracking, `remoteBranches`, `tags`, `remotes` with fetch and push URLs, `worktrees`, and a monotonic `generation`. Branch and tag entries include `lastCommit` metadata for their target commit. The initial snapshot has `initialized: false`; subscribe with {@link #onDidChangeRefsSnapshot} or call {@link #ensureRefsSnapshot} to load it.",
           "throws": [],
           "propertyType": null,
-          "line": 1634
+          "line": 1766
         },
         {
           "name": "ensureRefsSnapshot",
@@ -10542,7 +10726,7 @@
           "returnDescription": "that resolves to the snapshot.",
           "throws": [],
           "propertyType": null,
-          "line": 1649
+          "line": 1781
         },
         {
           "name": "refreshRefsSnapshot",
@@ -10589,7 +10773,7 @@
           "returnDescription": "The refreshed immutable refs snapshot.",
           "throws": [],
           "propertyType": null,
-          "line": 1678
+          "line": 1810
         },
         {
           "name": "getDiff",
@@ -10599,8 +10783,8 @@
           "signature": "::getDiff({\n    from = { type: \"index\" },\n    to = { type: \"worktree\" },\n    paths = [],\n    context = 3,\n    ignoreWhitespace = false,\n    detectRenames = true,\n    diffFilter = null,\n    format = \"structured\",\n    maxBytes = 10 * 1024 * 1024,\n    signal,\n  } = {})",
           "category": "Retrieving Diffs",
           "visibility": "Public",
-          "description": "Compute a structured diff between two endpoints.",
-          "summary": "Compute a structured diff between two endpoints.",
+          "description": "Compare two endpoints.",
+          "summary": "Compare two endpoints.",
           "parameters": [
             {
               "name": "options",
@@ -10683,8 +10867,8 @@
             },
             {
               "name": "options.format",
-              "type": "\"structured\"|\"patch\"|\"both\"",
-              "description": "Select structured files, raw patch text, or both.",
+              "type": "\"structured\"|\"patch\"|\"both\"|\"name-status\"",
+              "description": "Select structured files, raw patch text, both, or file metadata only. Name-status files contain `path`, `originalPath`, `status`, and `similarity`.",
               "optional": true,
               "defaultValue": "\"structured\"",
               "source": "options.format",
@@ -10716,7 +10900,7 @@
           "returnDescription": "resolving to a frozen `{schemaVersion, files, rawPatch?}` object; `rawPatch` is present only for `patch` and `both`.",
           "throws": [],
           "propertyType": null,
-          "line": 1709
+          "line": 1842
         },
         {
           "name": "getCommits",
@@ -10803,7 +10987,7 @@
           "returnDescription": "resolving to a frozen `{commits, hasMore, nextCursor}` object. Each commit has `sha`, `parents`, `author`, `committer`, `subject`, and `body`. An unborn repository resolves to an empty page.",
           "throws": [],
           "propertyType": null,
-          "line": 1786
+          "line": 1920
         },
         {
           "name": "getCommit",
@@ -10849,7 +11033,7 @@
           "returnDescription": "resolving to the commit object extended with `changedFiles`: `[{path, originalPath, status, similarity}]`.",
           "throws": [],
           "propertyType": null,
-          "line": 1838
+          "line": 1972
         },
         {
           "name": "getFileAtRevision",
@@ -10914,7 +11098,7 @@
           "returnDescription": "resolving to the contents, or `null` when the path does not exist at that revision.",
           "throws": [],
           "propertyType": null,
-          "line": 1871
+          "line": 2005
         },
         {
           "name": "getIndexFile",
@@ -10970,7 +11154,7 @@
           "returnDescription": "resolving to the staged contents, or `null` when the path has no stage-0 index entry.",
           "throws": [],
           "propertyType": null,
-          "line": 1897
+          "line": 2031
         },
         {
           "name": "getBlob",
@@ -11026,7 +11210,7 @@
           "returnDescription": "resolving to the contents, or `null` when the oid does not name an object.",
           "throws": [],
           "propertyType": null,
-          "line": 1921
+          "line": 2055
         },
         {
           "name": "getDescription",
@@ -11043,7 +11227,7 @@
           "returnDescription": "The ref description of HEAD, or an empty string for an unborn branch.",
           "throws": [],
           "propertyType": null,
-          "line": 1942
+          "line": 2076
         },
         {
           "name": "getBranchesContaining",
@@ -11109,7 +11293,7 @@
           "returnDescription": "resolving to an `Array` of refname `Strings`.",
           "throws": [],
           "propertyType": null,
-          "line": 1963
+          "line": 2097
         },
         {
           "name": "getFileMode",
@@ -11136,7 +11320,7 @@
           "returnDescription": "resolving to the `String` mode (e.g. `\"100644\"`), or `null` when the path is not tracked.",
           "throws": [],
           "propertyType": null,
-          "line": 1985
+          "line": 2119
         },
         {
           "name": "getSubmodulePaths",
@@ -11173,7 +11357,7 @@
           "returnDescription": "resolving to an `Array` of path `Strings`.",
           "throws": [],
           "propertyType": null,
-          "line": 2004
+          "line": 2138
         },
         {
           "name": "getBlame",
@@ -11239,7 +11423,7 @@
           "returnDescription": "resolving to a frozen `{revision, lines}` object where each line has `line`, `originalLine`, `sha`, `author`, `summary`.",
           "throws": [],
           "propertyType": null,
-          "line": 2034
+          "line": 2168
         },
         {
           "name": "getLineDiffsAsync",
@@ -11249,8 +11433,8 @@
           "signature": "::getLineDiffsAsync(filePath, text, { base = \"head\", skipMissingBaseline = false, signal } = {})",
           "category": "Retrieving Diffs",
           "visibility": "Public",
-          "description": "Computes gutter line diffs off the renderer thread via the git-host worker,\nfetching and caching the selected baseline blob before comparing it with\nthe buffer. A path absent from that baseline is compared as empty text\nunless `skipMissingBaseline` is enabled.",
-          "summary": "Computes gutter line diffs off the renderer thread via the git-host worker, fetching and caching the selected baseline blob before comparing it with the buffer. A path absent from that baseline is compared as empty text unless `skipMissingBaseline` is enabled.",
+          "description": "Computes gutter line diffs off the renderer thread via the git-host worker,\nfetching and caching the selected baseline blob before comparing it with\nthe buffer. A path absent from that baseline is compared as empty text\nunless `skipMissingBaseline` is enabled. A comparison that exceeds its\ninput or computation budget rejects with `ERR_GIT_LINE_DIFF_TOO_LARGE`.",
+          "summary": "Computes gutter line diffs off the renderer thread via the git-host worker, fetching and caching the selected baseline blob before comparing it with the buffer. A path absent from that baseline is compared as empty text unless `skipMissingBaseline` is enabled. A comparison that exceeds its input or computation budget rejects with `ERR_GIT_LINE_DIFF_TOO_LARGE`.",
           "parameters": [
             {
               "name": "filePath",
@@ -11314,7 +11498,7 @@
           "returnDescription": "resolving to an `Array` of hunk `Objects`, each with `oldStart`, `newStart`, `oldLines`, and `newLines`.",
           "throws": [],
           "propertyType": null,
-          "line": 2073
+          "line": 2208
         },
         {
           "name": "checkoutHead",
@@ -11341,7 +11525,7 @@
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "throws": [],
           "propertyType": null,
-          "line": 2129
+          "line": 2264
         },
         {
           "name": "checkoutReference",
@@ -11377,7 +11561,7 @@
           "returnDescription": "resolving to a `Boolean` that's true on success.",
           "throws": [],
           "propertyType": null,
-          "line": 2151
+          "line": 2286
         }
       ]
     },
@@ -20073,7 +20257,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 197
+          "line": 198
         },
         {
           "name": "onDidActivateInitialPackages",
@@ -20100,7 +20284,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 210
+          "line": 211
         },
         {
           "name": "onDidInitializeInitialPackages",
@@ -20127,7 +20311,7 @@
           "returnDescription": "Dispose to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 223
+          "line": 224
         },
         {
           "name": "onDidActivatePackage",
@@ -20164,7 +20348,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 245
+          "line": 256
         },
         {
           "name": "onDidDeactivatePackage",
@@ -20201,7 +20385,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 259
+          "line": 270
         },
         {
           "name": "onDidLoadPackage",
@@ -20238,7 +20422,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 273
+          "line": 284
         },
         {
           "name": "onDidUnloadPackage",
@@ -20275,7 +20459,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 287
+          "line": 298
         },
         {
           "name": "getPackageDirPaths",
@@ -20292,7 +20476,7 @@
           "returnDescription": "of `String` directory paths.",
           "throws": [],
           "propertyType": null,
-          "line": 303
+          "line": 314
         },
         {
           "name": "resolvePackagePath",
@@ -20319,7 +20503,7 @@
           "returnDescription": "folder path or `null` if it could not be resolved.",
           "throws": [],
           "propertyType": null,
-          "line": 320
+          "line": 331
         },
         {
           "name": "isBundledPackage",
@@ -20346,7 +20530,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 382
+          "line": 393
         },
         {
           "name": "enablePackage",
@@ -20373,7 +20557,7 @@
           "returnDescription": "Resolves when the enabled package is initialized or active.",
           "throws": [],
           "propertyType": null,
-          "line": 399
+          "line": 410
         },
         {
           "name": "disablePackage",
@@ -20400,7 +20584,7 @@
           "returnDescription": "Resolves after the package is fully deactivated.",
           "throws": [],
           "propertyType": null,
-          "line": 420
+          "line": 431
         },
         {
           "name": "isPackageDisabled",
@@ -20427,7 +20611,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 441
+          "line": 452
         },
         {
           "name": "getActivePackages",
@@ -20444,7 +20628,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 456
+          "line": 467
         },
         {
           "name": "getActivePackage",
@@ -20471,7 +20655,7 @@
           "returnDescription": "or undefined.",
           "throws": [],
           "propertyType": null,
-          "line": 485
+          "line": 496
         },
         {
           "name": "isPackageActive",
@@ -20498,7 +20682,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 499
+          "line": 510
         },
         {
           "name": "getPackageLifecycleState",
@@ -20525,7 +20709,7 @@
           "returnDescription": "One of `loaded`, `activating`, `active`, or `deactivating`. An unloaded or unknown package has no current lifecycle record.",
           "throws": [],
           "propertyType": null,
-          "line": 514
+          "line": 525
         },
         {
           "name": "hasActivatedInitialPackages",
@@ -20542,7 +20726,7 @@
           "returnDescription": "indicating whether package activation has occurred.",
           "throws": [],
           "propertyType": null,
-          "line": 552
+          "line": 563
         },
         {
           "name": "getLoadedPackages",
@@ -20559,7 +20743,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 567
+          "line": 578
         },
         {
           "name": "getLoadedPackage",
@@ -20586,7 +20770,7 @@
           "returnDescription": "or undefined.",
           "throws": [],
           "propertyType": null,
-          "line": 587
+          "line": 598
         },
         {
           "name": "isPackageLoaded",
@@ -20613,7 +20797,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 600
+          "line": 611
         },
         {
           "name": "hasLoadedInitialPackages",
@@ -20630,7 +20814,7 @@
           "returnDescription": "indicating whether package loading has occurred.",
           "throws": [],
           "propertyType": null,
-          "line": 613
+          "line": 624
         },
         {
           "name": "hasInitializedInitialPackages",
@@ -20647,7 +20831,7 @@
           "returnDescription": "indicating whether the initial package bootstrap has completed.",
           "throws": [],
           "propertyType": null,
-          "line": 627
+          "line": 638
         },
         {
           "name": "getAvailablePackagePaths",
@@ -20664,7 +20848,7 @@
           "returnDescription": "of `Strings` of all the available package paths.",
           "throws": [],
           "propertyType": null,
-          "line": 643
+          "line": 654
         },
         {
           "name": "getAvailablePackageNames",
@@ -20681,7 +20865,7 @@
           "returnDescription": "of `Strings` of all the available package names.",
           "throws": [],
           "propertyType": null,
-          "line": 655
+          "line": 666
         },
         {
           "name": "getAvailablePackageMetadata",
@@ -20698,7 +20882,7 @@
           "returnDescription": "of manifest metadata objects for all available packages.",
           "throws": [],
           "propertyType": null,
-          "line": 667
+          "line": 678
         },
         {
           "name": "getAvailablePackages",
@@ -20735,7 +20919,7 @@
           "returnDescription": "Available package descriptors that own their names, sorted by name.",
           "throws": [],
           "propertyType": null,
-          "line": 688
+          "line": 699
         },
         {
           "name": "getAvailablePackage",
@@ -20762,24 +20946,68 @@
           "returnDescription": "package descriptor or undefined.",
           "throws": [],
           "propertyType": null,
-          "line": 704
+          "line": 713
+        },
+        {
+          "name": "getAvailablePackageIndex",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getAvailablePackageIndex()",
+          "category": "Accessing Available Packages",
+          "visibility": "Experimental",
+          "description": "Take an inventory snapshot for a batch of related package lookups. Both\nlists are read-only and sorted by name. `get(name)` returns the winner.\nRepeated lookups in the same synchronous batch share one directory scan.\nPackage directories added or removed externally are visible on the next batch.\nRefresh the index explicitly after changing a manifest outside the package manager.",
+          "summary": "Take an inventory snapshot for a batch of related package lookups. Both lists are read-only and sorted by name. `get(name)` returns the winner. Repeated lookups in the same synchronous batch share one directory scan. Package directories added or removed externally are visible on the next batch. Refresh the index explicitly after changing a manifest outside the package manager.",
+          "parameters": [],
+          "returnType": "Object",
+          "returnDescription": "The current package inventory snapshot.",
+          "throws": [],
+          "propertyType": null,
+          "line": 729
+        },
+        {
+          "name": "loadAvailablePackageIndex",
+          "kind": "method",
+          "static": false,
+          "async": true,
+          "signature": "::loadAvailablePackageIndex()",
+          "category": "Accessing Available Packages",
+          "visibility": "Experimental",
+          "description": "Discover packages without synchronously enumerating installed directories.\nAn installation changed during discovery invalidates that attempt.",
+          "summary": "Discover packages without synchronously enumerating installed directories. An installation changed during discovery invalidates that attempt.",
+          "parameters": [],
+          "returnType": "Promise<Object>",
+          "returnDescription": "A package inventory with the same shape as getAvailablePackageIndex().",
+          "throws": [],
+          "propertyType": null,
+          "line": 768
         },
         {
           "name": "refreshPackageIndex",
           "kind": "method",
           "static": false,
           "async": false,
-          "signature": "::refreshPackageIndex()",
+          "signature": "::refreshPackageIndex(packagePath)",
           "category": "Accessing Available Packages",
           "visibility": "Public",
-          "description": "Forget everything read from package manifests.\n\nThe directory scan itself always runs fresh, so this only has to be called\nwhen a manifest changes on disk — after an install, update, or uninstall.",
-          "summary": "Forget everything read from package manifests.",
-          "parameters": [],
+          "description": "Invalidate the current inventory and forget resources for a changed copy.",
+          "summary": "Invalidate the current inventory and forget resources for a changed copy.",
+          "parameters": [
+            {
+              "name": "packagePath",
+              "source": "packagePath",
+              "optional": true,
+              "rest": false,
+              "type": "String",
+              "description": "The changed package directory. Omit when the changed paths are unknown and every manifest must be read again.",
+              "defaultValue": null
+            }
+          ],
           "returnType": null,
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 720
+          "line": 824
         },
         {
           "name": "initializePackages",
@@ -20796,7 +21024,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1026
+          "line": 1134
         },
         {
           "name": "unloadPackage",
@@ -20852,7 +21080,7 @@
           "returnDescription": "Resolves with the unloaded package after teardown.",
           "throws": [],
           "propertyType": null,
-          "line": 1425
+          "line": 1534
         },
         {
           "name": "requestService",
@@ -20888,7 +21116,7 @@
           "returnDescription": "Whether a compatible non-null service is published.",
           "throws": [],
           "propertyType": null,
-          "line": 1585
+          "line": 1706
         },
         {
           "name": "startPackage",
@@ -20915,7 +21143,7 @@
           "returnDescription": "The started package. This never waits for a future trigger.",
           "throws": [],
           "propertyType": null,
-          "line": 1636
+          "line": 1760
         },
         {
           "name": "activatePackage",
@@ -20942,7 +21170,7 @@
           "returnDescription": "The active package.",
           "throws": [],
           "propertyType": null,
-          "line": 1668
+          "line": 1792
         },
         {
           "name": "deactivatePackage",
@@ -20988,7 +21216,7 @@
           "returnDescription": "Resolves when the package reaches `loaded`.",
           "throws": [],
           "propertyType": null,
-          "line": 1981
+          "line": 2105
         }
       ]
     },
@@ -24069,7 +24297,7 @@
           "returnDescription": "The event subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 329
+          "line": 334
         },
         {
           "name": "onDidChangePaths",
@@ -24106,7 +24334,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 348
+          "line": 353
         },
         {
           "name": "onDidAddBuffer",
@@ -24143,7 +24371,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 363
+          "line": 368
         },
         {
           "name": "observeBuffers",
@@ -24180,7 +24408,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 378
+          "line": 383
         },
         {
           "name": "onDidChangeFiles",
@@ -24237,7 +24465,7 @@
           "returnDescription": "to manage this event subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 428
+          "line": 433
         },
         {
           "name": "onDidInvalidateFiles",
@@ -24264,7 +24492,7 @@
           "returnDescription": "The event subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 442
+          "line": 447
         },
         {
           "name": "repositoryForDirectory",
@@ -24291,7 +24519,7 @@
           "returnDescription": "The containing repository, or `null` when none is found.",
           "throws": [],
           "propertyType": null,
-          "line": 459
+          "line": 464
         },
         {
           "name": "repositoryForPath",
@@ -24337,7 +24565,7 @@
           "returnDescription": "The containing repository, or `null` when none is found.",
           "throws": [],
           "propertyType": null,
-          "line": 479
+          "line": 484
         },
         {
           "name": "getPaths",
@@ -24354,7 +24582,7 @@
           "returnDescription": "Root directory paths, or `undefined` if corrupt window state prevents reading them.",
           "throws": [],
           "propertyType": null,
-          "line": 520
+          "line": 525
         },
         {
           "name": "setPaths",
@@ -24410,7 +24638,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 541
+          "line": 546
         },
         {
           "name": "setState",
@@ -24437,7 +24665,7 @@
           "returnDescription": "that resolves to `true` once the new state is in place, or to `false` if the window was left as it was — because the paths were already open, none was given, or the user cancelled at the save prompt.",
           "throws": [],
           "propertyType": null,
-          "line": 612
+          "line": 617
         },
         {
           "name": "addPath",
@@ -24493,7 +24721,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 629
+          "line": 634
         },
         {
           "name": "addPaths",
@@ -24529,7 +24757,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 732
+          "line": 737
         },
         {
           "name": "getWatcherPromise",
@@ -24556,7 +24784,7 @@
           "returnDescription": "The root's initialized watcher handle. The default backend supplies a {@link FileWatchHandle}; directory providers may supply their own handle. The Promise will reject with an error instead if `projectPath` is not currently a root directory.",
           "throws": [],
           "propertyType": null,
-          "line": 781
+          "line": 786
         },
         {
           "name": "removePath",
@@ -24583,7 +24811,7 @@
           "returnDescription": "Whether a project root was removed.",
           "throws": [],
           "propertyType": null,
-          "line": 797
+          "line": 802
         },
         {
           "name": "getDirectories",
@@ -24600,7 +24828,7 @@
           "returnDescription": "The current project root directory objects.",
           "throws": [],
           "propertyType": null,
-          "line": 831
+          "line": 836
         },
         {
           "name": "relativizePath",
@@ -24627,7 +24855,7 @@
           "returnDescription": "with two elements:",
           "throws": [],
           "propertyType": null,
-          "line": 877
+          "line": 882
         },
         {
           "name": "contains",
@@ -24654,7 +24882,7 @@
           "returnDescription": "whether the path is inside the project's root directory.",
           "throws": [],
           "propertyType": null,
-          "line": 921
+          "line": 926
         },
         {
           "name": "compileIgnoredNames",
@@ -24700,7 +24928,7 @@
           "returnDescription": "an immutable `{patterns, matches(relativePath)}` matcher.",
           "throws": [],
           "propertyType": null,
-          "line": 948
+          "line": 953
         },
         {
           "name": "crawl",
@@ -24807,7 +25035,7 @@
           "returnDescription": "with a `cancel()` method that resolves the crawl early.",
           "throws": [],
           "propertyType": null,
-          "line": 985
+          "line": 990
         },
         {
           "name": "observeFilePaths",
@@ -24864,7 +25092,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1052
+          "line": 1057
         },
         {
           "name": "getFilePaths",
@@ -24881,7 +25109,7 @@
           "returnDescription": "of `String` absolute paths.",
           "throws": [],
           "propertyType": null,
-          "line": 1085
+          "line": 1090
         },
         {
           "name": "getFilePathsForRoot",
@@ -24908,7 +25136,7 @@
           "returnDescription": "of `String` absolute paths, empty for a path that is not a project root.",
           "throws": [],
           "propertyType": null,
-          "line": 1102
+          "line": 1107
         },
         {
           "name": "hasFilePath",
@@ -24935,7 +25163,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1122
+          "line": 1127
         },
         {
           "name": "getFilePathCount",
@@ -24952,7 +25180,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1136
+          "line": 1141
         },
         {
           "name": "isIndexing",
@@ -24969,7 +25197,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1151
+          "line": 1156
         },
         {
           "name": "refreshFilePaths",
@@ -25006,7 +25234,7 @@
           "returnDescription": "that resolves when the crawl settles.",
           "throws": [],
           "propertyType": null,
-          "line": 1174
+          "line": 1179
         }
       ]
     },
@@ -25671,7 +25899,7 @@
       "source": "src/repository-registry.js",
       "sourcePath": "src/repository-registry.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 284,
+      "line": 292,
       "members": [
         {
           "name": "getActiveRepository",
@@ -25688,7 +25916,7 @@
           "returnDescription": ", or `null` when the active item belongs to none.",
           "throws": [],
           "propertyType": null,
-          "line": 441
+          "line": 449
         },
         {
           "name": "getActiveRepositoryContext",
@@ -25705,7 +25933,7 @@
           "returnDescription": "frozen `Object`.",
           "throws": [],
           "propertyType": null,
-          "line": 463
+          "line": 471
         },
         {
           "name": "isActiveRepositoryPinned",
@@ -25722,7 +25950,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 479
+          "line": 487
         },
         {
           "name": "onDidChangeActiveRepository",
@@ -25749,7 +25977,7 @@
           "returnDescription": "A subscription that can be disposed to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 495
+          "line": 503
         },
         {
           "name": "observeActiveRepository",
@@ -25776,7 +26004,7 @@
           "returnDescription": "A subscription that can be disposed to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 512
+          "line": 520
         },
         {
           "name": "setActiveRepository",
@@ -25822,7 +26050,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 530
+          "line": 538
         },
         {
           "name": "setActiveRepositoryForPath",
@@ -25868,7 +26096,7 @@
           "returnDescription": "that resolves to the {@link GitRepository}, or to `null` when the path is not in one.",
           "throws": [],
           "propertyType": null,
-          "line": 564
+          "line": 572
         },
         {
           "name": "getSnapshot",
@@ -25885,7 +26113,7 @@
           "returnDescription": "frozen `Object`.",
           "throws": [],
           "propertyType": null,
-          "line": 890
+          "line": 898
         },
         {
           "name": "getRepositories",
@@ -25902,7 +26130,7 @@
           "returnDescription": "of {@link GitRepository}.",
           "throws": [],
           "propertyType": null,
-          "line": 908
+          "line": 916
         },
         {
           "name": "getById",
@@ -25929,7 +26157,7 @@
           "returnDescription": ", or `null` if nothing is registered under it.",
           "throws": [],
           "propertyType": null,
-          "line": 921
+          "line": 929
         },
         {
           "name": "observeRepositories",
@@ -25956,7 +26184,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 939
+          "line": 947
         },
         {
           "name": "onDidAddRepository",
@@ -25983,7 +26211,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 953
+          "line": 961
         },
         {
           "name": "onDidRemoveRepository",
@@ -26010,7 +26238,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 969
+          "line": 977
         },
         {
           "name": "onDidChangeRepositoryState",
@@ -26037,7 +26265,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 985
+          "line": 993
         },
         {
           "name": "onDidChange",
@@ -26134,7 +26362,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1016
+          "line": 1024
         },
         {
           "name": "onDidStartRescan",
@@ -26171,7 +26399,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1030
+          "line": 1038
         },
         {
           "name": "onDidFinishRescan",
@@ -26228,7 +26456,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1047
+          "line": 1055
         },
         {
           "name": "onDidQueueOperation",
@@ -26255,7 +26483,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1061
+          "line": 1069
         },
         {
           "name": "onDidStartOperation",
@@ -26282,7 +26510,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1074
+          "line": 1082
         },
         {
           "name": "onDidFinishOperation",
@@ -26309,7 +26537,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1088
+          "line": 1096
         },
         {
           "name": "getForPath",
@@ -26336,7 +26564,7 @@
           "returnDescription": ", or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 1112
+          "line": 1120
         },
         {
           "name": "observeForPath",
@@ -26381,7 +26609,7 @@
           "returnDescription": "disposing discovery delivery and repository retention.",
           "throws": [],
           "propertyType": null,
-          "line": 1141
+          "line": 1149
         },
         {
           "name": "getBufferStatusSummary",
@@ -26447,7 +26675,7 @@
           "returnDescription": "Frozen `{status, staged, unstaged, ignored, conflicted, untracked, canDiff, bufferModified}` summary, or null when Git status is unavailable.",
           "throws": [],
           "propertyType": null,
-          "line": 1168
+          "line": 1176
         },
         {
           "name": "getCommandContext",
@@ -26483,7 +26711,7 @@
           "returnDescription": "frozen {repository, editor, path} context.",
           "throws": [],
           "propertyType": null,
-          "line": 1183
+          "line": 1191
         },
         {
           "name": "resolveForPath",
@@ -26529,7 +26757,7 @@
           "returnDescription": "that resolves to a {@link GitRepository}, or to `null` when the path is not in one.",
           "throws": [],
           "propertyType": null,
-          "line": 1218
+          "line": 1226
         },
         {
           "name": "retain",
@@ -26565,7 +26793,7 @@
           "returnDescription": "that releases the hold.",
           "throws": [],
           "propertyType": null,
-          "line": 1458
+          "line": 1466
         },
         {
           "name": "runOperation",
@@ -26601,7 +26829,7 @@
           "returnDescription": "for whatever the operation returned.",
           "throws": [],
           "propertyType": null,
-          "line": 1486
+          "line": 1494
         },
         {
           "name": "addOperationProvider",
@@ -26647,7 +26875,7 @@
           "returnDescription": "that removes the provider and everything it implemented.",
           "throws": [],
           "propertyType": null,
-          "line": 1547
+          "line": 1555
         },
         {
           "name": "getOperations",
@@ -26674,7 +26902,7 @@
           "returnDescription": "The stable operation facade, or `null` when the repository is not registered. Use {@link #canPerformOperation} to check which methods providers can run.",
           "throws": [],
           "propertyType": null,
-          "line": 1560
+          "line": 1568
         },
         {
           "name": "canPerformOperation",
@@ -26710,7 +26938,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1578
+          "line": 1586
         },
         {
           "name": "getOperationCapabilities",
@@ -26737,7 +26965,7 @@
           "returnDescription": "frozen `Array` of `String` operation names.",
           "throws": [],
           "propertyType": null,
-          "line": 1591
+          "line": 1599
         },
         {
           "name": "getPendingOperations",
@@ -26764,7 +26992,7 @@
           "returnDescription": "frozen `Array` of frozen `Objects`.",
           "throws": [],
           "propertyType": null,
-          "line": 1614
+          "line": 1622
         },
         {
           "name": "getWorkspaceOperationCapabilities",
@@ -26781,7 +27009,7 @@
           "returnDescription": "frozen `Array` of `String` operation names.",
           "throws": [],
           "propertyType": null,
-          "line": 1633
+          "line": 1641
         },
         {
           "name": "canPerformWorkspaceOperation",
@@ -26808,7 +27036,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1646
+          "line": 1654
         },
         {
           "name": "canExecuteGitCommands",
@@ -26825,7 +27053,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1662
+          "line": 1670
         },
         {
           "name": "executeGit",
@@ -26870,7 +27098,7 @@
           "returnDescription": "for the provider's result. It rejects with a `TypeError` if `args` is not an array, and with an `Error` whose `code` is `ERR_GIT_EXECUTION_UNAVAILABLE` when no provider runs Git commands.",
           "throws": [],
           "propertyType": null,
-          "line": 1681
+          "line": 1689
         },
         {
           "name": "initialize",
@@ -26906,7 +27134,7 @@
           "returnDescription": "that resolves to the new {@link GitRepository}. It rejects when no provider implements `initialize`, and with an `Error` whose `code` is `ERR_REPOSITORY_DISCOVERY_FAILED` if the command succeeded but nothing was found at the path afterwards.",
           "throws": [],
           "propertyType": null,
-          "line": 1699
+          "line": 1707
         },
         {
           "name": "clone",
@@ -26951,7 +27179,7 @@
           "returnDescription": "that resolves to the new {@link GitRepository}, and rejects the same way {@link #initialize} does.",
           "throws": [],
           "propertyType": null,
-          "line": 1714
+          "line": 1722
         },
         {
           "name": "performWorkflow",
@@ -27005,7 +27233,7 @@
           "returnDescription": "callback result, with partial/unknown outcomes on failure.",
           "throws": [],
           "propertyType": null,
-          "line": 1767
+          "line": 1775
         },
         {
           "name": "performRemoteOperation",
@@ -27050,7 +27278,7 @@
           "returnDescription": "the named operation result.",
           "throws": [],
           "propertyType": null,
-          "line": 1783
+          "line": 1791
         },
         {
           "name": "add",
@@ -27096,7 +27324,7 @@
           "returnDescription": "that resolves to an `Object`, or to `null` when no live repository remains registered after discovery.",
           "throws": [],
           "propertyType": null,
-          "line": 1887
+          "line": 1895
         },
         {
           "name": "forget",
@@ -27123,7 +27351,7 @@
           "returnDescription": ": `true` if the repository was registered.",
           "throws": [],
           "propertyType": null,
-          "line": 1928
+          "line": 1936
         },
         {
           "name": "update",
@@ -27140,7 +27368,7 @@
           "returnDescription": "that resolves to an `Array` of every registered {@link GitRepository}.",
           "throws": [],
           "propertyType": null,
-          "line": 2099
+          "line": 2107
         }
       ]
     },
@@ -38311,6 +38539,86 @@
           "line": 1461
         },
         {
+          "name": "onDidSettleTextInput",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::onDidSettleTextInput(callback)",
+          "category": "Event Subscription",
+          "visibility": "Experimental",
+          "description": "Observe an editor input after its text and automatic indentation are applied.\nProgrammatic buffer and editor mutations do not emit this event.",
+          "summary": "Observe an editor input after its text and automatic indentation are applied. Programmatic buffer and editor mutations do not emit this event.",
+          "parameters": [
+            {
+              "name": "callback",
+              "source": "callback",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "Receives the input kind, optional text, buffer revisions before and after, and committed changes in application order.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "Disposable",
+          "returnDescription": "Dispose to unsubscribe.",
+          "throws": [],
+          "propertyType": null,
+          "line": 1475
+        },
+        {
+          "name": "isApplyingTextInput",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::isApplyingTextInput()",
+          "category": "Event Subscription",
+          "visibility": "Experimental",
+          "description": "Whether the editor is publishing text on behalf of a user input.",
+          "summary": "Whether the editor is publishing text on behalf of a user input.",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "throws": [],
+          "propertyType": null,
+          "line": 1486
+        },
+        {
+          "name": "dispatchTextInput",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::dispatchTextInput(input, operation)",
+          "category": "Event Subscription",
+          "visibility": "Experimental",
+          "description": "Queue a user input from an editor surface and report its committed edits.",
+          "summary": "Queue a user input from an editor surface and report its committed edits.",
+          "parameters": [
+            {
+              "name": "input",
+              "source": "input",
+              "optional": false,
+              "rest": false,
+              "type": "Object",
+              "description": "A `kind` of `insert`, `delete`, `paste` or `composition`, with optional `text` from the input event.",
+              "defaultValue": null
+            },
+            {
+              "name": "operation",
+              "source": "operation",
+              "optional": false,
+              "rest": false,
+              "type": "Function",
+              "description": "An editor operation, possibly asynchronous.",
+              "defaultValue": null
+            }
+          ],
+          "returnType": "*",
+          "returnDescription": "The operation's result, or a promise for it.",
+          "throws": [],
+          "propertyType": null,
+          "line": 1500
+        },
+        {
           "name": "onWillPublishTextInsertion",
           "kind": "method",
           "static": false,
@@ -38385,7 +38693,7 @@
           "returnDescription": "Subscription to insertion preparation.",
           "throws": [],
           "propertyType": null,
-          "line": 1481
+          "line": 1520
         },
         {
           "name": "onDidSave",
@@ -38432,7 +38740,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1516
+          "line": 1555
         },
         {
           "name": "onDidDestroy",
@@ -38459,7 +38767,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1529
+          "line": 1568
         },
         {
           "name": "observeCursors",
@@ -38496,7 +38804,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1544
+          "line": 1583
         },
         {
           "name": "onDidAddCursor",
@@ -38533,7 +38841,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1559
+          "line": 1598
         },
         {
           "name": "onDidRemoveCursor",
@@ -38570,7 +38878,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1573
+          "line": 1612
         },
         {
           "name": "observeSelections",
@@ -38607,7 +38915,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1588
+          "line": 1627
         },
         {
           "name": "onDidAddSelection",
@@ -38644,7 +38952,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1603
+          "line": 1642
         },
         {
           "name": "onDidRemoveSelection",
@@ -38681,7 +38989,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1617
+          "line": 1656
         },
         {
           "name": "observeDecorations",
@@ -38718,7 +39026,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1632
+          "line": 1671
         },
         {
           "name": "onDidAddDecoration",
@@ -38755,7 +39063,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1646
+          "line": 1685
         },
         {
           "name": "onDidRemoveDecoration",
@@ -38792,7 +39100,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1660
+          "line": 1699
         },
         {
           "name": "onDidChangePlaceholderText",
@@ -38829,7 +39137,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1681
+          "line": 1720
         },
         {
           "name": "setReadOnly",
@@ -38856,7 +39164,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1771
+          "line": 1810
         },
         {
           "name": "isReadOnly",
@@ -38873,7 +39181,7 @@
           "returnDescription": "Whether the editor is read-only.",
           "throws": [],
           "propertyType": null,
-          "line": 1785
+          "line": 1824
         },
         {
           "name": "onDidChangeReadOnly",
@@ -38900,7 +39208,7 @@
           "returnDescription": "Removes the subscription.",
           "throws": [],
           "propertyType": null,
-          "line": 1798
+          "line": 1837
         },
         {
           "name": "observeGutters",
@@ -38937,7 +39245,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1841
+          "line": 1880
         },
         {
           "name": "onDidAddGutter",
@@ -38974,7 +39282,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1855
+          "line": 1894
         },
         {
           "name": "onDidRemoveGutter",
@@ -39011,7 +39319,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 1869
+          "line": 1908
         },
         {
           "name": "getBuffer",
@@ -39028,7 +39336,7 @@
           "returnDescription": "The buffer shared by this editor.",
           "throws": [],
           "propertyType": null,
-          "line": 1902
+          "line": 1941
         },
         {
           "name": "getTitle",
@@ -39045,7 +39353,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1922
+          "line": 1961
         },
         {
           "name": "getLongTitle",
@@ -39062,7 +39370,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1941
+          "line": 1980
         },
         {
           "name": "getPath",
@@ -39079,7 +39387,7 @@
           "returnDescription": "The backing path, or undefined when the buffer has no backing file.",
           "throws": [],
           "propertyType": null,
-          "line": 2039
+          "line": 2078
         },
         {
           "name": "getEncoding",
@@ -39096,7 +39404,7 @@
           "returnDescription": "character set encoding of this editor's text buffer.",
           "throws": [],
           "propertyType": null,
-          "line": 2061
+          "line": 2100
         },
         {
           "name": "getMetadata",
@@ -39133,7 +39441,7 @@
           "returnDescription": "Sections with stable IDs, titles and scalar rows.",
           "throws": [],
           "propertyType": null,
-          "line": 2078
+          "line": 2117
         },
         {
           "name": "onDidChangeMetadata",
@@ -39160,7 +39468,7 @@
           "returnDescription": "Dispose to stop observing metadata changes.",
           "throws": [],
           "propertyType": null,
-          "line": 2121
+          "line": 2160
         },
         {
           "name": "setEncoding",
@@ -39187,7 +39495,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2147
+          "line": 2186
         },
         {
           "name": "getFileState",
@@ -39204,7 +39512,7 @@
           "returnDescription": "`\"unmodified\"`, `\"modified\"`, `\"conflicted\"`, or `\"removed\"`.",
           "throws": [],
           "propertyType": null,
-          "line": 2159
+          "line": 2198
         },
         {
           "name": "isEmpty",
@@ -39221,7 +39529,7 @@
           "returnDescription": "`true` if this editor has no content.",
           "throws": [],
           "propertyType": null,
-          "line": 2172
+          "line": 2211
         },
         {
           "name": "save",
@@ -39238,7 +39546,7 @@
           "returnDescription": "Resolves to the saved text buffer, or rejects with SaveCancelledError when save confirmation is cancelled.",
           "throws": [],
           "propertyType": null,
-          "line": 2189
+          "line": 2228
         },
         {
           "name": "saveAs",
@@ -39265,7 +39573,7 @@
           "returnDescription": "Resolves to the saved text buffer, or rejects with SaveCancelledError when save confirmation is cancelled.",
           "throws": [],
           "propertyType": null,
-          "line": 2205
+          "line": 2244
         },
         {
           "name": "setSaveConfirmation",
@@ -39312,7 +39620,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2225
+          "line": 2264
         },
         {
           "name": "getSaveConfirmation",
@@ -39329,7 +39637,7 @@
           "returnDescription": "The message and optional detail, or null.",
           "throws": [],
           "propertyType": null,
-          "line": 2238
+          "line": 2277
         },
         {
           "name": "canSaveAutomatically",
@@ -39346,7 +39654,7 @@
           "returnDescription": "Whether an automatic save may proceed.",
           "throws": [],
           "propertyType": null,
-          "line": 2253
+          "line": 2292
         },
         {
           "name": "getText",
@@ -39363,7 +39671,7 @@
           "returnDescription": "representing the entire contents of the editor.",
           "throws": [],
           "propertyType": null,
-          "line": 2293
+          "line": 2332
         },
         {
           "name": "getTextInBufferRange",
@@ -39390,7 +39698,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2306
+          "line": 2345
         },
         {
           "name": "getLineCount",
@@ -39407,7 +39715,7 @@
           "returnDescription": "representing the number of lines in the buffer.",
           "throws": [],
           "propertyType": null,
-          "line": 2318
+          "line": 2357
         },
         {
           "name": "getScreenLineCount",
@@ -39424,7 +39732,7 @@
           "returnDescription": "representing the number of screen lines in the editor. This accounts for folds.",
           "throws": [],
           "propertyType": null,
-          "line": 2330
+          "line": 2369
         },
         {
           "name": "getLastBufferRow",
@@ -39441,7 +39749,7 @@
           "returnDescription": "representing the last zero-indexed buffer row number of the editor.",
           "throws": [],
           "propertyType": null,
-          "line": 2346
+          "line": 2385
         },
         {
           "name": "getLastScreenRow",
@@ -39458,7 +39766,7 @@
           "returnDescription": "representing the last zero-indexed screen row number of the editor.",
           "throws": [],
           "propertyType": null,
-          "line": 2358
+          "line": 2397
         },
         {
           "name": "lineTextForBufferRow",
@@ -39485,7 +39793,7 @@
           "returnDescription": "representing the contents of the line at the given buffer row.",
           "throws": [],
           "propertyType": null,
-          "line": 2371
+          "line": 2410
         },
         {
           "name": "lineTextForScreenRow",
@@ -39512,7 +39820,7 @@
           "returnDescription": "The screen-line text, or undefined when the row is outside the rendered screen lines.",
           "throws": [],
           "propertyType": null,
-          "line": 2384
+          "line": 2423
         },
         {
           "name": "requestHighlightingForScreenRows",
@@ -39557,7 +39865,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2453
+          "line": 2492
         },
         {
           "name": "getCurrentParagraphBufferRange",
@@ -39574,7 +39882,7 @@
           "returnDescription": "Inclusive paragraph row bounds, or undefined on a blank row. Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 2539
+          "line": 2578
         },
         {
           "name": "setText",
@@ -39620,7 +39928,7 @@
           "returnDescription": "The range spanning the new contents, or undefined when a read-only editor refuses the edit.",
           "throws": [],
           "propertyType": null,
-          "line": 2558
+          "line": 2597
         },
         {
           "name": "setTextInBufferRange",
@@ -39695,7 +40003,7 @@
           "returnDescription": "The inserted range, or undefined when a read-only editor refuses the edit.",
           "throws": [],
           "propertyType": null,
-          "line": 2577
+          "line": 2616
         },
         {
           "name": "insertText",
@@ -39741,7 +40049,7 @@
           "returnDescription": "The inserted range for each selection, or a promise when automatic indentation requires syntax preparation. Await it before reading the result or issuing dependent edits. Returns false on cancellation, or undefined when a read-only editor refuses the edit.",
           "throws": [],
           "propertyType": null,
-          "line": 2593
+          "line": 2632
         },
         {
           "name": "insertNewline",
@@ -39778,7 +40086,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2800
+          "line": 2839
         },
         {
           "name": "delete",
@@ -39815,7 +40123,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2814
+          "line": 2853
         },
         {
           "name": "backspace",
@@ -39852,7 +40160,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 2829
+          "line": 2868
         },
         {
           "name": "mutateSelectedText",
@@ -39888,7 +40196,7 @@
           "returnDescription": "The callback result for each selection, or undefined when the transaction is aborted.",
           "throws": [],
           "propertyType": null,
-          "line": 2847
+          "line": 2886
         },
         {
           "name": "transpose",
@@ -39935,7 +40243,7 @@
           "returnDescription": "True on completion, false on cancellation, or undefined when refused.",
           "throws": [],
           "propertyType": null,
-          "line": 3351
+          "line": 3390
         },
         {
           "name": "upperCase",
@@ -39982,7 +40290,7 @@
           "returnDescription": "True on completion, false on cancellation, or undefined when refused.",
           "throws": [],
           "propertyType": null,
-          "line": 3376
+          "line": 3415
         },
         {
           "name": "lowerCase",
@@ -40029,7 +40337,7 @@
           "returnDescription": "True on completion, false on cancellation, or undefined when refused.",
           "throws": [],
           "propertyType": null,
-          "line": 3397
+          "line": 3436
         },
         {
           "name": "toggleLineCommentsInSelection",
@@ -40066,7 +40374,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3413
+          "line": 3452
         },
         {
           "name": "collapseBlankLines",
@@ -40103,7 +40411,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3481
+          "line": 3520
         },
         {
           "name": "collapseContentSpaces",
@@ -40140,7 +40448,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3516
+          "line": 3555
         },
         {
           "name": "insertNewlineBelow",
@@ -40177,7 +40485,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3542
+          "line": 3581
         },
         {
           "name": "insertNewlineAbove",
@@ -40214,7 +40522,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3568
+          "line": 3607
         },
         {
           "name": "deleteToBeginningOfWord",
@@ -40251,7 +40559,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3618
+          "line": 3657
         },
         {
           "name": "deleteToPreviousWordBoundary",
@@ -40288,7 +40596,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3633
+          "line": 3672
         },
         {
           "name": "deleteToNextWordBoundary",
@@ -40325,7 +40633,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3648
+          "line": 3687
         },
         {
           "name": "deleteToBeginningOfSubword",
@@ -40362,7 +40670,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3664
+          "line": 3703
         },
         {
           "name": "deleteToEndOfSubword",
@@ -40399,7 +40707,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3680
+          "line": 3719
         },
         {
           "name": "deleteToBeginningOfLine",
@@ -40436,7 +40744,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3696
+          "line": 3735
         },
         {
           "name": "deleteToEndOfLine",
@@ -40473,7 +40781,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3713
+          "line": 3752
         },
         {
           "name": "deleteToNextLineContent",
@@ -40510,7 +40818,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3731
+          "line": 3770
         },
         {
           "name": "deleteToEndOfWord",
@@ -40547,7 +40855,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3790
+          "line": 3829
         },
         {
           "name": "deleteLine",
@@ -40584,7 +40892,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3804
+          "line": 3843
         },
         {
           "name": "undo",
@@ -40621,7 +40929,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3868
+          "line": 3907
         },
         {
           "name": "redo",
@@ -40658,7 +40966,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3886
+          "line": 3925
         },
         {
           "name": "transact",
@@ -40694,7 +41002,7 @@
           "returnDescription": "The callback result, or undefined when the transaction is aborted.",
           "throws": [],
           "propertyType": null,
-          "line": 3914
+          "line": 3953
         },
         {
           "name": "transactWithAutoIndentation",
@@ -40754,13 +41062,43 @@
               "source": "options.groupUndo",
               "rest": false,
               "nested": true
+            },
+            {
+              "name": "options.isCurrent",
+              "type": "Function",
+              "description": "Synchronous owner check before publication.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.isCurrent",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.withCommit",
+              "type": "Function",
+              "description": "Synchronous wrapper that must invoke the commit callback exactly once.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "options.withCommit",
+              "rest": false,
+              "nested": true
+            },
+            {
+              "name": "options.prepareDraftIndentation",
+              "type": "Boolean",
+              "description": "Prepare against a private draft even when syntax runs in the renderer.",
+              "optional": true,
+              "defaultValue": "false",
+              "source": "options.prepareDraftIndentation",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "*|Promise",
           "returnDescription": "The synchronous result, or a promise for prepared publication.",
           "throws": [],
           "propertyType": null,
-          "line": 3942
+          "line": 3984
         },
         {
           "name": "abortTransaction",
@@ -40777,7 +41115,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3962
+          "line": 4009
         },
         {
           "name": "createCheckpoint",
@@ -40794,7 +41132,7 @@
           "returnDescription": "checkpoint value.",
           "throws": [],
           "propertyType": null,
-          "line": 3975
+          "line": 4022
         },
         {
           "name": "revertToCheckpoint",
@@ -40821,7 +41159,7 @@
           "returnDescription": "Whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 3995
+          "line": 4042
         },
         {
           "name": "groupChangesSinceCheckpoint",
@@ -40848,7 +41186,7 @@
           "returnDescription": "indicating whether the operation succeeded.",
           "throws": [],
           "propertyType": null,
-          "line": 4012
+          "line": 4059
         },
         {
           "name": "screenPositionForBufferPosition",
@@ -40884,7 +41222,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4036
+          "line": 4083
         },
         {
           "name": "bufferPositionForScreenPosition",
@@ -40920,7 +41258,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4052
+          "line": 4099
         },
         {
           "name": "screenRangeForBufferRange",
@@ -40956,7 +41294,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4066
+          "line": 4113
         },
         {
           "name": "bufferRangeForScreenRange",
@@ -40983,7 +41321,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4082
+          "line": 4129
         },
         {
           "name": "bufferRangesForScreenColumnBlock",
@@ -41037,7 +41375,7 @@
           "returnDescription": "of `{bufferRange, screenColumn}` objects, one per screen row, where `bufferRange` is a {@link Range} and `screenColumn` is a `Number` or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 4120
+          "line": 4167
         },
         {
           "name": "clipBufferPosition",
@@ -41064,7 +41402,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4147
+          "line": 4194
         },
         {
           "name": "clipBufferRange",
@@ -41091,7 +41429,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4161
+          "line": 4208
         },
         {
           "name": "clipScreenPosition",
@@ -41137,7 +41475,7 @@
           "returnDescription": "The clipped screen position.",
           "throws": [],
           "propertyType": null,
-          "line": 4190
+          "line": 4237
         },
         {
           "name": "clipScreenRange",
@@ -41173,7 +41511,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4205
+          "line": 4252
         },
         {
           "name": "decorateMarker",
@@ -41343,13 +41681,23 @@
               "source": "decorationParams.priority",
               "rest": false,
               "nested": true
+            },
+            {
+              "name": "decorationParams.cursorAnchor",
+              "type": "String",
+              "description": "For `text` decorations that insert visual content. Use `start` for content prepended to the range and `end` for content appended to it. A caret at that boundary and its native input are laid out before the added content.",
+              "optional": true,
+              "defaultValue": null,
+              "source": "decorationParams.cursorAnchor",
+              "rest": false,
+              "nested": true
             }
           ],
           "returnType": "Decoration",
           "returnDescription": "created {@link Decoration} object.",
           "throws": [],
           "propertyType": null,
-          "line": 4281
+          "line": 4329
         },
         {
           "name": "decorateMarkerLayer",
@@ -41385,7 +41733,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4297
+          "line": 4345
         },
         {
           "name": "batchDecorations",
@@ -41412,7 +41760,7 @@
           "returnDescription": "The callback result.",
           "throws": [],
           "propertyType": null,
-          "line": 4317
+          "line": 4365
         },
         {
           "name": "getDecorations",
@@ -41439,7 +41787,7 @@
           "returnDescription": "The decorations matching the property filter.",
           "throws": [],
           "propertyType": null,
-          "line": 4349
+          "line": 4397
         },
         {
           "name": "getLineDecorations",
@@ -41466,7 +41814,7 @@
           "returnDescription": "The decorations matching the property filter.",
           "throws": [],
           "propertyType": null,
-          "line": 4362
+          "line": 4410
         },
         {
           "name": "getLineNumberDecorations",
@@ -41493,7 +41841,7 @@
           "returnDescription": "The decorations matching the property filter.",
           "throws": [],
           "propertyType": null,
-          "line": 4375
+          "line": 4423
         },
         {
           "name": "getHighlightDecorations",
@@ -41520,7 +41868,7 @@
           "returnDescription": "The decorations matching the property filter.",
           "throws": [],
           "propertyType": null,
-          "line": 4388
+          "line": 4436
         },
         {
           "name": "getOverlayDecorations",
@@ -41547,7 +41895,7 @@
           "returnDescription": "The decorations matching the property filter.",
           "throws": [],
           "propertyType": null,
-          "line": 4401
+          "line": 4449
         },
         {
           "name": "markBufferRange",
@@ -41613,7 +41961,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4425
+          "line": 4473
         },
         {
           "name": "markScreenRange",
@@ -41679,7 +42027,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4445
+          "line": 4493
         },
         {
           "name": "markBufferPosition",
@@ -41725,7 +42073,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4462
+          "line": 4510
         },
         {
           "name": "markScreenPosition",
@@ -41781,7 +42129,7 @@
           "returnDescription": "The new marker.",
           "throws": [],
           "propertyType": null,
-          "line": 4480
+          "line": 4528
         },
         {
           "name": "findMarkers",
@@ -41848,7 +42196,7 @@
           "returnDescription": "The markers matching the query.",
           "throws": [],
           "propertyType": null,
-          "line": 4503
+          "line": 4551
         },
         {
           "name": "getMarker",
@@ -41875,7 +42223,7 @@
           "returnDescription": "The marker on the default layer, or undefined when the id is unknown.",
           "throws": [],
           "propertyType": null,
-          "line": 4517
+          "line": 4565
         },
         {
           "name": "getMarkers",
@@ -41892,7 +42240,7 @@
           "returnDescription": "The markers on the default layer.",
           "throws": [],
           "propertyType": null,
-          "line": 4529
+          "line": 4577
         },
         {
           "name": "getMarkerCount",
@@ -41909,7 +42257,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4541
+          "line": 4589
         },
         {
           "name": "addMarkerLayer",
@@ -41966,7 +42314,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4562
+          "line": 4610
         },
         {
           "name": "getMarkerLayer",
@@ -41993,7 +42341,7 @@
           "returnDescription": "The layer, or undefined when the id is unknown.",
           "throws": [],
           "propertyType": null,
-          "line": 4575
+          "line": 4623
         },
         {
           "name": "getDefaultMarkerLayer",
@@ -42010,7 +42358,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4590
+          "line": 4638
         },
         {
           "name": "getCursorBufferPosition",
@@ -42027,7 +42375,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4607
+          "line": 4655
         },
         {
           "name": "getCursorBufferPositions",
@@ -42044,7 +42392,7 @@
           "returnDescription": "The cursor positions in creation order.",
           "throws": [],
           "propertyType": null,
-          "line": 4619
+          "line": 4667
         },
         {
           "name": "setCursorBufferPosition",
@@ -42100,7 +42448,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4636
+          "line": 4684
         },
         {
           "name": "getCursorAtScreenPosition",
@@ -42127,7 +42475,7 @@
           "returnDescription": "first matched {@link Cursor} or undefined",
           "throws": [],
           "propertyType": null,
-          "line": 4649
+          "line": 4697
         },
         {
           "name": "getCursorScreenPosition",
@@ -42144,7 +42492,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4665
+          "line": 4713
         },
         {
           "name": "getCursorScreenPositions",
@@ -42161,7 +42509,7 @@
           "returnDescription": "The cursor positions in creation order.",
           "throws": [],
           "propertyType": null,
-          "line": 4677
+          "line": 4725
         },
         {
           "name": "setCursorScreenPosition",
@@ -42217,7 +42565,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4694
+          "line": 4742
         },
         {
           "name": "addCursorAtBufferPosition",
@@ -42273,7 +42621,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4710
+          "line": 4758
         },
         {
           "name": "addCursorAtScreenPosition",
@@ -42329,7 +42677,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4731
+          "line": 4779
         },
         {
           "name": "hasMultipleCursors",
@@ -42346,7 +42694,7 @@
           "returnDescription": "indicating whether or not there are multiple cursors.",
           "throws": [],
           "propertyType": null,
-          "line": 4748
+          "line": 4796
         },
         {
           "name": "moveUp",
@@ -42373,7 +42721,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4760
+          "line": 4808
         },
         {
           "name": "moveDown",
@@ -42400,7 +42748,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4772
+          "line": 4820
         },
         {
           "name": "moveLeft",
@@ -42427,7 +42775,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4784
+          "line": 4832
         },
         {
           "name": "moveRight",
@@ -42454,7 +42802,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4798
+          "line": 4846
         },
         {
           "name": "moveToBeginningOfLine",
@@ -42471,7 +42819,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4810
+          "line": 4858
         },
         {
           "name": "moveToBeginningOfScreenLine",
@@ -42488,7 +42836,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4820
+          "line": 4868
         },
         {
           "name": "moveToFirstCharacterOfLine",
@@ -42515,7 +42863,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4832
+          "line": 4880
         },
         {
           "name": "moveToEndOfLine",
@@ -42532,7 +42880,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4842
+          "line": 4890
         },
         {
           "name": "moveToEndOfScreenLine",
@@ -42549,7 +42897,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4852
+          "line": 4900
         },
         {
           "name": "moveToBeginningOfWord",
@@ -42566,7 +42914,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4862
+          "line": 4910
         },
         {
           "name": "moveToEndOfWord",
@@ -42583,7 +42931,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4872
+          "line": 4920
         },
         {
           "name": "moveToTop",
@@ -42600,7 +42948,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4886
+          "line": 4934
         },
         {
           "name": "moveToBottom",
@@ -42617,7 +42965,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4898
+          "line": 4946
         },
         {
           "name": "moveToBeginningOfNextWord",
@@ -42634,7 +42982,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4908
+          "line": 4956
         },
         {
           "name": "moveToPreviousWordBoundary",
@@ -42651,7 +42999,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4918
+          "line": 4966
         },
         {
           "name": "moveToNextWordBoundary",
@@ -42668,7 +43016,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4928
+          "line": 4976
         },
         {
           "name": "moveToPreviousSubwordBoundary",
@@ -42685,7 +43033,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4938
+          "line": 4986
         },
         {
           "name": "moveToNextSubwordBoundary",
@@ -42702,7 +43050,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4948
+          "line": 4996
         },
         {
           "name": "moveToBeginningOfNextParagraph",
@@ -42719,7 +43067,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4958
+          "line": 5006
         },
         {
           "name": "moveToBeginningOfPreviousParagraph",
@@ -42736,7 +43084,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4968
+          "line": 5016
         },
         {
           "name": "getLastCursor",
@@ -42753,7 +43101,7 @@
           "returnDescription": "most recently added {@link Cursor}",
           "throws": [],
           "propertyType": null,
-          "line": 4980
+          "line": 5028
         },
         {
           "name": "getWordUnderCursor",
@@ -42780,7 +43128,7 @@
           "returnDescription": "word surrounding the most recently added cursor.",
           "throws": [],
           "propertyType": null,
-          "line": 4994
+          "line": 5042
         },
         {
           "name": "getCursors",
@@ -42797,7 +43145,7 @@
           "returnDescription": "The cursors in creation order.",
           "throws": [],
           "propertyType": null,
-          "line": 5005
+          "line": 5053
         },
         {
           "name": "getCursorsOrderedByBufferPosition",
@@ -42814,7 +43162,7 @@
           "returnDescription": "The cursors ordered by buffer position.",
           "throws": [],
           "propertyType": null,
-          "line": 5019
+          "line": 5067
         },
         {
           "name": "getSelectedText",
@@ -42831,7 +43179,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5085
+          "line": 5133
         },
         {
           "name": "getSelectedBufferRange",
@@ -42848,7 +43196,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5098
+          "line": 5146
         },
         {
           "name": "getSelectedBufferRanges",
@@ -42865,7 +43213,7 @@
           "returnDescription": "The selection ranges in creation order.",
           "throws": [],
           "propertyType": null,
-          "line": 5112
+          "line": 5160
         },
         {
           "name": "setSelectedBufferRange",
@@ -42921,7 +43269,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5128
+          "line": 5176
         },
         {
           "name": "setSelectedBufferRanges",
@@ -42977,7 +43325,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5144
+          "line": 5192
         },
         {
           "name": "getSelectedScreenRange",
@@ -42994,7 +43342,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5174
+          "line": 5222
         },
         {
           "name": "getSelectedScreenRanges",
@@ -43011,7 +43359,7 @@
           "returnDescription": "The selection ranges in creation order.",
           "throws": [],
           "propertyType": null,
-          "line": 5188
+          "line": 5236
         },
         {
           "name": "setSelectedScreenRange",
@@ -43057,7 +43405,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5203
+          "line": 5251
         },
         {
           "name": "setSelectedScreenRanges",
@@ -43103,7 +43451,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5221
+          "line": 5269
         },
         {
           "name": "addSelectionForBufferRange",
@@ -43179,7 +43527,7 @@
           "returnDescription": "added {@link Selection}.",
           "throws": [],
           "propertyType": null,
-          "line": 5256
+          "line": 5304
         },
         {
           "name": "addSelectionForScreenRange",
@@ -43255,7 +43603,7 @@
           "returnDescription": "added {@link Selection}.",
           "throws": [],
           "propertyType": null,
-          "line": 5286
+          "line": 5334
         },
         {
           "name": "selectToBufferPosition",
@@ -43282,7 +43630,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5301
+          "line": 5349
         },
         {
           "name": "selectToScreenPosition",
@@ -43328,7 +43676,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5322
+          "line": 5370
         },
         {
           "name": "selectUp",
@@ -43355,7 +43703,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5344
+          "line": 5392
         },
         {
           "name": "selectDown",
@@ -43382,7 +43730,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5360
+          "line": 5408
         },
         {
           "name": "selectLeft",
@@ -43409,7 +43757,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5376
+          "line": 5424
         },
         {
           "name": "selectRight",
@@ -43436,7 +43784,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5392
+          "line": 5440
         },
         {
           "name": "selectToTop",
@@ -43453,7 +43801,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5405
+          "line": 5453
         },
         {
           "name": "selectToBottom",
@@ -43470,7 +43818,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5418
+          "line": 5466
         },
         {
           "name": "selectAll",
@@ -43487,7 +43835,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5430
+          "line": 5478
         },
         {
           "name": "selectToBeginningOfLine",
@@ -43504,7 +43852,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5443
+          "line": 5491
         },
         {
           "name": "selectToFirstCharacterOfLine",
@@ -43521,7 +43869,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5458
+          "line": 5506
         },
         {
           "name": "selectToEndOfLine",
@@ -43538,7 +43886,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5471
+          "line": 5519
         },
         {
           "name": "selectToBeginningOfWord",
@@ -43555,7 +43903,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5484
+          "line": 5532
         },
         {
           "name": "selectToEndOfWord",
@@ -43572,7 +43920,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5497
+          "line": 5545
         },
         {
           "name": "selectToPreviousSubwordBoundary",
@@ -43589,7 +43937,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5510
+          "line": 5558
         },
         {
           "name": "selectToNextSubwordBoundary",
@@ -43606,7 +43954,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5525
+          "line": 5573
         },
         {
           "name": "selectLinesContainingCursors",
@@ -43623,7 +43971,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5537
+          "line": 5585
         },
         {
           "name": "selectWordsContainingCursors",
@@ -43640,7 +43988,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5547
+          "line": 5595
         },
         {
           "name": "selectSubwordsContainingCursors",
@@ -43657,7 +44005,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5557
+          "line": 5605
         },
         {
           "name": "selectToPreviousWordBoundary",
@@ -43674,7 +44022,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5572
+          "line": 5620
         },
         {
           "name": "selectToNextWordBoundary",
@@ -43691,7 +44039,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5585
+          "line": 5633
         },
         {
           "name": "selectToBeginningOfNextWord",
@@ -43708,7 +44056,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5598
+          "line": 5646
         },
         {
           "name": "selectToBeginningOfNextParagraph",
@@ -43725,7 +44073,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5611
+          "line": 5659
         },
         {
           "name": "selectToBeginningOfPreviousParagraph",
@@ -43742,7 +44090,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5626
+          "line": 5674
         },
         {
           "name": "selectLargerSyntaxNode",
@@ -43759,7 +44107,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5639
+          "line": 5687
         },
         {
           "name": "selectSmallerSyntaxNode",
@@ -43776,7 +44124,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5743
+          "line": 5791
         },
         {
           "name": "selectMarker",
@@ -43803,7 +44151,7 @@
           "returnDescription": "selected {@link Range} or `undefined` if the marker is invalid.",
           "throws": [],
           "propertyType": null,
-          "line": 5759
+          "line": 5807
         },
         {
           "name": "getLastSelection",
@@ -43820,7 +44168,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5775
+          "line": 5823
         },
         {
           "name": "getSelections",
@@ -43837,7 +44185,7 @@
           "returnDescription": "The current selections.",
           "throws": [],
           "propertyType": null,
-          "line": 5795
+          "line": 5843
         },
         {
           "name": "getSelectionsOrderedByBufferPosition",
@@ -43854,7 +44202,7 @@
           "returnDescription": "Selections ordered by their buffer positions.",
           "throws": [],
           "propertyType": null,
-          "line": 5809
+          "line": 5857
         },
         {
           "name": "selectionIntersectsBufferRange",
@@ -43881,7 +44229,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5823
+          "line": 5871
         },
         {
           "name": "destroySelections",
@@ -43908,7 +44256,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5844
+          "line": 5892
         },
         {
           "name": "scan",
@@ -44043,7 +44391,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6148
+          "line": 6196
         },
         {
           "name": "scanInBufferRange",
@@ -44148,7 +44496,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6174
+          "line": 6222
         },
         {
           "name": "backwardsScanInBufferRange",
@@ -44253,7 +44601,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6195
+          "line": 6243
         },
         {
           "name": "getSoftTabs",
@@ -44270,7 +44618,7 @@
           "returnDescription": "indicating whether softTabs are enabled for this editor.",
           "throws": [],
           "propertyType": null,
-          "line": 6211
+          "line": 6259
         },
         {
           "name": "setSoftTabs",
@@ -44297,7 +44645,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6223
+          "line": 6271
         },
         {
           "name": "toggleSoftTabs",
@@ -44314,7 +44662,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6238
+          "line": 6286
         },
         {
           "name": "getTabLength",
@@ -44331,7 +44679,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6250
+          "line": 6298
         },
         {
           "name": "setTabLength",
@@ -44358,7 +44706,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6262
+          "line": 6310
         },
         {
           "name": "usesSoftTabs",
@@ -44375,7 +44723,7 @@
           "returnDescription": "`true` for leading spaces, `false` for a leading hard tab (`\\t`), or `undefined` when no non-comment line has leading whitespace.",
           "throws": [],
           "propertyType": null,
-          "line": 6290
+          "line": 6338
         },
         {
           "name": "getTabText",
@@ -44392,7 +44740,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6327
+          "line": 6375
         },
         {
           "name": "isSoftWrapped",
@@ -44409,7 +44757,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6352
+          "line": 6400
         },
         {
           "name": "setSoftWrapped",
@@ -44436,7 +44784,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6386
+          "line": 6434
         },
         {
           "name": "getSoftWrapMinColumn",
@@ -44453,7 +44801,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6423
+          "line": 6471
         },
         {
           "name": "getSoftWrapMaxColumn",
@@ -44470,7 +44818,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6435
+          "line": 6483
         },
         {
           "name": "getPreferredLineLength",
@@ -44487,7 +44835,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6447
+          "line": 6495
         },
         {
           "name": "toggleSoftWrapped",
@@ -44504,7 +44852,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6459
+          "line": 6507
         },
         {
           "name": "isOvertypeMode",
@@ -44521,7 +44869,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6477
+          "line": 6525
         },
         {
           "name": "setOvertypeMode",
@@ -44548,7 +44896,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6490
+          "line": 6538
         },
         {
           "name": "toggleOvertypeMode",
@@ -44565,7 +44913,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6507
+          "line": 6555
         },
         {
           "name": "applyOvertype",
@@ -44582,7 +44930,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6523
+          "line": 6571
         },
         {
           "name": "getSoftWrapColumn",
@@ -44599,7 +44947,7 @@
           "returnDescription": "The wrapping column, or the large-line safety limit when ordinary wrapping is disabled.",
           "throws": [],
           "propertyType": null,
-          "line": 6540
+          "line": 6588
         },
         {
           "name": "indentationForBufferRow",
@@ -44626,7 +44974,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6580
+          "line": 6628
         },
         {
           "name": "setIndentationForBufferRow",
@@ -44681,7 +45029,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6604
+          "line": 6652
         },
         {
           "name": "indentSelectedRows",
@@ -44728,7 +45076,7 @@
           "returnDescription": "Small edits return per-selection results; await large edits before reading changed text.",
           "throws": [],
           "propertyType": null,
-          "line": 6643
+          "line": 6691
         },
         {
           "name": "outdentSelectedRows",
@@ -44775,7 +45123,7 @@
           "returnDescription": "Small edits return per-selection results; await large edits before reading changed text.",
           "throws": [],
           "propertyType": null,
-          "line": 6663
+          "line": 6711
         },
         {
           "name": "indentLevelForLine",
@@ -44802,7 +45150,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 6685
+          "line": 6733
         },
         {
           "name": "autoIndentSelectedRows",
@@ -44849,7 +45197,7 @@
           "returnDescription": "The changed flag and resulting revision, or undefined when unavailable. Await asynchronous plans before reading changed text.",
           "throws": [],
           "propertyType": null,
-          "line": 6714
+          "line": 6762
         },
         {
           "name": "getGrammar",
@@ -44866,7 +45214,7 @@
           "returnDescription": "The current Tree-sitter grammar or the null grammar sentinel.",
           "throws": [],
           "propertyType": null,
-          "line": 6906
+          "line": 6954
         },
         {
           "name": "getSyntaxAvailability",
@@ -44883,7 +45231,7 @@
           "returnDescription": "Availability with an `available` boolean and optional `reason` and `failure`.",
           "throws": [],
           "propertyType": null,
-          "line": 6920
+          "line": 6968
         },
         {
           "name": "onDidChangeSyntaxAvailability",
@@ -44910,7 +45258,7 @@
           "returnDescription": "Subscription to language-mode availability changes.",
           "throws": [],
           "propertyType": null,
-          "line": 6939
+          "line": 6987
         },
         {
           "name": "retrySyntaxAnalysis",
@@ -44927,7 +45275,7 @@
           "returnDescription": "Whether a new analysis was started.",
           "throws": [],
           "propertyType": null,
-          "line": 6950
+          "line": 6998
         },
         {
           "name": "onDidTokenize",
@@ -44954,7 +45302,7 @@
           "returnDescription": "Subscription to tokenization completion.",
           "throws": [],
           "propertyType": null,
-          "line": 6973
+          "line": 7021
         },
         {
           "name": "whenGrammarSettled",
@@ -44991,7 +45339,7 @@
           "returnDescription": "Resolves to whether the current grammar settled successfully.",
           "throws": [],
           "propertyType": null,
-          "line": 6993
+          "line": 7041
         },
         {
           "name": "getRootScopeDescriptor",
@@ -45008,7 +45356,7 @@
           "returnDescription": "The root grammar scopes, suitable for language-specific {@link Config#get} settings.",
           "throws": [],
           "propertyType": null,
-          "line": 7082
+          "line": 7130
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -45035,7 +45383,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7103
+          "line": 7151
         },
         {
           "name": "getScopeDescriptorsForBufferPositions",
@@ -45071,7 +45419,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7120
+          "line": 7168
         },
         {
           "name": "getCommentDelimitersForBufferPositions",
@@ -45107,7 +45455,7 @@
           "returnDescription": "Null when the analysis was invalidated.",
           "throws": [],
           "propertyType": null,
-          "line": 7135
+          "line": 7183
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -45134,7 +45482,7 @@
           "returnDescription": "Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7206
+          "line": 7254
         },
         {
           "name": "getSyntaxNodeAtBufferPosition",
@@ -45170,7 +45518,7 @@
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 7237
+          "line": 7285
         },
         {
           "name": "getSyntaxNodeContainingBufferRange",
@@ -45206,7 +45554,7 @@
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 7265
+          "line": 7313
         },
         {
           "name": "hasGrammarQuery",
@@ -45233,7 +45581,7 @@
           "returnDescription": "Whether the query is declared by a current language layer.",
           "throws": [],
           "propertyType": null,
-          "line": 7285
+          "line": 7333
         },
         {
           "name": "getGrammarQueryCaptureGroups",
@@ -45279,7 +45627,7 @@
           "returnDescription": "Resolves to grammar/captures groups from the current language layers.",
           "throws": [],
           "propertyType": null,
-          "line": 7315
+          "line": 7363
         },
         {
           "name": "analyzeSyntax",
@@ -45353,7 +45701,7 @@
           "returnDescription": "Analysis data, or null when analysis is unavailable, disabled by None, or the invocation becomes obsolete. Errors in package analysis code still reject.",
           "throws": [],
           "propertyType": null,
-          "line": 7352
+          "line": 7400
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -45380,7 +45728,7 @@
           "returnDescription": "The matching buffer range, or null/undefined when no matching scope is found.",
           "throws": [],
           "propertyType": null,
-          "line": 7394
+          "line": 7442
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -45416,7 +45764,7 @@
           "returnDescription": "The matching buffer range, or null/undefined when no matching scope is found.",
           "throws": [],
           "propertyType": null,
-          "line": 7412
+          "line": 7460
         },
         {
           "name": "isBufferRowCommented",
@@ -45443,7 +45791,7 @@
           "returnDescription": "Whether the first non-whitespace character has a comment scope, or undefined for a blank row. Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7426
+          "line": 7474
         },
         {
           "name": "copySelectedText",
@@ -45470,7 +45818,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7482
+          "line": 7530
         },
         {
           "name": "cutSelectedText",
@@ -45517,7 +45865,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7509
+          "line": 7557
         },
         {
           "name": "pasteText",
@@ -45554,7 +45902,7 @@
           "returnDescription": "A promise when clipboard reading or indentation is asynchronous, false when an observer cancels a synchronous paste, or undefined on synchronous completion or refusal.",
           "throws": [],
           "propertyType": null,
-          "line": 7535
+          "line": 7583
         },
         {
           "name": "cutToEndOfLine",
@@ -45601,7 +45949,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7799
+          "line": 7847
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -45648,7 +45996,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7821
+          "line": 7869
         },
         {
           "name": "getFoldableRangeAtBufferRow",
@@ -45675,7 +46023,7 @@
           "returnDescription": "The exact foldable range, or `null` when the row does not start one. Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7847
+          "line": 7895
         },
         {
           "name": "foldCurrentRow",
@@ -45692,7 +46040,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7862
+          "line": 7910
         },
         {
           "name": "unfoldCurrentRow",
@@ -45709,7 +46057,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7893
+          "line": 7941
         },
         {
           "name": "foldBufferRow",
@@ -45755,7 +46103,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7914
+          "line": 7962
         },
         {
           "name": "unfoldBufferRow",
@@ -45782,7 +46130,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8025
+          "line": 8073
         },
         {
           "name": "foldSelectedLines",
@@ -45799,7 +46147,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8038
+          "line": 8086
         },
         {
           "name": "foldAll",
@@ -45816,7 +46164,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8050
+          "line": 8098
         },
         {
           "name": "unfoldAll",
@@ -45833,7 +46181,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8072
+          "line": 8120
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -45860,7 +46208,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8088
+          "line": 8136
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -45887,7 +46235,7 @@
           "returnDescription": "Whether the row is foldable; undefined when the language mode supplies no foldability check.",
           "throws": [],
           "propertyType": null,
-          "line": 8115
+          "line": 8163
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -45914,7 +46262,7 @@
           "returnDescription": "Whether the row is foldable; undefined when the language mode supplies no foldability check.",
           "throws": [],
           "propertyType": null,
-          "line": 8141
+          "line": 8189
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -45941,7 +46289,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8153
+          "line": 8201
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -45958,7 +46306,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8207
+          "line": 8255
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -45985,7 +46333,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8220
+          "line": 8268
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -46012,7 +46360,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8237
+          "line": 8285
         },
         {
           "name": "addGutter",
@@ -46239,7 +46587,7 @@
           "returnDescription": "newly-created {@link Gutter}.",
           "throws": [],
           "propertyType": null,
-          "line": 8301
+          "line": 8349
         },
         {
           "name": "getGutters",
@@ -46256,7 +46604,7 @@
           "returnDescription": "The gutters in display order.",
           "throws": [],
           "propertyType": null,
-          "line": 8313
+          "line": 8361
         },
         {
           "name": "gutterWithName",
@@ -46283,7 +46631,7 @@
           "returnDescription": "The named gutter, or null when no matching gutter exists.",
           "throws": [],
           "propertyType": null,
-          "line": 8330
+          "line": 8378
         },
         {
           "name": "scrollToCursorPosition",
@@ -46320,7 +46668,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8348
+          "line": 8396
         },
         {
           "name": "scrollToZone",
@@ -46337,7 +46685,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8358
+          "line": 8406
         },
         {
           "name": "scrollToBufferPosition",
@@ -46383,7 +46731,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8372
+          "line": 8420
         },
         {
           "name": "scrollToScreenPosition",
@@ -46429,7 +46777,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8389
+          "line": 8437
         },
         {
           "name": "scrollToScreenRange",
@@ -46495,7 +46843,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8405
+          "line": 8453
         },
         {
           "name": "shouldAutoIndent",
@@ -46512,7 +46860,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8467
+          "line": 8515
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -46529,7 +46877,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8479
+          "line": 8527
         },
         {
           "name": "getScrollPastEnd",
@@ -46546,7 +46894,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8491
+          "line": 8539
         },
         {
           "name": "getScrollZone",
@@ -46563,7 +46911,7 @@
           "returnDescription": "The two landing percentages, preserving their order.",
           "throws": [],
           "propertyType": null,
-          "line": 8507
+          "line": 8555
         },
         {
           "name": "getWheelScrollMultiplier",
@@ -46580,7 +46928,7 @@
           "returnDescription": "positive distance multiplier.",
           "throws": [],
           "propertyType": null,
-          "line": 8521
+          "line": 8569
         },
         {
           "name": "getSmoothScrolling",
@@ -46597,7 +46945,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8533
+          "line": 8581
         },
         {
           "name": "getWheelScrollDuration",
@@ -46614,7 +46962,7 @@
           "returnDescription": "non-negative duration in milliseconds.",
           "throws": [],
           "propertyType": null,
-          "line": 8548
+          "line": 8596
         },
         {
           "name": "getCommandScrollDuration",
@@ -46631,7 +46979,7 @@
           "returnDescription": "non-negative duration in milliseconds.",
           "throws": [],
           "propertyType": null,
-          "line": 8563
+          "line": 8611
         },
         {
           "name": "getAltWheelScrollMultiplier",
@@ -46648,7 +46996,7 @@
           "returnDescription": "positive distance multiplier.",
           "throws": [],
           "propertyType": null,
-          "line": 8577
+          "line": 8625
         },
         {
           "name": "getCommandScrollDistance",
@@ -46665,7 +47013,7 @@
           "returnDescription": "positive distance in editor heights.",
           "throws": [],
           "propertyType": null,
-          "line": 8591
+          "line": 8639
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -46682,7 +47030,7 @@
           "returnDescription": "non-negative `Number`.",
           "throws": [],
           "propertyType": null,
-          "line": 8604
+          "line": 8652
         },
         {
           "name": "doesShowLineNumbers",
@@ -46699,7 +47047,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8616
+          "line": 8664
         },
         {
           "name": "getUndoGroupingInterval",
@@ -46716,7 +47064,7 @@
           "returnDescription": "time interval `Number` in milliseconds.",
           "throws": [],
           "propertyType": null,
-          "line": 8629
+          "line": 8677
         },
         {
           "name": "getNonWordCharacters",
@@ -46743,7 +47091,7 @@
           "returnDescription": "containing the non-word characters.",
           "throws": [],
           "propertyType": null,
-          "line": 8643
+          "line": 8691
         },
         {
           "name": "getElement",
@@ -46760,7 +47108,7 @@
           "returnDescription": "The editor's view element.",
           "throws": [],
           "propertyType": null,
-          "line": 8706
+          "line": 8754
         },
         {
           "name": "getPlaceholderText",
@@ -46777,7 +47125,7 @@
           "returnDescription": "The placeholder text, or undefined when none is configured.",
           "throws": [],
           "propertyType": null,
-          "line": 8733
+          "line": 8781
         },
         {
           "name": "setPlaceholderText",
@@ -46804,7 +47152,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8746
+          "line": 8794
         },
         {
           "name": "getRenderedBufferRanges",
@@ -46821,7 +47169,7 @@
           "returnDescription": "Ordered, non-overlapping buffer ranges with exclusive ends.",
           "throws": [],
           "propertyType": null,
-          "line": 8869
+          "line": 8917
         },
         {
           "name": "hasPendingIndentation",
@@ -46838,7 +47186,24 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8955
+          "line": 9003
+        },
+        {
+          "name": "hasPendingTextInput",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::hasPendingTextInput()",
+          "category": "Language Mode Delegated Methods",
+          "visibility": "Experimental",
+          "description": "Whether the editor has input or indentation waiting to finish.",
+          "summary": "Whether the editor has input or indentation waiting to finish.",
+          "parameters": [],
+          "returnType": "Boolean",
+          "returnDescription": "",
+          "throws": [],
+          "propertyType": null,
+          "line": 9018
         },
         {
           "name": "whenPendingTextInputSettled",
@@ -46875,7 +47240,7 @@
           "returnDescription": "Whether the existing input settled without superseding intent.",
           "throws": [],
           "propertyType": null,
-          "line": 8976
+          "line": 9037
         },
         {
           "name": "isApplyingAutomaticIndentation",
@@ -46892,7 +47257,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 9027
+          "line": 9088
         },
         {
           "name": "autoIndentBufferRowsAtRows",
@@ -46938,7 +47303,7 @@
           "returnDescription": "The changed flag and resulting revision, or undefined when obsolete.",
           "throws": [],
           "propertyType": null,
-          "line": 9198
+          "line": 9259
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -46965,7 +47330,7 @@
           "returnDescription": "The appropriate comment delimiters, or `null` when none are known.",
           "throws": [],
           "propertyType": null,
-          "line": 9632
+          "line": 9693
         },
         {
           "name": "getParagraphRangesForBufferRows",
@@ -47001,7 +47366,7 @@
           "returnDescription": "Null when invalidated.",
           "throws": [],
           "propertyType": null,
-          "line": 9696
+          "line": 9757
         }
       ]
     },
@@ -47129,6 +47494,23 @@
           "line": 306
         },
         {
+          "name": "getInputElement",
+          "kind": "method",
+          "static": false,
+          "async": false,
+          "signature": "::getInputElement()",
+          "category": "Scrolling",
+          "visibility": "Extended",
+          "description": "Return the element that receives keyboard input for this editor.\nUse it to associate an accessible popup with the focused control.",
+          "summary": "Return the element that receives keyboard input for this editor. Use it to associate an accessible popup with the focused control.",
+          "parameters": [],
+          "returnType": "HTMLInputElement",
+          "returnDescription": "",
+          "throws": [],
+          "propertyType": null,
+          "line": 322
+        },
+        {
           "name": "pixelPositionForBufferPosition",
           "kind": "method",
           "static": false,
@@ -47153,7 +47535,7 @@
           "returnDescription": "with two values: `top` and `left`, representing the pixel position.",
           "throws": [],
           "propertyType": null,
-          "line": 333
+          "line": 345
         },
         {
           "name": "pixelPositionForScreenPosition",
@@ -47180,7 +47562,7 @@
           "returnDescription": "with two values: `top` and `left`, representing the pixel position.",
           "throws": [],
           "propertyType": null,
-          "line": 352
+          "line": 364
         },
         {
           "name": "pixelPositionBeforeBlocksForScreenRow",
@@ -47226,7 +47608,7 @@
           "returnDescription": "Vertical pixel offset before this row's blocks.",
           "throws": [],
           "propertyType": null,
-          "line": 371
+          "line": 383
         },
         {
           "name": "pixelPositionAfterBlocksForScreenRow",
@@ -47272,7 +47654,7 @@
           "returnDescription": "Vertical pixel offset after this row's blocks.",
           "throws": [],
           "propertyType": null,
-          "line": 390
+          "line": 402
         },
         {
           "name": "invalidateBlockDecorationDimensions",
@@ -47299,7 +47681,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 464
+          "line": 476
         },
         {
           "name": "pinScrollAnchorToBlockDecoration",
@@ -47326,7 +47708,7 @@
           "returnDescription": "ends the pin",
           "throws": [],
           "propertyType": null,
-          "line": 486
+          "line": 498
         }
       ]
     },
@@ -50144,7 +50526,7 @@
       "source": "src/workspace.js",
       "sourcePath": "src/workspace.js",
       "repository": "https://github.com/lumine-code/lumine",
-      "line": 375,
+      "line": 383,
       "members": [
         {
           "name": "getMainWindow",
@@ -50161,7 +50543,7 @@
           "returnDescription": "The main window, or null before window initialization.",
           "throws": [],
           "propertyType": null,
-          "line": 567
+          "line": 575
         },
         {
           "name": "getWindows",
@@ -50178,7 +50560,7 @@
           "returnDescription": "The current windows.",
           "throws": [],
           "propertyType": null,
-          "line": 579
+          "line": 587
         },
         {
           "name": "openEditorWindow",
@@ -50205,7 +50587,7 @@
           "returnDescription": "The ready presentation window.",
           "throws": [],
           "propertyType": null,
-          "line": 593
+          "line": 601
         },
         {
           "name": "observeWindows",
@@ -50232,7 +50614,7 @@
           "returnDescription": "Removes the observation.",
           "throws": [],
           "propertyType": null,
-          "line": 690
+          "line": 698
         },
         {
           "name": "getFocusedWindow",
@@ -50249,7 +50631,7 @@
           "returnDescription": "The focused window, or null when the workspace lacks focus.",
           "throws": [],
           "propertyType": null,
-          "line": 703
+          "line": 711
         },
         {
           "name": "getWindowForElement",
@@ -50276,7 +50658,7 @@
           "returnDescription": "The owning presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 716
+          "line": 724
         },
         {
           "name": "resolveCommandContext",
@@ -50303,7 +50685,7 @@
           "returnDescription": "window, pane, item, editor, fileEditor and embeddedEditor.",
           "throws": [],
           "propertyType": null,
-          "line": 741
+          "line": 749
         },
         {
           "name": "closeEditorWindow",
@@ -50330,7 +50712,7 @@
           "returnDescription": "Whether the auxiliary window closed or the main-window close request was sent. False means the window was unavailable, busy, or refused closing.",
           "throws": [],
           "propertyType": null,
-          "line": 789
+          "line": 797
         },
         {
           "name": "detachPane",
@@ -50357,7 +50739,7 @@
           "returnDescription": "The new presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 865
+          "line": 873
         },
         {
           "name": "detachItem",
@@ -50384,7 +50766,7 @@
           "returnDescription": "The additional presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 901
+          "line": 909
         },
         {
           "name": "attachWindow",
@@ -50411,7 +50793,7 @@
           "returnDescription": "The main presentation after reattachment.",
           "throws": [],
           "propertyType": null,
-          "line": 931
+          "line": 939
         },
         {
           "name": "registerFileDocument",
@@ -50488,7 +50870,7 @@
           "returnDescription": "The document registration.",
           "throws": [],
           "propertyType": null,
-          "line": 1028
+          "line": 1036
         },
         {
           "name": "beginFileMove",
@@ -50515,7 +50897,7 @@
           "returnDescription": "A transaction with a ready promise and an asynchronous complete(confirmedRenames) method.",
           "throws": [],
           "propertyType": null,
-          "line": 1043
+          "line": 1051
         },
         {
           "name": "addDefaultDockItem",
@@ -50542,7 +50924,7 @@
           "returnDescription": "The registration to dispose when the package deactivates.",
           "throws": [],
           "propertyType": null,
-          "line": 1292
+          "line": 1300
         },
         {
           "name": "clear",
@@ -50588,7 +50970,7 @@
           "returnDescription": "that resolves once they are empty.",
           "throws": [],
           "propertyType": null,
-          "line": 1617
+          "line": 1641
         },
         {
           "name": "observeTextEditors",
@@ -50625,7 +51007,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2250
+          "line": 2274
         },
         {
           "name": "observePaneItems",
@@ -50662,7 +51044,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2268
+          "line": 2292
         },
         {
           "name": "onDidChangePaneItemURI",
@@ -50689,7 +51071,7 @@
           "returnDescription": "Subscription to the URI changes.",
           "throws": [],
           "propertyType": null,
-          "line": 2285
+          "line": 2309
         },
         {
           "name": "onDidChangeActivePaneItem",
@@ -50726,7 +51108,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2329
+          "line": 2353
         },
         {
           "name": "onDidStopChangingActivePaneItem",
@@ -50763,7 +51145,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2350
+          "line": 2374
         },
         {
           "name": "onDidChangeActiveTextEditor",
@@ -50800,7 +51182,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2365
+          "line": 2389
         },
         {
           "name": "observeActivePaneItem",
@@ -50837,7 +51219,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2380
+          "line": 2404
         },
         {
           "name": "observeActiveTextEditor",
@@ -50874,7 +51256,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2397
+          "line": 2421
         },
         {
           "name": "onDidChangeActiveFileTextEditor",
@@ -50911,7 +51293,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2414
+          "line": 2438
         },
         {
           "name": "observeActiveFileTextEditor",
@@ -50948,7 +51330,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2429
+          "line": 2453
         },
         {
           "name": "onDidChangeActiveEmbeddedTextEditor",
@@ -50985,7 +51367,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2446
+          "line": 2470
         },
         {
           "name": "observeActiveEmbeddedTextEditor",
@@ -51022,7 +51404,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2461
+          "line": 2485
         },
         {
           "name": "onDidOpen",
@@ -51099,7 +51481,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2483
+          "line": 2507
         },
         {
           "name": "onDidAddPane",
@@ -51146,7 +51528,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2498
+          "line": 2522
         },
         {
           "name": "onWillDestroyPane",
@@ -51193,7 +51575,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2516
+          "line": 2540
         },
         {
           "name": "onDidDestroyPane",
@@ -51240,7 +51622,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2534
+          "line": 2558
         },
         {
           "name": "observePanes",
@@ -51277,7 +51659,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2551
+          "line": 2575
         },
         {
           "name": "onDidChangeActivePane",
@@ -51314,7 +51696,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2567
+          "line": 2591
         },
         {
           "name": "observeActivePane",
@@ -51351,7 +51733,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2582
+          "line": 2606
         },
         {
           "name": "onDidAddPaneItem",
@@ -51418,7 +51800,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2601
+          "line": 2625
         },
         {
           "name": "onWillDestroyPaneItem",
@@ -51485,7 +51867,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2621
+          "line": 2645
         },
         {
           "name": "onDidDestroyPaneItem",
@@ -51552,7 +51934,7 @@
           "returnDescription": "on which `.dispose` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2640
+          "line": 2664
         },
         {
           "name": "onDidAddTextEditor",
@@ -51619,7 +52001,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 2660
+          "line": 2684
         },
         {
           "name": "open",
@@ -51795,7 +52177,7 @@
           "returnDescription": "that resolves to the opened item, or `undefined` when cancelled or refused.",
           "throws": [],
           "propertyType": null,
-          "line": 2703
+          "line": 2727
         },
         {
           "name": "hide",
@@ -51822,7 +52204,7 @@
           "returnDescription": "indicating whether any visible matching items were found and hiding or closing was requested.",
           "throws": [],
           "propertyType": null,
-          "line": 3183
+          "line": 3207
         },
         {
           "name": "toggle",
@@ -51849,7 +52231,7 @@
           "returnDescription": "that resolves when the item is shown or hidden, or to `false` if closing a center item is prevented or cancelled. Rejects if closing fails.",
           "throws": [],
           "propertyType": null,
-          "line": 3237
+          "line": 3261
         },
         {
           "name": "createItemForURI",
@@ -51903,7 +52285,7 @@
           "returnDescription": "that resolves to the {@link TextEditor} (or other item) for the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 3379
+          "line": 3403
         },
         {
           "name": "isTextEditor",
@@ -51930,7 +52312,7 @@
           "returnDescription": "that is `true` if `object` is a `TextEditor`.",
           "throws": [],
           "propertyType": null,
-          "line": 3579
+          "line": 3610
         },
         {
           "name": "buildTextEditor",
@@ -51957,7 +52339,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3593
+          "line": 3624
         },
         {
           "name": "buildSelectList",
@@ -51984,7 +52366,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3637
+          "line": 3668
         },
         {
           "name": "addSelectList",
@@ -52090,7 +52472,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3672
+          "line": 3703
         },
         {
           "name": "buildInputDialog",
@@ -52117,7 +52499,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3700
+          "line": 3731
         },
         {
           "name": "addInputDialog",
@@ -52213,7 +52595,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 3724
+          "line": 3755
         },
         {
           "name": "popModal",
@@ -52240,7 +52622,7 @@
           "returnDescription": "— `false` when there is no step to go back to.",
           "throws": [],
           "propertyType": null,
-          "line": 3757
+          "line": 3788
         },
         {
           "name": "popModalTo",
@@ -52267,7 +52649,7 @@
           "returnDescription": "— `false` when the index is not an earlier step.",
           "throws": [],
           "propertyType": null,
-          "line": 3771
+          "line": 3802
         },
         {
           "name": "getModalTrail",
@@ -52284,7 +52666,7 @@
           "returnDescription": "of `String` labels, root first; empty when no flow is active.",
           "throws": [],
           "propertyType": null,
-          "line": 3783
+          "line": 3814
         },
         {
           "name": "onDidChangeModalTrail",
@@ -52311,7 +52693,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 3798
+          "line": 3829
         },
         {
           "name": "reopenItem",
@@ -52328,7 +52710,7 @@
           "returnDescription": "that is resolved when the item is opened",
           "throws": [],
           "propertyType": null,
-          "line": 3812
+          "line": 3843
         },
         {
           "name": "addOpener",
@@ -52384,7 +52766,7 @@
           "returnDescription": "on which `.dispose()` can be called to remove the opener.",
           "throws": [],
           "propertyType": null,
-          "line": 3855
+          "line": 3886
         },
         {
           "name": "onWillResolvePathOpeners",
@@ -52411,7 +52793,7 @@
           "returnDescription": "Removes this callback; opener registrations remain separately owned.",
           "throws": [],
           "propertyType": null,
-          "line": 3885
+          "line": 3916
         },
         {
           "name": "addPathOpener",
@@ -52538,7 +52920,7 @@
           "returnDescription": "Removes this opener and its preview capabilities.",
           "throws": [],
           "propertyType": null,
-          "line": 3929
+          "line": 3960
         },
         {
           "name": "getAvailablePathOpeners",
@@ -52584,7 +52966,7 @@
           "returnDescription": "Descriptors containing `id`, `label`, `isDefault` and `destinations`.",
           "throws": [],
           "propertyType": null,
-          "line": 4025
+          "line": 4056
         },
         {
           "name": "openPathInNewWindow",
@@ -52680,7 +53062,7 @@
           "returnDescription": "Resolves after requesting the new window.",
           "throws": [],
           "propertyType": null,
-          "line": 4131
+          "line": 4162
         },
         {
           "name": "getPaneItems",
@@ -52697,7 +53079,7 @@
           "returnDescription": "of items.",
           "throws": [],
           "propertyType": null,
-          "line": 4189
+          "line": 4220
         },
         {
           "name": "getActivePaneItem",
@@ -52714,7 +53096,7 @@
           "returnDescription": "The active item, or undefined when the active pane is empty.",
           "throws": [],
           "propertyType": null,
-          "line": 4201
+          "line": 4232
         },
         {
           "name": "getTextEditors",
@@ -52731,7 +53113,7 @@
           "returnDescription": "of {@link TextEditor TextEditors}.",
           "throws": [],
           "propertyType": null,
-          "line": 4214
+          "line": 4245
         },
         {
           "name": "getActiveTextEditor",
@@ -52748,7 +53130,7 @@
           "returnDescription": "or `undefined` if the workspace center's current active item is not a {@link TextEditor}.",
           "throws": [],
           "propertyType": null,
-          "line": 4244
+          "line": 4275
         },
         {
           "name": "getTextEditorForElement",
@@ -52794,7 +53176,7 @@
           "returnDescription": "The containing editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 4267
+          "line": 4298
         },
         {
           "name": "getFocusedTextEditor",
@@ -52831,7 +53213,7 @@
           "returnDescription": "The focused editor, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 4291
+          "line": 4322
         },
         {
           "name": "getActiveFileTextEditor",
@@ -52848,7 +53230,7 @@
           "returnDescription": "or `undefined` when the active item holds no file content.",
           "throws": [],
           "propertyType": null,
-          "line": 4314
+          "line": 4345
         },
         {
           "name": "getActiveEmbeddedTextEditor",
@@ -52865,7 +53247,7 @@
           "returnDescription": "or `undefined` when nothing editable is active.",
           "throws": [],
           "propertyType": null,
-          "line": 4344
+          "line": 4375
         },
         {
           "name": "saveActivePaneItem",
@@ -52892,7 +53274,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4387
+          "line": 4418
         },
         {
           "name": "saveActivePaneItemAs",
@@ -52919,7 +53301,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4408
+          "line": 4439
         },
         {
           "name": "destroyActivePaneItem",
@@ -52936,7 +53318,7 @@
           "returnDescription": "Whether the active item was closed.",
           "throws": [],
           "propertyType": null,
-          "line": 4435
+          "line": 4466
         },
         {
           "name": "getActivePaneContainer",
@@ -52953,7 +53335,7 @@
           "returnDescription": "or the {@link WorkspaceCenter}.",
           "throws": [],
           "propertyType": null,
-          "line": 4451
+          "line": 4482
         },
         {
           "name": "getPanes",
@@ -52970,7 +53352,7 @@
           "returnDescription": "of {@link Pane Panes}.",
           "throws": [],
           "propertyType": null,
-          "line": 4463
+          "line": 4494
         },
         {
           "name": "getVisiblePanes",
@@ -52987,7 +53369,7 @@
           "returnDescription": "The panes available in the current presentation.",
           "throws": [],
           "propertyType": null,
-          "line": 4477
+          "line": 4508
         },
         {
           "name": "getActivePane",
@@ -53004,7 +53386,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4494
+          "line": 4525
         },
         {
           "name": "focusPaneInDirection",
@@ -53050,7 +53432,7 @@
           "returnDescription": "The pane that received focus.",
           "throws": [],
           "propertyType": null,
-          "line": 4508
+          "line": 4539
         },
         {
           "name": "movePaneItem",
@@ -53086,7 +53468,7 @@
           "returnDescription": "The final {pane, item}.",
           "throws": [],
           "propertyType": null,
-          "line": 4525
+          "line": 4556
         },
         {
           "name": "copyPaneItem",
@@ -53122,7 +53504,7 @@
           "returnDescription": "The final {pane, item}, or null when copy() is absent or canCopy() returns false; cancellation rejects with ABORT_ERR.",
           "throws": [],
           "propertyType": null,
-          "line": 4539
+          "line": 4570
         },
         {
           "name": "activateNextPane",
@@ -53139,7 +53521,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4549
+          "line": 4580
         },
         {
           "name": "activatePreviousPane",
@@ -53156,7 +53538,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4559
+          "line": 4590
         },
         {
           "name": "paneContainerForURI",
@@ -53183,7 +53565,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 4574
+          "line": 4605
         },
         {
           "name": "paneContainerForItem",
@@ -53210,7 +53592,7 @@
           "returnDescription": ", the {@link WorkspaceCenter}, or `undefined` if no pane container contains the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 4588
+          "line": 4619
         },
         {
           "name": "paneForURI",
@@ -53237,7 +53619,7 @@
           "returnDescription": "or `undefined` if no item exists with the given URI.",
           "throws": [],
           "propertyType": null,
-          "line": 4601
+          "line": 4632
         },
         {
           "name": "paneForItem",
@@ -53264,7 +53646,7 @@
           "returnDescription": "or `undefined` if no pane exists for the given item.",
           "throws": [],
           "propertyType": null,
-          "line": 4619
+          "line": 4650
         },
         {
           "name": "closeActivePaneItemOrEmptyPaneOrWindow",
@@ -53291,7 +53673,7 @@
           "returnDescription": "The selected close operation, or undefined when closing an empty window is disabled.",
           "throws": [],
           "propertyType": null,
-          "line": 4649
+          "line": 4680
         },
         {
           "name": "getCenter",
@@ -53308,7 +53690,7 @@
           "returnDescription": "The document-pane aggregate for this workspace.",
           "throws": [],
           "propertyType": null,
-          "line": 4744
+          "line": 4775
         },
         {
           "name": "getLeftDock",
@@ -53325,7 +53707,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4755
+          "line": 4786
         },
         {
           "name": "getRightDock",
@@ -53342,7 +53724,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4766
+          "line": 4797
         },
         {
           "name": "getBottomDock",
@@ -53359,7 +53741,7 @@
           "returnDescription": "The main window's dock.",
           "throws": [],
           "propertyType": null,
-          "line": 4777
+          "line": 4808
         },
         {
           "name": "beginLayoutResize",
@@ -53376,7 +53758,7 @@
           "returnDescription": "Ends this resize session; repeated disposal is safe.",
           "throws": [],
           "propertyType": null,
-          "line": 4810
+          "line": 4841
         },
         {
           "name": "beginLayoutDrag",
@@ -53393,7 +53775,7 @@
           "returnDescription": "on which `.dispose()` ends the drag. It is safe to call more than once, which these gestures usually need: a mouseup, a mousemove that finds no button held any more, a teardown mid-drag.",
           "throws": [],
           "propertyType": null,
-          "line": 4839
+          "line": 4870
         },
         {
           "name": "getBottomPanels",
@@ -53410,7 +53792,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4855
+          "line": 4886
         },
         {
           "name": "addBottomPanel",
@@ -53467,7 +53849,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4871
+          "line": 4902
         },
         {
           "name": "getLeftPanels",
@@ -53484,7 +53866,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4882
+          "line": 4913
         },
         {
           "name": "addLeftPanel",
@@ -53541,7 +53923,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4898
+          "line": 4929
         },
         {
           "name": "getRightPanels",
@@ -53558,7 +53940,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4909
+          "line": 4940
         },
         {
           "name": "addRightPanel",
@@ -53615,7 +53997,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4925
+          "line": 4956
         },
         {
           "name": "getTopPanels",
@@ -53632,7 +54014,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4936
+          "line": 4967
         },
         {
           "name": "addTopPanel",
@@ -53689,7 +54071,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4952
+          "line": 4983
         },
         {
           "name": "getHeaderPanels",
@@ -53706,7 +54088,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4963
+          "line": 4994
         },
         {
           "name": "addHeaderPanel",
@@ -53763,7 +54145,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 4979
+          "line": 5010
         },
         {
           "name": "getFooterPanels",
@@ -53780,7 +54162,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 4990
+          "line": 5021
         },
         {
           "name": "addFooterPanel",
@@ -53837,7 +54219,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5006
+          "line": 5037
         },
         {
           "name": "getModalPanels",
@@ -53854,7 +54236,7 @@
           "returnDescription": "The panels in this main-window location.",
           "throws": [],
           "propertyType": null,
-          "line": 5017
+          "line": 5048
         },
         {
           "name": "addModalPanel",
@@ -53961,7 +54343,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5038
+          "line": 5069
         },
         {
           "name": "panelForItem",
@@ -53988,7 +54370,7 @@
           "returnDescription": "associated with the given item. Returns `null` when the item has no panel.",
           "throws": [],
           "propertyType": null,
-          "line": 5052
+          "line": 5083
         },
         {
           "name": "scan",
@@ -54103,7 +54485,7 @@
           "returnDescription": "with a `cancel()` method that will cancel all of the underlying searches that were started as part of this scan.",
           "throws": [],
           "propertyType": null,
-          "line": 5116
+          "line": 5147
         },
         {
           "name": "replace",
@@ -54167,7 +54549,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 5382
+          "line": 5413
         }
       ]
     },
@@ -56541,6 +56923,6 @@
       "line": 19
     }
   ],
-  "memberCount": 1641,
-  "generatedAt": "2026-11-19T15:23:55.566Z"
+  "memberCount": 1653,
+  "generatedAt": "2026-11-20T07:58:29.074Z"
 }
