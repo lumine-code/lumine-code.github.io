@@ -11601,7 +11601,7 @@
           "returnDescription": "that can be used to stop updating the buffer's language mode.",
           "throws": [],
           "propertyType": null,
-          "line": 108
+          "line": 109
         },
         {
           "name": "assignLanguageMode",
@@ -11637,7 +11637,7 @@
           "returnDescription": "that indicates whether the language was successfully found.",
           "throws": [],
           "propertyType": null,
-          "line": 197
+          "line": 204
         },
         {
           "name": "setRootLanguageRanges",
@@ -11673,7 +11673,7 @@
           "returnDescription": "Removes this policy and restores full-buffer parsing, unless a newer policy replaced it.",
           "throws": [],
           "propertyType": null,
-          "line": 233
+          "line": 240
         },
         {
           "name": "assignGrammar",
@@ -11709,7 +11709,7 @@
           "returnDescription": "that indicates whether the assignment was successful",
           "throws": [],
           "propertyType": null,
-          "line": 292
+          "line": 299
         },
         {
           "name": "getAssignedLanguageId",
@@ -11736,7 +11736,7 @@
           "returnDescription": "The explicit language id, including `text.plain.null-grammar` for None, or `null`/`undefined` when no id is assigned.",
           "throws": [],
           "propertyType": null,
-          "line": 335
+          "line": 342
         },
         {
           "name": "autoAssignLanguageMode",
@@ -11763,7 +11763,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 349
+          "line": 356
         },
         {
           "name": "selectGrammar",
@@ -11799,7 +11799,7 @@
           "returnDescription": "a Tree-sitter grammar or the null grammar sentinel.",
           "throws": [],
           "propertyType": null,
-          "line": 455
+          "line": 468
         },
         {
           "name": "selectGrammarAsync",
@@ -11845,7 +11845,7 @@
           "returnDescription": "Resolves to the best grammar or the null grammar sentinel.",
           "throws": [],
           "propertyType": null,
-          "line": 473
+          "line": 486
         },
         {
           "name": "getGrammarScore",
@@ -11890,7 +11890,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 596
+          "line": 609
         },
         {
           "name": "onDidAddGrammar",
@@ -11927,7 +11927,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 798
+          "line": 811
         },
         {
           "name": "onDidUpdateGrammar",
@@ -11964,7 +11964,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 813
+          "line": 826
         },
         {
           "name": "registerSyntaxModule",
@@ -12020,7 +12020,7 @@
           "returnDescription": "Removes this module and its injection points.",
           "throws": [],
           "propertyType": null,
-          "line": 831
+          "line": 844
         },
         {
           "name": "onDidRemoveGrammar",
@@ -12057,7 +12057,7 @@
           "returnDescription": "on which `.dispose()` can be called to unsubscribe.",
           "throws": [],
           "propertyType": null,
-          "line": 891
+          "line": 904
         },
         {
           "name": "addInjectionPoint",
@@ -12223,7 +12223,7 @@
           "returnDescription": "A disposable that removes the injection point.",
           "throws": [],
           "propertyType": null,
-          "line": 922
+          "line": 935
         },
         {
           "name": "loadGrammar",
@@ -12279,7 +12279,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1204
+          "line": 1217
         },
         {
           "name": "loadGrammarSync",
@@ -12306,7 +12306,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1221
+          "line": 1234
         },
         {
           "name": "readGrammar",
@@ -12362,7 +12362,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1239
+          "line": 1252
         },
         {
           "name": "readGrammarSync",
@@ -12389,7 +12389,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1262
+          "line": 1275
         },
         {
           "name": "getGrammars",
@@ -12406,7 +12406,7 @@
           "returnDescription": "Registered grammar instances; excludes the null sentinel and unloaded stubs.",
           "throws": [],
           "propertyType": null,
-          "line": 1285
+          "line": 1298
         }
       ]
     },
@@ -45224,14 +45224,14 @@
           "signature": "::getSyntaxAvailability()",
           "category": "Grammars",
           "visibility": "Extended",
-          "description": "Report whether syntax analysis is enabled, independently of parse readiness.\nA disabled language reports reason `none`; a failed analysis reports reason\n`failure` and a diagnostic object. The selected grammar is preserved on failure.",
-          "summary": "Report whether syntax analysis is enabled, independently of parse readiness. A disabled language reports reason `none`; a failed analysis reports reason `failure` and a diagnostic object. The selected grammar is preserved on failure.",
+          "description": "Report whether syntax analysis is enabled, independently of parse readiness.\nA disabled language reports reason `none`; a failed analysis reports reason\n`failure` and a diagnostic object. The selected grammar is preserved on failure.\nAn enabled restored document can report `deferred: true` until a visible\nview or an explicit request starts its worker session. This read is passive.",
+          "summary": "Report whether syntax analysis is enabled, independently of parse readiness. A disabled language reports reason `none`; a failed analysis reports reason `failure` and a diagnostic object. The selected grammar is preserved on failure. An enabled restored document can report `deferred: true` until a visible view or an explicit request starts its worker session. This read is passive.",
           "parameters": [],
           "returnType": "Object",
-          "returnDescription": "Availability with an `available` boolean and optional `reason` and `failure`.",
+          "returnDescription": "Availability with an `available` boolean and optional `deferred`, `reason` and `failure`.",
           "throws": [],
           "propertyType": null,
-          "line": 6968
+          "line": 6970
         },
         {
           "name": "onDidChangeSyntaxAvailability",
@@ -45258,7 +45258,7 @@
           "returnDescription": "Subscription to language-mode availability changes.",
           "throws": [],
           "propertyType": null,
-          "line": 6987
+          "line": 6989
         },
         {
           "name": "retrySyntaxAnalysis",
@@ -45275,7 +45275,7 @@
           "returnDescription": "Whether a new analysis was started.",
           "throws": [],
           "propertyType": null,
-          "line": 6998
+          "line": 7000
         },
         {
           "name": "onDidTokenize",
@@ -45302,7 +45302,7 @@
           "returnDescription": "Subscription to tokenization completion.",
           "throws": [],
           "propertyType": null,
-          "line": 7021
+          "line": 7023
         },
         {
           "name": "whenGrammarSettled",
@@ -45339,7 +45339,7 @@
           "returnDescription": "Resolves to whether the current grammar settled successfully.",
           "throws": [],
           "propertyType": null,
-          "line": 7041
+          "line": 7043
         },
         {
           "name": "getRootScopeDescriptor",
@@ -45356,7 +45356,7 @@
           "returnDescription": "The root grammar scopes, suitable for language-specific {@link Config#get} settings.",
           "throws": [],
           "propertyType": null,
-          "line": 7130
+          "line": 7132
         },
         {
           "name": "scopeDescriptorForBufferPosition",
@@ -45383,7 +45383,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7151
+          "line": 7153
         },
         {
           "name": "getScopeDescriptorsForBufferPositions",
@@ -45419,7 +45419,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7168
+          "line": 7170
         },
         {
           "name": "getCommentDelimitersForBufferPositions",
@@ -45455,7 +45455,7 @@
           "returnDescription": "Null when the analysis was invalidated.",
           "throws": [],
           "propertyType": null,
-          "line": 7183
+          "line": 7185
         },
         {
           "name": "syntaxTreeScopeDescriptorForBufferPosition",
@@ -45482,7 +45482,7 @@
           "returnDescription": "Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7254
+          "line": 7256
         },
         {
           "name": "getSyntaxNodeAtBufferPosition",
@@ -45518,7 +45518,7 @@
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 7285
+          "line": 7287
         },
         {
           "name": "getSyntaxNodeContainingBufferRange",
@@ -45554,7 +45554,7 @@
           "returnDescription": "A Tree-sitter syntax node, or `null`.",
           "throws": [],
           "propertyType": null,
-          "line": 7313
+          "line": 7315
         },
         {
           "name": "hasGrammarQuery",
@@ -45581,7 +45581,7 @@
           "returnDescription": "Whether the query is declared by a current language layer.",
           "throws": [],
           "propertyType": null,
-          "line": 7333
+          "line": 7335
         },
         {
           "name": "getGrammarQueryCaptureGroups",
@@ -45627,7 +45627,7 @@
           "returnDescription": "Resolves to grammar/captures groups from the current language layers.",
           "throws": [],
           "propertyType": null,
-          "line": 7363
+          "line": 7365
         },
         {
           "name": "analyzeSyntax",
@@ -45701,7 +45701,7 @@
           "returnDescription": "Analysis data, or null when analysis is unavailable, disabled by None, or the invocation becomes obsolete. Errors in package analysis code still reject.",
           "throws": [],
           "propertyType": null,
-          "line": 7400
+          "line": 7402
         },
         {
           "name": "bufferRangeForScopeAtCursor",
@@ -45728,7 +45728,7 @@
           "returnDescription": "The matching buffer range, or null/undefined when no matching scope is found.",
           "throws": [],
           "propertyType": null,
-          "line": 7442
+          "line": 7444
         },
         {
           "name": "bufferRangeForScopeAtPosition",
@@ -45764,7 +45764,7 @@
           "returnDescription": "The matching buffer range, or null/undefined when no matching scope is found.",
           "throws": [],
           "propertyType": null,
-          "line": 7460
+          "line": 7462
         },
         {
           "name": "isBufferRowCommented",
@@ -45791,7 +45791,7 @@
           "returnDescription": "Whether the first non-whitespace character has a comment scope, or undefined for a blank row. Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7474
+          "line": 7476
         },
         {
           "name": "copySelectedText",
@@ -45818,7 +45818,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7530
+          "line": 7532
         },
         {
           "name": "cutSelectedText",
@@ -45865,7 +45865,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7557
+          "line": 7559
         },
         {
           "name": "pasteText",
@@ -45902,7 +45902,7 @@
           "returnDescription": "A promise when clipboard reading or indentation is asynchronous, false when an observer cancels a synchronous paste, or undefined on synchronous completion or refusal.",
           "throws": [],
           "propertyType": null,
-          "line": 7583
+          "line": 7585
         },
         {
           "name": "cutToEndOfLine",
@@ -45949,7 +45949,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7847
+          "line": 7849
         },
         {
           "name": "cutToEndOfBufferLine",
@@ -45996,7 +45996,7 @@
           "returnDescription": "A promise when the clipboard adapter flushes asynchronously; otherwise completes synchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7869
+          "line": 7871
         },
         {
           "name": "getFoldableRangeAtBufferRow",
@@ -46023,7 +46023,7 @@
           "returnDescription": "The exact foldable range, or `null` when the row does not start one. Worker syntax resolves asynchronously.",
           "throws": [],
           "propertyType": null,
-          "line": 7895
+          "line": 7897
         },
         {
           "name": "foldCurrentRow",
@@ -46040,7 +46040,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7910
+          "line": 7912
         },
         {
           "name": "unfoldCurrentRow",
@@ -46057,7 +46057,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7941
+          "line": 7943
         },
         {
           "name": "foldBufferRow",
@@ -46103,7 +46103,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 7962
+          "line": 7964
         },
         {
           "name": "unfoldBufferRow",
@@ -46130,7 +46130,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8073
+          "line": 8075
         },
         {
           "name": "foldSelectedLines",
@@ -46147,7 +46147,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8086
+          "line": 8088
         },
         {
           "name": "foldAll",
@@ -46164,7 +46164,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8098
+          "line": 8100
         },
         {
           "name": "unfoldAll",
@@ -46181,7 +46181,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8115
+          "line": 8117
         },
         {
           "name": "foldAllAtIndentLevel",
@@ -46208,7 +46208,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8131
+          "line": 8133
         },
         {
           "name": "isFoldableAtBufferRow",
@@ -46235,7 +46235,7 @@
           "returnDescription": "Whether the row is foldable; undefined when the language mode supplies no foldability check.",
           "throws": [],
           "propertyType": null,
-          "line": 8153
+          "line": 8155
         },
         {
           "name": "isFoldableAtScreenRow",
@@ -46262,7 +46262,7 @@
           "returnDescription": "Whether the row is foldable; undefined when the language mode supplies no foldability check.",
           "throws": [],
           "propertyType": null,
-          "line": 8179
+          "line": 8181
         },
         {
           "name": "toggleFoldAtBufferRow",
@@ -46289,7 +46289,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8191
+          "line": 8193
         },
         {
           "name": "isFoldedAtCursorRow",
@@ -46306,7 +46306,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8245
+          "line": 8247
         },
         {
           "name": "isFoldedAtBufferRow",
@@ -46333,7 +46333,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8258
+          "line": 8260
         },
         {
           "name": "isFoldedAtScreenRow",
@@ -46360,7 +46360,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8275
+          "line": 8277
         },
         {
           "name": "addGutter",
@@ -46587,7 +46587,7 @@
           "returnDescription": "newly-created {@link Gutter}.",
           "throws": [],
           "propertyType": null,
-          "line": 8339
+          "line": 8341
         },
         {
           "name": "getGutters",
@@ -46604,7 +46604,7 @@
           "returnDescription": "The gutters in display order.",
           "throws": [],
           "propertyType": null,
-          "line": 8351
+          "line": 8353
         },
         {
           "name": "gutterWithName",
@@ -46631,7 +46631,7 @@
           "returnDescription": "The named gutter, or null when no matching gutter exists.",
           "throws": [],
           "propertyType": null,
-          "line": 8368
+          "line": 8370
         },
         {
           "name": "scrollToCursorPosition",
@@ -46668,7 +46668,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8386
+          "line": 8388
         },
         {
           "name": "scrollToZone",
@@ -46685,7 +46685,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8396
+          "line": 8398
         },
         {
           "name": "scrollToBufferPosition",
@@ -46731,7 +46731,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8410
+          "line": 8412
         },
         {
           "name": "scrollToScreenPosition",
@@ -46777,7 +46777,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8427
+          "line": 8429
         },
         {
           "name": "scrollToScreenRange",
@@ -46843,7 +46843,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8443
+          "line": 8445
         },
         {
           "name": "shouldAutoIndent",
@@ -46860,7 +46860,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8505
+          "line": 8507
         },
         {
           "name": "shouldAutoIndentOnPaste",
@@ -46877,7 +46877,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8517
+          "line": 8519
         },
         {
           "name": "getScrollPastEnd",
@@ -46894,7 +46894,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8529
+          "line": 8531
         },
         {
           "name": "getScrollZone",
@@ -46911,7 +46911,7 @@
           "returnDescription": "The two landing percentages, preserving their order.",
           "throws": [],
           "propertyType": null,
-          "line": 8545
+          "line": 8547
         },
         {
           "name": "getWheelScrollMultiplier",
@@ -46928,7 +46928,7 @@
           "returnDescription": "positive distance multiplier.",
           "throws": [],
           "propertyType": null,
-          "line": 8559
+          "line": 8561
         },
         {
           "name": "getSmoothScrolling",
@@ -46945,7 +46945,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8571
+          "line": 8573
         },
         {
           "name": "getWheelScrollDuration",
@@ -46962,7 +46962,7 @@
           "returnDescription": "non-negative duration in milliseconds.",
           "throws": [],
           "propertyType": null,
-          "line": 8586
+          "line": 8588
         },
         {
           "name": "getCommandScrollDuration",
@@ -46979,7 +46979,7 @@
           "returnDescription": "non-negative duration in milliseconds.",
           "throws": [],
           "propertyType": null,
-          "line": 8601
+          "line": 8603
         },
         {
           "name": "getAltWheelScrollMultiplier",
@@ -46996,7 +46996,7 @@
           "returnDescription": "positive distance multiplier.",
           "throws": [],
           "propertyType": null,
-          "line": 8615
+          "line": 8617
         },
         {
           "name": "getCommandScrollDistance",
@@ -47013,7 +47013,7 @@
           "returnDescription": "positive distance in editor heights.",
           "throws": [],
           "propertyType": null,
-          "line": 8629
+          "line": 8631
         },
         {
           "name": "getSoftWrapDebounceInterval",
@@ -47030,7 +47030,7 @@
           "returnDescription": "non-negative `Number`.",
           "throws": [],
           "propertyType": null,
-          "line": 8642
+          "line": 8644
         },
         {
           "name": "doesShowLineNumbers",
@@ -47047,7 +47047,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8654
+          "line": 8656
         },
         {
           "name": "getUndoGroupingInterval",
@@ -47064,7 +47064,7 @@
           "returnDescription": "time interval `Number` in milliseconds.",
           "throws": [],
           "propertyType": null,
-          "line": 8667
+          "line": 8669
         },
         {
           "name": "getNonWordCharacters",
@@ -47091,7 +47091,7 @@
           "returnDescription": "containing the non-word characters.",
           "throws": [],
           "propertyType": null,
-          "line": 8681
+          "line": 8683
         },
         {
           "name": "getElement",
@@ -47108,7 +47108,7 @@
           "returnDescription": "The editor's view element.",
           "throws": [],
           "propertyType": null,
-          "line": 8744
+          "line": 8746
         },
         {
           "name": "getPlaceholderText",
@@ -47125,7 +47125,7 @@
           "returnDescription": "The placeholder text, or undefined when none is configured.",
           "throws": [],
           "propertyType": null,
-          "line": 8771
+          "line": 8773
         },
         {
           "name": "setPlaceholderText",
@@ -47152,7 +47152,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8784
+          "line": 8786
         },
         {
           "name": "getRenderedBufferRanges",
@@ -47169,7 +47169,7 @@
           "returnDescription": "Ordered, non-overlapping buffer ranges with exclusive ends.",
           "throws": [],
           "propertyType": null,
-          "line": 8907
+          "line": 8909
         },
         {
           "name": "hasPendingIndentation",
@@ -47186,7 +47186,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 8993
+          "line": 8995
         },
         {
           "name": "hasPendingTextInput",
@@ -47203,7 +47203,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 9008
+          "line": 9010
         },
         {
           "name": "whenPendingTextInputSettled",
@@ -47240,7 +47240,7 @@
           "returnDescription": "Whether the existing input settled without superseding intent.",
           "throws": [],
           "propertyType": null,
-          "line": 9027
+          "line": 9029
         },
         {
           "name": "isApplyingAutomaticIndentation",
@@ -47257,7 +47257,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 9078
+          "line": 9080
         },
         {
           "name": "autoIndentBufferRowsAtRows",
@@ -47303,7 +47303,7 @@
           "returnDescription": "The changed flag and resulting revision, or undefined when obsolete.",
           "throws": [],
           "propertyType": null,
-          "line": 9249
+          "line": 9251
         },
         {
           "name": "getCommentDelimitersForBufferPosition",
@@ -47330,7 +47330,7 @@
           "returnDescription": "The appropriate comment delimiters, or `null` when none are known.",
           "throws": [],
           "propertyType": null,
-          "line": 9683
+          "line": 9685
         },
         {
           "name": "getParagraphRangesForBufferRows",
@@ -47366,7 +47366,7 @@
           "returnDescription": "Null when invalidated.",
           "throws": [],
           "propertyType": null,
-          "line": 9747
+          "line": 9749
         }
       ]
     },
@@ -56924,5 +56924,5 @@
     }
   ],
   "memberCount": 1653,
-  "generatedAt": "2026-11-21T03:58:06.770Z"
+  "generatedAt": "2026-11-22T09:34:21.173Z"
 }
