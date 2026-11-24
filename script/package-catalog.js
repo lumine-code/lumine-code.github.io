@@ -2,6 +2,13 @@
 
 // Shared by the browser and the catalog behavior tests. No per-package requests.
 ((root) => {
+  const maintainerRepositories = new Set([
+    "https://github.com/lumine-code/bacadra-tools",
+    "https://github.com/bacadra/lumine-bacadra-tools",
+    "https://github.com/lumine-code/banager-tools",
+  ]);
+  const maintainerPackageNames = new Set(["bacadra-tools", "banager-tools"]);
+
   function sourceInfo(source) {
     if (
       typeof source !== "string" ||
@@ -44,19 +51,16 @@
         typeof entry === "string" ? entry : entry?.source,
       );
       if (!info || seen.has(info.repository)) return [];
+      const metadata = entry?.metadata || {};
+      const name =
+        typeof metadata.name === "string" ? metadata.name : info.name;
       if (
-        [
-          "https://github.com/lumine-code/bacadra-tools",
-          "https://github.com/bacadra/lumine-bacadra-tools",
-          "https://github.com/lumine-code/banager-tools",
-        ].includes(info.repository)
+        maintainerRepositories.has(info.repository.toLowerCase()) ||
+        maintainerPackageNames.has(name.toLowerCase())
       )
         return [];
       seen.add(info.repository);
-      const metadata = entry?.metadata || {};
       if (metadata.engines && !metadata.engines.lumine) return [];
-      const name =
-        typeof metadata.name === "string" ? metadata.name : info.name;
       const keywords = Array.isArray(metadata.keywords)
         ? metadata.keywords.filter((k) => typeof k === "string")
         : [];

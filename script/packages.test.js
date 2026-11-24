@@ -31,6 +31,26 @@ test("mixed catalogs keep source-only entries and exclude private packages and l
   assert.equal(entries[0].repository, "https://github.com/lumine-code/example");
   assert.throws(() => normalize({}));
 });
+
+test("repository aliases respect the package identity and preserve public install sources", () => {
+  const publicSource = "https://github.com/example/public-repository.git#branch:edge";
+  const entries = normalize([
+    {
+      source: "example/maintainer-repository#branch:stable",
+      metadata: { name: "banager-tools", engines: { lumine: "^1" } },
+    },
+    {
+      source: publicSource,
+      metadata: { name: "@example/banager-tools", engines: { lumine: "^1" } },
+    },
+  ]);
+
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].name, "@example/banager-tools");
+  assert.equal(entries[0].repository, "https://github.com/example/public-repository");
+  assert.equal(new URL(installURI(entries[0])).searchParams.get("source"), publicSource);
+});
+
 test("repository links and install sources reject unsafe values", () => {
   for (const source of [
     "javascript:alert(1)",
