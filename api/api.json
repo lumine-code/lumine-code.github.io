@@ -22610,7 +22610,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1421
+          "line": 1424
         },
         {
           "name": "saveActiveItemAs",
@@ -22637,7 +22637,7 @@
           "returnDescription": "that resolves when the save is complete",
           "throws": [],
           "propertyType": null,
-          "line": 1436
+          "line": 1439
         },
         {
           "name": "saveItem",
@@ -22647,7 +22647,7 @@
           "signature": "::saveItem(item, nextAction)",
           "category": "Saving Items",
           "visibility": "Public",
-          "description": "Save the given item.",
+          "description": "Save the given item.\n\nA persisted item can implement `saveWithPreflight(beforeSave)` to await\n`beforeSave()` immediately before writing and propagate its rejection.\nReturning `false` from a save of such an item signals cancellation.",
           "summary": "Save the given item.",
           "parameters": [
             {
@@ -22673,7 +22673,7 @@
           "returnDescription": "Settles after the save attempt; an unsaveable item can return undefined. Save-as results follow saveItemAs. Save cancellation may reject, while other write errors are reported to nextAction or notifications.",
           "throws": [],
           "propertyType": null,
-          "line": 1451
+          "line": 1458
         },
         {
           "name": "saveItemAs",
@@ -22709,7 +22709,7 @@
           "returnDescription": "Resolves with the optional callback result. Cancellation reports a SaveCancelledError to the callback, or resolves to undefined when no callback is supplied.",
           "throws": [],
           "propertyType": null,
-          "line": 1518
+          "line": 1521
         },
         {
           "name": "saveItems",
@@ -22719,14 +22719,14 @@
           "signature": "::saveItems()",
           "category": "Saving Items",
           "visibility": "Public",
-          "description": "Save all saveable items whose file state is not unmodified.",
-          "summary": "Save all saveable items whose file state is not unmodified.",
+          "description": "Save all saveable items with unsaved or pending changes.\n\nAn item with async edits can report them through a synchronous\n`hasPendingChanges()` predicate. For an item with an existing URI,\n`savePendingChanges(beforeSave)` can queue the save behind its current\nedits and await `beforeSave()` immediately before writing.",
+          "summary": "Save all saveable items with unsaved or pending changes.",
           "parameters": [],
           "returnType": "Promise<Array<*>>",
           "returnDescription": "that resolves when all items have been saved.",
           "throws": [],
           "propertyType": null,
-          "line": 1553
+          "line": 1568
         },
         {
           "name": "itemForURI",
@@ -22753,7 +22753,7 @@
           "returnDescription": "first item that matches the given URI or undefined if none exists.",
           "throws": [],
           "propertyType": null,
-          "line": 1576
+          "line": 1602
         },
         {
           "name": "activateItemForURI",
@@ -22780,7 +22780,7 @@
           "returnDescription": "indicating whether an item matching the URI was found.",
           "throws": [],
           "propertyType": null,
-          "line": 1595
+          "line": 1621
         },
         {
           "name": "isActive",
@@ -22797,7 +22797,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1618
+          "line": 1644
         },
         {
           "name": "activate",
@@ -22814,7 +22814,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1629
+          "line": 1655
         },
         {
           "name": "destroy",
@@ -22831,7 +22831,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1657
+          "line": 1683
         },
         {
           "name": "isDestroyed",
@@ -22848,7 +22848,7 @@
           "returnDescription": "",
           "throws": [],
           "propertyType": null,
-          "line": 1695
+          "line": 1721
         },
         {
           "name": "splitLeft",
@@ -22895,7 +22895,7 @@
           "returnDescription": "new {@link Pane}.",
           "throws": [],
           "propertyType": null,
-          "line": 1714
+          "line": 1740
         },
         {
           "name": "splitRight",
@@ -22942,7 +22942,7 @@
           "returnDescription": "new {@link Pane}.",
           "throws": [],
           "propertyType": null,
-          "line": 1729
+          "line": 1755
         },
         {
           "name": "splitUp",
@@ -22989,7 +22989,7 @@
           "returnDescription": "new {@link Pane}.",
           "throws": [],
           "propertyType": null,
-          "line": 1744
+          "line": 1770
         },
         {
           "name": "splitDown",
@@ -23036,7 +23036,7 @@
           "returnDescription": "new {@link Pane}.",
           "throws": [],
           "propertyType": null,
-          "line": 1759
+          "line": 1785
         }
       ]
     },
@@ -56984,5 +56984,5 @@
     }
   ],
   "memberCount": 1653,
-  "generatedAt": "2026-11-26T08:28:20.040Z"
+  "generatedAt": "2026-11-26T08:42:08.179Z"
 }
